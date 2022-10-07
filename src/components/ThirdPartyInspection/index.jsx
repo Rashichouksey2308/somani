@@ -19,18 +19,22 @@ import { GetAllInspection } from '../../redux/Inspections/action'
 
 export default function Index({ addButton }) {
   const dispatch = useDispatch()
+
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId')
     dispatch(GetAllInspection(`?inspectionId=${id}`))
   }, [])
+
   const { allInspection } = useSelector((state) => state.Inspection)
 
   const [inspectionData, setInspectionData2] = useState({})
+
   useEffect(() => {
     setInspectionData2(_get(allInspection, 'data[0]', {}))
   }, [allInspection])
 
   console.log(inspectionData, 'inspectionData3333')
+
   const [excelFile, setExcelFile] = useState([])
 
   let orderid = _get(inspectionData, 'order._id', '')
@@ -48,12 +52,13 @@ export default function Index({ addButton }) {
     loadPortInspection: false,
     dischargePortInspection: false,
   })
+
   console.log(portType, 'inspectionData')
 
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails }
     newInput[name] = value
-    console.log(name, value, 'cak')
+
     setInspectionData(newInput)
   }
 
@@ -106,6 +111,12 @@ export default function Index({ addButton }) {
       startDate: '',
       specialMention: '',
     },
+    certificateOfOriginStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+    certificateOfQualityStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+    certificateOfWeightStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
   })
 
   console.log(inspectionDetails, 'THIS IS INSPECTION DEETS')
@@ -165,6 +176,12 @@ export default function Index({ addButton }) {
           inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
             ?.specialMention,
       },
+      certificateOfOriginStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+      certificateOfQualityStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+      certificateOfWeightStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
     })
   }, [inspectionData, allInspection])
 
@@ -235,13 +252,7 @@ export default function Index({ addButton }) {
   }
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
-    // const namesplit = name.split('.')
-    // namesplit.length > 1
-    //   ? (newInput[namesplit[0]][namesplit[1]] = value)
-    //   : (newInput[name] = value)
     const d = new Date(value)
-    console.log(d, 'd2222')
     let text = d?.toISOString()
     saveInspectionDetails(name, text)
   }
@@ -1344,13 +1355,32 @@ export default function Index({ addButton }) {
                               </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfOriginStatus
+                                    }
+                                    name="certificateOfOriginStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
@@ -1483,16 +1513,35 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div> */}                              
+                              </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfQualityStatus
+                                    }
+                                    name="certificateOfQualityStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
@@ -1629,13 +1678,32 @@ export default function Index({ addButton }) {
                               </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfWeightStatus
+                                    }
+                                    name="certificateOfWeightStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
@@ -1689,221 +1757,6 @@ export default function Index({ addButton }) {
                     <strong className="text-danger">*</strong>
                     Any one document is mandatory
                   </div>
-
-                  {/* <div
-                    className={`${styles.dashboard_form}  border_color card-body`}
-                    style={{ borderTop: '2px solid #CAD6E6' }}
-                  >
-                    <Form>
-                      <div className="row align-items-center mt-4 pb-4">
-                        <div
-                          className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                        >
-                          <div className="text-center w-100">
-                            <img
-                              className={`${styles.upload_image} img-fluid d-block mx-auto`}
-                              src="/static/browse.svg"
-                              alt="Browse"
-                            />
-                            <p className={styles.drop_para}>
-                              Drop Files here or
-                              <br />
-                              <div className={styles.uploadBtnWrapper}>
-                                <input type="file" name="myfile" />
-                                <a href="#">Browse</a>
-                              </div>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-4 offset-md-1 col-sm-6">
-                          <Form.Group className={styles.form_group}>
-                            <div className="d-flex">
-                              <select
-                                className={`${styles.value} ${styles.customSelect} input form-control`}
-                                id="docType"
-                                onChange={(e) => handleDropdown(e)}
-                              >
-                                <option>
-                                  Lead Onboarding &amp; Order Approval
-                                </option>
-                                <option>
-                                  Agreements, Insurance &amp; LC Opening
-                                </option>
-                                <option>Loading-Transit-Unloading</option>
-                                <option>
-                                  Custom Clearance And Warehousing
-                                </option>
-                                <option value="Others">Others</option>
-                              </select>
-                              <Form.Label
-                                style={{ left: '15px' }}
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Document Type
-                              </Form.Label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
-                          </Form.Group>
-                          <Form.Group className={styles.form_group}>
-                            <Form.Control
-                              className={`${styles.value} input form-control`}
-                              type="text"
-                              disabled={editInput}
-                              required
-                            />
-                            <Form.Label
-                              style={{ left: '15px' }}
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Please Specify Document Name
-                            </Form.Label>
-                          </Form.Group>
-
-                          <button
-                            className={`${styles.upload_button} mt-4 btn`}
-                            disabled={editInput}
-                          >
-                            Upload
-                          </button>
-                        </div>
-                      </div>
-                    </Form>
-                  </div>
-
-                  <div className={styles.table_container}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <div
-                          className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
-                        >
-                          <div className="d-flex align-items-center">
-                            <select
-                              className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
-                            >
-                              <option>
-                                Lead Onboarding &amp; Order Approval
-                              </option>
-                              <option>
-                                Agreements, Insurance &amp; LC Opening
-                              </option>
-                              <option>Loading-Transit-Unloading</option>
-                              <option>Custom Clearance And Warehousing</option>
-                              <option value="Others">Others</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow2} ${styles.customSelect} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-
-                          <div
-                            className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                          >
-                            <img
-                              className={` ${styles.searchImage} img-fluid`}
-                              src="/static/search.svg"
-                              alt="Search"
-                            ></img>
-                            <input
-                              className={`${styles.searchBar}  statusBox border_color input form-control`}
-                              placeholder="Search"
-                            ></input>
-                          </div>
-                        </div>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                UPLOADED BY{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>STATUS</th>
-                              <th>ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Policy Document - Marine
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-                              <td className={styles.doc_row}>John Doe</td>
-                              <td>
-                                <span
-                                  className={`${styles.status} ${styles.approved}`}
-                                ></span>
-                                Verified
-                              </td>
-                              <td colSpan="2">
-                                <img
-                                  src="/static/delete.svg"
-                                  className={`${styles.delete_image} img-fluid mr-3`}
-                                  alt="Bin"
-                                />
-                                <img
-                                  src="/static/upload.svg"
-                                  className="img-fluid mr-3"
-                                  alt="Share"
-                                />
-                                <img
-                                  src="/static/drive_file.svg"
-                                  className={`${styles.edit_image} img-fluid mr-3`}
-                                  alt="Share"
-                                />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>

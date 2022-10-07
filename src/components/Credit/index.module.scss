@@ -571,6 +571,10 @@
    // margin-right: 50px;
     line-height: 1;
     z-index: 2;
+    @include respond(lg-desktop) {
+      margin-left:270px ;
+      margin-top: -144px;
+    }
     @include respond(sm-desktop) {
       margin-left:230px ;
       margin-top: -130px;
@@ -592,9 +596,9 @@
     padding: 8px 12px;
     position: absolute;
     z-index: 1;
-    right: 40px;
+    right: -7px;
     top: -105px;
-    //margin-left: -60px;
+    margin-left: -60px;
     opacity: 0;
     visibility: hidden;
     min-width: 121px;
