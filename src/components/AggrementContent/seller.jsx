@@ -90,7 +90,9 @@ let op=[
         })
        
         setAddressList(temp)
-        setList(savedData.authorisedSignatoryDetails)
+      setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
 
         setBuyerData(buyer)
                let tempArr=savedData?.authorisedSignatoryDetails
@@ -152,7 +154,9 @@ let op=[
               "city": "Zug"
           }])
        
-        setList(props?.data?.authorisedSignatoryDetails)
+        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
 
         setBuyerData(buyer)
              let tempArr=props.data?.authorisedSignatoryDetails

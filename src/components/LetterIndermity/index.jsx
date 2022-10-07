@@ -218,6 +218,18 @@ function Index({ TransitDetails }) {
   }
   console.log(loi, 'billsofLanding')
 
+  const isOptionAvailable = (elem, index) => {
+    let returned = false
+    const filtered = billsofLanding.filter((item) => {
+      return item.blnumber === elem
+    })
+    if (filtered.length > 0) {
+      returned = true
+    }
+    return returned
+  }
+
+
   const saveData = () => {
     if (loi.authorizedSignatory.name === '') {
       let toastMessage = 'PLEase select authorized signatory'
@@ -335,7 +347,7 @@ function Index({ TransitDetails }) {
                     value={billsofLanding[index1].blnumber}
                   >
                     {bolArray.map((element, index2) => (
-                      <option key={index2} value={`BL-${index2 + 1}`}>
+                      <option disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)} key={index2} value={`BL-${index2 + 1}`}>
                         BL-{index2 + 1}
                       </option>
                     ))}
@@ -347,7 +359,7 @@ function Index({ TransitDetails }) {
                     '',
                   ).toUpperCase()}{' '}
                   {index1}
-                  {index1 < bolArray.length -1 ? (
+                  {index1 < bolArray.length - 1 ? (
                     <button
                       onClick={() => onAddClick()}
                       className={styles.add_btn}

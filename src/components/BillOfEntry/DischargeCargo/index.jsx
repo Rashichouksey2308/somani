@@ -56,7 +56,11 @@ export default function Index({
         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
         '',
       ),
-      numberOfContainers:"",
+      numberOfContainers:_get(
+        customData,
+        'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
+        '',
+      ),
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -131,7 +135,7 @@ export default function Index({
   }
 
   const onSaveDischarge = () => {
-    if (billOfEntryData?.boeDetails?.invoiceQuantity === '') {
+    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -151,7 +155,7 @@ export default function Index({
       return
     }
     
-    if (dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === '' ||dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === undefined) {
+    if (dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === '' || dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === undefined) {
       let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })

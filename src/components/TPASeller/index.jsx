@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import _get from 'lodash/get'
+import moment  from 'moment'
 function Index(props) {
   const [data, setData] = useState({
     seller: "",
@@ -215,7 +216,7 @@ const tripartiteAgreement=(data)=>{
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
         <Col md={7 } className={styles.right}>
-   <table>
+   {/* <table>
             <tr>
               {data?.supplierAuthorized &&
                 data?.supplierAuthorized.length > 0 &&
@@ -232,7 +233,7 @@ const tripartiteAgreement=(data)=>{
                   ))}
                 </tr>
               ))}
-        </table>
+        </table> */}
         </Col>
       </Row>
       <Row className={`${styles.row}`}>
@@ -246,7 +247,7 @@ const tripartiteAgreement=(data)=>{
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
         <Col md={7 } className={styles.right}>
-          <table>
+          {/* <table>
             <tr>
               {data?.buyerAuthorized &&
                 data?.buyerAuthorized.length > 0 &&
@@ -263,7 +264,7 @@ const tripartiteAgreement=(data)=>{
                   ))}
                 </tr>
               ))}
-        </table>
+        </table> */}
         </Col>
       </Row>
       <Row className={`${styles.row}`}>

@@ -1295,7 +1295,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1347,7 +1347,18 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
+                                    <option selected>Please Specify</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&
@@ -1432,7 +1443,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1478,7 +1489,18 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}                              
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
+                                    <option selected>Please Specify</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&
@@ -1564,7 +1586,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1610,7 +1632,18 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
+                                    <option selected>Please Specify</option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&

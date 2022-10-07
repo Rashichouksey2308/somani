@@ -13,7 +13,7 @@ import {
   Filler,
   Tooltip,
   Legend
-  
+
 } from 'chart.js'
 import {
   Doughnut,
@@ -34,11 +34,11 @@ Chart.register(
   Filler,
   Tooltip,
   Legend
-  
+
 )
 
 function Index({ shareHolding }) {
-  
+
   const chartRef = useRef(null)
 
   console.log(shareHolding, 'shareholding')
@@ -150,6 +150,27 @@ function Index({ shareHolding }) {
   const onClickEvent = (event) => {
     console.log(getDatasetAtEvent(chartRef.current, event))
   }
+
+  const colorReturn = (index) => {
+    let finalColor = 'red'
+    let colors = [
+      '#4CAF50',
+      '#2884DE',
+      '#FFCE00',
+      '#800000',
+      '#00FF00',
+    ]
+
+    if (index < 4) {
+      finalColor = colors[index]
+    } else {
+      finalColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+    }
+    console.log(finalColor, colors[index], 'final color')
+    return finalColor
+  }
+
+
   //   useEffect(() => {
 
   //     if(chartRef?.current!=null){
@@ -249,7 +270,9 @@ function Index({ shareHolding }) {
                         <th className='border_color'>PAN</th>
                         <th className='border_color'>DIRECTOR</th>
                       </tr>
-                      {shareHolding?.map((shareHolder, index) => {
+                      {shareHolding?.sort((a, b) => {
+                        return b?.numberOfShares - a?.numberOfShares;
+                      }).map((shareHolder, index) => {
                         console.log(
                           shareHolder.percentageShareHolding,
                           'mapping',
@@ -264,7 +287,7 @@ function Index({ shareHolding }) {
                               <td
                                 className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0 border_color`}
                               >
-                                <span></span>
+                                <span style={{ background: `${colorReturn(index)}` }}></span>
                               </td>
                               <td className={`${styles.name} border-top-0 border-bottom-0 border_color`}>
                                 {shareHolder.fullName}

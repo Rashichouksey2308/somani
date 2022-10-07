@@ -330,16 +330,15 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.pdBond) {
-      if (billOfEntryData.document2 === null) {
-        let toastMessage = 'please upload PD Bond '
+    } else if  (billOfEntryData.document2 === null) {
+        let toastMessage = 'please upload Duty Paid Challan '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         isOk = false
-      }
+      
     } else if (billOfEntryData.pdBond) {
-      if (billOfEntryData.document2 === null) {
+      if (billOfEntryData.document3 === null) {
         let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1361,7 +1360,8 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td className={styles.doc_row}>{billOfEntryData.document1 === null ? '' : moment(billOfEntryData.document1.date).format('DD-MM-YYYY, h:mm a')}</td>
+
                       <td>
                         {billOfEntryData.document1 === null ? (
                           <>
@@ -1406,7 +1406,8 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td className={styles.doc_row}>{billOfEntryData.document2 === null ? '' : moment(billOfEntryData.document2.date).format('DD-MM-YYYY, h:mm a')}</td>
+
                       <td>
                         {billOfEntryData?.document2 === null ? (
                           <>
@@ -1452,7 +1453,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
+                        <td className={styles.doc_row}>{billOfEntryData.document3 === null ? '' : moment(billOfEntryData.document3.date).format('DD-MM-YYYY, h:mm a')}</td>
                         <td>
                           {billOfEntryData.document3 === null ? (
                             <>
