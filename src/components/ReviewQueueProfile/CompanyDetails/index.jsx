@@ -110,7 +110,12 @@ function Index({ order, companyDetail }) {
                   IEC Number
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.IEC}
+                  {companyDetail?.profile?.companyDetail?.IEC}{' '}
+                  {companyDetail?.profile?.companyDetail?.IEC?.length == 10 && <img
+                    src="/static/approved.svg"
+                    alt="approved"
+                    className="img-fluid mb-1"
+                  />}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
