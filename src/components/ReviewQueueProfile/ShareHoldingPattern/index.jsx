@@ -270,7 +270,7 @@ function Index({ shareHolding }) {
                         <th className='border_color'>PAN</th>
                         <th className='border_color'>DIRECTOR</th>
                       </tr>
-                      {shareHolding?.sort((a, b) => {
+                      {shareHolding?.slice().sort((a, b) => {
                         return b?.numberOfShares - a?.numberOfShares;
                       }).map((shareHolder, index) => {
                         console.log(

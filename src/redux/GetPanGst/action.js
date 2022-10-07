@@ -33,10 +33,10 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    console.log(payload, 'payloadpayload')
+    
     Axios.post(
       `${API.baseUrl}${API.getPanGst}`,
-      { payload: payload.query },
+      { name: payload.query },
       {
         headers: headers,
       },

@@ -18,6 +18,7 @@ import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../../src/utils/helper'
+import moment from 'moment/moment'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('')
@@ -61,7 +62,6 @@ const Index = () => {
     premiumAmount: '',
   })
 
-
   const [storageData, setStorageData] = useState({
     policyNumber: '',
     nameOfInsurer: '',
@@ -87,7 +87,7 @@ const Index = () => {
       gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured|| "",
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
-      periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
       lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)|| "",
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
@@ -100,7 +100,7 @@ const Index = () => {
       gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
       insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-      periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
       lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
@@ -111,6 +111,26 @@ const Index = () => {
     })
   }, [insuranceResponse,insuranceData])
  console.log(marineData,"marineData")
+
+ let dateM1 = new Date(marineData?.insuranceFrom)
+ let dateM2 = new Date(marineData?.insuranceTo)
+ 
+
+ function getDifferenceInDaysMarine() {
+  let date1 = moment(dateM1, "DD.MM.YYYY");
+  let date2 = moment(dateM2, "DD.MM.YYYY");
+  return date2.diff(date1, 'days')
+}
+
+let dateS1 = new Date(storageData?.insuranceFrom)
+let dateS2 = new Date(storageData?.insuranceTo)
+
+
+function getDifferenceInDaysStorage() {
+  let date3 = moment(dateS1, 'DD.MM.YYYY')
+  let date4 = moment(dateS2, 'DD.MM.YYYY')
+  return date4.diff(date3, 'days')
+}
 
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
@@ -690,7 +710,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={marineData?.periodOfInsurance}
+                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1115,7 +1135,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={storageData?.periodOfInsurance}
+                            value={ getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1517,7 +1537,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={marineData?.periodOfInsurance}
+                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1804,7 +1824,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={storageData?.periodOfInsurance}
+                            value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
