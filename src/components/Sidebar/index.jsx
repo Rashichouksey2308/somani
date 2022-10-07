@@ -12,7 +12,7 @@ function Index() {
     {
       main: 'Dashboard',
       Other: [],
-      image: '/static/dashboard.svg',
+      image: '/static/dashboard-icon.svg',
       route: '/',
     },
     {
@@ -30,7 +30,7 @@ function Index() {
         },
         {
           name: 'Termsheet',
-          image: '/static/termsheets.svg',
+          image: '/static/term-sheets.svg',
           route: '/termsheet',
         },
 
@@ -40,7 +40,7 @@ function Index() {
           route: '/margin-money',
         },
       ],
-      image: '/static/leads.svg',
+      image: '/static/leads-icon.svg',
       route: '/leads',
     },
     {
@@ -106,7 +106,7 @@ function Index() {
     {
       main: 'Custom Clearance & WareHouse',
       Other: [],
-      image: '/static/warehouse.svg',
+      image: '/static/custom-clearance-warehouse.svg',
       route: '/bill-of-entry',
     },
     {
