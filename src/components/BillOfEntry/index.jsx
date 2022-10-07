@@ -29,7 +29,7 @@ export default function Index({
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
-
+const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
@@ -72,7 +72,7 @@ export default function Index({
     document2: null,
     document3: null,
   })
-
+ console.log(billOfEntryData,"billOfEntryData")
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
@@ -138,8 +138,9 @@ export default function Index({
   const [pfCheckBox, setPfCheckBox] = useState(true)
 
   const handlePfCheckBox = (e) => {
+  
+    saveBillOfEntryData('pdBond', !pfCheckBox)
     setPfCheckBox(!pfCheckBox)
-    saveBillOfEntryData('pdBond', pfCheckBox)
   }
   //console.log(pfCheckBox, 'pfCheckBox')
 
@@ -337,7 +338,10 @@ export default function Index({
         }
         isOk = false
       
-    } else if (billOfEntryData.pdBond) {
+    }  
+    
+    console.log(billOfEntryData.pdBond,"billOfEntryData.pdBond",pfCheckBox)
+    if (billOfEntryData.pdBond) {
       if (billOfEntryData.document3 === null) {
         let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -583,7 +587,7 @@ export default function Index({
                       <input
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
-                        checked={pfCheckBox ? '' : 'checked'}
+                        checked={billOfEntryData.pdBond ?"checked":""}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -883,11 +887,22 @@ export default function Index({
                     // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="text"
+                     onFocus={(e) => {
+                              setIsFieldInFocus2(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus2(false),
+                                e.target.type = 'text'
+                            }}
                     // onKeyPress={preventMinus}
-                    value={addPrefixOrSuffix(
-                      billOfEntryData?.boeDetails?.invoiceQuantity,
-                      'MT',
-                    )}
+                      value={isFieldInFocus2 ?
+                              billOfEntryData?.boeDetails?.invoiceQuantity :
+                               Number(billOfEntryData?.boeDetails?.invoiceQuantity)?.toLocaleString("en-IN")+ ` MT`}
+                    // value={addPrefixOrSuffix(
+                    //   billOfEntryData?.boeDetails?.invoiceQuantity,
+                    //   'MT',
+                    // )}
                     name="boeDetails.invoiceQuantity"
                     required
                     onKeyDown={(evt) =>
@@ -1440,7 +1455,7 @@ export default function Index({
                         )}
                       </td>
                     </tr>
-                    {!pfCheckBox ? (
+                    {billOfEntryData.pdBond ? (
                       <tr className="table_row">
                         <td className={styles.doc_name}>
                           PD Bond
