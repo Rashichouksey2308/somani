@@ -243,7 +243,7 @@ const Index = ({
                 type="text"
                 onBlur={(e) => {
                   saveCompanyData(e.target.name, e.target.value)
-                  handleSearch(e)
+                  // handleSearch(e)
                 }}
                 // onChange={handleSearch}
                 value={gstList?.data?.companyData?.companyName}
@@ -252,7 +252,7 @@ const Index = ({
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-              {gettingCompanyPanResponse && serachterm && (
+              {/* {gettingCompanyPanResponse && serachterm && (
                   
                 <div className={styles.searchResults}>
                   <ul>
@@ -270,7 +270,7 @@ const Index = ({
                   </ul>
                 </div>
 
-              )}
+              )} */}
              
               {/* <Filter/> */}
               <label
