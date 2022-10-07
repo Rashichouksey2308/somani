@@ -18,14 +18,15 @@ const Index = ({
   mobileCallingCodeFunction,
   whatsappCallingCodeFunction,
   handleCommunication,
-  orderDetails
+  orderDetails,
 }) => {
-
   const { gstList } = useSelector((state) => state.buyer)
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
 
+  console.log(gettingCompanyPanResponse, 'THIS IS NEW')
+
   const dispatch = useDispatch()
-  console.log(orderDetails,"orderDetails")
+  console.log(orderDetails, 'orderDetails')
   // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(0)
   const [typeOfSlider, setSliderType] = useState(1)
@@ -43,13 +44,21 @@ const Index = ({
   useEffect(() => {
     getSlider()
   }, [slider])
-
+  console.log(slider, sliderWithCr, 'sliderWithCr')
   useEffect(() => {
     if (isSliderOnFocus === false) {
       setSliderWithCr(slider.toString() + ' Cr')
     }
   }, [slider, isSliderOnFocus])
-
+  const getvalue = () => {
+    if (!isSliderOnFocus) {
+      if (sliderWithCr == '0 Cr') return ''
+      else return sliderWithCr
+    } else {
+      if (slider == 0) return ''
+      else return slider
+    }
+  }
   const getSlider = (val) => {
     console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
@@ -99,16 +108,38 @@ const Index = ({
       )
     }
   }
-  const [serachterm ,setSearchTerm] = useState("")
-   const handleSearch = (e) => {
+
+  useEffect(() => {
+    setCompPanName(gstList?.data?.companyData?.companyName)
+  }, [gstList])
+
+  const [serachterm, setSearchTerm] = useState('')
+
+  const [compPan, setCompPan] = useState()
+  const [compPanName, setCompPanName] = useState()
+  const [boolean1, setBoolean1] = useState(false)
+
+  const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
     if (query.length >= 3) {
-      console.log(query,"queryquery")
-      dispatch(GetPanGst({query:query}))
+      dispatch(GetPanGst({ query: query }))
     }
   }
-  console.log(sliderWithCr, 'demo')
+
+  const handleFilteredData = (results) => {
+    if (results?.pans?.length > 0) {
+      setCompPan(results?.pans[0])
+      setCompPanName(results?.name)
+      setBoolean1(false)
+    } else {
+      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
+  }
+
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -175,7 +206,9 @@ const Index = ({
                   label="Import"
                   name="group1"
                   type={type}
-                  checked={orderDetails.transactionType == "Import"?"checked":""}
+                  checked={
+                    orderDetails.transactionType == 'Import' ? 'checked' : ''
+                  }
                   id={`inline-${type}-1`}
                 />
                 <Form.Check
@@ -185,9 +218,10 @@ const Index = ({
                   name="group1"
                   onChange={() => saveOrderData('transactionType', 'Domestic')}
                   type={type}
-                  checked={orderDetails.transactionType == "Domestic"?"checked":""}
+                  checked={
+                    orderDetails.transactionType == 'Domestic' ? 'checked' : ''
+                  }
                   id={`inline-${type}-2`}
-                  
                 />
               </div>
             ))}
@@ -198,12 +232,15 @@ const Index = ({
               <input
                 type="text"
                 id="textInput"
+                value={compPan}
                 name="companyPan"
                 onChange={(e) => {
                   if (panValidation(e.target.value)) {
                     saveCompanyData(e.target.name, e.target.value)
+                    setCompPan(e.target.value)
                   } else {
                     //red mark
+                    setCompPan(e.target.value)
                     let toastMessage = 'Invalid Pan'
                     if (!toast.isActive(toastMessage.toUpperCase())) {
                       toast.error(toastMessage.toUpperCase(), {
@@ -226,29 +263,36 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => {
-                  saveCompanyData(e.target.name, e.target.value);
+                onChange={(e) => {
+                  setBoolean1(true)
+                  saveCompanyData(e.target.name, e.target.value)
                   handleSearch(e)
+                  setCompPanName(e.target.value)
                 }}
-                // onChange={handleSearch}
-                value={gstList?.data?.companyData?.companyName}
+                value={compPanName}
                 id="companyInput"
                 name="companyName"
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-            
-              {gettingCompanyPanResponse && serachterm && 
-              <div className={styles.searchResults}>
-                <ul>
-                  {gettingCompanyPanResponse?.data?.map((results, index) => (
-                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} </li>
-                  ))}
-                </ul>
-              </div>
-              }
-         
-            {/* <Filter/> */}
+              {gettingCompanyPanResponse && serachterm && boolean1 && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {gettingCompanyPanResponse1.map((results, index) => (
+                      <li
+                        onClick={() => handleFilteredData(results)}
+                        id={results._id}
+                        key={index}
+                        value={results}
+                      >
+                        {results.name}{' '}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
                 id="textInput"
@@ -305,7 +349,7 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                 <option value="Manufacturer">Manufacturer</option>
+                  <option value="Manufacturer">Manufacturer</option>
                   {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
                 </select>
@@ -413,8 +457,11 @@ const Index = ({
                 <input
                   className={`${styles.input_container} form-control input`}
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                  value={sliderWithCr || slider}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
+                  value={getvalue()}
                   onFocus={(e) => {
                     e.target.type === 'number',
                       setIsSliderOnFocus(true),

@@ -470,3 +470,73 @@
   height: 26px;
   pointer-events: none;
 }
+.searchResults {
+  width: 93%;
+ 
+  top: 75px;
+
+  z-index: 3;
+  position: absolute;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 2px solid #d2d7e5;
+  @include respond(md-desktop) {
+  }
+  @include respond(sm-desktop) {
+  }
+  &::after {
+      top: -15px;
+      left: 40px;
+      content: "";
+      position: absolute;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 15px solid #d2d7e5;
+  }
+  ul {
+      margin: 15px 0;
+      padding: 0;
+      list-style: none;
+      max-height: 300px;
+      overflow: auto;
+      li {
+          font-size: 18px;
+          color: #3687e8;
+          font-weight: bold;
+          line-height: 1.5;
+          padding: 7px 0;
+          display: flex;
+          margin: 0 15px;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 2px solid #d2d7e5;
+          // &:first-child {
+          //   margin-top: 15px;
+          // }
+          // &:last-child {
+          //   margin-bottom: 15px;
+          // }
+          @include respond(md-desktop) {
+              font-size: 16px;
+          }
+          @include respond(sm-desktop) {
+              font-size: 14px;
+          }
+          span {
+              font-size: 15px;
+              font-weight: 500;
+              color: #8492a6;
+              margin-left: 10px;
+          }
+          @include respond(md-desktop) {
+              font-size: 14px;
+          }
+          @include respond(sm-desktop) {
+              font-size: 12px;
+          }
+          &:last-child {
+              border-bottom: none;
+          }
+      }
+  }
+}

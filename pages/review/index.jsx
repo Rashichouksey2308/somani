@@ -188,6 +188,7 @@ function Index() {
   const [complienceFilter, setComplienceFilter] = useState('All')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
+  const [camConversionunit, setCamCoversionUnit] = useState(10000000)
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
@@ -8715,9 +8716,13 @@ function Index() {
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
+                      onChange={(e) => setCamCoversionUnit(e.target.value)}
                     >
-                      <option selected value="Crores">
+                      <option selected value={10000000}>
                         Crores
+                      </option>
+                      <option value={100000}>
+                        Lakhs
                       </option>
                     </select>
                     <img
@@ -9198,7 +9203,7 @@ function Index() {
                       data-parent="#profileAccordion"
                     >
                       <div
-                        className={` ${styles.cardBody_details} card-body border_color`}
+                        className={` ${styles.cardBody_details} card-body pb-0 border_color`}
                       >
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
@@ -9648,6 +9653,7 @@ function Index() {
                     setTop3Share1={setTop3Share1}
                     setTop3Open1={setTop3Open1}
                     setTop5Customers1={setTop5Customers1}
+                    camConversionunit={camConversionunit}
                   />
                 </div>
               </div>
@@ -9802,7 +9808,7 @@ const table2 = (sat, balance, complienceFilter) => {
   }
   return (
     <table
-      className={`${styles.table_details} table border-color`}
+      className={`${styles.table_details} mb-0 table border_color`}
       cellPadding="0"
       cellSpacing="0"
       border="1"

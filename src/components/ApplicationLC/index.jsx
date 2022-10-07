@@ -62,7 +62,13 @@ function Index() {
       },
     ])
   }
-
+ const handleDeleteEmail = (index) => {
+ 
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)])
+  }
+   const handleDeleteNumber = (index) => {
+    setNumber([...number.slice(0, index), ...number.slice(index + 1)])
+  }
   const exportPDF = () => {
 
       const doc = new jsPDF('p', 'pt', [1500, 1500])
@@ -481,16 +487,7 @@ function Index() {
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
         
-          {/* <div className={styles.head_container}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="Arrow"
-            />
-            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
-          </div>
-        </div> */}
+    
           <div
             className={`${styles.term_container} previewCard container-fluid border_color`}
           >
@@ -1171,7 +1168,9 @@ function Index() {
                               />
                             </div>
                           </div>
-                          <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3' />
+                          <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3'
+                          onClick={()=>{handleDeleteEmail(index)}}
+                          />
                           </div>
                         ))}
                         <div
@@ -1240,7 +1239,9 @@ function Index() {
                                   </label>
                                 </div>
                               </div>
-                              <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3' />
+                              <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3' 
+                                 onClick={()=>{handleDeleteNumber(index)}}
+                              />
                             </div>
                             </>
                           )

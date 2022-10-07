@@ -154,7 +154,9 @@ let op=[
               "city": "Zug"
           }])
        
-        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+        setList(props?.data?.authorisedSignatoryDetails.length>0
+          ?
+          props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
 
@@ -265,6 +267,7 @@ const addMoreRows=()=>{
     }])
 
   }
+  console.log(list,"listlist")
 const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
     if(index==val.index){
