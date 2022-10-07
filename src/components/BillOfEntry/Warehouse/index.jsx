@@ -264,7 +264,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                         <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
-                        <img
+                        {/* <img
                           src="/static/delete 2.svg"
                           className="mr-3"
                           alt="delete"
@@ -275,7 +275,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           alt="delete"
                           className={styles.del_image}
                           onClick={() => removeFromArr(clause.dropDownValue)}
-                        />
+                        /> */}
                       </div>
                     ) : (
                       <div

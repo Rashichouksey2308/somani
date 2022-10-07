@@ -108,7 +108,17 @@ const Index = ({
       )
     }
   }
+
+  useEffect(() => {
+    setCompPanName(gstList?.data?.companyData?.companyName)
+  }, [gstList])
+
   const [serachterm, setSearchTerm] = useState('')
+
+  const [compPan, setCompPan] = useState()
+  const [compPanName, setCompPanName] = useState()
+  const [boolean1, setBoolean1] = useState(false)
+
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
@@ -117,8 +127,17 @@ const Index = ({
     }
   }
 
-  const handleFilteredData = () => {
-    console.log('here')
+  const handleFilteredData = (results) => {
+    if (results?.pans?.length > 0) {
+      setCompPan(results?.pans[0])
+      setCompPanName(results?.name)
+      setBoolean1(false)
+    } else {
+      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    }
   }
 
   return (
@@ -213,12 +232,15 @@ const Index = ({
               <input
                 type="text"
                 id="textInput"
+                value={compPan}
                 name="companyPan"
                 onChange={(e) => {
                   if (panValidation(e.target.value)) {
                     saveCompanyData(e.target.name, e.target.value)
+                    setCompPan(e.target.value)
                   } else {
                     //red mark
+                    setCompPan(e.target.value)
                     let toastMessage = 'Invalid Pan'
                     if (!toast.isActive(toastMessage.toUpperCase())) {
                       toast.error(toastMessage.toUpperCase(), {
@@ -241,37 +263,35 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => {
+                onChange={(e) => {
+                  setBoolean1(true)
                   saveCompanyData(e.target.name, e.target.value)
-                  // handleSearch(e)
+                  handleSearch(e)
+                  setCompPanName(e.target.value)
                 }}
-                // onChange={handleSearch}
-                value={gstList?.data?.companyData?.companyName}
+                value={compPanName}
                 id="companyInput"
                 name="companyName"
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-              {/* {gettingCompanyPanResponse && serachterm && (
-                  
+              {gettingCompanyPanResponse && serachterm && boolean1 && (
                 <div className={styles.searchResults}>
                   <ul>
-                  <li>here</li>
-                    {gettingCompanyPanResponse?.map((results, index) => ( 
-                      
+                    {gettingCompanyPanResponse1.map((results, index) => (
                       <li
-                        onClick={handleFilteredData}
+                        onClick={() => handleFilteredData(results)}
                         id={results._id}
                         key={index}
+                        value={results}
                       >
-                       {results.name}{' '}
+                        {results.name}{' '}
                       </li>
                     ))}
                   </ul>
                 </div>
+              )}
 
-              )} */}
-             
               {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
