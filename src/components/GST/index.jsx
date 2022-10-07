@@ -1883,7 +1883,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           >
             <Row className={styles.row}>
               <Col md={6} sm={12} className={styles.col}>
-                <div className={`${styles.chart_container} ${styles.noBorder}`}>
+                <div className={`${styles.chart_container} ${styles.noBorder} border_color`}>
                   <div
                     className={` ${styles.header} card_sub_header d-flex align-items-center justify-content-start`}
                   >
@@ -1920,7 +1920,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </div>
               </Col>
               <Col md={6} sm={12} className={styles.col2}>
-                <div className={styles.chart_container}>
+                <div className={`${styles.chart_container} border_color`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
@@ -1948,7 +1948,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </div>
               </Col>
               <Col md={6} sm={12} className={styles.col}>
-                <div className={styles.chart_container}>
+                <div className={`${styles.chart_container} border_color`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
@@ -1962,7 +1962,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </div>
               </Col>
               <Col md={6} sm={12} className={styles.col2}>
-                <div className={styles.chart_container}>
+                <div className={`${styles.chart_container} border_color`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
@@ -1979,7 +1979,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </div>
               </Col>
               <Col md={6} sm={12} className={styles.col}>
-                <div className={styles.chart_container}>
+                <div className={`${styles.chart_container} border_color`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
@@ -1999,7 +1999,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </div>
               </Col>
               <Col md={6} sm={12} className={styles.col2}>
-                <div className={styles.chart_container}>
+                <div className={`${styles.chart_container} border_color`}>
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
@@ -2978,7 +2978,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                 </table>
                 <table
-                  className={`${styles.table_pricipal} border_color  table`}
+                  className={`${styles.table_pricipal} border_color mb-0 table`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="1"
@@ -3642,7 +3642,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                 </table>
                 <table
-                  className={`${styles.table_pricipal} border_color  table`}
+                  className={`${styles.table_pricipal} border_color mb-0 table`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="1"
@@ -3659,10 +3659,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
-                    <td>PRODUCT</td>
-                    <td width="22%" className='text-nowrap'>HSN CODE</td>
-                    <td width="22%">TURNOVER</td>
-                    <td width="22%" className='text-nowrap'>% SHARE</td>
+                    <td width="33%">PRODUCT</td>
+                    <td className='text-nowrap'>HSN CODE</td>
+                    <td>TURNOVER</td>
+                    <td className='text-nowrap'>% SHARE</td>
 
                     <td>CUSTOMERS</td>
                     <td>INVOICES</td>
@@ -4116,7 +4116,7 @@ const gstCustomerDetail = (
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0`}>
               <div className={`${styles.first} card_sub_header text-color`}>Statewise Sales</div>
 
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
@@ -4457,7 +4457,7 @@ const gstSupplierDetail = (
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0`}>
               <div className={`${styles.first} card_sub_header text-color`}>Statewise Purchase</div>
               <div
                 className={` ${styles.body} ${styles.body_noscroll} border_color`}
