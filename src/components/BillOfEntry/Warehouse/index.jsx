@@ -252,6 +252,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 align-self-center`}
                   >
                     {warehouseDetails?.document === null ? (
+                      <div className="d-flex ">
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           id="document"
@@ -264,7 +265,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                         <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
-                        <img
+                        
+                      </div>
+                      {/* <img
                           src="/static/delete 2.svg"
                           className="mr-3"
                           alt="delete"
@@ -275,8 +278,8 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           alt="delete"
                           className={styles.del_image}
                           onClick={() => removeFromArr(clause.dropDownValue)}
-                        />
-                      </div>
+                        /> */}
+                        </div>
                     ) : (
                       <div
                         className={`${styles.certificate} text1 mr-3 d-inline-flex align-items-center justify-content-between`}

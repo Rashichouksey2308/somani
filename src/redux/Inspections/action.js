@@ -188,6 +188,7 @@ export const UpdateInspection =
           )
         }
         dispatch(updateInspectionSuccess(response.data.data))
+        return response.data.code
       } else {
         dispatch(updateInspectionFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

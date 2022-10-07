@@ -154,7 +154,9 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     )
     if (response.data.code === 200) {
       console.log('check 5')
+      sessionStorage.setItem('quotationId', response.data.data.order.insurance)
       dispatch(updateVesselSuccess(response.data.data))
+
       return response.data.code
     } else {
       dispatch(updateVesselFailed(response.data.data))

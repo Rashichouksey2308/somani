@@ -12,6 +12,8 @@ import {
 } from '../../../src/redux/insurance/action'
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
+
+import { settingSidebar } from 'redux/breadcrumb/action'
 import {
   addPrefixOrSuffix,
   checkNan,
@@ -38,7 +40,7 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-  console.log(insuranceData, 'This is InsuranceData')
+  console.log(_get(insuranceResponse, 'data[0].order.inspection', ""), 'This is InsuranceData')
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
@@ -265,7 +267,7 @@ const Index = () => {
     }
     return true
   }
-  const handleSave = () => {
+  const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData }
@@ -275,8 +277,13 @@ const Index = () => {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
         }
-        dispatch(UpdateQuotation(obj))
-        router.push(`/third-party`)
+       let code= await dispatch(UpdateQuotation(obj))
+       if(code==200){
+         sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
+         dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
+         router.push(`/third-party`)
+       }
+        
       }
     } else {
       let toastMessage = 'Insurance type is mandatory'

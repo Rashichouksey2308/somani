@@ -12,13 +12,14 @@ import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { settingSidebar } from 'redux/breadcrumb/action'
 
 export default function Index({ inspectionData }) {
   let dispatch = useDispatch()
   const router = useRouter()
 
   let orderid = _get(inspectionData, 'order._id', '')
-
+console.log(_get(inspectionData,"order.transit"),"transit")
   let d = new Date()
 
   const [plotInspectionData, setPlotInspectionData] = useState({
@@ -62,7 +63,7 @@ export default function Index({ inspectionData }) {
     })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY'
@@ -81,8 +82,13 @@ export default function Index({ inspectionData }) {
 
       // console.log('payload Third party2', 'Payload')
 
-      dispatch(UpdateInspection({ fd, task }))
+     let code = await  dispatch(UpdateInspection({ fd, task }))
+     if(code==200){
+      sessionStorage.setItem('transId',_get(inspectionData,"order.transit",""))
+      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Transit Details', 'Transit Details', '3'))
       router.push(`/transit/id`)
+     }
+      
     }
   }
 

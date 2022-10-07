@@ -113,25 +113,19 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
         headers: headers,
       },
     )
+    console.log(response, 'response')
     if (response.data.code === 200) {
-      {
-        console.log('www', response.data.data)
-      }
       dispatch(updatingCamSuccess(response.data.data))
+      console.log(response.data.code, 'response.data.data.order')
+      sessionStorage.setItem('termsheetId', response.data.data.order._id)
+      sessionStorage.setItem('termID', response.data.data.order.termsheet._id)
+      sessionStorage.setItem('termOrdID', response.data.data.order._id)
       let toastMessage = 'CAM APPROVED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      // sessionStorage.setItem('termsheetId', sheet.company._id)
-      // sessionStorage.setItem('termID', term._id)
-      // sessionStorage.setItem('termOrdID', term?.order._id)
+
       return response.data.code
-      // sessionStorage.setItem(
-      //   'orderID',
-      //   response.data.data.form.orderDetails[0],
-      // )
-      // sessionStorage.setItem('company', response.data.data.form._id)
-      // Router.push(`/termsheet/${response.data.data.form._id}`)
     } else {
       dispatch(updatingCamFailed(response.data.data))
       let toastMessage = response.data.message

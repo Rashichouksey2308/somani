@@ -767,9 +767,9 @@ const Index = () => {
     // console.log(termsheetDetails, 'updatedtermsheet')
     let code = await dispatch(updateTermsheet(UpdatedTermsheet))
     if (code == 200) {
-      //  sessionStorage.setItem('marginId', margin?.order?._id )
-      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-      //  router.push(`/margin-money/id`)
+       sessionStorage.setItem('marginId', _get(termsheet,"data[0].order._id",""))
+       dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+       router.push(`/margin-money/id`)
     }
 
   }
