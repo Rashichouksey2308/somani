@@ -8946,7 +8946,7 @@ function Index() {
                   <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                    // style={{ cursor: 'pointer' }}
+                    style={{ cursor: 'default' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -8979,9 +8979,9 @@ function Index() {
                       data-parent="#profileAccordion"
                     >
                       <div
-                        className={` ${styles.cardBody_compliance} card-body border_color`}
+                        className={` ${styles.cardBody_compliance} card-body p-0 border_color`}
                       >
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
@@ -9025,7 +9025,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               High Risk ({level.high.length})
@@ -9065,7 +9065,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               Medium Risk ({level.medium.length})
@@ -9107,7 +9107,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               Low Risk ({level.low.length})

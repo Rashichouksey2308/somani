@@ -821,7 +821,7 @@ const Index = () => {
               termsheet?.data?.map((sheet, index) => (
                 <div
                   key={index}
-                  className={`${styles.card_body} card-body container-fluid`}
+                  className={`${styles.card_body} border_color border card-body container-fluid`}
                 >
                   <div className="row">
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>

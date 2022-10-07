@@ -115,7 +115,7 @@ function Index({
                 return (
                   <div
                     key={index}
-                    className={`${styles.main} card border-color`}
+                    className={`${styles.main} card border_color`}
                   >
                     <div
                       className={`${styles.head_container} align-items-center border_color card-header head_container justify-content-between d-flex bg-transparent`}
@@ -308,9 +308,9 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr></hr>
+                    <hr className='m-0 border_color' />
                     <div className={`${styles.dashboard_form} card-body`}>
-                      <h3 className={styles.sub_heading}>Transit Details</h3>
+                      <h3 className={`${styles.sub_heading} mt-3`}>Transit Details</h3>
 
                       <div className="row">
                         <div
@@ -526,7 +526,7 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr></hr>
+                    <hr className='m-0 border_color' />
 
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
@@ -537,7 +537,7 @@ function Index({
                                 key={index}
                                 className={`${styles.dashboard_form} card-body`}
                               >
-                                <h3 className={styles.sub_heading}>
+                                <h3 className={`${styles.sub_heading} mt-3`}>
                                   Vessel Information
                                 </h3>
 
@@ -714,7 +714,7 @@ function Index({
                     ) : (
                       <>
                         <div className={`${styles.dashboard_form} card-body`}>
-                          <h3 className={styles.sub_heading}>
+                          <h3 className={`${styles.sub_heading} mt-3`}>
                             Shipping Information
                           </h3>
 
@@ -801,7 +801,7 @@ function Index({
                               className={`${styles.vessel_card} vessel_card`}
                             >
                               <div className="d-flex justify-content-between align-items-center">
-                                <h3 className={styles.sub_heading}>
+                                <h3 className={`${styles.sub_heading} mt-3`}>
                                   Vessel Information
                                 </h3>
                                 {index == 0 ?
@@ -927,9 +927,9 @@ function Index({
                             </div>
                           </div>
                         ))}
-                        <hr></hr>
+                        <hr className='m-0 border_color' />
                         <div className={`${styles.dashboard_form} card-body`}>
-                          <h3 className={styles.sub_heading}>
+                          <h3 className={`${styles.sub_heading} mt-3`}>
                             Container Number(s)
                           </h3>
 

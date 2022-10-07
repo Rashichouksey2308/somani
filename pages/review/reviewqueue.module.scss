@@ -543,9 +543,8 @@
       }
     }
     .cardBody_compliance {
-      overflow-y: auto;
-      height: 300px;
-      padding-left: 42px !important;
+      // overflow-y: auto;
+      // height: 300px;
       border-top: 2px solid red;
       @include respond(md-desktop) {
         padding: 15px !important;
@@ -561,13 +560,17 @@
       }
       .row {
         min-height: 60px;
+        padding: 0 10px 0 35px !important;
         border-bottom: 2px solid rgba(217, 217, 217, 0.316);
+        &:last-child {
+          border-bottom: none;
+        }
         .col {
           span {
             font-size: 16px;
             line-height: 18px;
             font-weight: bold;
-            margin-top: 0.5rem;
+            // margin-top: 0.5rem;
           }
           .val {
             flex-grow: 1;
