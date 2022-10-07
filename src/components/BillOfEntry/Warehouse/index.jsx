@@ -206,7 +206,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : Number(
+                          :warehouseDetails?.wareHouseDetails?.quantity==0
+                         
+                          ? "": Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
                             )?.toLocaleString('en-IN') +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
