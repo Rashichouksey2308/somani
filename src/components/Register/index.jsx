@@ -60,7 +60,9 @@ function Index() {
   const { gstList } = useSelector((state) => state.buyer)
 
   const dispatch = useDispatch()
+
   const [termsCheck, setTermsCheck] = useState(false)
+
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -83,7 +85,7 @@ function Index() {
     turnOverUnit: 'Cr',
   })
 
-  console.log(companyDetails.turnOver, 'companyDetails tin')
+
   useEffect(() => {
     const newInput = { ...companyDetails }
     newInput.companyName = gstList?.data?.companyData?.companyName
@@ -176,26 +178,6 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
 
-    // if (name == 'quantity') {
-    //   let tempVal = addPrefixOrSuffix(
-    //     value.toString(),
-    //     orderDetails.unitOfQuantity == 'mt'
-    //       ? 'MT'
-    //       : orderDetails.unitOfQuantity,
-    //   )
-    //   newInput[name] = tempVal
-    // }
-    // if (name == 'orderValue') {
-    //   let tempVal = addPrefixOrSuffix(
-    //     value.toString(),
-    //     orderDetails?.unitOfValue == 'Millions'
-    //       ? 'Mn'
-    //       : orderDetails?.unitOfValue == 'Crores'
-    //         ? 'Cr'
-    //         : orderDetails?.unitOfValue,
-    //   )
-    //   newInput[name] = tempVal
-    // } else {
       newInput[name] = value
     
 
