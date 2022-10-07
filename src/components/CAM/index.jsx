@@ -1407,7 +1407,7 @@ const orderSummary = (camData, camConversionunit) => {
           aria-labelledby="orderSummary"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.order_wrapper} px-0 border_color`}>
+          <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table
               className={`${styles.table} table mb-0 border_color`}
               cellPadding="0"
@@ -3881,11 +3881,11 @@ const Documents = (documentsFetched) => {
                 documentsFetched?.documents?.map((doc, index) => (
                   <Col md={3} key={index} className={`mb-3`}>
                     <div
-                      className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
+                      className={`${styles.doc_container} p-2 border_color d-flex align-items-center justify-content-start`}
                     >
                       <img src="./static/icon file copy.svg"></img>
                       <div className={`${styles.view} ml-4`}>
-                        <span>{doc.name}</span>
+                        <span className='text_sales'>{doc.name}</span>
                         <span
                           onClick={() =>
                             dispatch(

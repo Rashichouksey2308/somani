@@ -705,7 +705,7 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea
@@ -725,7 +725,7 @@ const Index = () => {
                   </>
                 ) : (
                   <>
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <Row>
                           <Col lg={4} md={6} sm={6}>
@@ -993,7 +993,7 @@ const Index = () => {
                       </div>
                     </div>
 
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
@@ -1081,7 +1081,7 @@ const Index = () => {
                         </Row>
                       </div>
                     </div>
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea

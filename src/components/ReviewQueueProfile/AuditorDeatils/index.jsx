@@ -731,74 +731,78 @@ function Index({ directorData }) {
                                     : ''}
                                   )
                                 </span>
-                                <div className={`${styles.table}`}>
-                                  <table
-                                    className={`${styles.table_details} table border_color`}
-                                    cellPadding="0"
-                                    cellSpacing="0"
-                                    border="0"
-                                  >
-                                    <thead>
-                                      <tr>
-                                        <th className="text_light">CIN</th>
-                                        <th className="text_light">
-                                          ENTITY NAME
-                                        </th>
-                                        <th className="text_light">
-                                          TENURE START DATE
-                                        </th>
-                                        <th className="text_light">
-                                          TENURE END DATE
-                                        </th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {console.log(_get(
-                                        director,
-                                        `otherAssociatedEntities${otherAssociates[index]}`,
-                                        [],
-                                      ), "1212222")}
-                                      {
-                                        _get(
-                                          director,
-                                          `otherAssociatedEntities${otherAssociates[index]}`,
-                                          [],
-                                        ).map((associates, index2) => {
-                                          const fromDate = associates?.fromDate
-                                          const toDate = associates?.toDate
-                                          console.log(associates, "1212")
-                                          return (
-                                            <tr key={index2}>
-                                              <td className="text-color">
-                                                {associates?.entityId}
-                                              </td>
-                                              <td className="text-color">
-                                                {associates?.entityName}
-                                              </td>
-                                              <td className="text-color">
-                                                {' '}
-                                                {fromDate
-                                                  ? moment(
-                                                    fromDate?.slice(0, 10),
-                                                    'YYYY-MM-DD',
-                                                    true,
-                                                  ).format('DD-MM-YYYY')
-                                                  : ''}
-                                              </td>
-                                              <td className="text-color">
-                                                {toDate
-                                                  ? moment(
-                                                    toDate?.slice(0, 10),
-                                                    'YYYY-MM-DD',
-                                                    true,
-                                                  ).format('DD-MM-YYYY')
-                                                  : ''}
-                                              </td>
-                                            </tr>
-                                          )
-                                        })}
-                                    </tbody>
-                                  </table>
+                                <div className={styles.table_scroll_outer}>
+                                  <div className={styles.table_scroll_inner}>
+                                    <div className={`${styles.table}`}>
+                                      <table
+                                        className={`${styles.table_details} table border_color`}
+                                        cellPadding="0"
+                                        cellSpacing="0"
+                                        border="0"
+                                      >
+                                        <thead>
+                                          <tr>
+                                            <th className="text_light">CIN</th>
+                                            <th className="text_light">
+                                              ENTITY NAME
+                                            </th>
+                                            <th className="text_light">
+                                              TENURE START DATE
+                                            </th>
+                                            <th className="text_light">
+                                              TENURE END DATE
+                                            </th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {console.log(_get(
+                                            director,
+                                            `otherAssociatedEntities${otherAssociates[index]}`,
+                                            [],
+                                          ), "1212222")}
+                                          {
+                                            _get(
+                                              director,
+                                              `otherAssociatedEntities${otherAssociates[index]}`,
+                                              [],
+                                            ).map((associates, index2) => {
+                                              const fromDate = associates?.fromDate
+                                              const toDate = associates?.toDate
+                                              console.log(associates, "1212")
+                                              return (
+                                                <tr key={index2}>
+                                                  <td className="text-color">
+                                                    {associates?.entityId}
+                                                  </td>
+                                                  <td className="text-color">
+                                                    {associates?.entityName}
+                                                  </td>
+                                                  <td className="text-color">
+                                                    {' '}
+                                                    {fromDate
+                                                      ? moment(
+                                                        fromDate?.slice(0, 10),
+                                                        'YYYY-MM-DD',
+                                                        true,
+                                                      ).format('DD-MM-YYYY')
+                                                      : ''}
+                                                  </td>
+                                                  <td className="text-color">
+                                                    {toDate
+                                                      ? moment(
+                                                        toDate?.slice(0, 10),
+                                                        'YYYY-MM-DD',
+                                                        true,
+                                                      ).format('DD-MM-YYYY')
+                                                      : ''}
+                                                  </td>
+                                                </tr>
+                                              )
+                                            })}
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
