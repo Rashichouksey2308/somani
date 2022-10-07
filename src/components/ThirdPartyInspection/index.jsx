@@ -19,18 +19,22 @@ import { GetAllInspection } from '../../redux/Inspections/action'
 
 export default function Index({ addButton }) {
   const dispatch = useDispatch()
+
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId')
     dispatch(GetAllInspection(`?inspectionId=${id}`))
   }, [])
+
   const { allInspection } = useSelector((state) => state.Inspection)
 
   const [inspectionData, setInspectionData2] = useState({})
+
   useEffect(() => {
     setInspectionData2(_get(allInspection, 'data[0]', {}))
   }, [allInspection])
 
   console.log(inspectionData, 'inspectionData3333')
+
   const [excelFile, setExcelFile] = useState([])
 
   let orderid = _get(inspectionData, 'order._id', '')
@@ -48,12 +52,13 @@ export default function Index({ addButton }) {
     loadPortInspection: false,
     dischargePortInspection: false,
   })
+
   console.log(portType, 'inspectionData')
 
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails }
     newInput[name] = value
-    console.log(name, value, 'cak')
+
     setInspectionData(newInput)
   }
 
@@ -106,9 +111,12 @@ export default function Index({ addButton }) {
       startDate: '',
       specialMention: '',
     },
-    certificateOfOriginStatus: inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
-    certificateOfQualityStatus: inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
-    certificateOfWeightStatus: inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+    certificateOfOriginStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+    certificateOfQualityStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+    certificateOfWeightStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
   })
 
   console.log(inspectionDetails, 'THIS IS INSPECTION DEETS')
@@ -168,9 +176,12 @@ export default function Index({ addButton }) {
           inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
             ?.specialMention,
       },
-      certificateOfOriginStatus: inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
-      certificateOfQualityStatus: inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
-      certificateOfWeightStatus: inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+      certificateOfOriginStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+      certificateOfQualityStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+      certificateOfWeightStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
     })
   }, [inspectionData, allInspection])
 
@@ -241,13 +252,7 @@ export default function Index({ addButton }) {
   }
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
-    // const namesplit = name.split('.')
-    // namesplit.length > 1
-    //   ? (newInput[namesplit[0]][namesplit[1]] = value)
-    //   : (newInput[name] = value)
     const d = new Date(value)
-    console.log(d, 'd2222')
     let text = d?.toISOString()
     saveInspectionDetails(name, text)
   }
@@ -1350,13 +1355,32 @@ export default function Index({ addButton }) {
                               </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfOriginStatus
+                                    }
+                                    name="certificateOfOriginStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
@@ -1489,16 +1513,35 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div> */}                              
+                              </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfQualityStatus
+                                    }
+                                    name="certificateOfQualityStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
@@ -1635,13 +1678,32 @@ export default function Index({ addButton }) {
                               </div> */}
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
-                                  <select className={`${styles.value} ${styles.customSelect} input form-control`} id="docType" onChange={(e) => handleDropdown(e)}>
-                                    <option selected>Please Specify</option>
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfWeightStatus
+                                    }
+                                    name="certificateOfWeightStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
                                     <option value="On Hold">On Hold</option>
                                     <option value="Rejected">Rejected</option>
                                     <option value="Approved">Approved</option>
                                   </select>
-                                  <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
                                 </div>
                               </Form.Group>
                             </td>
