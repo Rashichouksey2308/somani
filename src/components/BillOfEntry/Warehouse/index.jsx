@@ -106,8 +106,8 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       let id = sessionStorage.getItem('customId')
        await   dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
     if(code==200){
-       sessionStorage.setItem('ROrderID',_get(customData,"order._id",""))
-      
+       sessionStorage.setItem('ROrderID',_get(customData,"order.delivery",""))
+      sessionStorage.setItem('company', customData?.company?._id)
        dispatch(settingSidebar('Payments, Invoicing & Delivery', null, null,5 ))
        router.push(`/payment/id`)
     }
