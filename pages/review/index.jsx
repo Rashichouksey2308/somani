@@ -9203,7 +9203,7 @@ function Index() {
                       data-parent="#profileAccordion"
                     >
                       <div
-                        className={` ${styles.cardBody_details} card-body border_color`}
+                        className={` ${styles.cardBody_details} card-body pb-0 border_color`}
                       >
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
@@ -9808,7 +9808,7 @@ const table2 = (sat, balance, complienceFilter) => {
   }
   return (
     <table
-      className={`${styles.table_details} table border-color`}
+      className={`${styles.table_details} mb-0 table border_color`}
       cellPadding="0"
       cellSpacing="0"
       border="1"
