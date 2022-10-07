@@ -511,7 +511,7 @@ export default function Index({
                   <span className={styles.value}>
                     {_get(
                       TransitDetails,
-                      'data[0].order.quantity',
+                      'data[0].BL.billOfLading[0].blQuantity',
                       '',
                     )?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
