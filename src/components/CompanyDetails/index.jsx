@@ -19,6 +19,8 @@ const Index = ({
   whatsappCallingCodeFunction,
   handleCommunication,
   orderDetails,
+  companyDetails,
+  setCompanyDetails,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
@@ -59,6 +61,7 @@ const Index = ({
       else return slider
     }
   }
+
   const getSlider = (val) => {
     console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
@@ -110,8 +113,13 @@ const Index = ({
   }
 
   useEffect(() => {
+    if(compPan !== '' || compPan !== undefined){
+    const newInput = { ...companyDetails }
+    newInput.companyPan = compPan
+    setCompanyDetails(newInput)
+    }
     setCompPanName(gstList?.data?.companyData?.companyName)
-  }, [gstList])
+  }, [gstList, compPan])
 
   const [serachterm, setSearchTerm] = useState('')
 

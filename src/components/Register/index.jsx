@@ -466,6 +466,8 @@ function Index() {
           whatsappFunction={whatsappFunction}
           mobileFunction={mobileFunction}
           saveOrderData={saveOrderData}
+          companyDetails={companyDetails}
+          setCompanyDetails={setCompanyDetails}
           saveCompanyData={saveCompanyData}
           orderDetails={orderDetails}
         />
