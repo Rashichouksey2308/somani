@@ -898,7 +898,7 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     // onKeyPress={preventMinus}
                       value={isFieldInFocus2 ?
                               billOfEntryData?.boeDetails?.invoiceQuantity :
-                               Number(billOfEntryData?.boeDetails?.invoiceQuantity)?.toLocaleString("en-IN")+ ` MT`}
+                              billOfEntryData?.boeDetails?.invoiceQuantity==0? "": Number(billOfEntryData?.boeDetails?.invoiceQuantity)?.toLocaleString("en-IN")+ ` MT`}
                     // value={addPrefixOrSuffix(
                     //   billOfEntryData?.boeDetails?.invoiceQuantity,
                     //   'MT',
@@ -949,7 +949,9 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    value={addPrefixOrSuffix(
+                    value={
+                       billOfEntryData?.boeDetails?.conversionRate== "INR 0"?"":
+                      addPrefixOrSuffix(
                       billOfEntryData?.boeDetails?.conversionRate,
                       'INR',
                       'front',
@@ -974,7 +976,9 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     name="boeDetails.accessibleValue"
                     disabled
                     required
-                    value={addPrefixOrSuffix(
+                    value={
+                      accessibleValueCalc=="INR 0"?"":
+                      addPrefixOrSuffix(
                       accessibleValueCalc,
                       'INR',
                       'front',
