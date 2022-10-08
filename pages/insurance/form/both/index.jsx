@@ -564,7 +564,7 @@ function getDifferenceInDaysStorage() {
                 aria-labelledby="marineInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -982,7 +982,7 @@ function getDifferenceInDaysStorage() {
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1392,7 +1392,7 @@ function getDifferenceInDaysStorage() {
                 <div
                   className={` ${styles.cardBody} vessel_card card-body  border_color`}
                 >
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1669,7 +1669,7 @@ function getDifferenceInDaysStorage() {
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>

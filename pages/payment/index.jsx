@@ -99,7 +99,7 @@ function Index() {
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/Leads.svg"
+                  src="/static/leads-icon.svg"
                   className="img-fluid"
                   alt="All Leads"
                 />

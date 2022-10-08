@@ -155,7 +155,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
-              <div className={`${styles.dashboard_form} mt-3 card-body`}>
+              <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>

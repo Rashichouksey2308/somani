@@ -323,7 +323,7 @@ export default function Index(props) {
                                             props.addNewDelivery()
                                           }}
                                           src="/static/add-btn.svg"
-                                          className={`${styles.shareImg} border-0 p-0 bg-transparent`}
+                                          className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
                                           alt="add"
                                         />
                                       )}
