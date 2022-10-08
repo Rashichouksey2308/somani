@@ -2264,7 +2264,7 @@ const index = ({
                   </thead>
                   <tbody>
                     {debtData?.map((profile, index) => (
-                      <tr key={index} className="table_credit shadow-none">
+                      <tr key={index} className="table_credit shadow-none bg-transparent">
                         <td>{index + 1}</td>
                         <td className="d-flex justify-content-center align-items-end">
                           <input

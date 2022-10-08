@@ -49,7 +49,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
-                  className={`${styles.table} table`}
+                  className={`${styles.table} mb-0 table`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"

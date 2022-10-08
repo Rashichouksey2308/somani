@@ -851,7 +851,7 @@ export default function Index({ addButton }) {
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -898,7 +898,7 @@ export default function Index({ addButton }) {
                 </div>
               </div>
             </div>
-            <div className={styles.radio_form}>
+            <div className={`${styles.radio_form} card-body`}>
               {['checkbox'].map((type) => (
                 <div key={`inline-${type}`} className={styles.radio_group}>
                   <Form.Check
@@ -938,9 +938,8 @@ export default function Index({ addButton }) {
                 </div>
               ))}
             </div>
-            <hr></hr>
-
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <hr className='m-0 border_color'/>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
@@ -995,7 +994,7 @@ export default function Index({ addButton }) {
           </div>
           {inspectionDetails.loadPortInspection ? (
             <>
-              <div className={`${styles.main} vessel_card card border-color`}>
+              <div className={`${styles.main} vessel_card card border_color`}>
                 <div
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
@@ -1149,9 +1148,9 @@ export default function Index({ addButton }) {
                     </div>
                   </div>
                 </div>
-                <hr></hr>
+                <hr className='m-0 border_color'/>
                 <div className={`${styles.dashboard_form} mb-3 card-body`}>
-                  <h5 className={styles.sub_heading}>Special Mention</h5>
+                  <h5 className={`${styles.sub_heading}`}>Special Mention</h5>
                   <Row>
                     <Col lg={12}>
                       <div className="mt-4">
@@ -1197,7 +1196,7 @@ export default function Index({ addButton }) {
                 handleShow,
               )
             : ''}
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"
@@ -1838,7 +1837,7 @@ const Discharge = (
   handleShow,
 ) => {
   return (
-    <div className={`${styles.main} vessel_card card border-color`}>
+    <div className={`${styles.main} vessel_card card border_color`}>
       <div
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >
@@ -1966,9 +1965,9 @@ const Discharge = (
           </div>
         </div>
       </div>
-      <hr></hr>
-      <div className={`${styles.dashboard_form} mb-3 card-body`}>
-        <h5 className={styles.sub_heading}>Special Mention</h5>
+      <hr className='m-0 border_color'/>
+      <div className={`${styles.dashboard_form} card-body`}>
+        <h5 className={`${styles.sub_heading} mt-3`}>Special Mention</h5>
         <Row>
           <Col lg={12}>
             <div className="mt-4">

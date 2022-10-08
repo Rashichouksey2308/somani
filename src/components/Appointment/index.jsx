@@ -190,7 +190,7 @@ export default function Index({ inspectionData ,setDate}) {
         className={`${styles.backgroundMain} container-fluid p-0 background2`}
       >
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} vessel_card card`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -199,7 +199,7 @@ export default function Index({ inspectionData ,setDate}) {
               </h3>
             </div>
 
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">

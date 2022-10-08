@@ -4413,7 +4413,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div
-                    className={`${styles.card} vessel_card accordionMargin card`}
+                    className={`${styles.card} vessel_card accordionMargin card border_color`}
                   >
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
@@ -5205,7 +5205,7 @@ function Index() {
                   </div>
 
                   <div
-                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card`}
+                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card border_color`}
                   >
                     <div
                       className={`${styles.cardHeader}  d-flex align-items-center justify-content-between`}

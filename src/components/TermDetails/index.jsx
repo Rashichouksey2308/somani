@@ -89,7 +89,7 @@ const Index = ({
         aria-labelledby="termDetails"
         data-parent="#termDetails"
       >
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
 
           <div className="row">
@@ -301,7 +301,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Transaction Details</h3>
 
           <div className="row">
@@ -694,7 +694,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Deliveries/Due date/Payment</h3>
 
           <div className="row">
@@ -774,7 +774,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
           <h3 className={styles.sub_heading}>Commercial Terms</h3>
           <div className="row">
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>

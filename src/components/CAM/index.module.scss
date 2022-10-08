@@ -216,8 +216,8 @@
   .doc_container {
     height: 108px;
 
-    background: var(--unnamed-color-ffffff);
-    background: #ffffff;
+    // background: var(--unnamed-color-ffffff);
+    // background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
 
@@ -227,7 +227,7 @@
       align-items: flex-start;
       flex-direction: column;
       span {
-        color: black !important;
+        // color: black !important;
       }
       .highlight {
         font-size: 16px;

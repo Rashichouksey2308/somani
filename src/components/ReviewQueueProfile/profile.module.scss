@@ -255,10 +255,8 @@
         width: 100%;
         display: table;
         table-layout: fixed;
-
         .table_scroll_inner {
           display: table-cell;
-
           .table {
             th {
               font-size: 15px;
@@ -484,36 +482,46 @@
         font-weight: 500;
         line-height: 25px;
       }
-      .table {
-        padding: 15px 35px;
-        .table_details {
-          border-collapse: collapse;
-          thead {
-            tr {
-              th {
-                font-weight: bold;
-                font-size: 16px;
-                line-height: 17px;
-                // color: #00000080;
-                border-top: none;
-                border-bottom: 2px solid #e6eaf0;
-                background: none !important;
-                &:first-child {
-                  padding-left: 0;
+      .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+          overflow-x: auto;
+          display: table-cell;
+          .table {
+            padding: 15px 35px;
+            .table_details {
+              border-collapse: collapse;
+              thead {
+                tr {
+                  th {
+                    font-weight: bold;
+                    font-size: 16px;
+                    line-height: 17px;
+                    // color: #00000080;
+                    border-top: none;
+                    white-space: nowrap;
+                    border-bottom: 2px solid #e6eaf0;
+                    background: none !important;
+                    &:first-child {
+                      padding-left: 0;
+                    }
+                  }
                 }
               }
-            }
-          }
-          tbody {
-            tr {
-              border: none;
-              font-size: 20px;
-              line-height: 25px;
-              font-weight: 500;
-              td {
-                border: none;
-                &:first-child {
-                  padding-left: 0;
+              tbody {
+                tr {
+                  border: none;
+                  font-size: 20px;
+                  line-height: 25px;
+                  font-weight: 500;
+                  td {
+                    border: none;
+                    &:first-child {
+                      padding-left: 0;
+                    }
+                  }
                 }
               }
             }
