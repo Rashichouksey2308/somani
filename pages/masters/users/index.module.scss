@@ -1,70 +1,91 @@
-.filter {
-    margin: 15px 0;
-    .search {
-        width: 28%;
-        .inputGroupPrepend {
-            top: 50%;
-            left: 31px;
-            z-index: 1;
-            position: absolute;
-            transform: translateY(-50%);
-        }
-        .formControl {
-            font-size: 18px !important;
-            //color: rgba(17, 17, 17, 0.45) !important;
-            font-weight: 500 !important;
-            line-height: 23px !important;
-            height: 48px !important;
-            z-index: 0 !important;
-            position: relative !important;
-            box-shadow: none !important;
-            padding-left: 65px !important;
-            border-radius: 24px !important;
-            border: 2px solid #D2D7E5 !important;
-        }
+@import "../../../src/components/styles/Core/config";
+
+.container_inner {
+    margin: 28px;
+    min-height: 74vh;
+    margin-bottom: 68px;
+    @include respond(sm-desktop) {
+      margin: 20px;
+      margin-bottom: 60px;
+      display: block !important;
     }
-    .filterIcon {
-        width: 48px;
-        height: 48px;
-        margin: 0 20px;
-        line-height: 40px;
-        text-align: center;
-        border-radius: 5px;
-        display: inline-block;
-        border: 3px solid #3687E8;
+    @include respond(phone) {
+      margin: 15px;
+      min-height: auto;
+      margin-bottom: 71px;
+    }
+
+    .filter {
+        min-height: 48px;
+        margin: 0 0 27px 0;
+        @include respond(sm-desktop) {
+          font-size: 26px;
+        }
+        @include respond(phone) {
+          font-size: 24px;
+        }
+      }
+    
+    .search {
+      width: 492px;
+      position: relative;
+      // margin-left: 20px;
+      @include respond(sm-desktop) {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      .inputGroupPrepend {
+        top: 50%;
+        left: 31px;
+        z-index: 1;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+      .formControl {
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        line-height: 23px !important;
+        height: 48px !important;
+        z-index: 0 !important;
+        position: relative !important;
+        box-shadow: none !important;
+        padding-left: 65px !important;
+        border-radius: 24px !important;
+        // border: 2px solid #d2d7e5 !important;
+      }
     }
     .filterList {
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 25px;
-        padding: 9px 12px;
-        border-radius: 8px;
-        margin: 0 10px 0 5px;
-        letter-spacing: 0.17px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 25px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      margin: 0 10px 0 5px;
+      letter-spacing: 0.17px;
+      display: inline-block;
+      text-transform: capitalize;
+      img {
+        width: 10px;
+        margin-left: 12px;
         display: inline-block;
-        text-transform: capitalize;
-        img {
-            width: 10px;
-            margin-left: 8px;
-            display: inline-block;
-        }
+      }
     }
-    .btnPrimary {
-        font-size: 20px;
-        color: #FFFFFF;
-        font-weight: bold;
-        line-height: 25px;
-        width: 12%;
-        padding: 10px 0 10px 0;
-        box-shadow: none;
-        text-align: center;
-        border-radius: 5px;
-        background: #3687E8;
-        display: inline-block;
-        text-transform: capitalize;
+    .createBtn {
+      font-size: 20px;
+      color: #ffffff;
+      font-weight: bold;
+      line-height: 25px;
+      width: 188px;
+      height: 48px;
+      padding: 12px 0;
+      box-shadow: none;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      background: #3687e8;
+      //display: inline-block;
+      text-transform: capitalize;
     }
-}
-
 .datatable {
     border-radius: 6px;
     border: 1px solid #D2D7E5;
@@ -135,7 +156,7 @@
         
     }
 }
-
+}
 .btn_file{
         cursor: pointer;
         padding: 10px 30px 10px 30px;

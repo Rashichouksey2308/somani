@@ -878,6 +878,13 @@ body.light-mode .text_sales {
 body.dark-mode .text_sales {
   color: #ffffff;
 }
+// body.light-mode .generic_th {
+//   color: #212529 !important;
+// }
+
+body.dark-mode .generic_th {
+  color: #ffffff;
+}
 body.light-mode .accordion_body {
   background: #f3f4f7 !important;
 }
@@ -896,9 +903,9 @@ body.light-mode th {
   background: #fafafb !important;
 }
 body.dark-mode td {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
   border-color: #434e61 !important;
-  background-color: #232936 !important;
+  // background-color: #232936 !important;
 }
 body.light-mode table_background {
   color: #8492a6;

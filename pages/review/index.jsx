@@ -188,6 +188,7 @@ function Index() {
   const [complienceFilter, setComplienceFilter] = useState('All')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
+  const [camConversionunit, setCamCoversionUnit] = useState(10000000)
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
@@ -207,6 +208,21 @@ function Index() {
 
       setComplienceStatutoryFilter(statutory)
       setComplienceBalanceFilter(balance)
+    }
+    if (
+      Array.isArray(companyData?.error) &&
+      companyData?.error?.length > 0
+    ) {
+      _get(companyData, 'error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          // toast.error(toastDiscription.toUpperCase(), {
+          //   toastId: toastDiscription,
+          // })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
     }
 
     if (
@@ -8715,9 +8731,13 @@ function Index() {
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
+                      onChange={(e) => setCamCoversionUnit(e.target.value)}
                     >
-                      <option selected value="Crores">
+                      <option selected value={10000000}>
                         Crores
+                      </option>
+                      <option value={100000}>
+                        Lakhs
                       </option>
                     </select>
                     <img
@@ -8941,7 +8961,7 @@ function Index() {
                   <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                    // style={{ cursor: 'pointer' }}
+                    style={{ cursor: 'default' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -8974,9 +8994,9 @@ function Index() {
                       data-parent="#profileAccordion"
                     >
                       <div
-                        className={` ${styles.cardBody_compliance} card-body border_color`}
+                        className={` ${styles.cardBody_compliance} card-body p-0 border_color`}
                       >
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span
                               className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
@@ -9020,7 +9040,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               High Risk ({level.high.length})
@@ -9060,7 +9080,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               Medium Risk ({level.medium.length})
@@ -9102,7 +9122,7 @@ function Index() {
                             </div>
                           </Col>
                         </Row>
-                        <Row className={` ${styles.row} mt-1 mb-1`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
                             <span className={styles.head}>
                               Low Risk ({level.low.length})
@@ -9198,7 +9218,7 @@ function Index() {
                       data-parent="#profileAccordion"
                     >
                       <div
-                        className={` ${styles.cardBody_details} card-body border_color`}
+                        className={` ${styles.cardBody_details} card-body pb-0 border_color`}
                       >
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
@@ -9648,6 +9668,7 @@ function Index() {
                     setTop3Share1={setTop3Share1}
                     setTop3Open1={setTop3Open1}
                     setTop5Customers1={setTop5Customers1}
+                    camConversionunit={camConversionunit}
                   />
                 </div>
               </div>
@@ -9802,7 +9823,7 @@ const table2 = (sat, balance, complienceFilter) => {
   }
   return (
     <table
-      className={`${styles.table_details} table border-color`}
+      className={`${styles.table_details} mb-0 table border_color`}
       cellPadding="0"
       cellSpacing="0"
       border="1"

@@ -136,7 +136,7 @@ function Index() {
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/Leads.svg"
+                  src="/static/leads-icon.svg"
                   className="img-fluid"
                   alt="All Leads"
                 />
@@ -252,7 +252,7 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
+                  <tr className="table_row border_color">
                     <th>
                       ORDER ID{' '}
                       <img src="/static/icons8-sort-24.svg" alt="Sort icon" onClick={()=>handleSort()} />{' '}
@@ -275,7 +275,7 @@ function Index() {
                   {_get(allTransitDetails, 'data', []).map(
                     (transaction, index) => {
                       return (
-                        <tr key={index} className="table_row">
+                        <tr key={index} className="table_row border_color">
                           <td>{_get(transaction, 'order.orderId', '')}</td>
                           <td
                             className={`${styles.buyerName}`}

@@ -259,7 +259,7 @@ const Index = ({
                 </div>
               ))}
 
-            <div className="d-flex mt-4 position-relative">
+            <div className="d-flex mt-4 mb-3 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -285,8 +285,8 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} border-0  mb-0`}></hr>
-          <div className={`${styles.dashboard_form} border_color`}>
+          <hr className={`${styles.line} border-0 m-0`} />
+          <div className={`${styles.dashboard_form} card-body border_color`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
@@ -351,9 +351,9 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} border_color`}></hr>
+          <hr className={`${styles.line} border_color m-0`}/>
 
-          <div className={`${styles.datatable} datatable`}>
+          <div className={`${styles.datatable} datatable border border_color`}>
             <h5 className="d-flex align-items-center">
               <span>Group Exposure Details</span>
             </h5>
@@ -648,7 +648,7 @@ const Index = ({
                   </div>
                 ))}
             </div>
-            <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
+            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
               <div className="d-flex mt-5 pb-5">

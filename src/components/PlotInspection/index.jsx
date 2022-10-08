@@ -112,14 +112,14 @@ console.log(_get(inspectionData,"order.transit"),"transit")
     <>
       <div className={`${styles.backgroundMain} container-fluid p-0 `}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Plot Inspection</h3>
             </div>
 
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex align-items-center">
@@ -142,7 +142,7 @@ console.log(_get(inspectionData,"order.transit"),"transit")
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"

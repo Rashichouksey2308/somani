@@ -354,7 +354,7 @@ export default function Index({
                 </div>
               </div>
             </div>
-            <div className={`${styles.dashboard_form} mt-3 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -529,7 +529,7 @@ export default function Index({
                 </div>
               </div>
             </div>
-            <div className={`${styles.table_container} mt-4`}>
+            <div className={`${styles.table_container} mt-0`}>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table

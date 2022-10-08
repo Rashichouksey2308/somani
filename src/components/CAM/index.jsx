@@ -18,7 +18,7 @@ import {
   Filler,
   Tooltip,
   Legend
-  
+
 } from 'chart.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
@@ -47,7 +47,7 @@ Chart.register(
   Filler,
   Tooltip,
   Legend
-  
+
 )
 
 function Index({
@@ -67,6 +67,7 @@ function Index({
   setTop3Share1,
   setTop3Open1,
   setTop5Customers1,
+  camConversionunit,
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
@@ -154,16 +155,16 @@ function Index({
     const length = _get(filteredData[0], 'bankName', '')
 
     return length
-  } 
+  }
 
-const totalLimitDebt = () => {
+  const totalLimitDebt = () => {
     let sum = 0;
     camData?.company?.debtProfile?.forEach(element => {
       sum += element.limit;
     })
     return Number(sum)
   }
-  
+
 
   const latestAuditorData = _get(
     camData,
@@ -294,15 +295,15 @@ const totalLimitDebt = () => {
     },
     plugins: {
       title: {
-      animation: {
+        animation: {
           animateScale: true,
         },
       },
-      
-     legend: {
+
+      legend: {
         display: false
       }
-    
+
     },
     responsive: true,
     cutout: 130,
@@ -350,10 +351,10 @@ const totalLimitDebt = () => {
         position: 'nearest',
         // external: externalTooltipHandler
       },
-       legend: {
+      legend: {
         display: false
       }
-      
+
     },
   }
   console.log(
@@ -670,11 +671,11 @@ const totalLimitDebt = () => {
 
   return (
     <>
-      {basicInfo(camData, orderDetails)}
+      {basicInfo(camData, orderDetails, camConversionunit)}
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating, darkMode)}
-      {groupExposure(camData)}
-      {orderSummary(camData)}
+      {groupExposure(camData, camConversionunit)}
+      {orderSummary(camData, camConversionunit)}
       {creditProfile(
         camData,
         openChargesLength,
@@ -684,11 +685,11 @@ const totalLimitDebt = () => {
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor)}
-      {debtProfile(data, options, tempArr, camData, totalLimitDebt)}
+      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor, camConversionunit)}
+      {debtProfile(data, options, tempArr, camData, totalLimitDebt, camConversionunit)}
       {operationalDetails(camData)}
-      {revenuDetails(gstData)}
-      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData)}
+      {revenuDetails(gstData, camConversionunit)}
+      {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData, camConversionunit)}
       {skewness(
         top5Customers,
         options,
@@ -698,6 +699,7 @@ const totalLimitDebt = () => {
         backgroundColor,
         totalCustomer,
         totalSupplier,
+        camConversionunit
       )}
       {financeDetails(
         data,
@@ -708,6 +710,7 @@ const totalLimitDebt = () => {
         companyData,
         latestYearData,
         previousYearData,
+        camConversionunit
       )}
       {compilanceStatus(companyData, camData)}
       {strengthAndWeakness(camData)}
@@ -732,7 +735,7 @@ const totalLimitDebt = () => {
 
 export default Index
 
-const basicInfo = (camData, orderDetails) => {
+const basicInfo = (camData, orderDetails, camConversionunit) => {
   // console
   return (
     <>
@@ -839,7 +842,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value`}>
-                    {convertValue(camData?.orderValue)?.toLocaleString(
+                    {convertValue(camData?.orderValue, camConversionunit)?.toLocaleString(
                       'en-In',
                       {
                         maximumFractionDigits: 2,
@@ -931,8 +934,8 @@ const basicInfo = (camData, orderDetails) => {
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
                     {camData?.ExpectedDateOfShipment
                       ? moment(camData?.ExpectedDateOfShipment).format(
-                          'DD-MM-YYYY',
-                        )
+                        'DD-MM-YYYY',
+                      )
                       : ''}
                   </span>
                 </Col>
@@ -949,8 +952,8 @@ const basicInfo = (camData, orderDetails) => {
 
                     {camData?.shipmentDetail?.ETAofDischarge?.fromDate
                       ? moment(
-                          camData?.shipmentDetail?.ETAofDischarge?.fromDate,
-                        ).format('DD-MM-YYYY')
+                        camData?.shipmentDetail?.ETAofDischarge?.fromDate,
+                      ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -972,8 +975,8 @@ const basicInfo = (camData, orderDetails) => {
                       : ''} */}
                     {camData?.shipmentDetail?.loadPort?.fromDate
                       ? moment(
-                          camData?.shipmentDetail?.loadPort?.fromDate,
-                        ).format('DD-MM-YYYY')
+                        camData?.shipmentDetail?.loadPort?.fromDate,
+                      ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -995,8 +998,8 @@ const basicInfo = (camData, orderDetails) => {
                       : ''} */}
                     {camData?.shipmentDetail?.loadPort?.toDate
                       ? moment(
-                          camData?.shipmentDetail?.loadPort?.toDate,
-                        ).format('DD-MM-YYYY')
+                        camData?.shipmentDetail?.loadPort?.toDate,
+                      ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1075,8 +1078,8 @@ const supplierInfo = (camData) => {
                       : ''} */}
                     {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
-                          camData?.supplierCredential?.latestShipmentDate,
-                        ).format('DD-MM-YYYY')
+                        camData?.supplierCredential?.latestShipmentDate,
+                      ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1104,8 +1107,8 @@ const supplierInfo = (camData) => {
                       : ''} */}
                     {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
-                          camData?.supplierCredential?.oldestShipmentDate,
-                        ).format('DD-MM-YYYY')
+                        camData?.supplierCredential?.oldestShipmentDate,
+                      ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1141,7 +1144,7 @@ const supplierInfo = (camData) => {
     </>
   )
 }
-const groupExposure = (camData) => {
+const groupExposure = (camData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1201,7 +1204,7 @@ const groupExposure = (camData) => {
                                   LIMIT
                                 </span>
                               </div>
-                              <span>{exp.limit}</span>
+                              <span>{convertValue(exp.limit, camConversionunit).toLocaleString('en-In', { maximumFractionDigits: 2 })}</span>
                             </div>
                             <div className={`${styles.bar}`}>
                               <div className={`${styles.fill}`}></div>
@@ -1216,7 +1219,7 @@ const groupExposure = (camData) => {
                                   O/S BALANCE
                                 </span>
                               </div>
-                              <span>{exp.outstandingLimit}</span>
+                              <span>{convertValue(exp.outstandingLimit, camConversionunit).toLocaleString('en-In', { maximumFractionDigits: 2 })}</span>
                             </div>
                             <div className={`${styles.bar}`}>
                               <div className={`${styles.fill}`}></div>
@@ -1384,7 +1387,7 @@ const groupExposure = (camData) => {
     </>
   )
 }
-const orderSummary = (camData) => {
+const orderSummary = (camData, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1404,7 +1407,7 @@ const orderSummary = (camData) => {
           aria-labelledby="orderSummary"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.order_wrapper} px-0 border_color`}>
+          <div className={`${styles.order_wrapper} px-0 card-body border_color`}>
             <table
               className={`${styles.table} table mb-0 border_color`}
               cellPadding="0"
@@ -1443,7 +1446,7 @@ const orderSummary = (camData) => {
                   </span>
                 </td>
                 <td>{camData?.orderId}</td>
-                <td>{CovertvaluefromtoCR(camData?.orderValue)?.toLocaleString('en-In')}</td>
+                <td>{convertValue(camData?.orderValue, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
 
@@ -1532,7 +1535,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor ===
-                    previousAuditorData?.nameOfAuditor
+                      previousAuditorData?.nameOfAuditor
                       ? ' No'
                       : 'Yes'}
                   </span>
@@ -1747,12 +1750,12 @@ const shareHolding = (
                             <td>
                               {share?.percentageShareHolding
                                 ? share?.percentageShareHolding?.toLocaleString(
-                                    'en-IN',
-                                    {
-                                      maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2,
-                                    },
-                                  ) + '%'
+                                  'en-IN',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                ) + '%'
                                 : ''}
                             </td>
                             <td>{share?.director ? 'Yes' : 'No'}</td>
@@ -1815,6 +1818,7 @@ const chargeDetails = (
   tempArr,
   camData,
   backgroundColor,
+  camConversionunit
 ) => {
   console.log(top3Open, 'top3Open')
   return (
@@ -1929,17 +1933,18 @@ const chargeDetails = (
                               </span>
                             </td>
                             <td>
-                              {Number(
+                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', { maximumFractionDigits: 2 })}
+                              {/* {Number(
                                 charge?.finalAmountSecured,
-                              )?.toLocaleString('en-In')}
+                              )?.toLocaleString('en-In')} */}
                             </td>
 
                             <td>
                               {charge?.dateOfCreationOfCharge
                                 ? moment(
-                                    charge?.dateOfCreationOfCharge,
-                                    'DD-YY-MMMM',
-                                  ).format('DD-MM-YYYY')
+                                  charge?.dateOfCreationOfCharge,
+                                  'DD-YY-MMMM',
+                                ).format('DD-MM-YYYY')
                                 : ''}
                             </td>
                           </tr>
@@ -1995,7 +2000,7 @@ const chargeDetails = (
     </>
   )
 }
-const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
+const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConversionunit) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2026,10 +2031,10 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
                       Total Limit
                     </span>
                   </div>
-                  <span>{totalLimitDebt().toLocaleString( 'en-In',
-    {
-      maximumFractionDigits: 2,
-    })}</span>
+                  <span>{totalLimitDebt().toLocaleString('en-In',
+                    {
+                      maximumFractionDigits: 2,
+                    })}</span>
                 </div>
                 <div className={`${styles.bar}`}>
                   <div
@@ -2062,35 +2067,32 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
                    `}
                             style={{
                               color: ` 
-                      ${
-                        debt.conduct == 'Good'
-                          ? '#43C34D'
-                          : debt.conduct == 'Satisfactory'
-                          ? '#FF9D00'
-                          : debt.conduct == 'Average'
-                          ? 'average'
-                          : '#EA3F3F'
-                      }`,
+                      ${debt.conduct == 'Good'
+                                  ? '#43C34D'
+                                  : debt.conduct == 'Satisfactory'
+                                    ? '#FF9D00'
+                                    : debt.conduct == 'Average'
+                                      ? 'average'
+                                      : '#EA3F3F'
+                                }`,
                             }}
                           >
                             {debt.limitType}
                           </span>
                           <div
                             style={{
-                              backgroundColor: `${
-                                debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
+                              backgroundColor: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : '#EA3F3F'
-                              }`,
-                              width: `${
-                                (Number(debt.limit) / totalLimitDebt() > 1
-                                  ? 1
-                                  : Number(debt.limit) / totalLimitDebt()) * 100
-                              }%`,
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
+                              width: `${(Number(debt.limit) / totalLimitDebt() > 1
+                                ? 1
+                                : Number(debt.limit) / totalLimitDebt()) * 100
+                                }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
@@ -2158,15 +2160,14 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
                           })}
                         </td>
                         <td
-                          className={`${styles.conduct}  ${
-                            debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${debt.conduct == 'Good'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                              ? 'average'
-                              : 'danger'
-                          }`}
+                                ? 'average'
+                                : 'danger'
+                            }`}
                         >
                           {debt?.conduct}
                         </td>
@@ -2239,10 +2240,10 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(
-                          camData?.productSummary?.monthlyProductionCapacity,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        camData?.productSummary?.monthlyProductionCapacity,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? 'MT'
@@ -2259,10 +2260,10 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(
-                          camData?.productSummary?.averageStockInTransit,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        camData?.productSummary?.averageStockInTransit,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                   </span>
@@ -2316,10 +2317,10 @@ const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(
-                          camData?.productSummary?.availableStock,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        camData?.productSummary?.availableStock,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.availableStock ? 'MT' : ''}
                   </span>
@@ -2340,10 +2341,10 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(
-                          camData?.productSummary?.AvgMonthlyElectricityBill,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        camData?.productSummary?.AvgMonthlyElectricityBill,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
                       : ''}
                   </span>
                 </Col>
@@ -2362,10 +2363,10 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(
-                          camData?.productSummary?.dailyConsumptionOfCommodity,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        })
+                        camData?.productSummary?.dailyConsumptionOfCommodity,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
                       : ''}{' '}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? 'MT'
@@ -2380,7 +2381,7 @@ const operationalDetails = (camData) => {
     </>
   )
 }
-const revenuDetails = (gstData) => {
+const revenuDetails = (gstData, camConversionunit) => {
   const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary
 
   function calcPc(n1, n2) {
@@ -2427,7 +2428,7 @@ const revenuDetails = (gstData) => {
                 <td>Gross Revenue</td>
                 <td>
                   {RevenueDetails?.grossTurnover?.previous?.value ||
-                  RevenueDetails?.grossTurnover?.current?.value ? (
+                    RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2443,21 +2444,13 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {convertValue(RevenueDetails?.grossTurnover?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {convertValue(RevenueDetails?.grossTurnover?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2473,7 +2466,7 @@ const revenuDetails = (gstData) => {
                 <td>Related Party Sales</td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2489,23 +2482,15 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.relatedPartySales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {convertValue(RevenueDetails?.relatedPartySales?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.relatedPartySales?.previous?.value,
-                      ),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {convertValue(RevenueDetails?.relatedPartySales?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2521,7 +2506,7 @@ const revenuDetails = (gstData) => {
                 <td>Intra Organization Sales</td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2537,25 +2522,31 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(
                         RevenueDetails?.intraOrgSalesPercent?.current?.value,
                       ),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.intraOrgSalesPercent?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(
                         RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       ),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.intraOrgSalesPercent?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2571,7 +2562,7 @@ const revenuDetails = (gstData) => {
                 <td>B2B Sales</td>
                 <td>
                   {RevenueDetails?.B2BSales?.previous?.value ||
-                  RevenueDetails?.B2BSales?.current?.value ? (
+                    RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2587,21 +2578,27 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.B2BSales?.current?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.B2BSales?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.B2BSales?.previous?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.B2BSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2617,7 +2614,7 @@ const revenuDetails = (gstData) => {
                 <td>B2C Sales</td>
                 <td>
                   {RevenueDetails?.B2CSales?.previous?.value ||
-                  RevenueDetails?.B2CSales?.current?.value ? (
+                    RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2633,21 +2630,28 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.B2CSales?.current?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+
+                  {convertValue(RevenueDetails?.B2CSales?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.B2CSales?.previous?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.B2CSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2663,7 +2667,7 @@ const revenuDetails = (gstData) => {
                 <td>Export Sales</td>
                 <td>
                   {RevenueDetails?.exportSales?.previous?.value ||
-                  RevenueDetails?.exportSales?.current?.value ? (
+                    RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2679,21 +2683,27 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.exportSales?.current?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.exportSales?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.exportSales?.previous?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.exportSales?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2709,7 +2719,7 @@ const revenuDetails = (gstData) => {
                 <td>Total Customers</td>
                 <td>
                   {RevenueDetails?.ttlCustomer?.previous?.value ||
-                  RevenueDetails?.ttlCustomer?.current?.value ? (
+                    RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2725,21 +2735,21 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.ttlCustomer?.current?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.ttlCustomer?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlCustomer?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {convertValue(RevenueDetails?.ttlCustomer?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2755,7 +2765,7 @@ const revenuDetails = (gstData) => {
                 <td>Total Invoices</td>
                 <td>
                   {RevenueDetails?.ttlInv?.previous?.value ||
-                  RevenueDetails?.ttlInv?.current?.value ? (
+                    RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2771,21 +2781,27 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.ttlInv?.current?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.ttlInv?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
-                  {checkNan(
+                  {/* {checkNan(
                     CovertvaluefromtoCR(
                       Number(RevenueDetails?.ttlInv?.previous?.value),
                     ).toFixed(2),
                     true,
-                  )}{' '}
+                  )} */}
+                  {convertValue(RevenueDetails?.ttlInv?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                  {' '}
                   Cr
                 </td>
                 <td>
@@ -2829,6 +2845,7 @@ const financeDetails = (
   companyData,
   latestYearData,
   previousYearData,
+  camConversionunit
 ) => {
   return (
     <>
@@ -2884,7 +2901,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[0].equityLiabilities.totalEquity',
                           '',
-                        ),
+                        ), camConversionunit
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2896,7 +2913,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.totalEquity',
                           '',
-                        ),
+                        ),camConversionunit
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2913,12 +2930,12 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                             '',
                           ) +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                              '',
-                            ),
-                        ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                            '',
+                          ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2932,12 +2949,12 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                             '',
                           ) +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                              '',
-                            ),
-                        ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                            '',
+                          ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2954,12 +2971,12 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.tradePay',
                             '',
                           ) +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
-                        ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2973,12 +2990,12 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.tradePay',
                             '',
                           ) +
-                            _get(
-                              companyData,
-                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                              '',
-                            ),
-                        ),
+                          _get(
+                            companyData,
+                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                            '',
+                          ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2993,7 +3010,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3005,7 +3022,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3059,8 +3076,8 @@ const financeDetails = (
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>{latestYearData?.daysOfInventoryOutstanding}</td>
-                    <td>{previousYearData?.daysOfInventoryOutstanding}</td>
+                    <td>{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
+                    <td>{previousYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
                   </tr>
                   <tr>
                     <th
@@ -3139,7 +3156,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3151,7 +3168,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3166,7 +3183,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3178,7 +3195,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3193,7 +3210,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3205,7 +3222,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
-                        ),
+                        ),camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3354,20 +3371,20 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {[].forEach((l, index2) => {})}
+                    {[].forEach((l, index2) => { })}
                     {_get(
                       companyData,
                       'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
                       '',
                     ) != ''
                       ? moment(
-                          _get(
-                            companyData,
-                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                            '',
-                          ),
-                          'MMyyyy',
-                        ).format('MM-yyyy')
+                        _get(
+                          companyData,
+                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                          '',
+                        ),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -3682,11 +3699,10 @@ const sectionTerms = (
                                   val?.suggested?.value,
                                 )?.toLocaleString('en-In'),
                               )}
-                              {` ${
-                                camData?.unitOfValue === 'Crores'
-                                  ? 'Cr'
-                                  : camData?.unitOfValue
-                              }`}
+                              {` ${camData?.unitOfValue === 'Crores'
+                                ? 'Cr'
+                                : camData?.unitOfValue
+                                }`}
                             </td>
                           ))}{' '}
                       </>
@@ -3719,8 +3735,8 @@ const sectionTerms = (
                           isFieldInFocus.LimitValue
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(
-                                Number(approvedCredit?.approvedCreditValue),
-                              )?.toLocaleString('en-In')
+                              Number(approvedCredit?.approvedCreditValue),
+                            )?.toLocaleString('en-In')
                         }
                         // defaultValue={approvedCredit?.approvedCreditValue}
                         name="approvedCreditValue"
@@ -3743,11 +3759,10 @@ const sectionTerms = (
                       {checkNan(
                         CovertvaluefromtoCR(camData?.suggestedOrderValue),
                       )}
-                      {` ${
-                        camData?.unitOfValue === 'Crores'
-                          ? 'Cr'
-                          : camData?.unitOfValue
-                      }`}
+                      {` ${camData?.unitOfValue === 'Crores'
+                        ? 'Cr'
+                        : camData?.unitOfValue
+                        }`}
 
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
@@ -3779,8 +3794,8 @@ const sectionTerms = (
                           isFieldInFocus.OrderValue
                             ? approvedCredit?.approvedOrderValue
                             : checkNan(
-                                Number(approvedCredit?.approvedOrderValue),
-                              )?.toLocaleString('en-In')
+                              Number(approvedCredit?.approvedOrderValue),
+                            )?.toLocaleString('en-In')
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
@@ -3866,11 +3881,11 @@ const Documents = (documentsFetched) => {
                 documentsFetched?.documents?.map((doc, index) => (
                   <Col md={3} key={index} className={`mb-3`}>
                     <div
-                      className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
+                      className={`${styles.doc_container} p-2 border_color d-flex align-items-center justify-content-start`}
                     >
                       <img src="./static/icon file copy.svg"></img>
                       <div className={`${styles.view} ml-4`}>
-                        <span>{doc.name}</span>
+                        <span className='text_sales'>{doc.name}</span>
                         <span
                           onClick={() =>
                             dispatch(
@@ -3979,6 +3994,7 @@ const trends = (
   chartData2,
   lineOption,
   gstData,
+  camConversionunit,
 ) => {
   return (
     <>
@@ -4003,7 +4019,7 @@ const trends = (
                   Quarterly
                 </option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4028,15 +4044,17 @@ const trends = (
                   <span className={`${styles.head}`}>Gross Revenue</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
-                    {checkNan(
+                    {/* {checkNan(
                       CovertvaluefromtoCR(
                         Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
+                          gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
                         ),
                       ).toFixed(2),
                       true,
-                    )}{' '}
+                    )} */}
+                    {convertValue(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                    {' '}
                     Cr
                     {/* {checkNan(
                       Number(
@@ -4072,15 +4090,17 @@ const trends = (
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
-                    {checkNan(
+                    {/* {checkNan(
                       CovertvaluefromtoCR(
                         Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
+                          gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
                         ),
                       ).toFixed(2),
                       true,
-                    )}{' '}
+                    )} */}
+                    {convertValue(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                    {' '}
                     Cr
                     {/* {checkNan(
                       Number(
@@ -4127,6 +4147,7 @@ const skewness = (
   backgroundColor,
   totalCustomer,
   totalSupplier,
+  camConversionunit
 ) => {
   return (
     <>
@@ -4151,7 +4172,7 @@ const skewness = (
                   Quarterly
                 </option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4176,15 +4197,16 @@ const skewness = (
                   <span className={`${styles.head}`}>Gross Revenue</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
-                    {checkNan(
+                    {/* {checkNan(
                       CovertvaluefromtoCR(
                         Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
+                          gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value,
                         ),
                       ).toFixed(2),
                       true,
-                    )}{' '}
+                    )} */}
+                    {convertValue(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                    {' '}
                     Cr
                   </span>
                 </div>
@@ -4243,15 +4265,17 @@ const skewness = (
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
-                    {checkNan(
+                    {/* {checkNan(
                       CovertvaluefromtoCR(
                         Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
+                          gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value,
                         ),
                       ).toFixed(2),
                       true,
-                    )}{' '}
+                    )} */}
+                    {convertValue(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+
+                    {' '}
                     Cr
                   </span>
                 </div>
@@ -4430,7 +4454,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         cy="21"
                         r="15.91549430918954"
                         // fill='#000'
-                       fill={`${!darkMode ? '#fff' : '#293141'}`}
+                        fill={`${!darkMode ? '#fff' : '#293141'}`}
                       ></circle>
                       <circle
                         className={`${styles.donutRing}`}
@@ -4438,8 +4462,8 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         cy="21"
                         r="15.91549430918954"
                         fill="transparent"
-                       // stroke="white"
-                       stroke={`${!darkMode ? '#fff' : '#293141'}`}
+                        // stroke="white"
+                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
                         strokeWidth="3"
                       ></circle>
 

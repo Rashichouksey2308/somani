@@ -259,7 +259,7 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails }) 
                     </div>
                 </div>
 
-                <hr></hr>
+                <hr className='m-0 border_color'/>
                 <div className={`${styles.dashboard_form} card-body`}>
 
                     <h3 className={`${styles.comment_heading} font-weight-medium`}>Comments</h3>

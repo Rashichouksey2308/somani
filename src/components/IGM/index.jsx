@@ -517,7 +517,7 @@ export default function Index({
                   <span className={styles.value}>
                     {_get(
                       TransitDetails,
-                      'data[0].order.quantity',
+                      'data[0].BL.billOfLading[0].blQuantity',
                       '',
                     )?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
@@ -882,9 +882,7 @@ export default function Index({
                                 <span className={styles.value}>
                                   {blEntry?.blDate
                                     ? moment(
-                                        blEntry?.blDate?.slice(0, 10),
-                                        'YYYY-MM-DD',
-                                        true,
+                                        blEntry?.blDate
                                       ).format('DD-MM-YYYY')
                                     : ''}
                                 </span>
