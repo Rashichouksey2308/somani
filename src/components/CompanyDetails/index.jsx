@@ -278,7 +278,7 @@ const Index = ({
               {gettingCompanyPanResponse && serachterm && boolean1 && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {gettingCompanyPanResponse1.map((results, index) => (
+                    {gettingCompanyPanResponse.map((results, index) => (
                       <li
                         onClick={() => handleFilteredData(results)}
                         id={results._id}
