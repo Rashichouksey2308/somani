@@ -9,7 +9,7 @@ import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import { GetPanGst } from 'redux/GetPanGst/action'
 import { GetGst } from 'redux/registerBuyer/action'
-
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -36,7 +36,7 @@ const Index = ({
 
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
-  console.log(slider, 'slider16513')
+  
   const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
@@ -64,9 +64,7 @@ const Index = ({
   }
 
   const getSlider = (val) => {
-    console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
-      console.log('slider1')
       return (
         <div className={styles.slidecontainer}>
           <input
@@ -113,8 +111,7 @@ const Index = ({
     }
   }
 
-  useEffect(() => {
-    
+  useEffect(() => { 
     setCompPanName(gstList?.data?.companyData?.companyName)
   }, [gstList])
   
@@ -148,6 +145,7 @@ const Index = ({
       setCompPan(results?.pans[0])
       setCompPanName(results?.name)
       setBoolean1(false)
+      dispatch(GetGst(results?.pans[0]))
     } else {
       let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
       if (!toast.isActive(toastMessage)) {
