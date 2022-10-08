@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { data } from 'jquery'
 import { settingSidebar } from '../breadcrumb/action'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function createBuyer() {
   return {
     type: types.REGISTER_BUYER,
@@ -180,6 +180,7 @@ export const routeNewBuyer = (payload) => async (dispatch, getState, api) => {
 }
 
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   dispatch(createBuyer())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -218,12 +219,14 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         // Router.push('/leads')
 
         // payload.history.goBack()
+        dispatch(setNotLoading())
       } else {
         dispatch(createBuyerFailed(response.data.data))
         let toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -233,11 +236,13 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateBuyer()
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -251,14 +256,17 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
         dispatch(updateBuyerSuccess(response.data))
         dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
         Router.push('/review')
+        dispatch(setNotLoading())
       } else {
         dispatch(updateBuyerFailed(response.data))
         console.log('UPDATE REQUEST FAILED')
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(updateBuyerFailed())
     console.log(error, 'UPDATE API FAILED')
+    dispatch(setNotLoading())
   }
 }
 
@@ -279,6 +287,7 @@ export const settingDocument = (payload) => {
 
 export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
+  dispatch(setIsLoading())
   // console.log(company, "in getbuyer1")
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -294,20 +303,24 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getBuyerSuccess(response.data.data))
         // toast.error("Buyers fetched")
+        dispatch(setNotLoading())
       } else {
         dispatch(getBuyerFailed(response.data.data))
         let toastMessage = 'Could not fetch Company Details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getBuyerFailed())
+    dispatch(setNotLoading())
   }
 }
 
 export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -319,23 +332,26 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllBuyerSuccess(response.data))
-        // toast.error("Buyers fetched")
+        dispatch(setNotLoading())
       } else {
         dispatch(getAllBuyerFailed(response.data))
         let toastMessage = 'Could not fetch Company Details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getAllBuyerFailed())
     console.log(error, 'GET ALL BUYER API FAILED')
+    dispatch(setNotLoading())
   }
 }
 
 export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -350,20 +366,24 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
     if (response.data.code === 200) {
       dispatch(getAllOrderSuccess(response.data.data))
       // toast.error("Buyers fetched")
+      dispatch(setNotLoading())
     } else {
       dispatch(getAllOrderFailed(response.data.data))
       let toastMessage = 'Getting orders failed'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(getAllOrderFailed())
     console.log(error, 'GET ALL ORDER API FAILED')
+    dispatch(setNotLoading())
   }
 }
 
 export const GetOrders = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   try {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -375,22 +395,26 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getOrderSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getOrderFailed(response.data.data))
         let toastMessage = 'Getting Order List Failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getOrderFailed())
     console.log(error, 'GET ALL ORDERS API FAILED')
+    dispatch(setNotLoading())
   }
 }
 
 export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
+  dispatch(setIsLoading())
   try {
     const response = await api.delete(
       `${API.createBuyer}?BuyerId=${payload.BuyerId}`,
@@ -401,18 +425,22 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
       // window.location.reload(false)
       payload.history.go(0)
       toast.error('Buyer Deleted Succesfully')
+      dispatch(setNotLoading())
     } else {
       dispatch(deleteBuyerFailed(response.data.data))
       toast.error('Buyer could not be deleted')
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(deleteBuyerFailed())
     toast.error('Buyer could not be deleted')
+    dispatch(setNotLoading())
   }
 }
 
 export const GetGst = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -428,21 +456,25 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getGstSuccess(response.data))
         // toast.error("Buyers fetched")
+        dispatch(setNotLoading())
       } else {
         dispatch(getGstFailed(response.data))
         let toastMessage = 'Could not fetch Gst at this moment'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(getGstFailed())
     console.log('GET GST API FAILED')
+    dispatch(setNotLoading())
   }
 }
 
 export const UploadDocument = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -454,11 +486,14 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(uploadingDocumentSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(uploadingDocumentFailed())
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
     dispatch(uploadingDocumentFailed())
+    dispatch(setNotLoading())
   }
 }

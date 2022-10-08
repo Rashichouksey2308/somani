@@ -4,7 +4,7 @@ import Axios from 'axios'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getPanGst() {
   return {
     type: types.GET_COMPANY_PAN,
@@ -25,6 +25,7 @@ function getPanGstFailed() {
 }
 
 export const GetPanGst = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   //   dispatch(getPanGst())
   let cookie = Cookies.get('SOMANI')
 
@@ -33,7 +34,6 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    
     Axios.post(
       `${API.baseUrl}${API.getPanGst}`,
       { name: payload.query },
@@ -43,12 +43,14 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getPanGstSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getPanGstFailed(response.data.data))
         let toastMessage = 'FAILED TO GET COMPANY PAN'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -57,5 +59,6 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

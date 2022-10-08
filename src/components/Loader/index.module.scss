@@ -1,9 +1,44 @@
+.backDrop{
+	align-items: center;
+		animation: animate-bg 5s linear infinite;
+		display: flex;
+		flex-wrap: wrap;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 100vh;
+		margin: auto;
+		z-index: 3000;
+
+	-webkit-filter: blur(1px);
+	-moz-filter: blur(1px);
+	-o-filter: blur(1px);
+	-ms-filter: blur(1px);
+	filter: blur(1px);
+	background: rgb(20 20 20 / 35%);
+		justify-content: center;
+	
+		&>div {
+			margin: 50px;
+		}
+}
 .main {
 	align-items: center;
 	animation: animate-bg 5s linear infinite;
 	display: flex;
 	flex-wrap: wrap;
-	min-height: 100vh;
+	position: fixed;
+	// top: 0;
+	// left: 0;
+	// right: 0;
+	bottom: 0;
+	height: 100vh;
+	margin: auto;
+	z-index: 3000;
+	
+	
 	justify-content: center;
     & > div {
 	    margin: 50px;

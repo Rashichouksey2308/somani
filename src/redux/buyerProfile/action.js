@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function updateCredit() {
   return {
     type: types.UPDATE_CREDIT,
@@ -137,6 +137,7 @@ function updatetermsheetfailed() {
 }
 
 export const SearchLeads = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -149,12 +150,14 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(searchLeadsSuccess(response.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(searchLeadsFailed(response.data))
         const toastMessage = 'Search Leads request Failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -163,11 +166,13 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateCredit()
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -187,12 +192,15 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
         let id2 = sessionStorage.getItem('companyID')
         dispatch(GetAllOrders({ orderId: id1 }))
         dispatch(GetCompanyDetails({ company: id2 }))
+
+        dispatch(setNotLoading())
       } else {
         dispatch(updateCreditFailed(response.data))
         const toastMessage = 'UPDATE REQUEST FAILED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -201,11 +209,13 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateCreditCalculate =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -225,12 +235,14 @@ export const UpdateCreditCalculate =
           let id2 = sessionStorage.getItem('companyID')
           dispatch(GetAllOrders({ orderId: id1 }))
           dispatch(GetCompanyDetails({ company: id2 }))
+          dispatch(setNotLoading())
         } else {
           dispatch(updateCreditCalFailed(response.data.data))
           const toastMessage = 'UPDATE REQUEST FAILED'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -239,6 +251,7 @@ export const UpdateCreditCalculate =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
@@ -246,6 +259,7 @@ export const UpdateOrderShipment =
   (payload) => async (dispatch, getState, api) => {
     //   dispatch(updateOrder()
     // console.log(payload, 'update order shipment')
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -265,12 +279,14 @@ export const UpdateOrderShipment =
           let id2 = sessionStorage.getItem('companyID')
           dispatch(GetAllOrders({ orderId: id1 }))
           dispatch(GetCompanyDetails({ company: id2 }))
+          dispatch(setNotLoading())
         } else {
           dispatch(updateOrderFailed(response.data.data))
           const toastMessage = 'UPDATE REQUEST FAILED'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -279,6 +295,7 @@ export const UpdateOrderShipment =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
@@ -286,6 +303,7 @@ export const UpdateOrderShipment =
 
 export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     dispatch(gettermsheet())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -298,12 +316,14 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
     )
     if (response.data.code === 200) {
       dispatch(gettermsheetsuccess(response.data.data))
+      dispatch(setNotLoading())
     } else {
       dispatch(gettermsheetfailed(response.data.data))
       let toastMessage = 'Could not fetch Termsheet'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(gettermsheetfailed())
@@ -312,11 +332,13 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -330,12 +352,14 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getALLTermsheetsuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getALLTermsheetfailed(response.data.data))
         let toastMessage = 'Could not fetch Termsheet'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -344,12 +368,14 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 /////////******** Update Termsheet *******////////
 
 export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -369,7 +395,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-
+      dispatch(setNotLoading())
       return response.data.code
     } else {
       dispatch(updatetermsheetfailed(response.data))
@@ -377,6 +403,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updatetermsheetfailed())
@@ -385,4 +412,5 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
+  dispatch(setNotLoading())
 }

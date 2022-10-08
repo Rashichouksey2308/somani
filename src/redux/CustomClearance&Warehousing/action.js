@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getCustomClearance() {
   return {
     type: types.GET_CUSTOM_CLEARANCE,
@@ -57,6 +57,7 @@ function updateCustomClearanceFailed() {
 
 export const GetAllCustomClearance =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -70,6 +71,7 @@ export const GetAllCustomClearance =
       )
       if (response.data.code === 200) {
         dispatch(getAllCustomClearanceSuccess(response.data.data))
+        dispatch(setNotLoading())
         return response.data.code
       } else {
         dispatch(getAllCustomClearanceFailed(response.data.data))
@@ -77,6 +79,7 @@ export const GetAllCustomClearance =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(getAllCustomClearanceFailed())
@@ -85,11 +88,13 @@ export const GetAllCustomClearance =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const GetCustomClearance =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -101,12 +106,14 @@ export const GetCustomClearance =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(getCustomClearanceSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getCustomClearanceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -116,11 +123,13 @@ export const GetCustomClearance =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const UpdateCustomClearance =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     // let CustomId = sessionStorage.getItem('customId')
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -146,6 +155,7 @@ export const UpdateCustomClearance =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
         return response.data.code
       } else {
         dispatch(updateCustomClearanceFailed(response.data.data))
@@ -153,6 +163,7 @@ export const UpdateCustomClearance =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(updateCustomClearanceFailed())
@@ -161,10 +172,12 @@ export const UpdateCustomClearance =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -180,12 +193,14 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       } else {
         dispatch(getCustomClearanceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -195,5 +210,6 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

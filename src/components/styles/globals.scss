@@ -8,6 +8,7 @@
   ::-webkit-scrollbar {
     width: $size;
     height: $size;
+  
   }
 
   ::-webkit-scrollbar-thumb {
@@ -24,6 +25,7 @@
   body {
     scrollbar-face-color: $foreground-color;
     scrollbar-track-color: $background-color;
+    
   }
 }
 

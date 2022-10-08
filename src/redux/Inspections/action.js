@@ -5,7 +5,7 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
 import moment from 'moment'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getInspection() {
   return {
     type: types.GET_INSPECTION,
@@ -64,6 +64,7 @@ function updateDate(payload) {
 }
 export const GetAllInspection =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     console.log(
@@ -83,12 +84,14 @@ export const GetAllInspection =
 
       if (response.data.code === 200) {
         dispatch(getAllInspectionSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getAllInspectionFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(getAllInspectionFailed())
@@ -97,10 +100,12 @@ export const GetAllInspection =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const GetInspection = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -124,12 +129,14 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
           moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a'),
         ),
       )
+      dispatch(setNotLoading())
     } else {
       dispatch(getInspectionFailed(response.data.data))
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(getInspectionFailed())
@@ -138,12 +145,14 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateInspection =
   (payload) => async (dispatch, getState, api) => {
     try {
+      dispatch(setIsLoading())
       let cookie = Cookies.get('SOMANI')
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
       console.log(payload.task, 'payload Third party23')
@@ -188,6 +197,7 @@ export const UpdateInspection =
           )
         }
         dispatch(updateInspectionSuccess(response.data.data))
+        dispatch(setNotLoading())
         return response.data.code
       } else {
         dispatch(updateInspectionFailed(response.data.data))
@@ -195,6 +205,7 @@ export const UpdateInspection =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(updateInspectionFailed())
@@ -203,5 +214,6 @@ export const UpdateInspection =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }

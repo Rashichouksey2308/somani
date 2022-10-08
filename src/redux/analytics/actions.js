@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 // import history from '../../history'
 import Cookies from 'js-cookie'
 import { setAuthenticationCookie } from '../../utils/authentication'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 const errorMessage = {
   status: 400,
   message: 'Something went wrong',
@@ -53,6 +53,7 @@ function getExposureData(payload) {
 
 export const getAnalystData = () => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     console.log(cookie, 'cookie')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -135,7 +136,9 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     if (exposureSummary.data.code == 200) {
       dispatch(getExposureData(exposureSummary.data.data.data))
     }
+    dispatch(setNotLoading())
   } catch (error) {
+    dispatch(setNotLoading())
     console.log('API FAILED')
     // dispatch(loggingUserFailed(errorMessage))
   }

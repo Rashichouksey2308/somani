@@ -5,7 +5,7 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
 import { settingSidebar } from '../breadcrumb/action'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getAllMarginMoney() {
   return {
     type: types.GET_ALL_MARGINMONEY,
@@ -77,6 +77,7 @@ function updatingRevisedMarginMoneyFailed() {
 export const GetAllMarginMoney =
   (payload) => async (dispatch, getState, api) => {
     try {
+      dispatch(setIsLoading())
       let cookie = Cookies.get('SOMANI')
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -90,17 +91,19 @@ export const GetAllMarginMoney =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllMarginMoneySuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAllMarginMoneyFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
       dispatch(getAllMarginMoneyFailed())
-
+      dispatch(setNotLoading())
       let toastMessage = 'GET MARGIN MONEY API FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -109,6 +112,7 @@ export const GetAllMarginMoney =
   }
 
 export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -123,12 +127,14 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getMarginMoneySuccess(response.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getMarginMoneyFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -138,11 +144,13 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateMarginMoney =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -158,6 +166,7 @@ export const UpdateMarginMoney =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
           dispatch(
             settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'),
           )
@@ -168,6 +177,7 @@ export const UpdateMarginMoney =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -176,11 +186,13 @@ export const UpdateMarginMoney =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const RevisedMarginMoney =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -196,6 +208,7 @@ export const RevisedMarginMoney =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
           // router.push('/margin-money')
         } else {
           dispatch(updatingRevisedMarginMoneyFailed(response.data))
@@ -203,6 +216,7 @@ export const RevisedMarginMoney =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -211,5 +225,6 @@ export const RevisedMarginMoney =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }

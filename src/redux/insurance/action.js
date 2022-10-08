@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getAllInsurance() {
   return {
     type: types.GET_ALL_INSURANCE,
@@ -95,6 +95,7 @@ function updateQuotationFailed() {
 export const GettingAllInsurance =
   (payload) => async (dispatch, getState, api) => {
     try {
+      dispatch(setIsLoading())
       let cookie = Cookies.get('SOMANI')
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -108,12 +109,14 @@ export const GettingAllInsurance =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllInsuranceSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAllInsuranceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -123,10 +126,12 @@ export const GettingAllInsurance =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -142,12 +147,14 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       } else {
         dispatch(createInsuranceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -157,10 +164,12 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -176,6 +185,7 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
         //   router.push('/margin-money')
       } else {
         dispatch(updateInsuranceFailed(response.data))
@@ -183,6 +193,7 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -191,10 +202,12 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -210,6 +223,7 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
         //   router.push('/margin-money')
       } else {
         dispatch(renewInsuranceFailed(response.data.data))
@@ -217,6 +231,7 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -225,9 +240,11 @@ export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -247,6 +264,7 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
       return response.data.code
       //   router.push('/margin-money')
     } else {
@@ -255,6 +273,7 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updateQuotationFailed())
@@ -262,5 +281,6 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

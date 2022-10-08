@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getTransitDetails() {
   return {
     type: types.GET_TRANSITDETAILS,
@@ -74,6 +74,7 @@ function getAdditionalDataFailed() {
 
 export const GetAllTransitDetails =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -87,12 +88,14 @@ export const GetAllTransitDetails =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllTransitDetailsSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAllTransitDetailsFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -102,11 +105,13 @@ export const GetAllTransitDetails =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const GetTransitDetails =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -123,6 +128,7 @@ export const GetTransitDetails =
         console.log('this')
 
         // dispatch(getVesselSuccess(response.data.data))
+        dispatch(setNotLoading())
         return response.data.data
       } else {
         dispatch(getTransitDetailsFailed(response.data.data))
@@ -130,6 +136,7 @@ export const GetTransitDetails =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(getTransitDetailsFailed())
@@ -138,11 +145,13 @@ export const GetTransitDetails =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const UpdateTransitDetails =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -167,6 +176,7 @@ export const UpdateTransitDetails =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
         return response.data.code
       } else {
         dispatch(updateTransitDetailsFailed(response.data.data))
@@ -174,6 +184,7 @@ export const UpdateTransitDetails =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     } catch (error) {
       dispatch(updateTransitDetailsFailed())
@@ -182,11 +193,13 @@ export const UpdateTransitDetails =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const GetAdditionalData =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -201,12 +214,14 @@ export const GetAdditionalData =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAdditionalDataSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAdditionalDataFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -216,5 +231,6 @@ export const GetAdditionalData =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
