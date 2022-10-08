@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import { GetPanGst } from 'redux/GetPanGst/action'
-
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -140,6 +140,7 @@ const Index = ({
       setCompPan(results?.pans[0])
       setCompPanName(results?.name)
       setBoolean1(false)
+      dispatch(GetGst(results?.pans[0]))
     } else {
       let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
       if (!toast.isActive(toastMessage)) {
