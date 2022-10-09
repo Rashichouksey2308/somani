@@ -80,15 +80,15 @@ function Index({
 
   const darkMode = useSelector((state) => state.user.isDark)
   console.log(darkMode, 'This is dark CAM')
-  useEffect(() => {
-    if (window) {
-      let id1 = sessionStorage.getItem('orderID')
-      let id2 = sessionStorage.getItem('companyID')
-      dispatch(GetAllOrders({ orderId: id1 }))
-      dispatch(GetCompanyDetails({ company: id2 }))
-      // dispatch(GetDocuments(`?order=${id1}`))
-    }
-  }, [dispatch, fetchingKarzaGst])
+  // useEffect(() => {
+  //   if (window) {
+  //     let id1 = sessionStorage.getItem('orderID')
+  //     let id2 = sessionStorage.getItem('companyID')
+  //     dispatch(GetAllOrders({ orderId: id1 }))
+  //     dispatch(GetCompanyDetails({ company: id2 }))
+  //     // dispatch(GetDocuments(`?order=${id1}`))
+  //   }
+  // }, [dispatch, fetchingKarzaGst])
   useEffect(() => {
     let id1 = sessionStorage.getItem('orderID')
     dispatch(GetDocuments(`?order=${id1}`))
