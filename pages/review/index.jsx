@@ -1019,7 +1019,7 @@ function Index() {
     let personArr = []
 
 
-    if (orderList?.company?.keyContactPerson.length > 0) {
+    if (orderList?.company?.keyContactPerson?.length > 0) {
       orderList?.company?.keyContactPerson?.forEach((element) => {
         //  console.log(element,"useEE")
         personArr.push({
@@ -1035,9 +1035,8 @@ function Index() {
           addnew: false,
         })
       })
-    } else {
-      if (companyData?.profile?.directorDetail.length > 0) {
-        companyData?.profile?.directorDetail.forEach((val, index) => {
+    } else if (companyData?.profile?.directorDetail.length > 0) {
+        companyData?.profile?.directorDetail?.forEach((val, index) => {
           personArr.push({
             contact: {
               callingCode: '+91',
@@ -1051,7 +1050,7 @@ function Index() {
             addnew: false,
           })
         })
-      }
+      
     }
 
     setPersonData([...personArr])

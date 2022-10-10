@@ -255,6 +255,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       return arr
     }
 
+  //  let v1 =  filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7])
+  //  let v3 =  filteredData1([1, 2, 3, 4, 500, 6, 6, 6,7, 9, 10])
+  //   let v4 = filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7, 100, 13242,6564])
+
+  //   console.log(v1, v3, v4, 'LINES IN DATA')
+    
+
     const newData = {
       labels: covertMonths(
         filteredData(

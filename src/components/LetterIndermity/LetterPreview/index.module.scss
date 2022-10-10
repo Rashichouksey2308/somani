@@ -4,6 +4,7 @@
   font-family: 'Times New Roman', Times, serif;
   margin: 28px;
   margin-bottom: 152px;
+  text-align: justify;
   @include respond(sm-desktop) {
     margin: 20px;
     margin-bottom: 144px;
