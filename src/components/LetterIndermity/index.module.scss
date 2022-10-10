@@ -198,10 +198,13 @@
   font-weight: bold;
   // line-height: 23px;
   background-color: transparent;
-  margin: 0 15px 0 30px;
   width: 5rem;
   height: 2rem;
   padding: 5px;
+  // margin: 0 0 0 30px;
+  &:nth-child(2) {
+    margin: 0 15px 0 30px;
+  }
   @include respond(md-desktop) {
     // font-size: 16px;
   }
