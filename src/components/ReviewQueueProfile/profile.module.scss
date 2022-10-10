@@ -268,7 +268,12 @@
               white-space: nowrap;
               vertical-align: middle;
               text-transform: uppercase;
-              border: 2px solid #E6EAF0;
+              border: none;
+              border-bottom: 2px solid #E6EAF0;
+              border-right: 2px solid #E6EAF0;
+              &:last-child {
+                border-right: none;
+              }
             }
 
             td {
@@ -279,10 +284,13 @@
               // white-space: nowrap;
               //height: 48px;
               vertical-align: middle;
-              border: 2px solid #E6EAF0;
-
+              border-bottom: 2px solid #E6EAF0;
+              border-right: 2px solid #E6EAF0;
               &.name {
                 // color: #111111;
+              }
+              &:last-child {
+                border-right: none;
               }
 
               span {
@@ -307,6 +315,13 @@
               &.yellow {
                 span {
                   background: #ffce00;
+                }
+              }
+            }
+            tr {
+              &:last-child {
+                td {
+                  border-bottom: none;
                 }
               }
             }
