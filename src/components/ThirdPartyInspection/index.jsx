@@ -938,7 +938,7 @@ export default function Index({ addButton }) {
                 </div>
               ))}
             </div>
-            <hr className='m-0 border_color'/>
+            <hr className="m-0 border_color" />
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -1148,7 +1148,7 @@ export default function Index({ addButton }) {
                     </div>
                   </div>
                 </div>
-                <hr className='m-0 border_color'/>
+                <hr className="m-0 border_color" />
                 <div className={`${styles.dashboard_form} mb-3 card-body`}>
                   <h5 className={`${styles.sub_heading}`}>Special Mention</h5>
                   <Row>
@@ -1968,7 +1968,7 @@ const Discharge = (
           </div>
         </div>
       </div>
-      <hr className='m-0 border_color'/>
+      <hr className="m-0 border_color" />
       <div className={`${styles.dashboard_form} card-body`}>
         <h5 className={`${styles.sub_heading} mt-3`}>Special Mention</h5>
         <Row>

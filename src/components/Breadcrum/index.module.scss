@@ -1,6 +1,6 @@
 @import "../styles/Core/config";
 .main_container {
-    height: 42px;
+    min-height: 42px;
     width: 100%;
     background: #FFFFFF;  
     box-shadow: 0 3px 12px #CAD0E2;
@@ -14,21 +14,21 @@
         padding: 5px 10px;
     }
     div {
-        padding-left: 1rem;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        @include respond(phone) {
-          padding-left: 0;
-          padding-right: 0;
-        }
-        @include respond(sm-phone) {
-            padding: 2px 5px 2px 0;
-        }
+        // padding-left: 1rem;
+        // display: flex;
+        // justify-content: flex-start;
+        // align-items: center;
+        // @include respond(phone) {
+        //   padding-left: 0;
+        //   padding-right: 0;
+        // }
+        // @include respond(sm-phone) {
+        //     padding: 2px 5px 2px 0;
+        // }
         img {
             width: 17px;
             height: 15px;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
             @include respond(phone) {
                 width: 15px;
                 height: 13px;
@@ -37,6 +37,7 @@
         }      
         .breadcrumItem {
             padding:0px;
+            line-height: 19px;
             .breadcrumcontainer {
                 padding: 0px;
                 span {                  
@@ -45,7 +46,7 @@
                     font-size: 16px;
                     line-height: 19px;
                     margin-left: 0.5rem;
-                    white-space: nowrap;
+                    // white-space: nowrap;
                     text-transform: capitalize;
                     &:first-letter {
                         text-transform: uppercase;
@@ -100,7 +101,8 @@
             padding-right: 8px;
             line-height: 23px;
             margin-bottom: 0;
-            white-space: nowrap;
+            display: inline-block;
+            // white-space: nowrap;
             @include respond(sm-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
