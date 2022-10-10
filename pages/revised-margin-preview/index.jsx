@@ -1995,7 +1995,7 @@ function Index() {
             </Col>
           </Row>
         </div>
-        <Card className={styles.content}>
+        <Card className={`${styles.content} border_color`}>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
@@ -2186,7 +2186,7 @@ function Index() {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} mb-5 table`}
+                className={`${styles.table} table`}
                 cellPadding="0"
                 cellSpacing="0"
               >
