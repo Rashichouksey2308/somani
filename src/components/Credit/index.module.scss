@@ -526,6 +526,12 @@
     -webkit-appearance: none;
   }
 }
+.arrow2 {
+  width: 13px;
+  right: 15px;
+  pointer-events: none;
+  position: absolute;
+}
 
 .customSelect {
   appearance: none;

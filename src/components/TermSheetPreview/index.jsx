@@ -1486,7 +1486,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                       color: '#111111',
                       lineHeight: '25px',
                       fontWeight: '500',
-                      paddingLeft: '25px',
+                      paddingLeft: '0',
                     }}
                   >
                     <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
