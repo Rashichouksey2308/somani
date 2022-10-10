@@ -289,7 +289,7 @@ function Index({ shareHolding }) {
                               >
                                 <span style={{ background: `${colorReturn(index)}` }}></span>
                               </td>
-                              <td className={`${styles.name} border-top-0 border-bottom-0 border_color`}>
+                              <td className={`${styles.name} text-color border-top-0 border-bottom-0 border_color`}>
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0 border_color">
