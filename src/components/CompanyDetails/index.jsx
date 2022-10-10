@@ -8,7 +8,8 @@ import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import { GetPanGst } from 'redux/GetPanGst/action'
-import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
+import { GetGst } from 'redux/registerBuyer/action'
+
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -22,14 +23,12 @@ const Index = ({
   companyDetails,
   setCompanyDetails,
 }) => {
+
   const { gstList } = useSelector((state) => state.buyer)
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
 
-  console.log(gettingCompanyPanResponse, 'THIS IS NEW')
-
   const dispatch = useDispatch()
-  console.log(orderDetails, 'orderDetails')
-  // console.log(gstList?.data, "THIS IS GST LIST")
+
   const [slider, setSlider] = useState(0)
   const [typeOfSlider, setSliderType] = useState(1)
   const [isSliderOnFocus, setIsSliderOnFocus] = useState(false)
@@ -37,7 +36,7 @@ const Index = ({
 
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
-  console.log(slider, 'slider16513')
+
   const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
@@ -46,12 +45,14 @@ const Index = ({
   useEffect(() => {
     getSlider()
   }, [slider])
-  console.log(slider, sliderWithCr, 'sliderWithCr')
+
+ 
   useEffect(() => {
     if (isSliderOnFocus === false) {
       setSliderWithCr(slider.toString() + ' Cr')
     }
   }, [slider, isSliderOnFocus])
+
   const getvalue = () => {
     if (!isSliderOnFocus) {
       if (sliderWithCr == '0 Cr') return ''
@@ -63,9 +64,7 @@ const Index = ({
   }
 
   const getSlider = (val) => {
-    console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
-      console.log('slider1')
       return (
         <div className={styles.slidecontainer}>
           <input
@@ -112,20 +111,26 @@ const Index = ({
     }
   }
 
-  useEffect(() => {
-    if(compPan !== '' || compPan !== undefined){
-    const newInput = { ...companyDetails }
-    newInput.companyPan = compPan
-    setCompanyDetails(newInput)
-    }
+  useEffect(() => { 
     setCompPanName(gstList?.data?.companyData?.companyName)
-  }, [gstList, compPan])
+  }, [gstList])
+  
 
   const [serachterm, setSearchTerm] = useState('')
 
   const [compPan, setCompPan] = useState()
   const [compPanName, setCompPanName] = useState()
   const [boolean1, setBoolean1] = useState(false)
+
+  useEffect(() => {
+    if(compPan !== ''){
+      const newInput = { ...companyDetails }
+      newInput.companyPan = compPan
+      console.log(newInput, 'new input')
+      setCompanyDetails(newInput)
+      // dispatch(GetGst(compPan))
+      }
+  }, [compPan])
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
