@@ -217,7 +217,7 @@ function Index({ shareHolding }) {
             className={`${styles.graphTable} ${styles.cardBody} card-body border_color`}
           >
             <h3 className="label_heading text-color">Equity Capital</h3>
-            <div className={`${styles.tableParent}`}>
+            <div className={`${styles.tableParent} share-holding-border`}>
               <div className={`${styles.table_scroll_outer}`}>
                 <div className={styles.table_scroll_inner}>
                   <table
@@ -228,7 +228,7 @@ function Index({ shareHolding }) {
                   >
                     <tbody>
                       <tr>
-                        <th width="23%" className='border_color'
+                        <th width="23%" className='border_color border-bottom-0'
                           rowSpan={shareHolding ? shareHolding?.length + 2 : '17'}
                         >
                           <div className={styles.chart}>
@@ -330,7 +330,7 @@ function Index({ shareHolding }) {
             </div>
 
             <h3 className="label_heading mt-4 pt-1 text-color">Preference Capital</h3>
-            <div className={styles.tableParent}>
+            <div className={`${styles.tableParent} share-holding-border`}>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table
@@ -341,7 +341,7 @@ function Index({ shareHolding }) {
                   >
                     <tbody>
                       <tr>
-                        <th rowSpan="7" width="23%">
+                        <th rowSpan="7" width="23%" className='border-bottom-0'>
                           <div className={styles.chart}>
                             <Doughnut data={prefrencedata} options={options} />
                             <div className={`${styles.total_value} `}>
