@@ -89,9 +89,15 @@
   }
   table td {
     border-left: 2px solid red;
+    &:first-child {
+      border-width: 1px;
+    }
   }
   table th {
     border-left: 2px solid red;
+    &:first-child {
+      border-width: 1px;
+    }
   }
 
   .table_scroll_outer {

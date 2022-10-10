@@ -443,9 +443,9 @@ export default function Index({ isQuery }) {
 
   return (
     <div
-      className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}
+      className={`${styles.main_container} row background1 align-items-center`}
     >
-      <div>
+      <div className='col-md-7'>
         <img src="/static/home.svg"></img>
         {pageName == 'generic' ||
         pageName == 'vessel' ||
@@ -453,13 +453,13 @@ export default function Index({ isQuery }) {
         pageName == 'termsheet' ||
         pageName == 'credit-queue' ||
         pageName == 'payment' ? (
-          <div className={`${styles.breadcrumItem}`}>
+          <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
               {
                 console.log(myUrl.length - 1 == index, 'val')
               }
               return (
-                <div
+                <span
                   key={index}
                   className={`${styles.breadcrumcontainer} ${
                     myUrlLength == index + 1
@@ -471,18 +471,18 @@ export default function Index({ isQuery }) {
                   <span className={`${styles.value} breadcrum_mode`}>
                     {val}
                   </span>
-                </div>
+                </span>
               )
             })}
-          </div>
+          </span>
         ) : (
-          <div className={`${styles.breadcrumItem}`}>
+          <span className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
               {
                 console.log(myUrl.length - 1 == index, 'val')
               }
               return (
-                <div
+                <span
                   key={index}
                   className={`${styles.breadcrumcontainer} ${
                     myUrlLength == 4
@@ -500,15 +500,15 @@ export default function Index({ isQuery }) {
                   <span className={`${styles.value} breadcrum_mode`}>
                     {val}
                   </span>
-                </div>
+                </span>
               )
             })}
-          </div>
+          </span>
         )}
       </div>
-      <div className={`${styles.unit_container} d-flex`}>
+      <div className={`${styles.unit_container} col-md-5 text-right`}>
         {show.units && pageName !== 'payment' ? (
-          <div className="mr-0 mr-sm-2">
+          <span className='d-flex align-items-center'>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select
               className={`${styles.options} accordion_DropDown`}
@@ -521,10 +521,10 @@ export default function Index({ isQuery }) {
               {/* <option value="millions">MILLIONS</option> */}
               <option value="lakh">LAKH</option>
             </select>
-          </div>
+          </span>
         ) : null}
         {show.currency && pageName !== 'payment' ? (
-          <div>
+          <span className='d-flex align-items-center'>
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :
             </h5>
@@ -540,7 +540,7 @@ export default function Index({ isQuery }) {
               <option value="usd">USD</option>
               <option value="pound">POUND</option>
             </select>
-          </div>
+          </span>
         ) : null}
       </div>
     </div>
