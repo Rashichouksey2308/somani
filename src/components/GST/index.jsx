@@ -2893,10 +2893,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Averages
                     </th>
                     <th width="33%" className="text-color">
-                      {finacialYear('current') ? finacialYear('current') : '-'}
+                     Period: {' '} {finacialYear('current') ? finacialYear('current') : '-'}
                     </th>
                     <th width="33%" className="text-color">
-                      {finacialYear() ? finacialYear() : '-'}
+                    Period: {' '}  {finacialYear() ? finacialYear() : '-'}
                     </th>
                   </tr>
 
