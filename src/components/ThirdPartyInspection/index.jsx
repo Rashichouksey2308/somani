@@ -1371,9 +1371,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1532,9 +1533,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1694,9 +1696,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}

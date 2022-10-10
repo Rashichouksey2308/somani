@@ -3840,12 +3840,14 @@ const sectionTerms = (
                 >
                   Add
                 </button>
+                <ul className="mt-3 mb-3">
                 {approveComment &&
                   approveComment?.map((approve, index) => (
-                    <div key={index} className={`${styles.remarks}`}>
-                      <span>{approve}</span>
-                    </div>
+                    // <div key={index} className={`${styles.remarks}`}>
+                      <li key={index}>{approve}</li>
+                    // </div>
                   ))}
+                  </ul>
               </div>
             </div>
           </div>
