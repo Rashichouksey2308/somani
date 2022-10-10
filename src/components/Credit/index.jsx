@@ -1311,7 +1311,7 @@ const index = ({
                     </tr>
                   </thead>
                   {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
-                    <tbody>
+                    <tbody className='border_color'>
                     <>
                     {!person.isEdit? <>
                       <tr><td>{person.name}</td>
