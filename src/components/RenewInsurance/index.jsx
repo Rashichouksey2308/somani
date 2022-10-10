@@ -12,6 +12,7 @@ import { GettingAllInsurance, RenewInsurance } from 'redux/insurance/action'
 import UploadOther from '../UploadOther'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import {toast} from 'react-toastify'
+import Router from 'next/router'
 
 const Index = () => {
 
@@ -154,21 +155,23 @@ const Index = () => {
 
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
-      <div className={`${styles.head_container} ml-5`}>
+      <div className={`${styles.head_container}`}>
         <div className={styles.head_header}>
+          <div style={{cursor:'pointer'}}  onClick={() => Router.push('/insurance/form')}>
           <img
-            className={`${styles.arrow} img-fluid`}
+            className={`${styles.back_arrow} img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
+          </div>
           <h1 className={styles.heading}>
             {insuranceData?.company?.companyName} - Ramal001-000001
           </h1>
         </div>
       </div>
 
-      <div className={`${styles.vessel_card}  vessel_card mt-3 border_color`}>
-        <div className={`${styles.wrapper} border_color mt-4 card`}>
+      <div className={`${styles.vessel_card}  vessel_card border_color`}>
+        <div className={`${styles.wrapper} border_color card`}>
           <div
             className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
             style={{ cursor: 'default' }}

@@ -36,17 +36,19 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     .key {
+      width: 48%;
       font-size: 20px;
       line-height: 24px;
+      margin-right: 2%;
 
       // opacity: 0.7;
     }
 
     .value {
+      width: 50%;
       font-size: 20px;
       line-height: 24px;
       font-weight: 500;
-      width: 15rem;
       // white-space: nowrap;
       opacity: 1;
     }
@@ -80,7 +82,7 @@
   .exposureCard {
     padding: 25px 35px !important;
     height: fit-content;
-    background: #ffffff;
+    //background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
     padding: 1rem;
@@ -106,7 +108,7 @@
       font-size: 22px;
       line-height: 27px;
       font-weight: bold;
-      color: #111111;
+      //color: #111111;
       align-items: center;
       justify-content: center;
       display: flex;
@@ -187,7 +189,7 @@
       margin-bottom: 2rem;
     }
     .button {
-      margin-bottom: 2rem;
+      // margin-bottom: 2rem;
       width: 190px;
       height: 48px;
       border: 3px solid #3687e8;
@@ -214,8 +216,8 @@
   .doc_container {
     height: 108px;
 
-    background: var(--unnamed-color-ffffff);
-    background: #ffffff;
+    // background: var(--unnamed-color-ffffff);
+    // background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
 
@@ -225,7 +227,7 @@
       align-items: flex-start;
       flex-direction: column;
       span {
-        color: black !important;
+        // color: black !important;
       }
       .highlight {
         font-size: 16px;
@@ -398,8 +400,8 @@
         background: #fafafb;
       }
       td {
+        border-top: none;
         vertical-align: baseline;
-
         .dashedLine {
           border-bottom: 1px dashed black;
         }
@@ -408,6 +410,7 @@
           border-radius: 8px;
           width: 60px;
           height: 60px;
+          min-width: 60px;
           padding: 0px;
 
           span {
@@ -644,7 +647,7 @@
         font-size: 22px;
         font-weight: 500;
         line-height: 27px;
-        color: #111111;
+        //color: #111111;
       }
     }
     .chart {
@@ -741,7 +744,7 @@
 
       .child {
         font-size: 22px;
-        color: #111111;
+        //color: #111111;
         font-weight: 500;
         line-height: 27px;
       }
@@ -845,21 +848,16 @@
 
 .select {
   font-size: 18px;
-  line-height: 23px;
   color: #3687e8;
-  text-transform: capitalize;
-  margin-right: 10px;
-
-  border-radius: 14px;
-  border: none;
+  line-height: 23px;
   font-weight: bold;
-  text-align: center;
-  padding-left: 8px;
-  padding-right: 6px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-right: 50px;
+  border: none;
+  height: 27px;
   outline: none;
+  border-radius: 14px;
+  padding: 0 20px 0 15px;
+  min-width: 102px;
+  margin-right: 50px;
 }
 .name {
   display: flex;
@@ -984,7 +982,7 @@
         font-weight: bold;
         line-height: 37px;
         top: 0%;
-        left: 3%;
+        left: 3.5%;
         &::before {
           top: 50%;
           left: 50%;
@@ -993,7 +991,7 @@
           content: "";
           z-index: -1;
           position: absolute;
-          background: #ffffff;
+          //background: #ffffff;
           transform: translate(-50%, -50%);
         }
       }
@@ -1030,9 +1028,10 @@
         }
       }
       .creditScore {
-        width: 287px;
+        width: 100%;
+        max-width: 287px;
         height: 107px;
-        background: #ffffff;
+        //background: #ffffff;
         border: 1px solid #d2d7e5;
         border-radius: 6px;
         padding: 22px;
@@ -1070,7 +1069,7 @@
             }
             .outOF {
               font-size: 20px;
-              color: #111111;
+             color: #111111;
               font-weight: bold;
               line-height: 25px;
               opacity: 0.2;
@@ -1088,7 +1087,7 @@
     border-right: 2px solid red !important;
     padding: 25px 35px !important;
     .fillWrapper {
-      background: #ffffff;
+      //background: #ffffff;
       border: 1px solid #d2d7e5;
       border-radius: 6px;
       height: 106px;
@@ -1134,4 +1133,18 @@
       }
     }
   }
+}
+img {
+    &.arrow2 {
+      width: 13px !important;
+      pointer-events: none;
+      position: absolute;
+      right: 60px;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+        brightness(103%) contrast(82%);
+    }
+}
+.customSelect {
+    appearance: none;
+    // position: relative;
 }

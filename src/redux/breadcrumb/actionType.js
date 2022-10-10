@@ -6,3 +6,5 @@ export const GET_CURRENCY = 'GET_CURRENCY'
 
 export const SET_UNIT = 'SET_UNIT'
 export const GET_UNIT = 'GET_UNIT'
+
+export const SIDEBAR = 'SIDEBAR'

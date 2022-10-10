@@ -121,6 +121,7 @@ export const GetCustomClearance =
 
 export const UpdateCustomClearance =
   (payload) => async (dispatch, getState, api) => {
+    // let CustomId = sessionStorage.getItem('customId')
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -131,6 +132,7 @@ export const UpdateCustomClearance =
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
+          // dispatch(GetAllCustomClearance(`?customClearanceId=${CustomId}`))
           dispatch(updateCustomClearanceSuccess(response.data.data))
 
           let toastMessage = 'updated  SUCCESSFULLY'

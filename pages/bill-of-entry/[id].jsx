@@ -14,7 +14,7 @@ import {
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import API from '../../src/utils/endpoints'
-import toast from 'react-toastify'
+import {toast} from 'react-toastify'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
@@ -70,17 +70,18 @@ function Index() {
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
+        
         // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+           return null
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+   let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+           return null
     }
   }
 
@@ -106,15 +107,16 @@ function Index() {
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
               onClick={() => Router.push('/bill-of-entry')}
+              style={{cursor:'pointer'}}
             />
-            <h1 className={`${styles.title} heading`}>
+            <h3 className={`${styles.title} heading`}>
               <span
                 // className={`${styles.title} heading`}
-                style={{ textTransform: 'capitalize' }}
+                // style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} - {CompanyOrderId?.orderId}
               </span>
-            </h1>
+            </h3>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>

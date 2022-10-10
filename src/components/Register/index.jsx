@@ -60,7 +60,9 @@ function Index() {
   const { gstList } = useSelector((state) => state.buyer)
 
   const dispatch = useDispatch()
+
   const [termsCheck, setTermsCheck] = useState(false)
+
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
     companyPan: '',
@@ -83,7 +85,7 @@ function Index() {
     turnOverUnit: 'Cr',
   })
 
-  console.log(companyDetails.turnOver, 'companyDetails tin')
+
   useEffect(() => {
     const newInput = { ...companyDetails }
     newInput.companyName = gstList?.data?.companyData?.companyName
@@ -155,7 +157,6 @@ function Index() {
     if (name == 'turnOver') {
       let tempValue = Number(value)
       newInput[name] = tempValue
-      console.log(tempValue, 'turn', name)
     } else {
       newInput[name] = value
     }
@@ -176,26 +177,6 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
 
-    // if (name == 'quantity') {
-    //   let tempVal = addPrefixOrSuffix(
-    //     value.toString(),
-    //     orderDetails.unitOfQuantity == 'mt'
-    //       ? 'MT'
-    //       : orderDetails.unitOfQuantity,
-    //   )
-    //   newInput[name] = tempVal
-    // }
-    // if (name == 'orderValue') {
-    //   let tempVal = addPrefixOrSuffix(
-    //     value.toString(),
-    //     orderDetails?.unitOfValue == 'Millions'
-    //       ? 'Mn'
-    //       : orderDetails?.unitOfValue == 'Crores'
-    //         ? 'Cr'
-    //         : orderDetails?.unitOfValue,
-    //   )
-    //   newInput[name] = tempVal
-    // } else {
       newInput[name] = value
     
 
@@ -236,7 +217,6 @@ function Index() {
       return
     }
     if (companyDetails.companyName === '') {
-      console.log('submit2')
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -356,7 +336,6 @@ function Index() {
         removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
       )
 
-      console.log(sendOrder.quantity, 'orderDetails12')
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
@@ -383,16 +362,7 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-  console.log(
-    Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0,
-    orderDetails.orderValue === isNaN,
-    'this is payload',
-  )
-  console.log(
-    Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,
-    'orderDetails12',
-  )
-  // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
@@ -424,6 +394,7 @@ function Index() {
       return newState
     })
   }
+  
   const removeDoc = (index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -435,6 +406,7 @@ function Index() {
       return newState
     })
   }
+
   const addTypeOfDoc = (val, index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -446,25 +418,29 @@ function Index() {
       return newState
     })
   }
+
   const deleteData = (index) => {
-    console.log('indexssd', index)
     setDocuments([...documents.slice(0, index), ...documents.slice(index + 1)])
   }
-  console.log(documents, 'documents')
+
+
   return (
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
+          <div  onClick={() => Router.push('/leads')} style={{cursor:'pointer'}}>
           <img
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
+            
           />
+          </div>
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
           <button
-            onClick={clearData}
+            onClick={clearData} 
             className={`${styles.clear_btn} clear_btn`}
           >
             Clear All
@@ -481,6 +457,8 @@ function Index() {
           whatsappFunction={whatsappFunction}
           mobileFunction={mobileFunction}
           saveOrderData={saveOrderData}
+          companyDetails={companyDetails}
+          setCompanyDetails={setCompanyDetails}
           saveCompanyData={saveCompanyData}
           orderDetails={orderDetails}
         />

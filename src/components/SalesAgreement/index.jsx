@@ -31,6 +31,7 @@ function Index(props) {
   const dispatch = useDispatch()
 
   console.log(props.genericData, 'sales')
+  
   const [active, setActive] = useState('Product Specifications')
   const [multiPart, setMultiPart] = useState(false)
   const [multiPartValue, setMultiPartValue] = useState('Manufacturer')
@@ -111,6 +112,31 @@ function Index(props) {
   }
   const addressValidation = (type, data, check = true) => {
     console.log(type, data, 'type,data')
+      if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
+      if (check) {
+        if (data.gstin === '' || data.gstin == undefined) {
+          let toastMessage = 'Please add gstin'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+        if (data.state === '' || data.state == undefined) {
+          let toastMessage = 'Please add state'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+      }
+      if (data.city === '' || data.city == undefined) {
+        let toastMessage = 'Please add city'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return false
+      }
+    }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -139,31 +165,7 @@ function Index(props) {
       }
       return false
     }
-    if (type == 'Branch') {
-      if (check) {
-        if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          return false
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          return false
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
-        let toastMessage = 'Please add city'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        return false
-      }
-    }
+  
 
     return true
   }
@@ -557,7 +559,13 @@ function Index(props) {
     let toastMessage = ''
     let dataToSend = {}
     console.log('this13', data, key)
+   
     if (key == 'Supplier') {
+    data.list.forEach((val,index)=>{
+      delete val['actions']
+      delete val['addnew']
+      val.document={}
+    })
       dataToSend = {
         genericId: props.genericData?._id,
         supplier: {
@@ -1139,17 +1147,17 @@ function Index(props) {
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
       )
-      if (
-        dataToSend.productSpecifications.comments.length <= 0 ||
-        dataToSend.productSpecifications.comments == undefined
-      ) {
-        toastMessage = `Please add comments `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+      // if (
+      //   dataToSend.productSpecifications.comments.length <= 0 ||
+      //   dataToSend.productSpecifications.comments == undefined
+      // ) {
+      //   toastMessage = `Please add comments `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     setSubmitData(false)
+      //     return
+      //   }
+      // }
       if (
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined
@@ -1282,6 +1290,61 @@ function Index(props) {
           setSubmitData(false)
           return
         }
+      }
+      let error=false;
+         if (
+        dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.associateBuyer.authorisedSignatoryDetails.length;i++){
+          if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew=="true"){
+           console.log(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].name=="" ||dataToSend.associateBuyer.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          }
+          
+        }
+      }
+      if(error){
+        return
       }
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0) {
         let isDoc = true
@@ -1566,7 +1629,7 @@ function Index(props) {
               <div
                 className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
               >
-                <span className={`mr-4`}>Multiple Parties Involved</span>
+                <span className={`mr-4 label`}>Multiple Parties Involved</span>
                 <div className={`d-flex mr-4`}>
                   <div className={`form-check  mr-4`}>
                     <input
@@ -1637,7 +1700,7 @@ function Index(props) {
               <div
                 className={`${styles.switchContainer} d-flex align-items-center`}
               >
-                <span>Same as CHA</span>
+                <span className='label'>Same as CHA</span>
                 <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
                   <input

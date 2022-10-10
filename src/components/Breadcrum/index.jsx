@@ -28,7 +28,17 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('genericSide')
     sessionStorage.removeItem('setgenActive')
   }
+  const router = useRouter()
+  console.log(router.pathname,"router.pathname")
+  console.log(isQuery,"isQuery")
   useEffect(() => {
+    if(isQuery == '/letter-table' || router.pathname == '/letter-table'
+     || isQuery == '/vessel-nomination'|| router.pathname == '/vessel-nomination'
+     || isQuery == '/insurance'|| router.pathname == '/insurance'
+     
+    ){
+      removeStorage()
+    }
     if (
       isQuery?.match('/leads') ||
       isQuery?.match('/order-list') ||
@@ -36,18 +46,43 @@ export default function Index({ isQuery }) {
       isQuery?.match('/termsheet-preview') ||
       isQuery?.match('/letter-table/letter-amend/id') ||
       isQuery == '/agreement/preview' ||
+      isQuery == '/review/[profile]' ||
       isQuery == '/transit' ||
       isQuery == '/review-queue' ||
       isQuery == '/margin-preview' ||
       isQuery == '/generic/generic-list' ||
       isQuery == '/track-shipment' ||
-      isQuery?.match('/forward-hedging')
+      
+      isQuery?.match('/forward-hedging') || 
+      router.pathname?.match('/leads') ||
+      router.pathname?.match('/order-list') ||
+      router.pathname?.match('/new-order') ||
+      router.pathname?.match('/termsheet-preview') ||
+      router.pathname?.match('/letter-table/letter-amend/id') ||
+      router.pathname == '/agreement/preview' ||
+      router.pathname == '/transit' ||
+      router.pathname == '/review-queue' ||
+      router.pathname == '/margin-preview' ||
+      router.pathname == '/generic/generic-list' ||
+      router.pathname == '/track-shipment' ||
+      router.pathname == '/review/[profile]' ||
+      router.pathname?.match('/forward-hedging') ||
+      router.pathname?.match('/agreement') ||
+      router.pathname?.match('/letter-table') ||
+      router.pathname?.match('/lc-module') ||
+      router.pathname?.match('/letter-credit/lc-create')
     ) {
       show.units = false
       show.currency = false
       removeStorage()
       setShow({ ...show })
     } else if (isQuery?.match('/generic')) {
+      show.units = false
+      show.currency = false
+
+      setShow({ ...show })
+    }
+    else if (isQuery?.match('/letter-credit/id')) {
       show.units = false
       show.currency = false
 
@@ -59,7 +94,14 @@ export default function Index({ isQuery }) {
       isQuery?.match('/review') ||
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
-      isQuery?.match('/transit/id')
+      isQuery?.match('/transit/id')||
+      router.pathname?.match('/credit-queue') ||
+      router.pathname?.match('/termsheet') ||
+      router.pathname?.match('/margin-money') ||
+      router.pathname?.match('/review') ||
+      router.pathname?.match('/vessel') ||
+      router.pathname?.match('/third-party') ||
+      router.pathname?.match('/transit/id')
     ) {
       show.units = false
       show.currency = true
@@ -67,7 +109,9 @@ export default function Index({ isQuery }) {
       setShow({ ...show })
     } else if (
       isQuery?.match('/termsheet/') ||
-      isQuery?.match('/margin-money/')
+      isQuery?.match('/margin-money/')||
+      router.pathname?.match('/termsheet/') ||
+      router.pathname?.match('/margin-money/')
     ) {
       show.units = true
       show.currency = true
@@ -76,9 +120,10 @@ export default function Index({ isQuery }) {
     } else {
       show.units = true
       show.currency = true
+      
       setShow({ ...show })
     }
-  }, [isQuery])
+  }, [isQuery,router.pathname])
 
   //use effect to call custom data here , in order to get breadcrumb to work
   useEffect(() => {
@@ -98,8 +143,8 @@ export default function Index({ isQuery }) {
 
   const [myUrl, setUrl] = useState([])
   const [myUrlLength, setUrlLength] = useState([])
-  let url = []
-  const router = useRouter()
+  var url = []
+
   const pageName = useSelector((state) => state?.user.pageName)
   const { pageTabName } = useSelector((state) => state?.user)
   const id = useSelector((state) => state?.user.id)
@@ -186,7 +231,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Termsheet'
@@ -256,6 +301,7 @@ export default function Index({ isQuery }) {
         `/${order}`
     }
     if ('insurance Request Letter' == pageName) {
+      // console.log(id, order, 'bredcrums')
       router.route =
         '/Agreement & LC' +
         `/${id?.toLowerCase()}` +
@@ -336,7 +382,7 @@ export default function Index({ isQuery }) {
         // `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
-        f
+      
         router.route =
           '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `
         console.log('router123', router.route)

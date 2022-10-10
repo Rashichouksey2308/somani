@@ -74,7 +74,7 @@ const getDate = async () =>{
                 </div>
                 <input
                   type="text"
-                  className={`${styles.formControl} border form-control formControl `}
+                  className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>

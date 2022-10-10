@@ -288,7 +288,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <p className="text_sales">The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p>
                 </li>
                 <li>
-                  <p className="text_sales">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
+                  <p className="text_sales">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
 
                   </p>
                 </li>
@@ -555,7 +555,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         </div>
 
 
-        <h3 className='text-center mb-4'>Schedule I</h3>
+        <h3 className='text-center mb-4'><strong>Schedule I</strong></h3>
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>
@@ -579,15 +579,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString()} {data?.unitOfQuantity?.toUpperCase()}</Col>
+            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString('en-In')} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString()}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString('en-In')}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString()} </Col>
+            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-In')} </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>

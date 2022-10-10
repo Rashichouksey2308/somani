@@ -11,9 +11,11 @@ import _get from 'lodash/get'
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export default function Index({ inspectionData }) {
   let dispatch = useDispatch()
+  const router = useRouter()
 
   let orderid = _get(inspectionData, 'order._id', '')
 
@@ -80,6 +82,7 @@ export default function Index({ inspectionData }) {
       // console.log('payload Third party2', 'Payload')
 
       dispatch(UpdateInspection({ fd, task }))
+      router.push(`/transit/id`)
     }
   }
 
@@ -101,18 +104,16 @@ export default function Index({ inspectionData }) {
 
   return (
     <>
-      <div
-        className={`${styles.backgroundMain} container-fluid p-0 `}
-      >
+      <div className={`${styles.backgroundMain} container-fluid p-0 `}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Plot Inspection</h3>
             </div>
 
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex align-items-center">
@@ -135,7 +136,7 @@ export default function Index({ inspectionData }) {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"
@@ -181,7 +182,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="25%">
+                              <th width="27%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -189,7 +190,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="35%">ACTION</th>
+                              <th width="9%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>

@@ -4,6 +4,8 @@ import Axios from 'axios'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
+import { data } from 'jquery'
+import { settingSidebar } from '../breadcrumb/action'
 
 function createBuyer() {
   return {
@@ -197,7 +199,23 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        Router.push('/leads')
+        sessionStorage.setItem(
+          'orderID',
+          response.data.data.form.orderDetails[0],
+        )
+        sessionStorage.setItem('company', response.data.data.form._id)
+        Router.push(`/review/${response.data.data.form._id}`)
+        // if (response.data.data.queue == 'ReviewQueue') {
+        //   dispatch(
+        //     GetBuyer({
+        //       companyId: response.data.data.form._id,
+        //       orderId: response.data.data.form.orderDetails[0],
+        //     }),
+        //   )
+
+        // }
+
+        // Router.push('/leads')
 
         // payload.history.goBack()
       } else {
@@ -231,6 +249,8 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateBuyerSuccess(response.data))
+        dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
+        Router.push('/review')
       } else {
         dispatch(updateBuyerFailed(response.data))
         console.log('UPDATE REQUEST FAILED')
@@ -294,6 +314,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
+    dispatch(getAllBuyer())
     Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
       headers: headers,
     }).then((response) => {

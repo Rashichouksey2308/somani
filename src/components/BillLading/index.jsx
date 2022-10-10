@@ -74,17 +74,18 @@ export default function Index({
   //     'Bulk'
   //     ? true
   //     : false
-  const[shipmentTypeBulk,setshipmentTypeBulk]=useState(false)
+  const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false)
   useEffect(() => {
     setshipmentTypeBulk(
-      
-      _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
-      'Bulk' ? true : false
-      )
-  },
-  [TransitDetails])
-      
-    
+      _get(
+        TransitDetails,
+        `data[0].order.termsheet.transactionDetails.shipmentType`,
+        '',
+      ) === 'Bulk'
+        ? true
+        : false,
+    )
+  }, [TransitDetails])
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -140,11 +141,8 @@ export default function Index({
     console.log('here')
   }
   console.log(bolList, 'bol')
-  const onDeleteClick=(index)=>{
-    setBolList([
-        ...bolList.slice(0, index),
-        ...bolList.slice(index + 1),
-      ])
+  const onDeleteClick = (index) => {
+    setBolList([...bolList.slice(0, index), ...bolList.slice(index + 1)])
   }
   const uploadDoc = async (e, index) => {
     let name = e.target.name
@@ -464,7 +462,6 @@ export default function Index({
         '',
       ) === 'Bulk'
     ) {
-
       if (checkRemainingBalance() < 0) {
         let toastMessage = `BL quantity cannot be greater than total order quantity`
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -550,7 +547,6 @@ export default function Index({
     }
   }
 
-  
   const saveData = () => {
     if (!validation()) return
     // const billOfLanding = [...bolList]
@@ -629,7 +625,11 @@ export default function Index({
                   Part Shipment Allowed:
                 </div>
                 <div className={`${styles.dropDown} input`}>
-                { _get(TransitDetails,'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
+                  {_get(
+                    TransitDetails,
+                    'data[0].order.termsheet.transactionDetails.partShipmentAllowed',
+                    '',
+                  )}
                   {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
                 </div>
               </div>
@@ -653,12 +653,12 @@ export default function Index({
                       TransitDetails,
                       'data[0].order.quantity',
                       '',
-                    )?.toLocaleString()}{' '}
+                    )?.toLocaleString('en-IN')}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
                       '',
-                    ).toUpperCase()}{' '}
+                    ).toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -666,11 +666,13 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {CovertvaluefromtoCR(
-                      _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    )?.toLocaleString()}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.orderValue',
+                      '',
+                    )?.toLocaleString('en-IN')}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -724,10 +726,15 @@ export default function Index({
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
-                  {index>0 ?
-                  <button onClick={() => onDeleteClick(index)} className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
-                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
-                    :null}
+                  {index > 0 ? (
+                    <button
+                      onClick={() => onDeleteClick(index)}
+                      className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                    >
+                      <img src="/static/delete.svg" width={12} alt="delete" />{' '}
+                      Delete
+                    </button>
+                  ) : null}
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -746,26 +753,26 @@ export default function Index({
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option
-                                    value={vessel?.vesselInformation?.name}
-                                    key={index}
-                                  >
-                                    {vessel?.vesselInformation[0]?.name}
-                                  </option>
-                                ))
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option
+                                      value={vessel?.vesselInformation?.name}
+                                      key={index}
+                                    >
+                                      {vessel?.vesselInformation[0]?.name}
+                                    </option>
+                                  ))
                                 : _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels[0].vesselInformation',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>
-                                    {vessel?.name}
-                                  </option>
-                                ))}
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels[0].vesselInformation',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -808,8 +815,10 @@ export default function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -862,20 +871,28 @@ export default function Index({
                           <input
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            value={isFieldInFocus ?
-                              bol?.blQuantity :
-                              Number(bol?.blQuantity)?.toLocaleString() + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
+                            value={
+                              isFieldInFocus
+                                ? bol?.blQuantity
+                                : Number(bol?.blQuantity)?.toLocaleString(
+                                    'en-IN',
+                                  ) +
+                                  ` ${_get(
+                                    TransitDetails,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  )}`
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -983,33 +1000,35 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc !== null ? (
-                              <div
-                                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
+                            <div
+                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            >
+                              <input
+                                // disabled
+                                onChange={(e) =>
+                                  onChangeContainerDetailsHandler(e, index)
+                                }
+                                value={
+                                  bol?.containerDetails?.numberOfContainers
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                id="numberOfContainers"
+                                type="number"
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
                               >
-                                <input
-                                  disabled
-                                  // onChange={(e) =>
-                                  // onChangeContainerDetailsHandler(e, index)
-                                  // }
-                                  value={
-                                    bol?.containerDetails?.numberOfContainers
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                  id="numberOfContainers"
-                                  type="number"
-                                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                                />
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                >
-                                  Number of Containers
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                              </div>
-                            ) : null}
+                                Number of Containers
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            {/* ) : null} */}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
@@ -1024,8 +1043,10 @@ export default function Index({
                                 required
                                 id="freeDetentionPeriod"
                                 type="number"
-                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -1155,7 +1176,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="20%" >ACTION</th>
+                              <th width="20%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1172,7 +1193,11 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                {bolList[index]?.blDoc == null ? '' : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
+                                {bolList[index]?.blDoc == null
+                                  ? ''
+                                  : moment(bolList[index]?.blDoc.date).format(
+                                      'DD-MM-YYYY , h:mm a ',
+                                    )}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1257,7 +1282,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.containerNumberListDoc ==
+                                    bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1336,7 +1361,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.packingListDoc == null ? (
+                                    bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1399,9 +1424,11 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <DatePicker
-                            
-                               selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
-                              
+                              selected={
+                                bol?.blSurrenderDate == null
+                                  ? ''
+                                  : moment(bol?.blSurrenderDate).toDate()
+                              }
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
@@ -1414,8 +1441,6 @@ export default function Index({
                               }}
                               minDate={lastDate}
                             />
-                           
-
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -1428,7 +1453,7 @@ export default function Index({
                               BL Surrendor Date
                             </label>
                           </div>
-                    </div>
+                        </div>
                       </div>
                     </div>
                     <div className={styles.table_scroll_outer}>
@@ -1485,12 +1510,12 @@ export default function Index({
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
                                   : moment(
-                                    bolList[index]?.blSurrenderDoc?.Date,
-                                  ).format(' DD-MM-YYYY , h:mm a')}
+                                      bolList[index]?.blSurrenderDoc?.Date,
+                                    ).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
-                                  bolList[index]?.blSurrenderDoc == null ? (
+                                bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1519,7 +1544,9 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
+                                      onClick={(e) =>
+                                        handleCloseDoc('blSurrenderDoc', index)
+                                      }
                                       alt="Close"
                                     />{' '}
                                   </div>

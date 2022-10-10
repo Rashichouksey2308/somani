@@ -133,7 +133,7 @@
           top: 51%;
           left: 0;
           width: 100%;
-          height: 2px;
+          height: 3px;
           content: '';
           z-index: -1;
           position: absolute;
@@ -220,11 +220,12 @@
       justify-content: space-around;
       flex-direction: row;
 
-      .arrow {
+      .back_arrow {
         width: 13px;
         height: 21px;
         background: transparent;
         margin-top: 10px;
+        cursor: pointer;
         @include respond(md-desktop) {
           width: 12px;
           height: 19px;

@@ -38,12 +38,18 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(viewingDocumentSuccess(response.data.data))
-        window.open(response.data.data.signedUrl)
+        console.log('ViewDocument')
+        window.open(
+          response.data.data.signedUrl,
+          '_blank',
+          'noopener,noreferrer',
+        )
       } else {
         dispatch(viewingDocumentFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -55,4 +61,3 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
     }
   }
 }
-

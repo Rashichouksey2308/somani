@@ -14,20 +14,21 @@ import {
 } from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
 import moment from 'moment'
+import Loader from '../../../src/components/Loader/index'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
-  const { termsheet } = useSelector((state) => state.order)
+  const { termsheet,gettingTermsheet } = useSelector((state) => state.order)
 
   // console.log(singleOrder, 'all order listtt1')
   console.log(termsheet, 'TErmshetTermsheet')
 
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId')
-    dispatch(GetTermsheet(`?company=${Id}`))
+    dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`))
   }, [dispatch])
 
   useEffect(() => {
@@ -52,43 +53,41 @@ function Index() {
       "All Termsheet Order"
     )))
   }, [dispatch, singleOrder, termsheet])
-  console.log(termsheet, "termsheet")
 
-  const handleRoute = (term, index) => {
+  const handleRoute =async (term, index) => {
     console.log("here", term)
     // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
-    dispatch(GetTermsheet(`?termsheetId=${term._id}`))
+  await   dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
-    console.log(term, 'term.buyerName')
-    dispatch(setDynamicName(term.company.companyName))
-    dispatch(
-      setDynamicOrder(
-        term?.order?.applicationId
-          ? term.order.applicationId
-          : term.order.orderId,
-      ),
-    )
+    
     sessionStorage.setItem('termOrdID', term?.order._id)
-
-// const query = { id: 'foo'}
-// const url = { pathname: '/termsheet/[id]', query };
-// const urlAs = { pathname: '/termsheet/1234', query }
-
-// router.push(url, urlAs);
 
     Router.push({
       pathname :'/termsheet/[id]',
       query :  {id: 'id'}
   })
-    // Router.push(url, urlAs)
+ }
 
+ const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    let Id = sessionStorage.getItem('termsheetId')
+    if(sorting == -1){
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
   }
+
 
   return (
     <>
-      {' '}
-      <div className={`${styles.container} container-fluid p-0 border-0`}>
+     
+   {gettingTermsheet ? (<Loader/>) :   <div className={`${styles.container} container-fluid p-0 border-0`}>
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -118,7 +117,7 @@ function Index() {
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
-                    src="/static/Leads.svg"
+                    src="/static/leads-icon.svg"
                     className="img-fluid"
                     alt="All Leads"
                   />
@@ -256,6 +255,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
+                          onClick={()=>handleSort()}
                         />
                       </th>
                       <th>COMMODITY</th>
@@ -274,7 +274,7 @@ function Index() {
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") :term?.order?.cam?.approvedAt? moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"):""}</td>
+                      <td>{term?.order?.existingCustomer ? moment(term?.order?.createdAt).format("DD-MM-YYYY") :term?.order?.cam?.approvedAt? moment(term?.order?.cam?.approvedAt).format("DD-MM-YYYY"):""}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
@@ -313,7 +313,7 @@ function Index() {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   )
 }

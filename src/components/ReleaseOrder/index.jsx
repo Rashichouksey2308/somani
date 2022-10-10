@@ -13,13 +13,17 @@ import Cookies from 'js-cookie'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import Axios from 'axios'
 
-export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetail }) {
+export default function Index({
+  ReleaseOrderData,
+  releaseDetail,
+  setReleaseDetail,
+}) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
-  const [orderid, setorderId] = useState("")
+  const [orderid, setorderId] = useState('')
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
   // let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   useEffect(() => {
@@ -35,8 +39,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-
-  console.log(releaseDetail, '11')
+  console.log(releaseDetail, 'releaseDetail')
   console.log(releaseDetail.length - 1, '111')
   useEffect(() => {
     if (releaseDetail) {
@@ -44,9 +47,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       setReleaseOrderButtonIndex(index)
     }
   }, [releaseDetail])
-
-
-
 
   const closeDoc = (index) => {
     let tempArr = [...releaseDetail]
@@ -109,7 +109,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
       // }
     }
   }
-
 
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
@@ -217,7 +216,40 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
     await dispatch(UpdateDelivery({ payload, task }))
   }
 
+  const validation = () => {
+    let isOk = true
+    let toastMessage = ''
+    for (let i = 0; i <= releaseDetail.length - 1; i++) {
+      console.log(i, 'INSIDE FOR LOOP', releaseDetail.length)
+      if (
+        releaseDetail[i]?.releaseOrderDate == '' ||
+        releaseDetail[i]?.releaseOrderDate == null
+      ) {
+        toastMessage = `please input a date for release order   ${i +1}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        releaseDetail[i]?.netQuantityReleased == '' ||
+        releaseDetail[i]?.netQuantityReleased == null
+      ) {
+        toastMessage = `please provide a value for net quantity release in release order no ${i+1}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+    }
+    return isOk
+    console.log(isOk, 'isOktrue')
+  }
+
   const onSubmitHanler = async () => {
+    if (!validation()) return
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
@@ -274,7 +306,7 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                           'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           0,
                         ),
-                      )?.toLocaleString()}{' '}
+                      )?.toLocaleString('en-In', {maximumFractionDigits: 2})}{' '}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
@@ -342,9 +374,13 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                               index={index}
                               saveDate={saveDate}
                               name="releaseOrderDate"
+                              autocomplete="off"
                               labelName="Release Order Date"
                             />
-                            {console.log('release Details', item.releaseOrderDate)}
+                            {console.log(
+                              'release Details',
+                              item.releaseOrderDate,
+                            )}
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -355,18 +391,15 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
-
                           <input
                             // onWheel={(e) => e.target.blur()}
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
-
                             type="text"
                             onChange={(e) => {
                               e.target.value
@@ -375,9 +408,17 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             }}
                             id="netQuantityReleased"
                             value={
-                              isFieldInFocus ?
-                                item.netQuantityReleased :
-                                Number(item.netQuantityReleased)?.toLocaleString() + ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`}
+                              isFieldInFocus
+                                ? item.netQuantityReleased
+                                : Number(
+                                  item.netQuantityReleased,
+                                )?.toLocaleString('en-IN') +
+                                ` ${_get(
+                                  ReleaseOrderData,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                )}`
+                            }
                             className={`${styles.input_field} input form-control`}
 
                           // onKeyDown={(evt) =>
@@ -392,11 +433,14 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                           </label>
                         </div>
                         <div
-                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}>
+                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}
+                        >
                           {item?.document === null ? (
                             <>
                               <div className="d-flex flex-grow-1 align-items-center">
-                                <div className={`${styles.uploadBtnWrapper} flex-grow-1`}>
+                                <div
+                                  className={`${styles.uploadBtnWrapper} flex-grow-1`}
+                                >
                                   <input
                                     id="document"
                                     name="myfile"
@@ -424,14 +468,14 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                                 </div>   */}
 
                                 <div>
-                                  {releaseDetail.length === 1 ? null : (
+                                  {releaseDetail.length > 1 &&
                                     <img
                                       onClick={() => handleDeleteRow(index)}
                                       src="/static/delete 2.svg"
                                       className={`${styles.delete_image} img-fluid ml-3 mr-3`}
                                       alt="Delete"
                                     />
-                                  )}
+                                  }
 
                                   {Number(netBalanceQuantity) >= 0 &&
                                     releaseDetail.length - 1 === index && (
@@ -460,10 +504,10 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             </>
                           ) : (
                             <>
-                              <div className={`${styles.certificate} text1 m-0 d-flex justify-content-between`}>
-                                <span>
-                                  {item?.document?.originalName}
-                                </span>
+                              <div
+                                className={`${styles.certificate} text1 m-0 d-flex justify-content-between`}
+                              >
+                                <span>{item?.document?.originalName}</span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
                                   className={`${styles.close_image} image_arrow`}
@@ -471,31 +515,30 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                                   alt="Close"
                                 />{' '}
                               </div>
-                              {Number(netBalanceQuantity) > 0 && (
-                                <>
 
-                                  {releaseDetail.length === 1 ? null : (
+                              <>
+                                {releaseDetail.length > 1 &&
+                                  <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} img-fluid ml-3 mr-3`}
+                                    alt="Delete"
+                                  />
+                                }
+
+                                {Number(netBalanceQuantity) >= 0 &&
+                                  releaseDetail.length - 1 === index && (
                                     <img
-                                      onClick={() => handleDeleteRow(index)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
-                                      alt="Delete"
+                                      onClick={() =>
+                                        addMorereleaseDetailDataRows(index)
+                                      }
+                                      src="/static/add-btn.svg"
+                                      className={`${styles.delete_image} ml-3 img-fluid`}
+                                      alt="Add button"
                                     />
                                   )}
+                              </>
 
-                                  {Number(netBalanceQuantity) >= 0 &&
-                                    releaseDetail.length - 1 === index && (
-                                      <img
-                                        onClick={() =>
-                                          addMorereleaseDetailDataRows(index)
-                                        }
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-3 img-fluid`}
-                                        alt="Add button"
-                                      />
-                                    )}
-                                </>
-                              )}
                             </>
                           )}
                           {/* {releaseDetail.length > 1 && (

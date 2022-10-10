@@ -11,6 +11,7 @@ import _get from 'lodash/get'
 import Router from 'next/router'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
+import moment from 'moment/moment'
 
 
 function Index() {
@@ -35,7 +36,7 @@ function Index() {
 
   const exportPDF = () => {
 
-    const doc = new jsPDF('p', 'pt', [800, 1200])
+    const doc = new jsPDF('p', 'pt', [800, 1100])
     doc.html(ReactDOMServer.renderToString(
       <table width='800px' cellPadding='0' cellSpacing='0' border='0'>
         <tr>
@@ -46,21 +47,21 @@ function Index() {
                   <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
                     <tbody>
                       <tr>
-                        <td colSpan={2} align='center' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'38px 35px 16px'}}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</td>
+                        <td colSpan={2} align='center' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'38px 35px 16px'}}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='center' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'0 35px 30px'}}>CIN : L80902DL1983PLC209722</td>
+                        <td colSpan={2} align='center' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'0 35px 30px'}}>CIN : L80902DL1983PLC209722</td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 60px'}}>STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.</td>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'30px 35px 60px'}}>STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.</td>
                       </tr>
                       <tr>
-                        <td align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'0 15px 30px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'60px', width:'30px', fontWeight:'normal'}}>To:</span>INDO INTERNATIONAL TRADING FZCO<br/>JAFZA VIEW-18, LOB-180504<br/>JEBEL ALI, DUBAI, U.A.E
+                        <td align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'0 15px 30px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'60px', width:'30px', fontWeight:'normal'}}>To:</span>INDO INTERNATIONAL TRADING FZCO<br/>JAFZA VIEW-18, LOB-180504<br/>JEBEL ALI, DUBAI, U.A.E
                         </td>
-                        <td valign='top' align='right' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'normal', padding:'0 35px 30px 15px'}}>DATE: 05 APRIL 2021</td>
+                        <td valign='top' align='right' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', padding:'0 35px 30px 15px'}}>DATE: {moment(_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')).format("DD-MM-YYYY")}</td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 30px'}}><span style={{fontWeight:'normal'}}>Dear Sir,</span><br/><br/>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'30px 35px 30px'}}><span style={{fontWeight:'normal'}}>Dear Sir,</span><br/><br/>
                         <span style={{fontWeight:'normal'}}>Ship: </span>MV CRIMSON ARK<br/><br/>
                         <span style={{fontWeight:'normal'}}>Voyage: </span>FROM ABBOT POINT, AUSTRALIA TO ANY PORT(S) IN INDIA<br/><br/>
                         <span style={{fontWeight:'normal'}}>Cargo: </span>36,750 MT LAKE VERMONT PREMIUM HARD COKING COAL<br/><br/>
@@ -77,10 +78,10 @@ function Index() {
                          </td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 40px'}}><span style={{fontWeight:'normal'}}>The above cargo was shipped on the above ship by </span> LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE <span style={{fontWeight:'normal'}}>and consigned to </span>TO ORDER <span style={{fontWeight:'normal'}}>for delivery at the port of </span>ANY PORT (S) IN INDIA <span style={{fontWeight:'normal'}}>but the bill of lading has not arrived and we, </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA, <span style={{fontWeight:'normal'}}>hereby request you to deliver the said cargo to </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA <span style={{fontWeight:'normal'}}>or to such party as you believe to be or to represent </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA <span style={{fontWeight:'normal'}}>or to be acting on behalf of </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA <span style={{fontWeight:'normal'}}>without production of the original bill of lading.</span></td>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', padding:'30px 35px 40px'}}>The above cargo was shipped on the above ship by <span style={{fontWeight:'bold'}}>LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE 4000 QUEBSLAND, AUSTRALIA</span> and consigned to <span style={{fontWeight:'bold'}}>TO ORDER</span> for delivery at the port of <span style={{fontWeight:'bold'}}>ANY PORT (S) IN INDIA</span> but the bill of lading has not arrived and we, EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA, hereby request you to deliver the said cargo to EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to such party as you believe to be or to represent EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to be acting on behalf of EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at <span style={{fontWeight:'bold'}}>VISAKHAPATNAM PORT (VSPL), INDIA</span> without production of the original bill of lading.</td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'normal', padding:'0 35px 30px'}}>In consideration of your accepting our request and/or complying with, or taking any steps to comply with, or attempting to comply with our above request, we hereby agree as follows :<br/><br/>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', padding:'0 35px 30px'}}>In consideration of your accepting our request and/or complying with, or taking any steps to comply with, or attempting to comply with our above request, we hereby agree as follows :<br/><br/>
                         1. To indemnify you, your servants, agents and any third party affiliated or associated with Torvald Klaveness and to hold all of you harmless in respect of any liability, loss, damage or expense of whatsoever nature which you may sustain by reason of delivering the cargo in accordance with our request.<br/><br/>
                         2. In the event of any proceedings being commenced against you or any other person or third party mentioned under No. 1 above in connection with the delivery of the cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.<br/><br/>
                         3. If, in connection with the delivery of the cargo as aforesaid, the ship, or any other ship or property in the same or affiliated/associated ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the vessel (whether by virtue of a caveat being entered on the ship's registry or otherwise howsoever), to provide on demand such bail or other security as may be required to prevent such arrest or detention or to secure the release of such ship or property or to remove such interference and to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or detention or such interference, whether or not such arrest or detention or threatened arrest or detention or such interference may be justified.<br/><br/>
@@ -90,13 +91,13 @@ function Index() {
                         7. This indemnity shall be governed by and construed in accordance with English law and each and every person liable under this indemnity shall at your request submit to the Jurisdiction of the High Court of Justice of England.</td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 20px'}}><span style={{fontWeight:'normal'}}>Yours faithfully<br/>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'30px 35px 20px'}}><span style={{fontWeight:'normal'}}>Yours faithfully<br/>
                         For and on behalf of</span><br/>
                         EMERGENT INDUSTRIAL SOLUTIONS LIMITED<br/>
                         <span style={{fontWeight:'normal'}}>The Requestor</span></td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/><br/>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/><br/>
                         <span style={{fontWeight:'normal'}}>Name: </span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}<br/><br/>
                         <span style={{fontWeight:'normal'}}>Designation:</span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</td>
                       </tr>
@@ -151,7 +152,7 @@ autoPaging: "text",
               </div>
             </div>
             <div>
-              <span>DATE:</span>{_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')}
+              <span>DATE:</span>{moment(_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')).format("DD-MM-YYYY")}
             </div>
           </div>
           <span>Dear Sir, </span>
@@ -215,44 +216,7 @@ autoPaging: "text",
           </div>
 
           <div className={styles.body}>
-            <p>
-              The above cargo was shipped on the above ship by{' '}
-              <span className={styles.bold}>
-                LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE{' '}
-              </span>
-              and consigned to <span className={styles.bold}>TO ORDER</span> for
-              delivery at the port of{' '}
-              <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-              Bills of Lading has not arrived and we,{' '}
-              <span className={styles.bold}>
-                {' '}
-                EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-                LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-                ANDHRA PRADESH – 530016, INDIA
-              </span>{' '}
-              , hereby request you to deliver the said cargo to{' '}
-              <span className={styles.bold}>
-                {' '}
-                EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-                LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-                ANDHRA PRADESH – 530016, INDIA
-              </span>{' '}
-              or to such party as you believe to be or to represent{' '}
-              <span className={styles.bold}>
-                {' '}
-                EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-                LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-                ANDHRA PRADESH – 530016, INDIA
-              </span>{' '}
-              or to be acting on behalf of{' '}
-              <span className={styles.bold}>
-                {' '}
-                EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-                LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-                ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
-              </span>{' '}
-              without production of the original Bill(s) of Lading.
-            </p>
+            <p>The above cargo was shipped on the above ship by{' '}<span className={styles.bold}>LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE 4000 QUEBSLAND, AUSTRALIA{' '}</span> and consigned to <span className={styles.bold}>TO ORDER</span> for delivery at the port of{' '} <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the Bills of Lading has not arrived and we,{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA {' '}, hereby request you to deliver the said cargo to{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA{' '} or to such party as you believe to be or to represent{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA{' '} or to be acting on behalf of{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at <span className={styles.bold}> {' '}VISAKHAPATNAM PORT (VSPL), INDIA </span>{' '} without production of the original Bill(s) of Lading.</p>
 
             <div className={`${styles.list}`}>
               <p>

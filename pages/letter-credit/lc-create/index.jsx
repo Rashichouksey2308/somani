@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import LcApplication from '../../../src/components/LcApplication'
 import PreviewBar from '../../../src/components/PreviewBar'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action'
 import { removePrefixOrSuffix } from '../../../src/utils/helper'
@@ -14,6 +14,7 @@ import {
 } from '../../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -32,11 +33,17 @@ function Index() {
       lcModule?.data?.order?.orderId,
       'lcModule?.data?.order?.orderId',
     )
-    dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')))
-    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')))
+    dispatch(
+      setDynamicName(
+        _get(lcModule, 'data[0].company.companyName', 'Company Name'),
+      ),
+    )
+    dispatch(
+      setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')),
+    )
   }, [lcModuleData])
   // console.log(lcData, "THIS IS LC USE STATE")
-
+console.log(lcModuleData,"lcModuleData")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -44,37 +51,58 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank ? lcModuleData?.lcApplication?.lcIssuingBank : lcModuleData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank
+        ? lcModuleData?.lcApplication?.lcIssuingBank
+        : lcModuleData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       applicant: lcModuleData?.lcApplication?.applicant,
-      beneficiary: lcModuleData?.lcApplication?.beneficiary ? lcModuleData?.lcApplication?.beneficiary : lcModuleData?.order?.supplierName,
+      beneficiary: lcModuleData?.lcApplication?.beneficiary
+        ? lcModuleData?.lcApplication?.beneficiary
+        : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue:
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
       currecyCodeAndAmountUnit:
         lcModuleData?.lcApplication?.currecyCodeAndAmountUnit ?? '',
-      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage ? lcModuleData?.lcApplication?.tolerancePercentage : lcModuleData?.order?.tolerance,
+      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage
+        ? lcModuleData?.lcApplication?.tolerancePercentage
+        : lcModuleData?.order?.tolerance,
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
       atSight: lcModuleData?.lcApplication?.atSight,
       numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
       drawee: lcModuleData?.lcApplication?.drawee,
       deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-      partialShipment: lcModuleData?.lcApplication?.partialShipment ? lcModuleData?.lcApplication?.partialShipment : lcModuleData?.order?.termsheet?.transactionDetails?.partShipmentAllowed,
+      partialShipment: lcModuleData?.lcApplication?.partialShipment
+        ? lcModuleData?.lcApplication?.partialShipment
+        : lcModuleData?.order?.termsheet?.transactionDetails
+            ?.partShipmentAllowed,
       transhipments: lcModuleData?.lcApplication?.transhipments,
       shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-      portOfLoading: lcModuleData?.lcApplication?.portOfLoading ? lcModuleData?.lcApplication?.portOfLoading : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
-      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge ? lcModuleData?.lcApplication?.portOfDischarge : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading
+        ? lcModuleData?.lcApplication?.portOfLoading
+        : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
+      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge
+        ? lcModuleData?.lcApplication?.portOfDischarge
+        : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod ? lcModuleData?.lcApplication?.presentaionPeriod : "DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC",
-      confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions ? lcModuleData?.lcApplication?.confirmationInstructions : 'May Add',
+      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod
+        ? lcModuleData?.lcApplication?.presentaionPeriod
+        : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC',
+      confirmationInstructions: lcModuleData?.lcApplication
+        ?.confirmationInstructions
+        ? lcModuleData?.lcApplication?.confirmationInstructions
+        : 'May Add',
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
       requestedConfirmationParty:
         lcModuleData?.lcApplication?.requestedConfirmationParty,
-      charges: lcModuleData?.lcApplication?.charges ? lcModuleData?.lcApplication?.charges : "ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT",
-      instructionToBank: lcModuleData?.lcApplication?.instructionToBank ? lcModuleData?.lcApplication?.instructionToBank : "THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS)..............UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS",
+      charges: lcModuleData?.lcApplication?.charges
+        ? lcModuleData?.lcApplication?.charges
+        : 'ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT',
+      instructionToBank: lcModuleData?.lcApplication?.instructionToBank
+        ? lcModuleData?.lcApplication?.instructionToBank
+        : 'THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS)..............UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS',
       senderToReceiverInformation:
         lcModuleData?.lcApplication?.senderToReceiverInformation,
       documentaryCreditNumber:
@@ -97,6 +125,9 @@ function Index() {
   const saveLcData = (name, value) => {
     const newInput = { ...lcData }
     newInput[name] = value
+    if(name== "atSight" && value== "AT SIGHT"){
+      newInput.numberOfDays = ""
+    }
     // console.log(newInput)
     setLcData(newInput)
   }
@@ -119,18 +150,17 @@ function Index() {
   }
 
   const addComment = (val) => {
-
     setCurrentComment(val)
   }
   const addDocArr = () => {
-    if (currentComment == "") {
+    if (currentComment == '') {
       let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return
       }
     }
-    setLcDocuments([...lcDocuments, {value:currentComment,action:false}])
+    setLcDocuments([...lcDocuments, { value: currentComment, action: false }])
     setCurrentComment('')
   }
   const deleteLcDoc = (index) => {
@@ -140,53 +170,51 @@ function Index() {
     ])
   }
   const lcDocEdit = (val, index) => {
-    setLcDocuments(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+    setLcDocuments((prevState) => {
+      const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {...obj, value: val};
+          return { ...obj, value: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
-  console.log(lcDocuments,"lcDocumentslcDocuments")
-  const editLcDocComments=(val,index)=>{
-  setLcDocuments(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+  console.log(lcDocuments, 'lcDocumentslcDocuments')
+  const editLcDocComments = (val, index) => {
+    setLcDocuments((prevState) => {
+      const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {...obj, action: val};
+          return { ...obj, action: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
   //condition
   const addConditionComment = (val) => {
-    console.log(val, "888888")
+    console.log(val, '888888')
 
     setCurrentComment2(val)
   }
   const addConditionArr = (index) => {
     // console.log("thsbhjsbdjh",lcCondition,currentComment2)
-    if (currentComment2 == "") {
+    if (currentComment2 == '') {
       let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return
       }
     }
-    setLcComments([...lcComments, {value:currentComment2,action:false}])
+    setLcComments([...lcComments, { value: currentComment2, action: false }])
     //   setLcComments(prevState => {
     //   const newState = prevState.map((obj ,i)=> {
-        
+
     //     if (i == index) {
     //       return {...obj, value: currentComment2,action:false};
     //     }
@@ -205,45 +233,43 @@ function Index() {
     ])
   }
   const lcConditionEdit = (val, index) => {
-    console.log(val,"AAAAAAAA")
-     setLcComments(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+    console.log(val, 'AAAAAAAA')
+    setLcComments((prevState) => {
+      const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {...obj, value: val};
+          return { ...obj, value: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
-  const editLcComments=(val,index)=>{
-  setLcComments(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+  const editLcComments = (val, index) => {
+    setLcComments((prevState) => {
+      const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return {...obj, action: val};
+          return { ...obj, action: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
-  console.log(lcComments,"lcComments")
+  console.log(lcComments, 'lcComments')
   useEffect(() => {
     let commentLcArr = []
     lcModuleData?.additionalConditions?.forEach((element) => {
-      commentLcArr.push({value:element,action:false})
+      commentLcArr.push({ value: element, action: false })
     })
     setLcComments(commentLcArr)
 
     let docLcArr = []
     lcModuleData?.documentRequired?.forEach((element) => {
-      docLcArr.push({value:element,action:false})
+      docLcArr.push({ value: element, action: false })
     })
     setLcDocuments(docLcArr)
   }, [lcModuleData])
@@ -261,13 +287,13 @@ function Index() {
         return false
       }
     }
-    if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
-      toastMessage = 'Please add Applicable Rules'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
-      }
-    }
+    // if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
+    //   toastMessage = 'Please add Applicable Rules'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     return false
+    //   }
+    // }
 
     if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
       toastMessage = 'Please add  Date Of Expiry'
@@ -344,13 +370,15 @@ function Index() {
         return false
       }
     }
-    if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
+   if(lcData.atSight=="SPECIFY"){
+     if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
       toastMessage = 'Please add number of Days'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false
       }
     }
+   }
     if (lcData.partialShipment === '' || lcData.partialShipment == undefined) {
       toastMessage = 'Please select  Partial Shipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -391,6 +419,31 @@ function Index() {
       lcData.latestDateOfShipment == undefined
     ) {
       toastMessage = 'Please select latest Date Of Shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+
+    if (
+      lcData.DescriptionOfGoods === '' ||
+      lcData.DescriptionOfGoods == undefined
+    ) {
+      toastMessage = 'Please add Description Of Goods'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+    if (lcDocuments.length <= 0) {
+      toastMessage = 'Please add DOCUMENT REQUIRED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+    if (lcComments.length <= 0) {
+      toastMessage = 'Please add ADDITIONAL CONDITIONS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false
@@ -462,20 +515,20 @@ function Index() {
     }
     return true
   }
-  const handleLcSave = () => {
+  const handleLcSave = async() => {
     if (checkValidation()) {
-      let comment=[]
-      if(lcComments.length>0){
-      lcComments.forEach((val,index)=>{
-        comment.push(val.value)
-      })
+      let comment = []
+      if (lcComments.length > 0) {
+        lcComments.forEach((val, index) => {
+          comment.push(val.value)
+        })
       }
-       let doc=[]
-      if(lcDocuments.length>0){
-      lcDocuments.forEach((val,index)=>{
-        doc.push(val.value)
-      })
-    }
+      let doc = []
+      if (lcDocuments.length > 0) {
+        lcDocuments.forEach((val, index) => {
+          doc.push(val.value)
+        })
+      }
       let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
         lcData?.currecyCodeAndAmountValue,
@@ -489,24 +542,32 @@ function Index() {
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       }
-      dispatch(UpdateLcModule({ obj: obj }))
+      console.log(lcModule,"lcModule")
+       let code = await dispatch(UpdateLcModule({ obj: obj }))
+       if(code==200){
+        // sessionStorage.setItem('VesselCompany',"")
+        // sessionStorage.setItem('VesselId',"")
+        // dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'))
+        // router.push(`/vessel`)
+       }
+      
     }
   }
 
   const changeRoute = () => {
     if (checkValidation()) {
-        let comment=[]
-      if(lcComments.length>0){
-      lcComments.forEach((val,index)=>{
-        comment.push(val.value)
-      })
+      let comment = []
+      if (lcComments.length > 0) {
+        lcComments.forEach((val, index) => {
+          comment.push(val.value)
+        })
       }
-       let doc=[]
-      if(lcDocuments.length>0){
-      lcDocuments.forEach((val,index)=>{
-        doc.push(val.value)
-      })
-    }
+      let doc = []
+      if (lcDocuments.length > 0) {
+        lcDocuments.forEach((val, index) => {
+          doc.push(val.value)
+        })
+      }
       let task = 'preview'
       let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
@@ -549,6 +610,7 @@ function Index() {
         currentComment2={currentComment2}
         editLcComments={editLcComments}
         editLcDocComments={editLcDocComments}
+        name={_get(lcModule,"data[0].company.companyName","")}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>

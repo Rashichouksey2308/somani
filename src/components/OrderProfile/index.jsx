@@ -18,7 +18,7 @@ function Index() {
   console.log(buyerList, 'this is buyer list')
 
   return (
-    <div className={`${styles.wrapper} card`}>
+    <div className={`${styles.wrapper} card border_color`}>
       <div
         className={`${styles.sub_card} sub_card card-header p-0 d-flex align-items-center justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -35,20 +35,26 @@ function Index() {
       </div>
       <div
         id="orderDetail"
-        className={`collapse ${styles.body} value_card card-body row`}
+        className={`collapse ${styles.body} card-body row`}
         aria-labelledby="orderDetail"
         //   data-parent="#profileAccordion"
       >
         {fields('Commodity', buyerList?.order?.commodity)}
         {fields(
           'Quantity (in MT)',
-          buyerList?.order?.quantity,
+          buyerList?.order?.quantity?.toLocaleString("en-IN", {
+            maximumFractionDigits: 2,
+
+          }),
           false,
           buyerList?.order?.unitOfQuantity.toUpperCase(),
         )}
         {fields(
           'Order value (in INR)',
-          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(),
+          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString("en-IN", {
+            maximumFractionDigits: 2,
+
+          }),
           false,
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'

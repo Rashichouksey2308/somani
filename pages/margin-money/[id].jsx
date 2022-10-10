@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
-
+import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
@@ -26,18 +26,23 @@ import {
 import { addPrefixOrSuffix, checkNan, convertValue } from '../../src/utils/helper'
 import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
+import moment from 'moment'
 
 function Index() {
+
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(true)
 
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
   const { orderList } = useSelector((state) => state.buyer)
-  console.log(orderList, "orderList?.company")
+
   const marginData = _get(margin, 'data.data[0]', '')
-  console.log(marginData, "marginData")
+
 
   let id = sessionStorage.getItem('marginId')
 
@@ -49,7 +54,7 @@ function Index() {
     'data.data[0].revisedMarginMoney.isActive',
     false,
   )
-  console.log(coversionUnit, 'coversionUnit')
+  
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
 
@@ -70,7 +75,7 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
-  console.log(marginData?.isUsanceInterestIncluded, " marginData?.isUsanceInterestIncluded")
+
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
     status: marginData?.status || '',
@@ -260,24 +265,7 @@ function Index() {
     Router.push('/margin-preview')
   }
 
-  const [invoiceData, setInvoiceData] = useState({
-    buyerName: marginData?.company?.companyName || '',
-    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer,
-    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-    importerName: marginData?.invoiceDetail?.importerName || '',
-    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
-    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
-    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
-    bankName: marginData?.invoiceDetail?.bankName || '',
-    branch: marginData?.invoiceDetail?.branch || '',
-    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
-    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-    accountNo: marginData?.invoiceDetail?.accountNo || '',
-  })
+  const [invoiceData, setInvoiceData] = useState({})
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -296,11 +284,12 @@ function Index() {
         branch: marginData?.invoiceDetail?.branch || '',
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       })
     }
   }, [marginData])
-  // console.log(invoiceData, 'invoiceData')
+ 
+
 
   const saveInvoiceData = (name, value) => {
     // console.log(value, 'invoice data value', name)
@@ -329,7 +318,7 @@ function Index() {
     setInvoiceData({ ...newInput })
   }
 
-  console.log(invoiceData, 'invoice data value')
+ 
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -389,7 +378,7 @@ function Index() {
       setChangeImporterData({ ...changeImporterData })
     }
   }
-  console.log(changeImporterData, 'THIS IS CHANGE IMPORTER')
+
 
   const setSame = (val) => {
     if (val == true) {
@@ -408,50 +397,355 @@ function Index() {
       })
     }
   }
+  const validate = () => {
+    if (invoiceData.buyerName === null || invoiceData.buyerName === undefined || invoiceData.buyerName === '') {
+      let toastMessage = 'Please add buyer name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.buyerGSTIN === null || invoiceData.buyerGSTIN === undefined || invoiceData.buyerGSTIN === '') {
+      let toastMessage = 'Please add buyer gstin'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.buyerAddress === null || invoiceData.buyerAddress === undefined || invoiceData.buyerAddress === '') {
+      let toastMessage = 'Please add buyer address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.consigneeName === null || invoiceData.consigneeName === undefined || invoiceData.consigneeName === '') {
+      let toastMessage = 'Please add consignee Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.consigneeGSTIN === null || invoiceData.consigneeGSTIN === undefined || invoiceData.consigneeGSTIN === '') {
+      let toastMessage = 'Please add consignee gstin'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.consigneeAddress === null || invoiceData.consigneeAddress === undefined || invoiceData.consigneeAddress === '') {
+      let toastMessage = 'Please add consignee address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.importerName === null || invoiceData.importerName === undefined || invoiceData.importerName === '') {
+      let toastMessage = 'Please add importer name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.branchOffice === null || invoiceData.branchOffice === undefined || invoiceData.branchOffice === '') {
+      let toastMessage = 'Please add branch Office'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.companyAddress === null || invoiceData.companyAddress === undefined || invoiceData.companyAddress === '') {
+      let toastMessage = 'Please add company Address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.importerGSTIN === null || invoiceData.importerGSTIN === undefined || invoiceData.importerGSTIN === '') {
+      let toastMessage = 'Please add importer GSTIN'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.bankName === null || invoiceData.bankName === undefined || invoiceData.bankName === '') {
+      let toastMessage = 'Please add bank Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.branch === null || invoiceData.branch === undefined || invoiceData.branch === '') {
+      let toastMessage = 'Please add branch'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.branch === null || invoiceData.branch === undefined || invoiceData.branch === '') {
+      let toastMessage = 'Please add branch'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.branchAddress === null || invoiceData.branchAddress === undefined || invoiceData.branchAddress === '') {
+      let toastMessage = 'Please add branch Address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.IFSCcode === null || invoiceData.IFSCcode === undefined || invoiceData.IFSCcode === '') {
+      let toastMessage = 'Please add  IFSC code'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (invoiceData.accountNo === null || invoiceData.accountNo === undefined || invoiceData.accountNo === '') {
+      let toastMessage = 'Please add  account No'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    return true
+  }
+  const handleUpdate = async() => {
+    if (validate()) {
 
-  const handleUpdate = () => {
-    let obj = {
-      marginMoneyId: marginData?._id,
-      conversionRate: forCalculation.conversionRate,
-      isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
-      numberOfPDC: forCalculation.numberOfPDC,
-      additionalPDC: forCalculation.additionalPDC,
-      invoiceDetail: { ...invoiceData },
-      calculation: {
-        orderValue: finalCal.orderValue,
-        orderValueCurrency: finalCal.orderValueCurrency,
-        orderValueInINR: finalCal.orderValueInINR,
-        usanceInterest: finalCal.usanceInterest,
-        tradeMargin: finalCal.tradeMargin,
-        grossOrderValue: finalCal.grossOrderValue,
-        toleranceValue: finalCal.toleranceValue,
-        totalOrderValue: finalCal.totalOrderValue,
-        provisionalUnitPricePerTon: finalCal.provisionalUnitPricePerTon,
-        marginMoney: finalCal.marginMoney,
-        totalSPDC: finalCal.totalSPDC,
-        amountPerSPDC: finalCal.amountPerSPDC,
-      },
-      orderObj: {
+
+      let obj = {
+        marginMoneyId: marginData?._id,
+        conversionRate: forCalculation.conversionRate,
+        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
+        numberOfPDC: forCalculation.numberOfPDC,
+        additionalPDC: forCalculation.additionalPDC,
+        invoiceDetail: { ...invoiceData },
+        calculation: {
+          orderValue: finalCal.orderValue,
+          orderValueCurrency: finalCal.orderValueCurrency,
+          orderValueInINR: finalCal.orderValueInINR,
+          usanceInterest: finalCal.usanceInterest,
+          tradeMargin: finalCal.tradeMargin,
+          grossOrderValue: finalCal.grossOrderValue,
+          toleranceValue: finalCal.toleranceValue,
+          totalOrderValue: finalCal.totalOrderValue,
+          provisionalUnitPricePerTon: finalCal.provisionalUnitPricePerTon,
+          marginMoney: finalCal.marginMoney,
+          totalSPDC: finalCal.totalSPDC,
+          amountPerSPDC: finalCal.amountPerSPDC,
+        },
+        orderObj: {
           quantity: forCalculation.quantity,
           perUnitPrice: forCalculation.perUnitPrice,
-          orderValue:finalCal.orderValue
-      },
-    }
-    // if (
-    //   marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
-    //   marginData?.order?.quantity !== forCalculation.quantity
-    // ) {
-    //   obj = {
-    //     ...obj,
-    //     orderObj: {
-    //       quantity: forCalculation.quantity,
-    //       perUnitPrice: forCalculation.perUnitPrice,
-    //       orderValue:finalCal.orderValue
-    //     },
-    //   }
-    // }
+          orderValue: finalCal.orderValue
+        },
+      }
+      // if (
+      //   marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
+      //   marginData?.order?.quantity !== forCalculation.quantity
+      // ) {
+      //   obj = {
+      //     ...obj,
+      //     orderObj: {
+      //       quantity: forCalculation.quantity,
+      //       perUnitPrice: forCalculation.perUnitPrice,
+      //       orderValue:finalCal.orderValue
+      //     },
+      //   }
+      // }
 
-    dispatch(UpdateMarginMoney(obj))
+      dispatch(UpdateMarginMoney(obj))
+    }
+  }
+
+  // RevisedMargin Money New Calculation
+
+  const [forCalculationRevised, setforCalculationRevised] = useState({
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    status: marginData?.status || '',
+    quantity: marginData?.order?.quantity || '',
+    additionalPDC: marginData?.additionalPDC || '',
+    conversionRate: marginData?.conversionRate || '',
+    perUnitPrice: marginData?.order?.perUnitPrice || '',
+    usanceInterestPercentage:
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
+    numberOfPDC: marginData?.numberOfPDC || '',
+    tradeMarginPercentage:
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
+    tolerance: marginData?.order?.tolerance || '',
+    marginMoney:
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
+  })
+
+  // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
+  const saveforCalculationRevised = (name, value) => {
+    const newInput = { ...forCalculationRevised }
+    newInput[name] = value
+    // console.log(newInput)
+    setforCalculationRevised(newInput)
+    getDataRevised()
+    getRevisedData2()
+  }
+
+  const [finalCalRevised, setfinalCalRevised] = useState({
+    orderValue: '',
+    orderValueCurrency: 'USD',
+    orderValueInINR: '',
+    usanceInterest: '',
+    tradeMargin: '',
+    grossOrderValue: '',
+    toleranceValue: '',
+    totalOrderValue: '',
+    provisionalUnitPricePerTon: '',
+    marginMoney: '',
+    totalSPDC: '',
+    amountPerSPDC: '',
+  })
+
+  useEffect(() => {
+    getDataRevised2()
+  }, [marginData])
+
+  const getDataRevised2 = () => {
+    setforCalculationRevised({
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      status: marginData?.status,
+      quantity: marginData?.order?.quantity,
+      additionalPDC: marginData?.additionalPDC,
+      conversionRate: marginData?.conversionRate,
+      perUnitPrice: marginData?.order?.perUnitPrice,
+      usanceInterestPercentage:
+        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      numberOfPDC: marginData?.numberOfPDC,
+      tradeMarginPercentage:
+        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      tolerance: marginData?.order?.tolerance,
+      marginMoney:
+        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+    })
+    let orderValue = parseFloat(
+      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * Number(forCalculationRevised.conversionRate),
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculationRevised.isUsanceInterestIncluded
+          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          : 1) *
+        90) /
+      365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculationRevised.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
+    ).toFixed(2) //T
+
+    // console.log(orderValue, 'orderValue')
+    setfinalCalRevised({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
+  }
+  useEffect(() => {
+    getDataRevised()
+  }, [forCalculationRevised])
+
+  const getDataRevised = () => {
+    let orderValue = parseFloat(
+      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * Number(forCalculationRevised.conversionRate),
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculationRevised.isUsanceInterestIncluded
+          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          : 0) *
+        90) /
+      365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculationRevised.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
+    ).toFixed(2) //T
+
+    // console.log(orderValue, 'orderValue')
+    setfinalCalRevised({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
   }
 
   const [revisedCalc, setRevisedCalc] = useState({
@@ -477,7 +771,7 @@ function Index() {
     marginMoneyPayable: '',
   })
 
-  console.log(calcRevised, 'THIS IS CALC REVISED')
+  
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -501,7 +795,7 @@ function Index() {
     importerGSTIN:
       marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
     bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
-    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || 'Connaught Place, DELHI',
     branchAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
@@ -560,7 +854,7 @@ function Index() {
     let additionalAmountPerPDC = parseFloat(
       (marginData?.calculation?.totalSPDC -
         Number(revisedCalc.additionalAmountPerPDC)) /
-      Number(forCalculation.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
@@ -592,7 +886,7 @@ function Index() {
             ? revisedCalc.additionalAmountPerPDC
             : 0,
         )) /
-      Number(forCalculation.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
@@ -650,12 +944,33 @@ function Index() {
   const handleUpdateRevisedMarginMoney = () => {
     let obj = {
       marginMoneyId: marginData?._id,
-      additionalPDC: forCalculation.additionalPDC,
+      additionalPDC: forCalculationRevised.additionalPDC,
       revisedMarginMoney: {
         isActive: true,
         invoiceDetail: { ...invoiceDataRevised },
         calculation: { ...calcRevised },
       },
+      calculation: {
+        orderValue: finalCalRevised.orderValue,
+        orderValueCurrency: finalCalRevised.orderValueCurrency,
+        orderValueInINR: finalCalRevised.orderValueInINR,
+        usanceInterest: finalCalRevised.usanceInterest,
+        tradeMargin: finalCalRevised.tradeMargin,
+        grossOrderValue: finalCalRevised.grossOrderValue,
+        toleranceValue: finalCalRevised.toleranceValue,
+        totalOrderValue: finalCalRevised.totalOrderValue,
+        provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
+        marginMoney: finalCalRevised.marginMoney,
+        totalSPDC: finalCalRevised.totalSPDC,
+        amountPerSPDC: finalCalRevised.amountPerSPDC,
+      },
+      conversionRate: forCalculationRevised.conversionRate,
+        isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
+        orderObj: {
+          quantity: forCalculationRevised.quantity,
+          perUnitPrice: forCalculationRevised.perUnitPrice,
+          orderValue: finalCalRevised.orderValue
+        },
     }
 
     dispatch(RevisedMarginMoney(obj))
@@ -683,20 +998,3344 @@ function Index() {
     setCoversionUnit(unit)
   }
 
+  const exportPDF = () => {
+    //  let margins = [
+    //    10,
+    //    10,
+    //    10,
+    //    10
+
+    //  ];
+    let element = (
+      <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#D8EAFF"
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                marginBottom: '26px',
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                height: '126px',
+              }}
+              cellPadding="10"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <td valign="bottom" align="left" width="33%">
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500',
+                      padding: '10px 0 0 25px',
+                    }}
+                  >
+                    Order ID:{' '}
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    >
+                      {marginData?.order?.orderId}
+                    </span>
+                  </span>
+                  <br />
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500',
+                    }}
+                  >
+                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
+                      Buyer:{' '}
+                    </span>
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    >
+                      {marginData?.company?.companyName}
+                      {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
+                    </span>
+                  </span>
+                </td>
+                <td valign="top" align="center" width="34%">
+                  <h2
+                    style={{
+                      fontSize: '34px',
+                      color: '#3687E8',
+                      lineHeight: '41px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    MARGIN MONEY
+                  </h2>
+                </td>
+                <td valign="center" align="right" width="33%">
+                  <span>
+                    {' '}
+                    <span></span>
+                  </span><br />
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500',
+                      paddingRight: '25px',
+                    }}
+                  >
+                    Date:{' '}
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    >
+                      {moment(marginData?.createdAt?.slice(0, 10)).format(
+                        'DD-MM-yy',
+                      )}
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" align="left">
+            <table
+              width="100%"
+              bgColor="#FFFFFF"
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                border: '2px solid #cad6e64d'
+              }}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <td valign="top" align="left">
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <h3
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Commodity Details
+                        </h3>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left">
+                        <h3
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            padding: '20px 15px 20px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+
+                          Margin Money
+                        </h3>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            A.
+                          </span>
+                          Quantity
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.quantity
+                              ? marginData?.order?.quantity
+                              : 0,
+                            'MT',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            B
+                          </span>
+                          Unit Price
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          USD   {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            C
+                          </span>
+                          Conversion Rate
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.conversionRate}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            D
+                          </span>
+                          Usance Interest (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            E
+                          </span>
+                          Trade Margin (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.tradeMarginPercentage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            F
+                          </span>
+                          Tolerance (+/-) Percentage
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.tolerance
+                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            G
+                          </span>
+                          Margin Money (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.transactionDetails
+                              ?.marginMoney
+                              ? marginData?.order?.termsheet
+                                ?.transactionDetails?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            H
+                          </span>
+                          No. of PDC's
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            I
+                          </span>
+                          Additional PDC's
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.additionalPDC}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <h3
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Calculation
+                        </h3>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            J
+                          </span>
+                          Order Value
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (A*B)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          USD {marginData?.calculation?.orderValue?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            K
+                          </span>
+                          Order Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (J*C)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            L
+                          </span>
+                          Usance Interest (%) for 90 days (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (K*D*90)/365
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.usanceInterest?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            M
+                          </span>
+                          Trade Margin (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (K*E)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.tradeMargin?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            N
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Gross Order Value (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (K+L+M)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            O
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Tolerance Value (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (N*F)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.toleranceValue?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            P
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Total Order Value (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (N+O)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            Q
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Provisional Unit Price Per Ton (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (N/A)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            R
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Margin Money (INR){' '}</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (P*G)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR {marginData?.calculation?.marginMoney?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            S
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Total SPDC Amount Req. (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            (P-R)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {'INR'} {marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            T
+                          </span>
+                          <span style={{ marginRight: '10px' }}>Additional Amount Per SPDC (INR)</span>
+                          <span
+                            style={{
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            [(S-Previous Value)/I)]
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          INR  {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In') ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    {/* <tr>
+                        <td
+                          align="left"
+                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              opacity: '0.7',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '11px 15px 11px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                width: '35px', float:'left', height:'30px'
+                              }}
+                            >
+                              U
+                            </span>
+                            <span style={{marginRight: '10px'}}>Revised Net Order Value (INR)</span>
+                            <span
+                              style={{
+                                fontWeight: 'bold'                                
+                              }}
+                            >
+                              [P - Total Order Value (Previous)]
+                            </span>
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '11px 15px 11px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            value
+                          </p>
+                        </td>
+                      </tr> */}
+                    {/* <tr>
+                        <td
+                          align="left"
+                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              opacity: '0.7',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '11px 15px 11px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                width: '35px', float:'left', height:'30px'
+                              }}
+                            >
+                              V
+                            </span>
+                            Margin Money (INR)
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '11px 15px 11px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            value
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              opacity: '0.7',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '11px 15px 11px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                width: '35px', float:'left', height:'30px'
+                              }}
+                            >
+                              W
+                            </span>
+                            <span style={{marginRight: '10px'}}>Revised Margin Money Calculation (INR)
+                            <span
+                              style={{
+                                fontWeight: 'bold'
+                              }}
+                            >
+                              (R)
+                            </span>
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '11px 15px 11px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            value
+                          </p>
+                        </td>
+                      </tr> */}
+                    {/* <tr>
+                        <td
+                          align="left"
+                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              opacity: '0.7',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '11px 15px 11px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                width: '35px', float:'left', height:'30px'
+                              }}
+                            >
+                              X
+                            </span>
+                            Margin Money Received (INR)
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '11px 15px 11px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            value
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              opacity: '0.7',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '11px 15px 11px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: 'inline-block',
+                                width: '35px', float:'left', height:'30px'
+                              }}
+                            >
+                              Y
+                            </span>
+                            <span style={{marginLeft: '10px'}}>Margin Money Payable (INR)</span>
+                            <span
+                              style={{
+                                fontWeight: 'bold'                                
+                              }}
+                            >
+                              (W-X)
+                            </span>
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '11px 15px 11px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            value
+                          </p>
+                        </td>
+                      </tr> */}
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    )
+    // const doc = new jsPDF('p', 'pt', [1000, 1000])
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    doc.html(ReactDOMServer.renderToString(element), {
+      callback: function (doc) {
+        doc.save('sample.pdf')
+      },
+      // margin:margins,
+      autoPaging: 'text',
+    })
+  }
+
+  const exportPDFReviced = () => {
+    //  let margins = [
+    //    10,
+    //    10,
+    //    10,
+    //    10
+
+    //  ];
+    let element = (
+      <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#D8EAFF"
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                marginBottom: '26px',
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                height: '126px',
+              }}
+              cellPadding="10"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <td valign="bottom" align="left" width="33%">
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500',
+                      padding: '10px 0 0 25px',
+                    }}
+                  >
+                    Order ID:{' '}
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    ></span>
+                  </span><br />
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500'
+                    }}
+                  >
+                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
+                      Buyer:{' '}
+                    </span>
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    >
+                      {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
+                    </span>
+                  </span>
+                </td>
+                <td valign="top" align="center" width="34%">
+                  <h2
+                    style={{
+                      fontSize: '34px',
+                      color: '#3687E8',
+                      lineHeight: '41px',
+                      fontWeight: 'bold',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    REVISED MARGIN MONEY
+                  </h2>
+                </td>
+                <td valign="center" align="right" width="33%">
+                  <span>
+                    {' '}
+                    <span></span>
+                  </span>
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#111111',
+                      lineHeight: '25px',
+                      fontWeight: '500',
+                      paddingRight: '25px',
+                    }}
+                  >
+                    Date:{' '}
+                    <span
+                      style={{
+                        lineHeight: '24px',
+                        fontWeight: 'normal',
+                        opacity: '0.7',
+                      }}
+                    >
+                      22-02-2022
+                    </span>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" align="left">
+            <table
+              width="100%"
+              bgColor="#FFFFFF"
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                border: '2px solid #cad6e64d'
+              }}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <td valign="top" align="left">
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
+                    <tr>
+                      <td
+                        width="50%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Commodity Details
+                        </span>
+                      </td>
+                      <td width="25%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Revised Margin Money
+                        </span>
+                      </td>
+                      <td width="25%" bgColor="#FAFAFB" align="left">
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Margin Money
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            A.
+                          </span>
+                          Quantity
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#43C34D',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.quantity
+                              ? marginData?.order?.quantity
+                              : 0,
+                            'MT',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.quantity
+                              ? marginData?.order?.quantity
+                              : 0,
+                            'MT',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            B
+                          </span>
+                          Unit Price
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            C
+                          </span>
+                          Conversion Rate
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.conversionRate}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.conversionRate}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            D
+                          </span>
+                          Usance Interest (%)
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.usanceInterestPercetage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            E
+                          </span>
+                          Trade Margin (%)
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.tradeMarginPercentage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.commercials
+                              ?.tradeMarginPercentage,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            F
+                          </span>
+                          Tolerance (+/-) Percentage
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.tolerance
+                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.tolerance
+                              ? marginData?.order?.tolerance
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            G
+                          </span>
+                          Margin Money (%)
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.transactionDetails
+                              ?.marginMoney
+                              ? marginData?.order?.termsheet?.transactionDetails
+                                ?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {addPrefixOrSuffix(
+                            marginData?.order?.termsheet?.transactionDetails
+                              ?.marginMoney
+                              ? marginData?.order?.termsheet?.transactionDetails
+                                ?.marginMoney
+                              : 0,
+                            '%',
+                            '',
+                          )}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            H
+                          </span>
+                          No. of PDC's
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            I
+                          </span>
+                          Additional PDC's
+                        </p>
+                      </td>
+                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#FF9D00',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0'
+                          }}
+                        >
+                          {marginData?.additionalPDC?.toLocaleString('en-In')}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Calculation
+                        </p>
+                      </td>
+                      <td bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            J
+                          </span>
+                          Order Value
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (A*B)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            K
+                          </span>
+                          Order Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (J*C)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            L
+                          </span>
+                          Usance Interest (%) for 90 days (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (K*D*90)/365
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            M
+                          </span>
+                          Trade Margin (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (K*E)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            N
+                          </span>
+                          Gross Order Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (K+L+M)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            O
+                          </span>
+                          Tolerance Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (N*F)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            P
+                          </span>
+                          Total Order Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (N+O)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            Q
+                          </span>
+                          Provisional Unit Price Per Ton (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (N/A)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            R
+                          </span>
+                          Margin Money (INR){' '}
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (P*G)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            S
+                          </span>
+                          Total SPDC Amount Req. (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (P-R)
+                          </span>
+                        </p>
+                      </td>
+
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            T
+                          </span>
+                          Additional Amount Per SPDC (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            [(S-Previous Value)/I)]
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                            color: '#FF9D00',
+                            float: 'left',
+                            fontWeight: 'bold',
+                            lineHeight: '24px'
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            U
+                          </span>
+                          Revised Net Order Value (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            [P - Total Order Value (Previous)]
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#43C34D',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            V
+                          </span>
+                          Margin Money (INR)
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#43C34D',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            W
+                          </span>
+                          Revised Margin Money Calculation (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (R)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#43C34D',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            X
+                          </span>
+                          Margin Money Received (INR)
+                        </p>
+                      </td>
+                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#43C34D',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: '35px', float: 'left', height: '30px'
+                            }}
+                          >
+                            Y
+                          </span>
+                          Margin Money Payable (INR)
+                          <span
+                            style={{
+                              fontWeight: 'bold',
+                              marginLeft: '10px',
+                            }}
+                          >
+                            (W-X)
+                          </span>
+                        </p>
+                      </td>
+                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#FF9D00',
+                            lineHeight: '24px',
+                            fontWeight: 'bold',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0'
+                          }}
+                        >
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
+                            0}
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          -
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    )
+    // const doc = new jsPDF('p', 'pt', 'a4')
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    doc.html(ReactDOMServer.renderToString(element), {
+      callback: function (doc) {
+        doc.save('sample.pdf')
+      },
+      // margin:margins,
+      autoPaging: 'text',
+    })
+  }
+
   const [active, setActive] = useState('Margin Money')
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
-            <img onClick={() => Router.push('/margin-money')}
+            {/* <img onClick={() => Router.push('/margin-money')}
               src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
                 }`}
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
+              style={{cursor:'pointer'}}
+            /> */}
+             <img
+               onClick={() => Router.push('/margin-money')}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>Margin Money</span>
+              <span>{_get(orderList,"company.companyName","")}</span>
             </h1>
             <div className="ml-auto">
               <button
@@ -711,7 +4350,7 @@ function Index() {
                 Update Info
               </button>
               <div className={`${styles.lastModified} text `}>
-                <span>Last Modified:</span> 28 Jan,11:34am
+                <span className='accordion_Text'>Last Modified:</span> 28 Jan,11:34am
               </div>
             </div>
           </div>
@@ -780,7 +4419,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div
-                    className={`${styles.card} vessel_card accordionMargin card`}
+                    className={`${styles.card} vessel_card accordionMargin card border_color`}
                   >
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
@@ -883,97 +4522,13 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.quantity?.toLocaleString(),
+                                    marginData?.order?.quantity?.toLocaleString('en-In'),
                                     '',
                                   )}{' '}
                                   {marginData?.order?.unitOfQuantity?.toUpperCase()}
                                 </div>
                               </div>
                             </div>
-                            {/* <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
-                              >
-                                <span>A</span>
-                              </div>
-                              <div className={`${styles.val_wrapper} ml-3`}>
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                >
-                                     Quantity
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                                <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString()}
-                                </div>
-                              </div>
-                            </div>
-                              {/* <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
-                                <span>A</span>
-                              </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="quantity"
-                                defaultValue={marginData?.order?.quantity?.toLocaleString()}
-                                onChange={(e) =>
-                                  saveForCalculation(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Quantity
-                                <strong className="text-danger">*</strong>
-                              </label> */}
-                            {/* </div> */}
-
-                            {/* <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
-                                <span>B</span>
-                              </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                defaultValue={marginData?.order?.perUnitPrice}
-                                name="perUnitPrice"
-                                onChange={(e) =>
-                                  saveForCalculation(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Unit Price
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div> */}
                             <div
                               className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
@@ -991,11 +4546,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency}{' '}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1076,8 +4631,8 @@ function Index() {
                                             name="group1"
                                             type={type}
                                             id={`inline-${type}-1`}
-                                            defaultChecked={
-                                              marginData?.isUsanceInterestIncluded ===
+                                            checked={
+                                              forCalculation?.isUsanceInterestIncluded ===
                                               true
                                             }
                                             onChange={(e) =>
@@ -1094,8 +4649,8 @@ function Index() {
                                             name="group1"
                                             type={type}
                                             id={`inline-${type}-2`}
-                                            defaultChecked={
-                                              marginData?.isUsanceInterestIncluded ===
+                                            checked={
+                                              forCalculation?.isUsanceInterestIncluded ===
                                               false
                                             }
                                             onChange={(e) =>
@@ -1135,7 +4690,7 @@ function Index() {
                                       ?.tradeMarginPercentage,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1157,10 +4712,13 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance,
+                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                      minimumFractionDigits: 2,
+                                    }),
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1187,7 +4745,7 @@ function Index() {
                                       ?.transactionDetails?.marginMoney,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1204,13 +4762,28 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
+                                onFocus={(e) => {
+                                  setIsFieldInFocus(true),
+                                    (e.target.type = 'number')
+                                }}
+                                onBlur={(e) => {
+                                  setIsFieldInFocus(false),
+                                    (e.target.type = 'text')
+                                }}
+                                value={
+                                  isFieldInFocus
+                                    ? forCalculation?.numberOfPDC
+                                    : checkNan(
+                                      Number(forCalculation?.numberOfPDC),
+                                    )?.toLocaleString('en-In')
+                                }
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
                                     e.target.value,
                                   )
                                 }
-                                value={forCalculation?.numberOfPDC}
+                                // value={forCalculation?.numberOfPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1300,7 +4873,7 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency}{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
@@ -1325,13 +4898,13 @@ function Index() {
                                   >{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.orderValueInINR?.toLocaleString()} */}
+                                  {/* {finalCal.orderValueInINR?.toLocaleString('en-In')} */}
                                   ₹{' '}
                                   {/* {checkNan(
                                     Number(finalCal.orderValueInINR),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1373,7 +4946,7 @@ function Index() {
                                     Number(finalCal.usanceInterest),
                                     true,
                                   )} */}
-                                   {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1402,11 +4975,11 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
                                   {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
-                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
-                                  {/* {finalCal.tradeMargin?.toLocaleString()} */}
+                                  {/* {finalCal.tradeMargin?.toLocaleString('en-In')} */}
                                 </div>
                               </div>
                             </div>
@@ -1430,9 +5003,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.grossOrderValue?.toLocaleString()} */}
+                                  {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}
                                   ₹{' '}
-                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.grossOrderValue), coversionUnit)?.toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1464,7 +5037,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1496,7 +5069,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1532,7 +5105,7 @@ function Index() {
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
                                   )} */}
-                                   {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1562,7 +5135,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.marginMoney), true)} */}
-                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1591,7 +5164,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
-                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1623,7 +5196,7 @@ function Index() {
                                     Number(finalCal.amountPerSPDC),
                                     true,
                                   )} */}
-                                     {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1638,7 +5211,7 @@ function Index() {
                   </div>
 
                   <div
-                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card`}
+                    className={`${styles.card} ${styles.lastComponent} vessel_card accordionMargin card border_color`}
                   >
                     <div
                       className={`${styles.cardHeader}  d-flex align-items-center justify-content-between`}
@@ -1696,11 +5269,14 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.buyerGSTIN
+                                  // defaultValue={
+                                  //   marginData?.invoiceDetail?.buyerGSTIN
+                                  // }
+                                  value={
+                                    invoiceData?.buyerGSTIN
                                   }
                                 >
-                                  <option selected disabled >Select an Option</option>
+                                  <option selected  >Select an Option</option>
                                   {orderList?.company?.gstList?.map((gstin, index) => (
                                     <option key={index} value={gstin}>
                                       {gstin}
@@ -1879,8 +5455,8 @@ function Index() {
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                  value={
+                                    invoiceData?.importerName
                                   }
                                   onChange={(e) =>
                                     dropDownChange(
@@ -1888,7 +5464,7 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
-                                  style={{paddingRight:'40px'}}
+                                  style={{ paddingRight: '40px' }}
                                 >
                                   <option>Select an option</option>
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1923,7 +5499,7 @@ function Index() {
                                   value={
                                     changeImporterData?.branch
                                       ? changeImporterData?.branch
-                                      : marginData?.invoiceDetail?.branchOffice
+                                      : invoiceData?.branchOffice
                                   }
                                   onChange={(e) => changeImporter(e)}
                                 >
@@ -1954,7 +5530,7 @@ function Index() {
                                 value={
                                   changeImporterData?.address
                                     ? changeImporterData?.address
-                                    : marginData?.invoiceDetail?.companyAddress
+                                    : invoiceData?.companyAddress
                                 }
                                 name="companyAddress"
                                 onChange={(e) => changeImporter(e)}
@@ -1981,7 +5557,7 @@ function Index() {
                                 value={
                                   changeImporterData?.GSTIN
                                     ? changeImporterData?.GSTIN
-                                    : marginData?.invoiceDetail?.importerGSTIN
+                                    : invoiceData?.importerGSTIN
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -2004,8 +5580,8 @@ function Index() {
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.bankName
+                                  value={
+                                    invoiceData?.bankName
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(
@@ -2042,8 +5618,8 @@ function Index() {
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.branch
+                                  value={
+                                    invoiceData?.branch
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(
@@ -2053,8 +5629,8 @@ function Index() {
                                   }
                                 >
                                   {/* <option>Select an option</option> */}
-                                  <option value="Connaught Place, DELHI">
-                                    Connaught Place, DELHI
+                                  <option selected>
+                                    Select an option
                                   </option>
                                   <option value="Connaught Place, DELHI">
                                     Connaught Place, DELHI
@@ -2084,8 +5660,8 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.branchAddress
+                                value={
+                                  invoiceData?.branchAddress
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -2110,11 +5686,11 @@ function Index() {
                                     e.target.value,
                                   )
                                 }
-                                defaultValue=
+                                value={invoiceData?.IFSCcode}
                                 // {
                                 //   marginData?.invoiceDetail?.IFSCcode
                                 // }
-                                "ICIC0000251"
+
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -2137,11 +5713,8 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue=
-                                // {
-                                //   marginData?.invoiceDetail?.accountNo
-                                // }
-                                "123456789"
+                                value={invoiceData?.accountNo}
+
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -2161,6 +5734,7 @@ function Index() {
 
                   <DownloadBar
                     downLoadButtonName={`Download`}
+                    handleReject={exportPDF}
                     isPrevious={true}
                     handleUpdate={handleUpdate}
                     leftButtonName={`Save`}
@@ -2180,6 +5754,8 @@ function Index() {
                       <RevisedMargin
                         marginData={marginData}
                         finalCal={finalCal}
+                        finalCalRevised={finalCalRevised}
+                        forCalculationRevised={forCalculationRevised}
                         saveInvoiceDataRevisedRevised={
                           saveInvoiceDataRevisedRevised
                         }
@@ -2191,6 +5767,8 @@ function Index() {
                         handleUpdateRevisedMarginMoney={
                           handleUpdateRevisedMarginMoney
                         }
+                        saveforCalculationRevised={saveforCalculationRevised}
+                        exportPDF={exportPDFReviced}
                       />
                     </div>
                   </div>

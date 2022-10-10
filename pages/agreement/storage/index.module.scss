@@ -231,12 +231,13 @@
             letter-spacing: 0.13px;
             span {
               font-size: 12px;
-              color: #1e1e1e;
+             // color: #1e1e1e;
               font-weight: normal;
               display: block;
               letter-spacing: 0.11px;
             }
           }
+          
           input {
             transform: scale(1.3);
           }
@@ -440,4 +441,17 @@
         }
       }
     }
+  }
+  .addMoreRows {
+    color: #3687E8;
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+  }
+  .customSelect {
+    appearance: none;
+    // position: relative;
   }

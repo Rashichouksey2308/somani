@@ -49,6 +49,13 @@ export function setUnit(payload) {
     payload,
   }
 }
+export function setSidebar(payload) {
+  console.log(payload, '97899789')
+  return {
+    type: types.SIDEBAR,
+    payload,
+  }
+}
 
 export const settingCurrency = (payload) => (dispatch, getState) => {
   localStorage.setItem('currency', payload)
@@ -75,3 +82,14 @@ export const gettingUnit = (payload) => (dispatch, getState) => {
     localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit
   )
 }
+
+export const settingSidebar =
+  (sideBarMain, subsideBarMain, loadedSubPage, openList) =>
+  (dispatch, getState) => {
+    sessionStorage.setItem('sideBarMain', sideBarMain)
+    sessionStorage.setItem('subsideBarMain', subsideBarMain)
+    sessionStorage.setItem('loadedSubPage', loadedSubPage)
+    sessionStorage.setItem('openList', openList)
+    console.log({ sideBarMain, subsideBarMain }, 'ideBarMain}')
+    dispatch(setSidebar({ sideBarMain, subsideBarMain }))
+  }

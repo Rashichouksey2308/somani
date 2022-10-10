@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './index.module.scss'
@@ -17,9 +17,13 @@ const Index = ({
   small,
   maxDate,
   reset,
+  ref,
+  noDate
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
+
+  const inputRef = useRef(null)
 
   useEffect(() => {
    
@@ -41,7 +45,7 @@ const Index = ({
   useEffect(() => {
     setStartDate(null)
   }, [reset])
-  console.log(defaultDate, 'lastDate', startDate)
+  console.log('sdasdasda', defaultDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
     <>
@@ -52,8 +56,9 @@ const Index = ({
               ? defaultDate == undefined || defaultDate == ''
                 ? ''
                 : moment(defaultDate).toDate()
-              : startDate
+              :startDate
           }
+          ref={ref}
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
           onKeyDown={(e) => {

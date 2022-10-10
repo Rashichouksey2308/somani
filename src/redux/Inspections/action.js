@@ -117,11 +117,11 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
       dispatch(getInspectionSuccess(response.data.data))
       localStorage.setItem(
         'inceptionlastmodified',
-        moment(response.data.data[0].updatedAt).format('DD MMM,hh:mm:a'),
+        moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a'),
       )
       dispatch(
         updateDate(
-          moment(response.data.data[0].updatedAt).format('DD MMM,hh:mm:a'),
+          moment(response.data.data[0].updatedAt).format('DD MMM,HH:mm:a'),
         ),
       )
     } else {
@@ -179,11 +179,11 @@ export const UpdateInspection =
 
           localStorage.setItem(
             'inceptionlastmodified',
-            moment(response.data.timestamp).format('DD MMM,hh:mm:a'),
+            moment(response.data.timestamp).format('DD MMM,HH:mm:a'),
           )
           dispatch(
             updateDate(
-              moment(response.data.timestamp).format('DD MMM,hh:mm:a'),
+              moment(response.data.timestamp).format('DD MMM,HH:mm:a'),
             ),
           )
         }

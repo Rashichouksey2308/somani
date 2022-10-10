@@ -18,6 +18,7 @@ function Index(props) {
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
+   const [removedOption,setRemovedOption]=useState(null)
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -84,6 +85,10 @@ if (window) {
        temp.push({attachDoc:val.document})
       }
      })
+     }else{
+     setList([{
+            name:"",designation:"",email:"",phone:"",
+            actions:"false",addnew:"false" }])
      }
      console.log(temp,"temp")
      setDocList(temp)
@@ -125,11 +130,15 @@ if (window) {
      let temp=[]
      if(props?.data?.authorisedSignatoryDetails.length>0){
       
-     props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
-      if(val.document){
-       temp.push({attachDoc:val.document})
-      }
-     })
+        props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
+          if(val.document){
+          temp.push({attachDoc:val.document})
+          }
+        })
+     }else{
+      setList([{
+            name:"",designation:"",email:"",phone:"",
+            actions:"false",addnew:"false" }])
      }
     
      setDocList(temp)
@@ -265,6 +274,7 @@ props.updateData("Associate Buyer",data)
       });
       let temp=[...options]
       var indexOption = temp.indexOf(value.name);
+       setRemovedOption(value.name)
       if (indexOption !== -1) {
       temp.splice(indexOption, 1);
       }
@@ -274,7 +284,7 @@ props.updateData("Associate Buyer",data)
 
    
   setList([...list,{
-      name:"",designation:"",email:"",phone:"",
+      name:"",designation:"",email:"",phoneNo:"",
       actions:"false",addnew:"false"
     }])
 
@@ -286,7 +296,7 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
-
+setRemovedOption(null)
 if(val?.name=="Bhawana Jain" ||val?.name=="Vipin Kumar" ||val?.name=="Devesh Jain" ||val?.name=="atima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
@@ -351,12 +361,22 @@ const handleChangeInput = (name, value, index) => {
      name:"",designation:"",email:"",phoneNo:"",
       actions:"false",addnew:"false"
    }
+   
    if(value=="addnew"){
+    if(docList.length<1){
    arrayToSave={
      name:"",designation:"",email:"",phoneNo:"",
      actions:"false",addnew:"true",document:"new"
    }
    setDocList([...docList,{attachDoc:"",index:index}])
+    }else{
+      console.log("herehr")
+    arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+     actions:"false",addnew:"true",
+   }
+    }
+
    }else{
       masterList.forEach((val,index)=>{
     if(val.name==value){
@@ -627,7 +647,8 @@ console.log(associateData.gstin,"associateData")
           </div>
         </div>
         {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
-        <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+        {isEdit==false && 
+         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span></div>
           <div className="card-body p-0 rounded-0">
             <div className={`${styles.newAddressContent} row`}>
@@ -743,6 +764,7 @@ console.log(associateData.gstin,"associateData")
             </div>
           </div>
         </div>
+        }
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -761,7 +783,7 @@ console.log(associateData.gstin,"associateData")
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
+            className={`collapse ${styles.body} show  value_card card-body row`}
             aria-labelledby="customerDetail"
         
           >
@@ -776,7 +798,7 @@ console.log(associateData.gstin,"associateData")
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length>0 && list.map((val,index)=>{
+                   {list.length>0 && list.map((val,index)=>{
                       return(
                         <>
                         {val.actions=="true"?
@@ -787,7 +809,7 @@ console.log(associateData.gstin,"associateData")
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
                           <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -798,14 +820,20 @@ console.log(associateData.gstin,"associateData")
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
                               <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -814,8 +842,42 @@ console.log(associateData.gstin,"associateData")
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -826,7 +888,10 @@ console.log(associateData.gstin,"associateData")
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>
@@ -853,11 +918,14 @@ console.log(associateData.gstin,"associateData")
                             />
                           </td>
                           <td>
-                            <input 
-                              value={val.phoneNo}
+                            <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                              type="number"
+                             type="number"
+                             onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
@@ -867,7 +935,7 @@ console.log(associateData.gstin,"associateData")
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                             onEditRemove(index,val)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -875,7 +943,7 @@ console.log(associateData.gstin,"associateData")
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
                               onClick={()=>{
-                              handleRemove(index)
+                              handleRemove(index,val)
                               }}
                             >
                               <img src="/static/delete 2.svg" />
@@ -965,7 +1033,7 @@ console.log(associateData.gstin,"associateData")
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
                       <td>{`28-02-2022,5:30 PM`}</td>
                       <td>
-                    {val.attachDoc == '' ? (
+                    {val.attachDoc == '' ||val.attachDoc == "new" ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
@@ -974,7 +1042,7 @@ console.log(associateData.gstin,"associateData")
                           onChange={async(e) => {
                              let data = await props.uploadDoc(e)
                               addDoc(data, index)
-                            // uploadDocument2(e)
+                            // uploadDocument2(e) 
                           }}
                         />
                         <button className={`${styles.button_upload} btn`}>
@@ -987,7 +1055,7 @@ console.log(associateData.gstin,"associateData")
                           {val.attachDoc?.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image}  image_arrow`}
+                          className={`${styles.close_image} image_arrow`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"

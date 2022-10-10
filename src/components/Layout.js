@@ -9,6 +9,7 @@ import TermSheetPreview from '../components/TermSheetPreview'
 import Login from '../components/Login'
 import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
+import Loader from '../components/Loader'
 import { validateToken } from '../redux/authentication/actions'
 import { ErrorBoundary } from '../components/ErrorBoundary'
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
@@ -41,7 +42,7 @@ function Layout({ children }) {
 
     router.events.on('routeChangeStart', doMagic) // add listener
     router.events.on('routeChangeComplete', (url, { shallow }) => {
-      // console.log('route change', router.asPath)
+      console.log('route change', router.asPath)
       setQuery(router.asPath)
     })
     return () => {
@@ -95,6 +96,7 @@ function Layout({ children }) {
           </div>
         </div>
       ) : (
+        // <Loader />
         <Login />
       )}
     </>

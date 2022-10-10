@@ -68,3 +68,105 @@
   .no_sidebar_mobile {
     margin-left: 0px !important;
   }
+  .form_group {
+ 
+    position: relative;
+    margin-bottom: 10px;
+
+    .label_heading {
+      font-size: 16px;
+      letter-spacing: 0.53px;
+      line-height: 17px;
+      top: 22px;
+      left: 30px;
+      margin-bottom: 0;
+      position: absolute;
+      pointer-events: none;
+      box-sizing: border-box;
+      transform: translateY(-30px);
+      transition: 0.3s all ease-in-out;
+      z-index: 1;
+      max-width: 77%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &::before {
+        top: 51%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        content: '';
+        z-index: -1;
+        position: absolute;
+        transform: translateY(-50%);
+      }
+      @include respond(sm-desktop) {
+        font-size: 15px;
+      }
+      @include respond(phone) {
+        font-size: 13px;
+      }
+    }
+
+    .line {
+      border: 3px solid #d9dde8;
+    }
+
+    .input_field {
+      font-size: 20px;
+      height: 60px;
+      outline: none;
+      line-height: 25px;
+      box-shadow: none;
+      position: relative;
+      box-sizing: border-box;
+      white-space: nowrap;
+      letter-spacing: 0.19px;
+      cursor: pointer;
+      font-weight: bold;
+      background: transparent;
+      width: 260px;
+      height: 48px;
+      border: 3px solid #3687E8 !important;
+      border-radius: 5px;
+      color: #3687E8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include respond(md-desktop) {
+          width: 120px;
+          height: 48px;
+          font-size: 12px;
+      }
+      &:invalid + label {
+        transform: translateY(0);
+      }
+
+      &:focus {
+        & + label {
+          transform: translateY(-30px);
+        }
+      }
+      @include respond(sm-desktop) {
+        font-size: 18px;
+      }
+      @include respond(phone) {
+        font-size: 16px;
+      }
+    }
+  }
+  .arrow {
+    margin-left: -40px;
+    width: 13px;
+    pointer-events: none;
+  
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
+    }
+  }
+ .download_icon {
+  margin-left: -40px;
+  
+ }

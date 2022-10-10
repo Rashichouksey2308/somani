@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import moment from 'moment'
-import { addPrefixOrSuffix } from 'utils/helper'
+import { addPrefixOrSuffix, checkNan } from 'utils/helper'
 import _get from 'lodash/get'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
@@ -62,7 +62,13 @@ function Index() {
       },
     ])
   }
-
+ const handleDeleteEmail = (index) => {
+ 
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)])
+  }
+   const handleDeleteNumber = (index) => {
+    setNumber([...number.slice(0, index), ...number.slice(index + 1)])
+  }
   const exportPDF = () => {
 
       const doc = new jsPDF('p', 'pt', [1500, 1500])
@@ -165,7 +171,10 @@ function Index() {
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {addPrefixOrSuffix(
-                            lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
+                            lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }),
                             '%',
                             '',
                           )}</p>
@@ -478,18 +487,9 @@ function Index() {
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
         
-          {/* <div className={styles.head_container}>
-          <div className={styles.head_header}>
-            <img
-              className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="Arrow"
-            />
-            <h1 className={`${styles.heading} heading`}>Application for LC</h1>
-          </div>
-        </div> */}
+    
           <div
-            className={`${styles.term_container} previewCard container-fluid`}
+            className={`${styles.term_container} previewCard container-fluid border_color`}
           >
             <Row>
               <Col
@@ -629,11 +629,13 @@ function Index() {
                         </td>
                         <td className="term_para">
                           +/-{' '}
-                          {addPrefixOrSuffix(
-                            lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
-                            '%',
-                            '',
-                          )}
+                          {checkNan(
+                            Number(lcModuleData?.lcApplication?.tolerancePercentage)?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })
+                          
+                          )} %
                         </td>
                       </tr>
                       <tr className="table_row">
@@ -1139,32 +1141,37 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="email-address"
                       >
-                       {emailAdd.map((val,index) => (
-                        <div key={index} className={`${styles.each_input} form-group`}>
-                          <div className="d-flex">
-                            <select
-                              id="email"
-                              name="email"
-                              className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                              selected
-                            >
-                              <option value="javanika.seth@hdfcbank.com">
-                                javanika.seth@hdfcbank.com
-                              </option>
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                              htmlFor="email"
-                            >
-                              Email
-                            </label>
-                            <img
-                              className={`${styles.arrow} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                        {emailAdd.map((val,index) => (
+                        <div className='d-flex align-items-center form-group'>
+                          <div key={index} className={`${styles.each_input} flex-grow-1`}>
+                            <div className="d-flex">
+                              <select
+                                id="email"
+                                name="email"
+                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                selected
+                              >
+                                <option value="javanika.seth@hdfcbank.com">
+                                  javanika.seth@hdfcbank.com
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                           </div>
-                        </div>
+                          <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3'
+                          onClick={()=>{handleDeleteEmail(index)}}
+                          />
+                          </div>
                         ))}
                         <div
                           className={`${styles.addMoreRows}`}
@@ -1202,37 +1209,40 @@ function Index() {
                         {number.length>0 && number.map((val,index)=>{
                           return (
                             <>
-                             <div
-                          className={`${styles.each_input} ${styles.phone} form-group`}
-                        >
-                          <div className={styles.phone_card}>
-                            <select
-                              name="callingCode"
-                              id="Code"
-                              className={`${styles.code_phone} input border-right-0 bg-transparent`}
-                            >
-                              <option>+91</option>
-                              <option>+1</option>
-                              <option>+92</option>
-                              <option>+95</option>
-                              <option>+24</option>
-                            </select>
-                            <input
-                              type="tel"
-                              id="textNumber"
-                              name="primary"
-                              className={`${styles.formControl} input form-control border-left-0`}
-                              required
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                              id="textNumber"
-                            >
-                              Phone Number
-                              <strong className="text-danger">*</strong>
-                            </label>
-                          </div>
-                        </div>
+                            <div className='d-flex align-items-center form-group'>
+                              <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
+                                <div className={styles.phone_card}>
+                                  <select
+                                    name="callingCode"
+                                    id="Code"
+                                    className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                                  >
+                                    <option>+91</option>
+                                    <option>+1</option>
+                                    <option>+92</option>
+                                    <option>+95</option>
+                                    <option>+24</option>
+                                  </select>
+                                  <input
+                                    type="tel"
+                                    id="textNumber"
+                                    name="primary"
+                                    className={`${styles.formControl} input form-control border-left-0`}
+                                    required
+                                  />
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                    id="textNumber"
+                                  >
+                                    Phone Number
+                                    <strong className="text-danger">*</strong>
+                                  </label>
+                                </div>
+                              </div>
+                              <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3' 
+                                 onClick={()=>{handleDeleteNumber(index)}}
+                              />
+                            </div>
                             </>
                           )
                         })}

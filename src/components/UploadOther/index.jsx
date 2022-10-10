@@ -162,24 +162,26 @@ const Index = ({ orderid, module, isDocumentName }) => {
               <div
                 className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
               >
-                <div className="text-center">
+                <div className="text-center w-100">
                   <img
-                    className={`${styles.upload_image} img-fluid`}
+                    className={`${styles.upload_image} img-fluid d-block mx-auto`}
                     src="/static/browse.svg"
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
+                    // <div className=''>
                     <div
-                      className={`${styles.certificate} text1 d-flex justify-content-between`}
+                      className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image}  image_arrow mr-2`}
+                        className={`${styles.close_image} image_arrow mx-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
                       />{' '}
                     </div>
+                    // </div>
                   ) : (
                     <p className={styles.drop_para}>
                       Drop Files here or
@@ -399,58 +401,58 @@ const Index = ({ orderid, module, isDocumentName }) => {
           </Form>
         </div>
         <div className={styles.table_container}>
+          <div
+            className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
+          >
+            <div className="d-flex align-items-center">
+              <select
+                value={moduleSelected}
+                onChange={(e) => setModuleSelected(e.target.value)}
+                className={`${styles.dropDown} ${styles.customSelect} input form-control`}
+              >
+                <option selected disabled>Select an option</option>
+                <option value="LeadOnboarding&OrderApproval">
+                  Lead Onboarding &amp; Order Approval
+                </option>
+                <option value="Agreements&Insurance&LC&Opening">
+                  Agreements, Insurance &amp; LC Opening
+                </option>
+                <option value="Loading-Transit-Unloading">
+                  Loading-Transit-Unloading
+                </option>
+                <option value="customClearanceAndWarehousing">
+                  Custom Clearance And Warehousing
+                </option>
+                <option value="PaymentsInvoicing&Delivery">
+                  Payments Invoicing & Delivery
+                </option>
+                <option value="Others">Others</option>
+              </select>
+              <img
+                className={`${styles.arrow2} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="Search"
+              />
+            </div>
+            <div
+              className={`d-flex align-items-center ${styles.searchBarContainer} `}
+            >
+              <img
+                className={` ${styles.searchImage} img-fluid`}
+                src="/static/search.svg"
+                alt="Search"
+              ></img>
+              <input
+                className={`${styles.searchBar} border_color input form-control`}
+                placeholder="Search"
+                onChange={(e) => {
+                  filterDocBySearch(e.target.value)
+                }}
+              ></input>
+            </div>
+          </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
-              <div
-                className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
-              >
-                <div className="d-flex align-items-center">
-                  <select
-                    value={moduleSelected}
-                    onChange={(e) => setModuleSelected(e.target.value)}
-                    className={`${styles.dropDown} ${styles.customSelect} input form-control`}
-                  >
-                    <option selected disabled>Select an option</option>
-                    <option value="LeadOnboarding&OrderApproval">
-                      Lead Onboarding &amp; Order Approval
-                    </option>
-                    <option value="Agreements&Insurance&LC&Opening">
-                      Agreements, Insurance &amp; LC Opening
-                    </option>
-                    <option value="Loading-Transit-Unloading">
-                      Loading-Transit-Unloading
-                    </option>
-                    <option value="customClearanceAndWarehousing">
-                      Custom Clearance And Warehousing
-                    </option>
-                    <option value="PaymentsInvoicing&Delivery">
-                      Payments Invoicing & Delivery
-                    </option>
-                    <option value="Others">Others</option>
-                  </select>
-                  <img
-                    className={`${styles.arrow2} img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
-                </div>
-                <div
-                  className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                >
-                  <img
-                    className={` ${styles.searchImage} img-fluid`}
-                    src="/static/search.svg"
-                    alt="Search"
-                  ></img>
-                  <input
-                    className={`${styles.searchBar} border_color input form-control`}
-                    placeholder="Search"
-                    onChange={(e) => {
-                      filterDocBySearch(e.target.value)
-                    }}
-                  ></input>
-                </div>
-              </div>
               <table
                 className={`${styles.table} table`}
                 cellPadding="0"

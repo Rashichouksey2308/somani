@@ -129,7 +129,8 @@ function Index(props) {
       <div className={`${styles.container} vessel_card`}>
         <div className={`${styles.paymet} card-body`}>
           <div className={`d-flex justify-content-between align-items-between`}>
-            <input
+            <textarea
+              rows="4"
               placeholder={``}
               className="input"
               onChange={(e) => {
@@ -186,7 +187,7 @@ function Index(props) {
                 ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
-            {excelFile?<div className={`${styles.excel_close}
+            {excelFile?.length>0?<div className={`${styles.excel_close}
              d-flex align-items-center justify-content-center ml-auto`}
              onClick={()=>{
               setExcelFile(null) 
@@ -229,8 +230,9 @@ function Index(props) {
                   <div
                     className={`d-flex justify-content-between align-items-center ${styles.comment}`}
                   >
-                    <input
+                    <textarea 
                       required
+                      rows="4"
                       type="text"
                       name="bankName"
                       value={val.value}

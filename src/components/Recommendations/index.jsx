@@ -9,6 +9,7 @@ import {
   addPrefixOrSuffix,
 } from '../../utils/helper'
 import { add } from 'lodash'
+import { array } from 'prop-types'
 
 const Index = ({
   financialsComment,
@@ -35,11 +36,11 @@ const Index = ({
   setSanctionComment,
   suggestedCredit,
 }) => {
-  const [editProfile, setEditProfile] = useState(false)
-  const [editFinance, setEditFinance] = useState(false)
+  const [editProfile, setEditProfile] = useState([])
+  const [editFinance, setEditFinance] = useState([])
   const [saveTable, setSaveTable] = useState(false)
-  const [editStren, setEditStren] = useState(false)
-  const [editWeak, setEditWeak] = useState(false)
+  const [editStren, setEditStren] = useState([])
+  const [editWeak, setEditWeak] = useState([])
   const [editSanc, setEditSanc] = useState(false)
   const [addRow, setAddRow] = useState(false)
 
@@ -57,7 +58,8 @@ const Index = ({
     suggestedCreditLimit: false,
   })
 
-  console.log(creditDetail, 'THIS IS CREDIT DETAIL')
+  console.log(financialsComment, editProfile, 'companyComments')
+  // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating =
     creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
@@ -72,6 +74,32 @@ const Index = ({
     name: '',
     outstandingLimit: null,
   })
+
+  useEffect(() => {
+    let companyCommentseditable = []
+    companyComment?.forEach((item) => {
+      companyCommentseditable.push({ editable: false })
+    })
+    setEditProfile(companyCommentseditable)
+
+    let financialCommentseditable = []
+    financialsComment?.forEach((item) => {
+      financialCommentseditable.push({ editable: false })
+    })
+    setEditFinance(financialCommentseditable)
+
+    let weakCommentseditable = []
+    weaknessComment?.forEach((item) => {
+      weakCommentseditable.push({ editable: false })
+    })
+    setEditWeak(weakCommentseditable)
+
+    let strenthCommentseditable = []
+    strengthsComment?.forEach((item) => {
+      strenthCommentseditable.push({ editable: false })
+    })
+    setEditStren(strenthCommentseditable)
+  }, [companyComment, financialsComment, strengthsComment, weaknessComment])
 
   // const handleGroupExpChange = (name, value) => {
   //   const newInput = { ...exposureData }
@@ -202,18 +230,20 @@ const Index = ({
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
-                    readOnly={!editProfile}
+                    readOnly={!editProfile[index]?.editable}
                   />
 
                   <div className="mr-3">
                     <img
-                      src={`/static/${editProfile ? 'save-3.svg' : 'mode_edit.svg'
+                      src={`/static/${editProfile[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                         }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
                       onClick={(e) => {
-                        setEditProfile(!editProfile)
+                        let tempEditProfile = [...editProfile]
+                        tempEditProfile[index].editable = !tempEditProfile[index].editable
+                        setEditProfile(tempEditProfile)
                       }}
                     />
                     <img
@@ -229,7 +259,7 @@ const Index = ({
                 </div>
               ))}
 
-            <div className="d-flex mt-4 position-relative">
+            <div className="d-flex mt-4 mb-3 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -255,8 +285,8 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} border-0  mb-0`}></hr>
-          <div className={`${styles.dashboard_form} border_color`}>
+          <hr className={`${styles.line} border-0 m-0`} />
+          <div className={`${styles.dashboard_form} card-body border_color`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
@@ -269,16 +299,18 @@ const Index = ({
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
-                    readOnly={!editFinance}
+                    readOnly={!editFinance[index]?.editable}
                   />
                   <div className="mr-3">
                     <img
-                      src={`/static/${editFinance ? 'save-3.svg' : 'mode_edit.svg'
+                      src={`/static/${editFinance[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                         }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
-                      onClick={() => {
-                        setEditFinance(!editFinance)
+                      onClick={(e) => {
+                        let tempEdit = [...editFinance]
+                        tempEdit[index].editable = !tempEdit[index].editable
+                        setEditFinance(tempEdit)
                       }}
                     />
                     <img
@@ -319,9 +351,9 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} border_color`}></hr>
+          <hr className={`${styles.line} border_color m-0`}/>
 
-          <div className={`${styles.datatable} datatable`}>
+          <div className={`${styles.datatable} datatable border border_color`}>
             <h5 className="d-flex align-items-center">
               <span>Group Exposure Details</span>
             </h5>
@@ -591,17 +623,19 @@ const Index = ({
                       defaultValue={strengths}
                       as="textarea"
                       rows={3}
-                      readOnly={!editStren}
+                      readOnly={!editStren[index]?.editable}
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${editStren ? 'save-3.svg' : 'mode_edit.svg'
+                        src={`/static/${editStren[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                           }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
-                          setEditStren(!editStren)
+                          let tempArrEdit = [...editStren]
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable
+                          setEditProfile(tempArrEdit)
                         }}
                       />
                       <img
@@ -614,7 +648,7 @@ const Index = ({
                   </div>
                 ))}
             </div>
-            <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
+            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
               <div className="d-flex mt-5 pb-5">
@@ -654,17 +688,19 @@ const Index = ({
                       defaultValue={weakness}
                       as="textarea"
                       rows={3}
-                      readOnly={!editWeak}
+                      readOnly={!editWeak[index]?.editable}
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${editWeak ? 'save-3.svg' : 'mode_edit.svg'
+                        src={`/static/${editWeak[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                           }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
-                          setEditWeak(!editWeak)
+                          let tempArrEdit = [...editWeak]
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable
+                          setEditWeak(tempArrEdit)
                         }}
                       />
                       <img
@@ -693,9 +729,9 @@ const Index = ({
               <div
                 className={`${styles.limit_container} d-flex justify-content-center`}
               >
-                <div className={styles.limit}>
+                  <div className={`${styles.limit} accordion_Text`}>
                   Total Limit:{' '}
-                  <span>
+                  <span className='text1'>
                     {checkNan(
                       CovertvaluefromtoCR(
                         creditDetail?.company?.creditLimit?.totalLimit ?? '',
@@ -703,10 +739,10 @@ const Index = ({
                     )?.toLocaleString()}
                   </span>
                 </div>
-                <div className={styles.limit}>
+                <div className={`${styles.limit} accordion_Text`}>
                   Utilised Limit:{' '}
                   <span>
-                    <span>
+                  <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.utilizedLimt ??
@@ -716,10 +752,10 @@ const Index = ({
                     </span>
                   </span>
                 </div>
-                <div className={styles.limit}>
+                <div className={`${styles.limit} accordion_Text`}>
                   Available Limit:{' '}
                   <span>
-                    <span>
+                  <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.availableLimit ??
@@ -751,22 +787,23 @@ const Index = ({
                     <td>
                       {(
                         creditDetail?.company?.creditLimit?.availableLimit ?? ''
-                      )
-                        ?.toLocaleString()
-                        ?.toLocaleString('en-In')}
+                      )?.toLocaleString('en-In')
+                      }
                     </td>
                     <td>-</td>
 
-                    {filteredCreditRating && filteredCreditRating.length != 0   && filteredCreditRating!=0? (
+                    {filteredCreditRating && filteredCreditRating.length != 0 && filteredCreditRating != 0 ? (
                       <>
                         {' '}
-                        {filteredCreditRating  &&
+                        {filteredCreditRating &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {(val.derived.value ?? '')?.toLocaleString(
-                                undefined,
+                                'en-In',
                                 {
                                   minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+
                                 },
                               )}
                             </td>
@@ -792,7 +829,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedCreditLimit ?
                             suggestedCredit?.suggestedCreditLimit :
-                            Number(suggestedCredit?.suggestedCreditLimit??"")?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedCreditLimit ?? "")?.toLocaleString('en-In') + ` CR`}
                         // value={addPrefixOrSuffix( 
                         //   suggestedCredit?.suggestedCreditLimit,
                         //   '',
@@ -811,8 +848,9 @@ const Index = ({
                     <td>
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
                       })}
                     </td>
 
@@ -837,7 +875,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedOrderValue ?
                             suggestedCredit?.suggestedOrderValue :
-                            Number(suggestedCredit?.suggestedOrderValue??"")?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedOrderValue ?? "")?.toLocaleString('en-In') + ` CR`}
                         // value={(
                         //   addPrefixOrSuffix(
                         //     suggestedCredit?.suggestedOrderValue,

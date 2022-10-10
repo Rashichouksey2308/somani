@@ -64,7 +64,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} border form-control formControl `}
+                  className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -99,7 +99,7 @@ function Index() {
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/Leads.svg"
+                  src="/static/leads-icon.svg"
                   className="img-fluid"
                   alt="All Leads"
                 />

@@ -39,7 +39,7 @@ function Index() {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control formControl `}
+                className={`${styles.formControl} text_area border form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -59,7 +59,7 @@ function Index() {
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/Leads.svg"
+                  src="/static/leads-icon.svg"
                   className="img-fluid"
                   alt="All Leads"
                 />

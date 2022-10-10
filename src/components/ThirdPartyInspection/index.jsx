@@ -18,24 +18,23 @@ import { GetAllInspection } from '../../redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton }) {
-
   const dispatch = useDispatch()
+
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId')
-   dispatch(GetAllInspection(`?inspectionId=${id}`))
-  },[])
-  const {allInspection} = useSelector((state)=>state.Inspection)
+    dispatch(GetAllInspection(`?inspectionId=${id}`))
+  }, [])
 
-  
-  const [inspectionData,setInspectionData2]=useState({})
+  const { allInspection } = useSelector((state) => state.Inspection)
+
+  const [inspectionData, setInspectionData2] = useState({})
+
   useEffect(() => {
- setInspectionData2(_get(allInspection, 'data[0]', {}))
+    setInspectionData2(_get(allInspection, 'data[0]', {}))
+  }, [allInspection])
 
-  },[allInspection
+  console.log(inspectionData, 'inspectionData3333')
 
-  ])
-
-  console.log(inspectionData,"inspectionData3333")
   const [excelFile, setExcelFile] = useState([])
 
   let orderid = _get(inspectionData, 'order._id', '')
@@ -53,12 +52,13 @@ export default function Index({ addButton }) {
     loadPortInspection: false,
     dischargePortInspection: false,
   })
+
   console.log(portType, 'inspectionData')
 
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails }
     newInput[name] = value
-    console.log(name, value, 'cak')
+
     setInspectionData(newInput)
   }
 
@@ -98,69 +98,92 @@ export default function Index({ addButton }) {
     loadPortInspection: false,
     dischargePortInspection: false,
     loadPortInspectionDetails: {
-      numberOfContainer:
-       "",
-      inspectionPort:
-       "",
-      inspectedBy:
-        "",
-      startDate:
-        "",
-      specialMention:
-      "",
+      numberOfContainer: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      startDate: '',
+      specialMention: '',
     },
     dischargePortInspectionDetails: {
-      numberOfContainer:"",
-      inspectionPort:
-       "",
-      inspectedBy:
-       "",
-      startDate:
-       "",
-      specialMention:
-        "",
+      numberOfContainer: '',
+      inspectionPort: '',
+      inspectedBy: '',
+      startDate: '',
+      specialMention: '',
     },
+    certificateOfOriginStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+    certificateOfQualityStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+    certificateOfWeightStatus:
+      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
   })
 
   console.log(inspectionDetails, 'THIS IS INSPECTION DEETS')
 
   useEffect(() => {
-   
     setInspectionData({
-      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
-      ? inspectionData?.thirdPartyInspection?.loadPortInspection
-      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
-    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection
-      ? inspectionData?.thirdPartyInspection?.dischargePortInspection
-      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
-    
+      loadPortInspection: inspectionData?.thirdPartyInspection
+        ?.loadPortInspection
+        ? inspectionData?.thirdPartyInspection?.loadPortInspection
+        : inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+            'Load Port' ||
+          inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+            'Both'
+        ? true
+        : false,
+      dischargePortInspection: inspectionData?.thirdPartyInspection
+        ?.dischargePortInspection
+        ? inspectionData?.thirdPartyInspection?.dischargePortInspection
+        : inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+            'Discharge Port' ||
+          inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+            'Both'
+        ? true
+        : false,
+
       loadPortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
-    },
-    dischargePortInspectionDetails: {
-      numberOfContainer:
-       inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
-    },
+        numberOfContainer:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.numberOfContainer,
+        inspectionPort:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.inspectionPort,
+        inspectedBy:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.inspectedBy,
+        startDate:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.startDate,
+        specialMention:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.specialMention,
+      },
+      dischargePortInspectionDetails: {
+        numberOfContainer:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.numberOfContainer,
+        inspectionPort:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.inspectionPort,
+        inspectedBy:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.inspectedBy,
+        startDate:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.startDate,
+        specialMention:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.specialMention,
+      },
+      certificateOfOriginStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+      certificateOfQualityStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+      certificateOfWeightStatus:
+        inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
     })
-  }, [inspectionData,allInspection])
-  
+  }, [inspectionData, allInspection])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -170,7 +193,6 @@ export default function Index({ addButton }) {
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
-
 
   useEffect(() => {
     if (
@@ -230,13 +252,7 @@ export default function Index({ addButton }) {
   }
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
-    // const namesplit = name.split('.')
-    // namesplit.length > 1
-    //   ? (newInput[namesplit[0]][namesplit[1]] = value)
-    //   : (newInput[name] = value)
     const d = new Date(value)
-    console.log(d,"d2222")
     let text = d?.toISOString()
     saveInspectionDetails(name, text)
   }
@@ -277,7 +293,6 @@ export default function Index({ addButton }) {
   }
 
   const handleSave = () => {
-    
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -423,28 +438,36 @@ export default function Index({ addButton }) {
         inspectionDetails.dischargePortInspection == false
       ) {
         if (
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === '' || inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === undefined
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
+            '' ||
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
+            undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' || inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
+            undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.startDate === '' || inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
+          inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' || inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
+            undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -458,7 +481,7 @@ export default function Index({ addButton }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          console.log(JSON.stringify(inspectionDetails, "inside submit"))
+          console.log(JSON.stringify(inspectionDetails, 'inside submit'))
 
           // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
@@ -476,7 +499,8 @@ export default function Index({ addButton }) {
       ) {
         if (
           inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === '' || inspectionDetails?.dischargePortInspectionDetails
+            ?.numberOfContainer === '' ||
+          inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
@@ -484,14 +508,19 @@ export default function Index({ addButton }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' || inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
+            '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
+            undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.startDate === '' || inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+            undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -499,8 +528,9 @@ export default function Index({ addButton }) {
           }
         } else if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' || inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+            '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+            undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -514,7 +544,7 @@ export default function Index({ addButton }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          console.log(JSON.stringify(inspectionDetails, "inside submit"))
+          console.log(JSON.stringify(inspectionDetails, 'inside submit'))
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
           fd.append('inspectionId', inspectionData?._id)
@@ -528,28 +558,36 @@ export default function Index({ addButton }) {
         }
       } else {
         if (
-          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === '' || inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === undefined
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
+            '' ||
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
+            undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' || inspectionDetails?.loadPortInspectionDetails?.inspectedBy === undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
+            undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.startDate === '' || inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
+          inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' || inspectionDetails?.loadPortInspectionDetails?.inspectionPort === undefined
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
+            undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -562,22 +600,29 @@ export default function Index({ addButton }) {
           }
         } else if (
           inspectionDetails?.dischargePortInspectionDetails
-            ?.numberOfContainer === '' || inspectionDetails?.dischargePortInspectionDetails
+            ?.numberOfContainer === '' ||
+          inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === undefined
         ) {
-          let toastMessage = 'DISCHARGE PORT NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          let toastMessage =
+            'DISCHARGE PORT NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === '' || inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
+            '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
+            undefined
         ) {
           let toastMessage = 'DISCHARGE INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.startDate === '' || inspectionDetails?.dischargePortInspectionDetails?.startDate === undefined
+          inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+            undefined
         ) {
           let toastMessage = 'PLEASE SELECT DISCHARGE PORT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -585,8 +630,9 @@ export default function Index({ addButton }) {
           }
         } else if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          '' || inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-          undefined
+            '' ||
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+            undefined
         ) {
           let toastMessage = 'DICHARGE INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -600,7 +646,7 @@ export default function Index({ addButton }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          console.log(JSON.stringify(inspectionDetails, "inside submit"))
+          console.log(JSON.stringify(inspectionDetails, 'inside submit'))
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -649,7 +695,7 @@ export default function Index({ addButton }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          console.log(JSON.stringify(inspectionDetails, "inside submit"))
+          console.log(JSON.stringify(inspectionDetails, 'inside submit'))
           // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
@@ -759,7 +805,7 @@ export default function Index({ addButton }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          console.log(JSON.stringify(inspectionDetails, "inside submit"))
+          console.log(JSON.stringify(inspectionDetails, 'inside submit'))
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -775,7 +821,6 @@ export default function Index({ addButton }) {
       }
     }
   }
-  
 
   useEffect(() => {
     if (inspectionData) {
@@ -801,14 +846,12 @@ export default function Index({ addButton }) {
       }
     }
   }, [inspectionData])
-  
+
   return (
     <>
-      <div
-        className={`${styles.backgroundMain} container-fluid p-0 `}
-      >
+      <div className={`${styles.backgroundMain} container-fluid p-0 `}>
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -855,7 +898,7 @@ export default function Index({ addButton }) {
                 </div>
               </div>
             </div>
-            <div className={styles.radio_form}>
+            <div className={`${styles.radio_form} card-body`}>
               {['checkbox'].map((type) => (
                 <div key={`inline-${type}`} className={styles.radio_group}>
                   <Form.Check
@@ -871,9 +914,7 @@ export default function Index({ addButton }) {
                       // setBothField(!bothField)
                     }}
                     checked={
-                        inspectionDetails.loadPortInspection
-                        ? true
-                        : false
+                      inspectionDetails.loadPortInspection ? true : false
                     }
                     id={`inline-${type}-1`}
                   />
@@ -889,9 +930,7 @@ export default function Index({ addButton }) {
                       // setBothField(!bothField)
                     }}
                     checked={
-                      inspectionDetails.dischargePortInspection
-                        ? true
-                        : false
+                      inspectionDetails.dischargePortInspection ? true : false
                     }
                     type={type}
                     id={`inline-${type}-2`}
@@ -899,9 +938,8 @@ export default function Index({ addButton }) {
                 </div>
               ))}
             </div>
-            <hr></hr>
-
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <hr className='m-0 border_color'/>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
@@ -916,7 +954,13 @@ export default function Index({ addButton }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {Number(inspectionData?.order?.quantity)?.toLocaleString("en-IN")} MT
+                    {Number(inspectionData?.order?.quantity)?.toLocaleString(
+                      'en-IN',
+                      {
+                        maximumFractionDigits: 2,
+                      },
+                    )}{' '}
+                    MT
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -950,7 +994,7 @@ export default function Index({ addButton }) {
           </div>
           {inspectionDetails.loadPortInspection ? (
             <>
-              <div className={`${styles.main} vessel_card card border-color`}>
+              <div className={`${styles.main} vessel_card card border_color`}>
                 <div
                   className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
                 >
@@ -994,8 +1038,10 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.numberOfContainer
                           // }
-                          value={inspectionDetails?.loadPortInspectionDetails?.numberOfContainer}
-                          
+                          value={
+                            inspectionDetails?.loadPortInspectionDetails
+                              ?.numberOfContainer
+                          }
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -1027,7 +1073,10 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.inspectionPort
                           // }
-                          value={inspectionDetails?.loadPortInspectionDetails?.inspectionPort}
+                          value={
+                            inspectionDetails?.loadPortInspectionDetails
+                              ?.inspectionPort
+                          }
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -1056,7 +1105,10 @@ export default function Index({ addButton }) {
                         //   inspectionData?.thirdPartyInspection
                         //     ?.loadPortInspectionDetails?.inspectedBy
                         // }
-                        value={inspectionDetails?.loadPortInspectionDetails?.inspectedBy}
+                        value={
+                          inspectionDetails?.loadPortInspectionDetails
+                            ?.inspectedBy
+                        }
                         onChange={(e) =>
                           saveInspectionDetails(e.target.name, e.target.value)
                         }
@@ -1079,7 +1131,10 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.startDate
                           // }
-                          defaultDate={inspectionDetails?.loadPortInspectionDetails?.startDate}
+                          defaultDate={
+                            inspectionDetails?.loadPortInspectionDetails
+                              ?.startDate
+                          }
                           labelName="Inspection Date"
                           startFrom={dateStartFrom.inspectionDateAtLoad}
                           dateFormat={`dd-MM-yyyy`}
@@ -1093,9 +1148,9 @@ export default function Index({ addButton }) {
                     </div>
                   </div>
                 </div>
-                <hr></hr>
+                <hr className='m-0 border_color'/>
                 <div className={`${styles.dashboard_form} mb-3 card-body`}>
-                  <h5 className={styles.sub_heading}>Special Mention</h5>
+                  <h5 className={`${styles.sub_heading}`}>Special Mention</h5>
                   <Row>
                     <Col lg={12}>
                       <div className="mt-4">
@@ -1106,7 +1161,10 @@ export default function Index({ addButton }) {
                           //   inspectionData?.thirdPartyInspection
                           //     ?.loadPortInspectionDetails?.specialMention
                           // }
-                          value={inspectionDetails?.loadPortInspectionDetails?.specialMention}
+                          value={
+                            inspectionDetails?.loadPortInspectionDetails
+                              ?.specialMention
+                          }
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -1129,7 +1187,6 @@ export default function Index({ addButton }) {
           ) : null}
           {inspectionDetails.dischargePortInspection
             ? Discharge(
-               
                 inspectionData,
                 inspectionDetails,
                 saveInspectionDetails,
@@ -1137,10 +1194,9 @@ export default function Index({ addButton }) {
                 setStartDate,
                 setDateStartFrom,
                 handleShow,
-               
               )
             : ''}
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"
@@ -1243,7 +1299,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1295,7 +1351,37 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfOriginStatus
+                                    }
+                                    name="certificateOfOriginStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&
@@ -1380,7 +1466,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1426,7 +1512,37 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfQualityStatus
+                                    }
+                                    name="certificateOfQualityStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&
@@ -1512,7 +1628,7 @@ export default function Index({ addButton }) {
                             </td>
                             <td>
                               {' '}
-                              <div className="dropdown">
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1558,7 +1674,37 @@ export default function Index({ addButton }) {
                                     Approved
                                   </a>
                                 </div>
-                              </div>
+                              </div> */}
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfWeightStatus
+                                    }
+                                    name="certificateOfWeightStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option disabled selected>
+                                      Please Specify
+                                    </option>
+                                    <option value="On Hold">On Hold</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Approved">Approved</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
                             </td>
                             <td>
                               {documents &&
@@ -1610,221 +1756,6 @@ export default function Index({ addButton }) {
                     <strong className="text-danger">*</strong>
                     Any one document is mandatory
                   </div>
-
-                  {/* <div
-                    className={`${styles.dashboard_form}  border_color card-body`}
-                    style={{ borderTop: '2px solid #CAD6E6' }}
-                  >
-                    <Form>
-                      <div className="row align-items-center mt-4 pb-4">
-                        <div
-                          className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
-                        >
-                          <div className="text-center">
-                            <img
-                              className={`${styles.upload_image} img-fluid`}
-                              src="/static/browse.svg"
-                              alt="Browse"
-                            />
-                            <p className={styles.drop_para}>
-                              Drop Files here or
-                              <br />
-                              <div className={styles.uploadBtnWrapper}>
-                                <input type="file" name="myfile" />
-                                <a href="#">Browse</a>
-                              </div>
-                            </p>
-                          </div>
-                        </div>
-                        <div className="col-md-4 offset-md-1 col-sm-6">
-                          <Form.Group className={styles.form_group}>
-                            <div className="d-flex">
-                              <select
-                                className={`${styles.value} ${styles.customSelect} input form-control`}
-                                id="docType"
-                                onChange={(e) => handleDropdown(e)}
-                              >
-                                <option>
-                                  Lead Onboarding &amp; Order Approval
-                                </option>
-                                <option>
-                                  Agreements, Insurance &amp; LC Opening
-                                </option>
-                                <option>Loading-Transit-Unloading</option>
-                                <option>
-                                  Custom Clearance And Warehousing
-                                </option>
-                                <option value="Others">Others</option>
-                              </select>
-                              <Form.Label
-                                style={{ left: '15px' }}
-                                className={`${styles.label_heading} label_heading`}
-                              >
-                                Document Type
-                              </Form.Label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
-                            </div>
-                          </Form.Group>
-                          <Form.Group className={styles.form_group}>
-                            <Form.Control
-                              className={`${styles.value} input form-control`}
-                              type="text"
-                              disabled={editInput}
-                              required
-                            />
-                            <Form.Label
-                              style={{ left: '15px' }}
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Please Specify Document Name
-                            </Form.Label>
-                          </Form.Group>
-
-                          <button
-                            className={`${styles.upload_button} mt-4 btn`}
-                            disabled={editInput}
-                          >
-                            Upload
-                          </button>
-                        </div>
-                      </div>
-                    </Form>
-                  </div>
-
-                  <div className={styles.table_container}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <div
-                          className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
-                        >
-                          <div className="d-flex align-items-center">
-                            <select
-                              className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
-                            >
-                              <option>
-                                Lead Onboarding &amp; Order Approval
-                              </option>
-                              <option>
-                                Agreements, Insurance &amp; LC Opening
-                              </option>
-                              <option>Loading-Transit-Unloading</option>
-                              <option>Custom Clearance And Warehousing</option>
-                              <option value="Others">Others</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow2} ${styles.customSelect} img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                          </div>
-
-                          <div
-                            className={`d-flex align-items-center ${styles.searchBarContainer} `}
-                          >
-                            <img
-                              className={` ${styles.searchImage} img-fluid`}
-                              src="/static/search.svg"
-                              alt="Search"
-                            ></img>
-                            <input
-                              className={`${styles.searchBar}  statusBox border_color input form-control`}
-                              placeholder="Search"
-                            ></input>
-                          </div>
-                        </div>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>
-                                UPLOADED BY{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />{' '}
-                              </th>
-                              <th>STATUS</th>
-                              <th>ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Policy Document - Marine
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-                              <td className={styles.doc_row}>John Doe</td>
-                              <td>
-                                <span
-                                  className={`${styles.status} ${styles.approved}`}
-                                ></span>
-                                Verified
-                              </td>
-                              <td colSpan="2">
-                                <img
-                                  src="/static/delete.svg"
-                                  className={`${styles.delete_image} img-fluid mr-3`}
-                                  alt="Bin"
-                                />
-                                <img
-                                  src="/static/upload.svg"
-                                  className="img-fluid mr-3"
-                                  alt="Share"
-                                />
-                                <img
-                                  src="/static/drive_file.svg"
-                                  className={`${styles.edit_image} img-fluid mr-3`}
-                                  alt="Share"
-                                />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -1906,7 +1837,7 @@ const Discharge = (
   handleShow,
 ) => {
   return (
-    <div className={`${styles.main} vessel_card card border-color`}>
+    <div className={`${styles.main} vessel_card card border_color`}>
       <div
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >
@@ -1940,7 +1871,10 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.numberOfContainer
                 // }
-                value={inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer}
+                value={
+                  inspectionDetails?.dischargePortInspectionDetails
+                    ?.numberOfContainer
+                }
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1966,7 +1900,10 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.inspectionPort
                 // }
-                value={inspectionDetails?.dischargePortInspectionDetails?.inspectionPort}
+                value={
+                  inspectionDetails?.dischargePortInspectionDetails
+                    ?.inspectionPort
+                }
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1992,7 +1929,9 @@ const Discharge = (
               //   inspectionData?.thirdPartyInspection
               //     ?.dischargePortInspectionDetails?.inspectedBy
               // }
-              value={inspectionDetails?.dischargePortInspectionDetails?.inspectedBy}
+              value={
+                inspectionDetails?.dischargePortInspectionDetails?.inspectedBy
+              }
               onChange={(e) =>
                 saveInspectionDetails(e.target.name, e.target.value)
               }
@@ -2009,7 +1948,9 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.startDate
                 // }
-                defaultDate={inspectionDetails?.dischargePortInspectionDetails?.startDate}
+                defaultDate={
+                  inspectionDetails?.dischargePortInspectionDetails?.startDate
+                }
                 saveDate={saveDate}
                 setDateStartFrom={setStartDate}
                 labelName="Inspection Date"
@@ -2024,9 +1965,9 @@ const Discharge = (
           </div>
         </div>
       </div>
-      <hr></hr>
-      <div className={`${styles.dashboard_form} mb-3 card-body`}>
-        <h5 className={styles.sub_heading}>Special Mention</h5>
+      <hr className='m-0 border_color'/>
+      <div className={`${styles.dashboard_form} card-body`}>
+        <h5 className={`${styles.sub_heading} mt-3`}>Special Mention</h5>
         <Row>
           <Col lg={12}>
             <div className="mt-4">
@@ -2038,7 +1979,10 @@ const Discharge = (
                 //   inspectionData?.thirdPartyInspection
                 //     ?.dischargePortInspectionDetails?.specialMention
                 // }
-                value={inspectionDetails?.dischargePortInspectionDetails?.specialMention}
+                value={
+                  inspectionDetails?.dischargePortInspectionDetails
+                    ?.specialMention
+                }
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
