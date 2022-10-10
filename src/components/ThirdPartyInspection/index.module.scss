@@ -198,6 +198,8 @@
         line-height: 25px;
         font-weight: 500;
       }
+      
+     
       .comment_heading {
         font-size: 16px;
         letter-spacing: 0.53px;
@@ -502,16 +504,7 @@
                 }
               }
             }
-            .hold_field {
-              background: #ff9d00;
-              color: #ffffff;
-              border: none;
-            }
-            .rejected_field {
-              background: #ea3f3f;
-              color: #ffffff;
-              border: none;
-            }
+          
             .input_field {
               background: #c3c3c31f;
               border-radius: 4px;
@@ -903,4 +896,17 @@ img {
     height: 15px;
     margin-left: 8px;
   }
+}
+.rejected_option {
+  background: #ea3f3f !important;
+  color: #ffffff !important;
+}
+.hold_option {
+  background: #ff9d00 !important;
+  color: #ffffff !important;
+}
+.approved_option {
+  background: green !important;
+  color: #ffffff !important;
+
 }
