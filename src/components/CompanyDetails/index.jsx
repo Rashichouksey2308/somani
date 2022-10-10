@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import { GetPanGst } from 'redux/GetPanGst/action'
-
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
 const Index = ({
   saveCompanyData,
   saveOrderData,
@@ -19,6 +19,8 @@ const Index = ({
   whatsappCallingCodeFunction,
   handleCommunication,
   orderDetails,
+  companyDetails,
+  setCompanyDetails,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
@@ -59,6 +61,7 @@ const Index = ({
       else return slider
     }
   }
+
   const getSlider = (val) => {
     console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
@@ -110,8 +113,13 @@ const Index = ({
   }
 
   useEffect(() => {
+    if(compPan !== '' || compPan !== undefined){
+    const newInput = { ...companyDetails }
+    newInput.companyPan = compPan
+    setCompanyDetails(newInput)
+    }
     setCompPanName(gstList?.data?.companyData?.companyName)
-  }, [gstList])
+  }, [gstList, compPan])
 
   const [serachterm, setSearchTerm] = useState('')
 
@@ -132,6 +140,7 @@ const Index = ({
       setCompPan(results?.pans[0])
       setCompPanName(results?.name)
       setBoolean1(false)
+      dispatch(GetGst(results?.pans[0]))
     } else {
       let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
       if (!toast.isActive(toastMessage)) {
@@ -278,7 +287,7 @@ const Index = ({
               {gettingCompanyPanResponse && serachterm && boolean1 && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {gettingCompanyPanResponse1.map((results, index) => (
+                    {gettingCompanyPanResponse.map((results, index) => (
                       <li
                         onClick={() => handleFilteredData(results)}
                         id={results._id}

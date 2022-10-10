@@ -14,13 +14,14 @@ import {
 } from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
 import moment from 'moment'
+import Loader from '../../../src/components/Loader/index'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { singleOrder } = useSelector((state) => state.buyer)
-  const { termsheet } = useSelector((state) => state.order)
+  const { termsheet,gettingTermsheet } = useSelector((state) => state.order)
 
   // console.log(singleOrder, 'all order listtt1')
   console.log(termsheet, 'TErmshetTermsheet')
@@ -85,8 +86,8 @@ function Index() {
 
   return (
     <>
-      {' '}
-      <div className={`${styles.container} container-fluid p-0 border-0`}>
+     
+   {gettingTermsheet ? (<Loader/>) :   <div className={`${styles.container} container-fluid p-0 border-0`}>
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
@@ -312,7 +313,7 @@ function Index() {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   )
 }
