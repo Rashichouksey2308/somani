@@ -350,346 +350,357 @@ export default function Index({
                   <button className={styles.add_btn} onClick={handleShow}>
                     Show BL Details
                   </button>
-                  <span className="ml-3">+</span>
+                  <span className="ml-3"
+                    data-toggle="collapse"
+                    data-target="#dischargeCargo"
+                    aria-expanded="true"
+                    aria-controls="dischargeCargo">+</span>
                 </div>
               </div>
             </div>
-            <div className={`${styles.dashboard_form} card-body`}>
-              <div className="row">
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      onChange={(e) =>
-                        onChangeDischargeOfCargo('vesselName', e.target.value)
-                      }
-                      value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option selected disabled>
-                        Please select a vessel
-                      </option>
-                      {shipmentTypeBulk
-                        ? _get(customData, 'order.vessel.vessels', []).map(
-                            (vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation?.name}
-                                key={index}
-                              >
-                                {_get(vessel, 'vesselInformation[0].name', '')}
-                              </option>
-                            ),
-                          )
-                        : _get(
-                            customData,
-                            'order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
-                            </option>
-                          ))}
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Vessel Name<strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-4 col-md-6 col-sm-6">
+            <div
+              id="dischargeCargo"
+              // className="collapse"
+              aria-labelledby="dischargeCargo"
+              data-parent="#dischargeCargo"
+            >
+              <div className={`${styles.dashboard_form} card-body`}>
+                <div className="row">
                   <div
-                    className={`${styles.label_heading} text`}
-                    style={{ paddingTop: '30px', paddingBottom: '10px' }}
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                   >
-                    Port of Discharge
+                    <div className="d-flex">
+                      <select
+                        onChange={(e) =>
+                          onChangeDischargeOfCargo('vesselName', e.target.value)
+                        }
+                        value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option selected disabled>
+                          Please select a vessel
+                        </option>
+                        {shipmentTypeBulk
+                          ? _get(customData, 'order.vessel.vessels', []).map(
+                              (vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation?.name}
+                                  key={index}
+                                >
+                                  {_get(vessel, 'vesselInformation[0].name', '')}
+                                </option>
+                              ),
+                            )
+                          : _get(
+                              customData,
+                              'order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
+                      </select>
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Vessel Name<strong className="text-danger">*</strong>
+                      </label>
+                      <img
+                        className={`${styles.arrow} image_arrow img-fluid`}
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
-                  <span className={styles.value}>
-                    {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}
-                  </span>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    // value={billOfEntryData?.boeDetails?.invoiceQuantity}
-                    className={`${styles.input_field} input form-control`}
-                   
-                     type="text"
-                            onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                e.target.type = 'number'
-                            }}
-                            onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
-                            }}
-                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                     value={isFieldInFocus ?
-                              dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
-                               Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN")+ ` MT`}
-                    
-                    name="dischargeQuantity"
-                    onChange={(e) =>
-                      onChangeDischargeOfCargo(e.target.name, e.target.value)
-                    }
-                    required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Discharge Quantity<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                {!shipmentTypeBulk && (
-                  <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                  <div className="col-lg-4 col-md-6 col-sm-6">
+                    <div
+                      className={`${styles.label_heading} text`}
+                      style={{ paddingTop: '30px', paddingBottom: '10px' }}
+                    >
+                      Port of Discharge
+                    </div>
+                    <span className={styles.value}>
+                      {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}
+                    </span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
                     <input
-                      name="numberOfContainers"
-                      id="numberOfContainers"
-                      // defaultChecked={
-                      //   val?.shippingInformation?.numberOfContainers
-                      // }
+                      // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                       className={`${styles.input_field} input form-control`}
-                      type="number"
-                      value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
+                    
+                      type="text"
+                              onFocus={(e) => {
+                                setIsFieldInFocus(true),
+                                  e.target.type = 'number'
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus(false),
+                                  e.target.type = 'text'
+                              }}
+                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                      value={isFieldInFocus ?
+                                dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
+                                Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN")+ ` MT`}
+                      
+                      name="dischargeQuantity"
+                      onChange={(e) =>
+                        onChangeDischargeOfCargo(e.target.name, e.target.value)
                       }
-                       onChange={(e) =>
-                      onChangeDischargeOfCargo(e.target.name, e.target.value)
-                    }
                       required
+                      // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      No. of Containers
-                      <strong className="text-danger">*</strong>
+                      Discharge Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
-                )}
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <DateCalender
-                      defaultDate={
-                        dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate
+                  {!shipmentTypeBulk && (
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        name="numberOfContainers"
+                        id="numberOfContainers"
+                        // defaultChecked={
+                        //   val?.shippingInformation?.numberOfContainers
+                        // }
+                        className={`${styles.input_field} input form-control`}
+                        type="number"
+                        value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                        onChange={(e) =>
+                        onChangeDischargeOfCargo(e.target.name, e.target.value)
                       }
-                      name="vesselArrivaldate"
-                      saveDate={saveDate}
-                      labelName="Vessel Arrival Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
+                        required
+                      />
+                      <label className={`${styles.label_heading} label_heading`}>
+                        No. of Containers
+                        <strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                  )}
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <DateCalender
+                        defaultDate={
+                          dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate
+                        }
+                        name="vesselArrivaldate"
+                        saveDate={saveDate}
+                        labelName="Vessel Arrival Date"
+                      />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <DateCalender
-                      defaultDate={
-                        dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate
-                      }
-                      name="dischargeStartDate"
-                      saveDate={saveDate}
-                      labelName="Discharge Start Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <DateCalender
+                        defaultDate={
+                          dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate
+                        }
+                        name="dischargeStartDate"
+                        saveDate={saveDate}
+                        labelName="Discharge Start Date"
+                      />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <DateCalender
-                      defaultDate={
-                        dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate
-                      }
-                      name="dischargeEndDate"
-                      saveDate={saveDate}
-                      labelName="Discharge End Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <DateCalender
+                        defaultDate={
+                          dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate
+                        }
+                        name="dischargeEndDate"
+                        saveDate={saveDate}
+                        labelName="Discharge End Date"
+                      />
+                      <img
+                        className={`${styles.calanderIcon} img-fluid`}
+                        src="/static/caldericon.svg"
+                        alt="Search"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={`${styles.table_container} mt-0`}>
-              <div className={styles.table_scroll_outer}>
-                <div className={styles.table_scroll_inner}>
-                  <table
-                    className={`${styles.table} table`}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
-                    <thead>
-                      <tr>
-                        <th>
-                          DOCUMENT NAME{' '}
-                          <img
-                            className={`${styles.sort_image} mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          FORMAT{' '}
-                          <img
-                            className={`${styles.sort_image} mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          DOCUMENT DATE{' '}
-                          <img
-                            className={`${styles.sort_image} mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th width="40%">ACTION</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>
-                          Statement of Facts
-                          <strong className="text-danger ml-1">*</strong>
-                        </td>
-                        <td>
-                          <img
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
-                        </td>
-                        <td className={styles.doc_row}>
-                          {dischargeOfCargo.document1 === null
-                            ? ''
-                            : moment(dischargeOfCargo?.document1?.Date).format(
-                                'DD-MM-YYYY, h:mm a',
-                              )}
-                        </td>
-                        <td>
-                          {dischargeOfCargo &&
-                          dischargeOfCargo.document1 === null ? (
-                            <>
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  name="document1"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => onSaveDocument(e)}
-                                />
-                                <button
-                                  className={`${styles.button_upload} btn`}
-                                >
-                                  Upload
-                                </button>
+              <div className={`${styles.table_container} mt-0`}>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table} table`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE{' '}
+                            <img
+                              className={`${styles.sort_image} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th width="40%">ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            Statement of Facts
+                            <strong className="text-danger ml-1">*</strong>
+                          </td>
+                          <td>
+                            <img
+                              src="/static/pdf.svg"
+                              className={`${styles.pdfImage} img-fluid`}
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>
+                            {dischargeOfCargo.document1 === null
+                              ? ''
+                              : moment(dischargeOfCargo?.document1?.Date).format(
+                                  'DD-MM-YYYY, h:mm a',
+                                )}
+                          </td>
+                          <td>
+                            {dischargeOfCargo &&
+                            dischargeOfCargo.document1 === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name="document1"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => onSaveDocument(e)}
+                                  />
+                                  <button
+                                    className={`${styles.button_upload} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
+                                <span>
+                                  {dischargeOfCargo.document1?.originalName}
+                                </span>
+                                <img
+                                  onClick={() => onRemoveDoc('document1')}
+                                  className={`${styles.close_image} image_arrow`}
+                                  src="/static/close.svg"
+                                  alt="Close"
+                                />{' '}
                               </div>
-                            </>
-                          ) : (
-                            <div
-                              className={`${styles.certificate} text1 d-flex justify-content-between`}
-                            >
-                              <span>
-                                {dischargeOfCargo.document1?.originalName}
-                              </span>
-                              <img
-                                onClick={() => onRemoveDoc('document1')}
-                                className={`${styles.close_image} image_arrow`}
-                                src="/static/close.svg"
-                                alt="Close"
-                              />{' '}
-                            </div>
-                          )}
-                        </td>
-                      </tr>
+                            )}
+                          </td>
+                        </tr>
 
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>
-                          Draft Survey Report
-                          <strong className="text-danger ml-1">*</strong>
-                        </td>
-                        <td>
-                          <img
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
-                        </td>
-                        <td className={styles.doc_row}>
-                          {dischargeOfCargo.document2 === null
-                            ? ''
-                            : moment(dischargeOfCargo?.document2?.Date).format(
-                                'DD-MM-YYYY, h:mm a',
-                              )}
-                        </td>
-                        <td>
-                          {dischargeOfCargo &&
-                          dischargeOfCargo.document2 === null ? (
-                            <>
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  name="document2"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => onSaveDocument(e)}
-                                />
-                                <button
-                                  className={`${styles.button_upload} btn`}
-                                >
-                                  Upload
-                                </button>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            Draft Survey Report
+                            <strong className="text-danger ml-1">*</strong>
+                          </td>
+                          <td>
+                            <img
+                              src="/static/pdf.svg"
+                              className={`${styles.pdfImage} img-fluid`}
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>
+                            {dischargeOfCargo.document2 === null
+                              ? ''
+                              : moment(dischargeOfCargo?.document2?.Date).format(
+                                  'DD-MM-YYYY, h:mm a',
+                                )}
+                          </td>
+                          <td>
+                            {dischargeOfCargo &&
+                            dischargeOfCargo.document2 === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name="document2"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => onSaveDocument(e)}
+                                  />
+                                  <button
+                                    className={`${styles.button_upload} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                                {/* <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                              onChange={(e) => uploadDocument1(e)}
+                              name="myfile"
+                            />
+                            <button  className={`${styles.uploadDoc} btn`}>
+                              Upload
+                            </button>
+                            </div> */}
+                              </>
+                            ) : (
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
+                                <span>
+                                  {dischargeOfCargo.document2?.originalName}
+                                </span>
+                                <img
+                                  onClick={() => onRemoveDoc('document2')}
+                                  className={`${styles.close_image} image_arrow`}
+                                  src="/static/close.svg"
+                                  alt="Close"
+                                />{' '}
                               </div>
-                              {/* <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                            onChange={(e) => uploadDocument1(e)}
-                            name="myfile"
-                          />
-                          <button  className={`${styles.uploadDoc} btn`}>
-                            Upload
-                          </button>
-                          </div> */}
-                            </>
-                          ) : (
-                            <div
-                              className={`${styles.certificate} text1 d-flex justify-content-between`}
-                            >
-                              <span>
-                                {dischargeOfCargo.document2?.originalName}
-                              </span>
-                              <img
-                                onClick={() => onRemoveDoc('document2')}
-                                className={`${styles.close_image} image_arrow`}
-                                src="/static/close.svg"
-                                alt="Close"
-                              />{' '}
-                            </div>
-                          )}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                            )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
