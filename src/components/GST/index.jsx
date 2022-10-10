@@ -335,7 +335,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label: 'First dataset',
+          label: 'Total Turnover',
           data: getdata(
             filteredData1(
               gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
@@ -379,7 +379,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label: 'First dataset',
+          label: 'No. of Customers',
           data: filteredData1(
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
               ?.customers,
@@ -395,7 +395,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(41, 121, 242,1)',
         },
         {
-          label: 'First dataset',
+          label: 'No. of Invoices',
           data: filteredData1(
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
               ?.invoices,
@@ -602,7 +602,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-          label: ['Revenue Summary'],
+          label: ['Third Party Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -613,7 +613,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-          label: ['Third Party Sales'],
+          label: ['Related Party Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -624,7 +624,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FFD950',
         },
         {
-          label: ['Related Party Sales'],
+          label: ['Intra Org Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
