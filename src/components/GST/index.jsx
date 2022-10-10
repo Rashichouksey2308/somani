@@ -930,7 +930,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
     datasets: [
       {
-        label: 'First dataset',
+        label: '',
         data: [33, 53, 85, 41, 44, 120],
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
@@ -943,7 +943,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
     datasets: [
       {
-        label: 'First dataset',
+        label: '',
         data: getdata(gstFilteredData?.detail?.summaryCharts?.top10Cus?.values),
         fill: true,
         backgroundColor: '#4791FF',
