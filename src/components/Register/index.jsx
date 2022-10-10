@@ -157,7 +157,6 @@ function Index() {
     if (name == 'turnOver') {
       let tempValue = Number(value)
       newInput[name] = tempValue
-      console.log(tempValue, 'turn', name)
     } else {
       newInput[name] = value
     }
@@ -218,7 +217,6 @@ function Index() {
       return
     }
     if (companyDetails.companyName === '') {
-      console.log('submit2')
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -338,7 +336,6 @@ function Index() {
         removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
       )
 
-      console.log(sendOrder.quantity, 'orderDetails12')
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
@@ -365,16 +362,7 @@ function Index() {
 
     // document.querySelector(companyInput).value = ''
   }
-  console.log(
-    Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0,
-    orderDetails.orderValue === isNaN,
-    'this is payload',
-  )
-  console.log(
-    Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,
-    'orderDetails12',
-  )
-  // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
+
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
@@ -406,6 +394,7 @@ function Index() {
       return newState
     })
   }
+  
   const removeDoc = (index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -417,6 +406,7 @@ function Index() {
       return newState
     })
   }
+
   const addTypeOfDoc = (val, index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -428,11 +418,12 @@ function Index() {
       return newState
     })
   }
+
   const deleteData = (index) => {
-    console.log('indexssd', index)
     setDocuments([...documents.slice(0, index), ...documents.slice(index + 1)])
   }
-  console.log(documents, 'documents')
+
+
   return (
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>

@@ -38,7 +38,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
    const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const DropDown = (values, name, disabled) => {
     return (
-        <div className="d-flex align-items-center">
+        <div className="d-inline-flex align-items-center position-relative">
           <Form.Select
             size="sm"
             name={name}

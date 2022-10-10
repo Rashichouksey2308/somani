@@ -133,7 +133,8 @@
               font-size: 20px;
               // color: #111111;
               line-height: 25px;
-              width: 180px !important;
+              width: 100%;
+              min-width: 180px !important;
               height: 37px !important;
               border-radius: 4px !important;
               // background: #c3c3c31f;
@@ -224,13 +225,9 @@
 img {
   &.arrow2 {
     width: 13px !important;
-    margin-left: -30px;
+    right: 15px;
+    position: absolute;
     pointer-events: none;
-    input[type='date']::-webkit-inner-spin-button,
-    input[type='date']::-webkit-calendar-picker-indicator {
-      display: none;
-      -webkit-appearance: none;
-    }
   }
 }
 .customSelect {
