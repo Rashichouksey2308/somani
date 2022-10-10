@@ -66,13 +66,23 @@ export default function Index({ isQuery }) {
       router.pathname == '/generic/generic-list' ||
       router.pathname == '/track-shipment' ||
       router.pathname == '/review/[profile]' ||
-      router.pathname?.match('/forward-hedging')
+      router.pathname?.match('/forward-hedging') ||
+      router.pathname?.match('/agreement') ||
+      router.pathname?.match('/letter-table') ||
+      router.pathname?.match('/lc-module') ||
+      router.pathname?.match('/letter-credit/lc-create')
     ) {
       show.units = false
       show.currency = false
       removeStorage()
       setShow({ ...show })
     } else if (isQuery?.match('/generic')) {
+      show.units = false
+      show.currency = false
+
+      setShow({ ...show })
+    }
+    else if (isQuery?.match('/letter-credit/id')) {
       show.units = false
       show.currency = false
 

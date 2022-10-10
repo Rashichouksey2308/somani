@@ -238,7 +238,6 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       for (let i = 2; i <= data.length - 1; i = i + 3) {
         arr.push(data[i])
       }
-      console.log(arr, 'GROWTH Q')
       return arr
     }
 
@@ -247,9 +246,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       if (!data || !data?.length) return arr
       for (let i = 2; i <= data.length - 1; i = i + 3) {
         let b = 0
-        for (let j = 0; j <= i; j++) {
-          b = b + data[j]
-        }
+        // for (let j = 0; j <= i; j++) {
+        //   b = b + data[j]
+        // }
+        b = data[i] + data[i-1] + data[i-2]
         arr.push(b)
       }
       return arr
