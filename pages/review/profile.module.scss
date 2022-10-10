@@ -36,6 +36,7 @@
             .arrow {
                 width: 13px;
                 height: 21px;
+                cursor: pointer;
                 @include respond(phone) {
                     height: 18px;
                     justify-self: center;

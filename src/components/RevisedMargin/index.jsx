@@ -7,16 +7,26 @@ import { addPrefixOrSuffix, convertValue } from 'utils/helper'
 
 const Index = ({
   finalCal,
+  finalCalRevised,
   marginData,
   saveInvoiceDataRevisedRevised,
   setSameRevised,
   invoiceDataRevised,
-  saveForCalculation,
   setInvoiceDataRevised,
   calcRevised,
   handleUpdateRevisedMarginMoney,
+  exportPDF,
+  saveforCalculationRevised,
+  forCalculationRevised
 }) => {
+
   console.log(marginData, 'marginData')
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    quantity: false,
+    perUnitPrice: false,
+    conversionRate: false
+  })
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -93,7 +103,7 @@ const Index = ({
   }
   return (
     <>
-      <div className={`${styles.card}  accordionMargin card`}>
+      <div className={`${styles.card} vessel_card accordionMargin card`}>
         <div
           className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
           style={{ cursor: 'default' }}
@@ -147,20 +157,40 @@ const Index = ({
             <div className={`${styles.content} border_color`}>
               <div className={`${styles.input_container} row`}>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>A</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Quantity<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                      onFocus={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                          e.target.type = 'text'
+                      }}
+                      value={
+                        isFieldInFocus.quantity ?
+                          forCalculationRevised?.quantity :
+                          Number(forCalculationRevised?.quantity).toLocaleString('en-In') + ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    name='quantity'
+                    id="quantity"
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Quantity<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val}  heading`}>
                       {addPrefixOrSuffix(
                         marginData?.order?.quantity,
@@ -168,47 +198,85 @@ const Index = ({
                         '',
                       )?.toLocaleString()}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>B</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Unit Price<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    name='perUnitPrice'
+                    id="perUnitPrice"
+                    onFocus={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: true }),
+                        e.target.type = 'number'
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: false }),
+                        e.target.type = 'text'
+                    }}
+                    value={
+                      isFieldInFocus.perUnitPrice ?
+                        forCalculationRevised?.perUnitPrice :
+                        ` ${marginData?.order?.orderCurrency?.toUpperCase()} ` +   Number(forCalculationRevised?.perUnitPrice).toLocaleString('en-In')}
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Unit Price<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.perUnitPrice,
-                        'INR',
-                        'front',
-                      )}
+
+                      {marginData?.order?.orderCurrency + ' '}
+                      {marginData?.order?.perUnitPrice ? Number(marginData?.order?.perUnitPrice)?.toLocaleString('en-In') : ''}
+
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>C</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Conversion Rate<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    name='conversionRate'
+                    id="conversionRate"onFocus={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: true }),
+                        e.target.type = 'number'
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: false }),
+                        e.target.type = 'text'
+                    }}
+                    value={
+                      isFieldInFocus.conversionRate ?
+                        forCalculationRevised?.conversionRate :
+                        Number(forCalculationRevised?.conversionRate).toLocaleString('en-In')}
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Conversion Rate<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val} heading`}>
                       {addPrefixOrSuffix(
                         marginData?.conversionRate,
@@ -216,7 +284,7 @@ const Index = ({
                         'front',
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
                   className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
@@ -263,13 +331,13 @@ const Index = ({
                                 type={type}
                                 id={`inline-${type}-1`}
                                 onChange={(e) =>
-                                  saveForCalculation(
+                                  saveforCalculationRevised(
                                     'isUsanceInterestIncluded',
                                     true,
                                   )
                                 }
-                                defaultChecked={
-                                  finalCal?.isUsanceInterestIncluded === true
+                                checked={
+                                  forCalculationRevised?.isUsanceInterestIncluded === true
                                 }
                               />
                               <Form.Check
@@ -280,13 +348,13 @@ const Index = ({
                                 type={type}
                                 id={`inline-${type}-2`}
                                 onChange={(e) =>
-                                  saveForCalculation(
+                                  saveforCalculationRevised(
                                     'isUsanceInterestIncluded',
                                     false,
                                   )
                                 }
-                                defaultChecked={
-                                  finalCal?.isUsanceInterestIncluded === false
+                                checked={
+                                  forCalculationRevised?.isUsanceInterestIncluded === false
                                 }
                               />
                             </div>
@@ -339,7 +407,9 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       (+/-){' '}
-                      {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
+                      {addPrefixOrSuffix(marginData?.order?.tolerance?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }), '%', '')}
                     </div>
                   </div>
                 </div>
@@ -411,7 +481,7 @@ const Index = ({
                       type="number"
                       name="additionalPDC"
                       onChange={(e) =>
-                        saveForCalculation(e.target.name, e.target.value)
+                        saveforCalculationRevised(e.target.name, e.target.value)
                       }
                       defaultValue={marginData?.additionalPDC}
                       className={`${styles.input_field} input form-control`}
@@ -441,11 +511,8 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(
-                        finalCal.orderValue ? finalCal.orderValue : 0,
-                        'USD',
-                        'front',
-                      )}
+                      {marginData?.order?.orderCurrency + ' '}
+                      {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0}
                     </div>
                   </div>
                 </div>
@@ -469,15 +536,15 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {/* {addPrefixOrSuffix(
-                        finalCal.orderValueInINR ? finalCal.orderValueInINR : 0,
+                        finalCalRevised.orderValueInINR ? finalCalRevised.orderValueInINR : 0,
                         'INR',
                         'front',
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCal.orderValueInINR,
+                        finalCalRevised?.orderValueInINR,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -516,14 +583,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.usanceInterest,
+                        finalCalRevised?.usanceInterest,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.usanceInterest ? finalCal.usanceInterest : 0,
+                        finalCalRevised?.usanceInterest ? finalCalRevised?.usanceInterest : 0,
                         'INR',
                         'front',
                       )} */}
@@ -550,14 +617,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.tradeMargin,
+                        finalCalRevised?.tradeMargin,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.tradeMargin ? finalCal.tradeMargin : 0,
+                        finalCalRevised?.tradeMargin ? finalCalRevised?.tradeMargin : 0,
                         'Cr',
                         '',
                       )} */}
@@ -584,14 +651,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.grossOrderValue,
+                        finalCalRevised?.grossOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.grossOrderValue ? finalCal.grossOrderValue : 0,
+                        finalCalRevised?.grossOrderValue ? finalCalRevised?.grossOrderValue : 0,
                         'Cr',
                         '',
                       )} */}
@@ -624,9 +691,9 @@ const Index = ({
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCal.toleranceValue,
+                        finalCalRevised?.toleranceValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -653,9 +720,9 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalOrderValue} */}₹{' '}
                       {convertValue(
-                        finalCal.totalOrderValue,
+                        finalCalRevised?.totalOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -682,9 +749,9 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.provisionalUnitPricePerTon} */}₹{' '}
                       {convertValue(
-                        finalCal.provisionalUnitPricePerTon,
+                        finalCalRevised?.provisionalUnitPricePerTon,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -711,9 +778,9 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.marginMoney} */}₹{' '}
                       {convertValue(
-                        finalCal.marginMoney,
+                        finalCalRevised?.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -740,9 +807,9 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalSPDC} */}₹{' '}
                       {convertValue(
-                        finalCal.totalSPDC,
+                        finalCalRevised?.totalSPDC,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -784,7 +851,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.additionalAmountPerPDC,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -805,7 +872,7 @@ const Index = ({
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
                     >
-                      Revised Net Order Value ()INR
+                      Revised Net Order Value (INR)
                       <strong className="text-danger">*</strong>
                       <div className={`${styles.tooltip}`}>
                         <img
@@ -822,7 +889,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.revisedNetOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -850,7 +917,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -879,7 +946,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -1191,6 +1258,7 @@ const Index = ({
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
                       }
+                      style={{ paddingRight: '40px' }}
                     >
                       <option>Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1224,7 +1292,7 @@ const Index = ({
                         changeImporterData?.branch
                           ? changeImporterData?.branch
                           : marginData?.revisedMarginMoney?.invoiceDetail
-                              ?.branchOffice
+                            ?.branchOffice
                       }
                       onChange={(e) => changeImporter(e)}
                     >
@@ -1256,7 +1324,7 @@ const Index = ({
                       changeImporterData?.address
                         ? changeImporterData?.address
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.companyAddress
+                          ?.companyAddress
                     }
                     name="companyAddress"
                     onChange={(e) => changeImporter(e)}
@@ -1281,7 +1349,7 @@ const Index = ({
                       changeImporterData?.GSTIN
                         ? changeImporterData?.GSTIN
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.importerGSTIN
+                          ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1451,6 +1519,7 @@ const Index = ({
       </div>
 
       <DownloadBar
+        handleReject={exportPDF}
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}

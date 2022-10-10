@@ -51,6 +51,19 @@ function Index() {
     dispatch(GetLcModule(`?company=${id}`))
   }
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    if(sorting == -1){
+    dispatch(GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -71,7 +84,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} border form-control formControl `}
+                  className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -110,6 +123,50 @@ function Index() {
             className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
             <h3 className="heading_card">Letter of Credit</h3>
+            <div
+                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
+              >
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(lcModule?.totalCount / 10)}
+                </span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                >
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(lcModule?.totalCount / 10)
+                    ) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                >
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+              </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
@@ -127,6 +184,7 @@ function Index() {
                         className={`mb-1`}
                         src="./static/icons8-sort-24.svg "
                         alt="Sort icon"
+                        onClick={()=>handleSort()}
                       />
                     </th>
                     <th>BUYER NAME</th>
@@ -154,39 +212,6 @@ function Index() {
                         </td>
                       </tr>
                     ))}
-
-                  {/* <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => Router.push('/lc-module')}
-                    >
-                      Ramakrishna Traders
-                    </td>
-                    <td>RM-Sales</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Approved
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => Router.push('/lc-module')}
-                    >
-                      Ramakrishna Traders
-                    </td>
-                    <td>RM-Sales</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Approved
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>

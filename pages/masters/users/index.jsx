@@ -1,11 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Filter from '../../../src/components/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import { SearchLeads } from 'redux/buyerProfile/action'
 
 const index = () => {
+  const dispatch = useDispatch()
+  const [serachterm, setSearchTerm] = useState('')
+  const { searchedLeads } = useSelector((state) => state.order)
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetLcModule(`?company=${id}`))
+  }
+
   return (
-    <>
-      <div className="container-fluid card">
+
+    <div className="container-fluid p-0 border-0">
+        <div className={styles.container_inner}>
         {/*filter*/}
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.search}`}>
@@ -20,32 +40,42 @@ const index = () => {
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} formControl form-control`}
-                placeholder="Search"
-              />
-            </div>
+                  value={serachterm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} border text_area form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter/>
-          <a href="#" className={`${styles.filterList} filterList`}>
-            From: 22-02-2022 To: 22-04-2022{' '}
-            <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-          </a>
-          <a href="#" className={`${styles.filterList} filterList`}>
-            Raj
-            <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
-          </a>
+        
 
           <button
             type="button"
-            className={`${styles.btnPrimary} btn ml-auto btn-primary`}
+            className={`${styles.createBtn} btn ml-auto btn-primary`}
           >
             Add
           </button>
         </div>
 
         {/*UserTable*/}
-        <div className={`${styles.datatable} datatable mt-4`}>
+        <div className={`${styles.datatable} border datatable mt-4`}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
@@ -223,8 +253,9 @@ const index = () => {
             />
           </div>
         </div>
+        </div>
       </div>
-    </>
+
   )
 }
 

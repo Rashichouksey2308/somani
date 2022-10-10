@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import dash from '../../../public/static/Dashboard.svg'
+import dash from '../../../public/static/dashboard-icon.svg'
 import accord from '../../../public/static/next-logo.png'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,7 +12,7 @@ function Index() {
     {
       main: 'Dashboard',
       Other: [],
-      image: '/static/Dashboard.svg',
+      image: '/static/dashboard-icon.svg',
       route: '/',
     },
     {
@@ -20,27 +20,27 @@ function Index() {
       Other: [
         {
           name: 'Review Queue',
-          image: '/static/Review Queue.svg',
+          image: '/static/review-queue.svg',
           route: '/review-queue',
         },
         {
           name: 'Credit Queue',
-          image: '/static/Credit Queue.svg',
+          image: '/static/credit-queue.svg',
           route: '/credit-queue',
         },
         {
           name: 'Termsheet',
-          image: '/static/Termsheets.svg',
+          image: '/static/term-sheets.svg',
           route: '/termsheet',
         },
 
         {
           name: 'Margin Money',
-          image: '/static/Termsheets.svg',
+          image: '/static/margin-money.svg',
           route: '/margin-money',
         },
       ],
-      image: '/static/Leads.svg',
+      image: '/static/leads-icon.svg',
       route: '/leads',
     },
     {
@@ -48,27 +48,27 @@ function Index() {
       Other: [
         {
           name: 'Generic',
-          image: '/static/Credit Queue.svg',
+          image: '/static/generic.svg',
           route: '/generic/generic-list/',
         },
         {
           name: 'Agreement',
-          image: '/static/Credit Queue.svg',
+          image: '/static/agreement.svg',
           route: '/agreement-table',
         },
         {
           name: 'LC Module',
-          image: '/static/Review Queue.svg',
+          image: '/static/lc-module.svg',
           route: '/letter-table',
         },
         {
           name: 'Vessel Nomination',
-          image: '/static/Review Queue.svg',
+          image: '/static/vessel-nomination.svg',
           route: '/vessel-nomination',
         },
         {
           name: 'Insurance',
-          image: '/static/Review Queue.svg',
+          image: '/static/insurance.svg',
           route: '/insurance',
         },
       ],
@@ -80,39 +80,39 @@ function Index() {
       Other: [
         {
           name: 'Inspection',
-          image: '/static/Credit Queue.svg',
+          image: '/static/inspection.svg',
           route: '/inspection',
         },
         {
           name: 'Transit Details',
-          image: '/static/Review Queue.svg',
+          image: '/static/transit-details.svg',
           route: '/transit',
         },
         {
           name: 'Forward Hedging',
-          image: '/static/Credit Queue.svg',
+          image: '/static/forward-hedging.svg',
           route: '/forward-table',
         },
         {
           name: 'Track Shipments',
-          image: '/static/Credit Queue.svg',
+          image: '/static/track-shipments.svg',
           route: '/track-shipment',
         },
       ],
-      image: '/static/Loading, Transit & Unloading.svg',
+      image: '/static/LoadingTransit&Unloading.svg',
       route: '',
     },
 
     {
       main: 'Custom Clearance & WareHouse',
       Other: [],
-      image: '/static/Warehouse.svg',
+      image: '/static/custom-clearance-warehouse.svg',
       route: '/bill-of-entry',
     },
     {
       main: 'Payments, Invoicing & Delivery',
       Other: [],
-      image: '/static/Masters.svg',
+      image: '/static/PaymentsInvoicing&Delivery.svg',
       route: '/payment',
     },
     {
@@ -120,11 +120,33 @@ function Index() {
       Other: [
         {
           name: 'Users',
-          image: '/static/Credit Queue.svg',
+          image: '/static/users.svg',
           route: '/masters/users',
         },
-        { name: 'User Roles', image: '/static/Review Queue.svg', route: '' },
-        { name: 'Vendors', image: '/static/Review Queue.svg', route: '' },
+        { name: 'User Roles',
+          image: '/static/user-roles.svg',
+          route: ''
+        },
+        { name: 'Vendors',
+          image: '/static/vendors.svg',
+          route: ''
+        },
+        { name: 'Insurance Company',
+          image: '/static/insurance-company.svg',
+          route: ''
+        },
+        { name: 'Commodity',
+          image: '/static/commodity.svg',
+          route: ''
+        },
+        { name: 'GL',
+          image: '/static/gl.svg',
+          route: ''
+        },
+        { name: 'Others',
+          image: '/static/others.svg',
+          route: ''
+        },
         {
           name: 'Third-Party Inspection',
           image: '/static/Review Queue.svg',
@@ -139,8 +161,10 @@ function Index() {
   const [category, setcategory] = useState('Dashboard')
   const [subCategory, setsubCategory] = useState(null)
   const [index12, setIndex] = useState('')
-
+ const side = useSelector((state) => state.breadcrumb)
+ console.log(side,"subsideBarMain")
   useEffect(() => {
+    console.log("aaasqqaq")
     if (window) {
       sessionStorage.setItem('sideBarMain', sessionStorage.getItem("loadedPage")? sessionStorage.getItem("loadedPage"):"Dashboard")
       sessionStorage.setItem('subsideBarMain', sessionStorage.getItem("loadedSubPage")?sessionStorage.getItem("loadedSubPage"):null)
@@ -159,6 +183,38 @@ function Index() {
       
     }
   }, [])
+    useEffect(() => {
+    if (window) {
+      console.log("changed",sessionStorage.getItem('sideBarMain'),sessionStorage.getItem('subsideBarMain'))
+     
+      setcategory(sessionStorage.getItem('sideBarMain'))
+      setsubCategory(sessionStorage.getItem('subsideBarMain'))
+     if(sessionStorage.getItem('openList')){
+   
+      setIndex(sessionStorage.getItem('openList'))
+      setClassName(`${styles.openlist}`)
+     }else{
+     
+      setIndex(``)
+      setClassName(``)
+     }
+      
+      
+    }
+  }, [Router.asPath]);
+  
+    // useEffect(() => {
+    //     const onHashChangeStart = (url) => {
+    //         console.log(`Path changing to ${url}`);
+    //     };
+
+    //       Router.events.on("hashChangeStart", onHashChangeStart);
+
+    //     return () => {
+    //         Router.events.off("hashChangeStart", onHashChangeStart);
+    //     };
+    // }, [Router.events]);
+
   console.log(subCategory,"opne")
   const handleOpen = (val, index, from) => {
     console.log(val, 'val233')
@@ -184,7 +240,7 @@ function Index() {
 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const openList = useSelector((state) => state.sidebar.openList)
-  
+ 
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   //   console.log(isMobile,"isMobile123")
   //   console.log("sidebar",)
@@ -309,7 +365,7 @@ function Index() {
                     }}
                   >
                     <div>
-                      <img src={`${val.image}`}></img>
+                      <img src={`${val.image}`} style={{filter:'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)'}}></img>
                       <span>{val.main}</span>
                     </div>
                     {val.Other.length > 0 ? (

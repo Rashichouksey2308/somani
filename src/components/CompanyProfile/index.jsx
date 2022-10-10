@@ -8,7 +8,7 @@ function Index() {
   const { buyerList } = useSelector((state) => state.buyer)
   // console.log(buyerList, "this is buyer list")
   return (
-    <div className={`${styles.wrapper} card`}>
+    <div className={`${styles.wrapper} card border_color`}>
       <div
         className={`${styles.sub_card} sub_card card-header p-0 d-flex align-items-center justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -25,7 +25,7 @@ function Index() {
       </div>
       <div
         id="customerDetail"
-        className={`collapse ${styles.body} value_card card-body row`}
+        className={`collapse ${styles.body} card-body row`}
         aria-labelledby="customerDetail"
         //   data-parent="#profileAccordion"
       >

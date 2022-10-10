@@ -60,6 +60,20 @@ function Index() {
     dispatch(GetTransitDetails(`?company=${id}`))
   }
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    
+    if(sorting == -1){
+    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -87,7 +101,7 @@ function Index() {
                 value={serachterm}
                 onChange={handleSearch}
                 type="text"
-                className={`${styles.formControl} border form-control formControl `}
+                className={`${styles.formControl} border text_area form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -122,7 +136,7 @@ function Index() {
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/Leads.svg"
+                  src="/static/leads-icon.svg"
                   className="img-fluid"
                   alt="All Leads"
                 />
@@ -238,10 +252,10 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
+                  <tr className="table_row border_color">
                     <th>
                       ORDER ID{' '}
-                      <img src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
+                      <img src="/static/icons8-sort-24.svg" alt="Sort icon" onClick={()=>handleSort()} />{' '}
                     </th>
                     <th>COMMODITY</th>
                     <th>BUYER NAME</th>
@@ -261,7 +275,7 @@ function Index() {
                   {_get(allTransitDetails, 'data', []).map(
                     (transaction, index) => {
                       return (
-                        <tr key={index} className="table_row">
+                        <tr key={index} className="table_row border_color">
                           <td>{_get(transaction, 'order.orderId', '')}</td>
                           <td
                             className={`${styles.buyerName}`}

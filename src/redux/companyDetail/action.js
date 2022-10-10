@@ -102,6 +102,7 @@ function getCaseDetailsFailed() {
 export const GetCompanyDetails =
   (payload) => async (dispatch, getState, api) => {
     try {
+      dispatch(getComanyDetails())
       let cookie = Cookies.get('SOMANI')
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
       console.log(payload.company, 'getDetails payload2')

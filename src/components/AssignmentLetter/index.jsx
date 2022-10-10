@@ -1,9 +1,150 @@
-import React from 'react'
+
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
+import _get from 'lodash/get'
+import moment  from 'moment'
+function Index(props) {
+    const [data, setData] = useState({
+    seller: "",
+    buyer: "",
+    sellerAddress:"",
+     buyerAddress:"",
+    shortseller: "",
+    shortbuyer: "",
+    sellerSignature: "",
+    buyerSignature: "",
+    dateOfExecution: "",
+    placeOfExecution: "",
+    details: "",
+    detailsOfEndBuyer: "",
+    detailsOfComm: "",
+    quan: "",
+    unitPrice: "",
+    totalOrderValue: "",
+    lordPort: "",
+    dischargePort: "",
+    lastDate: "",
+    terms: "",
+    addComm: "",
+    spec: "",
+    unitOfGrade: "",
+    unitOfQuantity: "",
+    unitOfValue: "",
+    curr: "",
+    specComment:""
 
-function index() {
+
+  })
+   const getAddress=(buyer)=>{
+   if(buyer.name=="Indo German International Private Limited"){
+     if(buyer.branch=="Delhi"){
+       return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+   if(buyer.name=="Emergent Industrial Solution Limited"){
+     if(buyer.branch=="Delhi"){
+       return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+ }
+  useEffect(() => {
+    if (window) {
+      if (props.preview) {
+        const data = JSON.parse(sessionStorage.getItem("preview"))
+
+        setData({
+          seller: data?.seller,
+          buyer: data?.buyer?.toLowerCase(),
+          sellerAddress:data.sellerAddress,
+          buyerAddress:data.buyerAddress,
+          shortseller: data?.shortseller,
+          shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature: data?.sellerSignature,
+          buyerSignature: data?.buyerSignature,
+          dateOfExecution: data?.dateOfExecution,
+          placeOfExecution: data?.placeOfExecution,
+          details: data?.details,
+          detailsOfEndBuyer: data?.detailsOfEndBuyer,
+          detailsOfComm: data?.detailsOfComm,
+          quan: data?.quan,
+          unitPrice: data?.unitPrice,
+          totalOrderValue: data?.totalOrderValue,
+          lordPort: data?.lordPort,
+          dischargePort: data?.dischargePort,
+          lastDate: data?.lastDate,
+          terms: data?.terms,
+          addComm: data?.addComm,
+          spec: data?.spec,
+          unitOfGrade: data?.unitOfGrade,
+          unitOfQuantity: data?.unitOfQuantity,
+          unitOfValue: data?.unitOfValue,
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
+          
+        })
+      } else {
+
+        const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        console.log(data, "data22222")
+        let exe;
+        let dat = "";
+        data?.placeOfExecution?.execution?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+            exe = val.place
+            if (val.dateOfExecution) {
+              dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
+            }
+          }
+        })
+
+        console.log(dat, exe, "exedasa")
+
+        setData({
+          seller: data?.seller?.name,
+          buyer: data?.buyer?.name,
+          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
+          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          shortseller:data?.seller?.shortName,
+          shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature:data?.seller?.name,
+          buyerSignature: data?.buyer?.name,
+          dateOfExecution: dat,
+          placeOfExecution: exe,
+          details: data?.supplier?.name,
+          detailsOfEndBuyer: "",
+          detailsOfComm: data?.order?.commodity,
+          quan: data?.order?.quantity,
+          unitPrice: data.order?.perUnitPrice,
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
+          dischargePort: data?.order?.portOfDischarge,
+          lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
+          addComm: data?.additionalComments?.comments,
+          spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
+          unitOfGrade: data?.order?.unitOfGrade,
+          unitOfQuantity: data?.order?.unitOfQuantity,
+          unitOfValue: data?.order?.unitOfValue,
+          curr: data?.order?.orderCurrency,
+          supplier:data?.supplier?.name,
+          supplierAddress:_get(data,"supplier.address[0]",""),
+          supplierAuthorized:_get(data,"supplier.authorisedSignatoryDetails",[]),
+          buyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+          buyerEmail:"",
+          supplierEmail:"",
+          toleranceLevel:data?.order?.tolerance,
+          incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms
+        })
+      }
+    }
+  }, [props])
   return (
     <div className={`${styles.root}`}>
    
@@ -11,7 +152,7 @@ function index() {
          
           
                                         
-           {assignmentSupplier()}
+           {assignmentSupplier(data)}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -24,8 +165,8 @@ function index() {
   )
 }
 
-export default index
-const assignmentSupplier=()=>{
+export default Index
+const assignmentSupplier=(data)=>{
   return(
     <>
      <div className="card-body">
@@ -45,75 +186,75 @@ const assignmentSupplier=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.seller}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.sellerAddress}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.buyer}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.buyerAddress}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.supplier}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.supplierAddress}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Description of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.quan} MT</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Price of Goods / MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.toleranceLevel}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.lordPort}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.dischargePort}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Inco-Terms</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.incoTerms}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       
      </div>

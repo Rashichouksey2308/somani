@@ -8,15 +8,13 @@ import moment from 'moment'
 import { CovertvaluefromtoCR } from '../../utils/helper'
 
 import DateCalender from '../DateCalender'
-function Index({ handleChange, reviewedProfile, isAddedRow }) {
-  console.log(
-    '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
-    reviewedProfile?.orderValues?.apiResponse,
-  )
+function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
+
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
     'Import',
     'Domestic',
   ])
+  console.log(payloadData,"payloadData")
   const commodityDropdown = ['Iron', 'Crude', 'Steel',"Coal"]
   const countryOfOriginDropdown = ['India', 'Australia',"Sri Lanka","Qatar","Dubai"]
   const portOfDischargeDropdown = [
@@ -37,15 +35,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   }, [reviewedProfile])
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
-  console.log(
-    moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0])
-      .add(90, 'days')
-      .toDate(),
-    'reviewedProfile?.orderValue?.originalValue',
-  )
+   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const DropDown = (values, name, disabled) => {
     return (
-        <div className="d-flex align-items-center">
+        <div className="d-inline-flex align-items-center position-relative">
           <Form.Select
             size="sm"
             name={name}
@@ -108,7 +101,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   console.log(reviewedProfile, 'this is reviewed')
 
   return (
-    <div className={`${styles.leads} border leads`}>
+    <div className={`${styles.leads} border card`}>
       <div
         className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
       >
@@ -142,7 +135,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     VALUES
                   </th>
                   <th
-                    className={`${styles.table_heading} border_color table_heading`}
+                    className={`${styles.table_heading} border_color text-center table_heading`}
                   >
                     API RESPONSE
                   </th>
@@ -261,16 +254,27 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse && (
                       <Form.Control
-                        type="number"
+                         type="text"
+                            onFocus={(e) => {
+                              setIsFieldInFocus(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus(false),
+                                e.target.type = 'text'
+                            }}
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                          
                         name="turnOver"
                         id="textDate"
-                        className={`${styles.input}`}
-                        onBlur={(e) =>
+                      value={isFieldInFocus ?
+                               payloadData?.turnOver :
+                               Number(payloadData?.turnOver?payloadData?.turnOver:0)?.toLocaleString("en-IN")+ ` Cr`}
+                        className={`${styles.input} input`}
+                        onChange={(e) =>
                           handleChange(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            Number(e.target.value ),
                           )
                         }
                         disabled={fields[2]?.isEdit}
@@ -348,7 +352,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         id="textDate"
-                        className={`${styles.input}`}
+                        className={`${styles.input} input`}
                         onBlur={(e) =>
                           handleChange(
                             e.target.name,
@@ -468,6 +472,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       //   }
                       //   disabled={fields[8]?.isEdit}
                       // />
+                      <div className={`${styles.calender}  d-flex`}>
                       <DateCalender
                         name="ExpectedDateOfShipment"
                         saveDate={(name, value) => {
@@ -484,6 +489,12 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                           reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
                         small={true}
                       />
+                       <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                    </div>
                     )}
                   </td>
                 </tr>
@@ -538,15 +549,16 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
               </tbody>
             </table>
           </form>
-        </div>
-      </div>
-      <div className={`${styles.remarks} table_row`}>
+       
+      <div className={`${styles.remarks} border-bottom-0 table_row`}>
         <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
         <Form.Control
           as="textarea"
           rows={3}
           className={`${styles.remarksTextarea} input`}
         />
+      </div>
+      </div>
       </div>
     </div>
   )

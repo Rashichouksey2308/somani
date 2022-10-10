@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './insurance.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../../src/components/SaveBar'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import DateCalender from '../../../src/components/DateCalender'
 import { useDispatch } from 'react-redux'
 import {
@@ -28,6 +28,7 @@ import {
 
 const Index = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
@@ -35,13 +36,10 @@ const Index = () => {
   }, [dispatch, sumInsuredCalc])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
-const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-  console.log(
-    insuranceData,
-    'This is InsuranceData',
-  )
- const [dateStartFrom, setDateStartFrom] = useState({
+  console.log(insuranceData, 'This is InsuranceData')
+  const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
   })
@@ -58,13 +56,15 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       periodOfInsurance: null,
       storagePlotAddress: '',
     },
-    sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) : sumInsuredCalc,
+    sumInsured: insuranceData?.quotationRequest?.sumInsured
+      ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+      : sumInsuredCalc,
   })
 
   let sumInsuredCalc = parseFloat(
-    ((Number(insuranceData?.order?.orderValue)/10000000) * 110) / 100,
+    ((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100,
   )
-  console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+  console.log(sumInsuredCalc, 'THIS IS SUM INSURED CAL')
   // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
@@ -74,7 +74,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       ),
     )
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-  //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+    //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
@@ -83,9 +83,15 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
         insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
       insuranceType:
         insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
-      laycanFrom: insuranceData?.quotationRequest?.laycanFrom ? insuranceData?.quotationRequest?.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate ,
-      laycanTo: insuranceData?.quotationRequest?.laycanTo ? insuranceData?.quotationRequest?.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee ? insuranceData?.quotationRequest?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      laycanFrom: insuranceData?.quotationRequest?.laycanFrom
+        ? insuranceData?.quotationRequest?.laycanFrom
+        : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate,
+      laycanTo: insuranceData?.quotationRequest?.laycanTo
+        ? insuranceData?.quotationRequest?.laycanTo
+        : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
+      lossPayee: insuranceData?.quotationRequest?.lossPayee
+        ? insuranceData?.quotationRequest?.lossPayee
+        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       storageDetails: {
         placeOfStorage:
           insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
@@ -96,10 +102,12 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) : sumInsuredCalc ,
+      sumInsured: insuranceData?.quotationRequest?.sumInsured
+        ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+        : sumInsuredCalc,
     })
   }, [insuranceData])
-//  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
+  //  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData }
@@ -117,7 +125,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
     saveQuotationData(name, text)
     setStartDate(value, name)
   }
-    const setStartDate = (val, name) => {
+  const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
       .format('DD-MM-YYYY')
@@ -127,14 +135,18 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
   }
-   console.log(quotationData?.sumInsured,"quotationData?.sumInsured",insuranceData?.quotationRequest?.sumInsured)
-  const [reset,setReset]=useState(false)
+  console.log(
+    quotationData?.sumInsured,
+    'quotationData?.sumInsured',
+    insuranceData?.quotationRequest?.sumInsured,
+  )
+  const [reset, setReset] = useState(false)
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
     setQuotationData({
       additionalInfo: '',
-      expectedTimeOfArrival:undefined,
-      expectedTimeOfDispatch:undefined,
+      expectedTimeOfArrival: undefined,
+      expectedTimeOfDispatch: undefined,
       insuranceType: '',
       laycanFrom: undefined,
       laycanTo: undefined,
@@ -146,18 +158,22 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured,
     })
-   
+
     setDateStartFrom({
-      laycan:"",
-      eta:""
+      laycan: '',
+      eta: '',
     })
     setReset(!reset)
   }
 
   const validation = () => {
-    console.log(quotationData.lossPayee ,"quotationData.lossPayee ")
+    console.log(quotationData.lossPayee, 'quotationData.lossPayee ')
     let toastMessage = ''
-    if (quotationData.lossPayee == '' || quotationData.lossPayee == 'Select an option' || quotationData.lossPayee == undefined) {
+    if (
+      quotationData.lossPayee == '' ||
+      quotationData.lossPayee == 'Select an option' ||
+      quotationData.lossPayee == undefined
+    ) {
       toastMessage = 'Please Select loss Payee'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -253,12 +269,14 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData }
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000
+        insuranceObj.sumInsured =
+          removePrefixOrSuffix(quotationData.sumInsured) * 10000000
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
         }
         dispatch(UpdateQuotation(obj))
+        router.push(`/third-party`)
       }
     } else {
       let toastMessage = 'Insurance type is mandatory'
@@ -269,15 +287,15 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   }
 
   const changeRoute = () => {
-    if(validation()){
-    sessionStorage.setItem('letterId', insuranceData?._id)
-    if (quotationData.insuranceType == 'Marine Insurance') {
-      Router.push('/agreement/OrderID/id')
-    } else if (quotationData.insuranceType == 'Storage Insurance') {
-      Router.push('/agreement/storage')
-    } else {
-      Router.push('/agreement/both-type')
-    }
+    if (validation()) {
+      sessionStorage.setItem('letterId', insuranceData?._id)
+      if (quotationData.insuranceType == 'Marine Insurance') {
+        Router.push('/agreement/OrderID/id')
+      } else if (quotationData.insuranceType == 'Storage Insurance') {
+        Router.push('/agreement/storage')
+      } else {
+        Router.push('/agreement/both-type')
+      }
     }
   }
 
@@ -290,14 +308,17 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       >
         <div className={`${styles.accordion_body} bg-transparent`}>
           <div className={`${styles.head_container} align-items-center`}>
-            <div onClick={() => Router.push('/insurance')} className={`${styles.head_header} align-items-center`}>
-              <img 
-              
+            <div
+             
+              className={`${styles.head_header} align-items-center`}
+            >
+              <div style={{cursor:'pointer'}}  onClick={() => Router.push('/insurance')}>
+              <img
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
-               
               />
+              </div>
               <h1 className={styles.heading}>
                 {insuranceData?.company?.companyName}
               </h1>
@@ -431,7 +452,12 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(insuranceData?.order?.quantity)?.toLocaleString()} MT
+                              {checkNan(Number(
+                                insuranceData?.order?.quantity,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              }))}{' '}
+                              MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -526,10 +552,17 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                     e.target.value,
                                   )
                                 }}
-                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
+                                value={
+                                  quotationData?.lossPayee
+                                    ? quotationData?.lossPayee
+                                    : insuranceData?.order?.termsheet
+                                        ?.transactionDetails?.lcOpeningBank
+                                }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option disabled selected >Select an option</option>
+                                <option disabled selected>
+                                  Select an option
+                                </option>
                                 <option value="Reserve Bank of Spain">
                                   Reserve Bank of Spain
                                 </option>
@@ -555,7 +588,12 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               <DateCalender
                                 name="laycanFrom"
                                 saveDate={saveDate}
-                                defaultDate={quotationData.laycanFrom ? quotationData.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate}
+                                defaultDate={
+                                  quotationData.laycanFrom
+                                    ? quotationData.laycanFrom
+                                    : insuranceData?.order?.shipmentDetail
+                                        ?.loadPort?.fromDate
+                                }
                                 labelName="Laycan from"
                               />
                               <img
@@ -569,7 +607,12 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                                defaultDate={quotationData.laycanTo ? quotationData.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate}
+                                defaultDate={
+                                  quotationData.laycanTo
+                                    ? quotationData.laycanTo
+                                    : insuranceData?.order?.shipmentDetail
+                                        ?.loadPort?.toDate
+                                }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                                 startFrom={dateStartFrom.laycan}
@@ -620,26 +663,34 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                           </Col>
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
-                                  onFocus={(e) => {
-                                  setIsFieldInFocus(true),
-                                    e.target.type = 'number'
-                                }}
-                                onBlur={(e) => {
-                                  setIsFieldInFocus(false),
-                                    e.target.type = 'text'
-                                }}
+                              onFocus={(e) => {
+                                setIsFieldInFocus(true),
+                                  (e.target.type = 'number')
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus(false),
+                                  (e.target.type = 'text')
+                              }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                             value={ isFieldInFocus ?
-                              quotationData?.sumInsured :
-                             Number(quotationData?.sumInsured).toLocaleString('en-IN') +  ` Cr`}
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
+                              value={
+                                isFieldInFocus
+                                  ? quotationData?.sumInsured
+                                  : Number(
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
+                              }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
-                                saveQuotationData(e.target.name,  e.target.value)
+                                saveQuotationData(e.target.name, e.target.value)
                               }}
                               required
                             />
@@ -654,7 +705,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                       </div>
                     </div>
 
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea
@@ -674,7 +725,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                   </>
                 ) : (
                   <>
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <Row>
                           <Col lg={4} md={6} sm={6}>
@@ -694,7 +745,12 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(insuranceData?.order?.quantity)?.toLocaleString()} MT
+                              {Number(
+                                insuranceData?.order?.quantity,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              })}{' '}
+                              MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -789,9 +845,16 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                   )
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
+                                value={
+                                  quotationData?.lossPayee
+                                    ? quotationData?.lossPayee
+                                    : insuranceData?.order?.termsheet
+                                        ?.transactionDetails?.lcOpeningBank
+                                }
                               >
-                                <option selected disabled>Select an option</option>
+                                <option selected disabled>
+                                  Select an option
+                                </option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}
@@ -823,7 +886,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                 // defaultDate={
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
                                 // }
-                               reset={reset}
+                                reset={reset}
                                 saveDate={saveDate}
                                 labelName="Laycan from"
                               />
@@ -843,7 +906,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
                                 // }
                                 reset={reset}
-                                 startFrom={dateStartFrom.laycan}
+                                startFrom={dateStartFrom.laycan}
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                               />
@@ -893,29 +956,29 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                           </Col>
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
-                             
-                                  onFocus={(e) => {
-                                  setIsFieldInFocus(true),
-                                    e.target.type = 'number'
-                                }}
-                                onBlur={(e) => {
-                                  setIsFieldInFocus(false),
-                                    e.target.type = 'text'
-                                }}
+                              onFocus={(e) => {
+                                setIsFieldInFocus(true),
+                                  (e.target.type = 'number')
+                              }}
+                              onBlur={(e) => {
+                                setIsFieldInFocus(false),
+                                  (e.target.type = 'text')
+                              }}
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                            
-
-                              value={ isFieldInFocus ?
-                                quotationData?.sumInsured :
-                             Number(quotationData?.sumInsured)?.toLocaleString('en-IN') + ` Cr`}
+                              value={
+                                isFieldInFocus
+                                  ? quotationData?.sumInsured
+                                  : Number(
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
+                              }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
-                                saveQuotationData(
-                                  e.target.name,
-                                  e.target.value,
-                                )
+                                saveQuotationData(e.target.name, e.target.value)
                               }
                               required
                             />
@@ -930,7 +993,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                       </div>
                     </div>
 
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Storage Details</h5>
                         <Row>
@@ -976,8 +1039,10 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
                               defaultValue={
                                 quotationData.storageDetails.periodOfInsurance
                               }
@@ -1016,7 +1081,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                         </Row>
                       </div>
                     </div>
-                    <div className={` ${styles.content}`}>
+                    <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
                         <h5>Additional Information (if Any)</h5>
                         <textarea

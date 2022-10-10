@@ -31,12 +31,12 @@ function Index() {
       sessionStorage.setItem('openList', 3)
     }
   }, [])
+
   useEffect(() => {
   dispatch(setPageName('forward'))
   dispatch(setDynamicName(null))
   dispatch(setDynamicOrder(null))
   },[allForwardHedging])
-  console.log(allForwardHedging, 'allForwardHedging')
 
   useEffect(() => {
     dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7`))
@@ -62,6 +62,20 @@ function Index() {
     dispatch(GetAllForwardHedging(`?company=${id}`))
   }
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+   
+    if(sorting == -1){
+    dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={`${styles.container_inner}`}>
@@ -81,7 +95,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} border form-control formControl `}
+                  className={`${styles.formControl} border text_area form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -175,6 +189,7 @@ function Index() {
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
+                        onClick={()=>handleSort()}
                       />{' '}
                     </th>
                     <th>BUYER NAME</th>

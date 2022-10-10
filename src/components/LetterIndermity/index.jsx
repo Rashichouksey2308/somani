@@ -16,21 +16,27 @@ import moment from 'moment'
 // import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
-  console.log("🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails", TransitDetails)
+  console.log(
+    '🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails',
+    TransitDetails,
+  )
   const dispatch = useDispatch()
   let transId = _get(TransitDetails, `data[0]`, '')
   const [billsofLanding, setBillsofLanding] = useState([
     {
       blnumber: 'BL-1',
-      loadingPort:_get(
-                TransitDetails,
-                'data[0].order.portOfDischarge',
-                '',
-              ).toUpperCase(),
-      date:moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[0].blDate).format("DD MMMM YYYY")
+      loadingPort: _get(
+        TransitDetails,
+        'data[0].order.portOfDischarge',
+        '',
+      ).toUpperCase(),
+      date: moment(
+        _get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[0]
+          .blDate,
+      ).format('DD MMMM YYYY'),
     },
   ])
-  console.log(bolArray,"bolArray")
+  console.log(bolArray, 'bolArray')
   const [loi, setLOI] = useState({
     loiIssueDate: new Date(),
     blSurrenderDate: null,
@@ -41,31 +47,35 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
-  const changeDesignation=(value)=>{
-    let temp ={...loi}
-    temp.authorizedSignatory.designation=value
-   setLOI({...loi})
+  const changeDesignation = (value) => {
+    let temp = { ...loi }
+    temp.authorizedSignatory.designation = value
+    setLOI({ ...loi })
   }
-useEffect(() =>{
-  if(_get(TransitDetails,"data[0].LOI.billOfLanding",[]).length>0){
-    setBillsofLanding(_get(TransitDetails,"data[0].LOI.billOfLanding",[]))
-  }
-},[TransitDetails])
+  useEffect(() => {
+    if (_get(TransitDetails, 'data[0].LOI.billOfLanding', []).length > 0) {
+      setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []))
+    }
+  }, [TransitDetails])
 
   const onAddClick = () => {
     setBillsofLanding([
-      ...billsofLanding,  {
-      blnumber: 'BL-1',
-      loadingPort:_get(
-                TransitDetails,
-                'data[0].order.portOfDischarge',
-                '',
-              ).toUpperCase(),
-        date:moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[0].blDate).format("DD MMMM YYYY")
-    },
+      ...billsofLanding,
+      {
+        blnumber: 'BL-1',
+        loadingPort: _get(
+          TransitDetails,
+          'data[0].order.portOfDischarge',
+          '',
+        ).toUpperCase(),
+        date: moment(
+          _get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[0]
+            .blDate,
+        ).format('DD MMMM YYYY'),
+      },
     ])
   }
-  console.log(billsofLanding,"billsofLanding")
+  console.log(billsofLanding, 'billsofLanding')
   useEffect(() => {
     let existingData = _get(TransitDetails, `data[0].LOI`, {})
     if (existingData?.authorizedSignatory) {
@@ -81,14 +91,13 @@ useEffect(() =>{
       })
     }
   }, [TransitDetails])
-  const [bolArray,setBolArray]=useState([])
- console.log(billsofLanding,"bolArray")
+  const [bolArray, setBolArray] = useState([])
+  console.log(billsofLanding, 'bolArray')
   useEffect(() => {
-    if( _get(TransitDetails, `data[0].BL.billOfLanding`, []).length>0){
-    setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+    if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
+      setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
     }
-  },[TransitDetails])
- 
+  }, [TransitDetails])
 
   console.log(loi, 'LOI')
 
@@ -164,51 +173,64 @@ useEffect(() =>{
     // setLOI(tempArray)
   }
 
-  const BolDropDown = (e,index) => {
-    console.log(e.target.value,"onclclc")
-    let temp=[...billsofLanding]
-  
-    let text=e.target.value
-    let  thenum = text.match(/\d+/)[0]
-     
-      if(Number(thenum)<=0){
-        thenum=0
-      }else{
-        thenum=Number(Number(thenum)-1)
-      }
-   console.log(thenum,"indexindex")
-     temp[index].blnumber=e.target.value
-     
-     temp[index].date= moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[thenum].blDate).format("DD MMMM YYYY")
-     temp[index].loadingPort=_get(
-                TransitDetails,
-                'data[0].order.portOfDischarge',
-                '',
-              ).toUpperCase()
-   setBillsofLanding([...temp])
-   
+  const BolDropDown = (e, index) => {
+    console.log(e.target.value, 'onclclc')
+    let temp = [...billsofLanding]
+
+    let text = e.target.value
+    let thenum = text.match(/\d+/)[0]
+
+    if (Number(thenum) <= 0) {
+      thenum = 0
+    } else {
+      thenum = Number(Number(thenum) - 1)
+    }
+    console.log(thenum, 'indexindex')
+    temp[index].blnumber = e.target.value
+
+    temp[index].date = moment(
+      _get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[thenum]
+        .blDate,
+    ).format('DD MMMM YYYY')
+    temp[index].loadingPort = _get(
+      TransitDetails,
+      'data[0].order.portOfDischarge',
+      '',
+    ).toUpperCase()
+    setBillsofLanding([...temp])
   }
 
- console.log(billsofLanding,"asasasasas")
+  console.log(billsofLanding, 'asasasasas')
   const OnAddHandler = () => {
     let tempArray = billsofLanding
     tempArray.push({
       blnumber: '',
       loadingPort: '',
-      date:""
+      date: '',
     })
     setBillsofLanding(tempArray)
   }
-const onDeleteClick=(index)=>{
-  setBillsofLanding([
+  const onDeleteClick = (index) => {
+    setBillsofLanding([
       ...billsofLanding.slice(0, index),
       ...billsofLanding.slice(index + 1),
     ])
-}
+  }
   console.log(loi, 'billsofLanding')
 
+  const isOptionAvailable = (elem, index) => {
+    let returned = false
+    const filtered = billsofLanding.filter((item) => {
+      return item.blnumber === elem
+    })
+    if (filtered.length > 0) {
+      returned = true
+    }
+    return returned
+  }
+
+
   const saveData = () => {
-  
     if (loi.authorizedSignatory.name === '') {
       let toastMessage = 'PLEase select authorized signatory'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -220,8 +242,8 @@ const onDeleteClick=(index)=>{
     sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
-    LOI.billOfLanding=billsofLanding
-   console.log(LOI,"LOI111")
+    LOI.billOfLanding = billsofLanding
+    console.log(LOI, 'LOI111')
     let fd = new FormData()
     fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
@@ -242,10 +264,9 @@ const onDeleteClick=(index)=>{
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.
-
+            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
+            LADING.
             <hr />
-             
           </p>
         </div>
         <div
@@ -262,10 +283,14 @@ const onDeleteClick=(index)=>{
           </div>
           <div>
             <span>DATE:</span>{' '}
-            {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format("DD/MM/YYYY")}
+            {moment(
+              loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/'),
+            ).format('DD-MM-YYYY')}
           </div>
-        </div>        
-        <div className={`${styles.salutations}`}><div>Dear Sir, </div></div>
+        </div>
+        <div className={`${styles.salutations}`}>
+          <div>Dear Sir, </div>
+        </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
@@ -294,11 +319,9 @@ const onDeleteClick=(index)=>{
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
-            {_get(
-              TransitDetails,
-              'data[0].order.quantity',
-              '',
-            ).toLocaleString()}{' '}
+            {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString(
+              'en-IN',
+            )}{' '}
             {_get(
               TransitDetails,
               'data[0].order.unitOfQuantity',
@@ -311,44 +334,51 @@ const onDeleteClick=(index)=>{
           <span>Bill(s) of Lading:</span>
           {'  '}
           <div>
-          {billsofLanding.map((bills, index1) => (
-          <>
-            {console.log(bills,"bills")}
-            <div
-              key={index1}
-              className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
-            >
-              
-              <select onChange={(e) => BolDropDown(e,index1)} className="input" value={billsofLanding[index1].blnumber}>
-                {bolArray.map((element, index2) => (
-                  <option key={index2} 
-                  value={`BL-${index2+1}`}
-                  
+            {billsofLanding.map((bills, index1) => (
+              <>
+                {console.log(bills, 'bills')}
+                <div
+                  key={index1}
+                  className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
+                >
+                  <select
+                    onChange={(e) => BolDropDown(e, index1)}
+                    className="input"
+                    value={billsofLanding[index1].blnumber}
                   >
-                    BL-{index2 + 1}
-                  </option>
-                ))}
-              </select>
-              Dated {billsofLanding[index1].date}, ISSUE AT{' '}
-              {_get(
-                TransitDetails,
-                'data[0].order.portOfDischarge',
-                '',
-              ).toUpperCase()}{' '}
-              {index1}
-              {index1==0?
-               <button onClick={() => onAddClick()} className={styles.add_btn}>
-                <span className={styles.add_sign}>+</span>Add
-              </button>:
-              null}
-              {index1>0 ?
-               <button onClick={() => onDeleteClick(index1)} className={styles.add_btn}>
-                <span className={styles.add_sign}>-</span>Delete
-              </button>
-              :null}
-            </div>
-            </>
-          ))}
+                    {bolArray.map((element, index2) => (
+                      <option disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)} key={index2} value={`BL-${index2 + 1}`}>
+                        BL-{index2 + 1}
+                      </option>
+                    ))}
+                  </select>
+                  Dated {billsofLanding[index1].date}, ISSUE AT{' '}
+                  {_get(
+                    TransitDetails,
+                    'data[0].order.portOfDischarge',
+                    '',
+                  ).toUpperCase()}{' '}
+                  {index1}
+                  {bolArray.length - 1 > index1 ?
+                    index1 === billsofLanding.length - 1 ?
+                      (<button
+                        onClick={() => onAddClick()}
+                        className={styles.add_btn}
+                      >
+                        <span className={styles.add_sign}>+</span>Add
+                      </button>) : null
+                    : null}
+                  {index1 > 0 ? (
+                    <button
+                      onClick={() => onDeleteClick(index1)}
+                      className={`${styles.add_btn} ml-n1`}
+                    >
+                      <span className={styles.add_sign}>-</span>Delete
+                    </button>
+                  ) : null}
+                </div>
+              </>
+            ))}
           </div>
         </div>
 
@@ -356,38 +386,27 @@ const onDeleteClick=(index)=>{
           <p>
             The above cargo was shipped on the above ship by{' '}
             <span className={styles.bold}>
-              LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE{' '}
+              LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE
+              4000 QUEBSLAND, AUSTRALIA{' '}
             </span>
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
-            <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            Bills of Lading has not arrived and we,{' '}
+            <span className={styles.bold}>ANY PORT (S) lN INDIA </span> but the
+            Bills of Lading has not arrived and we, EMERGENT INDUSTRIAL
+            SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
+            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 30016,
+            INDIA , hereby request you to deliver the said cargo to EMERGENT
+            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, SAKHAPATNAM, ANDHRA PRADESH
+            - 530016, INDIA or to such party as you believe to be or to
+            represent EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
+            FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
+            VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to be acting on
+            behalf of EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
+            FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
+            VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at{' '}
             <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            , hereby request you to deliver the said cargo to{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            or to such party as you believe to be or to represent{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            or to be acting on behalf of{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
+              VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
             without production of the original Bill(s) of Lading.
           </p>
@@ -459,21 +478,25 @@ const onDeleteClick=(index)=>{
           </div>
         </div>
         <div className={`${styles.footerSalutations} ${styles.salutations}`}>
-          <div style={{fontWeight:'normal'}}>Yours faithfully</div>
-          <div style={{fontWeight:'normal'}}>For and on behalf of </div>
-          <div className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</div>
-          <div style={{fontWeight:'normal'}}>The Requestor</div>
+          <div style={{ fontWeight: 'normal' }}>Yours faithfully</div>
+          <div style={{ fontWeight: 'normal' }}>For and on behalf of </div>
+          <div className={styles.bold}>
+            EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+          </div>
+          <div style={{ fontWeight: 'normal' }}>The Requestor</div>
           <div className={`${styles.athorised}`}>
-            <div style={{fontWeight:'bold'}}>Authorised Signatory</div>
+            <div style={{ fontWeight: 'bold' }}>Authorised Signatory</div>
 
             <div>
               Name:{' '}
               <select
-              value= {loi.authorizedSignatory.name}
+                value={loi.authorizedSignatory.name !== '' ? loi.authorizedSignatory.name : 'select'}
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option disabled selected>Select an option</option>
+                <option value='select' disabled defaultSelected>
+                  Select an option
+                </option>
                 <option value="Bhawana Jain">Bhawana Jain </option>
                 <option value="Vipin Kumar">Vipin Kumar </option>
                 <option value="Devesh Jain">Devesh Jain </option>
@@ -491,10 +514,9 @@ const onDeleteClick=(index)=>{
               <input
                 className="mt-4 pl-3 input"
                 value={loi.authorizedSignatory.designation}
-                onChange={(e)=>{
+                onChange={(e) => {
                   changeDesignation(e.target.value)
                 }}
-
               ></input>
             </div>
           </div>

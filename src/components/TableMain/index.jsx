@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
 import { Router } from 'next/router'
 import _get from 'lodash/get'
+import moment from 'moment/moment'
 
 function Index({
   tableName,
@@ -19,6 +20,8 @@ function Index({
 
   const [currentPage, setCurrentPage] = useState(0)
 
+  let d = new Date()
+
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   // console.log(insuranceResponse, 'INSURANCE RESPONSE')
@@ -26,6 +29,20 @@ function Index({
   useEffect(() => {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
+
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+   
+    if(sorting == -1){
+    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
@@ -94,6 +111,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
+                    onClick={()=>handleSort()}
                   />{' '}
                 </th>
                 <th>
@@ -145,17 +163,23 @@ function Index({
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {
-                        insured?.quotationRequest?.expectedTimeOfDispatch?.split(
-                          'T',
-                        )[0]
+                        moment(insured?.quotationRequest?.expectedTimeOfDispatch).format("DD-MM-YYYY")
+                        // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
+                        //   'T',
+                        // )[0]
                       }
                     </td>
-                    <td>
+                    {insured && (moment(insured?.marineInsurance?.insuranceTo).toDate() < d || moment(insured?.storageInsurance?.insuranceTo).toDate() < d) ? <td>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>{' '}
+                      Expired
+                    </td> :  <td>
                       <span
                         className={`${styles.status} ${styles.approved}`}
                       ></span>{' '}
                       Active
-                    </td>
+                    </td>}
                     <td>
                       {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && <span onClick={() => handleEditRoute(insured)}>
                         <img

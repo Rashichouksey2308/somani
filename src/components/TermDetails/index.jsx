@@ -17,7 +17,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
-
+  
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -89,7 +89,7 @@ const Index = ({
         aria-labelledby="termDetails"
         data-parent="#termDetails"
       >
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
 
           <div className="row">
@@ -193,7 +193,7 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity ?
                     termsheetDetails?.commodityDetails?.quantity :
-                    Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString() + ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`}
+                    Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') + ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`}
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.quantity,
                 //   termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),
@@ -228,7 +228,7 @@ const Index = ({
                 value={
                   isFieldInFocus.unitPrice ?
                     termsheetDetails?.commodityDetails?.perUnitPrice :
-                    ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString()}
+                    ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In')}
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
                 //     ? 0
@@ -236,7 +236,14 @@ const Index = ({
                 //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                 //   'front',
                 // )}
-                onChange={onChangeCommodityDetails}
+                onChange={(e)=>{
+                   let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
+                      e.target.value=temp
+                  onChangeCommodityDetails(e)
+                }}
                 type="text"
 
                 required
@@ -265,7 +272,10 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance ?
                       termsheetDetails?.commodityDetails?.tolerance :
-                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance).toLocaleString() + ` %`}
+                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) + ` %`}
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   // }
@@ -291,7 +301,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Transaction Details</h3>
 
           <div className="row">
@@ -316,7 +326,7 @@ const Index = ({
                 //   isFieldInFocus.lcValue ?
                 //     termsheetDetails?.transactionDetails?.lcValue :
                 //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
-                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
@@ -684,7 +694,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border_color border-bottom`}>
           <h3 className={styles.sub_heading}>Deliveries/Due date/Payment</h3>
 
           <div className="row">
@@ -764,7 +774,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body rounded-0`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0 border-0`}>
           <h3 className={styles.sub_heading}>Commercial Terms</h3>
           <div className="row">
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -827,7 +837,8 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + ` ` + `USD`}
+                     `USD` + ` ` +
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In') }
 
 
                 onChange={onChangeCommercialTerms}
@@ -856,7 +867,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage ?
                     termsheetDetails?.commercials?.lcOpeningChargesPercentage :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString() + ` %`}
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`}
 
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),

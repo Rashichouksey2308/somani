@@ -2,29 +2,27 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
+import { useEffect } from 'react'
 
-const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
-  const [vesselCertificate, setVesselCertificate] = useState()
-  const [containerList, setContainerList] = useState()
+const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerList, vesselCertificate, setVesselCertificate, setContainerListDocument }) => {
+
 
   const vesselDocFunction = (e) => {
-    // console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
     if (e.target.id === 'Vessel Certificate') {
       setVesselCertificate(e.target.files[0])
     }
     if (e.target.id === 'Container List') {
-      setContainerList(e.target.files[0])
+      setContainerListDocument(e.target.files[0])
     }
-
     uploadDocument1(e)
   }
-console.log(docName,docName2,"docName")
+  console.log(containerList, vesselCertificate, "docName")
   const handleClose = (e) => {
     if (e === 'Vessel Certificate') {
       setVesselCertificate(null)
     }
     if (e === 'Container List') {
-      setContainerList(null)
+      setContainerListDocument(null)
     }
   }
 
@@ -51,7 +49,7 @@ console.log(docName,docName2,"docName")
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
-                  className={`${styles.table} table`}
+                  className={`${styles.table} mb-0 table`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"
@@ -98,7 +96,7 @@ console.log(docName,docName2,"docName")
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{ vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>{vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {vesselCertificate == null ? (
@@ -118,7 +116,7 @@ console.log(docName,docName2,"docName")
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{vesselCertificate?.name}</span>
+                            <span>{vesselCertificate?.originalName ?? vesselCertificate?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
@@ -141,7 +139,7 @@ console.log(docName,docName2,"docName")
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{ containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>{containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {containerList == null ? (
@@ -158,21 +156,10 @@ console.log(docName,docName2,"docName")
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => uploadDocument1(e)}
-                        name="myfile"
-                      />
-                       <button  className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
-                    </div> */}
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{containerList?.name}</span>
+                            <span>{  containerList?.originalName ?? containerList?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"

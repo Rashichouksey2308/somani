@@ -18,6 +18,7 @@ import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../../src/utils/helper'
+import moment from 'moment/moment'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('')
@@ -35,14 +36,16 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
   const [insuranceData, setInsuranceData] = useState()
 
+
   useEffect(() => {
     dispatch(setPageName('insurance Request Letter'))
     dispatch(
-      setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+      setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')),
     )
-    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+    dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')))
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
+  
   console.log(insuranceResponse, 'insuranceResponse')
 
   const [marineData, setMarineData] = useState({
@@ -58,7 +61,6 @@ const Index = () => {
     lossPayee: '',
     premiumAmount: '',
   })
-
 
   const [storageData, setStorageData] = useState({
     policyNumber: '',
@@ -78,16 +80,16 @@ const Index = () => {
 
   useEffect(() => {
     setMarineData({
-      policyNumber: insuranceData?.marineInsurance?.policyNumber,
-      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer,
-      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer,
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured,
-      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured,
+      policyNumber: insuranceData?.marineInsurance?.policyNumber|| "",
+      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer|| "Policy Bazaar",
+      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer|| "",
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured|| "",
+      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured|| "",
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
-      periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.marineInsurance?.lossPayee,
+      lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)|| "",
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
@@ -98,20 +100,47 @@ const Index = () => {
       gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
       insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-      periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee,
+      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
-  }, [insuranceData])
+    setInsuranceDocument({
+      storagePolicyDocument: insuranceData?.storagePolicyDocument || null,
+    marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
+    })
+  }, [insuranceResponse,insuranceData])
+ console.log(marineData,"marineData")
 
+ let dateM1 = new Date(marineData?.insuranceFrom)
+ let dateM2 = new Date(marineData?.insuranceTo)
+ 
+
+ function getDifferenceInDaysMarine() {
+  let date1 = moment(dateM1, "DD.MM.YYYY");
+  let date2 = moment(dateM2, "DD.MM.YYYY");
+  return date2.diff(date1, 'days')
+}
+
+let dateS1 = new Date(storageData?.insuranceFrom)
+let dateS2 = new Date(storageData?.insuranceTo)
+
+
+function getDifferenceInDaysStorage() {
+  let date3 = moment(dateS1, 'DD.MM.YYYY')
+  let date4 = moment(dateS2, 'DD.MM.YYYY')
+  return date4.diff(date3, 'days')
+}
 
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
     newInput[name] = value
+    // if(insuranceDocument){
+    //   setStorageData(newInput)
+    // }
     setMarineData(newInput)
   }
-
+  console.log(marineData,"setMarineData")
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
@@ -162,9 +191,34 @@ const Index = () => {
   const [isInsurerSameData, setIsInsurerSameData] = useState(false)
 
   const handleIsInsuranceSame = () => {
-    setIsInsurerSameData(true)
-    setStorageData({ ...marineData })
+    setIsInsurerSameData(!isInsurerSameData)
+   
+    
   }
+  useEffect(() => {
+   if(isInsurerSameData){
+    
+    setStorageData({ ...marineData })
+   }
+   if(isInsurerSameData==false){
+     console.log(insuranceData,"insuranceData?.storageInsurance?.policyNumber")
+    setStorageData({
+      policyNumber: insuranceData?.storageInsurance?.policyNumber ||"",
+      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || "",
+      gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer||"",
+      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured||"",
+      gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured||"",
+      insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
+      insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
+      periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance ||"",
+      insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
+      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
+      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
+    })
+   
+   }
+  },
+  [isInsurerSameData])
 
   const validate = () => {
     let toastMessage = ''
@@ -172,7 +226,7 @@ const Index = () => {
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsurer == ''
+        (marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined)
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -182,7 +236,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsured == ''
+        (marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined )
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -191,7 +245,7 @@ const Index = () => {
         }
       }
       if (
-        marineData.insuranceFrom == ''
+        marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -201,7 +255,7 @@ const Index = () => {
       }
 
       if (
-        marineData.insuranceTo == ''
+        marineData.insuranceTo == '' || marineData.insuranceTo == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -224,7 +278,7 @@ const Index = () => {
     ) {
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        storageData.gstOfInsurer == ''
+        (storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined )
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -234,7 +288,7 @@ const Index = () => {
       }
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        storageData.gstOfInsured == ''
+        (storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined)
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -243,7 +297,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceFrom == ''
+        storageData.insuranceFrom == '' || storageData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -252,7 +306,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceTo == ''
+        storageData.insuranceTo == '' || storageData.insuranceTo == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -275,7 +329,7 @@ const Index = () => {
       'Marine & Storage Insurance'
     ) {
       if (
-        storageData.gstOfInsurer == ''
+        storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -284,7 +338,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.gstOfInsured == ''
+        storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -294,7 +348,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsurer == ''
+        marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -304,7 +358,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsured == ''
+        marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -364,12 +418,16 @@ const Index = () => {
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
-        <div className={`${styles.head_header} ml-4`}>
+        <div className={`${styles.head_header}`}>
+           
           <img
-            className={`${styles.arrow} image_arrow img-fluid`}
+            style={{cursor:'pointer'}}  
+            onClick={() => Router.push('/insurance')}
+            className={`${styles.back_arrow} image_arrow img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
+  
           <h1 className={styles.heading}>
             {insuranceData?.company?.companyName}
           </h1>
@@ -469,7 +527,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
+                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'Domestic')
                           }
@@ -481,7 +539,7 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
+                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
@@ -506,7 +564,7 @@ const Index = () => {
                 aria-labelledby="marineInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -572,9 +630,9 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
-                              {marineData?.insuranceFromType === 'Domestic' && (
+                              {marineData?.insuranceFromType === 'Domestic' ? (
                                 <strong className="text-danger">*</strong>
-                              )}
+                              ): ''}
                             </label>
 
                           </div>
@@ -652,7 +710,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={marineData?.periodOfInsurance}
+                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -668,17 +726,19 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                             
                               name="lossPayee"
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
-                              // value={insuranceData?.marineInsurance?.lossPayee}
+                              value={marineData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option>Select an option</option>
-                              <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                              {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
                               <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
+                              <option value="SBI">SBI</option>
+                              
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -922,7 +982,7 @@ const Index = () => {
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -997,6 +1057,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
+                              <strong className="text-danger">*</strong>
                             </label>
 
                           </div>
@@ -1074,7 +1135,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={storageData?.periodOfInsurance}
+                            value={ getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1098,13 +1159,7 @@ const Index = () => {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+                             <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1337,7 +1392,7 @@ const Index = () => {
                 <div
                   className={` ${styles.cardBody} vessel_card card-body  border_color`}
                 >
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1404,6 +1459,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
+                             {marineData?.insuranceFromType == 'Domestic' ? <strong className="text-danger">*</strong> : ''}
                             </label>
 
                           </div>
@@ -1481,7 +1537,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={marineData?.periodOfInsurance}
+                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1498,20 +1554,15 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                              // value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
+                              value={marineData.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1591,7 +1642,7 @@ const Index = () => {
                     </div>
                     <label className={styles.switch}>
                       <input
-                        defaultChecked={!isInsurerSameData}
+                        checked={!isInsurerSameData}
                         onClick={() => handleIsInsuranceSame()}
                         type="checkbox"
                       />
@@ -1618,7 +1669,7 @@ const Index = () => {
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
-                  <div className={` ${styles.content}`}>
+                  <div className={` ${styles.content} border_color`}>
                     <div className={` ${styles.body}`}>
                       <Row>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1692,7 +1743,8 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTIN of Insurer
+                              <strong className="text-danger">*</strong>
                             </label>
 
                           </div>
@@ -1772,7 +1824,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            value={storageData?.periodOfInsurance}
+                            value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1789,21 +1841,16 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                            
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
+                              value={storageData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+ 
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1913,7 +1960,7 @@ const Index = () => {
                           <tbody>
                             <tr className="table_row">
                               <td className={styles.doc_name}>
-                                Policy Document - Marine & Storage
+                                Policy Document - Marine
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>

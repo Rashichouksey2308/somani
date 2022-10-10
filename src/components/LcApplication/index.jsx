@@ -27,9 +27,10 @@ function Index({
   addConditionArr,
   lcModuleData,
   editLcComments,
-  editLcDocComments
+  editLcDocComments,
+  name
 }) {
-  console.log(lcData?.atSight, 'lcCondition12234')
+  console.log(lcData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -65,7 +66,7 @@ function Index({
               alt="ArrowRight"
               onClick={() => Router.push('/lc-module')}
             />
-            <h1 className={`${styles.heading}`}>Letter of Credit </h1>
+            <h1 className={`${styles.heading}`}>{name} </h1>
           </div>
 
           <div className={`${styles.wrapper} border_color vessel_card card`}>
@@ -474,7 +475,7 @@ function Index({
                                 evt.preventDefault()
                               }
                               disabled={
-                                lcData?.atSight == 'AT SIGHT' ? true : false
+                                lcData?.atSight == 'AT SIGHT' ||lcData?.atSight == undefined ? true : false
                               }
                               name="numberOfDays"
                               value={lcData?.numberOfDays}
@@ -543,8 +544,10 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="No">Prohibited</option>
+                            
                             <option value="Yes">Allowed</option>
+                            <option value="No">Not Allowed</option>
+                            <option value="No">Conditional</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -572,9 +575,9 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="Prohibited">Prohibited</option>
-                            <option value="Not Prohibited">
-                              Not Prohibited
+                            <option value="Allowed">Allowed</option>
+                            <option value="Not Allowed">
+                              Not Allowed
                             </option>
                           </select>
                           <label
@@ -605,7 +608,7 @@ function Index({
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            (44A) Shipment From
+                            (44A) Place of taking in Charge 
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
@@ -699,7 +702,7 @@ function Index({
                           required
                           type="text"
                           name="DescriptionOfGoods"
-                          defaultValue={lcData?.DescriptionOfGoods}
+                          value={lcData?.DescriptionOfGoods}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
@@ -708,7 +711,9 @@ function Index({
                         <label
                           className={`${styles.label_heading} label_heading`}
                         >
+                          
                           (45A) Description Of The Goods
+                           <strong className="text-danger">*</strong>
                         </label>
                       </Col>
                     </Row>
@@ -722,6 +727,7 @@ function Index({
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading} value`}>
                       46A DOCUMENT REQUIRED
+                      <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
                       <input
@@ -801,6 +807,7 @@ function Index({
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading}  value`}>
                       47A ADDITIONAL CONDITIONS
+                      <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
                       <input
@@ -880,7 +887,7 @@ function Index({
                   <div className={styles.doc_card}>
                     <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
                       <div className="d-flex">
-                        <div className={`${styles.number}`}>2.</div>
+                        <div className={`${styles.number}`}>1.</div>
                         <h5>PRODUCT SPECIFICATION</h5>
                       </div>
                       {/* <div className="mt-3">
@@ -961,7 +968,38 @@ function Index({
                             </label>
                           </Col>
                           <Col className="mb-4 mt-4" md={12}>
-                            <textarea
+                             <div className="d-flex">
+                          <select
+                            name="confirmationInstructions"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            value={lcData?.confirmationInstructions}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          >
+                            <option selected disabled>
+                              Select an option
+                            </option>
+                            <option value="May Add">May Add </option>
+                            <option value="Confirm">Confirm</option>
+                          
+                            <option value="Without">Without</option>
+                            <option value="May add at beneficiary cost">May add at beneficiary cost</option>
+                          </select>
+
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            (49) Confirmation Instructions
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                            {/* <textarea
                               className={`${styles.input_field} input form-control`}
                               style={{ height: '103px' }}
                               required
@@ -981,7 +1019,7 @@ function Index({
                             >
                               (49) Confirmation Instructions
                               <strong className="text-danger">*</strong>
-                            </label>
+                            </label> */}
                           </Col>
                           <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                             <div className="d-flex">

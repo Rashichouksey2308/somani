@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Group_4266" data-name="Group 4266" transform="translate(-228 -471)">
+    <g id="Group_4263" data-name="Group 4263">
+      <rect id="Rectangle_143" data-name="Rectangle 143" width="30" height="30" transform="translate(228 471)" fill="none"/>
+      <circle id="Ellipse_41" data-name="Ellipse 41" cx="9.5" cy="9.5" r="9.5" transform="translate(234.022 476.5)" fill="none" stroke="#3883e1" stroke-width="2"/>
+      <g id="Group_4240" data-name="Group 4240" transform="translate(233.889 477.861)">
+        <path id="rupee-sign" d="M7.667,33.195a.3.3,0,0,0,.3-.3v-.6a.3.3,0,0,0-.3-.3H.3a.3.3,0,0,0-.3.3v.788a.3.3,0,0,0,.3.3h2.33a1.962,1.962,0,0,1,1.978,1.2H.3a.3.3,0,0,0-.3.3v.6a.3.3,0,0,0,.3.3H4.769a2,2,0,0,1-2.156,2H.3a.3.3,0,0,0-.3.3v.871a.3.3,0,0,0,.1.226l4.533,3.9a.3.3,0,0,0,.195.072H6.358a.3.3,0,0,0,.195-.525L2.535,39.169h.331a3.38,3.38,0,0,0,3.5-3.386h1.3a.3.3,0,0,0,.3-.3v-.6a.3.3,0,0,0-.3-.3h-1.4a3.383,3.383,0,0,0-.677-1.394Z" transform="translate(6.134 -29.862)" fill="#3883e1"/>
+      </g>
+    </g>
+  </g>
+</svg>

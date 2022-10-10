@@ -28,9 +28,9 @@ const index = ({ saveShipmentData, shipment }) => {
   }
   console.log(shipment, 'shipment')
   return (
-    <div className={`${styles.main} vessel_card border-color card`}>
+    <div className={`${styles.main} vessel_card border_color card`}>
       <div
-        className={`${styles.head_container} d-flex align-items-center justify-content-between`}
+        className={`${styles.head_container} d-flex align-items-center card-header border_color justify-content-between`}
         data-toggle="collapse"
         data-target="#shipmentDetails"
         aria-expanded="true"
@@ -67,14 +67,14 @@ const index = ({ saveShipmentData, shipment }) => {
                     Shipment Type<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
                 </div>
               </Form.Group>
 
-              <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -104,7 +104,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   <strong className="text-danger">*</strong>
                 </Form.Label> */}
               </Form.Group>
-              <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
@@ -165,7 +165,7 @@ const index = ({ saveShipmentData, shipment }) => {
                 </Form.Label> */}
               </Form.Group>
 
-              <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                    name="ETAofDischarge.fromDate"
@@ -198,7 +198,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   </Form.Label>
                 </div> */}
               </Form.Group>
-              <Form.Group className={`${styles.form_group}  col-md-2 col-sm-6`}>
+              <Form.Group className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.toDate"

@@ -18,6 +18,10 @@ let stevedore={
         
 }
 function Index(props) {
+    const [removedOption,setRemovedOption]=useState(null)
+    const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
   console.log(props.data,"setSameAsCHA")
   const[seteveState,setSeteveState]=useState(stevedore)
   const [list,setList]=useState([])
@@ -99,7 +103,9 @@ useEffect(() => {
        
         
        }
-       setList(savedData?.authorisedSignatoryDetails|| [])
+       setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(savedData?.addresses|| [{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -123,7 +129,9 @@ useEffect(() => {
        
         
        }
-       setList(savedData.authorisedSignatoryDetails|| [])
+      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(savedData.addresses|| [])
        setSeteveState(supplier)
     }else{
@@ -136,7 +144,9 @@ useEffect(() => {
        
         
        }
-       setList(props.data?.authorisedSignatoryDetails|| [])
+      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(props.data?.addresses|| [])
        setSeteveState(supplier)
     }
@@ -184,7 +194,7 @@ useEffect(() => {
     });
 
   }
-  const onEditRemove=(index)=>{
+  const onEditRemove=(index,value)=>{
  
 
        setList(prevState => {
@@ -200,7 +210,7 @@ useEffect(() => {
 
       return newState;
     });
-
+   setRemovedOption(value.name)
   }
   const addMoreRows=()=>{
 
@@ -218,6 +228,7 @@ const handleRemove = (index) => {
       }
     })
   setList([...list.slice(0, index), ...list.slice(index + 1)])
+ setRemovedOption(null)
 }
   const handleInput=(name,value,key)=>{
    
@@ -554,6 +565,7 @@ const addDoc=(e,index)=>{
           </div>
         </div>
         {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
+        {isEdit== false &&  
         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span></div>
           <div className="card-body p-0 rounded-0">
@@ -587,7 +599,7 @@ const addDoc=(e,index)=>{
                   />
                 </div>
               </Form.Group>
-          {addressType=="Registered" || addressType=="Supplier"?
+          { addressType=="Supplier"?
               <>
               <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                 <Form.Control
@@ -778,7 +790,7 @@ const addDoc=(e,index)=>{
               </div>
             </div>
           </div>
-        </div>
+        </div>}
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -797,7 +809,7 @@ const addDoc=(e,index)=>{
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body} card-body row`}
+            className={`collapse ${styles.body} show card-body row`}
             aria-labelledby="customerDetail"
         
           >
@@ -834,14 +846,20 @@ const addDoc=(e,index)=>{
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
                               <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -850,8 +868,42 @@ const addDoc=(e,index)=>{
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -862,7 +914,10 @@ const addDoc=(e,index)=>{
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>
@@ -893,6 +948,10 @@ const addDoc=(e,index)=>{
                              value={val.phoneNo}
                               className='input'
                               type="number"
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
@@ -903,7 +962,7 @@ const addDoc=(e,index)=>{
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -975,7 +1034,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         />
                       </div>
                     </Form.Group>
-                {addressEditType=="Registered" || addressEditType=="Supplier"?
+                { addressEditType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -1097,7 +1156,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name
+                       Country <strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

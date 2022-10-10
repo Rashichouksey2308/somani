@@ -377,7 +377,7 @@
             top: 51%;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             content: '';
             z-index: -1;
             position: absolute;
@@ -568,7 +568,7 @@
 }
 .do_number {
   letter-spacing: 0.19px;
-  color: #111111;
+  //color: #111111;
   font-size: 20px;
   line-height: 25px;
   white-space: nowrap;

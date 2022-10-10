@@ -8,6 +8,7 @@ const initialState = {
   customerSummary: [],
   exposureSummary: [],
   totalOrigin: 0,
+  totalCustomer: 0,
 }
 
 function AnalyticsReducer(state = initialState, action) {
@@ -38,7 +39,8 @@ function AnalyticsReducer(state = initialState, action) {
     case types.GET_CUSTOMER_DATA:
       return {
         ...state,
-        customerSummary: action.payload,
+        customerSummary: action.payload.payload,
+        totalCustomer: action.payload.total,
       }
     case types.GET_EXPOSURE_DATA:
       return {

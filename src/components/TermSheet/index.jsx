@@ -9,31 +9,38 @@ import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
 import Router from 'next/router'
 
-import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
+import { settingSidebar } from 'redux/breadcrumb/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
 import _get from 'lodash/get'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../redux/userData/action'
+import Loader from '../Loader/index'
 
 const Index = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const { termsheet } = useSelector((state) => state.order)
+  const { termsheet, gettingTermsheet } = useSelector((state) => state.order)
   const [payloadData, setPayloadData] = useState({})
   const [termsheetDetails, setTermsheetDetails] = useState({})
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
-   console.log(termsheetDetails, 'termsheetDetails')
+  console.log(termsheetDetails, 'termsheetDetails')
   // console.log(additionalComments, 'additionalCommentType')
-
+  let sheetData = _get(termsheet, 'data[0]', {})
   useEffect(() => {
     let Id = sessionStorage.getItem('termID')
+
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
-    dispatch(setPageName('termsheet'))
+
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal =
@@ -45,9 +52,16 @@ const Index = () => {
 
   useEffect(() => {
     {
+      dispatch(setPageName('termsheet'))
+      dispatch(setDynamicName(sheetData?.company?.companyName))
+      dispatch(
+        setDynamicOrder(
+          sheetData?.order?.orderId
+            ? sheetData?.order?.orderId : sheetData?.order?.applicationId
+        ),
+      )
       termsheet &&
         termsheet?.data?.map((sheet) =>
-        
           setTermsheetDetails({
             termsheetId: sheet._id,
             commodityDetails: {
@@ -56,7 +70,7 @@ const Index = () => {
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice ?? '',
               commodity: sheet?.order?.commodity,
-              tolerance: sheet?.order?.tolerance,
+              tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
@@ -70,12 +84,16 @@ const Index = () => {
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
-              loadPort: sheet?.transactionDetails?.loadPort ?? sheet?.order?.shipmentDetail?.portOfLoading ,
+              loadPort:
+                sheet?.transactionDetails?.loadPort ??
+                sheet?.order?.shipmentDetail?.portOfLoading,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
                 ? sheet?.transactionDetails?.countryOfOrigin
                 : sheet?.order?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType ?? sheet?.order?.shipmentDetail?.shipmentType,
-                
+              shipmentType:
+                sheet?.transactionDetails?.shipmentType ??
+                sheet?.order?.shipmentDetail?.shipmentType,
+
               partShipmentAllowed:
                 sheet?.transactionDetails?.partShipmentAllowed,
               portOfDischarge: sheet?.transactionDetails?.portOfDischarge
@@ -93,7 +111,8 @@ const Index = () => {
                 sheet?.paymentDueDate?.daysFromVesselDischargeDate,
             },
             commercials: {
-              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage ?? '',
+              tradeMarginPercentage:
+                sheet?.commercials?.tradeMarginPercentage ?? '',
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit:
@@ -123,7 +142,11 @@ const Index = () => {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
           setOtherTermConditions({
-            buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank ||"Indo German International Private Limited (IGPL)" },
+            buyer: {
+              bank:
+                sheet?.otherTermsAndConditions?.buyer?.bank ||
+                'Indo German International Private Limited (IGPL)',
+            },
             chaOrstevedoringCharges: {
               customClearingCharges:
                 sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
@@ -249,7 +272,7 @@ const Index = () => {
         })
     }
   }, [termsheet])
-   console.log(otherTermsAndConditions, "otherTerms")
+  console.log(otherTermsAndConditions, 'otherTerms')
 
   useEffect(() => {
     termsheet?.data?.map((sheets) => {
@@ -347,10 +370,10 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment = () => {}
-  const handleSave = () => {
+  const changePayment = () => { }
+  const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
-    let tempSheet = {...termsheetDetails}
+    let tempSheet = { ...termsheetDetails }
 
     tempSheet.transactionDetails.lcValue = newLcVal
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
@@ -383,9 +406,7 @@ const Index = () => {
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
     console.log(termsheetDetails, 'tempSheet1')
 
-
     if (
-      
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
       termsheetDetails.commodityDetails.unitOfQuantity == undefined
     ) {
@@ -395,8 +416,7 @@ const Index = () => {
       }
       return
     }
-      if (
-      
+    if (
       termsheetDetails.commodityDetails.orderCurrency == '' ||
       termsheetDetails.commodityDetails.orderCurrency == undefined
     ) {
@@ -406,10 +426,9 @@ const Index = () => {
       }
       return
     }
-      if (
-      
-      termsheetDetails.commodityDetails.quantity== '' ||
-      termsheetDetails.commodityDetails.quantity== undefined
+    if (
+      termsheetDetails.commodityDetails.quantity == '' ||
+      termsheetDetails.commodityDetails.quantity == undefined
     ) {
       let toastMessage = 'Please add quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -417,12 +436,14 @@ const Index = () => {
       }
       return
     }
-    console.log(termsheetDetails.commodityDetails.perUnitPrice,"termsheetDetails.commodityDetails.perUnitPrice")
-      if (
-      
-      termsheetDetails.commodityDetails.perUnitPrice== '' ||  
-      termsheetDetails.commodityDetails.perUnitPrice?.toString() == "NaN"  ||
-      termsheetDetails.commodityDetails.perUnitPrice== undefined
+    console.log(
+      termsheetDetails.commodityDetails.perUnitPrice,
+      'termsheetDetails.commodityDetails.perUnitPrice',
+    )
+    if (
+      termsheetDetails.commodityDetails.perUnitPrice == '' ||
+      termsheetDetails.commodityDetails.perUnitPrice?.toString() == 'NaN' ||
+      termsheetDetails.commodityDetails.perUnitPrice == undefined
     ) {
       let toastMessage = 'Please add per Unit Price'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -430,10 +451,9 @@ const Index = () => {
       }
       return
     }
-       if (
-      
-      termsheetDetails.commodityDetails.commodity== '' ||
-      termsheetDetails.commodityDetails.commodity== undefined
+    if (
+      termsheetDetails.commodityDetails.commodity == '' ||
+      termsheetDetails.commodityDetails.commodity == undefined
     ) {
       let toastMessage = 'Please add commodity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -441,10 +461,9 @@ const Index = () => {
       }
       return
     }
-         if (
-      
-      termsheetDetails.commodityDetails.tolerance== '' ||
-      termsheetDetails.commodityDetails.tolerance== undefined
+    if (
+      termsheetDetails.commodityDetails.tolerance == '' ||
+      termsheetDetails.commodityDetails.tolerance == undefined
     ) {
       let toastMessage = 'Please add tolerance'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -453,25 +472,21 @@ const Index = () => {
       return
     }
 
-    
- 
+    // transaction
 
-// transaction
-
-
-
-  // if (
-  //     termsheetDetails.transactionDetails.typeOfPort == '' ||
-  //     termsheetDetails.transactionDetails.typeOfPort == undefined
-  //   ) {
-  //     let toastMessage = 'Please add typeOfPort '
-  //     if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //     }
-  //     return
-  //   }
-     if (
-      termsheetDetails.transactionDetails.lcValue == '' ||   termsheetDetails.transactionDetails.lcValue == NaN ||
+    // if (
+    //     termsheetDetails.transactionDetails.typeOfPort == '' ||
+    //     termsheetDetails.transactionDetails.typeOfPort == undefined
+    //   ) {
+    //     let toastMessage = 'Please add typeOfPort '
+    //     if (!toast.isActive(toastMessage.toUpperCase())) {
+    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     }
+    //     return
+    //   }
+    if (
+      termsheetDetails.transactionDetails.lcValue == '' ||
+      termsheetDetails.transactionDetails.lcValue == NaN ||
       termsheetDetails.transactionDetails.lcValue == undefined
     ) {
       let toastMessage = 'Please add lc Value '
@@ -480,17 +495,17 @@ const Index = () => {
       }
       return
     }
-  //  if (
-  //     termsheetDetails.transactionDetails.lcCurrency == '' ||
-  //     termsheetDetails.transactionDetails.lcCurrency == undefined
-  //   ) {
-  //     let toastMessage = 'Please add lc Currency '
-  //     if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //     }
-  //     return
-  //   }
-     if (
+    //  if (
+    //     termsheetDetails.transactionDetails.lcCurrency == '' ||
+    //     termsheetDetails.transactionDetails.lcCurrency == undefined
+    //   ) {
+    //     let toastMessage = 'Please add lc Currency '
+    //     if (!toast.isActive(toastMessage.toUpperCase())) {
+    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     }
+    //     return
+    //   }
+    if (
       termsheetDetails.transactionDetails.marginMoney == '' ||
       termsheetDetails.transactionDetails.marginMoney == undefined
     ) {
@@ -500,7 +515,7 @@ const Index = () => {
       }
       return
     }
-      if (
+    if (
       termsheetDetails.transactionDetails.lcOpeningBank == '' ||
       termsheetDetails.transactionDetails.lcOpeningBank == undefined
     ) {
@@ -510,7 +525,7 @@ const Index = () => {
       }
       return
     }
-       if (
+    if (
       termsheetDetails.transactionDetails.incoTerms == '' ||
       termsheetDetails.transactionDetails.incoTerms == undefined
     ) {
@@ -520,7 +535,7 @@ const Index = () => {
       }
       return
     }
-        if (
+    if (
       termsheetDetails.transactionDetails.loadPort == '' ||
       termsheetDetails.transactionDetails.loadPort == undefined
     ) {
@@ -530,7 +545,7 @@ const Index = () => {
       }
       return
     }
-          if (
+    if (
       termsheetDetails.transactionDetails.countryOfOrigin == '' ||
       termsheetDetails.transactionDetails.countryOfOrigin == undefined
     ) {
@@ -540,7 +555,7 @@ const Index = () => {
       }
       return
     }
-     if (
+    if (
       termsheetDetails.transactionDetails.shipmentType == '' ||
       termsheetDetails.transactionDetails.shipmentType == undefined
     ) {
@@ -550,7 +565,7 @@ const Index = () => {
       }
       return
     }
-     if (
+    if (
       termsheetDetails.transactionDetails.partShipmentAllowed == '' ||
       termsheetDetails.transactionDetails.partShipmentAllowed == undefined
     ) {
@@ -560,7 +575,7 @@ const Index = () => {
       }
       return
     }
-      if (
+    if (
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -570,7 +585,7 @@ const Index = () => {
       }
       return
     }
-       if (
+    if (
       termsheetDetails.transactionDetails.billOfEntity == '' ||
       termsheetDetails.transactionDetails.billOfEntity == undefined
     ) {
@@ -580,7 +595,7 @@ const Index = () => {
       }
       return
     }
-         if (
+    if (
       termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
     ) {
       let toastMessage = 'Please add third Party InspectionReq'
@@ -599,9 +614,9 @@ const Index = () => {
       }
       return
     }
-       if (
+    if (
       termsheetDetails.transactionDetails.portOfDischarge ==
-        'Select an option' ||
+      'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -622,8 +637,7 @@ const Index = () => {
       return
     }
 
- 
- if (
+    if (
       termsheetDetails.commercials.tradeMarginPercentage == '' ||
       termsheetDetails.commercials.tradeMarginPercentage?.toString() == 'NaN' ||
       termsheetDetails.commercials.tradeMarginPercentage == undefined
@@ -654,7 +668,7 @@ const Index = () => {
     //   }
     //   return
     // }
-        if (
+    if (
       termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
       termsheetDetails.commercials.lcOpeningChargesUnit == undefined
     ) {
@@ -664,7 +678,7 @@ const Index = () => {
       }
       return
     }
-          if (
+    if (
       termsheetDetails.commercials.lcOpeningChargesPercentage == '' ||
       termsheetDetails.commercials.lcOpeningChargesPercentage == undefined
     ) {
@@ -674,7 +688,7 @@ const Index = () => {
       }
       return
     }
-     if (
+    if (
       termsheetDetails.commercials.usanceInterestPercetage == '' ||
       termsheetDetails.commercials.usanceInterestPercetage == undefined
     ) {
@@ -684,7 +698,7 @@ const Index = () => {
       }
       return
     }
-      if (
+    if (
       termsheetDetails.commercials.overDueInterestPerMonth == '' ||
       termsheetDetails.commercials.overDueInterestPerMonth == undefined
     ) {
@@ -694,7 +708,7 @@ const Index = () => {
       }
       return
     }
-       if (
+    if (
       termsheetDetails.commercials.exchangeFluctuation == '' ||
       termsheetDetails.commercials.exchangeFluctuation == undefined
     ) {
@@ -704,7 +718,7 @@ const Index = () => {
       }
       return
     }
-        if (
+    if (
       termsheetDetails.commercials.forexHedging == '' ||
       termsheetDetails.commercials.forexHedging == undefined
     ) {
@@ -714,7 +728,7 @@ const Index = () => {
       }
       return
     }
-        if (
+    if (
       termsheetDetails.commercials.otherTermsAndConditions == '' ||
       termsheetDetails.commercials.otherTermsAndConditions == undefined
     ) {
@@ -724,7 +738,7 @@ const Index = () => {
       }
       return
     }
-         if (
+    if (
       termsheetDetails.commercials.version == '' ||
       termsheetDetails.commercials.version == undefined
     ) {
@@ -733,7 +747,8 @@ const Index = () => {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }if (
+    }
+    if (
       otherTermsAndConditions.buyer.bank === '' ||
       otherTermsAndConditions.buyer.bank == undefined
     ) {
@@ -751,8 +766,13 @@ const Index = () => {
     }
 
     // console.log(termsheetDetails, 'updatedtermsheet')
-    dispatch(updateTermsheet(UpdatedTermsheet))
-    //router.push('/termsheet')
+    let code = await dispatch(updateTermsheet(UpdatedTermsheet))
+    if (code == 200) {
+      //  sessionStorage.setItem('marginId', margin?.order?._id )
+      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+      //  router.push(`/margin-money/id`)
+    }
+
   }
 
   const handleChange = (name, value) => {
@@ -784,133 +804,134 @@ const Index = () => {
 
   return (
     <>
-      <div className="container-fluid px-0">
-        <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
-          <div className={`${styles.head_header} align-items-center`}>
-            <img
-              className={`${styles.arrow} img-fluid image_arrow mr-2`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow"
-              onClick={() => Router.push('/termsheet/order-list')}
-            />
-            <h1 className={`${styles.heading} heading`}>
-              {_get(termsheet, 'data[0].company.companyName', '')}
-            </h1>
-          </div>
-          <div className="">
-            {termsheet &&
-              termsheet?.data?.map((sheet, index) => (
-                <div
-                  key={index}
-                  className={`${styles.card_body} card-body container-fluid`}
-                >
-                  <div className="row">
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Customer ID
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        {sheet?.company?.customerId}
-                      </p>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Buyer Name
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        {sheet?.company?.companyName}
-                      </p>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Created On
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        {moment(
-                          (sheet?.company?.createdAt).slice(0, 10),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')}
-                      </p>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Last Modified
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        {moment(
-                          (sheet?.company?.updatedAt).slice(0, 10),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')}
-                      </p>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Approved Date
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        {sheet?.order?.cam?.approvedAt
-                          ? moment(
+      {gettingTermsheet ? (<Loader />) :
+        <>  <div className="container-fluid px-0">
+          <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
+            <div className={`${styles.head_header} align-items-center`}>
+              <img
+                className={`${styles.arrow} img-fluid image_arrow mr-2`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+                onClick={() => Router.push('/termsheet/order-list')}
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {_get(termsheet, 'data[0].company.companyName', '')}
+              </h1>
+            </div>
+            <div className="">
+              {termsheet &&
+                termsheet?.data?.map((sheet, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.card_body} border_color border card-body container-fluid`}
+                  >
+                    <div className="row">
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Customer ID
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {sheet?.company?.customerId}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Buyer Name
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {sheet?.company?.companyName}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Created On
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {moment(
+                            (sheet?.company?.createdAt).slice(0, 10),
+                            'YYYY-MM-DD',
+                            true,
+                          ).format('DD-MM-YYYY')}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Last Modified
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {moment(
+                            (sheet?.company?.updatedAt).slice(0, 10),
+                            'YYYY-MM-DD',
+                            true,
+                          ).format('DD-MM-YYYY')}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Approved Date
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          {sheet?.order?.cam?.approvedAt
+                            ? moment(
                               sheet?.order?.cam?.approvedAt?.slice(0, 10),
                               'YYYY-MM-DD',
                               true,
                             ).format('DD-MM-YYYY')
-                          : ''}
-                      </p>
-                    </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>
-                        Status{' '}
-                      </h3>
-                      <p className={`${styles.value} accordion_Text`}>
-                        <span className={`${styles.status}`}></span>
-                        {sheet?.order?.cam?.status}
-                      </p>
+                            : ''}
+                        </p>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <h3 className={`${styles.label} label_heading`}>
+                          Status{' '}
+                        </h3>
+                        <p className={`${styles.value} accordion_Text`}>
+                          <span className={`${styles.status}`}></span>
+                          {sheet?.order?.cam?.status}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            <TermDetails
-              onChangeTransactionDetails={onChangeTransactionDetails}
-              onChangeCommodityDetails={onChangeCommodityDetails}
-              onChangeCommercialTerms={onChangeCommercialTerms}
-              onChangePaymentDueDate={onChangePaymentDueDate}
-              termsheetDetails={termsheetDetails}
-              handleSave={handleSave}
-              termsheet={termsheet}
-              newLcVal={newLcVal}
-              changePayment={changePayment}
-            />
-            <AdditionalComment
-              setAdditionalComments={setAdditionalComments}
-              additionalComments={additionalComments}
-              termsheetDetails={termsheetDetails}
-            />
-            <OtherTerms
-              onChangeDropDown={onChangeDropDown}
-              otherTermConditions={otherTermsAndConditions}
-              onChangeInsurance={onChangeInsurance}
-              onChangeDutyAndTaxes={onChangeDutyAndTaxes}
-              onChangeOther={onChangeOther}
-              onChangeLcOpening={onChangeLcOpening}
-              onChangeCha={onChangeCha}
-              termsheet={termsheet}
-              termsheetDetails={termsheetDetails}
-            />
-            <UploadOther
-              module="LeadOnboarding&OrderApproval"
-              orderid={OrdID}
-            />
+                ))}
+              <TermDetails
+                onChangeTransactionDetails={onChangeTransactionDetails}
+                onChangeCommodityDetails={onChangeCommodityDetails}
+                onChangeCommercialTerms={onChangeCommercialTerms}
+                onChangePaymentDueDate={onChangePaymentDueDate}
+                termsheetDetails={termsheetDetails}
+                handleSave={handleSave}
+                termsheet={termsheet}
+                newLcVal={newLcVal}
+                changePayment={changePayment}
+              />
+              <AdditionalComment
+                setAdditionalComments={setAdditionalComments}
+                additionalComments={additionalComments}
+                termsheetDetails={termsheetDetails}
+              />
+              <OtherTerms
+                onChangeDropDown={onChangeDropDown}
+                otherTermConditions={otherTermsAndConditions}
+                onChangeInsurance={onChangeInsurance}
+                onChangeDutyAndTaxes={onChangeDutyAndTaxes}
+                onChangeOther={onChangeOther}
+                onChangeLcOpening={onChangeLcOpening}
+                onChangeCha={onChangeCha}
+                termsheet={termsheet}
+                termsheetDetails={termsheetDetails}
+              />
+              <UploadOther
+                module="LeadOnboarding&OrderApproval"
+                orderid={OrdID}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <ApproveBar
-        handleReject={handleSave}
-        handleApprove={handlePreview}
-        button={'Save'}
-        button2={'Preview'}
-      />
+          <ApproveBar
+            handleReject={handleSave}
+            handleApprove={handlePreview}
+            button={'Save'}
+            button2={'Preview'}
+          /></>}
     </>
   )
 }

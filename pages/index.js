@@ -30,8 +30,9 @@ const IndexPage = () => {
     customerSummary,
     exposureSummary,
     totalOrigin,
+    totalCustomer,
   } = useSelector((state) => state.analytics)
-  console.log(exposureSummary, 'leadSummary')
+  console.log(customerSummary, 'leadSummary')
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
@@ -92,7 +93,7 @@ const IndexPage = () => {
                 <div
                   className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
                 >
-                  <DoughnutChart />
+                  <DoughnutChart customerSummary={customerSummary} />
                 </div>
               </div>
             </div>

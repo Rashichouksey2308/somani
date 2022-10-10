@@ -38,13 +38,41 @@ function Index() {
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-
+  const [emailAdd, setEmailAdd] = useState([
+    {
+      emailID: '',
+    },
+  ])
+  const [insuranceAdd, setinsuranceAdd] = useState([
+    {
+      insurance: '',
+    },
+  ])
+  console.log(insuranceAdd, emailAdd, 'emailAdd')
+  const addMoreRows = (val) => {
+    console.log(val, 'vak')
+    if (val == 'email') {
+      setEmailAdd([
+        ...emailAdd,
+        {
+          emailID: '',
+        },
+      ])
+    } else {
+      setinsuranceAdd([
+        ...insuranceAdd,
+        {
+          insurance: '',
+        },
+      ])
+    }
+  }
   dispatch(setPageName('insurance Request Letter'))
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1830])
+    const doc = new jsPDF('p', 'pt', [1500, 1850])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -368,8 +396,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
-                            (Including 110%)
+                            INR{' '}
+                            {Number(
+                              convertValue(
+                                insuranceData?.quotationRequest?.sumInsured,
+                              ),
+                            )?.toLocaleString('en-IN')}{' '}
+                            Crores (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -496,7 +529,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                            BL Weight{' '}
+                            {insuranceData?.order?.quantity?.toLocaleString(
+                              'en-IN',
+                            )}{' '}
+                            MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
                           </p>
                         </td>
                       </tr>
@@ -887,7 +924,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                            All Risks Including ICC-A, War, SRCC, Theft,
+                            Loading, Unloading, Burglary, Act of God, Pilferage,
+                            Fire etc.
                           </p>
                         </td>
                       </tr>
@@ -1068,16 +1107,19 @@ function Index() {
         <div
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
-          <div
-
-            className={`${styles.head_header} ml-5 align-items-center`}>
-            <img
-              onClick={() => Router.push('/insurance/form')}
-              className={`${styles.arrow} img-fluid image_arrow mr-2`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow"
-
-            />
+          <div className={`${styles.head_header} align-items-center`}>
+            <div
+              onClick={(e) => {
+                Router.push('/insurance/form')
+              }}
+              style={{cursor:'pointer'}}
+            >
+              <img
+                className={`${styles.back_arrow} img-fluid image_arrow mr-2`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+            </div>
             <h1 className={`${styles.heading} heading`}>
               {insuranceData?.company?.companyName}
             </h1>
@@ -1181,8 +1223,13 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
-                    (Including 110%)
+                    INR{' '}
+                    {Number(
+                      convertValue(insuranceData?.quotationRequest?.sumInsured),
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
+                    Crores (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1225,7 +1272,11 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                    BL Weight{' '}
+                    {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
+                    MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1467,7 +1518,7 @@ function Index() {
                 role="tabpanel"
                 aria-labelledby="share-LC-draft"
               >
-                <h3>Share as</h3>
+                <h3 className="share_h3">Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
                   <div
                     className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
@@ -1479,7 +1530,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      Requestletter.pdf<span>128kb</span>
+                      Requestletter.pdf
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1498,7 +1550,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      Requestletter.doc<span>128kb</span>
+                      Requestletter.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1582,35 +1635,40 @@ function Index() {
                         />
                       </div>
                     </div>
-
-                    <div className={`${styles.radio_form} ml-1`}>
-                      {['radio'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-1`}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-2`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <hr></hr>
+                    {insuranceAdd.map((val, index) => {
+                      return (
+                        <>
+                          <div className={`${styles.radio_form} ml-1`}>
+                            {['radio'].map((type) => (
+                              <div
+                                key={`inline-${type}`}
+                                className={styles.radio_group}
+                              >
+                                <Form.Check
+                                  className={styles.radio}
+                                  inline
+                                  label="abcz@email.com"
+                                  name="group1"
+                                  id={`inline-${type}-1`}
+                                />
+                                <Form.Check
+                                  className={styles.radio}
+                                  inline
+                                  label="abcz@email.com"
+                                  name="group1"
+                                  id={`inline-${type}-2`}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                          <hr></hr>
+                        </>
+                      )
+                    })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        // addMoreRows()
+                        addMoreRows('insurance')
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1641,29 +1699,35 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">
-                            javanika.seth@hdfcbank.com
-                          </option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+                      {emailAdd.map((val, index) => {
+                        return (
+                          <>
+                            <div className="d-flex">
+                              <select
+                                id="email"
+                                name="email"
+                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                selected
+                              >
+                                <option value="javanika.seth@hdfcbank.com">
+                                  javanika.seth@hdfcbank.com
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </>
+                        )
+                      })}
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -1672,7 +1736,8 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        console.log(this)
+                        addMoreRows('email')
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1717,7 +1782,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      LC Document.pdf<span>128kb</span>
+                      LC Document.pdf<span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1736,7 +1801,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      word document.doc<span>128kb</span>
+                      word document.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"

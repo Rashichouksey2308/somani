@@ -6,7 +6,6 @@ export default {
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
   userbaseUrl:`${config.userServerUrl}`,
-
   // auth
   login: '/login',
   logout: '/logout',
@@ -23,7 +22,7 @@ export default {
   getBuyers: '/lead/get-all-leads',
   uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
-  getPanGst : '/get-company',
+  getPanGst: '/user/get-company',
 
   //orders
   getBuyerOrder: '/lead/order-review',
@@ -35,7 +34,7 @@ export default {
   updateCreditCalculate: '/order/credit-calculate',
 
   // gst
-  getGst: '/get-gst',
+  getGst: '/user/get-gst',
 
   //token
   generateToken: '/generate-token',
@@ -91,7 +90,7 @@ export default {
 
   getInsurance: '/insurance',
   updateQuotation: '/insurance/quotation',
-  renewInsurance : '/insurance/insurance-renew',
+  renewInsurance: '/insurance/insurance-renew',
 
   // Inspection
   getInspection: '/inspection',
@@ -100,7 +99,7 @@ export default {
   //Transit
   getTransitDetails: '/transit',
   updateTransitDetails: '/transit',
-  fetchAdditionalData: 'api/core/transit/additional-info',
+  fetchAdditionalData: '/transit/additional-info',
 
   //ForwardHedging
   getForwardHedging: '/forward-hedging',

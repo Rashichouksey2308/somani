@@ -59,7 +59,7 @@ function Index({ order, companyDetail }) {
 
   return (
     <>
-      <div className={`${styles.card} vessel_card card`}>
+      <div className={`${styles.card} vessel_card border_color border-bottom card`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
           data-toggle="collapse"
@@ -110,7 +110,12 @@ function Index({ order, companyDetail }) {
                   IEC Number
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.IEC}
+                  {companyDetail?.profile?.companyDetail?.IEC}{' '}
+                  {companyDetail?.profile?.companyDetail?.IEC?.length == 10 && <img
+                    src="/static/approved.svg"
+                    alt="approved"
+                    className="img-fluid mb-1"
+                  />}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -237,7 +242,7 @@ function Index({ order, companyDetail }) {
                   Employee Count
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount}
+                  {companyDetail?.financial?.other?.employeeCount ? companyDetail?.financial?.other?.employeeCount : companyDetail?.profile.companyDetail.employeeCount  }
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -292,7 +297,7 @@ function Index({ order, companyDetail }) {
                   >
                     <option value="">Select</option>
 
-                    <option value="Sales Assocaite">Sales Assocaite</option>
+                    <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
                     <option value="Customs Associate">
                       {' '}

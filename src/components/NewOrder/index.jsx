@@ -9,7 +9,7 @@ const Index = ({ saveOrderData, orderData }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
-    tolerance : false
+    tolerance: false
   })
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -18,9 +18,9 @@ const Index = ({ saveOrderData, orderData }) => {
   }
 
   return (
-    <div className={`${styles.main} vessel_card card border-color`}>
+    <div className={`${styles.main} vessel_card card border_color`}>
       <div
-        className={`${styles.head_container} card-header align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
+        className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -48,6 +48,7 @@ const Index = ({ saveOrderData, orderData }) => {
               className={`${styles.options} accordion_DropDown `}
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              style={{paddingRight:'0px'}}
             >
               <option>Select </option>
               <option value="Crores" selected>
@@ -146,7 +147,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   value={
                     isFieldInFocus.quantity ?
                       orderData.quantity :
-                      Number(orderData.quantity).toLocaleString() + ` ${orderData.unitOfQuantity}`}
+                      Number(orderData.quantity).toLocaleString('en-In') + ` ${orderData.unitOfQuantity}`}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -173,11 +174,11 @@ const Index = ({ saveOrderData, orderData }) => {
 
                   value={isFieldInFocus.orderValue ?
                     orderData.orderValue :
-                    Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
-                          ? 'Cr'
-                          : orderData.unitOfValue == 'Million'
-                            ? 'Mn'
-                            : orderData.unitOfValue}`
+                    Number(orderData.orderValue).toLocaleString('en-In') + ` ${orderData.unitOfValue == 'Crores'
+                      ? 'Cr'
+                      : orderData.unitOfValue == 'Million'
+                        ? 'Mn'
+                        : orderData.unitOfValue}`
                   }
                   // value={addPrefixOrSuffix(
                   //   orderData.orderValue ? orderData.orderValue : 0,
@@ -264,9 +265,11 @@ const Index = ({ saveOrderData, orderData }) => {
                   }}
                   type="text"
                   name="tolerance"
-                  value= {isFieldInFocus.tolerance ?
+                  value={isFieldInFocus.tolerance ?
                     orderData.tolerance :
-                 '± '+ Number(orderData.tolerance)?.toLocaleString() + ' %'
+                    '± ' + Number(orderData.tolerance)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) + ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
@@ -433,6 +436,10 @@ const Index = ({ saveOrderData, orderData }) => {
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)

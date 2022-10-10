@@ -43,6 +43,7 @@ function Index() {
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
+            style={{cursor:'pointer'}}
           />
           <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
@@ -171,27 +172,37 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssociateshipAgreement />
+                    <AssociateshipAgreement 
+                    setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Assignment" role="tabpanel">
                   <div className="accordion shadow-none" id="assignmentLetter">
-                    <AssignmentLetter />
+                    <AssignmentLetter
+                    setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPASeller" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPASeller />
+                    <TPASeller
+                    setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="TPACMA" role="tabpanel">
                   <div className="accordion shadow-none" id="tpaSeller">
-                    <TPAIGI />
+                    <TPAIGI
+                    setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="QPA" role="tabpanel">
                   <div className="accordion shadow-none" id="qpaAgreement">
-                    <QPA />
+                    <QPA
+                    setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Document" role="tabpanel">

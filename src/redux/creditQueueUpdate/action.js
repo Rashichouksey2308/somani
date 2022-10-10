@@ -2,8 +2,8 @@ import Cookies from 'js-cookie'
 import Axios from 'axios'
 import API from '../../utils/endpoints'
 import * as types from './actionType'
+import Router from 'next/router'
 import { toast } from 'react-toastify'
-
 
 const errorMessage = {
   status: 400,
@@ -106,23 +106,39 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCam}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(updatingCamSuccess(response.data.data))
-        let toastMessage = 'CAM APPROVED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-      } else {
-        dispatch(updatingCamFailed(response.data.data))
-        let toastMessage = response.data.message
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.updateCam}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      {
+        console.log('www', response.data.data)
       }
-    })
+      dispatch(updatingCamSuccess(response.data.data))
+      let toastMessage = 'CAM APPROVED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      // sessionStorage.setItem('termsheetId', sheet.company._id)
+      // sessionStorage.setItem('termID', term._id)
+      // sessionStorage.setItem('termOrdID', term?.order._id)
+      return response.data.code
+      // sessionStorage.setItem(
+      //   'orderID',
+      //   response.data.data.form.orderDetails[0],
+      // )
+      // sessionStorage.setItem('company', response.data.data.form._id)
+      // Router.push(`/termsheet/${response.data.data.form._id}`)
+    } else {
+      dispatch(updatingCamFailed(response.data.data))
+      let toastMessage = response.data.message
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   } catch (error) {
     dispatch(updatingCamFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -150,7 +166,6 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
         dispatch(gettingDocumentsSuccess(response.data.data))
       } else {
         dispatch(gettingDocumentsFailed(response.data.data))
-
       }
     })
   } catch (error) {
@@ -176,7 +191,6 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(VerifyingGstSuccess(response.data.data))
-
       } else {
         dispatch(VerifyingGstFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
@@ -206,7 +220,6 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     'Content-Type': 'multipart/form-data',
   }
   try {
-
     Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
       headers: headers,
     }).then((response) => {

@@ -34,16 +34,17 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(creditDetail?.existingProcurementOfCommodity, 'companyData')
-  console.log(creditDetail, 'debtData')
+  console.log(personData, 'personData')
+  console.log(debtData, 'debtData')
   const dispatch = useDispatch()
+
 
   const [saveTable, setSaveTable] = useState(false)
 
   const [saveContactTable, setContactTable] = useState(false)
 
   const { gstDocument } = useSelector((state) => state.buyer)
-
+  console.log(gstDocument, "gstDocument")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -53,21 +54,24 @@ const index = ({
     dailyConsumptionOfCommodity: false,
     AvgMonthlyElectricityBill: false,
     commodityOfTotalTrade: false,
+    limit: false
   })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
+
   useEffect(() => {
-    if (personData) {
+    if (personData?.length>0) {
       let temp = []
       personData.forEach((val) => {
-        if(val.name !==""){
+        if (val.name !== "") {
           temp.push(val.name)
         }
-        
+
       })
       setKeyNameList([...temp])
     }
   }, [personData])
+  console.log(keyNameList,"keyNameList")
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -86,8 +90,10 @@ const index = ({
       number: null,
     },
     pinCode: null,
-  })
+    communication: false,
 
+  })
+  console.log(keyAddressData, "keyAddressData")
   console.log(personData, 'personData')
   useEffect(() => {
     const newInput = { ...keyAddressData }
@@ -96,7 +102,14 @@ const index = ({
     newInput.GSTIN_document.date = gstDocument.date
     setKeyAddressData(newInput)
   }, [gstDocument])
-
+  console.log(keyAddressData, "keyAddressData")
+  const removeDoc = () => {
+    const newInput = { ...keyAddressData }
+    newInput.GSTIN_document.name = undefined
+    newInput.GSTIN_document.path = undefined
+    newInput.GSTIN_document.date = undefined
+    setKeyAddressData(newInput)
+  }
   //const [deleteRow, setDeleteRow] = useState(true)
 
   // const [debt, setDebtData] = useState([])
@@ -106,9 +119,9 @@ const index = ({
       ...debtData,
       {
         bankName: '',
-        primaryBank: '',
+        primaryBank: false,
         conduct: '',
-        limit: '',
+        limit: null,
         action: false,
       },
     ])
@@ -155,7 +168,7 @@ const index = ({
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', [])
     const unique = [
-      ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
+      ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
     ]
     console.log(unique, 'unique')
     return unique
@@ -171,9 +184,10 @@ const index = ({
     email: '',
     name: '',
   })
- console.log(personData,"personData")
+  console.log(personData, "personData1111")
+
   useEffect(() => {
-    
+
     setKeyPersonData(personData)
   }, [personData])
 
@@ -181,16 +195,16 @@ const index = ({
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData]
-     console.log("jjejjeje")
-      if(e.target.value=="addnew"){
-        console.log("jjejjeje")
-          newInput[key].addnew = true
-          newInput[key].name = ""
-          newInput[key].email = ""
-           console.log("jjejjeje",newInput)
-          setKeyPersonData([...newInput])
-          return
-      }
+    console.log("jjejjeje")
+    if (e.target.value == "addnew") {
+      console.log("jjejjeje")
+      newInput[key].addnew = true
+      newInput[key].name = ""
+      newInput[key].email = ""
+      console.log("jjejjeje", newInput)
+      setKeyPersonData([...newInput])
+      return
+    }
     if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
     } else {
@@ -198,7 +212,7 @@ const index = ({
     }
     setKeyPersonData([...newInput])
   }
-  console.log(keyPersonData,"keyPersonDatakeyPersonData")
+  console.log(keyPersonData, "keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
@@ -302,7 +316,7 @@ const index = ({
       data.contact.number === '' ||
       data.contact.number === undefined
     ) {
-      let toastMessage = 'Please add number'
+      let toastMessage = 'Please add phone number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -335,6 +349,27 @@ const index = ({
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData)
+      setKeyAddressData({
+        GSTIN: '',
+        GSTIN_document: {
+          name: undefined,
+          path: undefined,
+          date: undefined,
+        },
+        addressType: '',
+        branch: '',
+        city: '',
+        state: '',
+        email: '',
+        completeAddress: '',
+        contact: {
+          callingCode: null,
+          number: null,
+        },
+        pinCode: null,
+        communication: false
+
+      })
     }
   }
 
@@ -370,11 +405,15 @@ const index = ({
       number: '',
     },
     pinCode: '',
+    communication: false
+
   })
+  console.log(editData, "editData")
   const editAddress = (index) => {
     setShowAddress(false)
     setShowEditAddress(true)
     setIndex(index)
+    console.log(keyAddData, "keyAddData")
     let tempArr = keyAddData
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -390,6 +429,9 @@ const index = ({
         number: tempArr[index].contact.number,
       },
       pinCode: tempArr[index].pinCode,
+      communication: tempArr[index].communication || false,
+
+
     })
   }
   const changeData = (name, value) => {
@@ -458,9 +500,9 @@ const index = ({
                     isFieldInFocus.monthlyCapacity
                       ? creditDetail?.monthlyProductionCapacity
                       : checkNan(
-                          Number(creditDetail?.monthlyProductionCapacity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.monthlyProductionCapacity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.monthlyProductionCapacity,
@@ -504,8 +546,8 @@ const index = ({
                     isFieldInFocus.capacityUtilization
                       ? creditDetail?.capacityUtilization
                       : checkNan(
-                          Number(creditDetail?.capacityUtilization),
-                        )?.toLocaleString() + ' %'
+                        Number(creditDetail?.capacityUtilization), "no"
+                      ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
@@ -548,9 +590,9 @@ const index = ({
                     isFieldInFocus.avgStockinCommodity
                       ? creditDetail?.averageStockOfCommodity
                       : checkNan(
-                          Number(creditDetail?.averageStockOfCommodity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.averageStockOfCommodity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockOfCommodity,
@@ -594,9 +636,9 @@ const index = ({
                     isFieldInFocus.avgStockinTrasit
                       ? creditDetail?.averageStockInTransit
                       : checkNan(
-                          Number(creditDetail?.averageStockInTransit),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.averageStockInTransit),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockInTransit,
@@ -640,9 +682,9 @@ const index = ({
                     isFieldInFocus.availableStock
                       ? creditDetail?.availableStock
                       : checkNan(
-                          Number(creditDetail?.availableStock),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.availableStock),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.availableStock,
@@ -684,9 +726,9 @@ const index = ({
                     isFieldInFocus.dailyConsumptionOfCommodity
                       ? creditDetail?.dailyConsumptionOfCommodity
                       : checkNan(
-                          Number(creditDetail?.dailyConsumptionOfCommodity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.dailyConsumptionOfCommodity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.dailyConsumptionOfCommodity,
@@ -771,8 +813,8 @@ const index = ({
                     defaultValue={
                       creditDetail
                         ? creditDetail?.existingSuppliers?.map((e) => {
-                            return `${e}`
-                          })
+                          return `${e}`
+                        })
                         : ''
                     }
                     onBlur={(e) => {
@@ -860,9 +902,9 @@ const index = ({
                     isFieldInFocus.AvgMonthlyElectricityBill
                       ? creditDetail?.AvgMonthlyElectricityBill
                       : 'INR ' +
-                        checkNan(
-                          Number(creditDetail?.AvgMonthlyElectricityBill),
-                        )?.toLocaleString()
+                      checkNan(
+                        Number(creditDetail?.AvgMonthlyElectricityBill),
+                      )?.toLocaleString()
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.AvgMonthlyElectricityBill,
@@ -977,7 +1019,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.shipmentNumber}
@@ -999,7 +1041,7 @@ const index = ({
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   onChange={(e) => {
@@ -1017,7 +1059,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.HSCodesNumber}
@@ -1037,6 +1079,10 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="number"
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-', '.'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -1053,6 +1099,10 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-', '.'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
@@ -1158,9 +1208,11 @@ const index = ({
                   value={
                     isFieldInFocus.commodityOfTotalTrade
                       ? supplierCred?.commodityOfTotalTrade
-                      : Number(
-                          supplierCred?.commodityOfTotalTrade,
-                        )?.toLocaleString() + ' %'
+                      : checkNan(
+                        Number(
+                          supplierCred?.commodityOfTotalTrade
+                        ), "no"
+                      ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   supplierCred?.commodityOfTotalTrade,
@@ -1258,50 +1310,77 @@ const index = ({
                       <th></th>
                     </tr>
                   </thead>
-                  {personData?.map((person, index) => (
-                    <tbody key={index}>
-                      <tr className="table_credit shadow-none">
+                  {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
+                    <tbody>
+                    <>
+                    {!person.isEdit? <>
+                      <tr><td>{person.name}</td>
+                     <td>{person.designation}</td>
+                     <td>{person.department}</td>
+                     <td>{person.contact.number}</td>
+                     <td>{person.email}</td>
                         <td>
-                          <div className="d-flex mr-4">
-                             {person.addnew?
-                             
-                             <>
-                            <input
-                            className="input"
-                            value={person.name}
-                            placeholder={"ADD NEW"}
-                            name="name"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            type="text"
-                            readOnly={!person.isEdit}
-                          />
-                             </>
-                             :
-                             <>
-                             {console.log(person.name,"person.name")}
-                              <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                             
-                              name="name"
-                              onChange={(e) => handlePersonChange(e, index)}
-                              disabled={!person.isEdit}
-                              value={person.name}
-                            >
-                              <option  selected>Select an Option</option>
-                              {keyNameList.length > 0 &&
-                                keyNameList.map((val) => {
-                                  return <option value={val}>{val}</option>
-                                })}
-                              <option value={`addnew`}>ADD NEW</option>
-                            </select>
+                          <div className="d-flex">
+                           
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3`}
+                                onClick={(e) => {
+                                  setEditRow(index)
+                                }}
+                              />
+                      
                             <img
-                              className={`${styles.arrow} ml-n4 img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
+                              onClick={() => deleteAddress(index)}
+                              src="/static/delete 2.svg"
+                              alt="delete"
                             />
-                             </>
-                             }
-                            
+                          </div>
+                        </td>
+                     </tr>
+                    </> :
+                      <tr key={index} className="table_credit shadow-none">
+                        <td>
+                          <div className="d-inline-flex align-items-center position-relative">
+                            {person.addnew ?
+                              
+                              <>
+                                <input
+                                  className="input"
+                                  value={person.name}
+                                  placeholder={"ADD NEW"}
+                                  name="name"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                              </>
+                              :
+                              <>
+                                {console.log(person.name, "person.name")}
+                                <select
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+
+                                  name="name"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  disabled={!person.isEdit}
+                                  value={person.name}
+                                >
+                                  <option selected>Select an Option</option>
+                                  {keyNameList.length > 0 &&
+                                    keyNameList.map((val) => {
+                                      return <option value={val}>{val}</option>
+                                    })}
+                                  <option value={`addnew`}>ADD NEW</option>
+                                </select>
+                                <img
+                                  className={`${styles.arrow2} img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="arrow"
+                                />
+                              </>
+                            }
+
                           </div>
                           {/* <input
                             className="input font-weight-bold"
@@ -1313,15 +1392,25 @@ const index = ({
                           /> */}
                         </td>
                         <td>
-                          <div className="d-flex mr-4">
-                            <select
+                          <div className="d-flex">
+                            <input
+                              className="input"
+
+                              placeholder={"Designation"}
+                              value={person.designation}
+                              name="designation"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              type="text"
+                              readOnly={!person.isEdit}
+                            />
+                            {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
                               name="designation"
                               onChange={(e) => handlePersonChange(e, index)}
-                            disabled={!person.isEdit}
+                              disabled={!person.isEdit}
                             >
-                              <option  selected>Select an Option</option>
+                              <option selected>Select an Option</option>
                               <option>Director</option>
                               <option>Production Manager</option>
                               <option>Lead Manager</option>
@@ -1330,7 +1419,7 @@ const index = ({
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            /> */}
                           </div>
                           {/* <input
                             className="input"
@@ -1341,9 +1430,19 @@ const index = ({
                             readOnly={!saveContactTable}
                           /> */}
                         </td>
-                        <td>
-                          <div className="d-flex mr-4">
-                            <select
+                        <td width="25%">
+                          <div className="d-flex">
+                            <input
+                              className="input"
+
+                              placeholder={"Department"}
+                              value={person.department}
+                              name="department"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              type="text"
+                              readOnly={!person.isEdit}
+                            />
+                            {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
                               name="department"
@@ -1358,14 +1457,16 @@ const index = ({
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            /> */}
                           </div>
                         </td>
                         <td>
                           <input
                             className="input"
                             defaultValue={person.contact.number}
+                            placeholder={"Contact number"}
                             name="contact.number"
+                            style={{ maxWidth: '170px' }}
                             onChange={(e) => {
                               handlePersonChange(e, index)
                             }}
@@ -1391,6 +1492,7 @@ const index = ({
                           <input
                             className="input"
                             defaultValue={person.email}
+                            placeholder={"Email"}
                             name="email"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
@@ -1425,7 +1527,8 @@ const index = ({
                             />
                           </div>
                         </td>
-                      </tr>
+                      </tr>}
+                    </>
                     </tbody>
                   ))}
                 </table>
@@ -1433,13 +1536,13 @@ const index = ({
             </div>
             <div
               className={`${styles.add_row} d-flex justify-content-end`}
-             
-            > 
-            <div className={`d-flex justify-content-end`} onClick={(e) => {
+
+            >
+              <div className={`d-flex justify-content-end`} onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
               }}>  <span>+</span>
-              <div>Add More Rows</div></div>
-             
+                <div>Add More Rows</div></div>
+
             </div>
           </div>
         </div>
@@ -1477,6 +1580,7 @@ const index = ({
                       editAddress={editAddress}
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
+                      communicationModeYes={address?.communication}
                     />
                   </>
                 )
@@ -1520,6 +1624,11 @@ const index = ({
                             label="Yes"
                             name="group1"
                             type={type}
+                            checked={keyAddressData.communication == true}
+                            onChange={(e) => {
+
+                              handleChange("communication", !keyAddressData.communication)
+                            }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1528,6 +1637,11 @@ const index = ({
                             label="No"
                             name="group1"
                             type={type}
+                            checked={keyAddressData.communication == false}
+                            onChange={(e) => {
+
+                              handleChange("communication", false)
+                            }}
                             id={`inline-${type}-2`}
                           />
                         </div>
@@ -1542,6 +1656,7 @@ const index = ({
                         <select
                           className={`${styles.input_field} ${styles.small_input} ${styles.customSelect}  input form-control`}
                           name="addressType"
+                          value={keyAddressData.addressType}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
                           }}
@@ -1575,8 +1690,10 @@ const index = ({
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          type="text"
+                          type="number"
                           name="pinCode"
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                          value={keyAddressData.pinCode == null ? "" : keyAddressData.pinCode}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
                           }}
@@ -1602,6 +1719,7 @@ const index = ({
                         required
                         type="text"
                         name="state"
+                        value={keyAddressData.state}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1621,6 +1739,7 @@ const index = ({
                         required
                         type="text"
                         name="city"
+                        value={keyAddressData.city}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1638,6 +1757,7 @@ const index = ({
                         required
                         type="text"
                         name="email"
+                        value={keyAddressData.email}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1655,6 +1775,7 @@ const index = ({
                         <select
                           name="callingCode"
                           id="Code"
+                          value={keyAddressData.contact.callingCode}
                           className={`${styles.code_phone} input border-right-0`}
                         >
                           <option>+91</option>
@@ -1666,23 +1787,26 @@ const index = ({
                         <input
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
-                          type="tel"
+                          type="number"
                           name="contact.number"
+                          maxLength='10'
+                          onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
+                          value={keyAddressData.contact.number == null ? "" : keyAddressData.contact.number}
                           onChange={(e) => {
-                            mobileFunction(e)
+                              mobileFunction(e)
                           }}
-                          // onBlur={(e) => {
-                          //   if (phoneValidation(e.target.value)) {
-                          //     mobileFunction(e)
-                          //   } else {
-                          //     let toastMessage = 'Enter a valid Phone Number'
-                          //     if (!toast.isActive(toastMessage.toUpperCase())) {
-                          //       toast.error(toastMessage, {
-                          //         toastId: toastMessage,
-                          //       })
-                          //     }
-                          //   }
-                          // }}
+                        // onBlur={(e) => {`  
+                        //   if (phoneValidation(e.target.value)) {
+                        //     mobileFunction(e)
+                        //   } else {
+                        //     let toastMessage = 'Enter a valid Phone Number'
+                        //     if (!toast.isActive(toastMessage.toUpperCase())) {
+                        //       toast.error(toastMessage, {
+                        //         toastId: toastMessage,
+                        //       })
+                        //     }
+                        //   }
+                        // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -1702,6 +1826,7 @@ const index = ({
                         type="text"
                         required
                         name="completeAddress"
+                        value={keyAddressData.completeAddress}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1718,6 +1843,7 @@ const index = ({
                         type="text"
                         name="branch"
                         required
+                        value={keyAddressData.branch}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1734,6 +1860,7 @@ const index = ({
                         required
                         type="text"
                         name="GSTIN"
+                        value={keyAddressData.GSTIN}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1746,27 +1873,44 @@ const index = ({
                     </div>
 
                     <div
-                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                      className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        <button className={`${styles.gst_btn}`}>
-                          {' '}
-                          <input
-                            type="file"
-                            name={keyAddressData.GSTIN}
-                            // name="myfile"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                            onChange={(e) => {
-                              uploadDocument(e)
-                            }}
-                          />
-                          <img
-                            className="img-fluid mr-2 mb-1"
-                            src="/static/file_upload.svg"
-                            alt="file upload"
-                          />
-                          GST Doc
-                        </button>
+                        {keyAddressData?.GSTIN_document?.name == undefined ?
+                          <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
+                            {' '}
+                            <input
+                              type="file"
+                              name={keyAddressData.GSTIN}
+                              // name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                              onChange={(e) => {
+                                uploadDocument(e)
+                              }}
+                            />
+                            <img
+                              className="img-fluid mr-2 mb-1"
+                              src="/static/file_upload.svg"
+                              alt="file upload"
+                            />
+                            GST Doc
+                          </button>
+                          :
+                          (
+                            <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                              <span className="text-color">
+                                {keyAddressData?.GSTIN_document?.name}
+                              </span>
+                              <img
+                                className={`${styles.close_image} image_arrow`}
+                                src="/static/close.svg"
+                                onClick={() => removeDoc(index)}
+                                alt="Close"
+                              />{' '}
+                            </div>
+                          )
+                        }
+
                       </div>
                       <button
                         className={`${styles.add_btn}`}
@@ -1814,6 +1958,11 @@ const index = ({
                             label="Yes"
                             name="group1"
                             type={type}
+                            checked={editData.communication == true}
+                            onChange={(e) => {
+
+                              changeData("communication", !editData.communication)
+                            }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1823,6 +1972,11 @@ const index = ({
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
+                            checked={editData.communication == false}
+                            onChange={(e) => {
+
+                              changeData("communication", false)
+                            }}
                           />
                         </div>
                       ))}
@@ -2019,10 +2173,10 @@ const index = ({
                       </label>
                     </div>
                     <div
-                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                      className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        <button className={`${styles.gst_btn}`}>
+                        <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
                           {' '}
                           <input
                             type="file"
@@ -2034,7 +2188,7 @@ const index = ({
                             }}
                           />
                           <img
-                            className="img-fluid mr-2 mb-1"
+                            className="img-fluid mr-2"
                             src="/static/file_upload.svg"
                             alt="file upload"
                           />
@@ -2053,84 +2207,8 @@ const index = ({
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    required
-                    name="completeAddress"
-                    defaultValue={editData.completeAddress}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Address<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    name="branch"
-                    required
-                    defaultValue={editData.branch}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Branch<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="GSTIN"
-                    defaultValue={editData.GSTIN}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
-                >
-                  <div className={`${styles.btn_container}`}>
-                    <button className={`${styles.gst_btn}`}>
-                      {' '}
-                      <input
-                        type="file"
-                        name={keyAddressData.GSTIN}
-                        // name="myfile"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => {
-                          uploadDocument(e)
-                        }}
-                      />
-                      <img
-                        className="img-fluid mr-2 mb-1"
-                        src="/static/file_upload.svg"
-                        alt="file upload"
-                      />
-                      GST Doc
-                    </button>
-                  </div>
-                  <button
-                    className={`${styles.add_btn}`}
-                    onClick={() => {
-                      updateKeyAddDataArr(editData, Index)
-                      setShowEditAddress(false)
-                    }}
-                  >
-                    Update
-                  </button>
-                </div>
+
+
               </div>
             ) : null}
             <div
@@ -2186,7 +2264,7 @@ const index = ({
                   </thead>
                   <tbody>
                     {debtData?.map((profile, index) => (
-                      <tr key={index} className="table_credit shadow-none">
+                      <tr key={index} className="table_credit shadow-none bg-transparent">
                         <td>{index + 1}</td>
                         <td className="d-flex justify-content-center align-items-end">
                           <input
@@ -2220,11 +2298,11 @@ const index = ({
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option disabled selected>
-                              Select an option
-                            </option>
-                            {FilterUniqueBank().map((item) => (
+                            <option selected disabled>Select</option>
+                            {FilterUniqueBank().map((item) => (<>
+
                               <option value={item}>{item}</option>
+                            </>
                             ))}
                           </select>
                           {/* <input
@@ -2250,12 +2328,12 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.limitType}
+                            value={profile?.limitType}
                             name="limitType"
                             className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
-                            <option disabled>Select an option</option>
+                            <option selected disabled>Select</option>
                             <option value="Cash Credit">Cash Credit</option>
                             <option value="Bank Guarantee">
                               Bank Guarantee
@@ -2274,7 +2352,28 @@ const index = ({
 
                         <td>
                           <input
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                limit: true,
+                              }),
+                                (e.target.type = 'number')
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                limit: false,
+                              }),
+                                (e.target.type = 'text')
+                            }}
+                            value={profile?.actions ?
+                              isFieldInFocus.limit
+                                ? profile?.limit :
+                                Number(profile?.limit)?.toLocaleString('en-In') :
+                              Number(profile?.limit)?.toLocaleString('en-In')
+                            }
                             className="input"
+                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) =>
@@ -2284,8 +2383,8 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.limit}
-                            // readOnly={!saveTable}
+                          // value={profile?.limit}
+                          // readOnly={!saveTable}
                           />
                         </td>
 
@@ -2300,9 +2399,10 @@ const index = ({
                             }
                             name="conduct"
                             className={`${styles.dropDown} heading input`}
+                            value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option>{profile.conduct}</option>
+                            <option selected disabled>Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>

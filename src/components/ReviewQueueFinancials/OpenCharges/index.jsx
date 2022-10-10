@@ -41,7 +41,7 @@ function Index({ chargesData }) {
   }, [chargesData])
   return (
     <>
-      <div className={`${styles.card} card mb-6`}>
+      <div className={`${styles.card} card mb-6 border_color border-bottom`}>
         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
@@ -54,11 +54,13 @@ function Index({ chargesData }) {
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select onChange={(e)=> setUnit(e.target.value)} className={`${styles.options} accordion_DropDown`}>
-              <option value={10000000}>Crores</option>
-              <option value={100000}>Lakhs</option>
-
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select onChange={(e) => setUnit(e.target.value)} className={`${styles.options} ${styles.customSelect} accordion_DropDown`}>
+                <option value={10000000}>Crores</option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">+</span>
           </div>
         </div>
@@ -95,16 +97,17 @@ function Index({ chargesData }) {
                       <td>{charges.nameOfChargeHolder}</td>
                       <td className="text-center">
                         {/* {charges.finalAmountSecured} */}
-                        {convertValue(charges.finalAmountSecured, unit)?.toLocaleString(undefined, {
+                        {convertValue(charges.finalAmountSecured, unit)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
                         })}
-                        </td>
+                      </td>
                       <td className="text-center">{charges.dateOfCreationOfCharge}</td>
                       <td className="text-center">
                         <img
                           onClick={() => {
                             if (charges.docLink === '' || !charges.docLink) {
-                            let toastMessage = 'doc not available'
+                              let toastMessage = 'doc not available'
                               if (!toast.isActive(toastMessage.toUpperCase())) {
                                 toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
                               }

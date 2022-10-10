@@ -91,7 +91,7 @@ function Index({
           >
             <img
               onClick={() => { Router.push('/vessel-nomination/id') }}
-
+              style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
@@ -99,7 +99,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <div>Last Modified:</div> {moment((vesselUpdatedAt ? vesselUpdatedAt : '')?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY,h:mm a")}
+                <div className='accordion_Text'>Last Modified:</div> {vesselUpdatedAt ? moment(vesselUpdatedAt).format("DD-MM-YYYY,h:mm a") : ''}
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ function Index({
                 return (
                   <div
                     key={index}
-                    className={`${styles.main} card border-color`}
+                    className={`${styles.main} card border_color`}
                   >
                     <div
                       className={`${styles.head_container} align-items-center border_color card-header head_container justify-content-between d-flex bg-transparent`}
@@ -133,6 +133,7 @@ function Index({
                         </label>
                         <div disabled className="position-relative">
                           <select
+                            disabled
                             value={partShipmentAllowed}
                             onChange={(e) =>
                               setPartShipmentAllowed(e.target.value)
@@ -247,7 +248,7 @@ function Index({
                             type="text"
                             value={isFieldInFocus[index]?.value ?
                               val.quantity :
-                              val.quantity + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
+                              Number(val.quantity)?.toLocaleString("en-IN", { maximumFractionDigits: 2 }) + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
 
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -292,7 +293,7 @@ function Index({
                             // value={Number(val.orderValue).toLocaleString()}
                             value={orderValueinFocus ?
                               val.orderValue :
-                              Number(val.orderValue).toLocaleString()}
+                              Number(val.orderValue)?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -307,9 +308,9 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr></hr>
+                    <hr className='m-0 border_color' />
                     <div className={`${styles.dashboard_form} card-body`}>
-                      <h3 className={styles.sub_heading}>Transit Details</h3>
+                      <h3 className={`${styles.sub_heading} mt-3`}>Transit Details</h3>
 
                       <div className="row">
                         <div
@@ -525,7 +526,7 @@ function Index({
                         </div>
                       </div>
                     </div>
-                    <hr></hr>
+                    <hr className='m-0 border_color' />
 
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
@@ -536,7 +537,7 @@ function Index({
                                 key={index}
                                 className={`${styles.dashboard_form} card-body`}
                               >
-                                <h3 className={styles.sub_heading}>
+                                <h3 className={`${styles.sub_heading} mt-3`}>
                                   Vessel Information
                                 </h3>
 
@@ -618,18 +619,20 @@ function Index({
                                         id="yearOfBuilt"
                                         // value={vesselInfo.yearOfBuilt}
                                         value={vesselInfo.yearOfBuilt ?
-                                          vesselInfo.yearOfBuilt?.slice(0, 4)
+                                          vesselInfo?.yearOfBuilt?.slice(0, 4)
                                           // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                           : ''}
                                         className={`${styles.input_field} input form-control`}
-                                        type="text"
-                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                                        type="number"
+                                        onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
-                                        onChange={(e) =>
+                                        onChange={(e) => {
+                                          e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
                                           onVesselInfoChangeHandlerForBulk(
                                             e,
                                             index,
                                           )
+                                        }
                                         }
                                         required
                                       />
@@ -683,12 +686,16 @@ function Index({
                                       }
                                       className={`${styles.input_field} input form-control`}
                                       required
-                                      type="text"
-                                      onChange={(e) =>
+                                      type="number"
+                                      min='5'
+                                      max='100'
+                                      onChange={(e) => {
+                                        e.target.value = Math.max(1000, Math.min(2022, Number(e.target.value)));
                                         onVesselInfoChangeHandlerForBulk(
                                           e,
                                           index,
                                         )
+                                      }
                                       }
                                     />
                                     <label
@@ -707,7 +714,7 @@ function Index({
                     ) : (
                       <>
                         <div className={`${styles.dashboard_form} card-body`}>
-                          <h3 className={styles.sub_heading}>
+                          <h3 className={`${styles.sub_heading} mt-3`}>
                             Shipping Information
                           </h3>
 
@@ -717,7 +724,7 @@ function Index({
                             >
                               <input
                                 id="shippingLineOrCharter"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation
                                     ?.shippingLineOrCharter
                                 }
@@ -740,7 +747,7 @@ function Index({
                             >
                               <input
                                 id="numberOfContainers"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation?.numberOfContainers
                                 }
                                 className={`${styles.input_field} input form-control`}
@@ -764,7 +771,7 @@ function Index({
                             >
                               <input
                                 id="freeDetentionPeriod"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation?.freeDetentionPeriod
                                 }
                                 className={`${styles.input_field} input form-control`}
@@ -794,7 +801,7 @@ function Index({
                               className={`${styles.vessel_card} vessel_card`}
                             >
                               <div className="d-flex justify-content-between align-items-center">
-                                <h3 className={styles.sub_heading}>
+                                <h3 className={`${styles.sub_heading} mt-3`}>
                                   Vessel Information
                                 </h3>
                                 {index == 0 ?
@@ -898,13 +905,15 @@ function Index({
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
-                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
-                                    onChange={(e) =>
+                                    onChange={(e) => {
+                                      e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
                                       onVesselInfoChangeHandlerForLiner(
                                         e,
                                         index,
                                       )
+                                    }
                                     }
                                     required
                                   />
@@ -918,9 +927,9 @@ function Index({
                             </div>
                           </div>
                         ))}
-                        <hr></hr>
+                        <hr className='m-0 border_color' />
                         <div className={`${styles.dashboard_form} card-body`}>
-                          <h3 className={styles.sub_heading}>
+                          <h3 className={`${styles.sub_heading} mt-3`}>
                             Container Number(s)
                           </h3>
 
@@ -969,7 +978,14 @@ function Index({
 
             <UploadDocument
               docName='Vessel Certificate'
-              docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+              docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'}
+              vesselCertificate={vesselCertificate}
+              containerList={containerListDocument}
+              handleClose={handleClose}
+              uploadDocument1={uploadDocHandler}
+              setVesselCertificate={setVesselCertificate}
+              setContainerListDocument={setContainerListDocument}
+            />
 
             <UploadOther
               module="Agreements&Insurance&LC&Opening"

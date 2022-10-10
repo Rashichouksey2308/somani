@@ -5,14 +5,16 @@ import SaveBar from '../../SaveBar'
 import DateCalender from '../../DateCalender'
 import UploadOther from '../../UploadOther'
 import _get from 'lodash/get'
-import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { UpdateCustomClearance,GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
+  const router = useRouter()
   const [editInput, setEditInput] = useState(true)
   const [warehouseDetails, setWarehouseDetails] = useState({
     wareHouseDetails: {
@@ -25,17 +27,18 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
 
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {})
+    
     let tempData = {
       wareHouseDetails: {
         quantity: data?.wareHouseDetails?.quantity || '',
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
       },
-      document: data?.document,
+      document: data?.document||null,
     }
     setWarehouseDetails(tempData)
   }, [customData])
-
+ console.log(warehouseDetails,"warehouseDetails")
   const [plotInspectionData, setPlotInspectionData] = useState('')
   const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
     useState(false)
@@ -71,11 +74,11 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   const onSaveDocument = async (e) => {
     let name = e.target.id
     let doc = await uploadDoc(e)
-
+   console.log(doc,"doc")
     // onChangeWarehouseDetails('document', doc)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
-    setWarehouseDetails(tempData)
+    setWarehouseDetails({...tempData})
   }
   // console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = () => {
@@ -95,11 +98,14 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     } else {
       console.log(warehouseDetailpayload, 'warehouseDetailpayload')
       let fd = new FormData()
-      fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+      fd.append('warehouseDetails', JSON.stringify(warehouseDetails))
       fd.append('customClearanceId', customData._id)
-      // fd.append('document', warehouseDetails.document)
+      fd.append('document', warehouseDetails.document)
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
+      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+      // router.push(`/payment/id`)
     }
   }
 
@@ -107,7 +113,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     let fd = new FormData()
     fd.append('warehouseDetails', JSON.stringify({ ...warehouseDetails }))
     fd.append('customClearanceId', customData._id)
-    // fd.append('document', warehouseDetails.document)
+    fd.append('document', warehouseDetails.document)
 
     let task = 'save'
     dispatch(UpdateCustomClearance({ fd, task }))
@@ -149,7 +155,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
-              <div className={`${styles.dashboard_form} mt-3 card-body`}>
+              <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>
@@ -200,9 +206,11 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : Number(
+                          :warehouseDetails?.wareHouseDetails?.quantity==0
+                         
+                          ? "": Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
-                            )?.toLocaleString() +
+                            )?.toLocaleString('en-IN') +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) =>
@@ -258,7 +266,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                         <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
-                        <img
+                        {/* <img
                           src="/static/delete 2.svg"
                           className="mr-3"
                           alt="delete"
@@ -269,7 +277,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           alt="delete"
                           className={styles.del_image}
                           onClick={() => removeFromArr(clause.dropDownValue)}
-                        />
+                        /> */}
                       </div>
                     ) : (
                       <div

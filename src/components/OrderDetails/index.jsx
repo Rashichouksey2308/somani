@@ -85,10 +85,11 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value)
               }}
+              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.quantity ?
                   orderDetails?.quantity :
-                  Number(orderDetails?.quantity).toLocaleString() + ` ${orderDetails.unitOfQuantity}`}
+                  Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`}
               className={`${styles.input_field} input form-control`}
               required
             // value={addPrefixOrSuffix(orderDetails?.quantity?.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)}
@@ -115,10 +116,11 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
                   e.target.type = 'text'
               }}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.orderValue ?
                   orderDetails?.orderValue :
-                  orderDetails?.orderValue + ` ${orderDetails?.unitOfValue == "Millions" ? "Mn" :
+                  Number(orderDetails?.orderValue)?.toLocaleString('en-In') + ` ${orderDetails?.unitOfValue == "Millions" ? "Mn" :
                     orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue}`}
             onChange={(e) => {
               // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)

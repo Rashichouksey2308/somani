@@ -103,6 +103,7 @@ const Index = ({
                             addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
+                          style={{width: "106px", height: "38px"}}
                         />
                         <button className={`${styles.button_upload} btn`}>
                           Upload
@@ -141,7 +142,7 @@ const Index = ({
                       />
                     </div>
                   </div>
-                  <hr className={styles.hr_line}></hr>
+                  <hr className={`${styles.hr_line} border_color`}></hr>
                 </>
               )
             })}
@@ -298,7 +299,7 @@ const Index = ({
                 onAddDoc()
               }}
             >
-              <img className={styles.add_image} src="/static/add.svg" alt="Add" />Add More Documents
+              <img className={`${styles.add_image}`} src="/static/add.svg" alt="Add" />Add More Documents
             </p>
           </div>
         </div>

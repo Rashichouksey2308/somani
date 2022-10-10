@@ -35,7 +35,8 @@ function Index() {
   console.log(TransitDetails, 'TransitDetails')
 
   const dispatch = useDispatch()
-  //const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
+  const { breadCrumbData } = useSelector((state) => state.Breadcrumb)
+  console.log(breadCrumbData?.upperTabs,'breadCrumbData1')
   const vesselData = _get(TransitDetails, 'data[0].order.vessel', {})
   console.log(TransitDetails, 'TransitDetails')
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
@@ -132,6 +133,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/transit')}
+              style={{cursor:'pointer'}}
             />
             <h1 className={`${styles.title} heading`}>
               <span>

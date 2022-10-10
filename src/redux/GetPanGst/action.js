@@ -25,23 +25,30 @@ function getPanGstFailed() {
 }
 
 export const GetPanGst = (payload) => async (dispatch, getState, api) => {
-//   dispatch(getPanGst())
+  //   dispatch(getPanGst())
   let cookie = Cookies.get('SOMANI')
+
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
-    Axios.post(`${API.userbaseUrl}${API.getPanGst}`, payload, {
-      headers: headers,
-    }).then((response) => {
+    
+    Axios.post(
+      `${API.baseUrl}${API.getPanGst}`,
+      { name: payload.query },
+      {
+        headers: headers,
+      },
+    ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getPanGstSuccess(response.data.data))
       } else {
         dispatch(getPanGstFailed(response.data.data))
         let toastMessage = 'FAILED TO GET COMPANY PAN'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {

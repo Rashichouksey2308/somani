@@ -197,7 +197,7 @@
                     top: 51%;
                     left: 0;
                     width: 100%;
-                    height: 2px;
+                    height: 3px;
                     content: "";
                     z-index: -1;
                     position: absolute;
@@ -259,6 +259,16 @@
      align-items: center;
      justify-content: center;
      margin-left: 1rem;
+}
+img {
+    &.arrow2 {
+      width: 13px !important;
+      pointer-events: none;
+      position: absolute;
+      right: 40px;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+        brightness(103%) contrast(82%);
+    }
 }
 .customSelect {
     appearance: none;

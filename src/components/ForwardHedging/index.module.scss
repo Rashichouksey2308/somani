@@ -22,6 +22,7 @@
         height: 21px;
         margin: 0;
         background: transparent;
+        cursor: pointer;
       }
       .heading {
         font-size: 34px;
@@ -550,7 +551,7 @@
   }
   .table_container {
     background-color: #fafafb;
-    margin-top: 40px;
+    // margin-top: 40px;
     .table_scroll_outer {
       width: 100%;
       display: table;

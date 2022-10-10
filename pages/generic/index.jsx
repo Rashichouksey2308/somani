@@ -53,12 +53,13 @@ function Index(props) {
         <div className={`${styles.tabHeaderInner} d-flex align-items-center`}>
           <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className={`${styles.arrow} img-fluid mr-2 image_arrow`}
           onClick={()=>{Router.push('/generic/generic-list')}}
+          style={{cursor:'pointer'}}
           />
           <h1 className={`${styles.title} heading`}>{genericData?.company?.companyName}</h1>
         </div>
         <div className={"ml-auto d-flex"}>
           <div className="ml-auto  mr-2">
-            <div className={`${styles.lastModified} text `}><span>Last Modified:</span> {lastModified}</div>
+            <div className={`${styles.lastModified} text `}><span className='accordion_Text'>Last Modified:</span> {lastModified}</div>
 
           </div>
           
