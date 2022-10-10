@@ -26,6 +26,7 @@ const Index = ({
 
   const { gstList } = useSelector((state) => state.buyer)
   const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
+  console.log(gettingCompanyPanResponse, 'GETTING COMPANY PAN')
 
   const dispatch = useDispatch()
 
@@ -292,7 +293,7 @@ const Index = ({
               {gettingCompanyPanResponse && serachterm && boolean1 && (
                 <div className={styles.searchResults}>
                   <ul>
-                    {gettingCompanyPanResponse.map((results, index) => (
+                    {gettingCompanyPanResponse ? gettingCompanyPanResponse?.companyRes?.map((results, index) => (
                       <li
                         onClick={() => handleFilteredData(results)}
                         id={results._id}
@@ -301,7 +302,7 @@ const Index = ({
                       >
                         {results.name}{' '}
                       </li>
-                    ))}
+                    )): ''}
                   </ul>
                 </div>
               )}

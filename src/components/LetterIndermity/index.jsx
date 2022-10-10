@@ -229,7 +229,6 @@ function Index({ TransitDetails }) {
     return returned
   }
 
-
   const saveData = () => {
     if (loi.authorizedSignatory.name === '') {
       let toastMessage = 'PLEase select authorized signatory'
@@ -333,7 +332,7 @@ function Index({ TransitDetails }) {
         <div className={`d-flex flex-wrap ${styles.salutations}`}>
           <span>Bill(s) of Lading:</span>
           {'  '}
-          <div>
+          <div style={{ marginRight: '10px' }}>
             {billsofLanding.map((bills, index1) => (
               <>
                 {console.log(bills, 'bills')}
@@ -347,7 +346,11 @@ function Index({ TransitDetails }) {
                     value={billsofLanding[index1].blnumber}
                   >
                     {bolArray.map((element, index2) => (
-                      <option disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)} key={index2} value={`BL-${index2 + 1}`}>
+                      <option
+                        disabled={isOptionAvailable(`BL-${index2 + 1}`, index2)}
+                        key={index2}
+                        value={`BL-${index2 + 1}`}
+                      >
                         BL-{index2 + 1}
                       </option>
                     ))}
@@ -359,15 +362,16 @@ function Index({ TransitDetails }) {
                     '',
                   ).toUpperCase()}{' '}
                   {index1}
-                  {bolArray.length - 1 > index1 ?
-                    index1 === billsofLanding.length - 1 ?
-                      (<button
+                  {bolArray.length - 1 > index1 ? (
+                    index1 === billsofLanding.length - 1 ? (
+                      <button
                         onClick={() => onAddClick()}
                         className={styles.add_btn}
                       >
                         <span className={styles.add_sign}>+</span>Add
-                      </button>) : null
-                    : null}
+                      </button>
+                    ) : null
+                  ) : null}
                   {index1 > 0 ? (
                     <button
                       onClick={() => onDeleteClick(index1)}
@@ -490,11 +494,15 @@ function Index({ TransitDetails }) {
             <div>
               Name:{' '}
               <select
-                value={loi.authorizedSignatory.name !== '' ? loi.authorizedSignatory.name : 'select'}
+                value={
+                  loi.authorizedSignatory.name !== ''
+                    ? loi.authorizedSignatory.name
+                    : 'select'
+                }
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option value='select' disabled defaultSelected>
+                <option value="select" disabled defaultSelected>
                   Select an option
                 </option>
                 <option value="Bhawana Jain">Bhawana Jain </option>
