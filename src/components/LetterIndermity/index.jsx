@@ -371,7 +371,7 @@ function Index({ TransitDetails }) {
                   {index1 > 0 ? (
                     <button
                       onClick={() => onDeleteClick(index1)}
-                      className={`${styles.add_btn} ml-n1`}
+                      className={`${styles.add_btn}`}
                     >
                       <span className={styles.add_sign}>-</span>Delete
                     </button>
