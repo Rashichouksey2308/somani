@@ -225,8 +225,8 @@ function Index() {
       companyData?.error?.length > 0
     ) {
       _get(companyData, 'error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
+      
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -241,8 +241,7 @@ function Index() {
       companyData?.compliance?.error?.length > 0
     ) {
       _get(companyData, 'compliance.error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -256,7 +255,7 @@ function Index() {
       companyData?.profile?.error?.length > 0
     ) {
       _get(companyData, 'profile.error', [{}]).forEach((item) => {
-        let toastMessage = item?.message
+        let toastMessage = item.description + ', ' + item.message
         let toastDiscription = item?.description
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastDiscription.toUpperCase(), {
@@ -272,8 +271,7 @@ function Index() {
       companyData?.financial?.error?.length > 0
     ) {
       _get(companyData, 'financial.error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastMessage.toUpperCase(), { toastId: toastDiscription })
           toast.error(toastDiscription.toUpperCase(), { toastId: toastMessage })
@@ -295,7 +293,7 @@ function Index() {
   console.log(orderList, 'this is order list')
 
   const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails)
-  // console.log(companyData, 'this is company data')
+  console.log(companyData, 'this is company data')
   console.log(gettingCompanyDetail, 'gettingCompanyDetail')
   // useEffect(()=> {
   //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
