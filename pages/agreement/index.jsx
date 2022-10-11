@@ -210,7 +210,7 @@ function Index() {
                     className="accordion shadow-none"
                     id="inspectionDocument"
                   >
-                    <InspectionDocument documentName="Sales Agreement" />
+                    <InspectionDocument documentName="Sales Agreement" isOpen='false' />
                   </div>
                 </div>
               </div>
