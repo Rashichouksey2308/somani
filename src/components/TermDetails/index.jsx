@@ -396,7 +396,7 @@ const Index = ({
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -423,7 +423,7 @@ const Index = ({
                   INCO Terms<strong className="text-danger">*</strong>
                 </label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -641,7 +641,7 @@ const Index = ({
                     <option disabled selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">Both Lord Port and Discharge Port</option>
+                    <option value="Both">Both Load Port and Discharge Port</option>
                   </select>
 
                   <img
