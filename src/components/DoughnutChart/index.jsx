@@ -73,37 +73,61 @@ function Index({customerSummary}) {
   //     },
   //   ],
   // }
-  const options = {
-       elements: {
+   const options = {
+    elements: {
       arc: {
-          borderWidth: 0  
-      }
-  }
-,
+        borderWidth: 0,
+      },
+    },
     plugins: {
       title: {
-        display: false,
-        text: 'Doughnut Chart',
-        color: 'blue',
-       
-        font: {
-          size: 34,
-        },
-        padding: {
-          top: 30,
-          bottom: 30,
-        },
-      
         animation: {
           animateScale: true,
         },
       },
-    
+
+      legend: {
+        display: false
+      }
+
     },
      responsive: false, 
      cutout: 55
-   
   }
+//   const options = {
+//        elements: {
+//       arc: {
+//           borderWidth: 0  
+//       }
+//   }
+// ,
+//     plugins: {
+//       title: {
+//         display: false,
+//         text: 'Doughnut Chart',
+//         color: 'blue',
+       
+//         font: {
+//           size: 34,
+//         },
+//         padding: {
+//           top: 30,
+//           bottom: 30,
+//         },
+      
+//         animation: {
+//           animateScale: true,
+//         },
+//         legend: {
+//         display: false
+//       }
+//       },
+    
+//     },
+//      responsive: false, 
+//      cutout: 55
+   
+//   }
  
   return (
     <Card className={`${styles.card} border`}>

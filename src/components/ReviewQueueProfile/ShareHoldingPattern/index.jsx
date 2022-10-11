@@ -40,29 +40,64 @@ Chart.register(
 function Index({ shareHolding }) {
 
   const chartRef = useRef(null)
+  const [equiltyCapitalShares, setEquiltyCapitalShares] = useState([])
+  const [prefrenceCapitalShares, setPrefrenceCapitalShares] = useState([])
+
 
   console.log(shareHolding, 'shareholding')
   Chart.register(ArcElement)
-  let tempArr = [
-    { name: 'Sail', value: '21', color: '#9675CE' },
-    { name: 'Jindal Group', value: '23', color: '#4CAF50' },
-    { name: 'SR Steel', value: '23', color: '#EA3F3F' },
-  ]
+  // let tempArr = [
+  //   { name: 'Sail', value: '21', color: '#9675CE' },
+  //   { name: 'Jindal Group', value: '23', color: '#4CAF50' },
+  //   { name: 'SR Steel', value: '23', color: '#EA3F3F' },
+  // ]
+
+
+
+
+  let totalEquityShare = 0
+  let totalEquitySharePercentage = 0
+  const equityCapital = () => {
+    const values = shareHolding?.filter((item) => {
+      return item.type.includes("EquityShares")
+    }).sort(
+      (a, b) => b.numberOfShares - a.numberOfShares,
+    )
+    return values
+  }
+
+  let totalPrefrenceShare = 0 
+  let totalPrefrenceSharePercentage = 0
+  const prefrenceCapital = () => {
+    const values = shareHolding?.filter((item) => {
+      return item.type.includes("PreferenceShares")
+    }).sort(
+      (a, b) => b.numberOfShares - a.numberOfShares,
+    )
+    return values
+  }
+
+
+
+
+
+
+
+
 
   const EquityValues = shareHolding?.filter((item) => {
     return item.type === 'EquityShares1Member'
   })
   let equityShareNo = []
-  let totalEquityShare = 0
-  let totalEquitySharePercentage = 0
-  const topEquityValues = EquityValues?.sort(
+
+  const topEquityValues = equityCapital()?.sort(
     (a, b) => b.numberOfShares - a.numberOfShares,
   )
     .slice(0, 5)
     .forEach((item) => {
       equityShareNo.push(item.numberOfShares)
     })
-  EquityValues?.forEach((equity) => {
+  equityCapital()?.forEach((equity) => {
     totalEquityShare += equity.numberOfShares
     totalEquitySharePercentage += equity.percentageShareHolding
   })
@@ -73,20 +108,28 @@ function Index({ shareHolding }) {
     return !item.type === 'EquityShares1Member'
   })
   const topprefrencesShareNo = []
-  let totalPrefrenceShare = 0
-  let totalPrefrenceSharePercentage = 0
 
-  const topPrefrenceValues = prefrenceValues
-    ?.sort((a, b) => b.numberOfShares - a.numberOfShares)
-    .slice(0, 5)
-    .forEach((item) => {
-      topPrefrenceValues.push(item.numberOfShares)
-      totalPrefrenceShare += item.numberOfShares
-      totalPrefrenceSharePercentage += item.percentageShareHolding
+
+  const topPrefrenceValues = prefrenceCapital()
+    ?.sort((a, b) => b.numberOfShares - a.numberOfShares)?.slice(0, 5)
+    ?.forEach((item) => {
+      topprefrencesShareNo.push(item.numberOfShares)
+
     })
+  prefrenceCapital()?.forEach((item) => {
+    totalPrefrenceShare += item.numberOfShares
+    totalPrefrenceSharePercentage += item.percentageShareHolding
+  })
 
-  //setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
+  setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
   console.log(equityShareNo, 'equityShareNo', topprefrencesShareNo)
+
+
+
+
+
+  // const equityShare1 = equityCapital()?.slice(0, 5)
+  console.log(equityShareNo, 'equityCapital')
   const equitydata = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
     datasets: [
@@ -229,7 +272,7 @@ function Index({ shareHolding }) {
                     <tbody>
                       <tr>
                         <th width="23%" className='border_color border-bottom-0'
-                          rowSpan={shareHolding ? shareHolding?.length + 2 : '17'}
+                          rowSpan={equityCapital()?.length + 2}
                         >
                           <div className={styles.chart}>
                             <Doughnut
@@ -270,7 +313,7 @@ function Index({ shareHolding }) {
                         <th className='border_color'>PAN</th>
                         <th className='border_color'>DIRECTOR</th>
                       </tr>
-                      {shareHolding?.slice().sort((a, b) => {
+                      {equityCapital()?.slice().sort((a, b) => {
                         return b?.numberOfShares - a?.numberOfShares;
                       }).map((shareHolder, index) => {
                         console.log(
@@ -278,42 +321,39 @@ function Index({ shareHolding }) {
                           'mapping',
                         )
 
-                        if (
-                          shareHolder.type === 'EquityShares1Member' ||
-                          shareHolder.type === 'EquitySharesMember'
-                        ) {
-                          return (
-                            <tr key={index}>
-                              <td
-                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0 border_color`}
-                              >
-                                <span style={{ background: `${colorReturn(index)}` }}></span>
-                              </td>
-                              <td className={`${styles.name} text-color border-top-0 border-bottom-0 border_color`}>
-                                {shareHolder.fullName}
-                              </td>
-                              <td className="border-top-0 border-bottom-0 border_color">
-                                {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
-                              </td>
-                              <td className="border-top-0 border-bottom-0 border_color">
-                                {shareHolder.percentageShareHolding ? Number(shareHolder.percentageShareHolding * 100)?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2
-                                  },
-                                ) + '%' : ''}
 
-                              </td>
-                              <td className="border-top-0 border-bottom-0 border_color">
-                                {shareHolder.pan}
-                              </td>
-                              <td className="border-top-0 border-bottom-0 border_color">
-                                {shareHolder.director ? 'Yes' : 'No'}
-                              </td>
-                            </tr>
-                          )
-                        }
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0 border_color`}
+                            >
+                              <span style={{ background: `${colorReturn(index)}` }}></span>
+                            </td>
+                            <td className={`${styles.name} text-color border-top-0 border-bottom-0 border_color`}>
+                              {shareHolder.fullName}
+                            </td>
+                            <td className="border-top-0 border-bottom-0 border_color">
+                              {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
+                            </td>
+                            <td className="border-top-0 border-bottom-0 border_color">
+                              {shareHolder.percentageShareHolding ? Number(shareHolder.percentageShareHolding * 100)?.toLocaleString(
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2
+                                },
+                              ) + '%' : ''}
+
+                            </td>
+                            <td className="border-top-0 border-bottom-0 border_color">
+                              {shareHolder.pan}
+                            </td>
+                            <td className="border-top-0 border-bottom-0 border_color">
+                              {shareHolder.director ? 'Yes' : 'No'}
+                            </td>
+                          </tr>
+                        )
+
                       })}
                       <tr>
                         <td className='border-top-0 border_color'></td>
@@ -341,7 +381,7 @@ function Index({ shareHolding }) {
                   >
                     <tbody>
                       <tr>
-                        <th rowSpan="7" width="23%" className='border-bottom-0'>
+                        <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className='border-bottom-0'>
                           <div className={styles.chart}>
                             <Doughnut data={prefrencedata} options={options} />
                             <div className={`${styles.total_value} `}>
@@ -365,47 +405,40 @@ function Index({ shareHolding }) {
                         <th>PAN</th>
                         <th>DIRECTOR</th>
                       </tr>
-                      {shareHolding?.map((shareHolder, index) => {
-                        if (shareHolder.type !== 'EquitySharesMember') {
-                          if (shareHolder.type !== 'EquityShares1Member') {
-                            return (
-                              <tr key={index}>
-                                <td
-                                  className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
-                                >
-                                  <span></span>
-                                </td>
-                                <td className={`${styles.name} border-top-0 border-bottom-0`}>
-                                  {shareHolder.fullName}
-                                </td>
-                                <td className="border-top-0 border-bottom-0">
-                                  {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
-                                </td>
-                                <td className="border-top-0 border-bottom-0">
-                                  {shareHolder?.percentageShareHolding ? (shareHolder.percentageShareHolding * 100)?.toLocaleString("en-IN", {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  }) : ''}
-                                </td>
-                                <td className="border-top-0 border-bottom-0">
-                                  {shareHolder.pan}
-                                </td>
-                                <td className="border-top-0 border-bottom-0">
-                                  {shareHolder.director ? 'Yes' : 'No'}
-                                </td>
-                              </tr>
-                            )
-                          }
-                        }
+                      {prefrenceCapital()?.map((shareHolder, index) => {
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
+                            >
+                              <span style={{ background: `${colorReturn(index)}` }}></span>
+                            </td>
+                            <td className={`${styles.name} border-top-0 border-bottom-0`}>
+                              {shareHolder.fullName}
+                            </td>
+                            <td className="border-top-0 border-bottom-0">
+                              {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
+                            </td>
+                            <td className="border-top-0 border-bottom-0">
+                              {shareHolder?.percentageShareHolding ? (shareHolder.percentageShareHolding * 100)?.toLocaleString("en-IN", {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) : ''}
+                            </td>
+                            <td className="border-top-0 border-bottom-0">
+                              {shareHolder.pan}
+                            </td>
+                            <td className="border-top-0 border-bottom-0">
+                              {shareHolder.director ? 'Yes' : 'No'}
+                            </td>
+                          </tr>
+                        )
                       })}
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
                         <td>{Number(totalPrefrenceShare)?.toLocaleString('en-In')}</td>
-                        <td>{totalPrefrenceSharePercentage?.toLocaleString("en-IN", {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        })}%</td>
+                        <td>{totalPrefrenceSharePercentage ? Number(totalPrefrenceSharePercentage * 100).toFixed(2) + '%' : ''}</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
                       </tr>

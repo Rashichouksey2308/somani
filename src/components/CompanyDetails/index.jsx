@@ -485,14 +485,15 @@ const Index = ({
                   onBlur={(e) => {
                     e.target.type === 'text', setIsSliderOnFocus(false)
                   }}
-                  max={100}
+                  // max={100}
                   name="turnOver"
                   onChange={(e) => {
+                    console.log(e.target.value,"e.target.value")
                     setSlider(Number(e.target.value))
                     saveCompanyData(e.target.name, Number(e.target.value))
                     getSlider()
                     if (e.target.value > 100) {
-                      e.target.value = 100
+                      // e.target.value = 100
                       setSlider(Number(e.target.value))
                       saveCompanyData(e.target.name, Number(e.target.value))
                       getSlider()

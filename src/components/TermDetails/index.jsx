@@ -216,6 +216,7 @@ const Index = ({
               <input
                 id="perUnitPrice"
                 className={`${styles.value} ${styles.inrValue} input form-control`}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, unitPrice: true }),
