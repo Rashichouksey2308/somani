@@ -226,7 +226,7 @@ function Index() {
     ) {
       _get(companyData, 'error', [{}]).forEach((item) => {
         let toastMessage = item.description + ', ' + item.message
-      
+
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -303,13 +303,38 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     console.log(latest, previous, last, 'latest, previous, last')
-    if (last == previous && previous < latest) {
-      return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
+
+    if (last < previous && previous < latest) {
+      return <img src="/static/trend-green-321.svg" alt="Profit" className="img-fluid" />
     }
-    if (last == previous && previous > latest) {
-      return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
+    }
+    ////doubt
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last < previous && previous > latest) {
+      return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />
+    }
+    ////////doubt
+    if (last === previous && previous === latest) {
+      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />
     }
 
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />
+    }
+    /////doubt
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
+    }
     if (latest > previous && previous > last) {
       return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
     } else if (latest < previous && previous < last) {
@@ -1036,21 +1061,21 @@ function Index() {
         })
       })
     } else if (companyData?.profile?.directorDetail.length > 0) {
-        companyData?.profile?.directorDetail?.forEach((val, index) => {
-          personArr.push({
-            contact: {
-              callingCode: '+91',
-              number: '',
-            },
-            department: '',
-            designation: val.designation,
-            email: val.email,
-            name: val.name,
-            isEdit: false,
-            addnew: false,
-          })
+      companyData?.profile?.directorDetail?.forEach((val, index) => {
+        personArr.push({
+          contact: {
+            callingCode: '+91',
+            number: '',
+          },
+          department: '',
+          designation: val.designation,
+          email: val.email,
+          name: val.name,
+          isEdit: false,
+          addnew: false,
         })
-      
+      })
+
     }
 
     setPersonData([...personArr])
