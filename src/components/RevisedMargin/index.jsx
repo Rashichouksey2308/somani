@@ -149,7 +149,7 @@ const Index = ({
         </div>
         <div
           id="commodityAccordion"
-          className="collapse"
+          //className="collapse"
           aria-labelledby="commodityAccordion"
           data-parent="#commodityAccordion"
         >
