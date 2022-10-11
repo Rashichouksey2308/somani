@@ -99,51 +99,54 @@ function VerifyingGstFailed() {
   }
 }
 
-export const UpdateCam = (payloadz) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const UpdateCam =
+  (payload, message) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
+    console.log(payload.status, 'payload')
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  try {
-    let response = await Axios.put(
-      `${API.corebaseUrl}${API.updateCam}`,
-      payload,
-      {
-        headers: headers,
-      },
-    )
-    console.log(response, 'response')
-    if (response.data.code === 200) {
-      dispatch(updatingCamSuccess(response.data.data))
-      console.log(response.data.code, 'response.data.data.order')
-      sessionStorage.setItem('termsheetId', response.data.data.order._id)
-      sessionStorage.setItem('termID', response.data.data.order.termsheet._id)
-      sessionStorage.setItem('termOrdID', response.data.data.order._id)
-      let toastMessage = 'CAM APPROVED'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.put(
+        `${API.corebaseUrl}${API.updateCam}`,
+        payload,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response.data.code, 'response')
+      if (response.data.code === 200) {
+        dispatch(updatingCamSuccess(response.data.data))
+        console.log(response.data.code, 'response.data.data.order')
+        sessionStorage.setItem('termsheetId', response.data.data.order._id)
+        sessionStorage.setItem('termID', response.data.data.order.termsheet._id)
+        sessionStorage.setItem('termOrdID', response.data.data.order._id)
+        let toastMessage = message
+
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+        return response.data.code
+      } else {
+        dispatch(updatingCamFailed(response.data.data))
+        let toastMessage = response.data.message
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
       }
-      dispatch(setNotLoading())
-      return response.data.code
-    } else {
-      dispatch(updatingCamFailed(response.data.data))
-      let toastMessage = response.data.message
+    } catch (error) {
+      dispatch(updatingCamFailed())
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       dispatch(setNotLoading())
     }
-  } catch (error) {
-    dispatch(updatingCamFailed())
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-    dispatch(setNotLoading())
   }
-}
 
 export const GetDocuments = (payload) => async (dispatch, getState, api) => {
   try {

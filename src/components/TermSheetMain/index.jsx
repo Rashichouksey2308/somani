@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
+import {
+  settingSidebar
+} from '../../redux/breadcrumb/action'
 // import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
 import moment from 'moment'
@@ -58,9 +61,11 @@ function Index() {
     // dispatch(GetAllOrders({ orderId: buyer._id }))
     //dispatch(GetDocuments({order: buyer._id}))
     await dispatch(GetCompanyDetails({ company: buyer.company._id }))
-    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('orderID',buyer.order._id)
     sessionStorage.setItem('companyID', buyer.company._id)
+   
     sessionStorage.setItem('showCAM',true)
+     dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
     Router.push('/review')
 
   }
