@@ -775,7 +775,7 @@ function Index() {
       existingProcurementOfCommodity: orderList?.productSummary
         ?.existingProcurementOfCommodity
         ? orderList?.productSummary?.existingProcurementOfCommodity
-        : '',
+        : 'Import',
       existingSuppliers: orderList?.productSummary?.existingSuppliers
         ? orderList?.productSummary?.existingSuppliers
         : [],
@@ -1288,8 +1288,10 @@ console.log(groupExposureData,"groupExposureData")
     })
     setPersonData(tempArr)
   }
-  console.log(supplierCred, 'product')
+    console.log(product, 'xxxxxxxx')
   const creditValidation = () => {
+   
+
     if (
       product.monthlyProductionCapacity == '' ||
       product.monthlyProductionCapacity == undefined
@@ -1498,15 +1500,20 @@ console.log(groupExposureData,"groupExposureData")
       let tempArray = [...groupExposureData]
       // console.log(tempArray, 'groupExposure')
       tempArray.forEach((e) => {
-        if (e.limit) {
+        if (e.limit.length>=5) {
           let oldValue = e?.limit?.replace(/,/g, '')
           e.limit = Number(oldValue)
      
+        }else{
+           Number(e.limit)
         }
-         if (e.outstandingLimit) {
+         if (e.outstandingLimit.length>=5) {
           let oldValue = e?.outstandingLimit?.replace(/,/g, '')
           e.outstandingLimit = Number(oldValue)
      
+        }
+        else{
+           Number(e.outstandingLimit)
         }
       })
 

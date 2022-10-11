@@ -35,7 +35,7 @@ const index = ({
   suggestedCredit,
 }) => {
   console.log(personData, 'personData')
-  console.log(debtData, 'debtData')
+  console.log(creditDetail?.existingProcurementOfCommodity, 'debtData')
   const dispatch = useDispatch()
 
 
