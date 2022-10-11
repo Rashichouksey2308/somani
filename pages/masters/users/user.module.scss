@@ -1,0 +1,70 @@
+@import '../../../src/components/styles/Core/config';
+.card {
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  margin: 28px;
+  margin-bottom: 68px;
+  @include respond(sm-desktop) {
+    margin: 20px;
+    margin-bottom: 60px;
+  }
+  @include respond(phone) {
+    margin: 15px;
+    margin-bottom: 71px;
+  }
+  .head_container {
+    height: 48px;
+    display: flex;
+    border: none;
+    background: none;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0 27px 10px;
+    @include respond(phone) {
+      align-items: center;
+      padding: 0.75rem 0rem;
+    }
+    .head_header {
+      display: flex;
+      justify-content: space-around;
+      flex-direction: row;
+      .arrow {
+        width: 13px;
+        height: 21px;
+        background: transparent;
+        @include respond(phone) {
+          margin-top: 0px;
+          height: 18px;
+        }
+      }
+      .heading {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 41px;
+        margin: 0;
+        padding-left: 18px;
+        @include respond(phone) {
+          font-size: $font_size_mobile_head;
+          margin: 0px;
+          padding-left: 10px;
+        }
+      }
+    }
+    .clear_btn {
+      border: 3px solid #3687e8;
+      border-radius: 5px;
+      width: 190px;
+      height: 48px;
+      text-align: center;
+      background: transparent;
+      font-size: 20px;
+      line-height: 25px;
+      font-weight: bold;
+      color: #3687e8;
+      @include respond(phone) {
+        font-size: $font_size_mobile_button;
+      }
+    }
+  }
+}
