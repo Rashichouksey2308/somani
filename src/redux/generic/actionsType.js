@@ -78,6 +78,7 @@ export const updateGenericData =
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         dispatch(setNotLoading())
+        return 500
       }
     } catch (error) {
       dispatch(submitGenericFailed())
@@ -87,6 +88,7 @@ export const updateGenericData =
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       dispatch(setNotLoading())
+      return 500
     }
   }
 

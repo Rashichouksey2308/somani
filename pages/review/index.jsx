@@ -195,16 +195,51 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
+  const [selectedTab, setSelectedTab] = useState('Profile')
+ console.log(selectedTab,"selectedTab")
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
-      dispatch(GetAllOrders({ orderId: id1 }))
-      dispatch(GetCompanyDetails({ company: id2 }))
-      // dispatch(GetDocuments(`?order=${id1}`))
+     
+       console.log(sessionStorage.getItem("showCAM"),"sdasdasdasd")
+              
+      if(sessionStorage.getItem("showCAM")=="true"){
+         sessionStorage.setItem('showCAM',false)
+            setSelectedTab("CAM")
+            dispatch(GetAllOrders({ orderId: id1 }))
+            dispatch(GetCompanyDetails({ company: id2 }))
+     
+        let list = document.getElementsByClassName('nav-tabs')||[]
+        let tab = document.getElementsByClassName('tab-content')||[]
+      
+
+        //  console.log(list[0].children[i].children[0].innerHTML,"check")
+        
+          let tempIndex =7
+          
+          
+       
+          list[0]?.children[0]?.children[0]?.classList?.remove('active')
+          console.log(tab[0]?.children[tempIndex],"Dasdasdsadasd",tab[0]?.children[0])
+          list[0]?.children[tempIndex]?.children[0]?.classList?.add('active')
+          tab[0]?.children[0]?.classList?.remove('show')
+          tab[0]?.children[0]?.classList?.remove('active')
+          tab[0]?.children[tempIndex]?.classList?.add('show')
+          tab[0]?.children[tempIndex]?.classList?.add('active')
+         
+      }
+      if(sessionStorage.getItem("showCAM")=="false"||sessionStorage.getItem("showCAM")==undefined){
+        console.log("asdsadasdasdasd")
+       
+        dispatch(GetAllOrders({ orderId: id1 }))
+        dispatch(GetCompanyDetails({ company: id2 }))
+      }
+
     }
   }, [dispatch, fetchingKarzaGst])
 
+ 
   useEffect(() => {
     if (companyData) {
       let statutory = []
@@ -365,7 +400,6 @@ function Index() {
 
   const id = sessionStorage.getItem('orderID')
 
-  const [selectedTab, setSelectedTab] = useState('Profile')
 
   const [orderDetails, setOrderDetails] = useState({
     transactionType: orderList?.transactionType,
@@ -1248,7 +1282,7 @@ function Index() {
         designation: '',
         email: '',
         name: '',
-        isEdit: false,
+        isEdit: true,
         addnew: false,
       },
     ])
@@ -1578,7 +1612,7 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         }
-        let code = await dispatch(UpdateCam(obj))
+        let code = await dispatch(UpdateCam(obj,"CAM APPROVED"))
         console.log(code, "code")
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'))
@@ -1593,7 +1627,7 @@ function Index() {
       order: orderList._id,
       status: 'Rejected',
     }
-    dispatch(UpdateCam(obj))
+    dispatch(UpdateCam(obj,"CAM REJECTED"))
   }
 
   const currentOpenLink = (e) => {
