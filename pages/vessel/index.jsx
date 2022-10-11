@@ -5,7 +5,7 @@ import Vessels from '../../src/components/Vessel'
 
 import _get from 'lodash/get'
 import VesselSaveBar from '../../src/components/VesselSaveBar'
-
+import { settingSidebar } from 'redux/breadcrumb/action'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   GetVessel,
@@ -846,8 +846,8 @@ export default function Home() {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         await fetchInitialData()
-        //  sessionStorage.setItem('quotationId',"")
-        // router.push(`/insurance/form`)
+        dispatch(settingSidebar('Agreement & LC Module', 'Insurance', 'Insurance', '2'))
+        router.push(`/insurance/form`)
       }
 
 

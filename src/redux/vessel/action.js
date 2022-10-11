@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getVessel() {
   return {
     type: types.GET_VESSEL,
@@ -73,6 +73,7 @@ function uploadDocVesselFailed() {
 }
 
 export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -84,12 +85,14 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllVesselSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getAllVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -99,10 +102,12 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const GetVessel = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -119,6 +124,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       console.log('this')
 
       // dispatch(getVesselSuccess(response.data.data))
+      dispatch(setNotLoading())
       return response.data.data
     } else {
       dispatch(getVesselFailed(response.data.data))
@@ -126,6 +132,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(getVesselFailed())
@@ -134,10 +141,12 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   console.log('check 4')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -154,7 +163,9 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     )
     if (response.data.code === 200) {
       console.log('check 5')
+      sessionStorage.setItem('quotationId', response.data.data.order.insurance)
       dispatch(updateVesselSuccess(response.data.data))
+      dispatch(setNotLoading())
       return response.data.code
     } else {
       dispatch(updateVesselFailed(response.data.data))
@@ -162,6 +173,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updateVesselFailed())
@@ -170,10 +182,12 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -189,12 +203,14 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       } else {
         dispatch(uploadDocVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -204,5 +220,6 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

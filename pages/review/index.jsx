@@ -1557,7 +1557,7 @@ function Index() {
         console.log(code, "code")
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'))
-          // router.push(`/termsheet/${orderList._id}`)
+          router.push(`/termsheet/id`)
         }
 
       }

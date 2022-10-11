@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getForwardHedging() {
   return {
     type: types.GET_FORWARDHEDGING,
@@ -57,6 +57,7 @@ function updateForwardHedgingFailed() {
 
 export const GetAllForwardHedging =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
@@ -67,16 +68,17 @@ export const GetAllForwardHedging =
         {
           headers: headers,
         },
-
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllForwardHedgingSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAllForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -86,11 +88,13 @@ export const GetAllForwardHedging =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const GetForwardHedging =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -102,12 +106,14 @@ export const GetForwardHedging =
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(getForwardHedgingSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -117,11 +123,13 @@ export const GetForwardHedging =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const UpdateForwardHedging =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -135,20 +143,21 @@ export const UpdateForwardHedging =
           dispatch(updateForwardHedgingSuccess(response.data.data))
 
           let toastMessage = 'updated  SUCCESSFULLY'
-          console.log(payload.task ,'payload.task')
+          console.log(payload.task, 'payload.task')
           if (payload.task === 'save') {
             toastMessage = 'SAVED SUCCESSFULLY'
-
           }
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         } else {
           dispatch(updateForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -158,5 +167,6 @@ export const UpdateForwardHedging =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }

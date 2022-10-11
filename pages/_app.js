@@ -15,7 +15,7 @@ import theme from 'theme'
 import { useDispatch, useSelector } from 'react-redux'
 import { ChangeTheme, setTheme } from '../src/redux/userData/action'
 import { isMobile, settingMobile } from '../src/redux/toggleState/Action/action'
-
+import Loader from '../src/components/Loader'
 const GlobalStyle = createGlobalStyle`
   ${styledNormalize}
 `
@@ -45,6 +45,7 @@ export default function MyApp(props) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          {/* <Loader /> */}
           <ToastContainer
             position="bottom-right"
             autoClose={5000}
