@@ -214,6 +214,7 @@ const index = ({
   }
   console.log(keyPersonData, "keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
+    console.log(keyPersonData,"keyPersonData")
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
   }
@@ -1538,7 +1539,8 @@ const index = ({
               className={`${styles.add_row} d-flex justify-content-end`}
 
             >
-              <div className={`d-flex justify-content-end`} onClick={(e) => {
+              <div className={`d-flex justify-content-end`} 
+              onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
               }}>  <span>+</span>
                 <div>Add More Rows</div></div>

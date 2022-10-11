@@ -278,11 +278,7 @@ const Index = () => {
           insuranceId: insuranceData?._id,
         }
        let code= await dispatch(UpdateQuotation(obj))
-       if(code==200){
-         sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
-         dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
-         router.push(`/third-party`)
-       }
+      
         
       }
     } else {
