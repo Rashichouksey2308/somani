@@ -20,7 +20,7 @@ import { checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
-
+import { settingSidebar } from 'redux/breadcrumb/action'
 export default function Index({
   isShipmentTypeBULK,
   TransitDetails,
@@ -28,7 +28,8 @@ export default function Index({
   docUploadFunction,
 }) {
   let transId = _get(TransitDetails, `data[0]`, '')
-
+ 
+  console.log( _get(TransitDetails, `data[0].order.forwardHedging`, ''),"hediii")
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -417,7 +418,7 @@ export default function Index({
     dispatch(UpdateTransitDetails({ fd, task }))
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const igmDetails = { ...igmList }
     igmDetails.shipmentType = _get(
       TransitDetails,
@@ -434,8 +435,13 @@ export default function Index({
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
     let task = 'submit'
-    dispatch(UpdateTransitDetails({ fd, task }))
-    router.push(`/forward-hedging`)
+   let code = await  dispatch(UpdateTransitDetails({ fd, task }))
+    if(code==200){
+      sessionStorage.setItem('docFetchID',_get(TransitDetails,"order._id",""))
+      sessionStorage.setItem('headgingId',_get(TransitDetails,"order.transit",""))
+      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'))
+      router.push(`/forward-hedging`)
+    }
   }
   console.log(shipmentTypeBulk, 'shipmentTypeBulk', shipmentTypeBulk == false)
   return (

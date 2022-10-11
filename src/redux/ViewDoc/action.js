@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function viewingDocument() {
   return {
     type: types.VEIW_DOCUMENT,
@@ -23,6 +23,7 @@ function viewingDocumentFailed() {
 }
 
 export const ViewDocument = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   console.log(
@@ -39,6 +40,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(viewingDocumentSuccess(response.data.data))
         console.log('ViewDocument')
+        dispatch(setNotLoading())
         window.open(
           response.data.data.signedUrl,
           '_blank',
@@ -50,6 +52,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -59,5 +62,6 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

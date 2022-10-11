@@ -27,6 +27,7 @@ import ViewDocumentReducer from 'redux/ViewDoc/reducer'
 import GetCompanyPanReducer from 'redux/GetPanGst/reducer'
 import BreadcrumbReducer from 'redux/breadcrumb/reducer'
 import AnalyticsReducer from 'redux/analytics/reducer'
+import LoadReducer from 'redux/Loaders/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -66,6 +67,7 @@ export const createStore = (preloadedState) => {
       GetPan: GetCompanyPanReducer,
       Breadcrumb: BreadcrumbReducer,
       analytics: AnalyticsReducer,
+      Load: LoadReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

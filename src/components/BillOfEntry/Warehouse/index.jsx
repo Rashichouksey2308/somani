@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-
+import { settingSidebar } from 'redux/breadcrumb/action'
 export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
@@ -81,7 +81,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     setWarehouseDetails({...tempData})
   }
   // console.log(warehouseDetails,'warehouseDetails')
-  const onSaveDischarge = () => {
+  const onSaveDischarge = async () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     if (warehouseDetailpayload.quantity === '') {
       let toastMessage = 'quantity CANNOT BE EMPTY  '
@@ -102,10 +102,16 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       fd.append('customClearanceId', customData._id)
       fd.append('document', warehouseDetails.document)
       let task = 'submit'
-      dispatch(UpdateCustomClearance({ fd, task }))
+     let code = await  dispatch(UpdateCustomClearance({ fd, task }))
       let id = sessionStorage.getItem('customId')
-      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
-      // router.push(`/payment/id`)
+       await   dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+    if(code==200){
+       sessionStorage.setItem('ROrderID',_get(customData,"order.delivery",""))
+      sessionStorage.setItem('company', customData?.company?._id)
+       dispatch(settingSidebar('Payments, Invoicing & Delivery', null, null,5 ))
+       router.push(`/payment/id`)
+    }
+      
     }
   }
 
@@ -254,6 +260,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 align-self-center`}
                   >
                     {warehouseDetails?.document === null ? (
+                      <div className="d-flex ">
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           id="document"
@@ -266,19 +273,10 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                         <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
-                        {/* <img
-                          src="/static/delete 2.svg"
-                          className="mr-3"
-                          alt="delete"
-                          onClick={() => removeFromArr(clause.dropDownValue)}
-                        />
-                        <img
-                          src="/static/mode_edit.svg"
-                          alt="delete"
-                          className={styles.del_image}
-                          onClick={() => removeFromArr(clause.dropDownValue)}
-                        /> */}
+                        
                       </div>
+                   
+                        </div>
                     ) : (
                       <div
                         className={`${styles.certificate} text1 mr-3 d-inline-flex align-items-center justify-content-between`}
