@@ -101,7 +101,7 @@ const getDate = async () =>{
                <div className={styles.search}>
               <div className="input-group">
                 <div
-                  className={`${styles.inputGroupPrepend} border input-group-prepend`}
+                  className={`${styles.inputGroupPrepend} input-group-prepend`}
                 >
                   <img
                     src="/static/search.svg"
