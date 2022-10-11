@@ -230,7 +230,7 @@ function Index() {
          
       }
       if(sessionStorage.getItem("showCAM")=="false"||sessionStorage.getItem("showCAM")==undefined){
-        console.log("asdsadasdasdasd")
+   
        
         dispatch(GetAllOrders({ orderId: id1 }))
         dispatch(GetCompanyDetails({ company: id2 }))
@@ -1148,15 +1148,9 @@ function Index() {
   }, [orderList, orderList?.company, companyData?.profile?.directorDetail])
 
   const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
+  
   ])
-
+console.log(groupExposureData,"groupExposureData")
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: '',
     suggestedOrderValue: '',
@@ -1501,17 +1495,22 @@ function Index() {
       supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
         supplierCred.commodityOfTotalTrade,
       )
-      // let tempArray = [...groupExposureData]
-      // // console.log(tempArray, 'groupExposure')
-      // tempArray.forEach((e) => {
-      //   if (e.limit === NaN) {
-      //     let oldValue = e?.limit?.replace(/,/g, '')
-      //     e.limit = oldValue
-      //     return Number(e)
-      //   }
-      // })
-
+      let tempArray = [...groupExposureData]
       // console.log(tempArray, 'groupExposure')
+      tempArray.forEach((e) => {
+        if (e.limit) {
+          let oldValue = e?.limit?.replace(/,/g, '')
+          e.limit = Number(oldValue)
+     
+        }
+         if (e.outstandingLimit) {
+          let oldValue = e?.outstandingLimit?.replace(/,/g, '')
+          e.outstandingLimit = Number(oldValue)
+     
+        }
+      })
+
+      console.log(tempArray, 'groupExposure')
 
       let obj = {
         productSummary: { ...data },
@@ -1527,7 +1526,7 @@ function Index() {
           weakness: [...weaknessComment],
         },
         debtProfile: tempDebtData,
-        groupExposureDetail: [...groupExposureData],
+        groupExposureDetail: [...tempArray],
         suggestedOrderValue:
           removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
         suggestedCreditLimit:
@@ -1835,7 +1834,9 @@ function Index() {
     }
 
 
-
+const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {})
+ 
 
     return (
       <table
@@ -6683,71 +6684,8 @@ function Index() {
                               )?.daysOfPayablesOutstanding?.toFixed(2)}
                             </td>
                           </tr>
-                          <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                              }}
-                            >
-                              Inventory Period
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            ></td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              Other Current Assets
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                          </tr>
+                        
+                          
                         </table>
                       </td>
                     </tr>
@@ -6790,7 +6728,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              Revenue
+                              Interest Coverage
                             </td>
                             <td
                               style={{
@@ -6801,7 +6739,9 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              2,988.00
+                              {latestYearData?.interestCoverage
+                              ?.toFixed(2)
+                              ?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6812,7 +6752,9 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              2,988.00
+                              {previousYearData?.interestCoverage
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -6825,7 +6767,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              EBIDTA
+                              Current Ratio
                             </td>
                             <td
                               style={{
@@ -6836,7 +6778,9 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              2,988.00
+                            {latestYearData?.currentRatio
+                            ?.toFixed(2)
+                            ?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6847,7 +6791,45 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              2,988.00
+                              {previousYearData?.currentRatio
+                              ?.toFixed(2)
+                              ?.toLocaleString()}
+                            </td>
+                          </tr>
+                            <tr>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingBottom: '52px',
+                              }}
+                            >Debt Equity
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                           {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                               {previousYearData?.debtEquity
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -7206,7 +7188,7 @@ function Index() {
                           ?.toLocaleString()}
                       </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td
                         style={{
                           fontSize: '20px',
@@ -7272,43 +7254,47 @@ function Index() {
                       >
                         2,988.00
                       </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          paddingLeft: '35px',
-                        }}
-                      >
-                        Interest Coverage
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .interestCoverage?.toFixed(2)
-                          ?.toLocaleString()}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .interestCoverage?.toFixed(2)
-                          ?.toLocaleString()}
-                      </td>
-                    </tr>
+                    </tr> */}
+                     <tr>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Inventory Period
+                            </td>
+                             <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                             Interest Coverage
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {previousYearData?.daysOfInventoryOutstanding?.toFixed(2)}
+                            </td>
+                          </tr>
                     <tr>
                       <td
                         style={{
