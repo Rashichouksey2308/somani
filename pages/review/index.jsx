@@ -8733,7 +8733,7 @@ function Index() {
   }, [companyData])
   return (
     <>
-      {gettingCompanyDetail ? (<Loader />) : (<div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
             <div className={`d-flex align-items-center flex-grow-1`}>
@@ -9706,7 +9706,7 @@ function Index() {
             </div>
           </div>
         </div>
-      </div>)}
+      </div>
       {selectedTab == 'Financials' ||
         'Compliance' ||
         'Orders' ||
