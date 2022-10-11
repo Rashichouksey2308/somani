@@ -508,7 +508,7 @@ export default function Index({ isQuery }) {
       </div>
       <div className={`${styles.unit_container} col-md-5 text-right`}>
         {show.units && pageName !== 'payment' ? (
-          <span className='d-flex align-items-center'>
+          <span className='d-inline-flex align-items-center'>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select
               className={`${styles.options} accordion_DropDown`}
@@ -524,7 +524,7 @@ export default function Index({ isQuery }) {
           </span>
         ) : null}
         {show.currency && pageName !== 'payment' ? (
-          <span className='d-flex align-items-center'>
+          <span className='d-inline-flex align-items-center'>
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :
             </h5>
