@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getLcModule() {
   return {
     type: types.GET_LC_MODULE,
@@ -74,6 +74,7 @@ function updatingAmendmentFailed() {
 }
 
 export const GetLcModule = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -85,12 +86,14 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getLcModuleSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(getLcModuleFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -100,10 +103,12 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -127,6 +132,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       // router.push('/margin-money')
+      dispatch(setNotLoading())
       return response.data.code
     } else {
       dispatch(updateLcModuleFailed(response.data.data))
@@ -134,6 +140,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   } catch (error) {
     dispatch(updateLcModuleFailed())
@@ -141,11 +148,13 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const UpdateLcAmendment =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -161,6 +170,7 @@ export const UpdateLcAmendment =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
           Router.push('/lc-module')
         } else {
           dispatch(updatingLcAmendmentFailed(response.data.data))
@@ -168,6 +178,7 @@ export const UpdateLcAmendment =
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -176,9 +187,11 @@ export const UpdateLcAmendment =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -194,7 +207,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        // router.push('/margin-money')
+        dispatch(setNotLoading())
         Router.push('/amend-letter')
       } else {
         dispatch(updatingAmendmentFailed(response.data.data))
@@ -202,6 +215,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -210,5 +224,6 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

@@ -129,7 +129,7 @@ useEffect(() => {
        
         
        }
-      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
        setAddressList(savedData.addresses|| [])

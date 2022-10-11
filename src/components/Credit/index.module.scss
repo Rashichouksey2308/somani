@@ -577,6 +577,8 @@
    // margin-right: 50px;
     line-height: 1;
     z-index: 2;
+    background: #ffffff;
+    border-radius: 50%;
     @include respond(lg-desktop) {
       margin-left:270px ;
       margin-top: -144px;

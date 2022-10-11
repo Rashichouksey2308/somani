@@ -214,6 +214,7 @@ const index = ({
   }
   console.log(keyPersonData, "keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
+    console.log(keyPersonData,"keyPersonData")
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
   }
@@ -1311,7 +1312,7 @@ const index = ({
                     </tr>
                   </thead>
                   {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
-                    <tbody>
+                    <tbody className='border_color'>
                     <>
                     {!person.isEdit? <>
                       <tr><td>{person.name}</td>
@@ -1538,7 +1539,8 @@ const index = ({
               className={`${styles.add_row} d-flex justify-content-end`}
 
             >
-              <div className={`d-flex justify-content-end`} onClick={(e) => {
+              <div className={`d-flex justify-content-end`} 
+              onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
               }}>  <span>+</span>
                 <div>Add More Rows</div></div>

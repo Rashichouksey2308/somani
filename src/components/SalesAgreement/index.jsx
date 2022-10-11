@@ -1382,6 +1382,9 @@ function Index(props) {
     console.log('this15')
     let timestamp = await dispatch(updateGenericData(dataToSend))
     console.log(timestamp, 'timestamp')
+    if(timestamp==500){
+      return
+    }
     props.setDate(timestamp)
     localStorage.setItem('timeGenericUpdated', timestamp)
      setSubmitData(false)
@@ -1401,7 +1404,7 @@ function Index(props) {
      
     })
  
-    console.log(tempArr,"tempArr")
+ 
     setSidebar([...tempArr])
    
     setSideStateToLocal(key)

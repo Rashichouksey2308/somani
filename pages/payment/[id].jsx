@@ -92,6 +92,9 @@ function Index() {
   useEffect(() => {
     getOrderData()
   }, [dispatch])
+   useEffect(() => {
+    getOrderData()
+  }, [])
   const getOrderData = async () => {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 // import history from '../../history'
 import Cookies from 'js-cookie'
 import { setAuthenticationCookie } from '../../utils/authentication'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 export function submitGeneric() {
   return {
     type: types.SUBMIT_GENERIC,
@@ -47,6 +47,7 @@ export function submitGenericFailed(payload) {
 
 export const updateGenericData =
   (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
     console.log(payload, 'updateGenericData')
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -68,6 +69,7 @@ export const updateGenericData =
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         console.log(response.data.timestamp, 'responsesdasd')
+        dispatch(setNotLoading())
         return response.data.timestamp
       } else {
         dispatch(submitGenericFailed(response.data.data))
@@ -75,6 +77,8 @@ export const updateGenericData =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
+        return 500
       }
     } catch (error) {
       dispatch(submitGenericFailed())
@@ -83,10 +87,13 @@ export const updateGenericData =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
+      return 500
     }
   }
 
 export const getGenericData = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   console.log(payload, 'updateGenericData')
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -94,13 +101,17 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
-    let response = await Axios.get(`${API.corebaseUrl}${API.updateGeneric}`, {
-      headers: headers,
-    })
+    let response = await Axios.get(
+      `${API.corebaseUrl}${API.updateGeneric}${payload ? payload : ''}`,
+      {
+        headers: headers,
+      },
+    )
     if (response.data.code === 200) {
       console.log(response.data.data.data, 'data')
       dispatch(getGenericSuccess(response.data.data.data))
-      return response.data.data.data
+      dispatch(setNotLoading())
+      return response.data.data
     } else {
       dispatch(getGenericFailed(response.data.data))
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -115,5 +126,6 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

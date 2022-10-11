@@ -437,7 +437,7 @@ export default function Index({
                         >
                           {item?.document === null ? (
                             <>
-                              <div className="d-flex flex-grow-1 align-items-center">
+                              <div className="d-flex align-items-center">
                                 <div
                                   className={`${styles.uploadBtnWrapper} flex-grow-1`}
                                 >
@@ -466,13 +466,11 @@ export default function Index({
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
-
-                                <div>
                                   {releaseDetail.length > 1 &&
                                     <img
                                       onClick={() => handleDeleteRow(index)}
                                       src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
+                                      className={`${styles.delete_image} ml-3`}
                                       alt="Delete"
                                     />
                                   }
@@ -484,11 +482,10 @@ export default function Index({
                                           addMorereleaseDetailDataRows(index)
                                         }
                                         src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-3 img-fluid`}
+                                        className={`${styles.delete_image} ml-3`}
                                         alt="Add button"
                                       />
                                     )}
-                                </div>
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
@@ -521,7 +518,7 @@ export default function Index({
                                   <img
                                     onClick={() => handleDeleteRow(index)}
                                     src="/static/delete 2.svg"
-                                    className={`${styles.delete_image} img-fluid ml-3 mr-3`}
+                                    className={`${styles.delete_image} ml-3`}
                                     alt="Delete"
                                   />
                                 }
@@ -533,7 +530,7 @@ export default function Index({
                                         addMorereleaseDetailDataRows(index)
                                       }
                                       src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-3 img-fluid`}
+                                      className={`${styles.delete_image} ml-3`}
                                       alt="Add button"
                                     />
                                   )}
@@ -545,7 +542,7 @@ export default function Index({
                         <img
                           onClick={() => handleDeleteRow(index)}
                           src="/static/delete 2.svg"
-                          className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
+                          className={`${styles.delete_image} ml-1 mt-n4 mr-2`}
                           alt="Delete"
                         />
                       )}
@@ -553,7 +550,7 @@ export default function Index({
                         <img
                           onClick={() => addMorereleaseDetailDataRows(index)}
                           src="/static/add-btn.svg"
-                          className={`${styles.delete_image} mt-n4 img-fluid`}
+                          className={`${styles.delete_image} mt-n4`}
                           alt="Add button"
                         />
                       )} */}

@@ -255,6 +255,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       return arr
     }
 
+  //  let v1 =  filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7])
+  //  let v3 =  filteredData1([1, 2, 3, 4, 500, 6, 6, 6,7, 9, 10])
+  //   let v4 = filteredData1([1, 2, 3, 4, 5, 6, 6, 6,7, 100, 13242,6564])
+
+  //   console.log(v1, v3, v4, 'LINES IN DATA')
+    
+
     const newData = {
       labels: covertMonths(
         filteredData(
@@ -328,7 +335,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label: 'First dataset',
+          label: 'Total Turnover',
           data: getdata(
             filteredData1(
               gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
@@ -372,7 +379,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label: 'First dataset',
+          label: 'No. of Customers',
           data: filteredData1(
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
               ?.customers,
@@ -388,7 +395,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(41, 121, 242,1)',
         },
         {
-          label: 'First dataset',
+          label: 'No. of Invoices',
           data: filteredData1(
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
               ?.invoices,
@@ -595,7 +602,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-          label: ['Revenue Summary'],
+          label: ['Third Party Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -606,7 +613,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-          label: ['Third Party Sales'],
+          label: ['Related Party Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -617,7 +624,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FFD950',
         },
         {
-          label: ['Related Party Sales'],
+          label: ['Intra Org Sales'],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
@@ -923,7 +930,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
     datasets: [
       {
-        label: 'First dataset',
+        label: '',
         data: [33, 53, 85, 41, 44, 120],
         fill: true,
         backgroundColor: 'rgba(75,192,192,1)',
@@ -936,7 +943,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: gstFilteredData?.detail?.summaryCharts?.top10Cus?.names,
     datasets: [
       {
-        label: 'First dataset',
+        label: '',
         data: getdata(gstFilteredData?.detail?.summaryCharts?.top10Cus?.values),
         fill: true,
         backgroundColor: '#4791FF',
@@ -2893,10 +2900,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Averages
                     </th>
                     <th width="33%" className="text-color">
-                      {finacialYear('current') ? finacialYear('current') : '-'}
+                     Period: {' '} {finacialYear('current') ? finacialYear('current') : '-'}
                     </th>
                     <th width="33%" className="text-color">
-                      {finacialYear() ? finacialYear() : '-'}
+                    Period: {' '}  {finacialYear() ? finacialYear() : '-'}
                     </th>
                   </tr>
 
