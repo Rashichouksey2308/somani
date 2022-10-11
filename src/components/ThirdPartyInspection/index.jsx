@@ -938,7 +938,7 @@ export default function Index({ addButton }) {
                 </div>
               ))}
             </div>
-            <hr className='m-0 border_color'/>
+            <hr className="m-0 border_color" />
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -1148,7 +1148,7 @@ export default function Index({ addButton }) {
                     </div>
                   </div>
                 </div>
-                <hr className='m-0 border_color'/>
+                <hr className="m-0 border_color" />
                 <div className={`${styles.dashboard_form} mb-3 card-body`}>
                   <h5 className={`${styles.sub_heading}`}>Special Mention</h5>
                   <Row>
@@ -1371,9 +1371,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1532,9 +1533,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1694,9 +1696,10 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option value="On Hold">On Hold</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Approved">Approved</option>
+                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
+                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
+                                    <option className={`${styles.approved_option}`}
+                                    value="Approved">Approved</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1965,7 +1968,7 @@ const Discharge = (
           </div>
         </div>
       </div>
-      <hr className='m-0 border_color'/>
+      <hr className="m-0 border_color" />
       <div className={`${styles.dashboard_form} card-body`}>
         <h5 className={`${styles.sub_heading} mt-3`}>Special Mention</h5>
         <Row>

@@ -1311,7 +1311,7 @@ const index = ({
                     </tr>
                   </thead>
                   {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
-                    <tbody>
+                    <tbody className='border_color'>
                     <>
                     {!person.isEdit? <>
                       <tr><td>{person.name}</td>
@@ -1341,7 +1341,7 @@ const index = ({
                     </> :
                       <tr key={index} className="table_credit shadow-none">
                         <td>
-                          <div className="d-flex">
+                          <div className="d-inline-flex align-items-center position-relative">
                             {person.addnew ?
                               
                               <>
@@ -1374,9 +1374,9 @@ const index = ({
                                   <option value={`addnew`}>ADD NEW</option>
                                 </select>
                                 <img
-                                  className={`${styles.arrow} ml-n4 img-fluid`}
+                                  className={`${styles.arrow2} img-fluid`}
                                   src="/static/inputDropDown.svg"
-                                  alt="Search"
+                                  alt="arrow"
                                 />
                               </>
                             }

@@ -339,6 +339,7 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
 export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading())
+    dispatch(getALLTermsheet())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 

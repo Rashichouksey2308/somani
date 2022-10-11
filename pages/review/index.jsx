@@ -33,6 +33,9 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import { ViewDocument } from '../../src/redux/ViewDoc/action'
+import Loader from '../../src/components/Loader/index'
+import { GetAllOrders } from 'redux/registerBuyer/action'
+import { GetCompanyDetails } from 'redux/companyDetail/action'
 
 
 import {
@@ -192,7 +195,15 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
-
+  useEffect(() => {
+    if (window) {
+      let id1 = sessionStorage.getItem('orderID')
+      let id2 = sessionStorage.getItem('companyID')
+      dispatch(GetAllOrders({ orderId: id1 }))
+      dispatch(GetCompanyDetails({ company: id2 }))
+      // dispatch(GetDocuments(`?order=${id1}`))
+    }
+  }, [dispatch, fetchingKarzaGst])
 
   useEffect(() => {
     if (companyData) {
@@ -214,8 +225,8 @@ function Index() {
       companyData?.error?.length > 0
     ) {
       _get(companyData, 'error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
+      
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -230,8 +241,7 @@ function Index() {
       companyData?.compliance?.error?.length > 0
     ) {
       _get(companyData, 'compliance.error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -245,7 +255,7 @@ function Index() {
       companyData?.profile?.error?.length > 0
     ) {
       _get(companyData, 'profile.error', [{}]).forEach((item) => {
-        let toastMessage = item?.message
+        let toastMessage = item.description + ', ' + item.message
         let toastDiscription = item?.description
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastDiscription.toUpperCase(), {
@@ -261,8 +271,7 @@ function Index() {
       companyData?.financial?.error?.length > 0
     ) {
       _get(companyData, 'financial.error', [{}]).forEach((item) => {
-        let toastMessage = item.message
-        let toastDiscription = item.description
+        let toastMessage = item.description + ', ' + item.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastMessage.toUpperCase(), { toastId: toastDiscription })
           toast.error(toastDiscription.toUpperCase(), { toastId: toastMessage })
@@ -283,9 +292,9 @@ function Index() {
 
   console.log(orderList, 'this is order list')
 
-  const { companyData } = useSelector((state) => state.companyDetails)
+  const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails)
   console.log(companyData, 'this is company data')
-
+  console.log(gettingCompanyDetail, 'gettingCompanyDetail')
   // useEffect(()=> {
   //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
   //   setFilteredDoc(prev => [...prev, filtered ])
@@ -1010,7 +1019,7 @@ function Index() {
     let personArr = []
 
 
-    if (orderList?.company?.keyContactPerson.length > 0) {
+    if (orderList?.company?.keyContactPerson?.length > 0) {
       orderList?.company?.keyContactPerson?.forEach((element) => {
         //  console.log(element,"useEE")
         personArr.push({
@@ -1026,9 +1035,8 @@ function Index() {
           addnew: false,
         })
       })
-    } else {
-      if (companyData?.profile?.directorDetail.length > 0) {
-        companyData?.profile?.directorDetail.forEach((val, index) => {
+    } else if (companyData?.profile?.directorDetail.length > 0) {
+        companyData?.profile?.directorDetail?.forEach((val, index) => {
           personArr.push({
             contact: {
               callingCode: '+91',
@@ -1042,7 +1050,7 @@ function Index() {
             addnew: false,
           })
         })
-      }
+      
     }
 
     setPersonData([...personArr])
@@ -8702,7 +8710,7 @@ function Index() {
   }, [companyData])
   return (
     <>
-      <div className={`${styles.dashboardTab} w-100`}>
+      {gettingCompanyDetail ? (<Loader />) : (<div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
             <div className={`d-flex align-items-center flex-grow-1`}>
@@ -8961,7 +8969,7 @@ function Index() {
                   <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                    style={{ cursor: 'default' }}
+                      style={{ cursor: 'default' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -9675,7 +9683,7 @@ function Index() {
             </div>
           </div>
         </div>
-      </div>
+      </div>)}
       {selectedTab == 'Financials' ||
         'Compliance' ||
         'Orders' ||

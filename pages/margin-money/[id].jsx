@@ -4321,12 +4321,18 @@ function Index() {
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
-            <img onClick={() => Router.push('/margin-money')}
+            {/* <img onClick={() => Router.push('/margin-money')}
               src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
                 }`}
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
               style={{cursor:'pointer'}}
+            /> */}
+             <img
+               onClick={() => Router.push('/margin-money')}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
               <span>{_get(orderList,"company.companyName","")}</span>

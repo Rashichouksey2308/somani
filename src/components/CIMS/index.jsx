@@ -49,19 +49,15 @@ export default function Index({
       setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
     }
   }, [TransitDetails])
-    useEffect(() => {
+  useEffect(() => {
     if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
       setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
     }
   }, [TransitDetails])
-      useEffect(() => {
-    let temp=[...cimsDetails]
-    temp[0].quantity=_get(
-                              TransitDetails,
-                              'data[0].order.quantity',
-                              '',
-                            )
-     setCimsDetails([...temp])                       
+  useEffect(() => {
+    let temp = [...cimsDetails]
+    temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
+    setCimsDetails([...temp])
   }, [TransitDetails])
   const dispatch = useDispatch()
   const onChangeVessel = (e, index) => {
@@ -132,7 +128,7 @@ export default function Index({
       return newState
     })
   }
-console.log(cimsDetails,"2222222")
+  console.log(cimsDetails, '2222222')
   const saveDate = (startDate, name, index) => {
     console.log(startDate, name, 'Event1')
     setCimsDetails((prevState) => {
@@ -421,11 +417,10 @@ console.log(cimsDetails,"2222222")
                       // _get(TransitDetails, 'data[0].order.quantity', 0)
                       value={
                         isFieldInFocus
-                          ?cimsDetails[0].quantity
-                          :
-                           Number(
-                              cimsDetails[0].quantity,
-                            )?.toLocaleString("en-IN") +
+                          ? cimsDetails[0].quantity
+                          : Number(cimsDetails[0].quantity)?.toLocaleString(
+                              'en-IN',
+                            ) +
                             ` ${_get(
                               TransitDetails,
                               'data[0].order.unitOfQuantity',

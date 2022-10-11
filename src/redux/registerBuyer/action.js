@@ -327,6 +327,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
+    dispatch(getAllBuyer())
     Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
       headers: headers,
     }).then((response) => {

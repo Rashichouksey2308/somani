@@ -68,7 +68,34 @@ function Index() {
         </div>
 
         <div className={styles.body}>
-          <p>The above cargo was shipped on the above ship by{' '} <span className={styles.bold}>LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE 4000 QUEBSLAND, AUSTRALIA{' '}</span>and consigned to <span className={styles.bold}>TO ORDER</span> for delivery at the port of<span style={styles.bold}>ANY PORT (S) IN INDIA</span> but the bill of lading has not arrived and we,{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA{' '}, hereby request you to deliver the said cargo to{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA{' '} or to such party as you believe to be or to represent{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA {' '}or to be acting on behalf of{' '} {' '}EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at <span className={styles.bold}> VISAKHAPATNAM PORT (VSPL), INDIA</span>{' '} without production of the original bill of lading.</p>
+          <p>
+            The above cargo was shipped on the above ship by{' '}
+            <span className={styles.bold}>
+              LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE
+              4000 QUEBSLAND, AUSTRALIA{' '}
+            </span>
+            and consigned to <span className={styles.bold}>TO ORDER</span> for
+            delivery at the port of
+            <span style={styles.bold}>ANY PORT (S) IN INDIA</span> but the bill
+            of lading has not arrived and we, EMERGENT INDUSTRIAL SOLUTIONS
+            LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD
+            AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA , hereby
+            request you to deliver the said cargo to EMERGENT INDUSTRIAL
+            SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
+            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016,
+            INDIA or to such party as you believe to be or to represent EMERGENT
+            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
+            PRADESH - 530016, INDIA or to be acting on behalf of EMERGENT
+            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
+            PRADESH - 530016, INDIA at{' '}
+            <span className={styles.bold}>
+              {' '}
+              VISAKHAPATNAM PORT (VSPL), INDIA
+            </span>{' '}
+            without production of the original bill of lading.
+          </p>
 
           <div className={`${styles.list}`}>
             <p>

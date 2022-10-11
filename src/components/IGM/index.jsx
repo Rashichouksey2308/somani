@@ -515,13 +515,13 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(
-                      TransitDetails,
-                      'data[0].BL.billOfLading[0].blQuantity',
-                      '',
-                    )?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
+                    {TransitDetails?.data
+                      ?.map((bl) => {
+                        return bl?.BL?.billOfLanding[0]?.blQuantity
+                      })
+                      ?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                      })}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -881,9 +881,9 @@ export default function Index({
                                 </div>
                                 <span className={styles.value}>
                                   {blEntry?.blDate
-                                    ? moment(
-                                        blEntry?.blDate
-                                      ).format('DD-MM-YYYY')
+                                    ? moment(blEntry?.blDate).format(
+                                        'DD-MM-YYYY',
+                                      )
                                     : ''}
                                 </span>
                               </div>

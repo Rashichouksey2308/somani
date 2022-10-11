@@ -1123,3 +1123,17 @@ body.light-mode .shareholding {
 body.dark-mode .shareholding {
   background: #232936;
 }
+body.light-mode .share-holding-border {
+  border: 2px solid #E6EAF0 !important;
+}
+body.dark-mode .share-holding-border {
+  border: 2px solid #434e61 !important;
+}
+body.light-mode .share-holding-border th,
+body.light-mode .share-holding-border td {
+  border-color: #E6EAF0 !important;
+}
+body.dark-mode .share-holding-border th,
+body.dark-mode .share-holding-border td {
+  border-color: 2px solid #434e61 !important;
+}
