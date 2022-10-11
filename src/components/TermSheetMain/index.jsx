@@ -60,6 +60,7 @@ function Index() {
     await dispatch(GetCompanyDetails({ company: buyer.company._id }))
     sessionStorage.setItem('orderID', buyer._id)
     sessionStorage.setItem('companyID', buyer.company._id)
+    sessionStorage.setItem('showCAM',true)
     Router.push('/review')
 
   }
