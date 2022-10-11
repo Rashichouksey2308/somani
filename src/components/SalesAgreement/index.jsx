@@ -1339,6 +1339,16 @@ function Index(props) {
             return
         }
            }
+          if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
           }
           
         }
@@ -1382,6 +1392,9 @@ function Index(props) {
     console.log('this15')
     let timestamp = await dispatch(updateGenericData(dataToSend))
     console.log(timestamp, 'timestamp')
+    if(timestamp==500){
+      return
+    }
     props.setDate(timestamp)
     localStorage.setItem('timeGenericUpdated', timestamp)
      setSubmitData(false)
@@ -1401,7 +1414,7 @@ function Index(props) {
      
     })
  
-    console.log(tempArr,"tempArr")
+ 
     setSidebar([...tempArr])
    
     setSideStateToLocal(key)

@@ -129,11 +129,12 @@ const Index = ({
     let tempArr = [...groupExposureData]
     tempArr.forEach((val, i) => {
       if (i == index) {
-        val[name] = value.toLocal
+        val[name] = value
       }
     })
+    console.log(tempArr,"tempArr")
     // console.log(tempArr, 'tempArr')
-    setGroupExposureData(tempArr)
+    setGroupExposureData([...tempArr])
   }
   const handleRemoveRowEx = (index) => {
     setGroupExposureData([
@@ -412,7 +413,7 @@ const Index = ({
                                 Emerging Traders
                               </option>
                               <option value="Bhutani Traders">
-                                Krishna Taders
+                                Bhutani Traders
                               </option>
                               <option value="Krishna Traders">
                                 Krishna Traders

@@ -5,6 +5,7 @@ import Router, { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action'
 import { removePrefixOrSuffix } from '../../../src/utils/helper'
+import { settingSidebar } from 'redux/breadcrumb/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
 import {
@@ -19,7 +20,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc)
 
   const lcModuleData = _get(lcModule, 'data[0]', {})
-
+console.log(_get(lcModule,"data[0].order.vessel"),"sasdasdasdasd",lcModule)
   const [excelFile, setExcelFile] = useState(null)
   useEffect(() => {
     let id = sessionStorage.getItem('lcOrder')
@@ -545,10 +546,10 @@ console.log(lcModuleData,"lcModuleData")
       console.log(lcModule,"lcModule")
        let code = await dispatch(UpdateLcModule({ obj: obj }))
        if(code==200){
-        // sessionStorage.setItem('VesselCompany',"")
-        // sessionStorage.setItem('VesselId',"")
-        // dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'))
-        // router.push(`/vessel`)
+        sessionStorage.setItem('VesselCompany',_get(lcModule,"data[0].company._id",""))
+        sessionStorage.setItem('VesselId',_get(lcModule,"data[0].order.vessel",""))
+        dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'))
+        router.push(`/vessel`)
        }
       
     }

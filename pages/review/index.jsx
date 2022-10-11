@@ -195,16 +195,51 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
+  const [selectedTab, setSelectedTab] = useState('Profile')
+ console.log(selectedTab,"selectedTab")
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
-      dispatch(GetAllOrders({ orderId: id1 }))
-      dispatch(GetCompanyDetails({ company: id2 }))
-      // dispatch(GetDocuments(`?order=${id1}`))
+     
+       console.log(sessionStorage.getItem("showCAM"),"sdasdasdasd")
+              
+      if(sessionStorage.getItem("showCAM")=="true"){
+         sessionStorage.setItem('showCAM',false)
+            setSelectedTab("CAM")
+            dispatch(GetAllOrders({ orderId: id1 }))
+            dispatch(GetCompanyDetails({ company: id2 }))
+     
+        let list = document.getElementsByClassName('nav-tabs')||[]
+        let tab = document.getElementsByClassName('tab-content')||[]
+      
+
+        //  console.log(list[0].children[i].children[0].innerHTML,"check")
+        
+          let tempIndex =7
+          
+          
+       
+          list[0]?.children[0]?.children[0]?.classList?.remove('active')
+          console.log(tab[0]?.children[tempIndex],"Dasdasdsadasd",tab[0]?.children[0])
+          list[0]?.children[tempIndex]?.children[0]?.classList?.add('active')
+          tab[0]?.children[0]?.classList?.remove('show')
+          tab[0]?.children[0]?.classList?.remove('active')
+          tab[0]?.children[tempIndex]?.classList?.add('show')
+          tab[0]?.children[tempIndex]?.classList?.add('active')
+         
+      }
+      if(sessionStorage.getItem("showCAM")=="false"||sessionStorage.getItem("showCAM")==undefined){
+   
+       
+        dispatch(GetAllOrders({ orderId: id1 }))
+        dispatch(GetCompanyDetails({ company: id2 }))
+      }
+
     }
   }, [dispatch, fetchingKarzaGst])
 
+ 
   useEffect(() => {
     if (companyData) {
       let statutory = []
@@ -226,7 +261,7 @@ function Index() {
     ) {
       _get(companyData, 'error', [{}]).forEach((item) => {
         let toastMessage = item.description + ', ' + item.message
-      
+
         if (!toast.isActive(toastMessage.toUpperCase())) {
           // toast.error(toastDiscription.toUpperCase(), {
           //   toastId: toastDiscription,
@@ -303,13 +338,38 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     console.log(latest, previous, last, 'latest, previous, last')
-    if (last == previous && previous < latest) {
-      return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
+
+    if (last < previous && previous < latest) {
+      return <img src="/static/trend-green-321.svg" alt="Profit" className="img-fluid" />
     }
-    if (last == previous && previous > latest) {
-      return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
+    }
+    ////doubt
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last < previous && previous > latest) {
+      return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last > previous && previous < latest) {
+      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />
+    }
+    ////////doubt
+    if (last === previous && previous === latest) {
+      return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />
     }
 
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />
+    }
+    /////doubt
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />
+    }
+    if (last > previous && previous > latest) {
+      return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
+    }
     if (latest > previous && previous > last) {
       return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
     } else if (latest < previous && previous < last) {
@@ -340,7 +400,6 @@ function Index() {
 
   const id = sessionStorage.getItem('orderID')
 
-  const [selectedTab, setSelectedTab] = useState('Profile')
 
   const [orderDetails, setOrderDetails] = useState({
     transactionType: orderList?.transactionType,
@@ -716,7 +775,7 @@ function Index() {
       existingProcurementOfCommodity: orderList?.productSummary
         ?.existingProcurementOfCommodity
         ? orderList?.productSummary?.existingProcurementOfCommodity
-        : '',
+        : 'Import',
       existingSuppliers: orderList?.productSummary?.existingSuppliers
         ? orderList?.productSummary?.existingSuppliers
         : [],
@@ -1036,21 +1095,21 @@ function Index() {
         })
       })
     } else if (companyData?.profile?.directorDetail.length > 0) {
-        companyData?.profile?.directorDetail?.forEach((val, index) => {
-          personArr.push({
-            contact: {
-              callingCode: '+91',
-              number: '',
-            },
-            department: '',
-            designation: val.designation,
-            email: val.email,
-            name: val.name,
-            isEdit: false,
-            addnew: false,
-          })
+      companyData?.profile?.directorDetail?.forEach((val, index) => {
+        personArr.push({
+          contact: {
+            callingCode: '+91',
+            number: '',
+          },
+          department: '',
+          designation: val.designation,
+          email: val.email,
+          name: val.name,
+          isEdit: false,
+          addnew: false,
         })
-      
+      })
+
     }
 
     setPersonData([...personArr])
@@ -1089,15 +1148,9 @@ function Index() {
   }, [orderList, orderList?.company, companyData?.profile?.directorDetail])
 
   const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
+  
   ])
-
+console.log(groupExposureData,"groupExposureData")
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: '',
     suggestedOrderValue: '',
@@ -1223,7 +1276,7 @@ function Index() {
         designation: '',
         email: '',
         name: '',
-        isEdit: false,
+        isEdit: true,
         addnew: false,
       },
     ])
@@ -1235,8 +1288,10 @@ function Index() {
     })
     setPersonData(tempArr)
   }
-  console.log(supplierCred, 'product')
+    console.log(product, 'xxxxxxxx')
   const creditValidation = () => {
+   
+
     if (
       product.monthlyProductionCapacity == '' ||
       product.monthlyProductionCapacity == undefined
@@ -1442,17 +1497,27 @@ function Index() {
       supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
         supplierCred.commodityOfTotalTrade,
       )
-      // let tempArray = [...groupExposureData]
-      // // console.log(tempArray, 'groupExposure')
-      // tempArray.forEach((e) => {
-      //   if (e.limit === NaN) {
-      //     let oldValue = e?.limit?.replace(/,/g, '')
-      //     e.limit = oldValue
-      //     return Number(e)
-      //   }
-      // })
-
+      let tempArray = [...groupExposureData]
       // console.log(tempArray, 'groupExposure')
+      tempArray.forEach((e) => {
+        if (e.limit.length>=5) {
+          let oldValue = e?.limit?.replace(/,/g, '')
+          e.limit = Number(oldValue)
+     
+        }else{
+           Number(e.limit)
+        }
+         if (e.outstandingLimit.length>=5) {
+          let oldValue = e?.outstandingLimit?.replace(/,/g, '')
+          e.outstandingLimit = Number(oldValue)
+     
+        }
+        else{
+           Number(e.outstandingLimit)
+        }
+      })
+
+      console.log(tempArray, 'groupExposure')
 
       let obj = {
         productSummary: { ...data },
@@ -1468,7 +1533,7 @@ function Index() {
           weakness: [...weaknessComment],
         },
         debtProfile: tempDebtData,
-        groupExposureDetail: [...groupExposureData],
+        groupExposureDetail: [...tempArray],
         suggestedOrderValue:
           removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
         suggestedCreditLimit:
@@ -1553,11 +1618,11 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         }
-        let code = await dispatch(UpdateCam(obj))
+        let code = await dispatch(UpdateCam(obj,"CAM APPROVED"))
         console.log(code, "code")
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'))
-          // router.push(`/termsheet/${orderList._id}`)
+          router.push(`/termsheet/id`)
         }
 
       }
@@ -1568,7 +1633,7 @@ function Index() {
       order: orderList._id,
       status: 'Rejected',
     }
-    dispatch(UpdateCam(obj))
+    dispatch(UpdateCam(obj,"CAM REJECTED"))
   }
 
   const currentOpenLink = (e) => {
@@ -1776,7 +1841,9 @@ function Index() {
     }
 
 
-
+const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {})
+ 
 
     return (
       <table
@@ -6624,71 +6691,8 @@ function Index() {
                               )?.daysOfPayablesOutstanding?.toFixed(2)}
                             </td>
                           </tr>
-                          <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                              }}
-                            >
-                              Inventory Period
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            ></td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              Other Current Assets
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                                paddingBottom: '38px',
-                              }}
-                            >
-                              2,988.00
-                            </td>
-                          </tr>
+                        
+                          
                         </table>
                       </td>
                     </tr>
@@ -6731,7 +6735,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              Revenue
+                              Interest Coverage
                             </td>
                             <td
                               style={{
@@ -6742,7 +6746,9 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              2,988.00
+                              {latestYearData?.interestCoverage
+                              ?.toFixed(2)
+                              ?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6753,7 +6759,9 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              2,988.00
+                              {previousYearData?.interestCoverage
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -6766,7 +6774,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              EBIDTA
+                              Current Ratio
                             </td>
                             <td
                               style={{
@@ -6777,7 +6785,9 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              2,988.00
+                            {latestYearData?.currentRatio
+                            ?.toFixed(2)
+                            ?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -6788,7 +6798,45 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              2,988.00
+                              {previousYearData?.currentRatio
+                              ?.toFixed(2)
+                              ?.toLocaleString()}
+                            </td>
+                          </tr>
+                            <tr>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingBottom: '52px',
+                              }}
+                            >Debt Equity
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                           {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                               {previousYearData?.debtEquity
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -7147,7 +7195,7 @@ function Index() {
                           ?.toLocaleString()}
                       </td>
                     </tr>
-                    <tr>
+                    {/* <tr>
                       <td
                         style={{
                           fontSize: '20px',
@@ -7213,43 +7261,47 @@ function Index() {
                       >
                         2,988.00
                       </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          paddingLeft: '35px',
-                        }}
-                      >
-                        Interest Coverage
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .interestCoverage?.toFixed(2)
-                          ?.toLocaleString()}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .interestCoverage?.toFixed(2)
-                          ?.toLocaleString()}
-                      </td>
-                    </tr>
+                    </tr> */}
+                     <tr>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Inventory Period
+                            </td>
+                             <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                             Interest Coverage
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}</td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {previousYearData?.daysOfInventoryOutstanding?.toFixed(2)}
+                            </td>
+                          </tr>
                     <tr>
                       <td
                         style={{
@@ -8710,7 +8762,7 @@ function Index() {
   }, [companyData])
   return (
     <>
-      {gettingCompanyDetail ? (<Loader />) : (<div className={`${styles.dashboardTab} w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
             <div className={`d-flex align-items-center flex-grow-1`}>
@@ -9683,7 +9735,7 @@ function Index() {
             </div>
           </div>
         </div>
-      </div>)}
+      </div>
       {selectedTab == 'Financials' ||
         'Compliance' ||
         'Orders' ||

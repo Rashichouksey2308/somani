@@ -4,7 +4,7 @@ import API from '../../utils/endpoints'
 import * as types from './actionType'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 const errorMessage = {
   status: 400,
   message: 'Something went wrong',
@@ -99,57 +99,58 @@ function VerifyingGstFailed() {
   }
 }
 
-export const UpdateCam = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const UpdateCam =
+  (payload, message) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
+    console.log(payload.status, 'payload')
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  try {
-    let response = await Axios.put(
-      `${API.corebaseUrl}${API.updateCam}`,
-      payload,
-      {
-        headers: headers,
-      },
-    )
-    if (response.data.code === 200) {
-      {
-        console.log('www', response.data.data)
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.put(
+        `${API.corebaseUrl}${API.updateCam}`,
+        payload,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response.data.code, 'response')
+      if (response.data.code === 200) {
+        dispatch(updatingCamSuccess(response.data.data))
+        console.log(response.data.code, 'response.data.data.order')
+        sessionStorage.setItem('termsheetId', response.data.data.order._id)
+        sessionStorage.setItem('termID', response.data.data.order.termsheet._id)
+        sessionStorage.setItem('termOrdID', response.data.data.order._id)
+        let toastMessage = message
+
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+        return response.data.code
+      } else {
+        dispatch(updatingCamFailed(response.data.data))
+        let toastMessage = response.data.message
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
       }
-      dispatch(updatingCamSuccess(response.data.data))
-      let toastMessage = 'CAM APPROVED'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-      // sessionStorage.setItem('termsheetId', sheet.company._id)
-      // sessionStorage.setItem('termID', term._id)
-      // sessionStorage.setItem('termOrdID', term?.order._id)
-      return response.data.code
-      // sessionStorage.setItem(
-      //   'orderID',
-      //   response.data.data.form.orderDetails[0],
-      // )
-      // sessionStorage.setItem('company', response.data.data.form._id)
-      // Router.push(`/termsheet/${response.data.data.form._id}`)
-    } else {
-      dispatch(updatingCamFailed(response.data.data))
-      let toastMessage = response.data.message
+    } catch (error) {
+      dispatch(updatingCamFailed())
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    }
-  } catch (error) {
-    dispatch(updatingCamFailed())
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      dispatch(setNotLoading())
     }
   }
-}
 
 export const GetDocuments = (payload) => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     console.log('here in getDocuments')
@@ -164,8 +165,10 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(gettingDocumentsSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(gettingDocumentsFailed(response.data.data))
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -174,11 +177,13 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
   try {
+    dispatch(setIsLoading())
     let cookie = Cookies.get('SOMANI')
 
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -191,12 +196,14 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(VerifyingGstSuccess(response.data.data))
+        dispatch(setNotLoading())
       } else {
         dispatch(VerifyingGstFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -205,10 +212,12 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const AddingDocument = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   const id = sessionStorage.getItem('docFetchID')
@@ -231,12 +240,14 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       } else {
         dispatch(addingDocumentsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -245,10 +256,12 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
 export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -264,12 +277,14 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       } else {
         dispatch(deleteDocumentsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -278,5 +293,6 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }

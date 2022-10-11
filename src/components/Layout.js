@@ -85,11 +85,13 @@ function Layout({ children }) {
               ${isMobile ? styles.no_sidebar_mobile : null}
               `}
             >
+              <Loader />
               <ErrorBoundary>
                 <Breadcrum isQuery={isQuery} />
                 {children}
                 <Footer />
               </ErrorBoundary>
+
               {/* <TermSheetPreview /> */}
               {/* <TermsheetPopUp /> */}
             </div>

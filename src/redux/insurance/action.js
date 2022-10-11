@@ -4,8 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
-
+import { setIsLoading, setNotLoading } from '../Loaders/action'
 function getAllInsurance() {
   return {
     type: types.GET_ALL_INSURANCE,
@@ -96,6 +95,7 @@ function updateQuotationFailed() {
 export const GettingAllInsurance =
   (payload) => async (dispatch, getState, api) => {
     try {
+      dispatch(setIsLoading())
       let cookie = Cookies.get('SOMANI')
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
@@ -109,11 +109,14 @@ export const GettingAllInsurance =
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllInsuranceSuccess(response.data.data))
+          dispatch(setNotLoading())
         } else {
           dispatch(getAllInsuranceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          dispatch(setNotLoading())
         }
       })
     } catch (error) {
@@ -123,32 +126,35 @@ export const GettingAllInsurance =
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
   }
 
 export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(
-      `${API.corebaseUrl}${API.getInsurance}`, payload ,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.getInsurance}`, payload, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(createInsuranceSuccess(response.data.data))
         let toastMessage = 'INSURANC CREATED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
       } else {
         dispatch(createInsuranceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
       }
     })
   } catch (error) {
@@ -158,103 +164,127 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
 }
 
-export const UpdateInsurance =
-  (payload) => async (dispatch, getState, api) => {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    try {
-      Axios.put(`${API.corebaseUrl}${API.getInsurance}`, payload, {
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.getInsurance}`,
+      payload,
+      {
         headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateInsuranceSuccess(response.data))
-          let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        //   router.push('/margin-money')
-        } else {
-          dispatch(updateInsuranceFailed(response.data))
-          let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        }
-      })
-    } catch (error) {
-      dispatch(updateInsuranceFailed())
-      let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(updateInsuranceSuccess(response.data))
+      let toastMessage = 'SAVED SUCCESSFULLY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      dispatch(setNotLoading())
+      return response.data.code
+      //   router.push('/margin-money')
+    } else {
+      dispatch(updateInsuranceFailed(response.data))
+      let toastMessage = 'UPDATE REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
+  } catch (error) {
+    dispatch(updateInsuranceFailed())
+    let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+    dispatch(setNotLoading())
   }
+}
 
-export const RenewInsurance =
-  (payload) => async (dispatch, getState, api) => {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const RenewInsurance = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    try {
-      Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(renewInsuranceSuccess(response.data.data))
-          let toastMessage = 'REQUEST SENT SUCCESSFULLY'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        //   router.push('/margin-money')
-        } else {
-          dispatch(renewInsuranceFailed(response.data.data))
-          let toastMessage = 'RENEW REQUEST FAILED'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(renewInsuranceSuccess(response.data.data))
+        let toastMessage = 'REQUEST SENT SUCCESSFULLY'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-      })
-    } catch (error) {
-      dispatch(renewInsuranceFailed())
-      let toastMessage = 'RENEW INSURANCE REQUEST FAILED'
+        dispatch(setNotLoading())
+        //   router.push('/margin-money')
+      } else {
+        dispatch(renewInsuranceFailed(response.data.data))
+        let toastMessage = 'RENEW REQUEST FAILED'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+      }
+    })
+  } catch (error) {
+    dispatch(renewInsuranceFailed())
+    let toastMessage = 'RENEW INSURANCE REQUEST FAILED'
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+    dispatch(setNotLoading())
+  }
+}
+export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading())
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  try {
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.updateQuotation}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(updateQuotationSuccess(response.data))
+      let toastMessage = 'SAVED SUCCESSFULLY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      dispatch(setNotLoading())
+      return response.data.code
+      //   router.push('/margin-money')
+    } else {
+      dispatch(updateQuotationFailed(response.data))
+      let toastMessage = 'UPDATE REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      dispatch(setNotLoading())
     }
-  }
-export const UpdateQuotation =
-  (payload) => async (dispatch, getState, api) => {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    try {
-      Axios.put(`${API.corebaseUrl}${API.updateQuotation}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateQuotationSuccess(response.data))
-          let toastMessage = 'SAVED SUCCESSFULLY'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        //   router.push('/margin-money')
-        } else {
-          dispatch(updateQuotationFailed(response.data))
-          let toastMessage = 'UPDATE REQUEST FAILED'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        }
-      })
-    } catch (error) {
-      dispatch(updateQuotationFailed())
-      let toastMessage = 'UPDATE QUOTATION REQUEST FAILED'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+  } catch (error) {
+    dispatch(updateQuotationFailed())
+    let toastMessage = 'UPDATE QUOTATION REQUEST FAILED'
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
+}

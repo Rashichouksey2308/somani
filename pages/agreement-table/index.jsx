@@ -16,13 +16,15 @@ function Index(props) {
   const [serachterm, setSearchTerm] = useState('')
 
   const dispatch = useDispatch()
- const [genData,setData]=useState([])
+  const [genData,setData]=useState([])
+  const [total,setTotal]=useState([])
+  const [sorting, setSorting] = useState(1)
   
   const { generic } = useSelector((state) => state.generic.allGeneric)
 
   const { searchedLeads } = useSelector((state) => state.order)
 
-  console.log(generic,"generic")
+  console.log(genData,"generic",total)
 
  useEffect(() => {
     dispatch(setPageName('agreement'))
@@ -31,7 +33,7 @@ function Index(props) {
   })
  useEffect(() => {
    getDate()
-  },[])
+  },[currentPage, dispatch])
 
 useEffect(() => {
 if(window){
@@ -43,12 +45,26 @@ if(window){
 
 const getDate = async () =>{
 
- let data = await dispatch(getGenericData())
- console.log(data,"dgeneric22131ata")
- setData(data)
+ let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
+ console.log(data.data,"sadasdasdasdsd")
+ setData(data.data)
+ setTotal(data.totalCount)
 }
 
-
+  const handleSort = async() => {
+    if(sorting == -1){
+   let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+   setData(data.data)
+  setTotal(data.totalCount) 
+   setSorting(1)
+    }else if(sorting == 1){
+      
+    let data = await   dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+     setData(data.data)
+     setTotal(data.totalCount)  
+    setSorting(-1)
+    }
+  }
   const handleRoute = (term) => {
     console.log(term,"adasdsdads")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
@@ -130,9 +146,9 @@ const getDate = async () =>{
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>
+               <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(genData?.length / 10)}
+                  {Math.ceil(total / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -154,7 +170,10 @@ const getDate = async () =>{
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(genData?.length / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(total / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -179,7 +198,7 @@ const getDate = async () =>{
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
+                      <th >ORDER ID <img  onClick={()=>handleSort()} className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
                     
                       <th>BUYER NAME </th>
                       <th>STATUS </th>
