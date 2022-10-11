@@ -18,6 +18,10 @@ import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../../src/utils/helper'
+import {
+  settingSidebar,
+} from '../../../../src/redux/breadcrumb/action'
+
 import moment from 'moment/moment'
 
 const Index = () => {
@@ -384,7 +388,7 @@ function getDifferenceInDaysStorage() {
 
   console.log(insuranceData, 'insuranceData')
 
-  const handleInsuranceUpdate = () => {
+  const handleInsuranceUpdate = async () => {
     if (!validate()) return
 
     let marineObj = { ...marineData }
@@ -407,7 +411,12 @@ function getDifferenceInDaysStorage() {
       insuranceDocument.storagePolicyDocument,
     )
 
-    dispatch(UpdateInsurance(fd))
+     let code = await   dispatch(UpdateInsurance(fd))
+     if(code==200){
+         sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
+         dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
+         Router.push(`/third-party`)
+       }
 
   }
 

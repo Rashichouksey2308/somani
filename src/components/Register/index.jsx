@@ -335,7 +335,7 @@ function Index() {
       sendOrder1.turnOver = Number(
         removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
       )
-
+ 
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
