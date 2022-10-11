@@ -99,7 +99,7 @@ function VerifyingGstFailed() {
   }
 }
 
-export const UpdateCam = (payload) => async (dispatch, getState, api) => {
+export const UpdateCam = (payloadz) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
