@@ -81,7 +81,8 @@ useEffect(() => {
        
         
        }
-     setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+     setList(savedData.authorisedSignatoryDetails?.length>0?
+      savedData.authorisedSignatoryDetails:[{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
        setAddressList(savedData.addresses)
@@ -117,7 +118,9 @@ useEffect(() => {
        
         
        }
-       setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+       setList(props?.data?.authorisedSignatoryDetails.length>0
+        ?
+        props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
 

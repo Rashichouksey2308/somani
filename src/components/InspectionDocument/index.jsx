@@ -20,6 +20,7 @@ const Index = ({
   documentName,
   lcDoc,
   setLcDoc,
+  isOpen,
 }) => {
   const dispatch = useDispatch()
 
@@ -192,7 +193,7 @@ const Index = ({
       </div>
       <div
         id="uploadOther"
-        className="collapse"
+        className= { !isOpen ? 'collapse' : ''}
         aria-labelledby="uploadOther"
         data-parent="#uploadOther"
       >

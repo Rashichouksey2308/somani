@@ -33,13 +33,16 @@ function AddressComponent({
             <div
               className={`d-flex justify-content-between align-items-center`}
             >
-              <Form.Check
-                className={styles.radio}
-                inline
-                name="group1"
-                type={'checkbox'}
-                checked={communicationModeYes == true ? true : false}
-              />
+              {communicationModeYes == true ? (
+                <Form.Check
+                  className={styles.radio}
+                  inline
+                  name="group1"
+                  type={'checkbox'}
+                  checked={communicationModeYes == true ? true : false}
+                />
+              ) : null}
+
               <h5 className={`mb-0`}>{Title}</h5>
             </div>
             <div>
@@ -87,17 +90,19 @@ function AddressComponent({
                 <span>GSTIN: </span>
                 {gstIn}
               </p>
-              <span
-                onClick={() =>
-                  dispatch(
-                    ViewDocument({ order: orderDetail?._id, path: path }),
-                  )
-                }
-                className={styles.view_btn}
-                style={{ cursor: 'pointer' }}
-              >
-                View
-              </span>
+              {path ? (
+                <span
+                  onClick={() =>
+                    dispatch(
+                      ViewDocument({ order: orderDetail?._id, path: path }),
+                    )
+                  }
+                  className={styles.view_btn}
+                  style={{ cursor: 'pointer' }}
+                >
+                  View
+                </span>
+              ) : null}
             </div>
           </div>
         </div>
