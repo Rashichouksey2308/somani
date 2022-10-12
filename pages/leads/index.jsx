@@ -65,11 +65,10 @@ function Index() {
   const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
-    if(sorting == -1){
-    dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
+    if (sorting == -1) {
+      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
+      setSorting(1)
+    } else if (sorting == 1) {
       dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
       setSorting(-1)
     }
@@ -133,7 +132,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-                <span style={{fontSize:'28px'}}>+</span>
+              <span style={{ fontSize: '28px' }}>+</span>
               <span className={`ml-1 mr-2`}>New Customer</span>
             </button>
           </div>
@@ -142,7 +141,9 @@ function Index() {
           <div
             className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
+            <div
+              className={`${styles.all} ${styles.boxInner} all border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -157,7 +158,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+            <div
+              className={`${styles.approved} ${styles.boxInner} approved border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -172,7 +175,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+            <div
+              className={`${styles.review} ${styles.boxInner} review border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -187,7 +192,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
+            <div
+              className={`${styles.rejected} ${styles.boxInner} rejected border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -202,7 +209,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+            <div
+              className={`${styles.saved} ${styles.boxInner} saved border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -284,7 +293,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
-                          onClick={()=>handleSort()}
+                          onClick={() => handleSort()}
                         />
                       </th>
                       <th>BUYER NAME</th>
@@ -301,7 +310,11 @@ function Index() {
                           key={index}
                           className={`${styles.table_row} table_row`}
                         >
-                          <td>{buyer?.company?.customerId ? buyer?.company?.customerId : buyer?.company?.temporaryCustomerId}</td>
+                          <td>
+                            {buyer?.company?.customerId
+                              ? buyer?.company?.customerId
+                              : buyer?.company?.temporaryCustomerId}
+                          </td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
@@ -320,23 +333,24 @@ function Index() {
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
-                              className={`${styles.status} ${buyer.queue === 'Rejected'
+                              className={`${styles.status} ${
+                                buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                    ? styles.review
-                                    : buyer.queue === 'CreditQueue'
-                                      ? styles.approved
-                                      : styles.rejected
-                                }`}
+                                  ? styles.review
+                                  : buyer.queue === 'CreditQueue'
+                                  ? styles.approved
+                                  : styles.rejected
+                              }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                                ? 'Review'
-                                : buyer.queue === 'CreditQueue'
-                                  ? 'Approved'
-                                  : 'Rejected'}
+                              ? 'Review'
+                              : buyer.queue === 'CreditQueue'
+                              ? 'Approved'
+                              : 'Rejected'}
                           </td>
                         </tr>
                       ))}

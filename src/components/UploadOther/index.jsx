@@ -135,8 +135,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [filterValue, setFilterValue] = useState('')
 
   const filterDocBySearch = (val) => {
+    if(!val.length >= 3) return
     const tempArray = documentsFetched?.documents?.filter((doc) => {
-      if (doc.name.toLowerCase().includes(val)) {
+      if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc
       }
     })
