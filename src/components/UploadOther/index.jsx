@@ -116,7 +116,6 @@ const [openDropdown, setDropdown]= useState(false)
       }
     } else {
       const fd = new FormData()
-      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
       fd.append('document', newDoc.document)
       fd.append('module', newDoc.module)
       fd.append('order', orderid)
