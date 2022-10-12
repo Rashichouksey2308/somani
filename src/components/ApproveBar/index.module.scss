@@ -43,6 +43,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        @include respond(lg-desktop) {
+            width: 200px;
+            height: 38px;
+        }
     }
     .approve {
         cursor: pointer;
@@ -55,6 +59,10 @@
         align-items: center;
         justify-content: center;
         margin-left: 1rem;
+        @include respond(lg-desktop) {
+            width: 200px;
+            height: 38px;
+        }
     }
 }
 .no_sidebar {

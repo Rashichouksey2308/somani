@@ -164,6 +164,9 @@
           color: #3687e8;
           font-weight: normal;
           line-height: 20px;
+          @include respond(lg-desktop) {
+              font-size: 35px;
+          }
         }
 
         .label {
@@ -613,6 +616,9 @@
               color: #3687e8;
               font-weight: normal;
               line-height: 20px;
+              @include respond(lg-desktop) {
+                  font-size: 35px;
+              }
             }
 
             .label {
