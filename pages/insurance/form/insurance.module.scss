@@ -17,6 +17,10 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0 0 27px 10px;
+    @include respond(lg-desktop) {
+        min-height: 40px;
+        margin-bottom: 20px;
+    }
     @include respond(sm-desktop) {
       margin-top: 15px;
       margin-bottom: -20px;
@@ -32,22 +36,11 @@
       .arrow {
         width: 13px;
         height: 21px;
-        background: transparent;
         cursor: pointer;
-        margin: 0;
-        @include respond(md-desktop) {
-          width: 12px;
-          height: 19px;
-        }
-        @include respond(sm-desktop) {
+        background: transparent;
+        @include respond(lg-desktop) {
           width: 10px;
-          height: 17px;
-          margin-top: 12px;
-        }
-        @include respond(phone) {
-          margin-top: 12px;
-          width: 9px;
-          height: 14px;
+          height: auto;
         }
       }
       .heading {
@@ -58,23 +51,21 @@
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-          text-transform: uppercase;
+            text-transform: uppercase;
         }
         &:first-line {
-          text-transform: capitalize;
+            text-transform: capitalize;
         }
-        @include respond(md-desktop) {
-          font-size: 30px;
-          line-height: 41px;
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
-          font-size: 26px;
-          line-height: 38px;
+          font-size: 20px;
         }
         @include respond(phone) {
-          font-size: 22px;
-          line-height: 30px;
-          padding-top: 5px;
+          font-size: 18px;
         }
       }
     }
