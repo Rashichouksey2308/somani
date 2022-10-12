@@ -35,7 +35,7 @@ const index = ({
   suggestedCredit,
 }) => {
   console.log(personData, 'personData')
-  console.log(debtData, 'debtData')
+  console.log(creditDetail?.existingProcurementOfCommodity, 'debtData')
   const dispatch = useDispatch()
 
 
@@ -315,7 +315,7 @@ const index = ({
     if (
       data.contact.number === null ||
       data.contact.number === '' ||
-      data.contact.number === undefined
+      data.contact.number === undefined 
     ) {
       let toastMessage = 'Please add phone number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -325,7 +325,7 @@ const index = ({
       return false
     }
     console.log(data.contact.number.length, 'data.contact.number.lengt')
-    if (data.contact.number.length < 10) {
+    if (data.contact.number.length < 10 || data.contact.number.length > 10) {
       let toastMessage = 'Please add valid number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })

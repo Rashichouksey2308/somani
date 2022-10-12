@@ -5,7 +5,7 @@ export default {
   baseUrl: `${config.baseUrl}`,
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
-  userbaseUrl:`${config.userServerUrl}`,
+  userbaseUrl: `${config.userServerUrl}`,
   // auth
   login: '/login',
   logout: '/logout',
@@ -43,6 +43,7 @@ export default {
   //termsheet
   gettermsheet: '/termsheet',
   updatetermsheet: '/termsheet',
+  termsheetshareemial: '/delivery/share-doc',
 
   //marginMoney
   getMarginMoney: '/margin-money',

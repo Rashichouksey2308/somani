@@ -33,7 +33,7 @@ export default function Index({
   const [cimsDetails, setCimsDetails] = useState([
     {
       vesselName: '',
-      quantity: _get(TransitDetails, 'data[0].order.quantity', 0),
+      quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
       circNumber: '',
       circDate: '',
       cimsCharges: '',
@@ -49,11 +49,11 @@ export default function Index({
       setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
     }
   }, [TransitDetails])
-  useEffect(() => {
-    if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
-      setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
-    }
-  }, [TransitDetails])
+  // useEffect(() => {
+  //   if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
+  //     setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
+  //   }
+  // }, [TransitDetails])
   useEffect(() => {
     let temp = [...cimsDetails]
     temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
@@ -437,7 +437,7 @@ export default function Index({
                     />
 
                     <label className={`${styles.label_heading} label_heading`}>
-                      Quantity<strong className="text-danger">*</strong>
+                      BL Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div

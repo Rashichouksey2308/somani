@@ -136,6 +136,23 @@ function updatetermsheetfailed() {
   }
 }
 
+function shareTermsheetEmail() {
+  return {
+    type: types.UPDATE_TERMSHEET,
+  }
+}
+function shareTermsheetEmailsuccess(payload) {
+  return {
+    type: types.UPDATE_TERMSHEET_SUCCESSFULL,
+    payload,
+  }
+}
+function shareTermsheetEmailfailed() {
+  return {
+    type: types.UPDATE_TERMSHEET_FAILED,
+  }
+}
+
 export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
@@ -415,3 +432,45 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   }
   dispatch(setNotLoading())
 }
+
+export const sharingTermsheetEmail =
+  (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.put(
+        `${API.corebaseUrl}${API.termsheetshareemial}`,
+        payload,
+        {
+          headers: headers,
+        },
+      )
+      if (response.data.code === 200) {
+        dispatch(shareTermsheetEmailsuccess(response.data))
+        let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+        return response.data.code
+      } else {
+        dispatch(shareTermsheetEmailfailed(response.data))
+        let toastMessage = response.data.message
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        dispatch(setNotLoading())
+      }
+    } catch (error) {
+      dispatch(shareTermsheetEmailfailed())
+      let toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
+    dispatch(setNotLoading())
+  }

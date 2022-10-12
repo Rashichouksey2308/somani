@@ -1,4 +1,4 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import {
   Modal,
   Row,
@@ -12,7 +12,8 @@ import {
 import styles from './index.module.scss'
 
 
-function index(props) {
+function Index(props) {
+  const [email,setEmail]=useState('')
   return (
     <Modal
      show={props.open}
@@ -55,8 +56,15 @@ function index(props) {
                 id="inputPassword5"
                 aria-describedby="passwordHelpBlock"
                 className="mb-3"
+                onChange={(e)=>{
+                  setEmail(e.target.value)
+                }}
   />
-             <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
+             <div 
+             onClick={(e)=>{
+              props.shareEmail(email)
+             }}
+             className={`${styles.button} d-flex justify-content-center align-content-center`}>
                   <span> { `Share on Email`}</span>
 
                 </div>
@@ -70,4 +78,4 @@ function index(props) {
   )
 }
 
-export default index
+export default Index

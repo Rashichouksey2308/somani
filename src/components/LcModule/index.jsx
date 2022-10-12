@@ -49,7 +49,7 @@ function Index() {
     }
 
     else {
-      sessionStorage.setItem('lcOrder', lc.order.lc)
+      sessionStorage.setItem('lcPreviewId', lc.order.lc)
       Router.push('/letter-table/letter-amend/id')
     }
 
