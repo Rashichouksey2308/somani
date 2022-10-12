@@ -28,6 +28,17 @@ export const phoneValidation = (phone) => {
   }
 }
 
+export const gSTINValidation = (gstin) => {
+  var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/
+  if (gstin.match(regex)) {
+    console.log('trueGstinValidation',)
+    return true
+  } else {
+    console.log('falseGstinValidation',)
+    return false
+  }
+}
+
 export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   let newValue = Number(value / conversionValue)
   return newValue

@@ -90,7 +90,7 @@ function Index({
             className={`${styles.tab_header} d-lg-flex d-inline-block align-items-center justify-content-between`}
           >
             <img
-              onClick={() => { Router.push('/vessel-nomination/id') }}
+              onClick={() => { Router.push('/vessel-nomination') }}
               style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
