@@ -95,7 +95,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       module: module,
     })
   }
-
+const [openDropdown, setDropdown]= useState(false)
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
@@ -567,11 +567,59 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                   openbar()
                                 }}
                               />
+                            
+                             { !openDropdown ? 
+                             (
                               <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                alt="Share"
-                              />
+                              src="/static/drive_file.svg"
+                              className={`${styles.edit_image} mr-3`}
+                              alt="Share"
+                              onClick={() => {
+                                setDropdown(true)
+                              }}
+                            />
+                             )
+                             :
+                              (
+                                <div className='d-inline-block'>
+                                <div className="d-flex align-items-center">
+                                  <select
+                                    // value={moduleSelected}
+                                    // onChange={(e) =>
+                                    //   setModuleSelected(e.target.value)
+                                    // }
+                                    className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                          style={{width:'150px', paddingRight:'30px' }}    >
+                                    <option selected disabled>
+                                      Select an option
+                                    </option>
+                                    <option value="LeadOnboarding&OrderApproval">
+                                      Lead Onboarding &amp; Order Approval
+                                    </option>
+                                    <option value="Agreements&Insurance&LC&Opening">
+                                      Agreements, Insurance &amp; LC Opening
+                                    </option>
+                                    <option value="Loading-Transit-Unloading">
+                                      Loading-Transit-Unloading
+                                    </option>
+                                    <option value="customClearanceAndWarehousing">
+                                      Custom Clearance And Warehousing
+                                    </option>
+                                    <option value="PaymentsInvoicing&Delivery">
+                                      Payments Invoicing & Delivery
+                                    </option>
+                                    <option value="Others">Others</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow2} img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                  />
+                                </div>
+                                </div>
+                             )  
+                             
+                             }
                             </td>
                           </tr>
                         )
