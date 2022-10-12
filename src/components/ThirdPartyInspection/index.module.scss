@@ -5,6 +5,15 @@
   border: 1px solid #d2d7e5;
   .tabHeader {
     padding: 30px;
+    @include respond(lg-desktop) {
+        padding: 20px;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+    }
     .title {
       font-size: 34px;
       font-weight: bold;
@@ -43,10 +52,17 @@
       font-weight: normal;
       line-height: 16px;
       margin-top: 7px;
+      @include respond(lg-desktop) {
+          font-size: 12px;
+          line-height: 1.2;
+      }
       span {
-        color: #283756;
-        font-weight: bold;
-        line-height: 17px;
+          color: #283756;
+          font-weight: bold;
+          line-height: 17px;
+          @include respond(lg-desktop) {
+              line-height: 1.2;
+          }
       }
     }
   }

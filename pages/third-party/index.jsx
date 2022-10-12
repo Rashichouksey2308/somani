@@ -73,7 +73,7 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <span>{_get(inspectionData, 'company.companyName', '')}</span>
             </h1>
-            <div className="ml-auto">
+            <div className="ml-auto text-right">
               <div className={`${styles.lastModified} text `}>
                 <span style={{ marginRight: '7px' }} className="accordion_Text">
                   Last Modified:
