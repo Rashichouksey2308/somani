@@ -5044,7 +5044,7 @@ const gstSales = (
                                       Math.sign(sales) === -1 ? 'red' : 'black',
                                   }}
                                 >
-                                  {sales?.toLocaleString('en-In', {
+                                  {checkNan(sales)?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) ?? ''}{' '}
@@ -5442,7 +5442,7 @@ const gstPurchase = (
                                   }}
                                   key={index}
                                 >
-                                  {sales?.toLocaleString('en-In', {
+                                  {checkNan(sales)?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) ?? ''}{' '}

@@ -23,7 +23,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix, checkNan, convertValue } from '../../src/utils/helper'
+import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper'
 import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
 import jsPDF from 'jspdf'
@@ -426,8 +426,8 @@ function Index() {
       }
       return false
     }
-    if (invoiceData.consigneeGSTIN === null || invoiceData.consigneeGSTIN === undefined || invoiceData.consigneeGSTIN === '') {
-      let toastMessage = 'Please add consignee gstin'
+    if (invoiceData.consigneeGSTIN === null || invoiceData.consigneeGSTIN === undefined || invoiceData.consigneeGSTIN === '' || !gSTINValidation(invoiceData.consigneeGSTIN)) {
+      let toastMessage = 'Please add A VALID consignee gstin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
