@@ -15,33 +15,43 @@
     display: flex;
     align-items: center;
     margin: 0 0 27px 10px;
+    @include respond(lg-desktop) {
+        height: 40px;
+        margin-bottom: 20px;
+    }
     .arrow {
       width: 13px;
       height: 21px;
+      cursor: pointer;
       background: transparent;
-      margin: 0;
+      @include respond(lg-desktop) {
+        width: 10px;
+        height: auto;
+      }
     }
     .heading {
       font-size: 34px;
       font-weight: bold;
       line-height: 41px;
-      padding-left: 18px;
       margin: 0;
+      padding-left: 18px;
       text-transform: lowercase;
       &:first-letter {
-        text-transform: uppercase;
+          text-transform: uppercase;
       }
       &:first-line {
-        text-transform: capitalize;
+          text-transform: capitalize;
       }
-      @include respond(md-desktop) {
-        font-size: 28px;
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.4;
+        padding-left: 10px;
       }
       @include respond(sm-desktop) {
-        font-size: 26px;
+        font-size: 20px;
       }
       @include respond(phone) {
-        font-size: 24px;
+        font-size: 18px;
       }
     }
   }

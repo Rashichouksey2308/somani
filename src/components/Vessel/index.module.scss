@@ -14,30 +14,31 @@
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-          text-transform: uppercase;
+            text-transform: uppercase;
         }
         &:first-line {
-          text-transform: capitalize;
+            text-transform: capitalize;
         }
-        @include respond(md-desktop) {
-          font-size: 32px;
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
-          font-size: 28px;
+          font-size: 20px;
         }
         @include respond(phone) {
-          font-size: 22px;
+          font-size: 18px;
         }
       }
       img {
         width: 13px;
         height: 21px;
-        margin: 0;
-        @include respond(sm-desktop) {
-        }
-        @include respond(phone) {
+        cursor: pointer;
+        background: transparent;
+        @include respond(lg-desktop) {
           width: 10px;
-          height: 15px;
+          height: auto;
         }
       }
       .lastModified {

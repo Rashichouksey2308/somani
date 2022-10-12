@@ -155,9 +155,10 @@ autoPaging: "text",
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
-              className={`${styles.arrow} image_arrow img-fluid mr-2`}
+              className={`${styles.back_arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
+              // onClick={() => Router.push('/lc-module')}
             />
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
