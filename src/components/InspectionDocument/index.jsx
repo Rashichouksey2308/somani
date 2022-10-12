@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import TermsheetPopUp from '../TermsheetPopUp'
 
 const Index = ({
   orderId,
@@ -25,7 +26,13 @@ const Index = ({
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
-
+  const [open, setOpen] = useState(false)
+  const openbar = () => {
+    setOpen(true)
+  }
+  const close = () => {
+    setOpen(false)
+  }
   let d = new Date()
 
   // const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
@@ -797,12 +804,7 @@ const Index = ({
                                 className="img-fluid mr-3"
                                 alt="Share"
                                 onClick={() => {
-                                  dispatch(
-                                    ViewDocument({
-                                      path: document.path,
-                                      orderId: documentsFetched._id,
-                                    }),
-                                  )
+                                  openbar()
                                 }}
                               />
                               <img
@@ -919,6 +921,7 @@ const Index = ({
           </div>
         </div>
       </div>
+      {open ? <TermsheetPopUp close={close} open={open} istermsheet /> : null}
     </div>
   )
 }
