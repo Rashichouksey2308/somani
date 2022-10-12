@@ -97,7 +97,7 @@ function Index({
               className="img-fluid mr-2 image_arrow"
             />
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
-            <div className="ml-auto">
+            <div className="ml-auto text-right">
               <div className={`${styles.lastModified} text `}>
                 <div className='accordion_Text'>Last Modified:</div> {vesselUpdatedAt ? moment(vesselUpdatedAt).format("DD-MM-YYYY,h:mm a") : ''}
               </div>

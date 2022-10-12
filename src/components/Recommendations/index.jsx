@@ -293,7 +293,7 @@ const Index = ({
               financialsComment.map((comment, index) => (
                 <div
                   key={index}
-                  className={`${styles.comment_para} d-flex justify-content-between`}
+                  className={`${styles.comment_para} border_color d-flex justify-content-between`}
                 >
                   <Form.Control
                     className={`${styles.comment} input`}

@@ -155,12 +155,12 @@ autoPaging: "text",
               className={`${styles.back_arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
-              // onClick={() => Router.push('/lc-module')}
+              onClick={() => Router.push('/letter-credit/id')}
             />
             <h1 className={`${styles.heading} heading`}>Application for LC</h1>
           </div>
         </div>
-        <div className={`${styles.term_container} previewCard container-fluid`}>
+        <div className={`${styles.term_container} previewCard border_color container-fluid`}>
           <Row className={`h-50`}>
             <Col
               sm={12}
