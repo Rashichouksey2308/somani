@@ -4,6 +4,15 @@
   .tabHeader {
     margin-bottom: 10px;
     padding: 28px 38px 24px 38px;
+    @include respond(lg-desktop) {
+        padding: 20px;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+    }
     .tab_header {
       height: 48px;
       .title {
@@ -14,30 +23,31 @@
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-          text-transform: uppercase;
+            text-transform: uppercase;
         }
         &:first-line {
-          text-transform: capitalize;
+            text-transform: capitalize;
         }
-        @include respond(md-desktop) {
-          font-size: 32px;
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
-          font-size: 28px;
+          font-size: 20px;
         }
         @include respond(phone) {
-          font-size: 22px;
+          font-size: 18px;
         }
       }
       img {
         width: 13px;
         height: 21px;
-        margin: 0;
-        @include respond(sm-desktop) {
-        }
-        @include respond(phone) {
+        cursor: pointer;
+        background: transparent;
+        @include respond(lg-desktop) {
           width: 10px;
-          height: 15px;
+          height: auto;
         }
       }
       .lastModified {
@@ -46,23 +56,17 @@
         font-weight: normal;
         line-height: 16px;
         margin-top: 7px;
-
-        @include respond(phone) {
-          font-size: 12px;
+        @include respond(lg-desktop) {
+            font-size: 12px;
+            line-height: 1.2;
         }
         span {
-          color: #283756;
-          font-weight: bold;
-          line-height: 17px;
-          @include respond(md-desktop) {
-            font-size: 42px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 35px;
-          }
-          @include respond(phone) {
-            font-size: 30px;
-          }
+            color: #283756;
+            font-weight: bold;
+            line-height: 17px;
+            @include respond(lg-desktop) {
+                line-height: 1.2;
+            }
         }
       }
     }

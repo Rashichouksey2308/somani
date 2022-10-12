@@ -2,9 +2,13 @@
 .card {
   margin: 28px;
   margin-bottom: 154px;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     margin: 20px;
-    margin-bottom: 146px;
+    margin-bottom: 144px;
+  }
+  @include respond(sm-desktop) {
+    margin: 18px;
+    margin-bottom: 142px;
   }
   @include respond(phone) {
     margin: 15px;
@@ -14,6 +18,10 @@
     height: 48px;
     display: flex;
     margin: 0 0 27px 10px;
+    @include respond(lg-desktop) {
+      height: 40px;
+      margin-bottom: 20px;
+    }
     @include respond(phone) {
       align-items: center;
       padding: 0.75rem 0rem;
@@ -22,6 +30,10 @@
       width: 13px;
       height: 21px;
       background: transparent;
+      @include respond(lg-desktop) {
+        width: 10px;
+        height: auto;
+      }
     }
     .heading {
       font-size: 34px;
@@ -35,6 +47,17 @@
       }
       &:first-line {
           text-transform: capitalize;
+      }
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.4;
+        padding-left: 10px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 20px;
+      }
+      @include respond(phone) {
+        font-size: 18px;
       }
     }
   }

@@ -28,6 +28,12 @@
   height: 21px;
   background: transparent;
 }
+@media (max-width: 1400px) {
+  .root_container .head_container .head_container .head_header .arrow {
+    width: 10px;
+    height: auto;
+  }
+}
 
 .root_container .head_container .head_container .head_header .heading {
   padding: 12px 0 18px 18px;
