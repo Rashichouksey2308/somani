@@ -97,7 +97,7 @@
     }
     .cardBody {
       padding: 0px;
-      border-top: 2px solid #cad6e6 !important;
+      border-top: 2px solid #cad6e6 ;
       .content {
         .header {
           padding: 25px 35px !important;
@@ -273,6 +273,9 @@
           position: relative;
           box-sizing: border-box;
         }
+        .line {
+          border: 2px solid #cad6e6;
+        }
       }
       .datatable {
         width: 879px;
@@ -372,7 +375,7 @@
         }
       }
       .line {
-        border: 2px solid #cad6e6;
+        //border: 2px solid #cad6e6;
       }
     }
   }
@@ -444,6 +447,7 @@
     }
   }
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -464,4 +468,7 @@
 .customSelect {
   appearance: none;
   // position: relative;
+}
+.line {
+  border: 1.2px solid #cad6e6;
 }

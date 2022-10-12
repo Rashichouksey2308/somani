@@ -370,7 +370,7 @@ function Index() {
 
           <div className={`${styles.wrapper} card upload_main`}>
             <div
-              className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
+              className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"
@@ -458,7 +458,7 @@ function Index() {
                     </Row>
                   </div>
                 </div>
-                <hr className={styles.line}></hr>
+                <hr className={`${styles.line} border_color`}></hr>
 
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>
