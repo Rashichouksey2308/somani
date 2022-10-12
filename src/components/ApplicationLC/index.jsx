@@ -32,18 +32,18 @@ function Index() {
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
- const [what,setWhat]=useState("email")
+  const [what, setWhat] = useState('email')
   const handlePopup = () => {
     setShow(true)
   }
   const [emailAdd, setEmailAdd] = useState([
     {
-        emailID: '',
+      emailID: '',
     },
   ])
-   const [number, setNumber] = useState([
+  const [number, setNumber] = useState([
     {
-        number: '',
+      number: '',
     },
   ])
   const addMoreRows = () => {
@@ -54,7 +54,7 @@ function Index() {
       },
     ])
   }
-    const addWhatRows = () => {
+  const addWhatRows = () => {
     setNumber([
       ...number,
       {
@@ -62,245 +62,1416 @@ function Index() {
       },
     ])
   }
- const handleDeleteEmail = (index) => {
- 
+  const handleDeleteEmail = (index) => {
     setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)])
   }
-   const handleDeleteNumber = (index) => {
+  const handleDeleteNumber = (index) => {
     setNumber([...number.slice(0, index), ...number.slice(index + 1)])
   }
   const exportPDF = () => {
-
-      const doc = new jsPDF('p', 'pt', [1500, 1500])
-      doc.html(ReactDOMServer.renderToString(
-        <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    doc.html(
+      ReactDOMServer.renderToString(
+        <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
           <tr>
-            <td valign='top' style={{paddingBottom:'20px'}}>
-              <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
+            <td valign="top" style={{ paddingBottom: '20px' }}>
+              <table
+                width="100%"
+                bgColor="#D8EAFF"
+                style={{
+                  fontFamily: 'Arial, Helvetica, sans-serif',
+                  marginBottom: '26px',
+                  border: '1px solid #D2D7E5',
+                  borderRadius: '6px',
+                  height: '126px',
+                }}
+                cellPadding="10"
+                cellSpacing="0"
+                border="0"
+              >
                 <tr>
-                  <td valign='bottom' align='left' width='33%'>
-                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.order?.orderId}</span></span><br/>
-                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}><span style={{display: 'inline-block', paddingLeft:'25px', width: '90px', float:'left', height:'50px'}}>Buyer: </span><span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.company?.companyName}</span></span>
+                  <td valign="bottom" align="left" width="33%">
+                    <span
+                      style={{
+                        fontSize: '20px',
+                        color: '#111111',
+                        lineHeight: '25px',
+                        fontWeight: '500',
+                        padding: '10px 0 0 25px',
+                      }}
+                    >
+                      Order ID:{' '}
+                      <span
+                        style={{
+                          lineHeight: '24px',
+                          fontWeight: 'normal',
+                          opacity: '0.7',
+                        }}
+                      >
+                        {lcModuleData?.order?.orderId}
+                      </span>
+                    </span>
+                    <br />
+                    <span
+                      style={{
+                        fontSize: '20px',
+                        color: '#111111',
+                        lineHeight: '25px',
+                        fontWeight: '500',
+                      }}
+                    >
+                      <span
+                        style={{
+                          display: 'inline-block',
+                          paddingLeft: '25px',
+                          width: '90px',
+                          float: 'left',
+                          height: '50px',
+                        }}
+                      >
+                        Buyer:{' '}
+                      </span>
+                      <span
+                        style={{
+                          lineHeight: '24px',
+                          fontWeight: 'normal',
+                          opacity: '0.7',
+                        }}
+                      >
+                        {lcModuleData?.company?.companyName}
+                      </span>
+                    </span>
                   </td>
-                  <td valign='top' align='center' width='34%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
-                  <td valign='bottom' align='right' width='33%'><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></span>
+                  <td valign="top" align="center" width="34%">
+                    <h2
+                      style={{
+                        fontSize: '34px',
+                        color: '#3687E8',
+                        lineHeight: '41px',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      APPLICATION FOR LETTER OF CREDIT
+                    </h2>
+                  </td>
+                  <td valign="bottom" align="right" width="33%">
+                    <span
+                      style={{
+                        fontSize: '20px',
+                        color: '#111111',
+                        lineHeight: '25px',
+                        fontWeight: '500',
+                        paddingRight: '25px',
+                      }}
+                    >
+                      Date:{' '}
+                      <span
+                        style={{
+                          lineHeight: '24px',
+                          fontWeight: 'normal',
+                          opacity: '0.7',
+                        }}
+                      >
+                        {moment(d).format('DD.MM.yyyy')}
+                      </span>
+                    </span>
                   </td>
                 </tr>
               </table>
             </td>
           </tr>
           <tr>
-            <td valign='top' align='left'>
-              <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px', border:'2px solid rgba(202, 214, 230, 0.3)'}} cellPadding='0' cellSpacing='0' border='0'>
+            <td valign="top" align="left">
+              <table
+                width="100%"
+                bgColor="#FFFFFF"
+                style={{
+                  fontFamily: 'Arial, Helvetica, sans-serif',
+                  borderRadius: '6px',
+                  boxShadow: '0 3px 6px #CAD0E2',
+                  marginBottom: '26px',
+                  border: '2px solid rgba(202, 214, 230, 0.3)',
+                }}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
                 <tr>
-                  <td valign='top' align='left'>
-                    <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                  <td valign="top" align="left">
+                    <table
+                      width="100%"
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
                       <tbody>
                         <tr>
-                          <td width="40%" align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'66px', color:'#111111', fontWeight:'500', color:'#111111', fontWeight:'500'}}>40A</span>FORM OF DOCUMENTARY CREDIT</p>
+                          <td
+                            width="40%"
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                40A
+                              </span>
+                              FORM OF DOCUMENTARY CREDIT
+                            </p>
                           </td>
-                          <td width="60%" align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}</p>
+                          <td
+                            width="60%"
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>40E</span>APPLICABLE RULES</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                40E
+                              </span>
+                              APPLICABLE RULES
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>DATE OF EXPIRY</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                31D
+                              </span>
+                              DATE OF EXPIRY
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
                               {moment(
-                            lcModuleData?.lcApplication?.dateOfExpiry?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}</p>
+                                lcModuleData?.lcApplication?.dateOfExpiry?.split(
+                                  'T',
+                                )[0],
+                              ).format('DD-MM-YYYY')}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>PLACE OF EXPIRY</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                31D
+                              </span>
+                              PLACE OF EXPIRY
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>51D</span>LC ISSUING BANK</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>50</span>APPLICANT</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.applicant?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>59</span>BENEFICIARY</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>32B</span>CURRENCY CODE &amp; AMOUNT</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{ addPrefixOrSuffix(lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() : 0, 'USD', '')}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>39A</span>TOLERANCE (+/-) PERCENTAGE</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {addPrefixOrSuffix(
-                            lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString("en-IN", {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            }),
-                            '%',
-                            '',
-                          )}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41A</span>CREDIT AVAILABLE WITH</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>   {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                         <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41B</span>CREDIT AVAILABLE</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                51D
+                              </span>
+                              LC ISSUING BANK
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}  </p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42C</span>AT SIGHT<br/>NO. OF DAYS</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                50
+                              </span>
+                              APPLICANT
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}<br/>{lcModuleData?.lcApplication?.numberOfDays}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42A</span>DRAWEE</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                59
+                              </span>
+                              BENEFICIARY
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.drawee?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42P</span>DEFERRED PAYMENT</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                32B
+                              </span>
+                              CURRENCY CODE &amp; AMOUNT
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {addPrefixOrSuffix(
+                                lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                  ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                  : 0,
+                                'USD',
+                                '',
+                              )}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43P</span>PARTIAL SHIPMENT</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                39A
+                              </span>
+                              TOLERANCE (+/-) PERCENTAGE
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {addPrefixOrSuffix(
+                                lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString(
+                                  'en-IN',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                ),
+                                '%',
+                                '',
+                              )}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43T</span>TRANSHIPMENTS</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                41A
+                              </span>
+                              CREDIT AVAILABLE WITH
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.transhipments?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44A</span>SHIPMENT FROM</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                41B
+                              </span>
+                              CREDIT AVAILABLE
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                42C
+                              </span>
+                              AT SIGHT
+                              <br />
+                              NO. OF DAYS
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
+                              <br />
+                              {lcModuleData?.lcApplication?.numberOfDays}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                42A
+                              </span>
+                              DRAWEE
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                42P
+                              </span>
+                              DEFERRED PAYMENT
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                43P
+                              </span>
+                              PARTIAL SHIPMENT
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                43T
+                              </span>
+                              TRANSHIPMENTS
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                44A
+                              </span>
+                              SHIPMENT FROM
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                       </tbody>
                       <tbody>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44E</span>PORT OF LOADING</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                44E
+                              </span>
+                              PORT OF LOADING
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44F</span>PORT OF DISCHARGE</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                44F
+                              </span>
+                              PORT OF DISCHARGE
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}> 44C</span>LATEST DATE OF SHIPMENT</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                {' '}
+                                44C
+                              </span>
+                              LATEST DATE OF SHIPMENT
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{moment(
-                            lcModuleData?.lcApplication?.latestDateOfShipment?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {moment(
+                                lcModuleData?.lcApplication?.latestDateOfShipment?.split(
+                                  'T',
+                                )[0],
+                              ).format('DD-MM-YYYY')}
+                            </p>
                           </td>
                         </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)',borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>45A</span>DESCRIPTION OF THE GOODS</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                45A
+                              </span>
+                              DESCRIPTION OF THE GOODS
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr height="100">
                           <td colSpan={2}></td>
                         </tr>
                         <tr height="67">
-                          <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>46A DOCUMENT REQUIRED:</h3></th>
+                          <th colSpan={2} bgColor="#FAFAFB" align="left">
+                            <h3
+                              style={{
+                                fontSize: '22px',
+                                color: '#3687E8',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                padding: '20px 15px 20px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              46A DOCUMENT REQUIRED:
+                            </h3>
+                          </th>
                         </tr>
                         {lcModuleData &&
-                        lcModuleData?.documentRequired?.map((doc, index) => (
-                           <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>{index+1}</span></p>
-                          </td>
-                          <td align='left'>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{doc}</p>
-                          </td>
-                          
-                        </tr>
-                         
-                        ))}
+                          lcModuleData?.documentRequired?.map((doc, index) => (
+                            <tr>
+                              <td
+                                align="left"
+                                style={{
+                                  borderRight:
+                                    '2px solid rgba(202, 214, 230, 0.3)',
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    fontSize: '20px',
+                                    color: 'rgba(17, 17, 17, 0.7)',
+                                    lineHeight: '24px',
+                                    fontWeight: 'normal',
+                                    padding: '16px 15px 16px 35px',
+                                    marginBottom: '0',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      display: 'inline-block',
+                                      float: 'left',
+                                      height: '30px',
+                                      width: '66px',
+                                      color: '#111111',
+                                      fontWeight: '500',
+                                    }}
+                                  >
+                                    {index + 1}
+                                  </span>
+                                </p>
+                              </td>
+                              <td align="left">
+                                <p
+                                  style={{
+                                    fontSize: '20px',
+                                    color: '#111111',
+                                    lineHeight: '24px',
+                                    fontWeight: '500',
+                                    padding: '16px 15px 16px 24px',
+                                    marginBottom: '0',
+                                  }}
+                                >
+                                  {doc}
+                                </p>
+                              </td>
+                            </tr>
+                          ))}
                         {/* <tr>
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
@@ -316,25 +1487,82 @@ function Index() {
                           </td>
                         </tr> */}
                         <tr height="67">
-                          <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>47A ADDITIONAL CONDITIONS:</h3></th>
+                          <th colSpan={2} bgColor="#FAFAFB" align="left">
+                            <h3
+                              style={{
+                                fontSize: '22px',
+                                color: '#3687E8',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                padding: '20px 15px 20px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              47A ADDITIONAL CONDITIONS:
+                            </h3>
+                          </th>
                         </tr>
                         {lcModuleData &&
-                        lcModuleData?.additionalConditions?.map(
-                          (comment, index) => (
-                            <tr>
-                              <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                              <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>{index+1}</span></p>
-                              </td>
-                              <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                              <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{comment}</p>
-                              </td>
-                           
-                            </tr>
-                          ),
-                        )}
-                        <tr>                          
-                         
-                        </tr>
+                          lcModuleData?.additionalConditions?.map(
+                            (comment, index) => (
+                              <tr>
+                                <td
+                                  align="left"
+                                  style={{
+                                    borderRight:
+                                      '2px solid rgba(202, 214, 230, 0.3)',
+                                    borderBottom:
+                                      '2px solid rgba(202, 214, 230, 0.3)',
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      fontSize: '20px',
+                                      color: 'rgba(17, 17, 17, 0.7)',
+                                      lineHeight: '24px',
+                                      fontWeight: 'normal',
+                                      padding: '16px 15px 16px 35px',
+                                      marginBottom: '0',
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        display: 'inline-block',
+                                        float: 'left',
+                                        height: '30px',
+                                        width: '66px',
+                                        color: '#111111',
+                                        fontWeight: '500',
+                                      }}
+                                    >
+                                      {index + 1}
+                                    </span>
+                                  </p>
+                                </td>
+                                <td
+                                  align="left"
+                                  style={{
+                                    borderBottom:
+                                      '2px solid rgba(202, 214, 230, 0.3)',
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      fontSize: '20px',
+                                      color: '#111111',
+                                      lineHeight: '24px',
+                                      fontWeight: '500',
+                                      padding: '16px 15px 16px 24px',
+                                      marginBottom: '0',
+                                    }}
+                                  >
+                                    {comment}
+                                  </p>
+                                </td>
+                              </tr>
+                            ),
+                          )}
+                        <tr></tr>
                         {/* <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
@@ -386,76 +1614,501 @@ function Index() {
                             </p>
                           </td>
                         </tr> */}
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>48</span>PRESENTATION PERIOD</p>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                48
+                              </span>
+                              PRESENTATION PERIOD
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>49</span>CONFIRMATION INSTRUCTIONS</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}</p>
-                          </td>
-                        </tr>
-                        <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>53A</span>REIMBURSING BANK</p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57</span>ADVISE THROUGH BANK</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                49
+                              </span>
+                              CONFIRMATION INSTRUCTIONS
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57A</span>SECOND ADVISING BANK, IF APPLICABLE</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                53A
+                              </span>
+                              REIMBURSING BANK
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>58A</span>REQUESTED CONFIRMATION PARTY</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                57
+                              </span>
+                              ADVISE THROUGH BANK
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>71B</span>CHARGES</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                57A
+                              </span>
+                              SECOND ADVISING BANK, IF APPLICABLE
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.charges?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>78</span>INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING BANK</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                58A
+                              </span>
+                              REQUESTED CONFIRMATION PARTY
+                            </p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>72</span>SENDER TO RECEIVER INFORMATION</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                71B
+                              </span>
+                              CHARGES
+                            </p>
                           </td>
-                          <td align='left'>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}</p>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.charges?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                78
+                              </span>
+                              INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING
+                              BANK
+                            </p>
+                          </td>
+                          <td
+                            align="left"
+                            style={{
+                              borderBottom:
+                                '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            align="left"
+                            style={{
+                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            }}
+                          >
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: 'rgba(17, 17, 17, 0.7)',
+                                lineHeight: '24px',
+                                fontWeight: 'normal',
+                                padding: '16px 15px 16px 35px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              <span
+                                style={{
+                                  display: 'inline-block',
+                                  float: 'left',
+                                  height: '30px',
+                                  width: '66px',
+                                  color: '#111111',
+                                  fontWeight: '500',
+                                }}
+                              >
+                                72
+                              </span>
+                              SENDER TO RECEIVER INFORMATION
+                            </p>
+                          </td>
+                          <td align="left">
+                            <p
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                fontWeight: '500',
+                                padding: '16px 15px 16px 24px',
+                                marginBottom: '0',
+                              }}
+                            >
+                              {' '}
+                              {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
+                            </p>
                           </td>
                         </tr>
                       </tbody>
@@ -465,19 +2118,16 @@ function Index() {
               </table>
             </td>
           </tr>
-        </table> 
-      ), {
-  callback: function (doc) {
-    doc.save('sample.pdf')
-  },
-  // margin:margins,
-  autoPaging: "text",
-
-
-  },
-
-
-  )
+        </table>,
+      ),
+      {
+        callback: function (doc) {
+          doc.save('sample.pdf')
+        },
+        // margin:margins,
+        autoPaging: 'text',
+      },
+    )
   }
 
   return (
@@ -486,8 +2136,6 @@ function Index() {
         <div
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
-        
-    
           <div
             className={`${styles.term_container} previewCard container-fluid border_color`}
           >
@@ -515,7 +2163,10 @@ function Index() {
               </div>
               <div>
                 <div className={`${styles.sub_heading} term_para mt-4`}>
-                  Date: <span className="label1">{moment(d).format('DD.MM.yyyy')}</span>
+                  Date:{' '}
+                  <span className="label1">
+                    {moment(d).format('DD.MM.yyyy')}
+                  </span>
                 </div>
               </div>
             </div>
@@ -532,253 +2183,370 @@ function Index() {
                     border="0"
                   >
                     <tbody>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            40A{' '}
-                          </span>
-                          <span>FORM OF DOCUMENTARY CREDIT</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            40E{' '}
-                          </span>
-                          <span>APPLICABLE RULES</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            31D{' '}
-                          </span>
-                          <span>DATE OF EXPIRY</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.dateOfExpiry ? moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY') : ''}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            31D{' '}
-                          </span>
-                          <span>PLACE OF EXPIRY</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            51D{' '}
-                          </span>
-                          <span>LC ISSUING BANK</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            50{' '}
-                          </span>
-                          <span>APPLICANT</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            59{' '}
-                          </span>
-                          <span>BENEFICIARY</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            32B{' '}
-                          </span>
-                          <span>CURRENCY CODE &amp; AMOUNT</span>
-                        </td>
-                        <td className="term_para">
-                          { addPrefixOrSuffix(lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() : 0, 'USD', '')}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            39A{' '}
-                          </span>
-                          <span>TOLERANCE (+/-) PERCENTAGE</span>
-                        </td>
-                        <td className="term_para">
-                          +/-{' '}
-                          {checkNan(
-                            Number(lcModuleData?.lcApplication?.tolerancePercentage)?.toLocaleString("en-IN", {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
-                          
-                          )} %
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            41A{' '}
-                          </span>
-                          <span>
-                            CREDIT AVAILABLE WITH
-                          </span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            41B{' '}
-                          </span>
-                          <span>
-                            CREDIT AVAILABLE BY
-                          </span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            42C{' '}
-                          </span>
-                          <span>
-                            AT SIGHT
-                            <br />
-                            NO. OF DAYS
-                          </span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
-                          <br /> {lcModuleData?.lcApplication?.numberOfDays}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            42A{' '}
-                          </span>
-                          <span>DRAWEE</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            42P{' '}
-                          </span>
-                          <span>DEFERRED PAYMENT</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            43P{' '}
-                          </span>
-                          <span>PARTIAL SHIPMENT</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            43T{' '}
-                          </span>
-                          <span>TRANSHIPMENTS</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            44A{' '}
-                          </span>
-                          <span>SHIPMENT FROM</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            44E{' '}
-                          </span>
-                          <span>PORT OF LOADING</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            44F{' '}
-                          </span>
-                          <span>PORT OF DISCHARGE</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            44C{' '}
-                          </span>
-                          <span>LATEST DATE OF SHIPMENT</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.latestDateOfShipment ? moment(lcModuleData?.lcApplication?.latestDateOfShipment).format('DD-MM-YYYY') : ''}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td className="border-bottom-0" width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            45A{' '}
-                          </span>
-                          <span>DESCRIPTION OF THE GOODS</span>
-                        </td>
-                        <td className="border-bottom-0 term_para">
-                          {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
-                        </td>
-                      </tr>
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.formOfDocumentaryCredit ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              40A{' '}
+                            </span>
+                            <span>FORM OF DOCUMENTARY CREDIT</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.applicableRules ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              40E{' '}
+                            </span>
+                            <span>APPLICABLE RULES</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.dateOfExpiry ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              31D{' '}
+                            </span>
+                            <span>DATE OF EXPIRY</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.dateOfExpiry
+                              ? moment(
+                                  lcModuleData?.lcApplication?.dateOfExpiry,
+                                ).format('DD-MM-YYYY')
+                              : ''}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.placeOfExpiry ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              31D{' '}
+                            </span>
+                            <span>PLACE OF EXPIRY</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.lcIssuingBank ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              51D{' '}
+                            </span>
+                            <span>LC ISSUING BANK</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.applicant ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              50{' '}
+                            </span>
+                            <span>APPLICANT</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.beneficiary ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              59{' '}
+                            </span>
+                            <span>BENEFICIARY</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.currecyCodeAndAmountValue ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              32B{' '}
+                            </span>
+                            <span>CURRENCY CODE &amp; AMOUNT</span>
+                          </td>
+                          <td className="term_para">
+                            {addPrefixOrSuffix(
+                              lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                : 0,
+                              'USD',
+                              '',
+                            )}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.tolerancePercentage ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              39A{' '}
+                            </span>
+                            <span>TOLERANCE (+/-) PERCENTAGE</span>
+                          </td>
+                          <td className="term_para">
+                            +/-{' '}
+                            {checkNan(
+                              Number(
+                                lcModuleData?.lcApplication
+                                  ?.tolerancePercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }),
+                            )}{' '}
+                            %
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.creditAvailablewith ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              41A{' '}
+                            </span>
+                            <span>CREDIT AVAILABLE WITH</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.creditAvailableBy ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              41B{' '}
+                            </span>
+                            <span>CREDIT AVAILABLE BY</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData && lcModuleData?.lcApplication?.atSight ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              42C{' '}
+                            </span>
+                            <span>
+                              AT SIGHT
+                              <br />
+                              NO. OF DAYS
+                            </span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
+                            <br /> {lcModuleData?.lcApplication?.numberOfDays}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData && lcModuleData?.lcApplication?.drawee ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              42A{' '}
+                            </span>
+                            <span>DRAWEE</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.deferredPayment ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              42P{' '}
+                            </span>
+                            <span>DEFERRED PAYMENT</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.partialShipment ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              43P{' '}
+                            </span>
+                            <span>PARTIAL SHIPMENT</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.transhipments ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              43T{' '}
+                            </span>
+                            <span>TRANSHIPMENTS</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.shipmentForm ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              44A{' '}
+                            </span>
+                            <span>SHIPMENT FROM</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.portOfLoading ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              44E{' '}
+                            </span>
+                            <span>PORT OF LOADING</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.portOfDischarge ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              44F{' '}
+                            </span>
+                            <span>PORT OF DISCHARGE</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.latestDateOfShipment ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              44C{' '}
+                            </span>
+                            <span>LATEST DATE OF SHIPMENT</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.latestDateOfShipment
+                              ? moment(
+                                  lcModuleData?.lcApplication
+                                    ?.latestDateOfShipment,
+                                ).format('DD-MM-YYYY')
+                              : ''}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.DescriptionOfGoods ? (
+                        <tr className="table_row">
+                          <td className="border-bottom-0" width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              45A{' '}
+                            </span>
+                            <span>DESCRIPTION OF THE GOODS</span>
+                          </td>
+                          <td className="border-bottom-0 term_para">
+                            {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
                       <tr className={`${styles.content_header} background2`}>
                         <td
                           className="border-bottom-0 border-top-0 "
@@ -883,108 +2651,154 @@ function Index() {
                           </div>
                         </td>*/}
                       </tr>
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            48{' '}
-                          </span>
-                          <span>PRESENTATION PERIOD</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            49{' '}
-                          </span>
-                          <span>CONFIRMATION INSTRUCTIONS</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            53A{' '}
-                          </span>
-                          <span>REIMBURSING BANK</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            57{' '}
-                          </span>
-                          <span>ADVISE THROUGH BANK</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            57A{' '}
-                          </span>
-                          <span>SECOND ADVISING BANK, IF APPLICABLE</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            58A{' '}
-                          </span>
-                          <span>REQUESTED CONFIRMATION PARTY</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            71B{' '}
-                          </span>
-                          <span>CHARGES</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.charges?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            78{' '}
-                          </span>
-                          <span>
-                            INSTRUCTIONS TO PAYING / ACCEPTING /<br />
-                            NEGOTIATING BANK
-                          </span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
-                        </td>
-                      </tr>{' '}
-                      <tr className="table_row">
-                        <td width="40%">
-                          <span className={`${styles.serial_no} term_para`}>
-                            72{' '}
-                          </span>
-                          <span>SENDER TO RECEIVER INFORMATION</span>
-                        </td>
-                        <td className="term_para">
-                          {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
-                        </td>
-                      </tr>
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.presentaionPeriod ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              48{' '}
+                            </span>
+                            <span>PRESENTATION PERIOD</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.confirmationInstructions ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              49{' '}
+                            </span>
+                            <span>CONFIRMATION INSTRUCTIONS</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.reimbursingBank ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              53A{' '}
+                            </span>
+                            <span>REIMBURSING BANK</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.adviceThroughBank ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              57{' '}
+                            </span>
+                            <span>ADVISE THROUGH BANK</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.secondAdvisingBank ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              57A{' '}
+                            </span>
+                            <span>SECOND ADVISING BANK, IF APPLICABLE</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication
+                        ?.requestedConfirmationParty ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              58A{' '}
+                            </span>
+                            <span>REQUESTED CONFIRMATION PARTY</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData && lcModuleData?.lcApplication?.charges ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              71B{' '}
+                            </span>
+                            <span>CHARGES</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.charges?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication?.instructionToBank ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              78{' '}
+                            </span>
+                            <span>
+                              INSTRUCTIONS TO PAYING / ACCEPTING /<br />
+                              NEGOTIATING BANK
+                            </span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}{' '}
+                      {lcModuleData &&
+                      lcModuleData?.lcApplication
+                        ?.senderToReceiverInformation ? (
+                        <tr className="table_row">
+                          <td width="40%">
+                            <span className={`${styles.serial_no} term_para`}>
+                              72{' '}
+                            </span>
+                            <span>SENDER TO RECEIVER INFORMATION</span>
+                          </td>
+                          <td className="term_para">
+                            {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
+                          </td>
+                        </tr>
+                      ) : (
+                        ''
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -1095,8 +2909,8 @@ function Index() {
                           role="tab"
                           aria-controls="emailAddress"
                           aria-selected="true"
-                          onClick={() =>{
-                            setWhat("email")
+                          onClick={() => {
+                            setWhat('email')
                           }}
                         >
                           <img
@@ -1117,8 +2931,8 @@ function Index() {
                           role="tab"
                           aria-controls="whatsApp"
                           aria-selected="false"
-                           onClick={() =>{
-                            setWhat("what")
+                          onClick={() => {
+                            setWhat('what')
                           }}
                         >
                           <img
@@ -1141,36 +2955,45 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="email-address"
                       >
-                        {emailAdd.map((val,index) => (
-                        <div className='d-flex align-items-center form-group'>
-                          <div key={index} className={`${styles.each_input} flex-grow-1`}>
-                            <div className="d-flex">
-                              <select
-                                id="email"
-                                name="email"
-                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                                selected
-                              >
-                                <option value="javanika.seth@hdfcbank.com">
-                                  javanika.seth@hdfcbank.com
-                                </option>
-                              </select>
-                              <label
-                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                                htmlFor="email"
-                              >
-                                Email
-                              </label>
-                              <img
-                                className={`${styles.arrow} image_arrow img-fluid`}
-                                src="/static/inputDropDown.svg"
-                                alt="Search"
-                              />
+                        {emailAdd.map((val, index) => (
+                          <div className="d-flex align-items-center form-group">
+                            <div
+                              key={index}
+                              className={`${styles.each_input} flex-grow-1`}
+                            >
+                              <div className="d-flex">
+                                <select
+                                  id="email"
+                                  name="email"
+                                  className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                  selected
+                                >
+                                  <option value="javanika.seth@hdfcbank.com">
+                                    javanika.seth@hdfcbank.com
+                                  </option>
+                                </select>
+                                <label
+                                  className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                  htmlFor="email"
+                                >
+                                  Email
+                                </label>
+                                <img
+                                  className={`${styles.arrow} image_arrow img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3'
-                          onClick={()=>{handleDeleteEmail(index)}}
-                          />
+                            <img
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                              role="button"
+                              className="ml-3"
+                              onClick={() => {
+                                handleDeleteEmail(index)
+                              }}
+                            />
                           </div>
                         ))}
                         <div
@@ -1206,46 +3029,57 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="whatsapp"
                       >
-                        {number.length>0 && number.map((val,index)=>{
-                          return (
-                            <>
-                            <div className='d-flex align-items-center form-group'>
-                              <div className={`${styles.each_input} ${styles.phone} flex-grow-1`}>
-                                <div className={styles.phone_card}>
-                                  <select
-                                    name="callingCode"
-                                    id="Code"
-                                    className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                        {number.length > 0 &&
+                          number.map((val, index) => {
+                            return (
+                              <>
+                                <div className="d-flex align-items-center form-group">
+                                  <div
+                                    className={`${styles.each_input} ${styles.phone} flex-grow-1`}
                                   >
-                                    <option>+91</option>
-                                    <option>+1</option>
-                                    <option>+92</option>
-                                    <option>+95</option>
-                                    <option>+24</option>
-                                  </select>
-                                  <input
-                                    type="tel"
-                                    id="textNumber"
-                                    name="primary"
-                                    className={`${styles.formControl} input form-control border-left-0`}
-                                    required
+                                    <div className={styles.phone_card}>
+                                      <select
+                                        name="callingCode"
+                                        id="Code"
+                                        className={`${styles.code_phone} input border-right-0 bg-transparent`}
+                                      >
+                                        <option>+91</option>
+                                        <option>+1</option>
+                                        <option>+92</option>
+                                        <option>+95</option>
+                                        <option>+24</option>
+                                      </select>
+                                      <input
+                                        type="tel"
+                                        id="textNumber"
+                                        name="primary"
+                                        className={`${styles.formControl} input form-control border-left-0`}
+                                        required
+                                      />
+                                      <label
+                                        className={`${styles.label_heading} label_heading`}
+                                        id="textNumber"
+                                      >
+                                        Phone Number
+                                        <strong className="text-danger">
+                                          *
+                                        </strong>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                    role="button"
+                                    className="ml-3"
+                                    onClick={() => {
+                                      handleDeleteNumber(index)
+                                    }}
                                   />
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                    id="textNumber"
-                                  >
-                                    Phone Number
-                                    <strong className="text-danger">*</strong>
-                                  </label>
                                 </div>
-                              </div>
-                              <img src="/static/delete 2.svg" alt="delete" role="button" className='ml-3' 
-                                 onClick={()=>{handleDeleteNumber(index)}}
-                              />
-                            </div>
-                            </>
-                          )
-                        })}
+                              </>
+                            )
+                          })}
                         {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -1253,13 +3087,11 @@ function Index() {
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
-                            if(what=="what"){
-                            addWhatRows()
-                            }else{
-                            addMoreRows()
+                            if (what == 'what') {
+                              addWhatRows()
+                            } else {
+                              addMoreRows()
                             }
-                            
-                           
                           }}
                         >
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1345,7 +3177,6 @@ function Index() {
                         onClick={handleClose}
                         type="button"
                         className={`${styles.submit} ${styles.btn} btn w-50`}
-                       
                       >
                         Download
                       </button>
@@ -1358,11 +3189,13 @@ function Index() {
         </div>
       </div>
 
-      <LCAmendBar download={exportPDF} openbar={handlePopup} barName="Application for LC" />
+      <LCAmendBar
+        download={exportPDF}
+        openbar={handlePopup}
+        barName="Application for LC"
+      />
     </>
   )
 }
 
 export default Index
-
-

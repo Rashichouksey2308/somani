@@ -35,6 +35,7 @@
             }
         }
     }
+    
     .filterIcon {
         width: 48px;
         height: 48px;
@@ -44,8 +45,21 @@
         border-radius: 5px;
         display: inline-block;
         border: 3px solid #3687e8;
+        @include respond(md-desktop) {
+            width: 44px;
+            height: 44px;
+            line-height: 40px;
+        }
         @include respond(sm-desktop) {
+            width: 40px;
+            height: 40px;
             margin-left: 0;
+            line-height: 36px;
+        }
+        img {
+            @include respond(md-desktop) {
+                height: 18px;
+            }
         }
     }
     .filterList {
@@ -58,6 +72,15 @@
         letter-spacing: 0.17px;
         display: inline-block;
         text-transform: capitalize;
+        white-space: nowrap;
+        @include respond(md-desktop) {
+            font-size: 16px;
+            padding: 8px 10px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 14px;
+            padding: 6px 10px 7px;
+        }
         img {
             width: 10px;
             margin-left: 12px;
@@ -70,14 +93,36 @@
         font-weight: bold;
         line-height: 25px;
         width: 188px;
-        height: 48px;
-        padding: 12px 0;
+        height: 48px;       
         box-shadow: none;
         text-align: center;
         border-radius: 5px;
+        white-space: nowrap;
         background: #3687e8;
         display: inline-block;
         text-transform: capitalize;
+        @include respond(lg-desktop) {
+            font-size: 18px;
+            width: 160px;
+            height: 40px;
+            line-height: 1;
+        }
+        @include respond(md-desktop) {
+            font-size: 16px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 15px;
+        }
+        & > span {
+            @include respond(lg-desktop) {
+                font-size: 22px !important;
+            }
+            & + span {
+                @include respond(lg-desktop) {
+                    font-size: 16px !important;
+                }
+            }
+        }
     }
 }
 .statusBox {
@@ -92,11 +137,14 @@
         &:last-child {
             border-right: none;
         }
+        @include respond(lg-desktop) {
+            padding: 12px 16px;
+        }
         @include respond(md-desktop) {
-            padding: 18px;
+            padding: 12px 15px;
         }
         @include respond(sm-desktop) {
-            padding: 12px;
+            padding: 10px 12px;
             text-align: center;
             display: block !important;
         }
@@ -107,13 +155,20 @@
             line-height: 34px;
             margin: 0 0 0 18px;
             text-transform: capitalize;
+            @include respond(lg-desktop) {
+                font-size: 24px;
+                line-height: 1.2;
+            }
             @include respond(md-desktop) {
-                font-size: 25px;
+                font-size: 22px;
                 margin: 0 0 0 15px;
             }
             @include respond(sm-desktop) {
-                font-size: 22px;
+                font-size: 20px;
                 margin: 10px 0 0 0;
+            }
+            @include respond(phone) {
+                font-size: 18px;
             }
             span {
                 font-size: 15px;
@@ -138,18 +193,23 @@
             line-height: 55px;
             text-align: center;
             border-radius: 8px;
-            @include respond(md-desktop) {
+            @include respond(lg-desktop) {
                 height: 50px;
                 min-width: 50px;
                 line-height: 48px;
                 border-radius: 6px;
             }
-            @include respond(sm-desktop) {
+            @include respond(md-desktop) {
                 height: 40px;
-                min-width: auto;
-                max-width: 40px;
+                min-width: 40px;
                 line-height: 38px;
                 border-radius: 5px;
+            }
+            @include respond(sm-desktop) {
+                height: 35px;
+                min-width: auto;
+                max-width: 35px;
+                line-height: 32px;
                 margin: 0 auto;
             }
         }
@@ -194,6 +254,18 @@
             line-height: 27px;
             margin: 24px 0;
             text-transform: capitalize;
+            @include respond(lg-desktop) {
+                font-size: 20px !important; 
+                line-height: 1.3;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px !important; 
+                margin: 20px 0;
+            }
+            @include respond(phone) {
+                font-size: 16px !important; 
+                margin: 13px 0;
+            }
         }
         .pageList {            
             span {
@@ -202,6 +274,18 @@
                 font-weight: 500;
                 line-height: 23px;
                 margin-right: 38px;
+                @include respond(lg-desktop) {
+                    font-size: 16px;
+                    line-height: 1.3;
+                }
+                @include respond(phone) {
+                    font-size: 14px;
+                    line-height: 20px;
+                    margin-right: 5px;
+                }
+                @include respond(sm-phone) {
+                    display: none;
+                }
             }
             .arrow {
                 width: 50px;
@@ -212,10 +296,44 @@
                 border-radius: 8px;
                 display: inline-block;
                 background: #FAFAFB;
-            }
-            .rightArrow {
+                @include respond(lg-desktop) {
+                    width: 40px;
+                    height: 40px;
+                    line-height: 35px;
+                }
+                @include respond(sm-desktop) {
+                    width: 35px;
+                    height: 35px;
+                    line-height: 30px;
+                }
+                @include respond(phone) {
+                    width: 28px;
+                    height: 28px;
+                    line-height: 25px;
+                }
                 img {
-                    transform: rotate(180deg);
+                    height: 18px;
+                    @include respond(lg-desktop) {
+                        height: 16px;
+                    }
+                    @include respond(sm-desktop) {
+                        height: 14px;
+                    }
+                    @include respond(phone) {
+                        height: 10px;
+                    }
+                }
+                &.rightArrow {
+                    img {
+                        transform: rotate(180deg);
+                        @include respond(sm-desktop) {
+                            height: 14px;
+                        }
+                        @include respond(phone) {
+                            height: 10px;
+                        }
+                    }
+                
                 }
             }
         }
@@ -238,6 +356,11 @@
                     white-space: nowrap;
                     vertical-align: middle;
                     text-transform: uppercase;
+                    @include respond(lg-desktop) {
+                        height: 50px;
+                        font-size: 14px;
+                        line-height: 1.2;
+                    }
                     &:first-child {
                         padding-left: 35px;
                         @include respond(sm-desktop) {
