@@ -66,7 +66,7 @@ function Index() {
               </td>
               <td valign='top' align='center' width='34%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>AMENDED LETTER OF CREDIT</h2></td>
               <td valign='bottom' align='right' width='33%'>
-                <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 25px 0 0'}}>Documentary Credit Number: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>111111</span></span><br/>
+                <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 25px 0 0'}}>Documentary Credit Number: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span></span><br/>
                 <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', paddingRight:'25px', fontWeight:'500'}}><span style={{display: 'inline-block', width: '90px', height:'50px'}}>Date: </span><span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></span>
               </td>
             </tr>

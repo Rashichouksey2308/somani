@@ -399,15 +399,15 @@ const toPdf=(data)=>{
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Quantity</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.quan} {data?.unitOfQuantity?.toUpperCase()}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.quan?.toLocaleString('en-In', {maximumSignificantDigits: 2})} {data?.unitOfQuantity?.toUpperCase()}</td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Unit Price</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.curr} {data.unitPrice}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.curr} {data.unitPrice?.toLocaleString('en-In', {maximumSignificantDigits: 2})}</td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Total Order Value</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{"USD"} {data.totalOrderValue} </td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{"USD"} {data.totalOrderValue?.toLocaleString('en-In', {maximumSignificantDigits: 2})} </td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Load Port</td>
