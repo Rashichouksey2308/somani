@@ -40,7 +40,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
                 {/* <option selected>MT</option> */}
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
           </div>
 
@@ -58,7 +58,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <option value="Million">Million</option>
                 <option value="Lakh">Lakh</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -160,7 +160,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   value={
                     isFieldInFocus.quantity ?
                       orderDetail?.quantity :
-                      Number(orderDetail?.quantity).toLocaleString('en-In') + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
+                      Number(orderDetail?.quantity).toLocaleString('en-In', { maximumFractionDigits: 2 }) + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -187,7 +187,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   value={
                     isFieldInFocus.orderValue ?
                       orderDetail?.orderValue :
-                      Number(orderDetail?.orderValue).toLocaleString('en-In') + ` ${orderDetail?.unitOfValue == 'Crores'
+                      Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) + ` ${orderDetail?.unitOfValue == 'Crores'
                         ? 'Cr'
                         : orderDetail?.unitOfValue}`}
                   // value={addPrefixOrSuffix(

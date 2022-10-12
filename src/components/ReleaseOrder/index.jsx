@@ -225,7 +225,7 @@ export default function Index({
         releaseDetail[i]?.releaseOrderDate == '' ||
         releaseDetail[i]?.releaseOrderDate == null
       ) {
-        toastMessage = `please input a date for release order   ${i +1}  `
+        toastMessage = `please input a date for release order   ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -236,7 +236,9 @@ export default function Index({
         releaseDetail[i]?.netQuantityReleased == '' ||
         releaseDetail[i]?.netQuantityReleased == null
       ) {
-        toastMessage = `please provide a value for net quantity release in release order no ${i+1}  `
+        toastMessage = `please provide a value for net quantity release in release order no ${
+          i + 1
+        }  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -306,7 +308,9 @@ export default function Index({
                           'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           0,
                         ),
-                      )?.toLocaleString('en-In', {maximumFractionDigits: 2})}{' '}
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })}{' '}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
@@ -374,7 +378,8 @@ export default function Index({
                               index={index}
                               saveDate={saveDate}
                               name="releaseOrderDate"
-                              autocomplete="off"
+                              // autoComplete="off"
+
                               labelName="Release Order Date"
                             />
                             {console.log(
@@ -411,19 +416,23 @@ export default function Index({
                               isFieldInFocus
                                 ? item.netQuantityReleased
                                 : Number(
-                                  item.netQuantityReleased,
-                                )?.toLocaleString('en-IN') +
-                                ` ${_get(
-                                  ReleaseOrderData,
-                                  'data[0].order.unitOfQuantity',
-                                  '',
-                                )}`
+                                    item.netQuantityReleased,
+                                  )?.toLocaleString('en-IN') +
+                                  ` ${_get(
+                                    ReleaseOrderData,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  )}`
                             }
                             className={`${styles.input_field} input form-control`}
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
 
-                          // onKeyDown={(evt) =>
-                          //   evt.key === 'e' && evt.preventDefault()
-                          // }
+                            // onKeyDown={(evt) =>
+                            //   evt.key === 'e' && evt.preventDefault()
+                            // }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -466,26 +475,26 @@ export default function Index({
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
-                                  {releaseDetail.length > 1 &&
-                                    <img
-                                      onClick={() => handleDeleteRow(index)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} ml-3`}
-                                      alt="Delete"
-                                    />
-                                  }
+                                {releaseDetail.length > 1 && (
+                                  <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} ml-3`}
+                                    alt="Delete"
+                                  />
+                                )}
 
-                                  {Number(netBalanceQuantity) >= 0 &&
-                                    releaseDetail.length - 1 === index && (
-                                      <img
-                                        onClick={() =>
-                                          addMorereleaseDetailDataRows(index)
-                                        }
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-3`}
-                                        alt="Add button"
-                                      />
-                                    )}
+                                {Number(netBalanceQuantity) >= 0 &&
+                                  releaseDetail.length - 1 === index && (
+                                    <img
+                                      onClick={() =>
+                                        addMorereleaseDetailDataRows(index)
+                                      }
+                                      src="/static/add-btn.svg"
+                                      className={`${styles.delete_image} ml-3`}
+                                      alt="Add button"
+                                    />
+                                  )}
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
@@ -514,14 +523,14 @@ export default function Index({
                               </div>
 
                               <>
-                                {releaseDetail.length > 1 &&
+                                {releaseDetail.length > 1 && (
                                   <img
                                     onClick={() => handleDeleteRow(index)}
                                     src="/static/delete 2.svg"
                                     className={`${styles.delete_image} ml-3`}
                                     alt="Delete"
                                   />
-                                }
+                                )}
 
                                 {Number(netBalanceQuantity) >= 0 &&
                                   releaseDetail.length - 1 === index && (
@@ -535,7 +544,6 @@ export default function Index({
                                     />
                                   )}
                               </>
-
                             </>
                           )}
                           {/* {releaseDetail.length > 1 && (
