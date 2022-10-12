@@ -2,11 +2,15 @@
 .root_container {
   margin: 28px;
   // width: 100%;
-  margin-bottom: 154px;
+  margin-bottom: 152px;
   border-bottom: none !important;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     margin: 20px;
-    margin-bottom: 146px;
+    margin-bottom: 144px;
+  }
+  @include respond(sm-desktop) {
+    margin: 18px;
+    margin-bottom: 142px;
   }
   @include respond(phone) {
     margin: 15px;
@@ -20,6 +24,10 @@
       justify-content: flex-start;
       align-items: center;
       margin: 0 0 27px 10px;
+      @include respond(lg-desktop) {
+          height: 40px;
+          margin-bottom: 20px;
+      }
       @include respond(phone) {
         align-items: center;
         padding: 0.75rem 0rem;
@@ -27,22 +35,36 @@
       .arrow {
         width: 13px;
         height: 21px;
+        cursor: pointer;
         background: transparent;
-        @include respond(phone) {
-          height: 18px;
+        @include respond(lg-desktop) {
+          width: 10px;
+          height: auto;
         }
       }
       .heading {
         font-size: 34px;
         font-weight: bold;
         line-height: 41px;
-        padding-left: 18px;
         margin: 0;
-        @include respond(phone) {
-          padding: 12px 0 12px 12px;
-          font-size: 20px;
-          margin: 0px;
+        padding-left: 18px;
+        text-transform: lowercase;
+        &:first-letter {
+            text-transform: uppercase;
+        }
+        &:first-line {
+            text-transform: capitalize;
+        }
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
           padding-left: 10px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 20px;
+        }
+        @include respond(phone) {
+          font-size: 18px;
         }
       }
     }

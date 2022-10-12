@@ -8,25 +8,43 @@
     .title_header {
       height: 48px;
       margin: 0 0 27px 10px;
+      @include respond(lg-desktop) {
+          height: 40px;
+          margin-bottom: 20px;
+      }
       img {
         width: 13px;
         height: 21px;
-        @include respond(phone) {
+        cursor: pointer;
+        background: transparent;
+        @include respond(lg-desktop) {
+          width: 10px;
+          height: auto;
         }
       }
       .title {
         font-size: 34px;
         font-weight: bold;
         line-height: 41px;
-        letter-spacing: 0.53px;
         margin: 0;
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-          text-transform: uppercase;
+            text-transform: uppercase;
         }
         &:first-line {
-          text-transform: capitalize;
+            text-transform: capitalize;
+        }
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 20px;
+        }
+        @include respond(phone) {
+          font-size: 18px;
         }
         span {
           @include respond(phone) {

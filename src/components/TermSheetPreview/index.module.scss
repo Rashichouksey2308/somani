@@ -7,9 +7,13 @@
     //   border-bottom: 1px solid #d2d7e5;
     //   box-shadow: 0 8px 13px -5px #cad0e2;
     margin-bottom: 152px;
-    @include respond(sm-desktop) {
+    @include respond(lg-desktop) {
         margin: 20px;
         margin-bottom: 144px;
+    }
+    @include respond(sm-desktop) {
+        margin: 18px;
+        margin-bottom: 142px;
     }
     @include respond(phone) {
         margin: 15px;
@@ -23,6 +27,10 @@
             align-items: center;
             min-height: 48px;
             margin: 0 0 27px 10px;
+            @include respond(lg-desktop) {
+                min-height: 40px;
+                margin-bottom: 20px;
+            }
             @include respond(phone) {
                 align-items: center;
                 padding: 0.75rem 0rem;
@@ -30,21 +38,37 @@
             .arrow {
                 width: 13px;
                 height: 21px;
-                background: transparent;
                 cursor: pointer;
-                @include respond(phone) {
-                    height: 18px;
+                background: transparent;
+                @include respond(lg-desktop) {
+                  width: 10px;
+                  height: auto;
                 }
             }
             .heading {
-                font-size: 34px;
-                font-weight: bold;
-                line-height: 41px;
-                padding-left: 18px;
-                margin: 0;
-                @include respond(phone) {
-                    font-size: 20px;
-                }
+              font-size: 34px;
+              font-weight: bold;
+              line-height: 41px;
+              margin: 0;
+              padding-left: 18px;
+              text-transform: lowercase;
+              &:first-letter {
+                  text-transform: uppercase;
+              }
+              &:first-line {
+                  text-transform: capitalize;
+              }
+              @include respond(lg-desktop) {
+                font-size: 24px;
+                line-height: 1.4;
+                padding-left: 10px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 20px;
+              }
+              @include respond(phone) {
+                font-size: 18px;
+              }
             }
         }
     }
@@ -56,7 +80,7 @@
         // border: 1px solid #D2D7E5;
         border-radius: 6px;
         span {
-            color: #3687E8;
+            // color: #3687E8;
             font-size: 34px;
             line-height: 41px;
             font-weight: bold;

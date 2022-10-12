@@ -8,25 +8,24 @@
             font-weight: bold;
             line-height: 41px;
             margin: 0;
-            text-transform: capitalize;
-            @include respond(md-desktop) {
-                font-size: 32px;
+            padding-left: 18px;
+            text-transform: lowercase;
+            &:first-letter {
+                text-transform: uppercase;
+            }
+            &:first-line {
+                text-transform: capitalize;
+            }
+            @include respond(lg-desktop) {
+              font-size: 24px;
+              line-height: 1.4;
+              padding-left: 10px;
             }
             @include respond(sm-desktop) {
-                font-size: 28px;
+              font-size: 20px;
             }
             @include respond(phone) {
-                font-size: 24px;
-            }
-            img {
-                width: 13px;
-                height: 21px;
-                margin: -5px 25px 0 0;
-                @include respond(sm-desktop) {}
-                @include respond(phone) {
-                    width: 10px;
-                    height: 15px;                    
-                }
+              font-size: 18px;
             }
         }        
         .lastModified {

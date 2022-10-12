@@ -105,7 +105,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
               onClick={() => handleRouteNewOrder()}
             >
-              <span className={`ml-4 mb-1 p-1`} style={{fontSize:'30px'}}>+</span>
+              <span className={`ml-2 mb-1 p-1`} style={{fontSize:'30px'}}>+</span>
               <span className={`mr-3 ml-1 `}>New Order</span>
             </button>
           </div>

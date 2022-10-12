@@ -8,24 +8,47 @@
   }
   .tabHeader {
     padding: 25px 30px 30px;
+    img {
+      width: 13px;
+      height: 21px;
+      cursor: pointer;
+      margin: -5px 25px 0 0;
+      background: transparent;
+      @include respond(lg-desktop) {
+        width: 10px;
+        height: auto;
+      }
+      @include respond(phone) {
+        margin: 7px 7px 0 0;
+      }
+    }
     .title {
       font-size: 34px;
       font-weight: bold;
       line-height: 41px;
       margin: 0;
+      text-transform: lowercase;
+      &:first-letter {
+          text-transform: uppercase;
+      }
+      &:first-line {
+          text-transform: capitalize;
+      }
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.4;
+      }
+      @include respond(sm-desktop) {
+        font-size: 20px;
+      }
+      @include respond(phone) {
+        font-size: 18px;
+      }
       span {
         @include respond(phone) {
           font-size: 13px;
           margin: 0px;
           padding-left: 0px;
-        }
-      }
-      img {
-        width: 13px;
-        height: 21px;
-        margin: -5px 25px 0 0;
-        @include respond(phone) {
-          margin: 7px 7px 0 0;
         }
       }
     }
