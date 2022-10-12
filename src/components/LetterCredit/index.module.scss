@@ -230,8 +230,11 @@
   .tableFilter {
     min-height: 80px;
     padding: 0 15px 0 35px;
+    @include respond(lg-desktop) {
+        min-height: 60px;
+    }
     @include respond(sm-desktop) {
-      padding: 0 15px 0 15px;
+      padding: 0 15px;
     }
     h3 {
       font-size: 22px !important;
@@ -239,6 +242,18 @@
       line-height: 27px;
       margin: 0;
       color: #3687e8;
+      @include respond(lg-desktop) {
+          font-size: 20px; 
+          line-height: 1.3;
+      }
+      @include respond(sm-desktop) {
+          font-size: 18px; 
+          margin: 20px 0;
+      }
+      @include respond(phone) {
+          font-size: 16px;
+          margin: 13px 0;
+      }
     }
   }
   .table_scroll_outer {

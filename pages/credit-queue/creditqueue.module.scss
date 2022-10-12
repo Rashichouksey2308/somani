@@ -380,6 +380,9 @@
     border-radius: 6px;
     margin-bottom: 26px;
     border: 1px solid #d2d7e5;
+    @include respond(lg-desktop) {
+        margin-bottom: 20px;
+    }
     @include respond(phone) {
         margin-bottom: 68px;
     }
