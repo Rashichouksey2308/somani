@@ -141,95 +141,95 @@ export default index
 
 const toPdf=(data)=>{
   return(
-         <table width="800px" bgColor="#ffffff" style={{marginBottom:'20px'}} cellPadding="0" cellSpacing="0" border="0">
+         <table width="800px" bgColor="#ffffff" style={{marginBottom:'20px', color:'#000000'}} cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td style={{fontFamily:'Times New Roman, Times, serif', padding:'20px', fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
-            <p align='center' style={{textDecoration:'underline'}}><strong><u>SALES CONTRACT</u></strong></p>
-            <p align='center' style={{float:'left'}}>This Sales Contract("<span style={{fontWeight:'bold'}}>{data.shortseller + "/" + data.shortbuyer + "/" + "2022/001"}</span>") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the Buyer.</p>
+            <p align='center' style={{textDecoration:'underline', color:'#000000'}}><strong><u>SALES CONTRACT</u></strong></p>
+            <p align='center' style={{float:'left', color:'#000000'}}>This Sales Contract("<span style={{fontWeight:'bold', color:'#000000'}}>{data.shortseller + "/" + data.shortbuyer + "/" + "2022/001"}</span>") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the Buyer.</p>
           </td>
         </tr>
         <tr>
           <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'18px', color:'#000000', padding:'20px 20px 40px'}}>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>1</td>
-                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Seller</td>
+                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>1</p></td>
+                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Seller</p></td>
                 <td width="70%" style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
-                  <>{data?.seller}</>
+                  <p style={{color:'#000000', marginBottom:'0'}}><>{data?.seller}</>
                   <br></br>
-                  <>{data?.seller?data.sellerAddress:""}</>
+                  <>{data?.seller?data.sellerAddress:""}</></p>
                 </td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>2</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Buyer</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>             
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>2</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Buyer</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>
                   <>{data?.buyer}</> 
                   <br></br>
                   <>{data?.buyer?data.buyerAddress:""}</>             
-                </td>
+                </p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>3</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Manufacturer/Supplier / Shipper</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>3</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Manufacturer/Supplier / Shipper</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>4</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>End User / End Buyer</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>4</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>End User / End Buyer</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>5</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Commodity, Quantity, Specification and Unit Price</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>5</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Commodity, Quantity, Specification and Unit Price</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>6</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Total Order Value  </td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>6</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Total Order Value  </p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>7</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Discharge Port</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>7</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Discharge Port</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>8</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Loading Port</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>8</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Loading Port</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>9</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Quality / Inspection </td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>9</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Quality / Inspection </p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>10</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Duties and Taxes</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>10</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Duties and Taxes</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>11</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Shipment </td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Details as per Schedule 1</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>11</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Shipment </p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Details as per Schedule 1</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>12</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Payment Terms </td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>12</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Payment Terms </p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
                   <ol type="A" style={{paddingLeft:'16px', float:'left', display:'block'}}>
-                    <li style={{marginBottom:'10px'}}>All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</li>
-                    <li style={{marginBottom:'10px'}}>The Buyer shall pay for entire cargo within <em style={{fontStyle:'normal', textDecoration:'underline'}}>90 days</em> from the date of B/L or <em style={{fontStyle:'normal', textDecoration:'underline'}}>60 days</em> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</li>
-                    <li style={{marginBottom:'10px'}}>The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day</li>
+                    <li style={{marginBottom:'10px'}}><p style={{color:'#000000', marginBottom:'0'}}>All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</p></li>
+                    <li style={{marginBottom:'10px'}}><p style={{color:'#000000', marginBottom:'0'}}>The Buyer shall pay for entire cargo within <em style={{fontStyle:'normal', textDecoration:'underline'}}>90 days</em> from the date of B/L or <em style={{fontStyle:'normal', textDecoration:'underline'}}>60 days</em> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p></li>
+                    <li style={{marginBottom:'10px'}}><p style={{color:'#000000', marginBottom:'0'}}>The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day</p></li>
                     <li style={{marginBottom:'10px'}}>Documents to be provided to Buyer
                       <ol type="1" style={{paddingLeft:'0', marginTop:'16px'}}>
-                        <li>The Seller's Commercial Invoice,</li>
-                        <li>Full set of 3/3 originals of Bills of Lading,</li>
-                        <li>Certificate of Quality,</li>
-                        <li>Certificate of Weight,</li>
-                        <li>Certificate of Origin.</li>
-                        <li>Copy of Marine Insurance Certificate / Insurance Policy</li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>The Seller's Commercial Invoice,</p></li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>Full set of 3/3 originals of Bills of Lading,</p></li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>Certificate of Quality,</p></li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>Certificate of Weight,</p></li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>Certificate of Origin.</p></li>
+                        <li><p style={{color:'#000000', marginBottom:'0'}}>Copy of Marine Insurance Certificate / Insurance Policy</p></li>
                       </ol>
                     </li>
                   </ol>
@@ -243,8 +243,8 @@ const toPdf=(data)=>{
           <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'18px', color:'#000000', padding:'100px 20px 40px'}}>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>13</td>
-                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Insurance </td>
+                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>13</p></td>
+                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Insurance </p></td>
                 <td width="70%" style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
                   <ol type="A" style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>Marine Insurance: Seller will provide Marine Insurance as received from Shipper.</li>
@@ -253,23 +253,23 @@ const toPdf=(data)=>{
                 </td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>14</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Shipping Terms </td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>14</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Shipping Terms </p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>15</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Title / Risk </td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>15</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Title / Risk </p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>16</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Time is the essence</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>16</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Time is the essence</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>17</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Remedies Available to the Seller</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>17</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Remedies Available to the Seller</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
                   <ol type='A' style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond the due date of making the payment as specified hereinabove.</li>
@@ -280,8 +280,8 @@ const toPdf=(data)=>{
                 </td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>18</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Special Conditions </td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>18</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Special Conditions </p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
                   <ol type="1" style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods / material shall pass on to the Buyer only in respect of such specific quantity thereof as released from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt of the price and other payables in respect thereof and actual delivery of the goods having been made to the Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Buyer in any contingency including of Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Buyer until the Goods are released and delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until the Goods are released and delivered by the Seller in accordance with this Agreement.</li>
@@ -303,28 +303,28 @@ const toPdf=(data)=>{
                 </td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>19</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Mutual Collaboration</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>19</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Mutual Collaboration</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at the time this Contract is being entered into. Both Parties agree that they will use their commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any unforeseen circumstances in the spirit of mutual understanding and collaboration</td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>20</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Termination</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>20</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Termination</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br/><br/>In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.</td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>21</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Notices</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>21</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Notices</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Any notice given by one Party to the other shall be in the English language and sent by facsimile or by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.</td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>22</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Force Majeure</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage, quarantine restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the Buyer's warehouse or the like or any other cause which may be beyond the control of the Seller.<br/><br/>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.<br/><br/>No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the licensed warehouse.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>22</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Force Majeure</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage, quarantine restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the Buyer's warehouse or the like or any other cause which may be beyond the control of the Seller.<br/><br/>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.<br/><br/>No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the licensed warehouse.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>23</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Breach of Contract</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>23</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Breach of Contract</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>
                   <ol type="1" style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be fully responsible and liable for all losses, damages, both direct and consequential incurred by the Seller.</li>
@@ -336,33 +336,33 @@ const toPdf=(data)=>{
                 </td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>24</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Dispute Resolution &amp; Arbitration</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>24</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Dispute Resolution &amp; Arbitration</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.<br/><br/>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.</td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>25</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Modifications of the contract</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>25</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Modifications of the contract</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>26</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>No Assignment</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other's consent in writing.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>26</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>No Assignment</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other's consent in writing.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>27</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Severability</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>The Parties intend each provision of this Agreement to be severable and distinct from the others. If a provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall not be affected.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>27</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Severability</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>The Parties intend each provision of this Agreement to be severable and distinct from the others. If a provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall not be affected.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>28</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Waiver</td>
-                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Failure to enforce any condition herein contained shall not operate as a waiver of the condition itself or any subsequent breach thereof.</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>28</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Waiver</p></td>
+                <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}><p style={{color:'#000000', marginBottom:'0'}}>Failure to enforce any condition herein contained shall not operate as a waiver of the condition itself or any subsequent breach thereof.</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>29</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Representations and Warranties</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>29</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Representations and Warranties</p></td>
                 <td style={{borderBottom:'1px solid #000000', textAlign:'justify'}}>Each party to this Agreement hereby represents and warrants that:
                   <ol type="1" style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its incorporation and has all necessary corporate power, authority and capacity to execute this Agreement and undertake the transactions contemplated herein;</li>
@@ -378,55 +378,55 @@ const toPdf=(data)=>{
           <td valign='top' align='center' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><h3 style={{fontSize:'15px', fontWeight:'bold'}}>Schedule I</h3>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td width="30%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Date of Execution</td>
-                <td width="70%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{moment(new Date()).format("DD-MM-YYYY")}</td>
+                <td width="30%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Date of Execution</p></td>
+                <td width="70%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{moment(new Date()).format("DD-MM-YYYY")}</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Place of Execution</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.placeOfExecution}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Place of Execution</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.placeOfExecution}</p></td>
               </tr>
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Details of Manufacturer / Supplier / Shipper</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.details}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Details of Manufacturer / Supplier / Shipper</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.details}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Details of End Buyer</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.details}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Details of End Buyer</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.details}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Details of Commodity</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.detailsOfComm}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Details of Commodity</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.detailsOfComm}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Quantity</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.quan?.toLocaleString('en-In', {maximumSignificantDigits: 2})} {data?.unitOfQuantity?.toUpperCase()}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Quantity</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.quan?.toLocaleString('en-In', {maximumSignificantDigits: 2})} {data?.unitOfQuantity?.toUpperCase()}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Unit Price</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.curr} {data.unitPrice?.toLocaleString('en-In', {maximumSignificantDigits: 2})}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Unit Price</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.curr} {data.unitPrice?.toLocaleString('en-In', {maximumSignificantDigits: 2})}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Total Order Value</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{"USD"} {data.totalOrderValue?.toLocaleString('en-In', {maximumSignificantDigits: 2})} </td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Total Order Value</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{"USD"} {data.totalOrderValue?.toLocaleString('en-In', {maximumSignificantDigits: 2})} </p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Load Port</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.lordPort}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Load Port</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.lordPort}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Discharge Port</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.dischargePort}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Discharge Port</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.dischargePort}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Last Date of Shipment</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{moment(data.lastDate).format("DD-MM-YYYY")}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Last Date of Shipment</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{moment(data.lastDate).format("DD-MM-YYYY")}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Shipment Term</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.terms}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Shipment Term</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.terms}</p></td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Additional Conditions</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Additional Conditions</p></td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{
                   <>
                     <ol type="1" style={{paddingLeft:'16px'}}>
@@ -440,7 +440,7 @@ const toPdf=(data)=>{
                 }</td>
               </tr>              
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Specification</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Specification</p></td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>
                   <>
                     <table width="100%" cellPadding="0" cellSpacing="0" border="0" style={{borderTop:'1px solid #d9dde8', borderLeft:'1px solid #d9dde8'}}>
@@ -448,7 +448,7 @@ const toPdf=(data)=>{
                           {data?.spec &&
                             data?.spec.length > 0 &&
                             Object.keys(data?.spec[0]).map((val, index) => (
-                              <td bgColor="#fafafb" style={{color:'#8492a6', fontWeight:'bold', borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={index}>{val}</td>
+                              <td bgColor="#fafafb" style={{color:'#8492a6', fontWeight:'bold', borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={index}><p style={{color:'#000000', marginBottom:'0'}}>{val}</p></td>
                             ))}
                         </tr>
                         {data?.spec &&
@@ -456,7 +456,7 @@ const toPdf=(data)=>{
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td style={{borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={id}>{value}</td>
+                                <td style={{borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={id}><p style={{color:'#000000', marginBottom:'0'}}>{value}</p></td>
                               ))}
                             </tr>
                           ))}
@@ -466,7 +466,7 @@ const toPdf=(data)=>{
                     <ol type="1" style={{paddingLeft:'16px'}}>
                     {data?.specComment?.length>0 && data?.specComment?.map((val,index)=>{
                       return(<li style={{marginBottom:'10px'}}>
-                      {val}
+                      <p style={{color:'#000000', marginBottom:'0'}}>{val}</p>
                       </li>)
                     }) }
                     </ol>
@@ -477,14 +477,14 @@ const toPdf=(data)=>{
           </td>
         </tr>
         <tr>
-          <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><strong>SIGNATURE PAGE</strong></td>
+          <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><strong><p style={{color:'#000000', marginBottom:'0'}}>SIGNATURE PAGE</p></strong></td>
         </tr>
         <tr>
           <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}>
             <table width="100%" cellPadding="0" cellSpacing="0" border="0">
               <tr>
-                <td width="50%">Seller</td>
-                <td width="50%" style={{paddingLeft:'15px'}}>Buyer</td>
+                <td width="50%"><p style={{color:'#000000', marginBottom:'0'}}>Seller</p></td>
+                <td width="50%" style={{paddingLeft:'15px'}}><p style={{color:'#000000', marginBottom:'0'}}>Buyer</p></td>
               </tr>
               <tr>
                 <td colSpan={2} height={80}></td>
