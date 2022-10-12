@@ -5,6 +5,15 @@
   border: 1px solid #d2d7e5;
   .tabHeader {
     padding: 30px;
+    @include respond(lg-desktop) {
+        padding: 20px;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+    }
   }
 }
 .backgroundMain {

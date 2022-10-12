@@ -8,6 +8,15 @@
   }
   .tabHeader {
     padding: 25px 30px 30px;
+    @include respond(lg-desktop) {
+        padding: 20px;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+    }
     .title {
       font-size: 34px;
       font-weight: bold;
@@ -53,8 +62,11 @@
   }
   .tabContent {
     margin: 28px;
-    @include respond(sm-desktop) {
+    @include respond(lg-desktop) {
       margin: 20px;
+    }
+    @include respond(sm-desktop) {
+      margin: 18px;
     }
     @include respond(phone) {
       margin: 15px;

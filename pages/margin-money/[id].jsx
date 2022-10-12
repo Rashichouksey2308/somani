@@ -4337,7 +4337,7 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <span>{_get(orderList,"company.companyName","")}</span>
             </h1>
-            <div className="ml-auto">
+            <div className="ml-auto text-right">
               <button
                 type="button"
                 className={`${styles.btnPrimary} btn btn-primary`}
