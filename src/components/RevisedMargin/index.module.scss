@@ -1,3 +1,4 @@
+@import '../styles/Core/config';
 .card {
     margin-bottom: 1rem;
     // box-shadow: 0 3px 6px #cad0e2;
@@ -17,6 +18,9 @@
             font-weight: normal;
             line-height: 20px;
             cursor: pointer;
+            @include respond(lg-desktop) {
+                font-size: 35px;
+            }
         }
         .label {
             font-size: 16px;

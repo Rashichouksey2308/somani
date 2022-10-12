@@ -45,6 +45,9 @@
         line-height: 20px;
         margin-top: -7px;
         cursor: pointer;
+        @include respond(lg-desktop) {
+            font-size: 35px;
+        }
         @include respond(phone) {
             font-size: 30px;
             line-height: 20px;

@@ -65,11 +65,11 @@
       font-weight: normal;
       line-height: 20px;
       margin-left: 25px;
-      @include respond(md-desktop) {
-        font-size: 42px;
+      @include respond(lg-desktop) {
+          font-size: 35px;
       }
       @include respond(sm-desktop) {
-        font-size: 35px;
+        font-size: 32px;
       }
       @include respond(phone) {
         font-size: 30px;
@@ -438,11 +438,11 @@
     font-weight: normal;
     line-height: 20px;
     margin-left: 25px;
-    @include respond(md-desktop) {
-      font-size: 42px;
+    @include respond(lg-desktop) {
+        font-size: 35px;
     }
     @include respond(sm-desktop) {
-      font-size: 35px;
+      font-size: 32px;
     }
     @include respond(phone) {
       font-size: 30px;
