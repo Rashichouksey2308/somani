@@ -8135,7 +8135,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {camData?.orderValue?.toLocaleString('en-In', {
+                        {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}
                       </td>
@@ -8159,13 +8159,13 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {checkNan(
+                        {
                           convertValue(
                             camData?.suggestedOrderValue,
                           )?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
-                          }),
-                        )}{' '}
+                          })
+                        }{' '}
                         Cr
                       </td>
                       <td

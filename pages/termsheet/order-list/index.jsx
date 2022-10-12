@@ -297,6 +297,8 @@ function Index() {
                           className="img-fluid"
                           alt="Preview"
                           onClick={() => {
+                            sessionStorage.setItem('termID', term._id)
+                            sessionStorage.setItem('termOrdID', term?.order._id)
                             dispatch(GetTermsheet(`?company=${term.company._id}`))
                             console.log(term.order, "term.order")
                             dispatch(setDynamicName(term.order.orderId))

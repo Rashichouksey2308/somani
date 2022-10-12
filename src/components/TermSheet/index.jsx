@@ -768,9 +768,9 @@ const Index = () => {
     // console.log(termsheetDetails, 'updatedtermsheet')
     let code = await dispatch(updateTermsheet(UpdatedTermsheet))
     if (code == 200) {
-       sessionStorage.setItem('marginId', _get(termsheet,"data[0].order._id",""))
-       dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-       router.push(`/margin-money/id`)
+      sessionStorage.setItem('marginId', _get(termsheet, "data[0].order._id", ""))
+      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+      router.push(`/margin-money/id`)
     }
 
   }
@@ -781,9 +781,21 @@ const Index = () => {
   }
 
   const handlePreview = () => {
-    // dispatch(GetTermsheet({companyId: sheet.company._id}))
-    router.push('/termsheet-preview')
+    const commercialTerms = _get(termsheet, 'data[0].commercials', false)
+    const transactional = _get(termsheet, 'data[0].transactionDetails', false)
+    const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
+    if (commercialTerms || transactional || paymentDueDate) {
+      // dispatch(GetTermsheet({companyId: sheet.company._id}))
+      router.push('/termsheet-preview')
+    } else {
+      let toastMessage = 'please save termsheet First'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   }
+
+
 
   const addCommentHandler = (commentType, comment) => {
     // console.log(commentType,"commentType")

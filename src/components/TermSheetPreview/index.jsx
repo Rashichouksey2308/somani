@@ -1755,7 +1755,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                         {termsheetDetails?.commodityDetails?.orderCurrency}{" "} {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>
@@ -4812,7 +4812,7 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                        {termsheetDetails?.commodityDetails?.orderCurrency}{" "}  {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>

@@ -85,7 +85,10 @@ export default {
   uploadDocVessel: '/vessel/upload-doc',
 
   //getGstKarza
+
   getGstKarza: '/lead/refetch-gst-karza',
+
+  // getGstKarza: 'karza/send-gst-link',
 
   // Insurance
 
