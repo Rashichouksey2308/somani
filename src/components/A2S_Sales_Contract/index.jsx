@@ -155,7 +155,7 @@ function Index(props) {
           {
             !props.preview ?
               <>
-                <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+                <div className={`${styles.footer} card-body border_black d-flex align-items-center justify-content-end p-3 bg-transparent`} >
                   <div className={`${styles.approve} mr-3`}><span
                     onClick={(e) => {
                       sessionStorage.setItem("preview", JSON.stringify(data))
@@ -189,10 +189,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
     <>
       <div className={`${styles.card_body}`}>
         {preview ?
-          <div className={`${styles.inputsContainer2}`}>
+          <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
 
-              <Col md={7} className={styles.left}>
+              <Col md={7} className={`${styles.left} border_black`}>
                 Sales Contract No.: {data.shortseller + "/" + data.shortbuyer + "/" + "2022/001"}</Col>
               <Col md={5} className={styles.right}>
                 Date: {moment(new Date()).format("DD-MM-YYYY")}
@@ -206,10 +206,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         <p className="text_sales">This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the Buyer.
         </p>
 
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>1</Col>
-            <Col md={4} className={styles.left}>Seller</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>1</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Seller</Col>
             <Col md={7} className={styles.right}>
 
               <>{data?.seller}</>
@@ -219,9 +219,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>2</Col>
-            <Col md={4} className={styles.left}>Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>2</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Buyer</Col>
             <Col md={7} className={styles.right} style={{ textTransform: "capitalize" }}>
 
               <>{data?.buyer?.toLowerCase()}</>
@@ -231,54 +231,54 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>3</Col>
-            <Col md={4} className={styles.left}>Manufacturer/Supplier / Shipper</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>3</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Manufacturer/Supplier / Shipper</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>4</Col>
-            <Col md={4} className={styles.left}>End User / End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>4</Col>
+            <Col md={4} className={`${styles.left} border_black`}>End User / End Buyer</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>5</Col>
-            <Col md={4} className={styles.left}>Commodity, Quantity, Specification and Unit Price</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>5</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Commodity, Quantity, Specification and Unit Price</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>6</Col>
-            <Col md={4} className={styles.left}>Total Order Value  </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>6</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Total Order Value  </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>7</Col>
-            <Col md={4} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>7</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>8</Col>
-            <Col md={4} className={styles.left}>Loading Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>8</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Loading Port</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>9</Col>
-            <Col md={4} className={styles.left}>Quality / Inspection </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>9</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Quality / Inspection </Col>
             <Col md={7} className={styles.right}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose.  If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>10</Col>
-            <Col md={4} className={styles.left}>Duties and Taxes</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>10</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Duties and Taxes</Col>
             <Col md={7} className={styles.right}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>11</Col>
-            <Col md={4} className={styles.left}>Shipment </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>11</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Shipment </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>12</Col>
-            <Col md={4} className={styles.left}>Payment Terms </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>12</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Payment Terms </Col>
             <Col md={7} className={styles.right}>
               <div> <ol type="A">
                 <li>
@@ -308,9 +308,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>13</Col>
-            <Col md={4} className={styles.left}>Insurance </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>13</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Insurance </Col>
             <Col md={7} className={styles.right}>
               <ol type="A">
                 <li>
@@ -323,24 +323,24 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>14</Col>
-            <Col md={4} className={styles.left}>Shipping Terms </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>14</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Shipping Terms </Col>
             <Col md={7} className={styles.right}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>15</Col>
-            <Col md={4} className={styles.left}>Title / Risk </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>15</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Title / Risk </Col>
             <Col md={7} className={styles.right}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>16</Col>
-            <Col md={4} className={styles.left}>Time is the essence</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>16</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Time is the essence</Col>
             <Col md={7} className={styles.right}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within   the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>17</Col>
-            <Col md={4} className={styles.left}>Remedies Available to the Seller</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>17</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Remedies Available to the Seller</Col>
             <Col md={7} className={styles.right}>
               <ol type='A'>
                 <li>
@@ -364,9 +364,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>18</Col>
-            <Col md={4} className={styles.left}>Special Conditions </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>18</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Special Conditions </Col>
             <Col md={7} className={styles.right}>
               <ol type="1">
                 <li>
@@ -414,28 +414,28 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>19</Col>
-            <Col md={4} className={styles.left}>Mutual Collaboration </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>19</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Mutual Collaboration </Col>
             <Col md={7} className={styles.right}>Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at the time this Contract is being entered into. Both Parties agree that they will use their commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any unforeseen circumstances in the spirit of mutual understanding and collaboration</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>20</Col>
-            <Col md={4} className={styles.left}>Termination</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>20</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Termination</Col>
             <Col md={7} className={styles.right}>
               <p className='mb-3'>In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.</p>
               <p>In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
               </p>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>21</Col>
-            <Col md={4} className={styles.left}>Notices</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>21</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Notices</Col>
             <Col md={7} className={styles.right}>Any notice given by one Party to the other shall be in the English language and sent by facsimile or by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>22</Col>
-            <Col md={4} className={styles.left}>Force Majeure</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>22</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Force Majeure</Col>
             <Col md={7} className={styles.right}>
               <div>
                 <p className='mb-3'>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer's  warehouse or the like or any other cause which may be beyond the control of the Seller.</p>
@@ -444,9 +444,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               </div>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>23</Col>
-            <Col md={4} className={styles.left}>Breach of Contract </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>23</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Breach of Contract </Col>
             <Col md={7} className={styles.right}>
               <ol type="1">
                 <li>
@@ -478,9 +478,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>24</Col>
-            <Col md={4} className={styles.left}>Dispute Resolution &amp; Arbitration</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>24</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Dispute Resolution &amp; Arbitration</Col>
             <Col md={7} className={styles.right}>
               <div>
                 <p className='mb-3'>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.</p>
@@ -491,41 +491,41 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               </div>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>25</Col>
-            <Col md={4} className={styles.left}>Modifications of the contract</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>25</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Modifications of the contract</Col>
             <Col md={7} className={styles.right}>
               No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>26</Col>
-            <Col md={4} className={styles.left}>No Assignment</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>26</Col>
+            <Col md={4} className={`${styles.left} border_black`}>No Assignment</Col>
             <Col md={7} className={styles.right}>
               Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other's consent in writing.
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>27</Col>
-            <Col md={4} className={styles.left}>Severability</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>27</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Severability</Col>
             <Col md={7} className={styles.right}>
               The Parties intend each provision of this Agreement to be severable and distinct from the others.  If a provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall not be affected.
 
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>28</Col>
-            <Col md={4} className={styles.left}>Waiver</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>28</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Waiver</Col>
             <Col md={7} className={styles.right}>
               Failure to enforce any condition herein contained shall not operate as a  waiver of the condition itself or any subsequent breach thereof.
 
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>29</Col>
-            <Col md={4} className={styles.left}>Representations and Warranties </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>29</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Representations and Warranties </Col>
             <Col md={7} className={styles.right}>
               Each party to this Agreement hereby represents and warrants that:
               <ol type="1">
@@ -556,57 +556,57 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
 
         <h3 className='text-center mb-4'><strong>Schedule I</strong></h3>
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of Execution</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of Execution</Col>
             <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of Execution</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Place of Execution</Col>
             <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipper</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of Manufacturer / Supplier / Shipper</Col>
             <Col md={7} className={styles.right}>{data.details}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
             <Col md={7} className={styles.right}>{data.details}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Commodity</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
             <Col md={7} className={styles.right}>{data.detailsOfComm}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Quantity</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
             <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString('en-In')} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Unit Price</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Unit Price</Col>
             <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString('en-In')}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Total Order Value</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Total Order Value</Col>
             <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-In')} </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Load Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
             <Col md={7} className={styles.right}>{data.lordPort}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}>{data.dischargePort}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Last Date of Shipment</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Last Date of Shipment</Col>
             <Col md={7} className={styles.right}>{moment(data.lastDate).format("DD-MM-YYYY")}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Shipment Term</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Shipment Term</Col>
             <Col md={7} className={styles.right}>{data.terms}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Additional Conditions</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Additional Conditions</Col>
             <Col md={7} className={styles.right}>{
               <>
                 <ol type="1">
@@ -619,8 +619,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               </>
             }</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Specification</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Specification</Col>
             <Col md={7} className={styles.right}>
               <>
                 <div className={styles.tableWrapper}>

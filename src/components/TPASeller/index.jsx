@@ -148,10 +148,10 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
      
-      <div className={`${styles.content} card`}>
+      <div className={`${styles.content} card border_color shadow-none`}>
           
            {tripartiteAgreement(data)}
-           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
+           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
                                                
@@ -196,25 +196,25 @@ const tripartiteAgreement=(data)=>{
         <li><p className="text_sales">This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.</p></li>       
       </ol>   
      <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-     <div className={`${styles.inputsContainer}`}>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Date of execution</Col>
+     <div className={`${styles.inputsContainer} border_black`}>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
         <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Place of execution</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
         <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
         <Col md={7 } className={styles.right}>{data?.supplier}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
         <Col md={7 } className={styles.right}>{data?.supplierAddress}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of Supplier</Col>
         <Col md={7 } className={styles.right}>
    {/* <table>
             <tr>
@@ -236,16 +236,16 @@ const tripartiteAgreement=(data)=>{
         </table> */}
         </Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Email ID of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Email ID of Supplier</Col>
         <Col md={7 } className={styles.right}>{data?.supplierEmailId}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of End buyer</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of End buyer</Col>
         <Col md={7 } className={styles.right}>{data?.buyer}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of End Buyer</Col>
         <Col md={7 } className={styles.right}>
           {/* <table>
             <tr>
@@ -267,12 +267,12 @@ const tripartiteAgreement=(data)=>{
         </table> */}
         </Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Email ID of End Buyer</Col>
         <Col md={7 } className={styles.right}>{data.buyerEmail}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Details of Goods as per Sales Contract</Col>
         <Col md={7 } className={styles.right}>{""}</Col>
       </Row>
    

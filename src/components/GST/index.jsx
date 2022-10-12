@@ -1911,6 +1911,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
             <h5 className={`${styles.light} accordion_Text`}>Filter By : </h5>
             <div className="d-flex align-items-center position-relative">
               <select
+                style={{minWidth:'120px'}}
                 value={
                   isChartFilterMonthly ? isChartFilterMonthly : 'Quarterly'
                 }

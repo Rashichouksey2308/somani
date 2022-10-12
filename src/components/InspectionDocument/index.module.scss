@@ -412,8 +412,9 @@
         top: -8px;
         line-height: 17px;
         z-index: 1;
-        max-width: 77%;
+        max-width: 90%;
         overflow: hidden;
+        white-space: nowrap;
         text-overflow: ellipsis;
         &::before {
           top: 51%;

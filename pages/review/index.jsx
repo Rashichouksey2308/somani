@@ -9248,6 +9248,7 @@ const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
                         <label className={styles.label}>Categories:</label>
                         <div className="d-flex align-items-center position-relative">
                           <select
+                            style={{minWidth:'252px'}}
                             onChange={(e) => setComplienceFilter(e.target.value)}
                             className={`${styles.form_control} ${styles.customSelect} input form-control`}
                           >
@@ -9317,6 +9318,7 @@ const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
                           </label>
                           <div className="d-flex align-items-center position-relative">
                             <select
+                              style={{minWidth:'140px'}}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
                             >

@@ -1143,3 +1143,9 @@ body.dark-mode .share-holding-border th,
 body.dark-mode .share-holding-border td {
   border-color: 2px solid #434e61 !important;
 }
+body.light-mode .border_black {
+  border-color: #000000 !important;
+}
+body.dark-mode .border_black {
+  border-color: #434e61 !important;
+}
