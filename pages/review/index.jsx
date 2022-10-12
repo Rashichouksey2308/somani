@@ -196,38 +196,38 @@ function Index() {
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
   const [selectedTab, setSelectedTab] = useState('Profile')
- console.log(selectedTab,"selectedTab")
+  console.log(selectedTab, "selectedTab")
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
-     
-       console.log(sessionStorage.getItem("showCAM"),"sdasdasdasd")
-              
-      if(sessionStorage.getItem("showCAM")=="true"){
-         sessionStorage.setItem('showCAM',false)
-            setSelectedTab("CAM")
-            dispatch(GetAllOrders({ orderId: id1 }))
-            dispatch(GetCompanyDetails({ company: id2 }))
-     
-        let list = document.getElementsByClassName('nav-tabs')||[]
-        let tab = document.getElementsByClassName('tab-content')||[]
-      
+
+      console.log(sessionStorage.getItem("showCAM"), "sdasdasdasd")
+
+      if (sessionStorage.getItem("showCAM") == "true") {
+        sessionStorage.setItem('showCAM', false)
+        setSelectedTab("CAM")
+        dispatch(GetAllOrders({ orderId: id1 }))
+        dispatch(GetCompanyDetails({ company: id2 }))
+
+        let list = document.getElementsByClassName('nav-tabs') || []
+        let tab = document.getElementsByClassName('tab-content') || []
+
 
         //  console.log(list[0].children[i].children[0].innerHTML,"check")
-        
-          let tempIndex =7
-          
-          
-       
-          list[0]?.children[0]?.children[0]?.classList?.remove('active')
-          console.log(tab[0]?.children[tempIndex],"Dasdasdsadasd",tab[0]?.children[0])
-          list[0]?.children[tempIndex]?.children[0]?.classList?.add('active')
-          tab[0]?.children[0]?.classList?.remove('show')
-          tab[0]?.children[0]?.classList?.remove('active')
-          tab[0]?.children[tempIndex]?.classList?.add('show')
-          tab[0]?.children[tempIndex]?.classList?.add('active')
-         
+
+        let tempIndex = 7
+
+
+
+        list[0]?.children[0]?.children[0]?.classList?.remove('active')
+        console.log(tab[0]?.children[tempIndex], "Dasdasdsadasd", tab[0]?.children[0])
+        list[0]?.children[tempIndex]?.children[0]?.classList?.add('active')
+        tab[0]?.children[0]?.classList?.remove('show')
+        tab[0]?.children[0]?.classList?.remove('active')
+        tab[0]?.children[tempIndex]?.classList?.add('show')
+        tab[0]?.children[tempIndex]?.classList?.add('active')
+
       }
       if(sessionStorage.getItem("showCAM")=="false"||sessionStorage.getItem("showCAM")==undefined){
    
@@ -239,7 +239,7 @@ function Index() {
     }
   }, [dispatch, fetchingKarzaGst])
 
- 
+
   useEffect(() => {
     if (companyData) {
       let statutory = []
@@ -346,8 +346,8 @@ function Index() {
       return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
     }
     ////doubt
-    if (last > previous && previous < latest) {
-      return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />
+    if (last == previous && previous < latest) {
+      return <img src="/static/trend-green-311.svg" alt="Profit" className="img-fluid" />
     }
     if (last < previous && previous > latest) {
       return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />
@@ -370,14 +370,22 @@ function Index() {
     if (last > previous && previous > latest) {
       return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
     }
-    if (latest > previous && previous > last) {
-      return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
-    } else if (latest < previous && previous < last) {
-      return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
-    } else
-      return (
-        <img src="/static/average.svg" alt="Average" className="img-fluid" />
-      )
+
+
+    // if (latest > previous && previous > last) {
+    //   return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
+    // } else
+    // if (latest < previous && previous < last) {
+    //   return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
+    // } else
+    //   return (
+    //     <img src="/static/average.svg" alt="Average" className="img-fluid" />
+    //   )
+
+    // if (!last && !previous && !latest) {
+    //   return null
+    // }
+
   }
 
   useEffect(() => {
@@ -1618,7 +1626,7 @@ console.log(groupExposureData,"groupExposureData")
           order: orderList._id,
           status: 'Approved',
         }
-        let code = await dispatch(UpdateCam(obj,"CAM APPROVED"))
+        let code = await dispatch(UpdateCam(obj, "CAM APPROVED"))
         console.log(code, "code")
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'))
@@ -1633,7 +1641,7 @@ console.log(groupExposureData,"groupExposureData")
       order: orderList._id,
       status: 'Rejected',
     }
-    dispatch(UpdateCam(obj,"CAM REJECTED"))
+    dispatch(UpdateCam(obj, "CAM REJECTED"))
   }
 
   const currentOpenLink = (e) => {
@@ -8810,11 +8818,11 @@ const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
               </>
             ) : null}
             {uploadBtn ? (
-              <div className="ml-auto">
+              <div className="ml-auto text-right">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
               </div>
             ) : null}
-            {/* <div className="ml-auto">
+            {/* <div className="ml-auto text-right">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
                 <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
             </div> */}

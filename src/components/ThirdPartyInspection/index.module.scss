@@ -5,16 +5,45 @@
   border: 1px solid #d2d7e5;
   .tabHeader {
     padding: 30px;
+    @include respond(lg-desktop) {
+        padding: 20px;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px;
+    }
+    @include respond(phone) {
+        padding: 15px;
+    }
     .title {
       font-size: 34px;
       font-weight: bold;
       line-height: 41px;
       margin: 0;
-      text-transform: capitalize;
+      text-transform: lowercase;
+      &:first-letter {
+          text-transform: uppercase;
+      }
+      &:first-line {
+          text-transform: capitalize;
+      }
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.4;
+      }
+      @include respond(sm-desktop) {
+        font-size: 20px;
+      }
+      @include respond(phone) {
+        font-size: 18px;
+      }
       img {
         width: 13px;
         height: 21px;
         margin: -5px 25px 0 0;
+        @include respond(lg-desktop) {
+          width: 10px;
+          height: auto;
+        }
       }
     }
     .lastModified {
@@ -23,10 +52,17 @@
       font-weight: normal;
       line-height: 16px;
       margin-top: 7px;
+      @include respond(lg-desktop) {
+          font-size: 12px;
+          line-height: 1.2;
+      }
       span {
-        color: #283756;
-        font-weight: bold;
-        line-height: 17px;
+          color: #283756;
+          font-weight: bold;
+          line-height: 17px;
+          @include respond(lg-desktop) {
+              line-height: 1.2;
+          }
       }
     }
   }
