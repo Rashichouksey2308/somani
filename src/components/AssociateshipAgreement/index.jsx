@@ -165,7 +165,7 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
 
-      <div className={`${styles.content} card`}>
+      <div className={`${styles.content} card border_color shadow-none`}>
         <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
           <div className={`d-flex `}>
             <h2 className={`mb-0 mr-4 ${active == "none" ? styles.underLine : null}`} onClick={() => setActive("none")}> Agreement</h2>
@@ -229,77 +229,77 @@ const assignmentSupplier = () => {
         <p className="text_sales">The title in Goods shall pass on to Seller upon receipt of payment by Supplier from the Seller and the risks associated therewith shall pass on to Buyer as per Incoterms 2020. Buyer shall be solely responsible for performance of the obligations enumerated in the sales contract mentioned herein above. The supplier shall have no claim whatsoever.
         </p>
         <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Place of execution of Assignment Letter</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Seller</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Seller</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Seller</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Seller</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Description of Goods</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Description of Goods</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods in MT</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Price of Goods / MT</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Price of Goods / MT</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Tolerance levels</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Tolerance levels</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Load Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Inco-Terms</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Inco-Terms</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Month of loading of Cargo</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>
-            <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
+            <Col md={5} className={`${styles.left} border_black`}>Date of Sales Contract between Supplier and Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
 
@@ -390,45 +390,45 @@ const tripartiteAgreement = () => {
           </li>
         </ol>
         <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Email ID of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Email ID of Supplier</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of End buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of End buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of End Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Email ID of End Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of Goods as per Sales Contract</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
 
@@ -465,15 +465,15 @@ const salesContract = () => {
         <p className="text_sales">This Sales Contract(“<strong>Contract</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the Buyer.
         </p>
 
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>1</Col>
-            <Col md={4} className={styles.left}>Seller</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>1</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Seller</Col>
             <Col md={7} className={styles.right}><input placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>2</Col>
-            <Col md={4} className={styles.left}>Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>2</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Buyer</Col>
             <Col md={7} className={styles.right}><input placeholder="Indo German International Pvt. Ltd.
 Plot No-49-48-6/1, Lalitha Nagar, 
 Ground Floor, Sakshi Office Road, 
@@ -481,54 +481,54 @@ Akkayyapalem, Visakhapatnam,
 Andhra Pradesh, 530016 India
 " className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>3</Col>
-            <Col md={4} className={styles.left}>Manufacturer/Supplier / Shipper</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>3</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Manufacturer/Supplier / Shipper</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>4</Col>
-            <Col md={4} className={styles.left}>End User / End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>4</Col>
+            <Col md={4} className={`${styles.left} border_black`}>End User / End Buyer</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>5</Col>
-            <Col md={4} className={styles.left}>Commodity, Quantity, Specification and Unit Price</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>5</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Commodity, Quantity, Specification and Unit Price</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>6</Col>
-            <Col md={4} className={styles.left}>Quality / Inspection </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>6</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Quality / Inspection </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>7</Col>
-            <Col md={4} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>7</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>8</Col>
-            <Col md={4} className={styles.left}>Loading Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>8</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Loading Port</Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>9</Col>
-            <Col md={4} className={styles.left}>Quality / Inspection </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>9</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Quality / Inspection </Col>
             <Col md={7} className={styles.right}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose.  If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>10</Col>
-            <Col md={4} className={styles.left}>Duties and Taxes</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>10</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Duties and Taxes</Col>
             <Col md={7} className={styles.right}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>11</Col>
-            <Col md={4} className={styles.left}>Shipment </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>11</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Shipment </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>12</Col>
-            <Col md={4} className={styles.left}>Payment Terms </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>12</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Payment Terms </Col>
             <Col md={7} className={styles.right}>
               <ol type="A">
                 <li>
@@ -563,9 +563,9 @@ Andhra Pradesh, 530016 India
               <p className="text_sales">All the above documents are subject to receipt from shipper.</p>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>13</Col>
-            <Col md={4} className={styles.left}>Insurance </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>13</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Insurance </Col>
             <Col md={7} className={styles.right}>
               <ol type="A">
                 <li>
@@ -578,24 +578,24 @@ Andhra Pradesh, 530016 India
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>14</Col>
-            <Col md={4} className={styles.left}>Shipping Terms </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>14</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Shipping Terms </Col>
             <Col md={7} className={styles.right}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>15</Col>
-            <Col md={4} className={styles.left}>Title / Risk </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>15</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Title / Risk </Col>
             <Col md={7} className={styles.right}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>16</Col>
-            <Col md={4} className={styles.left}>Time is the essence k </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>16</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Time is the essence k </Col>
             <Col md={7} className={styles.right}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within   the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>17</Col>
-            <Col md={4} className={styles.left}>Remedies Available to the SellerRemedies Available to the Seller </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>17</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Remedies Available to the SellerRemedies Available to the Seller </Col>
             <Col md={7} className={styles.right}>
               <ol type="A">
                 <li>
@@ -619,9 +619,9 @@ Andhra Pradesh, 530016 India
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>18</Col>
-            <Col md={4} className={styles.left}>Special Conditions </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>18</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Special Conditions </Col>
             <Col md={7} className={styles.right}>
               <ol type="1">
                 <li>
@@ -675,14 +675,14 @@ Andhra Pradesh, 530016 India
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>19</Col>
-            <Col md={4} className={styles.left}>Mutual Collaboration </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>19</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Mutual Collaboration </Col>
             <Col md={7} className={styles.right}>Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at the time this Contract is being entered into. Both Parties agree that they will use their commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any unforeseen circumstances in the spirit of mutual understanding and collaboration</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>20</Col>
-            <Col md={4} className={styles.left}>Termination</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>20</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Termination</Col>
             <Col md={7} className={styles.right}>1.   greement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.
 
 
@@ -691,14 +691,14 @@ Andhra Pradesh, 530016 India
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>21</Col>
-            <Col md={4} className={styles.left}>Notices</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>21</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Notices</Col>
             <Col md={7} className={styles.right}>Any notice given by one Party to the other shall be in the English language and sent by facsimile or by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>22</Col>
-            <Col md={4} className={styles.left}>Force Majeure</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>22</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Force Majeure</Col>
             <Col md={7} className={styles.right}>
               <div>
                 <p>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, , acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer 's  warehouse or the like or any other cause which may be beyond the control of the Seller </p>
@@ -709,9 +709,9 @@ Andhra Pradesh, 530016 India
               </div>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>23</Col>
-            <Col md={4} className={styles.left}>Breach of Contract </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>23</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Breach of Contract </Col>
             <Col md={7} className={styles.right}>
               <ol type="1">
                 <li>
@@ -743,9 +743,9 @@ Andhra Pradesh, 530016 India
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>24</Col>
-            <Col md={4} className={styles.left}>Dispute Resolution &amp; Arbitration</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>24</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Dispute Resolution &amp; Arbitration</Col>
             <Col md={7} className={styles.right}>
               <div>
                 <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.
@@ -758,41 +758,41 @@ Andhra Pradesh, 530016 India
               </div>
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>25</Col>
-            <Col md={4} className={styles.left}>Modifications of the contract</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>25</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Modifications of the contract</Col>
             <Col md={7} className={styles.right}>
               No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>26</Col>
-            <Col md={4} className={styles.left}>No Assignment</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>26</Col>
+            <Col md={4} className={`${styles.left} border_black`}>No Assignment</Col>
             <Col md={7} className={styles.right}>
               No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>27</Col>
-            <Col md={4} className={styles.left}>Severability</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>27</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Severability</Col>
             <Col md={7} className={styles.right}>
               The Parties intend each provision of this Agreement to be severable and distinct from the others.  If a provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall not be affected.
 
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>28</Col>
-            <Col md={4} className={styles.left}>Waiver</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>28</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Waiver</Col>
             <Col md={7} className={styles.right}>
               Failure to enforce any condition herein contained shall not operate as a  waiver of the condition itself or any subsequent breach thereof.
 
 
             </Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={1} className={styles.left}>29</Col>
-            <Col md={4} className={styles.left}>Representations and Warranties </Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={1} className={`${styles.left} border_black`}>29</Col>
+            <Col md={4} className={`${styles.left} border_black`}>Representations and Warranties </Col>
             <Col md={7} className={styles.right}>
               <ol type="1">
                 Each party to this Agreement hereby represents and warrants that:
@@ -822,61 +822,61 @@ Andhra Pradesh, 530016 India
         </div>
 
 
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipperr</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of Manufacturer / Supplier / Shipperr</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of End Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Commodity</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Quantity</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Unit Price</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Unit Price</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Total Order Value</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Total Order Value</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Load Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Last Date of Shipment</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Last Date of Shipment</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Shipment Term</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Shipment Term</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Additional Conditions</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Additional Conditions</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Specification</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Specification</Col>
             <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
           </Row>
 
@@ -1042,53 +1042,53 @@ const tpaSeller = () => {
 
 
       <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-      <div className={`${styles.inputsContainer}`}>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Date of execution</Col>
+      <div className={`${styles.inputsContainer} border_black`}>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Place of execution</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Collateral Manager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Collateral Manager</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Collateral Manager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Collateral Manager</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Authorized Signatory of Collateral Manager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Authorized Signatory of Collateral Manager</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Designated Storage Area</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Designated Storage Area</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Details of Commodity</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Quantity of Goods</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Supplier</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Supplier</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Financing Bank Name</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Financing Bank Name</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Financing Bank Address</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Financing Bank Address</Col>
           <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
         </Row>
 
@@ -1432,77 +1432,77 @@ const associateShip = (data) => {
           </li>
         </ol>
         <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-        <div className={`${styles.inputsContainer}`}>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
+        <div className={`${styles.inputsContainer} border_black`}>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Place of execution of  Assignment Letter</Col>
             <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
             <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Seller</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Seller</Col>
             <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Seller</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Seller</Col>
             <Col md={7} className={styles.right}>{data.sellerAddress}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Buyer</Col>
             <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Buyer</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Buyer</Col>
             <Col md={7} className={styles.right}>{data.buyerAddress}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
             <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Address of Supplier</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
             <Col md={7} className={styles.right}>{data.supplier}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Description of Goods</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Description of Goods</Col>
             <Col md={7} className={styles.right}>{""}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods in MT</Col>
             <Col md={7} className={styles.right}>{data.quan} MT</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
             <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Price of Goods / MT</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Price of Goods / MT</Col>
             <Col md={7} className={styles.right}>{""}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Tolerance levels</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Tolerance levels</Col>
             <Col md={7} className={styles.right}>{data.toleranceLevel}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Load Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
             <Col md={7} className={styles.right}>{data.lordPort}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Discharge Port</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Discharge Port</Col>
             <Col md={7} className={styles.right}>{data.dischargePort}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Inco-Terms</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Inco-Terms</Col>
             <Col md={7} className={styles.right}>{data.incoTerms}</Col>
           </Row>
-          <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
+          <Row className={`${styles.row} border_black`}>
+            <Col md={5} className={`${styles.left} border_black`}>Month of loading of Cargo</Col>
             <Col md={7} className={styles.right}>{""}</Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>
-            <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
+            <Col md={5} className={`${styles.left} border_black`}>Date of Sales Contract between Supplier and Buyer</Col>
             <Col md={7} className={styles.right}>{""}</Col>
           </Row>
 
@@ -2222,85 +2222,85 @@ const qpa = () => {
 
 
       <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-      <div className={`${styles.inputsContainer}`}>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Date of execution</Col>
+      <div className={`${styles.inputsContainer} border_black`}>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
           <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Place of execution</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
           <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>GST of Associate Buyerager</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>PAN of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Stevedore</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of CMA Agent</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Address of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Address of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of CMA Agent</Col>
           <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Commodity Details</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Commodity Details</Col>
           <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Quantity</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
           <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
           <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Details of Vessel</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Details of Vessel</Col>
           <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Loading</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Loading</Col>
           <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Discharge</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Discharge</Col>
           <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Storage Plot allotted to IGI</Col>
           <Col md={7} className={styles.right}> </Col>
         </Row>
 
@@ -2380,85 +2380,85 @@ New Delhi
 
 
       <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-      <div className={`${styles.inputsContainer}`}>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Date of execution</Col>
+      <div className={`${styles.inputsContainer} border_black`}>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
           <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Place of execution</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
           <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>GST of Associate Buyerager</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>PAN of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Stevedore</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of CMA Agent</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Address of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Address of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of CMA Agent</Col>
           <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Commodity Details</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Commodity Details</Col>
           <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Quantity</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
           <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
           <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Details of Vessel</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Details of Vessel</Col>
           <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Loading</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Loading</Col>
           <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Discharge</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Discharge</Col>
           <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Storage Plot allotted to IGI</Col>
           <Col md={7} className={styles.right}> </Col>
         </Row>
 
@@ -2543,85 +2543,85 @@ New Delhi
 
 
        <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-      <div className={`${styles.inputsContainer}`}>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Date of execution</Col>
+      <div className={`${styles.inputsContainer} border_black`}>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
           <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Place of execution</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
           <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>GST of Associate Buyerager</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>PAN of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Associate Buyer</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Address of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Address of Stevedore</Col>
           <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of Stevedore</Col>
           <Col md={7} className={styles.right}>{""}</Col>
         </Row>
-        <Row className={`${styles.row}`}>
-          <Col md={5} className={styles.left}>Name of CMA Agent</Col>
+        <Row className={`${styles.row} border_black`}>
+          <Col md={5} className={`${styles.left} border_black`}>Name of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Address of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Address of CMA Agent</Col>
           <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Signatory of CMA Agent</Col>
           <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Commodity Details</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Commodity Details</Col>
           <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Quantity</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
           <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Name of Supplier</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
           <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Details of Vessel</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Details of Vessel</Col>
           <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Loading</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Loading</Col>
           <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Port of Discharge</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Port of Discharge</Col>
           <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
-          <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
+          <Col md={5} className={`${styles.left} border_black`}>Storage Plot allotted to IGI</Col>
           <Col md={7} className={styles.right}> </Col>
         </Row>
 

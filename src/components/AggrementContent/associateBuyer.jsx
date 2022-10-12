@@ -650,7 +650,7 @@ console.log(associateData.gstin,"associateData")
         {isEdit==false && 
          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span></div>
-          <div className="card-body p-0 rounded-0">
+          <div className="card-body p-0">
             <div className={`${styles.newAddressContent} row`}>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">

@@ -1005,6 +1005,9 @@ img {
     color: #3687e8;
     line-height: 23px;
     text-transform: capitalize;
+    @include respond(lg-desktop) {
+      width: 100%;
+    }
   }
   .close_image {
     width: 12px !important;

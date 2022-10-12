@@ -314,7 +314,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <Form>
             <div className="row align-items-center pb-4">
               <div

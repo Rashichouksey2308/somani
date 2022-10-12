@@ -149,14 +149,12 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
       
-      <div className={`${styles.content} card`}>
+      <div className={`${styles.content} card border_color shadow-none`}>
           
            {tpaSeller(data)}
-           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
+           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
-        <div className={styles.approve}><span>Submit</span></div>                                
-                                               
-                                           
+        <div className={styles.approve}><span>Submit</span></div>
           </div>
 
       </div>
@@ -305,53 +303,53 @@ const tpaSeller=(data)=>{
 
 
 <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-     <div className={`${styles.inputsContainer}`}>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Date of execution</Col>
+     <div className={`${styles.inputsContainer} border_black`}>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Date of execution</Col>
         <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Place of execution</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Place of execution</Col>
         <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Collateral Manager</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Collateral Manager</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Collateral Manager</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Collateral Manager</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Authorized Signatory of Collateral Manager</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Authorized Signatory of Collateral Manager</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Designated Storage Area</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Designated Storage Area</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Details of Commodity</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Quantity of Goods</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods</Col>
         <Col md={7 } className={styles.right}>{data.quan} MT</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplier}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplierAddress}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Financing Bank Name</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Financing Bank Name</Col>
         <Col md={7 } className={styles.right}>{data.financialBank}</Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
-        <Col md={5} className={styles.left}>Financing Bank Address</Col>
+        <Col md={5} className={`${styles.left} border_black`}>Financing Bank Address</Col>
         <Col md={7 } className={styles.right}>{data.financialAddress}</Col>
       </Row>
     

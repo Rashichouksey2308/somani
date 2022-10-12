@@ -9324,9 +9324,8 @@ function Index() {
                         <label className={styles.label}>Categories:</label>
                         <div className="d-flex align-items-center position-relative">
                           <select
-                            onChange={(e) =>
-                              setComplienceFilter(e.target.value)
-                            }
+                            style={{minWidth:'252px'}}
+                            onChange={(e) => setComplienceFilter(e.target.value)}
                             className={`${styles.form_control} ${styles.customSelect} input form-control`}
                           >
                             <option>Select an option</option>
@@ -9397,6 +9396,7 @@ function Index() {
                           </label>
                           <div className="d-flex align-items-center position-relative">
                             <select
+                              style={{minWidth:'140px'}}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
                             >

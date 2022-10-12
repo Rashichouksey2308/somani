@@ -304,6 +304,8 @@
             .arrow {
                 width: 13px;
                 height: 21px;
+                cursor: pointer;
+                background: transparent;
                 @include respond(lg-desktop) {
                   width: 10px;
                   height: auto;
