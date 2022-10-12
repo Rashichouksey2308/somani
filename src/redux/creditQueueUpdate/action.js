@@ -228,6 +228,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     // Cache: 'no-cache',
     'Content-Type': 'multipart/form-data',
   }
+  
   try {
     Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
       headers: headers,

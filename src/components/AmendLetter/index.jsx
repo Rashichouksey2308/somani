@@ -103,10 +103,7 @@ function Index() {
                       <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                         <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>
                             {moment(
-                          lcModuleData?.lcApplication?.dateOfExpiry?.split(
-                            'T',
-                          )[0],
-                        ).format('DD-MM-YYYY')}</p>
+                          lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY')}</p>
                       </td>
                     </tr>
                     <tr>                          
@@ -187,7 +184,7 @@ autoPaging: "text",
                 Documentary Credit Number: <span>{lcModuleData?.lcApplication?.documentaryCreditNumber}</span>
               </div>
               <div className={styles.sub_heading}>
-                Date: <span>{moment(lcModuleData?.createdAt?.slice(0, 10)).format('DD.MM.yyy')}</span>
+                Date: <span>{moment(lcModuleData?.createdAt).format('DD.MM.yyy')}</span>
               </div>
             </div>
           </div>
@@ -221,7 +218,7 @@ autoPaging: "text",
                       <td width="40%">
                         31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
                       </td>
-                      <td>{moment(lcModuleData?.lcApplication?.dateOfExpiry?.slice(0, 10)).format('DD.MM.yyy')}</td>
+                      <td>{moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-yyy')}</td>
                     </tr>
                     <tr className="table_row">
                       <td width="40%">
