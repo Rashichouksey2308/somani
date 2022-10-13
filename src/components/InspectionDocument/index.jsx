@@ -7,7 +7,8 @@ import {
   GetDocuments,
   AddingDocument,
   DeleteDocument,
-} from 'redux/creditQueueUpdate/action'
+  changeModuleDocument,
+} from 'redux/creditQueueUpdate/action' 
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
@@ -58,12 +59,12 @@ const Index = ({
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
   }, [dispatch, orderId, moduleSelected])
-
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
+    const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
       return doc.module === moduleSelected
-    })
-
+    }).map(obj => ({ ...obj, moving: false }))
+  
+    // console.log(tempArray, 'dltDoc2')
     setFilteredDoc(tempArray)
   }, [orderId, documentsFetched])
 
@@ -158,6 +159,13 @@ const Index = ({
     })
     setFilteredDoc(tempArray)
   }
+
+  const handleDocModuleChange = (index) => { 
+    let tempArray = [...filteredDoc]
+    tempArray[index].moving = true 
+    setFilteredDoc(tempArray)
+  }
+
 
   return (
     <div
@@ -772,14 +780,14 @@ const Index = ({
                                   openbar()
                                 }}
                               />
-                               { !openDropdown ? 
+                               { !document.moving ? 
                              (
                               <img
                               src="/static/drive_file.svg"
                               className={`${styles.edit_image} mr-3`}
                               alt="Share"
                               onClick={() => {
-                                setDropdown(true)
+                                handleDocModuleChange(index)
                               }}
                             />
                              )
@@ -788,31 +796,36 @@ const Index = ({
                                 <div className='d-inline-block'>
                                 <div className="d-flex align-items-center">
                                   <select
-                                    // value={moduleSelected}
-                                    // onChange={(e) =>
-                                    //   setModuleSelected(e.target.value)
-                                    // }
+                                      onChange={(e) => {
+                                          
+                                        dispatch(
+                                          changeModuleDocument({
+                                            orderDocumentId: documentsFetched._id,
+                                            name: document.name,
+                                            module: e.target.value
+                                          }),
+                                        )
+                                        DocDlt(index)
+                                      }
+                                      }
                                     className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
                                           style={{width:'150px', paddingRight:'30px' }}    >
-                                    <option selected disabled>
-                                      Select an option
-                                    </option>
-                                    <option value="LeadOnboarding&OrderApproval">
-                                      Lead Onboarding &amp; Order Approval
-                                    </option>
-                                    <option value="Agreements&Insurance&LC&Opening">
-                                      Agreements, Insurance &amp; LC Opening
-                                    </option>
-                                    <option value="Loading-Transit-Unloading">
-                                      Loading-Transit-Unloading
-                                    </option>
-                                    <option value="customClearanceAndWarehousing">
-                                      Custom Clearance And Warehousing
-                                    </option>
-                                    <option value="PaymentsInvoicing&Delivery">
-                                      Payments Invoicing & Delivery
-                                    </option>
-                                    <option value="Others">Others</option>
+                                    <option disabled={moduleSelected==='LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+                                          Lead Onboarding &amp; Order Approval
+                                        </option>
+                                        <option disabled={moduleSelected==='Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                          Agreements, Insurance &amp; LC Opening
+                                        </option>
+                                        <option disabled={moduleSelected==='Loading-Transit-Unloading'}  value="Loading-Transit-Unloading">
+                                          Loading-Transit-Unloading
+                                        </option>
+                                        <option disabled={moduleSelected==='customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                          Custom Clearance And Warehousing
+                                        </option>
+                                        <option disabled={moduleSelected==='PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                          Payments Invoicing & Delivery
+                                        </option>
+                                        <option disabled={moduleSelected==='Others'} value="Others">Others</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} img-fluid`}
