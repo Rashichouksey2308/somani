@@ -63,7 +63,6 @@ export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
     return 0
   }
   if (!newValue) {
-    console.log(newValue, value, 'inspectionData231')
     return ''
   } else {
     return newValue
@@ -148,7 +147,6 @@ export const addPrefixOrSuffix = (
 
       let newValue =
         symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN')
-      console.log(newValue, 'newValue')
       return newValue
     } else {
       return ''
@@ -187,7 +185,6 @@ export const addPrefixOrSuffix = (
       let newValue = `${Number(removedValue)?.toLocaleString(
         'en-IN',
       )}${` `}${type}`
-      console.log('999', type, removedValue, newValue)
       return newValue
     } else {
       return ''
