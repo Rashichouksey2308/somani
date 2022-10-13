@@ -19,7 +19,6 @@ function Index(props) {
   const [sorting, setSorting] = useState(1)
   
   const { generic } = useSelector((state) => state?.generic?.allGeneric)
-  console.log(genData,"generic22131")
   useEffect(() => {
   if(window){
     sessionStorage.setItem('loadedPage',"Agreement & LC Module")
@@ -40,21 +39,20 @@ function Index(props) {
 const getDate = async () =>{
 
  let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
- console.log(data.data,"sadasdasdasdsd")
- setData(data.data)
- setTotal(data.totalCount)
+ setData(data?.data)
+ setTotal(data?.totalCount)
 }
  const handleSort = async() => {
     if(sorting == -1){
    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
-   setData(data.data)
-  setTotal(data.totalCount) 
+   setData(data?.data)
+  setTotal(data?.totalCount) 
    setSorting(1)
     }else if(sorting == 1){
       
     let data = await   dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
-     setData(data.data)
-     setTotal(data.totalCount)  
+     setData(data?.data)
+     setTotal(data?.totalCount)  
     setSorting(-1)
     }
   }
