@@ -263,6 +263,10 @@
               &.sort_image {
                 width: 14px;
                 height: 14px;
+                @include respond(lg-desktop) {
+                  width: 12px;
+                  height: 12px;
+                }
               }
               &.searchImg {
                 width: 48px;
@@ -277,9 +281,10 @@
                 }
               }
             }
-            @include respond(md-desktop) {
-              font-size: 14px;
-              line-height: 1.2;
+            @include respond(lg-desktop) {
+                height: 50px;
+                font-size: 14px;
+                line-height: 1.2;
             }
             @include respond(sm-desktop) {
               font-size: 13px;

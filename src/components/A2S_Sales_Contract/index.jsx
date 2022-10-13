@@ -155,7 +155,7 @@ function Index(props) {
           {
             !props.preview ?
               <>
-                <div className={`${styles.footer} card-body border_black d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+                <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
                   <div className={`${styles.approve} mr-3`}><span
                     onClick={(e) => {
                       sessionStorage.setItem("preview", JSON.stringify(data))
@@ -381,35 +381,31 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <p className="text_sales">The BUYER unconditionally agrees to abide by a collateral management agreement by and among “<strong>Collateral Manager</strong>”, “<strong>Financing Bank</strong>” and “<strong>Seller</strong>” and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of the Goods in accordance with the Bank's written release instructions under the Collateral Management Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence, then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any expenses incurred) without any demur or protest. The Seller shall be under obligation to issue delivery order for the quantity for which the payment has been received within one banking day.
                   </p>
                 </li>
+              </ol>
+              <ol type="a">
                 <li>
-                  <p className="text_sales">Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility is under Buyer's control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest.</p>
+                  <p className="text_sales ml-n4 pl-1"><br/>4. Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility is under Buyer's control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest.</p>
                 </li>
                 <li>
-                  <p className="text_sales">Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods.</p>
+                  <p className="text_sales ml-n4 pl-1"><br/>5. Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods.</p>
                 </li>
                 <li>
-                  <p className="text_sales">Any payment to be made by the Buyer under this contract shall be made free and clear of and without deduction or withholding for or on account of any taxes. If at any time the Buyer is required to make any deduction or withholding in respect of taxes from any payment to be made under this contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the making of such deduction or withholding, the Seller receives for such payment a net sum equal to the sum it would have received had no such deduction or withholding been made.</p>
+                  <p className="text_sales ml-n4 pl-1"><br/>6. Any payment to be made by the Buyer under this contract shall be made free and clear of and without deduction or withholding for or on account of any taxes. If at any time the Buyer is required to make any deduction or withholding in respect of taxes from any payment to be made under this contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the making of such deduction or withholding, the Seller receives for such payment a net sum equal to the sum it would have received had no such deduction or withholding been made.</p>
                 </li>
                 <li>
-                  <p className="text_sales">It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and payable from then onwards by the Buyer to the Seller.
+                  <p className="text_sales ml-n4 pl-1"><br/>7. It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and payable from then onwards by the Buyer to the Seller.
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt due and payable by the Buyer to the Seller.
-                  </p>
-                </li>
-                <li>
-                  <p className="text_sales">Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does not provide any comment on the statement of accounts, then such statement of accounts shall deem to be accepted by Buyer and binding on it.
-                  </p>
-                </li>
-                <li>
-                  <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:</p>
-                  <p className='ml-n4'>a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper,</p>
-                  <p className='ml-n4'>b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,</p>
-                  <p className='ml-n4'>c) Loss of cargo,</p>
-                  <p className='ml-n4'>d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper,</p>
+                  <p className="text_sales ml-n4 pl-1"><br/>8. The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt due and payable by the Buyer to the Seller.
+                  <span className="text_sales d-block pt-3">9. Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does not provide any comment on the statement of accounts, then such statement of accounts shall deem to be accepted by Buyer and binding on it.</span>
+                  <span className="text_sales d-block pt-3">10. The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:</span></p>
                 </li>
               </ol>
+              <p className=''>a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper,</p>
+              <p className=''>b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,</p>
+              <p className=''>c) Loss of cargo,</p>
+              <p className=''>d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper,</p><br/>
               <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
 
             </Col>
@@ -423,7 +419,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={1} className={`${styles.left} border_black`}>20</Col>
             <Col md={4} className={`${styles.left} border_black`}>Termination</Col>
             <Col md={7} className={styles.right}>
-              <p className='mb-3'>In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.</p>
+              <p className='mb-3'>1. In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.</p>
               <p>In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
               </p>
             </Col>
@@ -662,7 +658,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
 
         </div>
-        <p className=" text_sales pb-1"> <strong>SIGNATURE PAGE</strong></p>
+        <p className=" text_sales pb-5"> <strong>SIGNATURE PAGE</strong></p>
         <div className={`row`}>
           <Col md={6} >
             <p className="text_sales m-0">Seller</p>

@@ -296,7 +296,8 @@
                                 padding-right: 15px;
                             }
                         }
-                        @include respond(md-desktop) {
+                        @include respond(lg-desktop) {
+                            height: 50px;
                             font-size: 14px;
                             line-height: 1.2;
                         }
@@ -456,6 +457,10 @@
             width: 15%;
             text-align: left;
             padding-left: 35px;
+          }
+          @include respond(lg-desktop) {
+              font-size: 14px;
+              line-height: 1.2;
           }
         }
         td {
