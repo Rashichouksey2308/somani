@@ -850,6 +850,7 @@ function Index() {
       marginMoneyPayable:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
     })
+    
     // T calculation
     let additionalAmountPerPDC = parseFloat(
       
