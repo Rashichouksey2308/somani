@@ -305,13 +305,10 @@
                     padding-left: 15px;
                   }
                 }
-                @include respond(md-desktop) {
-                  font-size: 17px;
-                  padding: 18px 10px;
-                }
-                @include respond(sm-desktop) {
-                  font-size: 15px;
-                  padding: 15px 10px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                    padding: 17px 10px;
                 }
                 @include respond(phone) {
                   font-size: 14px;
@@ -589,11 +586,10 @@
                 vertical-align: middle;
                 border-bottom: 2px solid #f2f5f9;
                 white-space: nowrap;
-                @include respond(md-desktop) {
-                  font-size: 17px;
-                }
-                @include respond(sm-desktop) {
-                  font-size: 15px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                    padding: 17px 10px;
                 }
                 @include respond(phone) {
                   font-size: 12px;

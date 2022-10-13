@@ -344,23 +344,42 @@
             }
 
             .label_heading {
-              top: 27px;
+              top: 22px;
               left: 30px;
               font-size: 16px;
-              line-height: 0.5;
+              line-height: 17px;
               margin-bottom: 0;
               letter-spacing: 0.53px;
               position: absolute;
               pointer-events: none;
               box-sizing: border-box;
-              transform: translateY(-31px);
+              transform: translateY(-30px);
               transition: 0.3s all ease-in-out;
-
+              z-index: 1;
+              max-width: 77%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              &::before {
+                top: 51%;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                content: '';
+                z-index: -1;
+                position: absolute;
+                transform: translateY(-50%);
+              }
               .blue {
                 color: #3687e8;
               }
-            }
-
+              @include respond(lg-desktop) {
+                  top: 15px;
+                  font-size: 14px;
+                  line-height: 15px;
+                  transform: translateY(-22px);
+              }
+            }            
             .input_field {
               height: 60px;
               border-radius: 4px;
@@ -370,18 +389,27 @@
               box-shadow: none;
               position: relative;
               box-sizing: border-box;
-
               &:invalid + label {
                 transform: translateY(0);
               }
-
+              @include respond(lg-desktop) {
+                height: 45px;
+                font-size: 15px;
+              }
               &:focus {
                 & + label {
-                  transform: translateY(-31px);
+                  transform: translateY(-30px);
+                  @include respond(lg-desktop) {
+                    transform: translateY(-22px);
+                  }
                 }
               }
+              @include respond(lg-desktop) {
+                  height: 45px;
+                  font-size: 15px;
+                  line-height: 1.3;
+              }
             }
-
             .phone_card {
               display: flex;
 
@@ -392,6 +420,10 @@
                 text-transform: capitalize;
                 outline: none;
                 border-radius: 4px 0 0 4px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
               }
             }
 
@@ -419,13 +451,19 @@
           .phone {
             .label_heading {
               left: 90px;
-              transform: translate(-61px, -31px);
+              transform: translate(-61px, -30px);
+              @include respond(lg-desktop) {
+                transform: translate(-61px, -22px);
+              }
             }
 
             .input_field {
               &:focus {
                 & + label {
-                  transform: translate(-61px, -31px);
+                  transform: translate(-61px, -30px);
+                  @include respond(lg-desktop) {
+                    transform: translate(-61px, -22px);
+                  }
                 }
               }
             }

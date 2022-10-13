@@ -145,13 +145,10 @@
                                 padding-left: 15px;
                             }
                         }
-                        @include respond(md-desktop) {
-                            font-size: 17px;
-                            padding: 18px 10px;
-                        }
-                        @include respond(sm-desktop) {
+                        @include respond(lg-desktop) {
                             font-size: 15px;
-                            padding: 15px 10px;
+                            line-height: 1.3;
+                            padding: 17px 10px;
                         }
                         @include respond(phone) {
                             font-size: 14px;
