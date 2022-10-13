@@ -45,7 +45,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const [filteredDoc, setFilteredDoc] = useState([])
 
-  const [currentDoc, setCurrentDoc] = useState('')
+  const [currentDoc, setCurrentDoc] = useState(null)
 
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
@@ -61,7 +61,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
       return doc.module === moduleSelected
     }).map(obj => ({ ...obj, moving: false }))
-  
+
     // console.log(tempArray, 'dltDoc2')
     setFilteredDoc(tempArray)
   }, [orderid, documentsFetched])
@@ -146,10 +146,14 @@ const Index = ({ orderid, module, isDocumentName }) => {
     })
     setFilteredDoc(tempArray)
   }
-  const handleDocModuleChange = (index) => { 
+  const handleDocModuleChange = (index) => {
     let tempArray = [...filteredDoc]
-    tempArray[index].moving = true 
+    tempArray[index].moving = true
     setFilteredDoc(tempArray)
+  }
+
+  const handleShareDoc = (doc) => {
+    console.log(doc, 'handleShareDoc')
   }
 
 
@@ -572,7 +576,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 src="/static/upload.svg"
                                 className="mr-3"
                                 alt="Share"
-                                onClick={() => {
+                                onClick={(document) => {
+                                  handleShareDoc(document)
                                   openbar()
                                 }}
                               />
@@ -596,7 +601,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                        value={moduleSelected}
 
                                         onChange={(e) => {
-                                          
+
                                           dispatch(
                                             changeModuleDocument({
                                               orderDocumentId: documentsFetched._id,
@@ -609,23 +614,23 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                         }
                                         className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
                                         style={{ width: '150px', paddingRight: '30px' }}    >
-                                      
-                                        <option disabled={moduleSelected==='LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+
+                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
                                           Lead Onboarding &amp; Order Approval
                                         </option>
-                                        <option disabled={moduleSelected==='Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
                                           Agreements, Insurance &amp; LC Opening
                                         </option>
-                                        <option disabled={moduleSelected==='Loading-Transit-Unloading'}  value="Loading-Transit-Unloading">
+                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
                                           Loading-Transit-Unloading
                                         </option>
-                                        <option disabled={moduleSelected==='customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
                                           Custom Clearance And Warehousing
                                         </option>
-                                        <option disabled={moduleSelected==='PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
                                           Payments Invoicing & Delivery
                                         </option>
-                                        <option disabled={moduleSelected==='Others'} value="Others">Others</option>
+                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
                                       </select>
                                       <img
                                         className={`${styles.arrow2} img-fluid`}
