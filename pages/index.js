@@ -135,7 +135,7 @@ const IndexPage = () => {
                       <div
                         className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                       >
-                        <span>Showing Page 1 out of 10</span>
+                        <span>Showing Page 1 out of 1</span>
                         <a
                           href="#"
                           className={`${styles.arrow} ${`leftArrow`} arrow`}
@@ -177,7 +177,7 @@ const IndexPage = () => {
                               <th>DUE AMOUNT</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          {/* <tbody>
                             <tr className="table_row">
                               <td>124621</td>
                               <td className={`${styles.buyerName} buyerName`}>
@@ -218,7 +218,7 @@ const IndexPage = () => {
                               <td>7</td>
                               <td>₹ 3,45,000</td>
                             </tr>
-                          </tbody>
+                          </tbody> */}
                         </table>
                       </div>
                     </div>
