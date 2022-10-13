@@ -8,24 +8,35 @@ import Filter from '../../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGenericData } from '../../../src/redux/generic/actionsType'
 
-import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
+import { setPageName,setDynamicName } from '../../../src/redux/userData/action'
 
 function Index(props) {
-  console.log('🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props', props)
+  console.log("🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props", props)
   const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
-  const [genData, setData] = useState([])
-  const [total, setTotal] = useState([])
+  const [genData,setData]=useState([])
+  const [total,setTotal]=useState([])
   const [sorting, setSorting] = useState(1)
-
+  
   const { generic } = useSelector((state) => state?.generic?.allGeneric)
   useEffect(() => {
+  if(window){
+    sessionStorage.setItem('loadedPage',"Agreement & LC Module")
+    sessionStorage.setItem('loadedSubPage',`Generic`)
+    sessionStorage.setItem('openList',2)
+  }
+  },[])
+ useEffect(() => {
     dispatch(setPageName('generic'))
     dispatch(setDynamicName(null))
   })
-  useEffect(() => {
-    getDate()
-  }, [currentPage, dispatch])
+ useEffect(() => {
+   getDate()
+  },[currentPage, dispatch])
+
+
+
+const getDate = async () =>{
 
  let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
  setData(data?.data)
@@ -47,9 +58,10 @@ function Index(props) {
   }
 
   const handleRoute = (term) => {
+   console.log(term,"ssd")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
-    sessionStorage.setItem('genericID', term.order.orderId)
-    Router.push('/generic')
+    sessionStorage.setItem('genericID',term.order.orderId)
+    Router.push("/generic")
 
     //  dispatch(setDynamicName(null))
     // Router.push('/lc-module')
@@ -62,7 +74,10 @@ function Index(props) {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            <div className={styles.search}>
+
+            
+
+               <div className={styles.search}>
               <div className="input-group">
                 <div
                   className={`${styles.inputGroupPrepend} input-group-prepend`}
@@ -83,6 +98,7 @@ function Index(props) {
             <Filter />
           </div>
 
+         
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
             <div
@@ -92,9 +108,9 @@ function Index(props) {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>
-                  Showing Page {total ? currentPage + 1 : 0} out of{' '}
-                  {Math.ceil(total || 0 / 10)}
+               <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(total / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -116,7 +132,10 @@ function Index(props) {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(total / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(total / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -141,36 +160,27 @@ function Index(props) {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img
-                          onClick={() => handleSort()}
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                        />
-                      </th>
-
+                      <th >ORDER ID <img  onClick={()=>handleSort()} className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
+                    
                       <th>COMPANY NAME </th>
                       <th>COMMODITY </th>
                       <th>CUSTOMER ID</th>
+                    
+
                     </tr>
                   </thead>
                   <tbody>
-                    {genData?.length > 0 &&
-                      genData?.map((term, index) => (
-                        <tr Key={index} className="table_row">
-                          <td>{term?.order?.orderId ?? ''}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => handleRoute(term)}
-                          >
-                            {term?.company.companyName}
-                          </td>
+                    {genData?.length>0 && genData?.map((term, index) => (<tr Key={index} className="table_row">
 
-                          <td>{term?.order?.commodity ?? ''}</td>
-                          <td>{term?.company?.customerId ?? ''}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
+                      <td >
+                        {term?.order?.orderId??""}
+                      </td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
+                      
+                      <td >{term?.order?.commodity??""}</td>
+                      <td >{term?.company?.customerId??""}</td>
+                      {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
+                      {/* <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
                             ? styles.review
@@ -186,8 +196,10 @@ function Index(props) {
                             ? 'Approved'
                             : 'Rejected'}
                       </td> */}
-                        </tr>
-                      ))}
+
+
+
+                    </tr>))}
                   </tbody>
                 </table>
               </div>
@@ -205,22 +217,27 @@ function Index(props) {
 //    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 //   console.log("inside fetch2222");
 //   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-//   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+//   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-//   let result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
+//   var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
 //       method: "GET",
 //       headers: headers,
 //       // body: urlencoded,
 //       redirect: "follow",
 //     }).then((response) => response.json());
 
+   
+  
 //    console.log(result,"thi sis result123")
+   
+ 
 
 //     if (result.code === 200) {
 //       return {
 //         props: {
 //           pageProps: result.data,
-
+         
+         
 //         },
 //       };
 //     } else {
