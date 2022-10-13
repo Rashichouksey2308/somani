@@ -30,7 +30,7 @@ function Index({data}) {
             isLabelVisible={false}
           /> */}
         </div>
-        <div className={styles.percent}>{Number((Number(_get(data,"[0].totalUtilizedLimit",0))/Number(_get(data,"[0].totalLimit",0)))*100)} %</div>
+        <div className={styles.percent}>{checkNan(Number((Number(_get(data,"[0].totalUtilizedLimit",0))/Number(_get(data,"[0].totalLimit",0)))*100))} %</div>
 
         <div className={styles.total}>
           <div className={styles.totalText}><span>TOTAL</span></div>
