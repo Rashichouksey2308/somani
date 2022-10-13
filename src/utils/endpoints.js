@@ -73,6 +73,7 @@ export default {
   getDocuments: '/order/order-document',
   addDocuments: '/order/order-document',
   deleteDocument: '/order/order-document',
+  changeDocModule: '/order/document-module',
 
   //Update Cam Sheet
   updateCam: '/order/cam',
