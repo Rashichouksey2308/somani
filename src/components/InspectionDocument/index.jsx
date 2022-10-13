@@ -8,7 +8,7 @@ import {
   AddingDocument,
   DeleteDocument,
   changeModuleDocument,
-} from 'redux/creditQueueUpdate/action' 
+} from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
@@ -45,7 +45,7 @@ const Index = ({
   //   sessionStorage.setItem('docId', orderId)
   //   dispatch(GetDocuments(`?order=${orderId}`))
   // }, [dispatch, orderId])
-  
+
   const [filteredDoc, setFilteredDoc] = useState([])
 
   const [moduleSelected, setModuleSelected] = useState(
@@ -63,7 +63,7 @@ const Index = ({
     const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
       return doc.module === moduleSelected
     }).map(obj => ({ ...obj, moving: false }))
-  
+
     // console.log(tempArray, 'dltDoc2')
     setFilteredDoc(tempArray)
   }, [orderId, documentsFetched])
@@ -88,7 +88,7 @@ const Index = ({
     newUploadDoc1.document = e.target.files[0]
     setNewDoc(newUploadDoc1)
   }
-  const [openDropdown, setDropdown]= useState(false)
+  const [openDropdown, setDropdown] = useState(false)
 
   const uploadDocumentHandler = (e) => {
     e.preventDefault()
@@ -151,7 +151,7 @@ const Index = ({
   }
 
   const filterDocBySearch = (val) => {
-    if(!val.length >= 3) return
+    if (!val.length >= 3) return
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc
@@ -160,9 +160,9 @@ const Index = ({
     setFilteredDoc(tempArray)
   }
 
-  const handleDocModuleChange = (index) => { 
+  const handleDocModuleChange = (index) => {
     let tempArray = [...filteredDoc]
-    tempArray[index].moving = true 
+    tempArray[index].moving = true
     setFilteredDoc(tempArray)
   }
 
@@ -183,7 +183,7 @@ const Index = ({
       </div>
       <div
         id="uploadOther"
-        className= { !isOpen ? 'collapse' : ''}
+        className={!isOpen ? 'collapse' : ''}
         aria-labelledby="uploadOther"
         data-parent="#uploadOther"
       >
@@ -240,10 +240,10 @@ const Index = ({
                       />
                     </td>
                     <td className={styles.doc_row}>
-                      { lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate
+                      {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate
                         ? moment(d).format(
-                            'DD-MM-YYYY,HH:mm A',
-                          )
+                          'DD-MM-YYYY,HH:mm A',
+                        )
                         : ''}
                     </td>
                     <td colSpan={2}>
@@ -299,18 +299,18 @@ const Index = ({
                     onChange={(e) => uploadDocument2(e)}
                   />
                   {newDoc?.document?.name ? (
-                      <div className='d-flex justify-content-center align-items-center'>
-                    <div
-                      className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
-                    >
-                      <span>{newDoc?.document?.name}</span>
-                      <img
-                        className={`${styles.close_image} image_arrow ml-2 mr-2`}
-                        src="/static/close.svg"
-                        onClick={(e) => handleCloseDoc()}
-                        alt="Close"
-                      />{' '}
-                    </div>
+                    <div className='d-flex justify-content-center align-items-center'>
+                      <div
+                        className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
+                      >
+                        <span>{newDoc?.document?.name}</span>
+                        <img
+                          className={`${styles.close_image} image_arrow ml-2 mr-2`}
+                          src="/static/close.svg"
+                          onClick={(e) => handleCloseDoc()}
+                          alt="Close"
+                        />{' '}
+                      </div>
                     </div>
                   ) : (
                     <p className={styles.drop_para}>
@@ -586,7 +586,7 @@ const Index = ({
                   </div>
                 </Form.Group>
                 {/* <Form.Group className={styles.form_group}> */}
-                  {/* <input
+                {/* <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
@@ -608,7 +608,7 @@ const Index = ({
                   >
                     Upload
                   </button> */}
-                   <Form.Group className={`${styles.form_group}`}>
+                <Form.Group className={`${styles.form_group}`}>
                   <input
                     id="otherDocName"
                     onChange={(e) =>
@@ -680,7 +680,7 @@ const Index = ({
                   <input
                     className={`${styles.searchBar} statusBox border_color input form-control`}
                     placeholder="Search"
-                    onChange={(e)=>filterDocBySearch(e.target.value)}
+                    onChange={(e) => filterDocBySearch(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -780,63 +780,64 @@ const Index = ({
                                   openbar()
                                 }}
                               />
-                               { !document.moving ? 
-                             (
-                              <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} mr-3`}
-                              alt="Share"
-                              onClick={() => {
-                                handleDocModuleChange(index)
-                              }}
-                            />
-                             )
-                             :
-                              (
-                                <div className='d-inline-block'>
-                                <div className="d-flex align-items-center">
-                                  <select
-                                      onChange={(e) => {
-                                          
-                                        dispatch(
-                                          changeModuleDocument({
-                                            orderDocumentId: documentsFetched._id,
-                                            name: document.name,
-                                            module: e.target.value
-                                          }),
-                                        )
-                                        DocDlt(index)
-                                      }
-                                      }
-                                    className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
-                                          style={{width:'150px', paddingRight:'30px' }}    >
-                                    <option disabled={moduleSelected==='LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+                              {!document.moving ?
+                                (
+                                  <img
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    alt="Share"
+                                    onClick={() => {
+                                      handleDocModuleChange(index)
+                                    }}
+                                  />
+                                )
+                                :
+                                (
+                                  <div className='d-inline-block'>
+                                    <div className="d-flex align-items-center">
+                                      <select
+                                        value={moduleSelected}
+                                        onChange={(e) => {
+
+                                          dispatch(
+                                            changeModuleDocument({
+                                              orderDocumentId: documentsFetched._id,
+                                              name: document.name,
+                                              module: e.target.value
+                                            }),
+                                          )
+                                          DocDlt(index)
+                                        }
+                                        }
+                                        className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                        style={{ width: '150px', paddingRight: '30px' }}    >
+                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
                                           Lead Onboarding &amp; Order Approval
                                         </option>
-                                        <option disabled={moduleSelected==='Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
                                           Agreements, Insurance &amp; LC Opening
                                         </option>
-                                        <option disabled={moduleSelected==='Loading-Transit-Unloading'}  value="Loading-Transit-Unloading">
+                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
                                           Loading-Transit-Unloading
                                         </option>
-                                        <option disabled={moduleSelected==='customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
                                           Custom Clearance And Warehousing
                                         </option>
-                                        <option disabled={moduleSelected==='PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
                                           Payments Invoicing & Delivery
                                         </option>
-                                        <option disabled={moduleSelected==='Others'} value="Others">Others</option>
-                                  </select>
-                                  <img
-                                    className={`${styles.arrow2} img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
-                                  />
-                                </div>
-                                </div>
-                             )  
-                             
-                             }
+                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </div>
+                                  </div>
+                                )
+
+                              }
                             </td>
                           </tr>
                         )

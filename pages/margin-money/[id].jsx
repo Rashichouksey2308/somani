@@ -850,17 +850,22 @@ function Index() {
       marginMoneyPayable:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
     })
-
+    
+    // T calculation
     let additionalAmountPerPDC = parseFloat(
-      (marginData?.calculation?.totalSPDC -
-        Number(revisedCalc.additionalAmountPerPDC)) /
+      
+      ( 
+        Number(revisedCalc.additionalAmountPerPDC) - Number(marginData?.calculation?.totalSPDC)
+        ) /
       Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
+// u calculation
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
       marginData?.revisedMarginMoney?.totalOrderValue -
-      marginData?.revisedMarginMoney?.totalOrderValue,
+      marginData?.calculation?.totalOrderValue,
     ).toFixed(2)
+
     let marginMoneyRevised = marginData?.calculation?.marginMoney
     let revisedMarginMoneyNew = marginData?.calculation?.marginMoney
 
@@ -873,21 +878,22 @@ function Index() {
       marginMoneyPayable: '',
     })
   }
+  
 
   useEffect(() => {
     getRevisedData2()
   }, [revisedCalc])
-
+  // ? revisedCalc.additionalAmountPerPDC
+  //           : 0,
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = parseFloat(
-      (Number(marginData?.calculation?.totalSPDC) -
-        Number(
-          revisedCalc.additionalAmountPerPDC
-            ? revisedCalc.additionalAmountPerPDC
-            : 0,
-        )) /
+      (
+        Number( revisedCalc.additionalAmountPerPDC ) - Number(marginData?.calculation?.totalSPDC)
+      ) 
+        /
       Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
+
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
       Number(

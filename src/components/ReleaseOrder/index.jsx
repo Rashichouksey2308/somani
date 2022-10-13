@@ -148,7 +148,15 @@ export default function Index({
   }
   const netQuantityChange = (e, index) => {
     console.log(netBalanceQuantity, Number(e.target.value), 'herere12e')
-    if (netBalanceQuantity < Number(e.target.value)) {
+    if (
+      Number(
+        _get(
+          ReleaseOrderData,
+          'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+          0,
+        ),
+      ) < Number(e.target.value)
+    ) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
@@ -378,8 +386,7 @@ export default function Index({
                               index={index}
                               saveDate={saveDate}
                               name="releaseOrderDate"
-                              // autoComplete="off"
-
+                              autoComplete="off"
                               labelName="Release Order Date"
                             />
                             {console.log(

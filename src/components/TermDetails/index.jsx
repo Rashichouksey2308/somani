@@ -820,7 +820,7 @@ const Index = ({
               </div>
               <input
                 id="lcOpeningChargesUnit"
-                className={`${styles.value} input form-control`}
+                className={`${styles.value} input form-control border-left-0`}
                 type="text"
                 onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 // value={addPrefixOrSuffix(
