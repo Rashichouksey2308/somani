@@ -22,7 +22,7 @@ export default {
   getBuyers: '/lead/get-all-leads',
   uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
-  getPanGst: '/user/get-company',
+  getPanGst: '/get-company',
 
   //orders
   getBuyerOrder: '/lead/order-review',
@@ -34,7 +34,7 @@ export default {
   updateCreditCalculate: '/order/credit-calculate',
 
   // gst
-  getGst: '/user/get-gst',
+  getGst: '/get-gst',
 
   //token
   generateToken: '/generate-token',
