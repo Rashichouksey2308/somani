@@ -419,26 +419,17 @@
                   top: 51%;
                   left: 0;
                   width: 100%;
-                  height: 2px;
+                  height: 3px;
                   content: "";
                   z-index: -1;
                   position: absolute;
                   transform: translateY(-50%);
               }
               @include respond(lg-desktop) {
-                font-size: $font_size_mobile_input_label;
-              }
-
-              @include respond(md-desktop) {
-                font-size: $font_size_mobile_input_label;
-              }
-
-              @include respond(sm-desktop) {
-                font-size: $font_size_sm_input_label;
-              }
-
-              @include respond(phone) {
-                font-size: $font_size_mobile_input_label;
+                top: 15px;
+                font-size: 14px;
+                line-height: 15px;
+                transform: translateY(-22px);
               }
             }
             .input_field {
@@ -453,9 +444,17 @@
               &:invalid + label {
                 transform: translateY(0);
               }
+              @include respond(lg-desktop) {
+                  height: 45px;
+                  font-size: 15px;
+                  line-height: 1.3;
+              }
               &:focus {
                 & + label {
                   transform: translateY(-30px);
+                  @include respond(lg-desktop) {
+                    transform: translateY(-22px);
+                  }
                 }
               }
             }
@@ -468,6 +467,9 @@
                 text-transform: capitalize;
                 outline: none;
                 border-radius: 4px 0 0 4px;
+                @include respond(lg-desktop) {
+                  font-size: 15px;
+                }
               }
             }
             .range_field {
@@ -491,11 +493,17 @@
             .label_heading {
               left: 90px;
               transform: translate(-61px, -30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-15px);
+              }
             }
             .input_field {
               &:focus {
                 & + label {
                   transform: translate(-61px, -30px);
+                  @include respond(lg-desktop) {
+                    transform: translateY(-22px);
+                  }
                 }
               }
             }
@@ -1009,6 +1017,10 @@
       line-height: 17px;
       font-weight: 500;
       letter-spacing: 0.53px;
+      @include respond(lg-desktop) {
+        font-size: 14px;
+        line-height: 15px;
+      }
     }
   }
 }
