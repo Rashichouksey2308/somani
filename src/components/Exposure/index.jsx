@@ -3,6 +3,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import styles from './index.module.scss'
 import _get from 'lodash/get'
+import { checkNan } from 'utils/helper'
 function Index({data}) {
   console.log(data,"data")
   return (
@@ -16,7 +17,7 @@ function Index({data}) {
                   <div className={styles.progress_bar}>
                     <div className={`${styles.bar}`}>
                     <div className={styles.barCompleted} 
-                    style={{width:`${Number((Number(_get(data,"[0].totalUtilizedLimit",0))/Number(_get(data,"[0].totalLimit",0)))*100)}%`}}></div>
+                    style={{width:`${checkNan(Number((Number(_get(data,"[0].totalUtilizedLimit",0))/Number(_get(data,"[0].totalLimit",0)))*100))}%`}}></div>
                 </div>
                    
                   </div>
