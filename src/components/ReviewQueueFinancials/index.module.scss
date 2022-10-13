@@ -161,7 +161,7 @@
                                 padding-left: 15px;
                             }
                         }
-                        @include respond(md-desktop) {
+                        @include respond(lg-desktop) {
                             font-size: 14px;
                             line-height: 1.2;
                         }

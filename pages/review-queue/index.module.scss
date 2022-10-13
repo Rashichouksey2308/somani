@@ -500,11 +500,6 @@
                     white-space: nowrap;
                     vertical-align: middle;
                     text-transform: uppercase;
-                    @include respond(lg-desktop) {
-                        height: 50px;
-                        font-size: 14px;
-                        line-height: 1.2;
-                    }
                     &:first-child {
                         padding-left: 35px;
                         @include respond(md-desktop) {
@@ -514,8 +509,13 @@
                     img {
                         width: 14px;
                         height: 14px;
+                        @include respond(lg-desktop) {
+                            width: 12px;
+                            height: 12px;
+                        }
                     }
-                    @include respond(md-desktop) {
+                    @include respond(lg-desktop) {
+                        height: 50px;
                         font-size: 14px;
                         line-height: 1.2;
                     }

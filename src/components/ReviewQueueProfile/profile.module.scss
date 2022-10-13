@@ -127,6 +127,10 @@
             line-height: 18px;
             border: none;
             padding: 25px 35px;
+            @include respond(lg-desktop) {
+                font-size: 14px;
+                line-height: 1.2;
+            }
           }
           td {
             font-size: 19px;
@@ -188,6 +192,10 @@
               vertical-align: middle;
               text-transform: uppercase;
               border: 3px solid #f0f2f6;
+              @include respond(lg-desktop) {
+                  font-size: 14px;
+                  line-height: 1.2;
+              }
             }
             td {
               font-size: 19px;
@@ -280,6 +288,10 @@
               border-right: 2px solid #E6EAF0;
               &:last-child {
                 border-right: none;
+              }
+              @include respond(lg-desktop) {
+                  font-size: 14px;
+                  line-height: 1.2;
               }
             }
 
@@ -531,6 +543,10 @@
                     background: none !important;
                     &:first-child {
                       padding-left: 0;
+                    }
+                    @include respond(lg-desktop) {
+                        font-size: 14px;
+                        line-height: 1.2;
                     }
                   }
                 }
