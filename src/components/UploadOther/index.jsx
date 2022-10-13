@@ -7,6 +7,7 @@ import {
   GetDocuments,
   AddingDocument,
   DeleteDocument,
+  changeModuleDocument,
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
@@ -44,7 +45,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const [filteredDoc, setFilteredDoc] = useState([])
 
-  const [currentDoc, setCurrentDoc] = useState('')
+  const [currentDoc, setCurrentDoc] = useState(null)
 
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
@@ -57,10 +58,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }, [dispatch, orderid, moduleSelected])
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
+    const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
       return doc.module === moduleSelected
-    })
+    }).map(obj => ({ ...obj, moving: false }))
 
+    // console.log(tempArray, 'dltDoc2')
     setFilteredDoc(tempArray)
   }, [orderid, documentsFetched])
 
@@ -73,9 +75,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }
   const DocDlt = (index) => {
     let tempArray = filteredDoc
-    tempArray.pop(index)
+    tempArray.splice(index, 1)
+    console.log(tempArray, index, 'dltDoc')
     setFilteredDoc(tempArray)
   }
+  // console.log(filteredDoc, 'dltDoc1')
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
@@ -95,7 +99,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       module: module,
     })
   }
-const [openDropdown, setDropdown]= useState(false)
+  const [openDropdown, setDropdown] = useState(false)
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
@@ -134,7 +138,7 @@ const [openDropdown, setDropdown]= useState(false)
   const [filterValue, setFilterValue] = useState('')
 
   const filterDocBySearch = (val) => {
-    if(!val.length >= 3) return
+    if (!val.length >= 3) return
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc
@@ -142,6 +146,16 @@ const [openDropdown, setDropdown]= useState(false)
     })
     setFilteredDoc(tempArray)
   }
+  const handleDocModuleChange = (index) => {
+    let tempArray = [...filteredDoc]
+    tempArray[index].moving = true
+    setFilteredDoc(tempArray)
+  }
+
+  const handleShareDoc = (doc) => {
+    console.log(doc, 'handleShareDoc')
+  }
+
 
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
@@ -562,63 +576,72 @@ const [openDropdown, setDropdown]= useState(false)
                                 src="/static/upload.svg"
                                 className="mr-3"
                                 alt="Share"
-                                onClick={() => {
+                                onClick={(document) => {
+                                  handleShareDoc(document)
                                   openbar()
                                 }}
                               />
-                            
-                             { !openDropdown ? 
-                             (
-                              <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} mr-3`}
-                              alt="Share"
-                              onClick={() => {
-                                setDropdown(true)
-                              }}
-                            />
-                             )
-                             :
-                              (
-                                <div className='d-inline-block'>
-                                <div className="d-flex align-items-center">
-                                  <select
-                                    // value={moduleSelected}
-                                    // onChange={(e) =>
-                                    //   setModuleSelected(e.target.value)
-                                    // }
-                                    className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
-                                          style={{width:'150px', paddingRight:'30px' }}    >
-                                    <option selected disabled>
-                                      Select an option
-                                    </option>
-                                    <option value="LeadOnboarding&OrderApproval">
-                                      Lead Onboarding &amp; Order Approval
-                                    </option>
-                                    <option value="Agreements&Insurance&LC&Opening">
-                                      Agreements, Insurance &amp; LC Opening
-                                    </option>
-                                    <option value="Loading-Transit-Unloading">
-                                      Loading-Transit-Unloading
-                                    </option>
-                                    <option value="customClearanceAndWarehousing">
-                                      Custom Clearance And Warehousing
-                                    </option>
-                                    <option value="PaymentsInvoicing&Delivery">
-                                      Payments Invoicing & Delivery
-                                    </option>
-                                    <option value="Others">Others</option>
-                                  </select>
+
+                              {!document.moving ?
+                                (
                                   <img
-                                    className={`${styles.arrow2} img-fluid`}
-                                    src="/static/inputDropDown.svg"
-                                    alt="Search"
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    alt="Share"
+                                    onClick={() => {
+                                      handleDocModuleChange(index)
+                                    }}
                                   />
-                                </div>
-                                </div>
-                             )  
-                             
-                             }
+                                )
+                                :
+                                (
+                                  <div className='d-inline-block'>
+                                    <div className="d-flex align-items-center">
+                                      <select
+                                       value={moduleSelected}
+
+                                        onChange={(e) => {
+
+                                          dispatch(
+                                            changeModuleDocument({
+                                              orderDocumentId: documentsFetched._id,
+                                              name: document.name,
+                                              module: e.target.value
+                                            }),
+                                          )
+                                          DocDlt(index)
+                                        }
+                                        }
+                                        className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                        style={{ width: '150px', paddingRight: '30px' }}    >
+
+                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+                                          Lead Onboarding &amp; Order Approval
+                                        </option>
+                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                          Agreements, Insurance &amp; LC Opening
+                                        </option>
+                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
+                                          Loading-Transit-Unloading
+                                        </option>
+                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                          Custom Clearance And Warehousing
+                                        </option>
+                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                          Payments Invoicing & Delivery
+                                        </option>
+                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </div>
+                                  </div>
+                                )
+
+                              }
                             </td>
                           </tr>
                         )
