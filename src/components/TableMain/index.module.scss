@@ -116,8 +116,13 @@
                     img {
                         width: 14px;
                         height: 14px;
+                        @include respond(lg-desktop) {
+                            width: 12px;
+                            height: 12px;
+                        }
                     }
-                    @include respond(md-desktop) {
+                    @include respond(lg-desktop) {
+                        height: 50px;
                         font-size: 14px;
                         line-height: 1.2;
                     }
