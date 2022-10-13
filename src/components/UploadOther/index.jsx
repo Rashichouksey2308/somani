@@ -593,6 +593,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                   <div className='d-inline-block'>
                                     <div className="d-flex align-items-center">
                                       <select
+                                       value={moduleSelected}
 
                                         onChange={(e) => {
                                           
