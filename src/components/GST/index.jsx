@@ -1911,6 +1911,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
             <h5 className={`${styles.light} accordion_Text`}>Filter By : </h5>
             <div className="d-flex align-items-center position-relative">
               <select
+                style={{minWidth:'120px'}}
                 value={
                   isChartFilterMonthly ? isChartFilterMonthly : 'Quarterly'
                 }
@@ -5044,7 +5045,7 @@ const gstSales = (
                                       Math.sign(sales) === -1 ? 'red' : 'black',
                                   }}
                                 >
-                                  {sales?.toLocaleString('en-In', {
+                                  {checkNan(sales)?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) ?? ''}{' '}
@@ -5442,7 +5443,7 @@ const gstPurchase = (
                                   }}
                                   key={index}
                                 >
-                                  {sales?.toLocaleString('en-In', {
+                                  {checkNan(sales)?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) ?? ''}{' '}

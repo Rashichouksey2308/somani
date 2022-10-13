@@ -279,8 +279,6 @@ function Index() {
                     {allBuyerList &&
                       allBuyerList.data?.data?.map((buyer, index) => (
                         <tr key={index} className={`${styles.table_row} table_row`}>
-
-
                           <td>{buyer.company.customerId ? buyer.company.customerId : buyer.company.temporaryCustomerId}</td>
                           <td className={styles.buyerName} onClick={() => handleRoute(buyer)}>
                             {buyer.company.companyName}
@@ -308,11 +306,8 @@ function Index() {
                               }}
                             />
                           </td>
-
-
                         </tr>
                       ))}
-
                   </tbody>
                 </table>
               </div>

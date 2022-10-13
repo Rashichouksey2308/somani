@@ -695,7 +695,6 @@ export default function Index({
                         maximumFractionDigits: 2,
                       },
                     )}{' '}
-                    {/* {customData?.order?.unitOfQuantity?.toUpperCase()} */}
                   </span>
                 </div>
                 <div

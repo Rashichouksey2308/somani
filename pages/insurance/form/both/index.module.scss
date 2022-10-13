@@ -32,11 +32,11 @@
     color: #3687e8;
     font-weight: normal;
     line-height: 20px;
-    @include respond(md-desktop) {
-      font-size: 42px;
+    @include respond(lg-desktop) {
+        font-size: 35px;
     }
     @include respond(sm-desktop) {
-      font-size: 35px;
+      font-size: 32px;
     }
     @include respond(phone) {
       font-size: 30px;
@@ -261,44 +261,35 @@
         width: 13px;
         height: 21px;
         background: transparent;
-        margin-top: 10px;
         cursor: pointer;
-        @include respond(md-desktop) {
-          width: 12px;
-          height: 19px;
-        }
-
-        @include respond(sm-desktop) {
+        @include respond(lg-desktop) {
           width: 10px;
-          height: 17px;
-          margin-top: 12px;
-        }
-        @include respond(phone) {
-          margin-top: 12px;
-          width: 9px;
-          height: 14px;
+          height: auto;
         }
       }
       .heading {
-        padding-left: 18px;
-        font-weight: bold;
         font-size: 34px;
-        text-align: left;
+        font-weight: bold;
         line-height: 41px;
-        text-transform: capitalize;
-        margin-top: 0;
-        @include respond(md-desktop) {
-          font-size: 30px;
-          line-height: 41px;
+        margin: 0;
+        padding-left: 18px;
+        text-transform: lowercase;
+        &:first-letter {
+            text-transform: uppercase;
+        }
+        &:first-line {
+            text-transform: capitalize;
+        }
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
-          font-size: 26px;
-          line-height: 38px;
+          font-size: 20px;
         }
         @include respond(phone) {
-          font-size: 22px;
-          line-height: 30px;
-          padding-top: 5px;
+          font-size: 18px;
         }
       }
     }
@@ -764,11 +755,11 @@ input:checked + .slider:before {
       color: #3687e8;
       font-weight: normal;
       line-height: 20px;
-      @include respond(md-desktop) {
-        font-size: 42px;
+      @include respond(lg-desktop) {
+          font-size: 35px;
       }
       @include respond(sm-desktop) {
-        font-size: 35px;
+        font-size: 32px;
       }
       @include respond(phone) {
         font-size: 30px;

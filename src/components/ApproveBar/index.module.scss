@@ -19,6 +19,10 @@
     background-color: rgb(255, 255, 255);
     margin-left: 345px;
     @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+        bottom: 35px;
+        height: 64px;
         margin-left: 20%;
     }
     @include respond(md-desktop) {
@@ -39,6 +43,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        @include respond(lg-desktop) {
+            width: 200px;
+            height: 38px;
+        }
     }
     .approve {
         cursor: pointer;
@@ -51,6 +59,10 @@
         align-items: center;
         justify-content: center;
         margin-left: 1rem;
+        @include respond(lg-desktop) {
+            width: 200px;
+            height: 38px;
+        }
     }
 }
 .no_sidebar {

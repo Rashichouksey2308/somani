@@ -199,7 +199,6 @@ const getDate = async () =>{
                   <thead>
                     <tr className="table_row">
                       <th >ORDER ID <img  onClick={()=>handleSort()} className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
-                    
                       <th>BUYER NAME </th>
                       <th>STATUS </th>
                       <th>Customer ID</th>

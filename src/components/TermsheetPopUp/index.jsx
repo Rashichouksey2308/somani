@@ -25,7 +25,7 @@ function Index(props) {
     >
       <Modal.Header className={styles.head}>
         <Modal.Title id="contained-modal-title-vcenter">
-          Share termsheet with buyer
+          Share { props.istermsheet ? '' : 'termsheet'} with buyer
         </Modal.Title>
         <img onClick={()=> props.close()} src="/static/close-2.svg"></img>
       </Modal.Header>

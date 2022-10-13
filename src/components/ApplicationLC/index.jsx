@@ -257,6 +257,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
@@ -312,6 +313,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
@@ -367,6 +369,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {moment(
@@ -426,6 +429,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
@@ -481,6 +485,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
@@ -536,6 +541,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
@@ -591,6 +597,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -647,6 +654,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {addPrefixOrSuffix(
@@ -708,6 +716,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -774,6 +783,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -830,6 +840,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -888,6 +899,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
@@ -945,6 +957,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1001,6 +1014,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
@@ -1056,6 +1070,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1112,6 +1127,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
@@ -1167,6 +1183,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1225,6 +1242,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1281,6 +1299,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
@@ -1337,6 +1356,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {moment(
@@ -1396,6 +1416,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1465,6 +1486,7 @@ function Index() {
                                     fontWeight: '500',
                                     padding: '16px 15px 16px 24px',
                                     marginBottom: '0',
+                                    textTransform: 'uppercase'
                                   }}
                                 >
                                   {doc}
@@ -1554,6 +1576,7 @@ function Index() {
                                       fontWeight: '500',
                                       padding: '16px 15px 16px 24px',
                                       marginBottom: '0',
+                                      textTransform: 'uppercase'
                                     }}
                                   >
                                     {comment}
@@ -1663,6 +1686,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1719,6 +1743,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1775,6 +1800,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1831,6 +1857,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1887,6 +1914,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1943,6 +1971,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -1999,6 +2028,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -2056,6 +2086,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}
@@ -2104,6 +2135,7 @@ function Index() {
                                 fontWeight: '500',
                                 padding: '16px 15px 16px 24px',
                                 marginBottom: '0',
+                                textTransform: 'uppercase'
                               }}
                             >
                               {' '}

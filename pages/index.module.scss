@@ -18,8 +18,11 @@
         margin-left: -10px;
         margin-right: -10px;
     }
-    @include respond(sm-desktop) {
+    @include respond(lg-desktop) {
         padding: 20px 20px 0;
+    }
+    @include respond(sm-desktop) {
+        padding: 18px 18px 0;
     }
     @include respond(phone) {
         margin-bottom: 57px;

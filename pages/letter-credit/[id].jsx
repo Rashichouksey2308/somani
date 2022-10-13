@@ -108,6 +108,9 @@ function Index() {
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
     })
+    // setLcDoc({
+    //   lcDraftDoc: lcModuleData?.document
+    // })
   }, [lcModuleData])
 
   // console.log(lcData, 'LC DATA')
@@ -445,7 +448,7 @@ function Index() {
                     </Row>
                   </div>
                 </div>
-                <hr className={styles.line}></hr>
+                <hr className={`${styles.line} border_color`}></hr>
 
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>

@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import TermsheetPopUp from '../TermsheetPopUp'
 
 const Index = ({
   orderId,
@@ -22,15 +23,20 @@ const Index = ({
   setLcDoc,
   isOpen,
 }) => {
+
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
-
+  const [open, setOpen] = useState(false)
+  const openbar = () => {
+    setOpen(true)
+  }
+  const close = () => {
+    setOpen(false)
+  }
   let d = new Date()
 
-  // const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
-  //   'LeadOnboarding&OrderApproval',
-  // )
+
 
   const { documentsFetched } = useSelector((state) => state.review)
 
@@ -38,9 +44,9 @@ const Index = ({
   //   sessionStorage.setItem('docId', orderId)
   //   dispatch(GetDocuments(`?order=${orderId}`))
   // }, [dispatch, orderId])
- console.log(lcDoc,"lcDoc")
+  
   const [filteredDoc, setFilteredDoc] = useState([])
-  // console.log(filteredDoc,'filtered doc')
+
   const [moduleSelected, setModuleSelected] = useState(
     'LeadOnboarding&OrderApproval',
   )
@@ -52,6 +58,14 @@ const Index = ({
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderId}`))
   }, [dispatch, orderId, moduleSelected])
+
+  useEffect(() => {
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      return doc.module === moduleSelected
+    })
+
+    setFilteredDoc(tempArray)
+  }, [orderId, documentsFetched])
 
   const DocDlt = (index) => {
     let tempArray = filteredDoc
@@ -73,9 +87,9 @@ const Index = ({
     newUploadDoc1.document = e.target.files[0]
     setNewDoc(newUploadDoc1)
   }
+  const [openDropdown, setDropdown]= useState(false)
 
   const uploadDocumentHandler = (e) => {
-    console.log(e, 'UPLOAD HANDLER')
     e.preventDefault()
     if (newDoc.document === null) {
       let toastMessage = 'please select A Document'
@@ -106,48 +120,6 @@ const Index = ({
       })
     }
   }
-  //  const uploadDoc = async (e) => {
-  //   console.log(e, 'response data')
-  //   let fd = new FormData()
-  //   fd.append('document', e.target.files[0])
-  //   // dispatch(UploadCustomDoc(fd))
-  //   console.log(customData, 'customData')
-
-  //   let cookie = Cookies.get('SOMANI')
-  //   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
-  //   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  //   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  //   try {
-  //     let response = await Axios.post(
-  //       `${API.corebaseUrl}${API.customClearanceDoc}`,
-  //       fd,
-  //       {
-  //         headers: headers,
-  //       },
-  //     )
-  //     console.log(response.data.data, 'dischargeOfCargo2')
-  //     if (response.data.code === 200) {
-  //       // dispatch(getCustomClearanceSuccess(response.data.data))
-
-  //       return response.data.data
-  //       // let toastMessage = 'DOCUMENT UPDATED'
-  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
-  //     } else {
-  //       // dispatch(getCustomClearanceFailed(response.data.data))
-  //       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
-  //     }
-  //   } catch (error) {
-  //     // dispatch(getCustomClearanceFailed())
-  //     // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-  //     // if (!toast.isActive(toastMessage.toUpperCase())) {
-  //     //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //     // }
-  //   }
-  // }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -175,6 +147,16 @@ const Index = ({
       name: '',
       module: module,
     })
+  }
+
+  const filterDocBySearch = (val) => {
+    if(!val.length >= 3) return
+    const tempArray = documentsFetched?.documents?.filter((doc) => {
+      if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
+        return doc
+      }
+    })
+    setFilteredDoc(tempArray)
   }
 
   return (
@@ -250,7 +232,7 @@ const Index = ({
                       />
                     </td>
                     <td className={styles.doc_row}>
-                      {lcDoc?.lcDraftDoc?.lastModifiedDate
+                      { lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate
                         ? moment(d).format(
                             'DD-MM-YYYY,HH:mm A',
                           )
@@ -270,17 +252,6 @@ const Index = ({
                               Upload
                             </button>
                           </div>
-                          {/* <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => uploadDocument1(e)}
-                        name="myfile"
-                      />
-                       <button  className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
-                    </div> */}
                         </>
                       ) : (
                         <div
@@ -306,7 +277,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <Form>
             <div className="row align-items-center pb-4">
               <div
@@ -701,6 +672,7 @@ const Index = ({
                   <input
                     className={`${styles.searchBar} statusBox border_color input form-control`}
                     placeholder="Search"
+                    onChange={(e)=>filterDocBySearch(e.target.value)}
                   ></input>
                 </div>
               </div>
@@ -797,19 +769,61 @@ const Index = ({
                                 className="img-fluid mr-3"
                                 alt="Share"
                                 onClick={() => {
-                                  dispatch(
-                                    ViewDocument({
-                                      path: document.path,
-                                      orderId: documentsFetched._id,
-                                    }),
-                                  )
+                                  openbar()
                                 }}
                               />
+                               { !openDropdown ? 
+                             (
                               <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} img-fluid mr-3`}
-                                alt="Share"
-                              />
+                              src="/static/drive_file.svg"
+                              className={`${styles.edit_image} mr-3`}
+                              alt="Share"
+                              onClick={() => {
+                                setDropdown(true)
+                              }}
+                            />
+                             )
+                             :
+                              (
+                                <div className='d-inline-block'>
+                                <div className="d-flex align-items-center">
+                                  <select
+                                    // value={moduleSelected}
+                                    // onChange={(e) =>
+                                    //   setModuleSelected(e.target.value)
+                                    // }
+                                    className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                          style={{width:'150px', paddingRight:'30px' }}    >
+                                    <option selected disabled>
+                                      Select an option
+                                    </option>
+                                    <option value="LeadOnboarding&OrderApproval">
+                                      Lead Onboarding &amp; Order Approval
+                                    </option>
+                                    <option value="Agreements&Insurance&LC&Opening">
+                                      Agreements, Insurance &amp; LC Opening
+                                    </option>
+                                    <option value="Loading-Transit-Unloading">
+                                      Loading-Transit-Unloading
+                                    </option>
+                                    <option value="customClearanceAndWarehousing">
+                                      Custom Clearance And Warehousing
+                                    </option>
+                                    <option value="PaymentsInvoicing&Delivery">
+                                      Payments Invoicing & Delivery
+                                    </option>
+                                    <option value="Others">Others</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow2} img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                  />
+                                </div>
+                                </div>
+                             )  
+                             
+                             }
                             </td>
                           </tr>
                         )
@@ -919,6 +933,7 @@ const Index = ({
           </div>
         </div>
       </div>
+      {open ? <TermsheetPopUp close={close} open={open} istermsheet /> : null}
     </div>
   )
 }
