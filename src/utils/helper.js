@@ -262,3 +262,30 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
     }
   }
 }
+
+
+export const addPrefixSymbol = (
+  type = ""
+) => {
+  if (type != undefined) {
+    let symbol = type
+    if (type == 'INR' || 'RUPEE') {
+      symbol = 'INR'
+      console.log(symbol, 'symbol')
+    }
+    if (type == 'USD') {
+      symbol = 'USD'
+      console.log(symbol, 'symbol')
+    }
+
+    if (type == 'EURO') {
+      symbol = 'EURO'
+    }
+    if (type == 'BRITISHPOUND') {
+      symbol = 'POUND'
+    }
+    return symbol
+  } else {
+    return ''
+  }
+} 
