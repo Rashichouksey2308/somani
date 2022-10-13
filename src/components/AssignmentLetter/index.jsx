@@ -222,7 +222,7 @@ const assignmentSupplier=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}>{data.quan} MT</Col>
+        <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
@@ -234,7 +234,7 @@ const assignmentSupplier=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}>{data.toleranceLevel}</Col>
+        <Col md={7 } className={styles.right}>{data.toleranceLevel?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
