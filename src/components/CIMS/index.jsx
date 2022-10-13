@@ -49,11 +49,11 @@ export default function Index({
       setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
     }
   }, [TransitDetails])
-  useEffect(() => {
-    if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
-      setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
-    }
-  }, [TransitDetails])
+  // useEffect(() => {
+  //   if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
+  //     setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
+  //   }
+  // }, [TransitDetails])
   useEffect(() => {
     let temp = [...cimsDetails]
     temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')

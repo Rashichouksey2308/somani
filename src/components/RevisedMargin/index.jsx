@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import _get from 'lodash/get'
 import DownloadBar from '../DownloadBar'
-import { addPrefixOrSuffix, convertValue } from 'utils/helper'
+import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper'
 
 const Index = ({
   finalCal,
@@ -848,8 +848,8 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.additionalAmountPerPDC} */}₹{' '}
-                      {convertValue(
-                        calcRevised.additionalAmountPerPDC,
+                      { calcRevised.additionalAmountPerPDC === NaN || calcRevised?.additionalAmountPerPDC == 0 ? 0 : convertValue(
+                        checkNan(calcRevised.additionalAmountPerPDC),
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -915,7 +915,7 @@ const Index = ({
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.marginMoney} */}₹{' '}
                       {convertValue(
-                        calcRevised.marginMoney,
+                        finalCal?.marginMoney,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -944,7 +944,7 @@ const Index = ({
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {finalCal.marginMoney} */}₹{' '}
                       {convertValue(
-                        calcRevised.marginMoney,
+                        calcRevised?.marginMoney,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -970,7 +970,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      ₹ 38,50,000.00
+                    ₹ 00.00
                     </div>
                   </div>
                 </div>
@@ -992,7 +992,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(W-X)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      ₹ 38,50,000.00
+                      ₹ 00.00
                     </div>
                   </div>
                 </div>

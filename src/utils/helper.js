@@ -30,7 +30,7 @@ export const phoneValidation = (phone) => {
 
 export const gSTINValidation = (gstin) => {
   var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/
-  if (gstin.match(regex)) {
+  if (gstin.toUpperCase().match(regex)) {
     console.log('trueGstinValidation',)
     return true
   } else {
@@ -262,3 +262,30 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
     }
   }
 }
+
+
+export const addPrefixSymbol = (
+  type = ""
+) => {
+  if (type != undefined) {
+    let symbol = type
+    if (type == 'INR' || 'RUPEE') {
+      symbol = 'INR'
+      console.log(symbol, 'symbol')
+    }
+    if (type == 'USD') {
+      symbol = 'USD'
+      console.log(symbol, 'symbol')
+    }
+
+    if (type == 'EURO') {
+      symbol = 'EURO'
+    }
+    if (type == 'BRITISHPOUND') {
+      symbol = 'POUND'
+    }
+    return symbol
+  } else {
+    return ''
+  }
+} 

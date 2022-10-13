@@ -334,7 +334,7 @@ const tpaSeller=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods</Col>
-        <Col md={7 } className={styles.right}>{data.quan} MT</Col>
+        <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>

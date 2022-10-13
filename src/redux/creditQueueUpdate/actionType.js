@@ -17,6 +17,11 @@ export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 export const DELETE_DOCUMENT_SUCCESS = "DELETE_DOCUMENT_SUCCESS";
 export const DELETE_DOCUMENT_FAILED = "DELETE_DOCUMENT_FAILED";
 
+//****** MOVE Documents ********//
+
+export const MOVE_DOCUMENT = "MOVE_DOCUMENT";
+export const MOVE_DOCUMENT_SUCCESS = "MOVE_DOCUMENT_SUCCESS";
+export const MOVE_DOCUMENT_FAILED = "MOVE_DOCUMENT_FAILED";
 
 //****** Update Cam ********//
 
