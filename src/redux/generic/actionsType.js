@@ -53,7 +53,11 @@ export const updateGenericData =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    }
     try {
       let response = await Axios.put(
         `${API.corebaseUrl}${API.updateGeneric}`,
@@ -99,7 +103,11 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  let headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  }
   try {
     let response = await Axios.get(
       `${API.corebaseUrl}${API.updateGeneric}${payload ? payload : ''}`,
@@ -114,7 +122,8 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
       return response.data.data
     } else {
       dispatch(getGenericFailed(response.data.data))
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      let toastMessage = 'No Data Available'
+      dispatch(setNotLoading())
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
