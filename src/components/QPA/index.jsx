@@ -341,7 +341,7 @@ obtaining gate passes,
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
-        <Col md={7 } className={styles.right}>{data.quan}</Col>
+        <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>

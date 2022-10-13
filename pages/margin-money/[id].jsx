@@ -23,7 +23,12 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation } from '../../src/utils/helper'
+import {
+  addPrefixOrSuffix,
+  checkNan,
+  convertValue,
+  gSTINValidation,
+} from '../../src/utils/helper'
 import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
 import jsPDF from 'jspdf'
@@ -31,7 +36,6 @@ import ReactDOMServer from 'react-dom/server'
 import moment from 'moment'
 
 function Index() {
-
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
@@ -43,7 +47,6 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', '')
 
-
   let id = sessionStorage.getItem('marginId')
 
   const [unit, setUnit] = useState({ value: 'Crores' })
@@ -54,7 +57,7 @@ function Index() {
     'data.data[0].revisedMarginMoney.isActive',
     false,
   )
-  
+
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
 
@@ -152,11 +155,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -172,7 +175,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
+        Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -215,11 +218,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 0) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -235,7 +238,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
+        Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -272,7 +275,8 @@ function Index() {
         buyerName: marginData?.company?.companyName || '',
         buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
         buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+        isConsigneeSameAsBuyer:
+          marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
@@ -288,8 +292,6 @@ function Index() {
       })
     }
   }, [marginData])
- 
-
 
   const saveInvoiceData = (name, value) => {
     // console.log(value, 'invoice data value', name)
@@ -299,26 +301,22 @@ function Index() {
 
     // console.log(newInput, 'nnto', name, value)
 
-
     if (invoiceData?.isConsigneeSameAsBuyer == true) {
-      if (name == "buyerName") {
-        let a = "consigneeName"
+      if (name == 'buyerName') {
+        let a = 'consigneeName'
         newInput[a] = value
       }
-      if (name == "buyerGSTIN") {
-        let a = "consigneeGSTIN"
+      if (name == 'buyerGSTIN') {
+        let a = 'consigneeGSTIN'
         newInput[a] = value
       }
-      if (name == "buyerAddress") {
-        let a = "consigneeAddress"
+      if (name == 'buyerAddress') {
+        let a = 'consigneeAddress'
         newInput[a] = value
       }
-
     }
     setInvoiceData({ ...newInput })
   }
-
- 
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -379,7 +377,6 @@ function Index() {
     }
   }
 
-
   const setSame = (val) => {
     if (val == true) {
       setInvoiceData({
@@ -398,112 +395,177 @@ function Index() {
     }
   }
   const validate = () => {
-    if (invoiceData.buyerName === null || invoiceData.buyerName === undefined || invoiceData.buyerName === '') {
+    if (
+      invoiceData.buyerName === null ||
+      invoiceData.buyerName === undefined ||
+      invoiceData.buyerName === ''
+    ) {
       let toastMessage = 'Please add buyer name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.buyerGSTIN === null || invoiceData.buyerGSTIN === undefined || invoiceData.buyerGSTIN === '') {
+    if (
+      invoiceData.buyerGSTIN === null ||
+      invoiceData.buyerGSTIN === undefined ||
+      invoiceData.buyerGSTIN === ''
+    ) {
       let toastMessage = 'Please add buyer gstin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.buyerAddress === null || invoiceData.buyerAddress === undefined || invoiceData.buyerAddress === '') {
+    if (
+      invoiceData.buyerAddress === null ||
+      invoiceData.buyerAddress === undefined ||
+      invoiceData.buyerAddress === ''
+    ) {
       let toastMessage = 'Please add buyer address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.consigneeName === null || invoiceData.consigneeName === undefined || invoiceData.consigneeName === '') {
+    if (
+      invoiceData.consigneeName === null ||
+      invoiceData.consigneeName === undefined ||
+      invoiceData.consigneeName === ''
+    ) {
       let toastMessage = 'Please add consignee Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.consigneeGSTIN === null || invoiceData.consigneeGSTIN === undefined || invoiceData.consigneeGSTIN === '' || !gSTINValidation(invoiceData.consigneeGSTIN)) {
+    if (
+      invoiceData.consigneeGSTIN === null ||
+      invoiceData.consigneeGSTIN === undefined ||
+      invoiceData.consigneeGSTIN === '' ||
+      !gSTINValidation(invoiceData.consigneeGSTIN)
+    ) {
       let toastMessage = 'Please add A VALID consignee gstin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.consigneeAddress === null || invoiceData.consigneeAddress === undefined || invoiceData.consigneeAddress === '') {
+    if (
+      invoiceData.consigneeAddress === null ||
+      invoiceData.consigneeAddress === undefined ||
+      invoiceData.consigneeAddress === ''
+    ) {
       let toastMessage = 'Please add consignee address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.importerName === null || invoiceData.importerName === undefined || invoiceData.importerName === '') {
+    if (
+      invoiceData.importerName === null ||
+      invoiceData.importerName === undefined ||
+      invoiceData.importerName === ''
+    ) {
       let toastMessage = 'Please add importer name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.branchOffice === null || invoiceData.branchOffice === undefined || invoiceData.branchOffice === '') {
+    if (
+      invoiceData.branchOffice === null ||
+      invoiceData.branchOffice === undefined ||
+      invoiceData.branchOffice === ''
+    ) {
       let toastMessage = 'Please add branch Office'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.companyAddress === null || invoiceData.companyAddress === undefined || invoiceData.companyAddress === '') {
+    if (
+      invoiceData.companyAddress === null ||
+      invoiceData.companyAddress === undefined ||
+      invoiceData.companyAddress === ''
+    ) {
       let toastMessage = 'Please add company Address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.importerGSTIN === null || invoiceData.importerGSTIN === undefined || invoiceData.importerGSTIN === '') {
+    if (
+      invoiceData.importerGSTIN === null ||
+      invoiceData.importerGSTIN === undefined ||
+      invoiceData.importerGSTIN === ''
+    ) {
       let toastMessage = 'Please add importer GSTIN'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.bankName === null || invoiceData.bankName === undefined || invoiceData.bankName === '') {
+    if (
+      invoiceData.bankName === null ||
+      invoiceData.bankName === undefined ||
+      invoiceData.bankName === ''
+    ) {
       let toastMessage = 'Please add bank Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.branch === null || invoiceData.branch === undefined || invoiceData.branch === '') {
+    if (
+      invoiceData.branch === null ||
+      invoiceData.branch === undefined ||
+      invoiceData.branch === ''
+    ) {
       let toastMessage = 'Please add branch'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.branch === null || invoiceData.branch === undefined || invoiceData.branch === '') {
+    if (
+      invoiceData.branch === null ||
+      invoiceData.branch === undefined ||
+      invoiceData.branch === ''
+    ) {
       let toastMessage = 'Please add branch'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.branchAddress === null || invoiceData.branchAddress === undefined || invoiceData.branchAddress === '') {
+    if (
+      invoiceData.branchAddress === null ||
+      invoiceData.branchAddress === undefined ||
+      invoiceData.branchAddress === ''
+    ) {
       let toastMessage = 'Please add branch Address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.IFSCcode === null || invoiceData.IFSCcode === undefined || invoiceData.IFSCcode === '') {
+    if (
+      invoiceData.IFSCcode === null ||
+      invoiceData.IFSCcode === undefined ||
+      invoiceData.IFSCcode === ''
+    ) {
       let toastMessage = 'Please add  IFSC code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if (invoiceData.accountNo === null || invoiceData.accountNo === undefined || invoiceData.accountNo === '') {
+    if (
+      invoiceData.accountNo === null ||
+      invoiceData.accountNo === undefined ||
+      invoiceData.accountNo === ''
+    ) {
       let toastMessage = 'Please add  account No'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -512,14 +574,13 @@ function Index() {
     }
     return true
   }
-  const handleUpdate = async() => {
+  const handleUpdate = async () => {
     if (validate()) {
-
-
       let obj = {
         marginMoneyId: marginData?._id,
         conversionRate: forCalculation.conversionRate,
-        isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
+        isUsanceInterestIncluded:
+          forCalculation.isUsanceInterestIncluded || true,
         numberOfPDC: forCalculation.numberOfPDC,
         additionalPDC: forCalculation.additionalPDC,
         invoiceDetail: { ...invoiceData },
@@ -540,7 +601,7 @@ function Index() {
         orderObj: {
           quantity: forCalculation.quantity,
           perUnitPrice: forCalculation.perUnitPrice,
-          orderValue: finalCal.orderValue
+          orderValue: finalCal.orderValue,
         },
       }
       // if (
@@ -627,7 +688,8 @@ function Index() {
         marginData?.order?.termsheet?.transactionDetails?.marginMoney,
     })
     let orderValue = parseFloat(
-      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+      Number(forCalculationRevised.quantity) *
+        Number(forCalculationRevised.perUnitPrice),
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
@@ -639,11 +701,11 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -659,7 +721,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculationRevised.marginMoney) / 100),
+        Number(Number(forCalculationRevised.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -690,7 +752,8 @@ function Index() {
 
   const getDataRevised = () => {
     let orderValue = parseFloat(
-      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+      Number(forCalculationRevised.quantity) *
+        Number(forCalculationRevised.perUnitPrice),
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
@@ -702,11 +765,11 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-      365,
+        365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -722,7 +785,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculationRevised.marginMoney) / 100),
+        Number(Number(forCalculationRevised.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -754,8 +817,7 @@ function Index() {
     revisedNetOrderValue:
       marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
     marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
-    revisedMarginMoney:
-      marginData?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.calculation?.marginMoney,
     marginMoneyReceived:
       marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
     marginMoneyPayable:
@@ -771,7 +833,7 @@ function Index() {
     marginMoneyPayable: '',
   })
 
-  
+  console.log(calcRevised, 'CALC REVISED')
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -795,7 +857,9 @@ function Index() {
     importerGSTIN:
       marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
     bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
-    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || 'Connaught Place, DELHI',
+    branch:
+      marginData?.revisedMarginMoney?.invoiceDetail?.branch ||
+      'Connaught Place, DELHI',
     branchAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
@@ -807,7 +871,8 @@ function Index() {
 
     setInvoiceDataRevised({
       buyerName: marginData?.company?.companyName || '',
-      buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+      buyerGSTIN:
+        marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress:
         marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
       isConsigneeSameAsBuyer:
@@ -833,7 +898,6 @@ function Index() {
       IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
       accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
     })
-
   }, [marginData])
 
   const getRevisedData = () => {
@@ -842,25 +906,27 @@ function Index() {
         marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
       revisedNetOrderValue:
         marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
-      marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+      marginMoney: marginData?.calculation?.marginMoney,
       revisedMarginMoney:
-        marginData?.calculation?.marginMoney,
+        marginData?.revisedMarginMoney?.calculation?.marginMoney,
       marginMoneyReceived:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
       marginMoneyPayable:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
     })
 
+    // T calculation
     let additionalAmountPerPDC = parseFloat(
-      (marginData?.calculation?.totalSPDC -
-        Number(revisedCalc.additionalAmountPerPDC)) /
-      Number(forCalculationRevised.additionalPDC),
+      (Number(finalCalRevised?.totalSPDC) -
+        Number(marginData?.calculation?.totalSPDC)) /
+        Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
-    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+    // u calculation
     let revisedNetOrderValueNew = parseFloat(
       marginData?.revisedMarginMoney?.totalOrderValue -
-      marginData?.revisedMarginMoney?.totalOrderValue,
+        marginData?.calculation?.totalOrderValue,
     ).toFixed(2)
+
     let marginMoneyRevised = marginData?.calculation?.marginMoney
     let revisedMarginMoneyNew = marginData?.calculation?.marginMoney
 
@@ -877,17 +943,15 @@ function Index() {
   useEffect(() => {
     getRevisedData2()
   }, [revisedCalc])
-
+  // ? revisedCalc.additionalAmountPerPDC
+  //           : 0,
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = parseFloat(
-      (Number(marginData?.calculation?.totalSPDC) -
-        Number(
-          revisedCalc.additionalAmountPerPDC
-            ? revisedCalc.additionalAmountPerPDC
-            : 0,
-        )) /
-      Number(forCalculationRevised.additionalPDC),
+      (Number(finalCalRevised?.totalSPDC) -
+        Number(marginData?.calculation?.totalSPDC)) /
+        Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
+
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
       Number(
@@ -965,12 +1029,13 @@ function Index() {
         amountPerSPDC: finalCalRevised.amountPerSPDC,
       },
       conversionRate: forCalculationRevised.conversionRate,
-        isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
-        orderObj: {
-          quantity: forCalculationRevised.quantity,
-          perUnitPrice: forCalculationRevised.perUnitPrice,
-          orderValue: finalCalRevised.orderValue
-        },
+      isUsanceInterestIncluded:
+        forCalculationRevised.isUsanceInterestIncluded || true,
+      orderObj: {
+        quantity: forCalculationRevised.quantity,
+        perUnitPrice: forCalculationRevised.perUnitPrice,
+        orderValue: finalCalRevised.orderValue,
+      },
     }
 
     dispatch(RevisedMarginMoney(obj))
@@ -1055,7 +1120,15 @@ function Index() {
                       fontWeight: '500',
                     }}
                   >
-                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        paddingLeft: '25px',
+                        width: '90px',
+                        float: 'left',
+                        height: '50px',
+                      }}
+                    >
                       Buyer:{' '}
                     </span>
                     <span
@@ -1087,7 +1160,8 @@ function Index() {
                   <span>
                     {' '}
                     <span></span>
-                  </span><br />
+                  </span>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1124,7 +1198,7 @@ function Index() {
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                border: '2px solid #cad6e64d'
+                border: '2px solid #cad6e64d',
               }}
               cellPadding="0"
               cellSpacing="0"
@@ -1169,7 +1243,6 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-
                           Margin Money
                         </h3>
                       </td>
@@ -1193,7 +1266,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             A.
@@ -1241,7 +1316,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             B
@@ -1260,8 +1337,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD   {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ??
-                            0}
+                          USD{' '}
+                          {marginData?.order?.perUnitPrice?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1284,7 +1363,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             C
@@ -1326,7 +1407,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             D
@@ -1373,7 +1456,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             E
@@ -1420,7 +1505,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             F
@@ -1441,10 +1528,13 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                              ? marginData?.order?.tolerance?.toLocaleString(
+                                  'en-In',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                )
                               : 0,
                             '%',
                             '',
@@ -1471,7 +1561,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             G
@@ -1493,8 +1585,8 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
-                              ? marginData?.order?.termsheet
-                                ?.transactionDetails?.marginMoney
+                              ? marginData?.order?.termsheet?.transactionDetails
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -1521,7 +1613,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             H
@@ -1540,7 +1634,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ??
+                            0}
                         </p>
                       </td>
                     </tr>
@@ -1563,7 +1658,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             I
@@ -1627,7 +1724,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             J
@@ -1654,8 +1753,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD {marginData?.calculation?.orderValue?.toLocaleString('en-In') ??
-                            0}
+                          USD{' '}
+                          {marginData?.calculation?.orderValue?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1678,7 +1779,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             K
@@ -1705,8 +1808,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.orderValueInINR?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1729,7 +1834,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             L
@@ -1756,8 +1863,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.usanceInterest?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.usanceInterest?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1780,7 +1889,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             M
@@ -1807,8 +1918,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.tradeMargin?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.tradeMargin?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1831,15 +1944,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             N
                           </span>
-                          <span style={{ marginRight: '10px' }}>Gross Order Value (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Gross Order Value (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (K+L+M)
@@ -1857,8 +1974,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.grossOrderValue?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1881,15 +2000,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             O
                           </span>
-                          <span style={{ marginRight: '10px' }}>Tolerance Value (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Tolerance Value (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (N*F)
@@ -1907,8 +2030,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.toleranceValue?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.toleranceValue?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1931,15 +2056,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             P
                           </span>
-                          <span style={{ marginRight: '10px' }}>Total Order Value (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Total Order Value (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (N+O)
@@ -1957,8 +2086,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.totalOrderValue?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1981,15 +2112,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             Q
                           </span>
-                          <span style={{ marginRight: '10px' }}>Provisional Unit Price Per Ton (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Provisional Unit Price Per Ton (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (N/A)
@@ -2007,8 +2142,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2031,15 +2168,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             R
                           </span>
-                          <span style={{ marginRight: '10px' }}>Margin Money (INR){' '}</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Margin Money (INR){' '}
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (P*G)
@@ -2057,8 +2198,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR {marginData?.calculation?.marginMoney?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.marginMoney?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2081,15 +2224,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             S
                           </span>
-                          <span style={{ marginRight: '10px' }}>Total SPDC Amount Req. (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Total SPDC Amount Req. (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             (P-R)
@@ -2107,8 +2254,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {'INR'} {marginData?.calculation?.totalSPDC?.toLocaleString('en-In') ??
-                            0}
+                          {'INR'}{' '}
+                          {marginData?.calculation?.totalSPDC?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2131,15 +2280,19 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             T
                           </span>
-                          <span style={{ marginRight: '10px' }}>Additional Amount Per SPDC (INR)</span>
+                          <span style={{ marginRight: '10px' }}>
+                            Additional Amount Per SPDC (INR)
+                          </span>
                           <span
                             style={{
-                              fontWeight: 'bold'
+                              fontWeight: 'bold',
                             }}
                           >
                             [(S-Previous Value)/I)]
@@ -2157,8 +2310,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          INR  {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In') ??
-                            0}
+                          INR{' '}
+                          {marginData?.calculation?.amountPerSPDC?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2457,16 +2612,25 @@ function Index() {
                         opacity: '0.7',
                       }}
                     ></span>
-                  </span><br />
+                  </span>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
                       lineHeight: '25px',
-                      fontWeight: '500'
+                      fontWeight: '500',
                     }}
                   >
-                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        paddingLeft: '25px',
+                        width: '90px',
+                        float: 'left',
+                        height: '50px',
+                      }}
+                    >
                       Buyer:{' '}
                     </span>
                     <span
@@ -2532,7 +2696,7 @@ function Index() {
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                border: '2px solid #cad6e64d'
+                border: '2px solid #cad6e64d',
               }}
               cellPadding="0"
               cellSpacing="0"
@@ -2567,7 +2731,12 @@ function Index() {
                           Commodity Details
                         </span>
                       </td>
-                      <td width="25%" bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        width="25%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <span
                           style={{
                             fontSize: '22px',
@@ -2599,7 +2768,10 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2615,7 +2787,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             A.
@@ -2623,7 +2797,10 @@ function Index() {
                           Quantity
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2686,7 +2863,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             B
@@ -2694,7 +2873,10 @@ function Index() {
                           Unit Price
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2706,7 +2888,9 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                          {marginData?.order?.perUnitPrice?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                       <td align="left">
@@ -2721,7 +2905,9 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In') ?? 0}
+                          {marginData?.order?.perUnitPrice?.toLocaleString(
+                            'en-In',
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2745,7 +2931,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             C
@@ -2753,7 +2941,10 @@ function Index() {
                           Conversion Rate
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2804,7 +2995,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             D
@@ -2812,7 +3005,10 @@ function Index() {
                           Usance Interest (%)
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2873,7 +3069,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             E
@@ -2881,7 +3079,10 @@ function Index() {
                           Trade Margin (%)
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2942,7 +3143,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             F
@@ -2950,7 +3153,10 @@ function Index() {
                           Tolerance (+/-) Percentage
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -2964,10 +3170,13 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                              ? marginData?.order?.tolerance?.toLocaleString(
+                                  'en-In',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                )
                               : 0,
                             '%',
                             '',
@@ -3016,7 +3225,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             G
@@ -3024,7 +3235,10 @@ function Index() {
                           Margin Money (%)
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3040,7 +3254,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3063,7 +3277,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3091,7 +3305,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             H
@@ -3099,7 +3315,10 @@ function Index() {
                           No. of PDC's
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3111,7 +3330,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -3126,7 +3346,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                          {marginData?.numberOfPDC?.toLocaleString('en-In') ??
+                            0}
                         </p>
                       </td>
                     </tr>
@@ -3150,7 +3371,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             I
@@ -3158,7 +3381,11 @@ function Index() {
                           Additional PDC's
                         </p>
                       </td>
-                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        bgColor="#FFF5E5"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3167,7 +3394,7 @@ function Index() {
                             fontWeight: 'bold',
                             float: 'left',
                             padding: '11px 15px 38px 24px',
-                            marginBottom: '0'
+                            marginBottom: '0',
                           }}
                         >
                           {marginData?.additionalPDC?.toLocaleString('en-In')}
@@ -3209,7 +3436,11 @@ function Index() {
                           Calculation
                         </p>
                       </td>
-                      <td bgColor="#FAFAFB" align="left" style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      ></td>
                       <td bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
@@ -3232,7 +3463,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             J
@@ -3248,7 +3481,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3260,7 +3496,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString() ??
+                          USD{' '}
+                          {marginData?.calculation?.orderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3276,7 +3513,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString() ??
+                          USD{' '}
+                          {marginData?.calculation?.orderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3301,7 +3539,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             K
@@ -3317,7 +3557,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3329,7 +3572,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3345,7 +3589,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3370,7 +3615,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             L
@@ -3386,7 +3633,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3398,7 +3648,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.usanceInterest?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3414,7 +3665,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.usanceInterest?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3439,7 +3691,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             M
@@ -3455,7 +3709,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3467,7 +3724,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.tradeMargin?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3483,7 +3741,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.tradeMargin?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3508,7 +3767,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             N
@@ -3524,7 +3785,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3536,7 +3800,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3552,7 +3817,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3577,7 +3843,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             O
@@ -3593,7 +3861,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3605,7 +3876,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.toleranceValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3621,7 +3893,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.toleranceValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3646,7 +3919,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             P
@@ -3662,7 +3937,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3674,7 +3952,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3690,7 +3969,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3715,7 +3995,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             Q
@@ -3731,7 +4013,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3743,7 +4028,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3759,7 +4045,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3784,7 +4071,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             R
@@ -3800,7 +4089,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3812,7 +4104,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.marginMoney?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3828,7 +4121,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.marginMoney?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3853,7 +4147,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             S
@@ -3870,7 +4166,10 @@ function Index() {
                         </p>
                       </td>
 
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3882,7 +4181,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.totalSPDC?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3898,7 +4198,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.calculation?.totalSPDC?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3923,7 +4224,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             T
@@ -3939,7 +4242,11 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        bgColor="#FFF5E5"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -3948,10 +4255,11 @@ function Index() {
                             color: '#FF9D00',
                             float: 'left',
                             fontWeight: 'bold',
-                            lineHeight: '24px'
+                            lineHeight: '24px',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -3991,7 +4299,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             U
@@ -4007,7 +4317,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -4019,7 +4332,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -4059,7 +4373,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             V
@@ -4067,7 +4383,10 @@ function Index() {
                           Margin Money (INR)
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -4079,7 +4398,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -4119,7 +4439,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             W
@@ -4135,7 +4457,10 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -4147,7 +4472,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -4187,7 +4513,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             X
@@ -4195,7 +4523,10 @@ function Index() {
                           Margin Money Received (INR)
                         </p>
                       </td>
-                      <td align="left" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -4207,7 +4538,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -4247,7 +4579,9 @@ function Index() {
                           <span
                             style={{
                               display: 'inline-block',
-                              width: '35px', float: 'left', height: '30px'
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
                             }}
                           >
                             Y
@@ -4263,7 +4597,11 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" bgColor="#FFF5E5" style={{ borderRight: '2px solid #cad6e64d' }}>
+                      <td
+                        align="left"
+                        bgColor="#FFF5E5"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
                         <p
                           style={{
                             fontSize: '20px',
@@ -4272,10 +4610,11 @@ function Index() {
                             fontWeight: 'bold',
                             float: 'left',
                             padding: '11px 15px 11px 24px',
-                            marginBottom: '0'
+                            marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
+                          ₹{' '}
+                          {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
                             0}
                         </p>
                       </td>
@@ -4328,14 +4667,14 @@ function Index() {
               className="img-fluid mr-2 image_arrow"
               style={{cursor:'pointer'}}
             /> */}
-             <img
-               onClick={() => Router.push('/margin-money')}
+            <img
+              onClick={() => Router.push('/margin-money')}
               className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{_get(orderList,"company.companyName","")}</span>
+              <span>{_get(orderList, 'company.companyName', '')}</span>
             </h1>
             <div className="ml-auto text-right">
               <button
@@ -4350,7 +4689,8 @@ function Index() {
                 Update Info
               </button>
               <div className={`${styles.lastModified} text `}>
-                <span className='accordion_Text'>Last Modified:</span> 28 Jan,11:34am
+                <span className="accordion_Text">Last Modified:</span> 28
+                Jan,11:34am
               </div>
             </div>
           </div>
@@ -4522,7 +4862,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.quantity?.toLocaleString('en-In'),
+                                    marginData?.order?.quantity?.toLocaleString(
+                                      'en-In',
+                                    ),
                                     '',
                                   )}{' '}
                                   {marginData?.order?.unitOfQuantity?.toUpperCase()}
@@ -4564,8 +4906,10 @@ function Index() {
                               </div>
                               <input
                                 type="number"
-                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
                                 id="textInput"
                                 name="conversionRate"
                                 onChange={(e) =>
@@ -4606,11 +4950,15 @@ function Index() {
                                 <div
                                   className={`${styles.val} heading d-flex align-items-center`}
                                 >
-                                  <div className={`${styles.include_cal} d-flex align-items-center`}>
-                                    <span className="mr-3">{
-                                      marginData?.order?.termsheet?.commercials
-                                        ?.usanceInterestPercetage
-                                    }%
+                                  <div
+                                    className={`${styles.include_cal} d-flex align-items-center`}
+                                  >
+                                    <span className="mr-3">
+                                      {
+                                        marginData?.order?.termsheet
+                                          ?.commercials?.usanceInterestPercetage
+                                      }
+                                      %
                                     </span>
                                     <label
                                       className={`${styles.label_heading} ${styles.subHeading} label_heading mb-0 mr-3`}
@@ -4712,10 +5060,13 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
-                                      maximumFractionDigits: 2,
-                                      minimumFractionDigits: 2,
-                                    }),
+                                    marginData?.order?.tolerance?.toLocaleString(
+                                      'en-In',
+                                      {
+                                        maximumFractionDigits: 2,
+                                        minimumFractionDigits: 2,
+                                      },
+                                    ),
                                     '%',
                                     '',
                                   )}
@@ -4774,8 +5125,8 @@ function Index() {
                                   isFieldInFocus
                                     ? forCalculation?.numberOfPDC
                                     : checkNan(
-                                      Number(forCalculation?.numberOfPDC),
-                                    )?.toLocaleString('en-In')
+                                        Number(forCalculation?.numberOfPDC),
+                                      )?.toLocaleString('en-In')
                                 }
                                 onChange={(e) =>
                                   saveForCalculation(
@@ -4904,11 +5255,13 @@ function Index() {
                                     Number(finalCal.orderValueInINR),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.orderValueInINR,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
-
                                 </div>
                               </div>
                             </div>
@@ -4946,9 +5299,12 @@ function Index() {
                                     Number(finalCal.usanceInterest),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.usanceInterest,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                 </div>
                               </div>
@@ -4975,9 +5331,12 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
                                   {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
-                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.tradeMargin,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {finalCal.tradeMargin?.toLocaleString('en-In')} */}
                                 </div>
@@ -5005,9 +5364,12 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}
                                   ₹{' '}
-                                  {convertValue((finalCal.grossOrderValue), coversionUnit)?.toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.grossOrderValue,
+                                    coversionUnit,
+                                  )?.toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {checkNan(
                                     Number(finalCal.grossOrderValue),
@@ -5037,9 +5399,12 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.toleranceValue,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {checkNan(
                                     Number(finalCal.toleranceValue),
@@ -5069,9 +5434,12 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.totalOrderValue,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {checkNan(
                                     Number(finalCal.totalOrderValue),
@@ -5105,9 +5473,12 @@ function Index() {
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.provisionalUnitPricePerTon,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
@@ -5135,9 +5506,12 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.marginMoney), true)} */}
-                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.marginMoney,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                 </div>
                               </div>
@@ -5164,9 +5538,12 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
-                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.totalSPDC,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                 </div>
                               </div>
@@ -5196,9 +5573,12 @@ function Index() {
                                     Number(finalCal.amountPerSPDC),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue(
+                                    finalCal.amountPerSPDC,
+                                    coversionUnit,
+                                  ).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2
+                                    maximumFractionDigits: 2,
                                   })}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
@@ -5272,17 +5652,16 @@ function Index() {
                                   // defaultValue={
                                   //   marginData?.invoiceDetail?.buyerGSTIN
                                   // }
-                                  value={
-                                    invoiceData?.buyerGSTIN
-                                  }
+                                  value={invoiceData?.buyerGSTIN}
                                 >
-                                  <option selected  >Select an Option</option>
-                                  {orderList?.company?.gstList?.map((gstin, index) => (
-                                    <option key={index} value={gstin}>
-                                      {gstin}
-                                    </option>
-                                  ))}
-
+                                  <option selected>Select an Option</option>
+                                  {orderList?.company?.gstList?.map(
+                                    (gstin, index) => (
+                                      <option key={index} value={gstin}>
+                                        {gstin}
+                                      </option>
+                                    ),
+                                  )}
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -5338,9 +5717,11 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-
                                       onChange={(e) => {
-                                        setInvoiceData({ ...invoiceData, isConsigneeSameAsBuyer: true })
+                                        setInvoiceData({
+                                          ...invoiceData,
+                                          isConsigneeSameAsBuyer: true,
+                                        })
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   true,
@@ -5355,13 +5736,15 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-
                                       onChange={(e) => {
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   false,
                                         // )
-                                        setInvoiceData({ ...invoiceData, isConsigneeSameAsBuyer: false })
+                                        setInvoiceData({
+                                          ...invoiceData,
+                                          isConsigneeSameAsBuyer: false,
+                                        })
                                         setSame(false)
                                       }}
                                       name="group1"
@@ -5455,9 +5838,7 @@ function Index() {
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  value={
-                                    invoiceData?.importerName
-                                  }
+                                  value={invoiceData?.importerName}
                                   onChange={(e) =>
                                     dropDownChange(
                                       e.target.name,
@@ -5536,7 +5917,6 @@ function Index() {
                                 onChange={(e) => changeImporter(e)}
                                 className={`${styles.input_field} input form-control`}
                                 required
-
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -5580,9 +5960,7 @@ function Index() {
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  value={
-                                    invoiceData?.bankName
-                                  }
+                                  value={invoiceData?.bankName}
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -5618,9 +5996,7 @@ function Index() {
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  value={
-                                    invoiceData?.branch
-                                  }
+                                  value={invoiceData?.branch}
                                   onChange={(e) =>
                                     saveInvoiceData(
                                       e.target.name,
@@ -5629,9 +6005,7 @@ function Index() {
                                   }
                                 >
                                   {/* <option>Select an option</option> */}
-                                  <option selected>
-                                    Select an option
-                                  </option>
+                                  <option selected>Select an option</option>
                                   <option value="Connaught Place, DELHI">
                                     Connaught Place, DELHI
                                   </option>
@@ -5660,9 +6034,7 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                value={
-                                  invoiceData?.branchAddress
-                                }
+                                value={invoiceData?.branchAddress}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -5681,10 +6053,7 @@ function Index() {
                                 id="textInput"
                                 name="IFSCcode"
                                 onChange={(e) =>
-                                  saveInvoiceData(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
+                                  saveInvoiceData(e.target.name, e.target.value)
                                 }
                                 value={invoiceData?.IFSCcode}
                                 // {
@@ -5714,7 +6083,6 @@ function Index() {
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
                                 value={invoiceData?.accountNo}
-
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
