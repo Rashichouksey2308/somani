@@ -33,10 +33,13 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
   const [TransitDetails, setTransitDetails] = useState({})
   console.log(TransitDetails, 'TransitDetails')
+ 
 
   const dispatch = useDispatch()
   const { breadCrumbData } = useSelector((state) => state.Breadcrumb)
-  console.log(breadCrumbData?.upperTabs,'breadCrumbData1')
+  // const { TransitDetail } = useSelector((state) => state.TransitDetails)
+// console.log(TransitDetail,';TransitDetail')
+  // console.log(breadCrumbData?.upperTabs,'breadCrumbData1')
   const vesselData = _get(TransitDetails, 'data[0].order.vessel', {})
   console.log(TransitDetails, 'TransitDetails')
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
@@ -51,9 +54,9 @@ function Index() {
   //   setIsShipmentTypeBulk(Value)
   // }, [vesselData])
 
-  // useEffect(() => {
-  //   dispatch(GetTransitDetails(`?transitId=${transID}`))
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(GetTransitDetails(`?transitId=${transID}`))
+  }, [dispatch])
   useEffect(() => {
     dispatch(setPageName('transit'))
     dispatch(
@@ -61,12 +64,18 @@ function Index() {
     )
     dispatch(setDynamicOrder(_get(TransitDetails, 'data[0].order.orderId')))
   }, [TransitDetails])
+  
   useEffect(() => {
     if (transID) {
       fetchInitialData()
     }
     console.log(transID, 'dsfgk,dhgf')
   }, [transID])
+
+
+  // useEffect(()=>{
+  //   setTransitDetails(TransitDetail)
+  // },[TransitDetail])
 
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
@@ -226,6 +235,7 @@ function Index() {
                       docUploadFunction={uploadDoc}
                       TransitDetails={TransitDetails}
                       isShipmentTypeBULK={isShipmentTypeBULK}
+                      fetchInitialData={fetchInitialData}
                     />
                   </div>
                 </div>
