@@ -30,54 +30,28 @@ function Index() {
 
   useEffect(() => {
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
-    // dispatch(setPageName('termsheet'))
-    // dispatch(setDynamicName(orderId))
-    // dispatch(setDynamicOrder(orderId))
   }, [dispatch, Id])
 
   useEffect(() => {
     dispatch(setPageName('termsheet'))
-    dispatch(setDynamicName(_get(termsheet, 'data[0].company.companyName', 'Order Id')))
-    dispatch(setDynamicOrder(orderId !== 'Order Id' ? orderId : _get(termsheet, 'data[0].order.applicationId', 'Order Id')))
+    dispatch(
+      setDynamicName(
+        _get(termsheet, 'data[0].company.companyName', 'Order Id'),
+      ),
+    )
+    dispatch(
+      setDynamicOrder(
+        orderId !== 'Order Id'
+          ? orderId
+          : _get(termsheet, 'data[0].order.applicationId', 'Order Id'),
+      ),
+    )
   }, [dispatch, termsheet])
 
   const [termsheetDetails, setTermsheetDetails] = useState({})
   const [otherTermConditions, setOtherTermConditions] = useState({})
-  const [additionalComments, setAdditionalComments] = useState({})
+  const [additionalComments, setAdditionalComments] = useState(null)
   const date = new Date()
-  console.log(otherTermConditions?.dutyAndTaxes
-    ?.taxCollectedatSource, "asasas")
-  useEffect(() => {
-    const commentData = _get(termsheet, 'data[0].additionalComments', [])
-    console.log(commentData, 'comment')
-    commentData.forEach((comment) => {
-      console.log(
-        comment,
-        'comment',
-        comment?.additionalCommentType === 'Deliveries/Due Date/Payment',
-      )
-      if (comment.additionalCommentType === 'Deliveries/Due Date/Payment') {
-        setAdditionalComments((preve) => {
-          return { ...preve, deliveriesDueDatePayment: comment.comment }
-        })
-        // setAdditionalComments({
-        //     ...additionalComments,
-        //     deliveriesDueDatePayment: comment.comment
-        // })
-      }
-      if (comment.additionalCommentType === 'Storage of Goods') {
-        setAdditionalComments((preve) => {
-          return { ...preve, storageofGoods: comment.comment }
-        })
-        // setAdditionalComments({
-        //     ...additionalComments,
-        //     storageofGoods: comment.comment
-        // })
-      }
-    })
-  }, [termsheet])
-
-  console.log(termsheetDetails, 'additionalComments')
 
   useEffect(() => {
     {
@@ -138,6 +112,19 @@ function Index() {
     }
   }, [termsheet])
 
+  const filteredValue = (commentType) => {
+    let filteredComments = additionalComments?.filter(
+      (comment) => comment.additionalCommentType === commentType,
+    )
+
+    return filteredComments?.[0]?.comment
+  }
+
+  useEffect(() => {
+    termsheet?.data?.map((sheets) => {
+      setAdditionalComments(sheets.additionalComments)
+    })
+  }, [termsheet])
   useEffect(() => {
     {
       termsheet &&
@@ -269,7 +256,7 @@ function Index() {
         })
     }
   }, [termsheet])
-  console.log(termsheetDetails.commercials?.forexHedging, 'ss12312212sasdasda')
+
   const [open, setOpen] = useState(false)
   const openbar = () => {
     setOpen(true)
@@ -289,7 +276,12 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1600])
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),
+        toPrintPdf(
+          termsheet,
+          termsheetDetails,
+          additionalComments,
+          otherTermConditions,
+        ),
       ),
       {
         callback: function (doc) {
@@ -299,7 +291,7 @@ function Index() {
         autoPaging: 'text',
       },
     )
-    console.log(doc, "doc")
+    console.log(doc, 'doc')
   }
   const exportPDF2 = () => {
     //  let margins = [
@@ -311,8 +303,16 @@ function Index() {
     //  ];
 
     const doc = new jsPDF('p', 'pt', [1500, 1600])
-    doc.addFileToVFS("Termsheet.pdf", toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions),);
-    return doc.getFileFromVFS("Termsheet.pdf");
+    doc.addFileToVFS(
+      'Termsheet.pdf',
+      toPrintPdf2(
+        termsheet,
+        termsheetDetails,
+        additionalComments,
+        otherTermConditions,
+      ),
+    )
+    return doc.getFileFromVFS('Termsheet.pdf')
     // doc.html(
     //   ReactDOMServer.renderToString(
     //     toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),
@@ -325,21 +325,19 @@ function Index() {
     //     autoPaging: 'text',
     //   },
     // )
-    console.log(doc, "doc")
+    console.log(doc, 'doc')
   }
   const shareEmail = async (email) => {
-    console.log(email, "setEmail")
+    console.log(email, 'setEmail')
     let doc = exportPDF2()
-    console.log(doc, "doc")
+    console.log(doc, 'doc')
     let formData = new FormData()
-    formData.append('document1', "")
+    formData.append('document1', '')
     formData.append('data', {
-      "subject": "this is subject",
-      "text": "this is text",
-      "receiver": email
+      subject: 'this is subject',
+      text: 'this is text',
+      receiver: email,
     })
-
-
 
     await dispatch(sharingTermsheetEmail(formData))
     setOpen(false)
@@ -371,13 +369,17 @@ function Index() {
                 termsheet?.data?.map((sheet, index) => (
                   <div key={index}>
                     <div>
-                      <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
+                      <span className={`${styles.termSub_head} text-color`}>
+                        Order ID:
+                      </span>
                       <span className={`${styles.termValue} text-color`}>
                         {sheet.order.orderId}
                       </span>
                     </div>
                     <div className={`mt-1`}>
-                      <span className={`${styles.termSub_head} text-color`}>Buyer:</span>
+                      <span className={`${styles.termSub_head} text-color`}>
+                        Buyer:
+                      </span>
                       <span className={`${styles.termValue} text-color`}>
                         {sheet.company.companyName}
                       </span>
@@ -395,7 +397,14 @@ function Index() {
               md={4}
               className={`d-flex justify-content-end  align-items-end`}
             >
-              <div><span className={`${styles.termSub_head} text-color`}>Date:</span> <span className={`${styles.termValue} text-color`}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
+              <div>
+                <span className={`${styles.termSub_head} text-color`}>
+                  Date:
+                </span>{' '}
+                <span className={`${styles.termValue} text-color`}>
+                  {moment(new Date(), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
+                </span>
+              </div>
               {/* <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>
@@ -442,9 +451,19 @@ function Index() {
               >
                 <ul>
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
-                  <li>{termsheetDetails?.commodityDetails?.quantity?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} MT</li>
                   <li>
-                    {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
+                    {termsheetDetails?.commodityDetails?.quantity?.toLocaleString(
+                      'en-IN',
+                      { maximumFractionDigits: 2 },
+                    )}{' '}
+                    MT
+                  </li>
+                  <li>
+                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                    {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString(
+                      'en-IN',
+                      { maximumFractionDigits: 2 },
+                    )}
                   </li>
                 </ul>
               </Col>
@@ -494,13 +513,23 @@ function Index() {
                 <ul>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                    {termsheetDetails?.transactionDetails?.lcValue ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString("en-IN", { maximumFractionDigits: 2 }) : ''}
+                    {termsheetDetails?.transactionDetails?.lcValue
+                      ? Number(
+                          termsheetDetails?.transactionDetails?.lcValue,
+                        )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                      : ''}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
-                  <li>{termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString("en-IN", {
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 2,
-                  })}%</li>
+                  <li>
+                    {termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString(
+                      'en-IN',
+                      {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      },
+                    )}
+                    %
+                  </li>
                   <li>{termsheetDetails?.transactionDetails?.incoTerms}</li>
                   <li>{termsheetDetails?.transactionDetails?.loadPort}</li>
                   <li>
@@ -558,9 +587,12 @@ function Index() {
                 className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}
               >
                 <ul>
-                  <li>{`
-                  Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${termsheetDetails?.transactionDetails?.portOfDischarge}) under CMA with Dr. Amin. IGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.
-                  `}</li>
+                  <li>
+                    {' '}
+                    {filteredValue('Storage of Goods')
+                      ? filteredValue('Storage of Goods')
+                      : 'Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the Indo’s nominated party and all expenses/charges to be born and paid by the Buyer. '}
+                  </li>
                 </ul>
               </Col>
             </Row>
@@ -597,14 +629,31 @@ function Index() {
                 className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}
               >
                 <ul>
-                  <li>{`
-                 ${(termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
-                      ? termsheetDetails?.paymentDueDate
-                        ?.daysFromVesselDischargeDate
-                      : termsheetDetails?.paymentDueDate?.daysFromBlDate) ?? ''
-                    } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate ?? ''
-                    }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
-                  `}</li>
+                  <li>
+                    {filteredValue('Deliveries/Due Date/Payment')
+                      ? filteredValue('Deliveries/Due Date/Payment')
+                      : termsheetDetails?.paymentDueDate
+                          ?.computationOfDueDate === 'DaysfromBLDate'
+                      ? `${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromBlDate',
+                        )} days from the date of Bill of Lading.`
+                      : termsheetDetails?.paymentDueDate
+                          ?.computationOfDueDate ===
+                        'DaysfromVesselDischargeDate'
+                      ? `${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromVesselDischargeDate',
+                        )} days from the discharge date of vessel/container(s) at discharge port.`
+                      : `${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromVesselDischargeDate',
+                        )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromBlDate',
+                        )} days from the date of Bill of Lading, whichever is earlier.`}
+                  </li>
+                  {console.log(termsheet, 'HARSH')}
                 </ul>
               </Col>
             </Row>
@@ -650,46 +699,68 @@ function Index() {
                 <ul>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.tradeMarginPercentage ? Number(termsheetDetails.commercials?.tradeMarginPercentage)?.toLocaleString("en-IN", {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) : ''}%{' '}
+                    {termsheetDetails.commercials?.tradeMarginPercentage
+                      ? Number(
+                          termsheetDetails.commercials?.tradeMarginPercentage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })
+                      : ''}
+                    %{' '}
                   </li>
                   <li>
                     {`USD`}{' '}
-                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}{' '}
-                  </li>
-                  <li>
-                    {' '}
-                    {
-                      termsheetDetails.commercials?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toLocaleString("en-IN", {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      }) + '%' : ''
-                    }{' '}
-                  </li>
-                  <li>
-                    {' '}
-                    {termsheetDetails.commercials?.usanceInterestPercetage ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toLocaleString("en-IN", {
+                    {Number(
+                      termsheetDetails.commercials?.lcOpeningChargesUnit,
+                    )?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + '%' : ''}
-
+                    })}{' '}
+                  </li>
+                  <li>
+                    {' '}
+                    {termsheetDetails.commercials?.lcOpeningChargesPercentage
+                      ? Number(
+                          termsheetDetails.commercials
+                            ?.lcOpeningChargesPercentage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
+                      : ''}{' '}
+                  </li>
+                  <li>
+                    {' '}
+                    {termsheetDetails.commercials?.usanceInterestPercetage
+                      ? Number(
+                          termsheetDetails.commercials?.usanceInterestPercetage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
+                      : ''}
                     {/* {termsheetDetails.commercials?.usanceInterestPercetage}% */}
                   </li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.overDueInterestPerMonth ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + '%' : ''}
+                    {termsheetDetails.commercials?.overDueInterestPerMonth
+                      ? Number(
+                          termsheetDetails.commercials?.overDueInterestPerMonth,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
+                      : ''}
                     {/* {termsheetDetails.commercials?.overDueInterestPerMonth}% */}
                   </li>
                   <li> {termsheetDetails.commercials?.exchangeFluctuation}</li>
                   <li> {termsheetDetails.commercials?.forexHedging}</li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.otherTermsAndConditions}
+                    {/* {termsheetDetails.commercials?.otherTermsAndConditions} */}
+                    {filteredValue('Other terms and conditions')
+                      ? filteredValue('Other terms and conditions')
+                      : 'As per the Agreements executed between the parties.'}
                   </li>
                 </ul>
               </Col>
@@ -728,8 +799,9 @@ function Index() {
               >
                 <ul>
                   <li>
-                    Post CFR expenses to be reimbursed on actual basis if
-                    applicable as attached.
+                    {filteredValue('Payment Reimbursement of Charges')
+                      ? filteredValue('Payment Reimbursement of Charges')
+                      : 'All applicable charges to be paid by the buyer as and when they becomes due.'}
                   </li>
                 </ul>
               </Col>
@@ -1177,7 +1249,10 @@ function Index() {
                         >
                           LC Opening Charges ( on LC value subject to minimum of{' '}
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {Number(termsheetDetails?.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')})
+                          {Number(
+                            termsheetDetails?.commercials?.lcOpeningChargesUnit,
+                          )?.toLocaleString('en-In')}
+                          )
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -1439,7 +1514,9 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource ? true : false
+                              ?.taxCollectedatSource
+                              ? true
+                              : false
                           }
                         />
                         <label
@@ -1473,14 +1550,21 @@ function Index() {
         rightButtonTitle="Send To Buyer"
         leftButtonTitle="Termsheet"
       />
-      {open ? <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} /> : null}
+      {open ? (
+        <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} />
+      ) : null}
     </>
   )
 }
 
 export default Index
 
-const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
+const toPrintPdf = (
+  data,
+  termsheetDetails,
+  additionalComments,
+  otherTermConditions,
+) => {
   console.log('Check PDFFF otherTermConditions::::', otherTermConditions)
   console.log('Check PDFFF::::', termsheetDetails, 'ldwfsdf')
   return (
@@ -1534,7 +1618,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                       paddingLeft: '0',
                     }}
                   >
-                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        paddingLeft: '25px',
+                        width: '90px',
+                        float: 'left',
+                        height: '50px',
+                      }}
+                    >
                       Buyer:{' '}
                     </span>
                     <span
@@ -1563,7 +1655,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                 </td>
                 <td valign="top" align="right" width="33%">
                   {' '}
-                  <span></span><br />
+                  <span></span>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1600,7 +1693,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
-                border: '2px solid #cad6e64d'
+                border: '2px solid #cad6e64d',
               }}
               cellPadding="0"
               cellSpacing="0"
@@ -1628,7 +1721,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             lineHeight: '27px',
                             fontWeight: 'bold',
                             display: 'block',
-                            padding: '20px 15px 20px 35px'
+                            padding: '20px 15px 20px 35px',
                           }}
                         >
                           Commodity Details
@@ -1654,7 +1747,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             1.
                           </span>
@@ -1662,15 +1760,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         </p>
                       </td>
                       <td align="left">
-                        <p style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          fontWeight: '500',
-                          float: 'left',
-                          padding: '23px 15px 11px 24px',
-                          marginBottom: '0',
-                        }}
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
                         >
                           {termsheetDetails?.commodityDetails?.commodity}
                         </p>
@@ -1695,7 +1794,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             2.
                           </span>
@@ -1714,7 +1818,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT
+                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString(
+                            'en-In',
+                          )}{' '}
+                          MT
                         </p>
                       </td>
                     </tr>
@@ -1737,7 +1844,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             3.
                           </span>
@@ -1756,7 +1868,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.orderCurrency}{" "} {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                          {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString(
+                            'en-In',
+                          )}
                         </p>
                       </td>
                     </tr>
@@ -1774,7 +1889,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             lineHeight: '27px',
                             fontWeight: 'bold',
                             display: 'block',
-                            padding: '20px 15px 20px 35px'
+                            padding: '20px 15px 20px 35px',
                           }}
                         >
                           Transaction Details
@@ -1800,7 +1915,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             4.
                           </span>
@@ -1820,7 +1940,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {termsheetDetails?.transactionDetails?.lcValue ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-In') : ''}
+                          {termsheetDetails?.transactionDetails?.lcValue
+                            ? Number(
+                                termsheetDetails?.transactionDetails?.lcValue,
+                              )?.toLocaleString('en-In')
+                            : ''}
                         </p>
                       </td>
                     </tr>
@@ -1842,7 +1966,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             5.
                           </span>
@@ -1861,10 +1990,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {
-                            termsheetDetails?.transactionDetails
-                              ?.lcOpeningBank
-                          }
+                          {termsheetDetails?.transactionDetails?.lcOpeningBank}
                         </p>
                       </td>
                     </tr>
@@ -1886,7 +2012,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             6.
                           </span>
@@ -1927,7 +2058,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             7.
                           </span>
@@ -1968,7 +2104,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             8.
                           </span>
@@ -2009,7 +2150,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             9.
                           </span>
@@ -2054,7 +2200,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             10.
                           </span>
@@ -2095,7 +2246,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             11.
                           </span>
@@ -2140,7 +2296,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             12.
                           </span>
@@ -2185,7 +2346,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             13.
                           </span>
@@ -2227,7 +2393,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             14.
                           </span>
@@ -2294,7 +2465,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             15.
                           </span>
@@ -2313,9 +2489,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {`
-                          Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${termsheetDetails?.transactionDetails?.portOfDischarge}) under CMA with Dr. Amin. IGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.
-                          `}
+                          {termsheetDetails.commercials?.tradeMarginPercentage
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.tradeMarginPercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) + ' %'
+                            : ''}
                         </p>
                       </td>
                     </tr>
@@ -2360,7 +2542,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             16.
                           </span>
@@ -2380,12 +2567,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {`
-                            ${termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
-                              ? termsheetDetails?.paymentDueDate
+                            ${
+                              termsheetDetails?.paymentDueDate
                                 ?.daysFromVesselDischargeDate
-                              : termsheetDetails?.paymentDueDate?.daysFromBlDate
-                            } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate
-                            }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                                ? termsheetDetails?.paymentDueDate
+                                    ?.daysFromVesselDischargeDate
+                                : termsheetDetails?.paymentDueDate
+                                    ?.daysFromBlDate
+                            } days from the vessel/container(s) at discharge date at discharge port or  ${
+                            termsheetDetails?.paymentDueDate?.daysFromBlDate
+                          }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                               `}
                         </p>
                       </td>
@@ -2431,7 +2622,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             17.
                           </span>
@@ -2450,14 +2646,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {
-                            termsheetDetails.commercials
-                              ?.tradeMarginPercentage ? Number(termsheetDetails.commercials
-                                ?.tradeMarginPercentage)?.toLocaleString("en-IN", {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) + ' %' : ''
-                          }
+                          {termsheetDetails.commercials?.tradeMarginPercentage
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.tradeMarginPercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) + ' %'
+                            : ''}
                         </p>
                       </td>
                     </tr>
@@ -2479,7 +2676,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             18.
                           </span>
@@ -2499,7 +2701,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {`USD`}{' '}
-                          {termsheetDetails.commercials?.lcOpeningChargesUnit ? Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In') : ''}
+                          {termsheetDetails.commercials?.lcOpeningChargesUnit
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.lcOpeningChargesUnit,
+                              )?.toLocaleString('en-In')
+                            : ''}
                         </p>
                       </td>
                     </tr>
@@ -2521,7 +2728,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             19.
                           </span>
@@ -2540,14 +2752,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {
-                            termsheetDetails.commercials
-                              ?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials
-                                ?.lcOpeningChargesPercentage)?.toLocaleString("en-IN", {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) : ''
-                          }
+                          {termsheetDetails.commercials
+                            ?.lcOpeningChargesPercentage
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.lcOpeningChargesPercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
+                            : ''}
                           %{' '}
                         </p>
                       </td>
@@ -2570,7 +2784,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             20.
                           </span>
@@ -2590,14 +2809,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {' '}
-                          {
-                            termsheetDetails.commercials
-                              ?.usanceInterestPercetage ? Number(termsheetDetails.commercials
-                                ?.usanceInterestPercetage)?.toLocaleString("en-IN", {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) : ''
-                          }
+                          {termsheetDetails.commercials?.usanceInterestPercetage
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.usanceInterestPercetage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
+                            : ''}
                           %
                         </p>
                       </td>
@@ -2620,7 +2840,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             21.
                           </span>
@@ -2640,14 +2865,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {' '}
-                          {
-                            termsheetDetails.commercials
-                              ?.overDueInterestPerMonth ? Number(termsheetDetails.commercials
-                                ?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                }) : ''
-                          }
+                          {termsheetDetails.commercials?.overDueInterestPerMonth
+                            ? Number(
+                                termsheetDetails.commercials
+                                  ?.overDueInterestPerMonth,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
+                            : ''}
                           %
                         </p>
                       </td>
@@ -2670,7 +2896,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             22.
                           </span>
@@ -2711,7 +2942,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             23.
                           </span>
@@ -2752,7 +2988,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             24.
                           </span>
@@ -2819,7 +3060,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           <span
-                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                            style={{
+                              display: 'inline-block',
+                              width: '35px',
+                              float: 'left',
+                              height: '30px',
+                            }}
                           >
                             25.
                           </span>
@@ -2838,8 +3084,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          Post CFR expenses to be reimbursed on actual basis
-                          if applicable as attached.
+                          Post CFR expenses to be reimbursed on actual basis if
+                          applicable as attached.
                         </p>
                       </td>
                     </tr>
@@ -2872,9 +3118,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          Below charges are to be borne and paid by the Buyer
-                          on actual basis,wherever applicable. will provide
-                          proof of all expenses to the Buyer.
+                          Below charges are to be borne and paid by the Buyer on
+                          actual basis,wherever applicable. will provide proof
+                          of all expenses to the Buyer.
                         </p>
                       </td>
                     </tr>
@@ -2930,12 +3176,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.pollutionCharges
                                     }
                                     style={{
@@ -2945,7 +3192,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="customsClearingCharges"
                                     type="checkbox"
@@ -2958,7 +3205,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Customs clearing charges / handling charges
@@ -2968,12 +3215,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.wharfaceCharges
                                     }
                                     style={{
@@ -2983,7 +3231,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="wharfaceCharges"
                                     type="checkbox"
@@ -2996,7 +3244,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Wharfage Charges
@@ -3005,12 +3253,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.pollutionCharges
                                     }
                                     style={{
@@ -3020,7 +3269,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="pollutionCharges"
                                     type="checkbox"
@@ -3033,7 +3282,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Pollution Charges
@@ -3042,12 +3291,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.royalyAndPenaltyCharges
                                     }
                                     style={{
@@ -3057,7 +3307,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="royalyAndPenaltyCharges"
                                     type="checkbox"
@@ -3070,7 +3320,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Royalty and Penalty Charges
@@ -3079,12 +3329,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.tarpaulinCoverageCharges
                                     }
                                     style={{
@@ -3094,7 +3345,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="tarpaulinCoverageCharges"
                                     type="checkbox"
@@ -3107,7 +3358,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Tarpaulin Coverage Charges
@@ -3116,12 +3367,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.wheighmentAndWeighmentSurveyCharges
                                     }
                                     style={{
@@ -3131,7 +3383,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="wheighmentAndWeighmentSurveyCharges"
                                     type="checkbox"
@@ -3144,7 +3396,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Wheighment &amp; Weighment Survey Charges
@@ -3153,12 +3405,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.draughtSurveyCharges
                                     }
                                     style={{
@@ -3168,7 +3421,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="draughtSurveyCharges"
                                     type="checkbox"
@@ -3181,7 +3434,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Draught Survey Charges
@@ -3190,12 +3443,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.boatingWhileDraughtSurveyCharges
                                     }
                                     style={{
@@ -3205,7 +3459,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="boatingWhileDraughtSurveyCharges"
                                     type="checkbox"
@@ -3218,7 +3472,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Boating while Draught Survey Charges
@@ -3227,13 +3481,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
-                                        ?.hmcCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges?.hmcCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3242,7 +3496,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="hmcCharges"
                                     type="checkbox"
@@ -3255,7 +3509,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     HMC Charges
@@ -3264,12 +3518,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.securityCharges
                                     }
                                     style={{
@@ -3279,7 +3534,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="securityCharges"
                                     type="checkbox"
@@ -3292,7 +3547,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Security Charges
@@ -3301,12 +3556,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.piotRentalAndStorageCharges
                                     }
                                     style={{
@@ -3316,7 +3572,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="piotRentalAndStorageCharges"
                                     type="checkbox"
@@ -3329,7 +3585,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Plot Rental &amp; Storage Charges
@@ -3338,12 +3594,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.bondingOfCargoCharges
                                     }
                                     style={{
@@ -3353,7 +3610,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="bondingOfCargoCharges"
                                     type="checkbox"
@@ -3366,7 +3623,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Bonding of Cargo Charges
@@ -3375,12 +3632,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.exBondDocumentationCharges
                                     }
                                     style={{
@@ -3390,7 +3648,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="exBondDocumentationCharges"
                                     type="checkbox"
@@ -3403,7 +3661,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Ex - Bond Documentation Charges
@@ -3412,12 +3670,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.transferOfOwnershipCharges
                                     }
                                     style={{
@@ -3427,7 +3686,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="transferOfOwnershipCharges"
                                     type="checkbox"
@@ -3440,7 +3699,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Transfer of Ownership Charges
@@ -3449,12 +3708,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.customsBondOfficerOvertimeCharges
                                     }
                                     style={{
@@ -3464,7 +3724,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="customsBondOfficerOvertimeCharges"
                                     type="checkbox"
@@ -3477,7 +3737,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Customs Bond Officer Overtime Charges
@@ -3486,12 +3746,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.grabHireCharges
                                     }
                                     style={{
@@ -3501,7 +3762,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="grabHireCharges"
                                     type="checkbox"
@@ -3514,7 +3775,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Grab Hire Charges
@@ -3523,14 +3784,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.craneHireCharges
-                                    } d
+                                    }
+                                    d
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3538,7 +3801,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="craneHireCharges"
                                     type="checkbox"
@@ -3551,7 +3814,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Crane Hire Charges
@@ -3560,12 +3823,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.handlingLosses
                                     }
                                     style={{
@@ -3575,7 +3839,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="handlingLosses"
                                     type="checkbox"
@@ -3588,7 +3852,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Handling Losses
@@ -3597,12 +3861,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.waterSprinklingCharges
                                     }
                                     style={{
@@ -3612,7 +3877,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="waterSprinklingCharges"
                                     type="checkbox"
@@ -3625,7 +3890,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Water Sprinkling Charges
@@ -3634,14 +3899,15 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li style={{ display: 'table' }}>
                                   <input
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges?.others
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges?.others
                                     }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
                                       height: '20px',
                                       verticalAlign: 'middle',
-                                      marginRight: '25px'
+                                      marginRight: '25px',
                                     }}
                                     id="others"
                                     type="checkbox"
@@ -3654,7 +3920,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Others, if any
@@ -3696,12 +3962,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.insurance?.marineInsurance
+                                      otherTermConditions?.insurance
+                                        ?.marineInsurance
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3710,7 +3977,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="marineInsurance"
                                     type="checkbox"
@@ -3723,7 +3990,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Marine Insurance (if applicable)
@@ -3732,12 +3999,13 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
                                     checked={
-                                      otherTermConditions?.insurance?.storageInsurance
+                                      otherTermConditions?.insurance
+                                        ?.storageInsurance
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3746,7 +4014,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="storageInsurance"
                                     type="checkbox"
@@ -3759,7 +4027,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Storage Insurance(Fire &amp; Burglary)
@@ -3768,7 +4036,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -3779,10 +4047,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.chaOrstevedoringCharges
+                                      otherTermConditions
+                                        ?.chaOrstevedoringCharges
                                         ?.insuranceCharges
                                     }
                                     id="insuranceCharges"
@@ -3796,7 +4065,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Insurance Charges ( While transferring the
@@ -3849,7 +4118,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -3860,7 +4129,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     id="lcOpeningCharges"
                                     type="checkbox"
@@ -3877,7 +4146,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     LC Opening Charges ( on LC value subject to
@@ -3887,7 +4156,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -3898,7 +4167,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.lcOpeningCharges
@@ -3915,7 +4184,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     LC Amendment Charges
@@ -3924,7 +4193,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -3935,7 +4204,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.lcOpeningCharges
@@ -3952,7 +4221,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     CMA Fees including supervision and survey
@@ -3961,7 +4230,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -3972,7 +4241,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.lcOpeningCharges
@@ -3989,7 +4258,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Bank DO Issuance Charges
@@ -3998,7 +4267,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4009,7 +4278,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.lcOpeningCharges
@@ -4026,7 +4295,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Remmittance Charges
@@ -4035,7 +4304,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4046,7 +4315,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.lcOpeningCharges
@@ -4063,7 +4332,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Usance Interest
@@ -4105,7 +4374,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4116,7 +4385,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.otherCharges
@@ -4133,7 +4402,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Demurrage / Detention Charges of Vessel
@@ -4142,7 +4411,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4153,7 +4422,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.otherCharges
@@ -4170,7 +4439,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Transportation Charges
@@ -4179,7 +4448,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4190,7 +4459,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.otherCharges
@@ -4207,7 +4476,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Wagon Haulage Charges (in case of Delivery
@@ -4217,7 +4486,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4228,7 +4497,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.otherCharges
@@ -4245,7 +4514,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     3rd Party Inspection Charges
@@ -4254,7 +4523,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4265,10 +4534,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.otherCharges?.hedgingCharges
+                                      otherTermConditions?.otherCharges
+                                        ?.hedgingCharges
                                     }
                                     id="hedgingCharges"
                                     type="checkbox"
@@ -4281,7 +4551,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Hedging Charges
@@ -4290,7 +4560,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4301,7 +4571,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.otherCharges
@@ -4318,7 +4588,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Any other cost incurred on behalf of Buyer
@@ -4360,7 +4630,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4371,7 +4641,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
                                       otherTermConditions?.dutyAndTaxes
@@ -4388,7 +4658,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Customs Duty with all Govt Cess
@@ -4397,7 +4667,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4408,10 +4678,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.dutyAndTaxes?.igstWithCess
+                                      otherTermConditions?.dutyAndTaxes
+                                        ?.igstWithCess
                                     }
                                     id="igstWithCess"
                                     type="checkbox"
@@ -4424,16 +4695,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     IGST with CESS, if applicable
                                   </label>
-                                </li>                               
+                                </li>
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4444,10 +4715,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.dutyAndTaxes?.cimsCharges
+                                      otherTermConditions?.dutyAndTaxes
+                                        ?.cimsCharges
                                     }
                                     id="cimsCharges"
                                     type="checkbox"
@@ -4460,7 +4732,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     CIMS Charges (incase commodity is Coal)
@@ -4469,7 +4741,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 <li
                                   style={{
                                     marginBottom: '24px',
-                                    display: 'table'
+                                    display: 'table',
                                   }}
                                 >
                                   <input
@@ -4480,10 +4752,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                       float: 'left',
-                                      height: '30px'
+                                      height: '30px',
                                     }}
                                     checked={
-                                      otherTermConditions?.dutyAndTaxes?.taxCollectedatSource
+                                      otherTermConditions?.dutyAndTaxes
+                                        ?.taxCollectedatSource
                                     }
                                     id="taxCharges"
                                     type="checkbox"
@@ -4496,13 +4769,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       lineHeight: '25px',
                                       color: '#111111',
                                       letterSpacing: '0.19px',
-                                      verticalAlign: 'middle'
+                                      verticalAlign: 'middle',
                                     }}
                                   >
                                     Tax Collected at Source ( if applicable )
                                   </label>
                                 </li>
-
                               </ul>
                             </td>
                           </tr>
@@ -4524,7 +4796,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                   >
                     All necessary documents to be filed with Customs department
                     for discharge of goods &amp; Customs clearance can be filed
-                    by {otherTermConditions?.buyer?.bank} or its nominated person.
+                    by {otherTermConditions?.buyer?.bank} or its nominated
+                    person.
                     <br />
                     <span style={{ color: 'red' }}>*</span> GST charges extra
                     wherever applicable
@@ -4538,10 +4811,14 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
     </>
   )
 }
-const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermConditions) => {
+const toPrintPdf2 = (
+  data,
+  termsheetDetails,
+  additionalComments,
+  otherTermConditions,
+) => {
   console.log(termsheetDetails, 'ldwfsdf')
-  return (
-    `  <>
+  return `  <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
@@ -7388,5 +7665,4 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
         </tr>
       </table>
     </>`
-  )
 }
