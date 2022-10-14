@@ -106,7 +106,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 id={docName}
                                 type="file"
                                 name="myfile"
-                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                accept="application/msword, text/plain, application/pdf, .docx"
                                 onChange={(e) => vesselDocFunction(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
@@ -149,7 +149,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 id={docName2}
                                 type="file"
                                 name="myfile"
-                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                accept="application/msword, text/plain, application/pdf, .docx"
                                 onChange={(e) => vesselDocFunction(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
