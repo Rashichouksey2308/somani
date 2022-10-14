@@ -367,7 +367,7 @@ console.log(lcModuleData,"lcModuleData")
       }
     }
     if (lcData.atSight === '' || lcData.atSight == undefined) {
-      toastMessage = 'Please select At Sight'
+      toastMessage = 'Please select DRAFT AT'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false

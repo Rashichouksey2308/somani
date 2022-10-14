@@ -731,6 +731,7 @@ console.log(associateData.gstin,"associateData")
                     onChange={(e) => {
                     setAddress(e.target.name,e.target.value)
                   }}
+                  onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country<strong className="text-danger">*</strong>
@@ -1167,6 +1168,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
+                        onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>

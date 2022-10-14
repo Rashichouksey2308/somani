@@ -289,7 +289,8 @@ console.log(list,"val.dateOfExecution")
                     })}
                   </tbody>
                 </table>
-                <div className={`${styles.addMoreRows}`} onClick={(e) => {
+                <div className={`${styles.addMoreRows}`} 
+                onClick={(e) => {
                   addMoreRows()
                 }}>
                   <span>+</span>  Add more rows
