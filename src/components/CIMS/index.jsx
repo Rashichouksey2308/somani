@@ -44,71 +44,82 @@ export default function Index({
   ])
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
+  console.log(TransitDetails, 'TransitDetails')
   useEffect(() => {
-    if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
-      setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
+    let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', [])
+    if (data.length > 0) {
+      // data[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
+      setCimsDetails(data)
     }
   }, [TransitDetails])
+
   // useEffect(() => {
-  //   if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
-  //     setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
-  //   }
+  //   let temp = [...cimsDetails]
+  //   temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
+  //   setCimsDetails([...temp])
   // }, [TransitDetails])
-  useEffect(() => {
-    let temp = [...cimsDetails]
-    temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
-    setCimsDetails([...temp])
-  }, [TransitDetails])
+
+
   const dispatch = useDispatch()
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value
     let filteredVessel = {}
 
-    if (
-      _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].shipmentType`,
-        '',
-      ) === 'Bulk'
-    ) {
-      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
-        (vessel, index) => {
-          if (vessel.vesselInformation[0].name === VesselName) {
-            filteredVessel = vessel
-          }
-        },
-      )
-    } else {
-      filteredVessel = _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0]`,
-        {},
-      )
-      let tempArray = _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].vesselInformation`,
-        [],
-      )
-      tempArray.forEach((vessel, index) => {
-        if (vessel.name === VesselName) {
-          filteredVessel.vesselInformation = [vessel]
+    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
+    // if (
+    //   _get(
+    //     TransitDetails,
+    //     `data[0].order.vessel.vessels[0].shipmentType`,
+    //     '',
+    //   ) === 'Bulk'
+    // ) {
+    //   _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
+    //     (vessel, index) => {
+    //       if (vessel.vesselInformation[0].name === VesselName) {
+    //         filteredVessel = vessel
+    //       }
+    //     },
+    //   )
+    // } else {
+    //   filteredVessel = _get(
+    //     TransitDetails,
+    //     `data[0].order.vessel.vessels[0]`,
+    //     {},
+    //   )
+    //   let tempArray = _get(
+    //     TransitDetails,
+    //     `data[0].order.vessel.vessels[0].vesselInformation`,
+    //     [],
+    //   )
+    //   tempArray.forEach((vessel, index) => {
+    //     if (vessel.name === VesselName) {
+    //       filteredVessel.vesselInformation = [vessel]
+    //     }
+    //   })
+    // }
+
+
+    _get(TransitDetails, `data[0].BL.billOfLanding`, []).slice().forEach(
+      (bl, index) => {
+        if (bl.vesselName === VesselName) {
+          filteredVessel = bl
         }
-      })
-    }
-    console.log(filteredVessel, 'filteredVessel')
-    const newArray = [...cimsDetails]
+      },
+    )
+
+    let newArray = cimsDetails.slice()
     newArray[index].vesselName = _get(
       filteredVessel,
-      'vesselInformation[0].name',
+      'vesselName',
       '',
     )
     newArray[index].quantity = _get(
       filteredVessel,
-      'vesselInformation[0].IMONumber',
+      'blQuantity',
       '',
     )
-
-    setCimsDetails(newArray)
+    console.log(filteredVessel, 'filteredVessel')
+    setCimsDetails(newArray.slice())
   }
 
   const onChangeCims = (e, index) => {
@@ -290,13 +301,15 @@ export default function Index({
     // const billOfLanding = [...bolList]
     if (validation()) {
       const cims = { cimsDetails: cimsDetails }
+      let idtrans =  transId._id
 
       let fd = new FormData()
       fd.append('cims', JSON.stringify(cims))
       fd.append('transitId', transId._id)
 
       let task = 'submit'
-      dispatch(UpdateTransitDetails({ fd, task }))
+      console.log({ fd, task,  idtrans },'transitUpdatePayload')
+      dispatch(UpdateTransitDetails({ fd, task,idtrans }))
     }
   }
 
@@ -361,28 +374,16 @@ export default function Index({
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {shipmentTypeBulk
-                            ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation[0]?.name}
-                                </option>
-                              ))
-                            : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                          {_get(TransitDetails, `data[0].BL.billOfLanding`, [])
+                            .map((bl, index) => (
+                              <option
+                                value={bl.vesselName}
+                                key={index}
+                              >
+                                {bl.vesselName}
+                              </option>
+                            ))
+                          }
                         </select>
                       }
                       <label
@@ -418,13 +419,13 @@ export default function Index({
                         isFieldInFocus
                           ? cimsDetails[0].quantity
                           : Number(cimsDetails[0].quantity)?.toLocaleString(
-                              'en-IN',
-                            ) +
-                            ` ${_get(
-                              TransitDetails,
-                              'data[0].order.unitOfQuantity',
-                              '',
-                            )}`
+                            'en-IN',
+                          ) +
+                          ` ${_get(
+                            TransitDetails,
+                            'data[0].order.unitOfQuantity',
+                            '',
+                          )}`
                       }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
@@ -464,7 +465,7 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        // value={moment(list?.circDate?.split('T')[0]).format('DD-MM-YYYY')}
+                        value={moment(list?.circDate).format('DD-MM-YYYY')}
                         defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
@@ -519,16 +520,16 @@ export default function Index({
                           list.paymentBy
                             ? list.paymentBy
                             : _get(
-                                TransitDetails,
-                                'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                                '',
-                              )
+                              TransitDetails,
+                              'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                              '',
+                            )
                         }
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option>Select an option</option>
+                        <option disabled selected >Select an option</option>
                         <option
                           value={_get(
                             TransitDetails,
@@ -612,13 +613,13 @@ export default function Index({
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
                             ? ''
                             : moment(
-                                list?.coalImportRegistrationDoc?.Date,
-                              ).format(' DD-MM-YYYY , h:mm a')}
+                              list?.coalImportRegistrationDoc?.Date,
+                            ).format(' DD-MM-YYYY , h:mm a')}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                            cimsDetails[index]?.coalImportRegistrationDoc ==
+                              cimsDetails[index]?.coalImportRegistrationDoc ==
                               null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
@@ -678,13 +679,13 @@ export default function Index({
                           {cimsDetails[index]?.cimsPaymentReceiptDoc == null
                             ? ''
                             : moment(list?.cimsPaymentReceiptDoc?.Date).format(
-                                ' DD-MM-YYYY , h:mm a',
-                              )}
+                              ' DD-MM-YYYY , h:mm a',
+                            )}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                            cimsDetails[index]?.cimsPaymentReceiptDoc ==
+                              cimsDetails[index]?.cimsPaymentReceiptDoc ==
                               null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
