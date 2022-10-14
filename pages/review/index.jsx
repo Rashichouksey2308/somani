@@ -3612,6 +3612,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
+            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
             <table
               width="100%"
               bgColor="#ffffff"
@@ -4670,16 +4671,16 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debt.conduct == 'Good'
-                                        ? '#43C34D'
-                                        : debt.conduct == 'Satisfactory'
-                                          ? '#FF9D00'
-                                          : debt.conduct == 'Average'
-                                            ? 'average'
-                                            : '#EA3F3F'
+                                      ? '#43C34D'
+                                      : debt.conduct == 'Satisfactory'
+                                        ? '#FF9D00'
+                                        : debt.conduct == 'Average'
+                                          ? 'average'
+                                          : '#EA3F3F'
                                       }`,
                                     width: `${(Number(debt.limit) / 1900 > 1
-                                        ? 1
-                                        : Number(debt.limit) / 1900) * 100
+                                      ? 1
+                                      : Number(debt.limit) / 1900) * 100
                                       }%`,
                                     height: '10px',
                                     borderRadius: '2px',
@@ -5786,6 +5787,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
+            <br /> <br /><br /> <br /><br /><br /><br /> <br /> <br /> <br /> <br /> <br /> <br /><br /><br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -7442,6 +7444,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
+            <br /> <br /> <br /> <br />  <br /> <br /> <br /> 
             <table
               width="100%"
               bgColor="#ffffff"
@@ -8767,7 +8770,7 @@ function Index() {
   })
   const exportPDF = async () => {
     console.log(orderList, 'orderList')
-    const doc = new jsPDF('p', 'pt', [1500, 1550])
+    const doc = new jsPDF('p', 'pt', 'a4')
 
     const trendChartRevenue = document.getElementById('trendChartRevenue')
     const trendChartRevenueImg = trendChartRevenue?.toDataURL('image/png', 1.0)
@@ -8811,12 +8814,30 @@ function Index() {
       ),
       {
         callback: function (doc) {
+          // var pageSize = doc.internal.pageSize
+          // var pdf_pages = doc.internal.pages;
+          // var pageHeight = pageSize.height
+          //   ? pageSize.height
+          //   : pageSize.getHeight();
+
+          // doc.setFont('helvetica', "normal")
+
+          // var line = "Footer Content";
+
+
           doc.save('CAM.pdf')
         },
-        // margin:margins,
+        margin: [20, 20, 20, 30],
+        html2canvas: {
+          scale: 0.33, //this was my solution, you have to adjust to your size
+          width: 1000 //for some reason width does nothing
+        },
+        // x: 32,
+        // y: 32,
         autoPaging: 'text',
       },
     )
+
   }
   useEffect(() => {
     if (keyAddData.length === 0 || keyAddData === null) {
@@ -9324,7 +9345,7 @@ function Index() {
                         <label className={styles.label}>Categories:</label>
                         <div className="d-flex align-items-center position-relative">
                           <select
-                            style={{minWidth:'252px'}}
+                            style={{ minWidth: '252px' }}
                             onChange={(e) => setComplienceFilter(e.target.value)}
                             className={`${styles.form_control} ${styles.customSelect} input form-control`}
                           >
@@ -9396,7 +9417,7 @@ function Index() {
                           </label>
                           <div className="d-flex align-items-center position-relative">
                             <select
-                              style={{minWidth:'140px'}}
+                              style={{ minWidth: '140px' }}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
                             >
