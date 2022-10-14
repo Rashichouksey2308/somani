@@ -2027,7 +2027,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                   className={`${styles.label} d-flex justify-content-between align-content-center  `}
                 >
                   <div className={`${styles.limit_box} `}>
-                    <span className={`${styles.limit_label} `}>
+                    <span className={`${styles.limit_label} text-uppercase`}>
                       Total Limit
                     </span>
                   </div>
@@ -2051,7 +2051,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                           className={`${styles.label} d-flex justify-content-between align-content-center  `}
                         >
                           <div className={`${styles.limit_box} `}>
-                            <span className={`${styles.limit_label} `}>
+                            <span className={`${styles.limit_label} text-uppercase`}>
                               {debt.bankName}
                             </span>
                           </div>
@@ -2105,7 +2105,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
                     <div className={`${styles.limit_box} `}>
-                      <span className={`${styles.limit_label} `}>LIMIT</span>
+                      <span className={`${styles.limit_label} text-uppercase`}>LIMIT</span>
                     </div>
                     <span>1,900.00</span>
                   </div>
@@ -2122,7 +2122,7 @@ const debtProfile = (data, options, tempArr, camData, totalLimitDebt, camConvers
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
                     <div className={`${styles.limit_box} `}>
-                      <span className={`${styles.limit_label} `}>LIMIT</span>
+                      <span className={`${styles.limit_label} text-uppercase`}>LIMIT</span>
                     </div>
                     <span>1,900.00</span>
                   </div>

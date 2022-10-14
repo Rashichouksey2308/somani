@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
 import Modal from 'react-bootstrap/Modal'
 import moment from 'moment'
+import { MultiSelect } from "react-multi-select-component"
 import {
   Chart as ChartJS,
   LineController,
@@ -39,6 +40,14 @@ import { CovertvaluefromtoCR, convertValue, checkNan } from '../../utils/helper'
 import _get from 'lodash/get'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
+
+  const options = [
+    { label: "Grapes", value: "grapes" },
+    { label: "Mango", value: "mango" },
+    { label: "Strawberry", value: "strawberry" },
+  ];
+  const [selected, setSelected] = useState([]);
+
   const dispatch = useDispatch()
   const GstData = companyData?.GST
   console.log(companyData, 'companyData')
@@ -1269,7 +1278,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <span className={`${styles.light} accordion_Text`}>
                     GST :
                   </span>
-                  <select
+                  <MultiSelect
+                    options={options}
+                    value={selected}
+                    onChange={setSelected}
+                    labelledBy="Select"
+                  />
+                  {/* <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
                     onChange={(e) => handleChangeGstin(e)}
@@ -1282,7 +1297,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         {gstin}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </span>
               </div>
               <div className={` ${styles.body}`}>
