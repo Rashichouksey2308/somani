@@ -769,12 +769,12 @@ const Index = ({
                                   )
                                 }}
                                 src="/static/delete.svg"
-                                className={`${styles.delete_image} img-fluid mr-3`}
+                                className={`${styles.delete_image} mr-3`}
                                 alt="Bin"
                               />
                               <img
                                 src="/static/upload.svg"
-                                className="img-fluid mr-3"
+                                className="mr-3"
                                 alt="Share"
                                 onClick={() => {
                                   openbar()
@@ -793,7 +793,7 @@ const Index = ({
                                 )
                                 :
                                 (
-                                  <div className='d-inline-block'>
+                                  <div className='d-inline-block' style={{marginRight:'25px'}}>
                                     <div className="d-flex align-items-center">
                                       <select
                                         value={moduleSelected}

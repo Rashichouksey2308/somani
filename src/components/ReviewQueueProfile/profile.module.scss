@@ -779,18 +779,17 @@
       top: 51%;
       left: 0;
       width: 100%;
-      height: 2px;
+      height: 3px;
       content: '';
       z-index: -1;
       position: absolute;
       transform: translateY(-50%);
     }
-    @include respond(sm-desktop) {
-      font-size: 16px;
-    }
-    @include respond(phone) {
-      font-size: 14px;
-      //top: 20px;
+    @include respond(lg-desktop) {
+        top: 15px;
+        font-size: 14px;
+        line-height: 15px;
+        transform: translateY(-22px);
     }
   }
   .input_field {
@@ -813,17 +812,13 @@
         transform: translateY(-30px);
       }
     }
-    @include respond(md-desktop) {
-      font-size: 18px;
-    }
-    @include respond(sm-desktop) {
-      font-size: 16px;
-      height: 55px;
+    @include respond(lg-desktop) {
+        height: 45px;
+        font-size: 15px;
+        line-height: 1.3;
     }
     @include respond(phone) {
       font-size: 14px;
-      height: 45px;
-      padding: 0px 12px 0px 12px;
     }
   }
   .percent {
@@ -834,6 +829,10 @@
     border: 1px solid #0000001f;
     border-radius: 4px;
     margin-bottom: 2rem !important;
+    @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+    }
   }
 }
 .danger {
@@ -841,12 +840,20 @@
   font-weight: bold !important;
   line-height: 25px !important;
   color: #ea3f3f !important;
+  @include respond(lg-desktop) {
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+  }
 }
 .black {
   font-size: 20px !important;
   font-weight: bold !important;
   line-height: 25px !important;
   color: #000 !important;
+  @include respond(lg-desktop) {
+      font-size: 15px !important;
+      line-height: 1.3 !important;
+  }
 }
 .arrow {
   margin-left: -40px;

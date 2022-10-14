@@ -366,12 +366,16 @@
                 position: absolute;
                 transform: translateY(-50%);
               }
+              @include respond(lg-desktop) {
+                  top: 15px;
+                  font-size: 14px;
+                  line-height: 15px;
+                  transform: translateY(-22px);
+              }
             }
-
             .line {
               border: 3px solid #d9dde8;
             }
-
             .input_field {
               font-size: 20px;
               height: 60px;
@@ -385,21 +389,21 @@
               letter-spacing: 0.19px;
               padding: 13px 30px 13px 17px;
               // border: 1px solid #0000001f;
-
               &:invalid + label {
                 transform: translateY(0);
               }
-
               &:focus {
                 & + label {
                   transform: translateY(-30px);
+                  @include respond(lg-desktop) {
+                      transform: translateY(-22px);
+                  }
                 }
               }
-              @include respond(sm-desktop) {
-                font-size: 18px;
-              }
-              @include respond(phone) {
-                font-size: 16px;
+              @include respond(lg-desktop) {
+                  height: 45px;
+                  font-size: 15px;
+                  line-height: 1.3;
               }
             }
           }

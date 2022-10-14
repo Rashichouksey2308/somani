@@ -780,7 +780,7 @@ export default function Home() {
             break
           }
         }
-          if (
+        if (
           list[i]?.vesselInformation[0]?.shippingLineOrCharter == '' ||
           list[i]?.vesselInformation[0]?.shippingLineOrCharter == undefined
         ) {
@@ -814,6 +814,32 @@ export default function Home() {
             break
           }
         }
+
+        if (!containerExcel) {
+          toastMessage = `please upload container Excel`
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+          }
+        }
+        
+    if (!containerListDocument) {
+      toastMessage = `please upload container List Document`
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        isOk = false
+      }
+    }
+
+      }
+    }
+
+
+    if (!vesselCertificate) {
+      toastMessage = `please upload vessel certificate`
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        isOk = false
       }
     }
 

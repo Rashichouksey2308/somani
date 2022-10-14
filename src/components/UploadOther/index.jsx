@@ -595,7 +595,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 )
                                 :
                                 (
-                                  <div className='d-inline-block'>
+                                  <div className='d-inline-block'  style={{marginRight:'25px'}}>
                                     <div className="d-flex align-items-center">
                                       <select
                                        value={moduleSelected}
