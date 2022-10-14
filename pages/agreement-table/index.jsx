@@ -46,16 +46,16 @@ if(window){
 const getDate = async () =>{
 
  let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
- console.log(data.data,"sadasdasdasdsd")
- setData(data.data)
- setTotal(data.totalCount)
+ 
+ setData(data?.data)
+ setTotal(data?.totalCount)
 }
 
   const handleSort = async() => {
-    if(sorting == -1){
+  if(sorting == -1){
    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`))
    setData(data.data)
-  setTotal(data.totalCount) 
+   setTotal(data.totalCount) 
    setSorting(1)
     }else if(sorting == 1){
       

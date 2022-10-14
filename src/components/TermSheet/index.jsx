@@ -68,7 +68,7 @@ const Index = () => {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
               orderCurrency: sheet?.order?.orderCurrency || 'INR',
               quantity: sheet?.order?.quantity,
-              perUnitPrice: sheet?.order?.perUnitPrice ?? '',
+              perUnitPrice: sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue/sheet?.order.quantity).toFixed(2) || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },

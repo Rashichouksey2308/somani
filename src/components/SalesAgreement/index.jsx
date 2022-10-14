@@ -26,6 +26,7 @@ import API from '../../../src/utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
 import _get from 'lodash/get'
+import { forEach } from 'lodash'
 
 function Index(props) {
   const dispatch = useDispatch()
@@ -48,51 +49,34 @@ function Index(props) {
       props.setDate(localStorage.getItem('timeGenericUpdated'))
     }
   })
-  const changeActiveValue = (val, index) => {
+ const changeActiveValue = (val, index) => {
     setActive(val)
     showContent()
     setSaveData(false)
 
-    let tempData = JSON.parse(sessionStorage.getItem('genericSelected'))
     let tempArr = sideBar
-
     for (let i = 0; i < tempArr.length; i++) {
-      console.log(tempData, 'divesh')
-      if (
-        tempData &&
-        Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
-      ) {
-        tempArr[i].image = '/static/done.svg'
-      } else if (
-        i == index &&
-        !Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
-      ) {
+      if (i == index) {
+        if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
         tempArr[i].state = 'current'
         tempArr[i].image = '/static/currnet.svg'
-      } else if (
-        i == index &&
-        Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
-      ) {
-        tempArr[i].state = 'current'
-        tempArr[i].image = '/static/done.svg'
-      } else if (i !== index) {
-        tempArr[i].state = 'default'
-        tempArr[i].image = '/static/Group 3256.svg'
+      }
       } else {
         if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
           tempArr[i].state = 'default'
+          tempArr[i].image = '/static/Group 3256.svg'
         }
       }
     }
-
+    console.log(tempArr, 'name')
     setSidebar(tempArr)
     setIsSideBarOpen(false)
     setSideStateToLocal(val)
   }
 
-  useEffect(() => {
-    changeActiveValue(active)
-  }, [active])
+  // useEffect(() => {
+  //   changeActiveValue(active)
+  // }, [active])
 
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
@@ -245,10 +229,231 @@ function Index(props) {
 
     return true
   }
+  const setInitialSideBar=()=>{
+   let temp = [...sideBar]
+   console.log(props?.genericData,"props?.genericData")
+   if(props?.genericData){
+
+  
+   if(props?.genericData?.supplier?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Supplier"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.supplier?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Supplier"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.seller?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Seller"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.seller?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Seller"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.buyer?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Buyer"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.buyer?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Buyer"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.financingBank?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Financing Bank"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.financingBank?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Financing Bank"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.CMA?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="CMA"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.CMA?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="CMA"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+   if(props?.genericData?.CHA?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="CHA"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.CHA?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="CHA"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+   if(props?.genericData?.stevedore?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Stevedore"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.stevedore?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Stevedore"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.shippingLine?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Shipping Line"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.shippingLine?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Shipping Line"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+     if(props?.genericData?.deliveryTerms?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Delivery Terms"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.deliveryTerms?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Delivery Terms"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.productSpecifications?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Product Specifications"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.productSpecifications?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Product Specifications"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+    if(props?.genericData?.additionalComments?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Additional Comments"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.additionalComments?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Additional Comments"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+     if(props?.genericData?.placeOfExecution?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Place of Execution"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.placeOfExecution?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Place of Execution"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+     if(props?.genericData?.associateBuyer?.isSubmitted==true){
+    temp.forEach((val,index)=>{
+      if(val.name=="Associate Buyer"){
+        val.state="complete"
+        val.image="/static/done.svg"
+      }
+    })
+   }
+    if(props?.genericData?.associateBuyer?.isSubmitted==false){
+    temp.forEach((val,index)=>{
+      if(val.name=="Associate Buyer"){
+        val.state="pending"
+        val.image="/static/pending2.svg"
+      }
+    })
+   }
+  }
+   setSidebar([...temp])
+  }
+  useEffect(() => {
+    setInitialSideBar()
+  },[props.genericData])
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar))
     sessionStorage.setItem('setgenActive', val)
   }
+
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('genericSide')) {
@@ -773,6 +978,7 @@ function Index(props) {
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
+          isSubmitted: true,
         },
       }
       console.log(dataToSend, 'dataToSend')
@@ -920,6 +1126,7 @@ function Index(props) {
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1044,6 +1251,7 @@ function Index(props) {
         financingBank: {
           name: data.financeData.name,
           branch: data.financeData.branchName,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1086,6 +1294,7 @@ function Index(props) {
           gstin: data.cmaData.gstin,
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1222,6 +1431,7 @@ function Index(props) {
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1359,6 +1569,7 @@ function Index(props) {
 
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1501,6 +1712,7 @@ function Index(props) {
           name: data.shippingData.name,
           vesselName: data.shippingData.vesselName,
           gstin: data.shippingData.gstin,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1527,6 +1739,7 @@ function Index(props) {
         genericId: props.genericData?._id,
         deliveryTerms: {
           deliveryTerm: data.deliveryData,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1553,6 +1766,7 @@ function Index(props) {
         productSpecifications: {
           comments: data.addressList,
           specificationTable: data?.excelData,
+           isSubmitted: true,
         },
       }
       sessionStorage.setItem(
@@ -1585,24 +1799,32 @@ function Index(props) {
     if (key == 'Additional Comments') {
       let list = []
       data.addressList.forEach((val, index) => {
-        list.push(val.value)
+         list.push({
+          agreementName: val.name,
+          comment: val.comment,
+         
+          isSubmitted: true,
+        })
+       
       })
       console.log('this14', list)
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
-          comments: list,
+           comments: list,
+           isSubmitted: true,
         },
       }
       sessionStorage.setItem('add', JSON.stringify(data.addressList))
-      if (data.addressList.length <= 0 || data.addressList == undefined) {
-        toastMessage = `Please add Comments `
+      if (list.length <= 0 || list == undefined) {
+        toastMessage = `Please add comment `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           setSubmitData(false)
           return
         }
       }
+     
     }
     if (key == 'Place of Execution') {
       console.log('this14', data.list)
@@ -1613,6 +1835,7 @@ function Index(props) {
           agreementName: val.name,
           place: val.execution,
           dateOfExecution: val.dateOfExecution,
+          isSubmitted: true,
         })
       })
       dataToSend = {
@@ -1645,6 +1868,7 @@ function Index(props) {
           gstin: data?.associate?.gstin,
           addresses: data?.address,
           authorisedSignatoryDetails: data?.list,
+           isSubmitted: true,
         },
       }
       let dataToSend2 = {
@@ -1838,7 +2062,7 @@ function Index(props) {
     }
 
     console.log('this15')
-    let timestamp = await dispatch(updateGenericData(dataToSend))
+    let timestamp = await dispatch(updateGenericData(dataToSend,"Submitted"))
     console.log(timestamp, 'timestamp')
     if (timestamp == 500) {
       return
@@ -1865,11 +2089,183 @@ function Index(props) {
 
     setSideStateToLocal(key)
   }
-  const sendData = (key, data) => {
-    console.log(data, 'sendData')
+  // const sendData = (key, data) => {
+  //   console.log(data, 'sendData')
+  //   let dataToSend = {}
+  //   if (key == 'Supplier') {
+  //     dataToSend = {
+  //       name: data.supplierState.name,
+  //       shortName: data.supplierState.shortName,
+  //       bankDetails: {
+  //         bankName: data.supplierState.bankDetails.bankName,
+  //         accountNo: data.supplierState.bankDetails.accountNo,
+  //         swiftCode: data.supplierState.bankDetails.swiftCode,
+  //         city: data.supplierState.bankDetails.city,
+  //       },
+  //       addresses: data.addressList,
+  //       authorisedSignatoryDetails: data.list,
+  //       multiParty: data.supplierState.multiParty,
+  //       isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Supplier', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Seller') {
+  //     dataToSend = {
+  //       name: 'Indo Intertrade Ag',
+  //       shortName: data.sellerData.shortName,
+  //       addresses: data.addresses,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Seller', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Buyer') {
+  //     dataToSend = {
+  //       name: data.buyerData.name,
+  //       branchName: data.buyerData.branchName,
+  //       addresses: data.addresses,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Buyer', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Delivery Terms') {
+  //     let dataToSend = {
+  //       deliveryTerms: data.deliveryData,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Delivery', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Associate Buyer') {
+  //     dataToSend = {
+  //       branchName: data.associate.branchName,
+  //       shortName: data.associate.shortName,
+  //       gstin: data.associate.gstin,
+  //       addresses: data.address,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Associate', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Financing Bank') {
+  //     dataToSend = {
+  //       name: data.financeData.name,
+  //       branchName: data.financeData.branchName,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Finance', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'CMA') {
+  //     dataToSend = {
+  //       name: data.cmaData.name,
+  //       shortName: data.cmaData.shortName,
+  //       shortName: data.cmaData.gstin,
+  //       addresses: data.addressList,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Cma', JSON.stringify(dataToSend))
+  //   }
+
+  //   if (key == 'CHA') {
+  //     dataToSend = {
+  //       name: data.chaState.name,
+  //       shortName: data.chaState.shortName,
+  //       gstin: data.chaState.gstin,
+
+  //       addresses: data.addressList,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Cha', JSON.stringify(dataToSend))
+  //   }
+  //   if (key == 'Stevedore') {
+  //     dataToSend = {
+  //       name: data.seteveState.name,
+  //       shortName: data.seteveState.shortName,
+  //       gstin: data.seteveState.gstin,
+
+  //       addresses: data.addressList,
+  //       authorisedSignatoryDetails: data.list,
+  //        isSubmitted: false,
+  //     }
+  //     sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend))
+  //   }
+
+  //   if (key == 'Product Specifications') {
+  //     sessionStorage.setItem(
+  //       'Product',
+  //       JSON.stringify({ list: data.addressList, excel: data?.excelData }),
+  //     )
+  //   }
+  //   if (key == 'Place of Execution') {
+  //     sessionStorage.setItem('exe', JSON.stringify(data.list))
+  //   }
+
+  //   if (key == 'Additional Comments') {
+  //     let list = []
+  //     data.addressList.forEach((val, index) => {
+  //       list.push({ type: val })
+  //     })
+
+  //     sessionStorage.setItem('add', JSON.stringify(data.addressList))
+  //   }
+  //   if (key == 'Shipping Line') {
+  //     console.log('this14')
+  //     dataToSend = {
+  //       name: data.shippingData.name,
+  //       vesselName: data.shippingData.vesselName,
+  //       gstin: data.shippingData.gstin,
+  //     }
+  //     sessionStorage.setItem('Shipping', JSON.stringify(dataToSend))
+  //   }
+  //   let tempArr = sideBar
+  //   sideBar.forEach((val, index) => {
+  //     if (val.value == key) {
+  //       tempArr[index].state = 'pending'
+  //       tempArr[index].image = '/static/pending2.svg'
+  //     }
+  //     setSidebar(tempArr)
+  //   })
+
+  //   let toastMessage = 'SAVEd'
+
+  //   toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+
+  //   setSaveData(false)
+  //   setSideStateToLocal(key)
+  // }
+   const sendData = async (key, data) => {
+    let toastMessage = ''
     let dataToSend = {}
+   
+
     if (key == 'Supplier') {
+      data.list.forEach((val, index) => {
+        delete val['actions']
+        delete val['addnew']
+        val.document = {}
+      })
       dataToSend = {
+        genericId: props.genericData?._id,
+        supplier: {
+          name: data.supplierState.name,
+          shortName: data.supplierState.shortName,
+          bankDetails: {
+            bankName: data.supplierState.bankDetails.bankName,
+            accountNo: data.supplierState.bankDetails.accountNo,
+            swiftCode: data.supplierState.bankDetails.swiftCode,
+            city: data.supplierState.bankDetails.city,
+          },
+          addresses: data.addressList,
+          authorisedSignatoryDetails: data.list,
+          multiParty: data.supplierState.multiParty,
+          multiPartyAddresses: data.supplierState.multiPartyAddresses,
+          isSubmitted: false,
+        },
+      }
+
+      let dataToSend2 = {
         name: data.supplierState.name,
         shortName: data.supplierState.shortName,
         bankDetails: {
@@ -1881,64 +2277,110 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
         multiParty: data.supplierState.multiParty,
-        isSubmitted: true,
       }
-      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2))
+
+    
     }
     if (key == 'Seller') {
       dataToSend = {
+        genericId: props.genericData?._id,
+        seller: {
+          name: 'Indo Intertrade Ag',
+          shortName: data.sellerData.shortName,
+
+          addresses: data.addresses,
+          authorisedSignatoryDetails: data.list,
+          isSubmitted: false,
+        },
+      }
+      console.log(dataToSend, 'dataToSend')
+      let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       }
-      sessionStorage.setItem('Seller', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Seller', JSON.stringify(dataToSend2))
+
     }
     if (key == 'Buyer') {
       dataToSend = {
+        genericId: props.genericData?._id,
+        buyer: {
+          name: data.buyerData.name,
+          branch: data.buyerData.branchName,
+
+          addresses: data.addresses,
+          authorisedSignatoryDetails: data.list,
+            isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       }
-      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend))
-    }
-    if (key == 'Delivery Terms') {
-      let dataToSend = {
-        deliveryTerms: data.deliveryData,
-      }
-      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend))
-    }
-    if (key == 'Associate Buyer') {
-      dataToSend = {
-        branchName: data.associate.branchName,
-        shortName: data.associate.shortName,
-        gstin: data.associate.gstin,
-        addresses: data.address,
-        authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Associate', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2))
+ 
     }
     if (key == 'Financing Bank') {
+      console.log(data.financeData, 'finan')
       dataToSend = {
+        genericId: props.genericData?._id,
+        financingBank: {
+          name: data.financeData.name,
+          branch: data.financeData.branchName,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.financeData.name,
         branchName: data.financeData.branchName,
       }
-      sessionStorage.setItem('Finance', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Finance', JSON.stringify(dataToSend2))
+   
+
+    
     }
     if (key == 'CMA') {
+      console.log(data.cmaData, 'data.cmaData')
       dataToSend = {
+        genericId: props.genericData?._id,
+        CMA: {
+          name: data.cmaData.name,
+          shortName: data.cmaData.shortName,
+          gstin: data.cmaData.gstin,
+          addresses: data.addressList,
+          authorisedSignatoryDetails: data.list,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
         shortName: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       }
-      sessionStorage.setItem('Cma', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Cma', JSON.stringify(dataToSend2))
+ 
     }
-
     if (key == 'CHA') {
       dataToSend = {
+        genericId: props.genericData?._id,
+        CHA: {
+          name: data.chaState.name,
+          shortName: data.chaState.shortName,
+          gstin: data.chaState.gstin,
+
+          addresses: data.addressList,
+          authorisedSignatoryDetails: data.list,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.chaState.name,
         shortName: data.chaState.shortName,
         gstin: data.chaState.gstin,
@@ -1946,10 +2388,23 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       }
-      sessionStorage.setItem('Cha', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Cha', JSON.stringify(dataToSend2))
+
     }
     if (key == 'Stevedore') {
       dataToSend = {
+        genericId: props.genericData?._id,
+        stevedore: {
+          name: data.seteveState.name,
+          shortName: data.seteveState.shortName,
+          gstin: data.seteveState.gstin,
+
+          addresses: data.addressList,
+          authorisedSignatoryDetails: data.list,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
         gstin: data.seteveState.gstin,
@@ -1957,50 +2412,166 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       }
-      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend))
-    }
-
-    if (key == 'Product Specifications') {
-      sessionStorage.setItem(
-        'Product',
-        JSON.stringify({ list: data.addressList, excel: data?.excelData }),
-      )
-    }
-    if (key == 'Place of Execution') {
-      sessionStorage.setItem('exe', JSON.stringify(data.list))
-    }
-
-    if (key == 'Additional Comments') {
-      let list = []
-      data.addressList.forEach((val, index) => {
-        list.push({ type: val })
-      })
-
-      sessionStorage.setItem('add', JSON.stringify(data.addressList))
+      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2))
+      console.log('Stevedore', dataToSend)
+    
     }
     if (key == 'Shipping Line') {
       console.log('this14')
       dataToSend = {
+        genericId: props.genericData?._id,
+        shippingLine: {
+          name: data.shippingData.name,
+          vesselName: data.shippingData.vesselName,
+          gstin: data.shippingData.gstin,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
         name: data.shippingData.name,
         vesselName: data.shippingData.vesselName,
         gstin: data.shippingData.gstin,
       }
-      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend))
+      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2))
+      
     }
+    if (key == 'Delivery Terms') {
+      console.log('this14', data)
+      dataToSend = {
+        genericId: props.genericData?._id,
+        deliveryTerms: {
+          deliveryTerm: data.deliveryData,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
+        deliveryTerms: data.deliveryData,
+      }
+
+      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+    
+    }
+    if (key == 'Product Specifications') {
+      console.log('this14')
+      dataToSend = {
+        genericId: props.genericData?._id,
+        productSpecifications: {
+          comments: data.addressList,
+          specificationTable: data?.excelData,
+           isSubmitted: false,
+        },
+      }
+      sessionStorage.setItem(
+        'Product',
+        JSON.stringify({ list: data.addressList, excel: data?.excelData }),
+      )
+    
+     
+    }
+     if (key == 'Additional Comments') {
+      let list = []
+      data.addressList.forEach((val, index) => {
+         list.push({
+          agreementName: val.name,
+          comment: val.comment,
+         
+          isSubmitted: false,
+        })
+       
+      })
+      console.log('this14', list)
+      dataToSend = {
+        genericId: props.genericData?._id,
+        additionalComments: {
+           comments: list,
+           
+        },
+      }
+      sessionStorage.setItem('add', JSON.stringify(data.addressList))
+     
+     
+    }
+    if (key == 'Place of Execution') {
+      console.log('this14', data.list)
+
+      let list = []
+      data.list.forEach((val, index) => {
+        list.push({
+          agreementName: val.name,
+          place: val.execution,
+          dateOfExecution: val.dateOfExecution,
+           isSubmitted: false,
+        })
+      })
+      dataToSend = {
+        genericId: props.genericData?._id,
+
+        placeOfExecution: {
+          execution: list,
+        },
+      }
+      sessionStorage.setItem('exe', JSON.stringify(data.list))
+     
+    }
+    if (key == 'Associate Buyer') {
+      console.log('this14')
+
+      console.log(data.associate, 'data.associate')
+      dataToSend = {
+        genericId: props.genericData?._id,
+
+        associateBuyer: {
+          branch: data?.associate?.branchName,
+          shortName: data?.associate?.shortName,
+          gstin: data?.associate?.gstin,
+          addresses: data?.address,
+          authorisedSignatoryDetails: data?.list,
+           isSubmitted: false,
+        },
+      }
+      let dataToSend2 = {
+        branchName: data.associate.branchName,
+        shortName: data.associate.shortName,
+        gstin: data.associate.gstin,
+        addresses: data.address,
+        authorisedSignatoryDetails: data.list,
+      }
+      sessionStorage.setItem('Associate', JSON.stringify(dataToSend2))
+      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk')
+   
+
+    
+
+   
+    
+    }
+
+    console.log('this15')
+    let timestamp = await dispatch(updateGenericData(dataToSend,"Saved"))
+    console.log(timestamp, 'timestamp')
+    if (timestamp == 500) {
+      return
+    }
+    // props.setDate(timestamp)
+    // localStorage.setItem('timeGenericUpdated', timestamp)
+    setSubmitData(false)
     let tempArr = sideBar
-    sideBar.forEach((val, index) => {
+    tempArr.forEach((val, index) => {
       if (val.value == key) {
         tempArr[index].state = 'pending'
         tempArr[index].image = '/static/pending2.svg'
+        if (key !== 'Additional Comments') {
+          let a = index + 1
+        tempArr[index].state = 'pending'
+          tempArr[a].image = '/static/pending2.svg'
+
+          setActive(tempArr[a].name)
+        }
       }
-      setSidebar(tempArr)
     })
 
-    let toastMessage = 'SAVEd'
+    setSidebar([...tempArr])
 
-    toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-
-    setSaveData(false)
     setSideStateToLocal(key)
   }
   const onShowSideBar = () => {
