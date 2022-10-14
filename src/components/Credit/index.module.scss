@@ -524,6 +524,17 @@
   margin-left: 1rem;
   flex-wrap: unset !important;
   padding: 25px 35px !important;
+  @include respond(lg-desktop) {
+      width: 200px;
+      height: 38px;
+      font-size: 18px;
+      line-height: 1.3;
+      padding: 0 10px !important;
+  }
+  @include respond(md-desktop) {
+      width: 120px;
+      font-size: 12px;
+  }
 }
 .button2 {
   font-weight: bold;
@@ -539,6 +550,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include respond(lg-desktop) {
+      width: 200px;
+      height: 38px;
+      font-size: 18px;
+      line-height: 1.3;
+      padding: 0 10px !important;
+  }
+  @include respond(md-desktop) {
+      width: 120px;
+      font-size: 12px;
+  }
 }
 .calanderIcon {
   margin-left: -40px;

@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap'
 import { Line, Bar } from 'react-chartjs-2'
 import Modal from 'react-bootstrap/Modal'
 import moment from 'moment'
+import { MultiSelect } from "react-multi-select-component"
 import {
   Chart as ChartJS,
   LineController,
@@ -39,6 +40,14 @@ import { CovertvaluefromtoCR, convertValue, checkNan } from '../../utils/helper'
 import _get from 'lodash/get'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
+
+  const options = [
+    { label: "Grapes", value: "grapes" },
+    { label: "Mango", value: "mango" },
+    { label: "Strawberry", value: "strawberry" },
+  ];
+  const [selected, setSelected] = useState([]);
+
   const dispatch = useDispatch()
   const GstData = companyData?.GST
   console.log(companyData, 'companyData')
@@ -178,7 +187,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let temArr = []
     if (data) {
       data.forEach((val, index) => {
-        temArr.push(CovertvaluefromtoCR(val))
+        temArr.push(Number(CovertvaluefromtoCR(val)).toFixed(2))
       })
       console.log(temArr, 'slaes')
       return temArr
@@ -250,8 +259,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         //   b = b + data[j]
         // }
         b = data[i] + data[i - 1] + data[i - 2]
-        arr.push(b)
+        arr.push(Number(b.toFixed(2)))
       }
+      console.log(arr,"arr1121212")
       return arr
     }
 
@@ -1269,6 +1279,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <span className={`${styles.light} accordion_Text`}>
                     GST :
                   </span>
+                  {/* <MultiSelect
+                    options={options}
+                    value={selected}
+                    onChange={setSelected}
+                    labelledBy="Select"
+                  /> */}
                   <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
@@ -3623,7 +3639,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         { maximumFractionDigits: 0 },
                       )
                         ? gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
-                          undefined,
+                          "en-In",
                           { maximumFractionDigits: 0 },
                         )
                         : '-'}
@@ -3638,10 +3654,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
                         'en-In',
-                        {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        },
+                        { maximumFractionDigits: 0 },
                       )
                         ? gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
                           'en-In',
@@ -4739,32 +4752,32 @@ const gstSupplierDetail = (
                                 <td>{customer?.pan}</td>
                                 <td>
                                   {/* {customer?.ttlVal?.toLocaleString()} */}
-                                  {convertValue(
+                                  {Number(convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                 </td>
                                 <td>
-                                  {checkNan(
+                                  {Number(checkNan(
                                     Number(customer?.percentageOfTotalPurchase),
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {convertValue(
+                                  {Number(convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                   {/* {customer?.purchasePerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
