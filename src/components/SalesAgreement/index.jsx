@@ -31,7 +31,8 @@ function Index(props) {
   const dispatch = useDispatch()
 
   console.log(props.genericData, 'sales')
-  
+
+  const [apiData, setApiData] = useState([])
   const [active, setActive] = useState('Product Specifications')
   const [multiPart, setMultiPart] = useState(false)
   const [multiPartValue, setMultiPartValue] = useState('Manufacturer')
@@ -52,23 +53,47 @@ function Index(props) {
     showContent()
     setSaveData(false)
 
+    let tempData = JSON.parse(sessionStorage.getItem('genericSelected'))
     let tempArr = sideBar
+
     for (let i = 0; i < tempArr.length; i++) {
-      if (i == index) {
+      console.log(tempData, 'divesh')
+      if (
+        tempData &&
+        Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
+      ) {
+        tempArr[i].image = '/static/done.svg'
+      } else if (
+        i == index &&
+        !Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
+      ) {
         tempArr[i].state = 'current'
         tempArr[i].image = '/static/currnet.svg'
+      } else if (
+        i == index &&
+        Object.keys(tempData).includes(tempArr[i]?.name?.toLowerCase())
+      ) {
+        tempArr[i].state = 'current'
+        tempArr[i].image = '/static/done.svg'
+      } else if (i !== index) {
+        tempArr[i].state = 'default'
+        tempArr[i].image = '/static/Group 3256.svg'
       } else {
         if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
           tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
         }
       }
     }
-    console.log(tempArr, 'name')
+
     setSidebar(tempArr)
     setIsSideBarOpen(false)
     setSideStateToLocal(val)
   }
+
+  useEffect(() => {
+    changeActiveValue(active)
+  }, [active])
+
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
     let fd = new FormData()
@@ -112,7 +137,7 @@ function Index(props) {
   }
   const addressValidation = (type, data, check = true) => {
     console.log(type, data, 'type,data')
-      if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
+    if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
           let toastMessage = 'Please add gstin'
@@ -165,7 +190,6 @@ function Index(props) {
       }
       return false
     }
-  
 
     return true
   }
@@ -192,7 +216,7 @@ function Index(props) {
       }
       return false
     }
-  
+
     if (type == 'Branch') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
@@ -224,7 +248,6 @@ function Index(props) {
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar))
     sessionStorage.setItem('setgenActive', val)
-    console.log('ddasdasd')
   }
   useEffect(() => {
     if (window) {
@@ -234,7 +257,7 @@ function Index(props) {
       }
     }
   }, [])
-  console.log(active, 'active')
+
   const showContent = (active) => {
     if (active == 'Buyer') {
       return (
@@ -519,32 +542,30 @@ function Index(props) {
     setSideStateToLocal(active)
   }
   const onRightChange = () => {
-    console.log("RIGHT")
+    console.log('RIGHT')
     let tempArr = [...sideBar]
     console.log(tempArr, '987789')
-    if(active!=="Additional Comments"){
-
-   
-    for (let i = 0; i < tempArr.length; i++) {
-      console.log(tempArr[i], '987')
-      if (tempArr[i].state == 'current') {
-        if (i != tempArr.length) {
-        tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
-          console.log(tempArr[i].state, 'tempArr[a]')
-          let a = i + 1
-          console.log(a, 'tempArr[a]234')
-          tempArr[a].state = 'current'
-          tempArr[a].image = '/static/currnet.svg'
-          setActive(tempArr[a].name)
-          break
+    if (active !== 'Additional Comments') {
+      for (let i = 0; i < tempArr.length; i++) {
+        console.log(tempArr[i], '987')
+        if (tempArr[i].state == 'current') {
+          if (i != tempArr.length) {
+            tempArr[i].state = 'default'
+            tempArr[i].image = '/static/Group 3256.svg'
+            console.log(tempArr[i].state, 'tempArr[a]')
+            let a = i + 1
+            console.log(a, 'tempArr[a]234')
+            tempArr[a].state = 'current'
+            tempArr[a].image = '/static/currnet.svg'
+            setActive(tempArr[a].name)
+            break
+          }
         }
       }
+      console.log('aasdaa', tempArr)
+      setSidebar([...tempArr])
+      setSideStateToLocal(active)
     }
-    console.log('aasdaa', tempArr)
-    setSidebar([...tempArr])
-    setSideStateToLocal(active)
-     }
   }
   console.log(sideBar, 'sideBar')
 
@@ -554,18 +575,18 @@ function Index(props) {
   const onSubmit = () => {
     setSubmitData(true)
   }
- 
+
   const updateData = async (key, data) => {
     let toastMessage = ''
     let dataToSend = {}
     console.log('this13', data, key)
-   
+
     if (key == 'Supplier') {
-    data.list.forEach((val,index)=>{
-      delete val['actions']
-      delete val['addnew']
-      val.document={}
-    })
+      data.list.forEach((val, index) => {
+        delete val['actions']
+        delete val['addnew']
+        val.document = {}
+      })
       dataToSend = {
         genericId: props.genericData?._id,
         supplier: {
@@ -581,6 +602,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           multiParty: data.supplierState.multiParty,
           multiPartyAddresses: data.supplierState.multiPartyAddresses,
+          isSubmitted: true,
         },
       }
 
@@ -1108,7 +1130,6 @@ function Index(props) {
           return
         }
       }
-   
     }
     if (key == 'Delivery Terms') {
       console.log('this14', data)
@@ -1121,18 +1142,19 @@ function Index(props) {
       let dataToSend2 = {
         deliveryTerms: data.deliveryData,
       }
-     
-      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
-       if (dataToSend?.deliveryTerms?.deliveryTerm == "" || dataToSend?.deliveryTerms?.deliveryTerm == undefined) {
-      toastMessage = `Please select delivery Terms  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      setSubmitData(false)
-      return
 
+      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+      if (
+        dataToSend?.deliveryTerms?.deliveryTerm == '' ||
+        dataToSend?.deliveryTerms?.deliveryTerm == undefined
+      ) {
+        toastMessage = `Please select delivery Terms  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
+        }
       }
-      }
-      
     }
     if (key == 'Product Specifications') {
       console.log('this14')
@@ -1291,69 +1313,105 @@ function Index(props) {
           return
         }
       }
-      let error=false;
-         if (
-        dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0 
-      ) {
-        for(let i=0;i<dataToSend.associateBuyer.authorisedSignatoryDetails.length;i++){
-          if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew=="true"){
-           console.log(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo")
-           if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].name=="" ||dataToSend.associateBuyer.authorisedSignatoryDetails[i].name==undefined){
-             toastMessage = `Please add authorised Signatory Details name of ${i} `
-             if (!toast.isActive(toastMessage.toUpperCase())) {
-          
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            setSubmitData(false)
-            error=true
-            return
-        }
-           }
-            if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==undefined){
-             toastMessage = `Please add authorised Signatory Details designation of ${i} `
-             if (!toast.isActive(toastMessage.toUpperCase())) {
-          
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            setSubmitData(false)
-            error=true
-            return
-           
-        }
-           }
-             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==undefined){
-             toastMessage = `Please add authorised Signatory Details email of ${i} `
-             if (!toast.isActive(toastMessage.toUpperCase())) {
-          
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            setSubmitData(false)
-            error=true
-            return
-        }
-           }
-             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==undefined){
-             toastMessage = `Please add authorised Signatory Details phone of ${i} `
-             if (!toast.isActive(toastMessage.toUpperCase())) {
-          
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            setSubmitData(false)
-            error=true
-            return
-        }
-           }
-          if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo.length>10){
-             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
-             if (!toast.isActive(toastMessage.toUpperCase())) {
-          
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            setSubmitData(false)
-            error=true
-            return
-        }
-           }
+      let error = false
+      if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
+        for (
+          let i = 0;
+          i < dataToSend.associateBuyer.authorisedSignatoryDetails.length;
+          i++
+        ) {
+          if (
+            dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew ==
+            'true'
+          ) {
+            console.log(
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,
+              'dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo',
+            )
+            if (
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
+                '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
+                undefined
+            ) {
+              toastMessage = `Please add authorised Signatory Details name of ${i} `
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+                })
+                setSubmitData(false)
+                error = true
+                return
+              }
+            }
+            if (
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i]
+                .designation == '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i]
+                .designation == undefined
+            ) {
+              toastMessage = `Please add authorised Signatory Details designation of ${i} `
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+                })
+                setSubmitData(false)
+                error = true
+                return
+              }
+            }
+            if (
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
+                '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
+                undefined
+            ) {
+              toastMessage = `Please add authorised Signatory Details email of ${i} `
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+                })
+                setSubmitData(false)
+                error = true
+                return
+              }
+            }
+            if (
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
+                '' ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
+                undefined
+            ) {
+              toastMessage = `Please add authorised Signatory Details phone of ${i} `
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+                })
+                setSubmitData(false)
+                error = true
+                return
+              }
+            }
+            if (
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo
+                .length < 10 ||
+              dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo
+                .length > 10
+            ) {
+              toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+              if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), {
+                  toastId: toastMessage,
+                })
+                setSubmitData(false)
+                error = true
+                return
+              }
+            }
           }
-          
         }
       }
-      if(error){
+      if (error) {
         return
       }
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0) {
@@ -1392,35 +1450,30 @@ function Index(props) {
     console.log('this15')
     let timestamp = await dispatch(updateGenericData(dataToSend))
     console.log(timestamp, 'timestamp')
-    if(timestamp==500){
+    if (timestamp == 500) {
       return
     }
     props.setDate(timestamp)
     localStorage.setItem('timeGenericUpdated', timestamp)
-     setSubmitData(false)
+    setSubmitData(false)
     let tempArr = sideBar
     tempArr.forEach((val, index) => {
       if (val.value == key) {
         tempArr[index].state = 'complete'
         tempArr[index].image = '/static/done.svg'
-         if(key !=="Additional Comments"){
-            let a = index + 1
-              tempArr[a].state = 'current'
-              tempArr[a ].image = '/static/currnet.svg'
-              setActive(tempArr[a].name)
-          }
-            
-            }
-     
+        if (key !== 'Additional Comments') {
+          let a = index + 1
+          tempArr[a].state = 'current'
+          tempArr[a].image = '/static/currnet.svg'
+
+          setActive(tempArr[a].name)
+        }
+      }
     })
- 
- 
+
     setSidebar([...tempArr])
-   
+
     setSideStateToLocal(key)
-    
-   
-    
   }
   const sendData = (key, data) => {
     console.log(data, 'sendData')
@@ -1438,6 +1491,7 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
         multiParty: data.supplierState.multiParty,
+        isSubmitted: true,
       }
       sessionStorage.setItem('Supplier', JSON.stringify(dataToSend))
     }
@@ -1464,7 +1518,6 @@ function Index(props) {
         deliveryTerms: data.deliveryData,
       }
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend))
-     
     }
     if (key == 'Associate Buyer') {
       dataToSend = {
@@ -1567,6 +1620,7 @@ function Index(props) {
   useEffect(() => {
     setMultiPart(props.genericData?.supplier?.multiParty)
   }, [props.genericData])
+
   return (
     <div className={`${styles.root}`}>
       <div
@@ -1713,7 +1767,7 @@ function Index(props) {
               <div
                 className={`${styles.switchContainer} d-flex align-items-center`}
               >
-                <span className='label'>Same as CHA</span>
+                <span className="label">Same as CHA</span>
                 <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
                   <input
