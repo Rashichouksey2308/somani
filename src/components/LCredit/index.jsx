@@ -507,7 +507,7 @@ function Index() {
                             <option value="creditAvailableBy">
                               (41A) Credit Available By
                             </option>
-                            <option value="atSight">(42C) At Sight</option>
+                            <option value="draftAt">(42C) DRAFT AT</option>
                             <option value="drawee">(42A) Drawee</option>
                             <option value="deferredPayment">
                               (42P) Deferred Payment
@@ -739,8 +739,8 @@ function Index() {
                                               <option value="creditAvailableBy">
                                                 (41A) Credit Available By
                                               </option>
-                                              <option value="atSight">
-                                                (42C) At Sight
+                                              <option value="draftAt">
+                                                (42C) Draft At
                                               </option>
                                               <option value="drawee">
                                                 (42A) Drawee

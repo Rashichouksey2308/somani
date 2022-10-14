@@ -178,7 +178,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let temArr = []
     if (data) {
       data.forEach((val, index) => {
-        temArr.push(CovertvaluefromtoCR(val))
+        temArr.push(Number(CovertvaluefromtoCR(val)).toFixed(2))
       })
       console.log(temArr, 'slaes')
       return temArr
@@ -250,8 +250,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         //   b = b + data[j]
         // }
         b = data[i] + data[i - 1] + data[i - 2]
-        arr.push(b)
+        arr.push(Number(b.toFixed(2)))
       }
+      console.log(arr,"arr1121212")
       return arr
     }
 

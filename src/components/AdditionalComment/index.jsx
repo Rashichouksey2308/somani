@@ -201,7 +201,10 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails }) 
 
                                 <div className={`${styles.form_group}  `}>
                                     {commentType == "Deliveries/Due Date/Payment" ?
-                                        <p><GrowInput name={"day1"} getValue={getInputValue}
+                                        <p>
+                                        <GrowInput
+                                         name={"day1"} 
+                                           getValue={getInputValue}
                                             className={styles.grow_input}
                                             type="text"
                                             defaultValue={days.day1}
@@ -218,9 +221,15 @@ const Index = ({ setAdditionalComments, additionalComments, termsheetDetails }) 
                                                 <GrowInput name={"input1"}
                                                     defaultValue={inputs.input1}
                                                     getValue={getInputValue} className={styles.grow_input} type="text" />
-                                                ) under CMA with <GrowInput name={"input2"}
+                                                ) under CMA with 
+                                                   <GrowInput 
+                                                    name={"input2"}
                                                     defaultValue={inputs.input2}
-                                                    getValue={getInputValue} className={styles.grow_input} type="text" />. “<GrowInput
+                                                    getValue={getInputValue} 
+                                                    className={styles.grow_input} 
+                                                    type="text" />. 
+                                                    
+                                                    “<GrowInput
                                                     defaultValue={inputs.input3}
                                                     name={"input3"} getValue={getInputValue} className={styles.grow_input} type="text" /> and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
                                             : null

@@ -46,7 +46,7 @@ export function submitGenericFailed(payload) {
 }
 
 export const updateGenericData =
-  (payload) => async (dispatch, getState, api) => {
+  (payload, message) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
     console.log(payload, 'updateGenericData')
     let cookie = Cookies.get('SOMANI')
@@ -64,7 +64,7 @@ export const updateGenericData =
       )
       if (response.data.code === 200) {
         dispatch(submitGenericSuccess(response.data))
-        let toastMessage = 'Submitted'
+        let toastMessage = message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
