@@ -18,7 +18,7 @@ const Index = ({
   maxDate,
   reset,
   ref,
-  noDate
+  noDate,
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
@@ -26,22 +26,18 @@ const Index = ({
   const inputRef = useRef(null)
 
   useEffect(() => {
-   
-    if(startFrom=="noLimit") {
+    if (startFrom == 'noLimit') {
       setlastDate(null)
-      
-    }else{
-    if (startFrom) {
-          console.log('in start DAte')
-          setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
-        } 
-        else {
-          setlastDate(new Date())
-        }
+    } else {
+      if (startFrom) {
+        console.log('in start DAte')
+        setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
+      } else {
+        setlastDate(new Date())
+      }
     }
-    
   }, [startFrom])
-  console.log(lastDate,"lastDate")
+  console.log(lastDate, 'lastDate')
   useEffect(() => {
     setStartDate(null)
   }, [reset])
@@ -56,7 +52,7 @@ const Index = ({
               ? defaultDate == undefined || defaultDate == ''
                 ? ''
                 : moment(defaultDate).toDate()
-              :startDate
+              : startDate
           }
           ref={ref}
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
@@ -77,6 +73,7 @@ const Index = ({
           }}
           minDate={lastDate}
           maxDate={maxDate}
+          autoComplete="off"
           disabled={disabled ? disabled : false}
         />
         {labelName ? (

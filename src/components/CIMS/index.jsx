@@ -64,7 +64,6 @@ export default function Index({
     let VesselName = e.target.value
     let filteredVessel = {}
 
-    // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (
       _get(
         TransitDetails,
