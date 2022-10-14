@@ -178,7 +178,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let temArr = []
     if (data) {
       data.forEach((val, index) => {
-        temArr.push(CovertvaluefromtoCR(val))
+        temArr.push(Number(CovertvaluefromtoCR(val)).toFixed(2))
       })
       console.log(temArr, 'slaes')
       return temArr
@@ -250,8 +250,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         //   b = b + data[j]
         // }
         b = data[i] + data[i - 1] + data[i - 2]
-        arr.push(b)
+        arr.push(Number(b.toFixed(2)))
       }
+      console.log(arr,"arr1121212")
       return arr
     }
 
@@ -3623,7 +3624,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         { maximumFractionDigits: 0 },
                       )
                         ? gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
-                          undefined,
+                          "en-In",
                           { maximumFractionDigits: 0 },
                         )
                         : '-'}
@@ -3638,10 +3639,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
                         'en-In',
-                        {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        },
+                        { maximumFractionDigits: 0 },
                       )
                         ? gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
                           'en-In',
@@ -4739,32 +4737,32 @@ const gstSupplierDetail = (
                                 <td>{customer?.pan}</td>
                                 <td>
                                   {/* {customer?.ttlVal?.toLocaleString()} */}
-                                  {convertValue(
+                                  {Number(convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                 </td>
                                 <td>
-                                  {checkNan(
+                                  {Number(checkNan(
                                     Number(customer?.percentageOfTotalPurchase),
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {convertValue(
+                                  {Number(convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
                                   )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  })}
+                                  })).toFixed(2)}
                                   {/* {customer?.purchasePerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
