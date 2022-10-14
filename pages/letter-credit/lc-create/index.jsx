@@ -86,7 +86,7 @@ console.log(lcModuleData,"lcModuleData")
         : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment ?
       lcModuleData?.lcApplication?.latestDateOfShipment : 
-      lcModuleData?.order.supplierCredential.latestShipmentDate,
+      lcModuleData?.order?.supplierCredential?.latestShipmentDate,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod
         ? lcModuleData?.lcApplication?.presentaionPeriod
