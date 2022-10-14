@@ -358,6 +358,12 @@
             position: absolute;
             transform: translateY(-50%);
           }
+          @include respond(lg-desktop) {
+              top: 15px;
+              font-size: 14px;
+              line-height: 15px;
+              transform: translateY(-22px);
+          }
         }
         .line {
           border: 3px solid #d9dde8;
@@ -382,6 +388,11 @@
               transform: translateY(-30px);
             }
           }
+          @include respond(lg-desktop) {
+              height: 45px;
+              font-size: 15px;
+              line-height: 1.3;
+          }
         }
       }
     }
@@ -402,6 +413,10 @@
         width: fit-content;
         padding-left: 20px;
         height: 40px;
+        @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
+        }
       }
       .searchBarContainer {
         position: relative;
