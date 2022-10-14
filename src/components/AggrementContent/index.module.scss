@@ -43,8 +43,11 @@
         position: absolute;
         transform: translateY(-50%);
       }
-      @include respond(sm-desktop) {
-        font-size: 16px;
+      @include respond(lg-desktop) {
+          top: 15px;
+          font-size: 14px;
+          line-height: 15px;
+          transform: translateY(-22px);
       }
       @include respond(phone) {
         font-size: 14px;
@@ -67,24 +70,27 @@
       &:focus {
         & + label {
           transform: translateY(-30px);
+          @include respond(lg-desktop) {
+            transform: translateY(-22px);
+          }
         }
       }
-      @include respond(md-desktop) {
-        font-size: 18px;
-      }
-      @include respond(sm-desktop) {
-        font-size: 16px;
-        height: 55px;
+      @include respond(lg-desktop) {
+          height: 45px;
+          font-size: 15px;
+          line-height: 1.3;
       }
       @include respond(phone) {
         font-size: 14px;
-        height: 45px;
-        padding: 0px 12px 0px 12px;
+        padding: 0px 12px;
       }
     }
     .select {
       top: 22px;
       left: 30px;
+      @include respond(lg-desktop) {
+        top: 15px;
+      }
     }
   }
 textarea {
@@ -223,16 +229,12 @@ textarea {
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-            font-size: $font_size_mobile_input_label;
-          }
-          @include respond(md-desktop) {
-            font-size: $font_size_mobile_input_label;
-          }
-          @include respond(sm-desktop) {
-            font-size: $font_size_sm_input_label;
+              top: 15px;
+              font-size: 14px;
+              line-height: 15px;
+              transform: translateY(-22px);
           }
           @include respond(phone) {
-            font-size: $font_size_mobile_input_label;
           }
         }
         .slider_value {
@@ -270,7 +272,15 @@ textarea {
           &:focus {
             & + label {
               transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
             }
+          }
+          @include respond(lg-desktop) {
+              height: 45px;
+              font-size: 15px;
+              line-height: 1.3;
           }
         }
         .slidecontainer {
@@ -346,6 +356,10 @@ textarea {
             text-transform: capitalize;
             outline: none;
             border-radius: 4px 0 0 4px;
+            @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+            }
           }
         }
         .range_field {
@@ -357,11 +371,17 @@ textarea {
         .label_heading {
           left: 90px;
           transform: translate(-61px, -30px);
+          @include respond(lg-desktop) {
+            transform: translate(-61px, -22px);
+          }
         }
         .input_field {
           &:focus {
             & + label {
               transform: translate(-61px, -30px);
+              @include respond(lg-desktop) {
+                transform: translate(-61px, -22px);
+              }
             }
           }
         }
@@ -466,16 +486,10 @@ textarea {
       transform: translateY(-50%);
     }
     @include respond(lg-desktop) {
-      font-size: $font_size_mobile_input_label;
-    }
-    @include respond(md-desktop) {
-      font-size: $font_size_mobile_input_label;
-    }
-    @include respond(sm-desktop) {
-      font-size: $font_size_sm_input_label;
-    }
-    @include respond(phone) {
-      font-size: $font_size_mobile_input_label;
+        top: 15px;
+        font-size: 14px;
+        line-height: 15px;
+        transform: translateY(-22px);
     }
   }
   .slider_value {
@@ -513,7 +527,15 @@ textarea {
     &:focus {
       & + label {
         transform: translateY(-30px);
+        @include respond(lg-desktop) {
+          transform: translateY(-22px);
+        }
       }
+    }
+    @include respond(lg-desktop) {
+        height: 45px;
+        font-size: 15px;
+        line-height: 1.3;
     }
   }
   .slidecontainer {
@@ -589,6 +611,10 @@ textarea {
       text-transform: capitalize;
       outline: none;
       border-radius: 4px 0 0 4px;
+      @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
+      }
     }
   }
   .range_field {
@@ -600,11 +626,17 @@ textarea {
   .label_heading {
     left: 90px;
     transform: translate(-61px, -30px);
+    @include respond(lg-desktop) {
+      transform: translate(-61px, -22px);
+    }
   }
   .input_field {
     &:focus {
       & + label {
         transform: translate(-61px, -30px);
+        @include respond(lg-desktop) {
+          transform: translate(-61px, -22px);
+        }
       }
     }
   }
@@ -686,6 +718,10 @@ textarea {
             //     padding-right: 35px;
             // }
             border: none !important;
+            @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+            }
             select {
               border-radius: 4px;
               height: 40px;
@@ -1005,6 +1041,9 @@ img {
     color: #3687e8;
     line-height: 23px;
     text-transform: capitalize;
+    @include respond(lg-desktop) {
+      width: 100%;
+    }
   }
   .close_image {
     width: 12px !important;

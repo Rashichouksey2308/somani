@@ -28,6 +28,7 @@ import GetCompanyPanReducer from 'redux/GetPanGst/reducer'
 import BreadcrumbReducer from 'redux/breadcrumb/reducer'
 import AnalyticsReducer from 'redux/analytics/reducer'
 import LoadReducer from 'redux/Loaders/reducer'
+import ShareDocumentReducer from 'redux/shareDoc/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -68,6 +69,7 @@ export const createStore = (preloadedState) => {
       Breadcrumb: BreadcrumbReducer,
       analytics: AnalyticsReducer,
       Load: LoadReducer,
+      shareDoc: ShareDocumentReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

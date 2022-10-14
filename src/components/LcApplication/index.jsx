@@ -5,7 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import PreviewBar from '../PreviewBar'
 import Router from 'next/router'
-import { addPrefixOrSuffix,checkNan } from '../../utils/helper'
+import { addPrefixOrSuffix, checkNan } from '../../utils/helper'
 
 function Index({
   saveLcData,
@@ -61,7 +61,7 @@ function Index({
         <div className={`${styles.container_inner}`}>
           <div className={`${styles.head_header}`}>
             <img
-              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/lc-module')}
@@ -183,7 +183,7 @@ function Index({
                               lcData?.lcIssuingBank
                                 ? lcData?.lcIssuingBank
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.lcOpeningBank
+                                  ?.transactionDetails?.lcOpeningBank
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -286,9 +286,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              :checkNan( Number(
-                                  lcData?.currecyCodeAndAmountValue,
-                                )) + ` USD`
+                              : (Number(
+                                lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) + ` USD`
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(
@@ -333,12 +333,12 @@ function Index({
                                 ? lcData?.tolerancePercentage
                                 : lcModuleData?.order?.tolerance
                               : '+/- ' +
-                               checkNan( Number(
-                                  lcData?.tolerancePercentage
-                                    ? lcData?.tolerancePercentage
-                                    : lcModuleData?.order?.tolerance,
-                                )) +
-                                ` %`
+                              checkNan(Number(
+                                lcData?.tolerancePercentage
+                                  ? lcData?.tolerancePercentage
+                                  : lcModuleData?.order?.tolerance,
+                              )) +
+                              ` %`
                           }
                           // value={addPrefixOrSuffix(
                           //   lcData?.tolerancePercentage,
@@ -475,7 +475,7 @@ function Index({
                                 evt.preventDefault()
                               }
                               disabled={
-                                lcData?.atSight == 'AT SIGHT' ||lcData?.atSight == undefined ? true : false
+                                lcData?.atSight == 'AT SIGHT' || lcData?.atSight == undefined ? true : false
                               }
                               name="numberOfDays"
                               value={lcData?.numberOfDays}
@@ -537,14 +537,14 @@ function Index({
                               lcData?.partialShipment
                                 ? lcData?.partialShipment
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.partShipmentAllowed
+                                  ?.transactionDetails?.partShipmentAllowed
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>
                               Select an option
                             </option>
-                            
+
                             <option value="Yes">Allowed</option>
                             <option value="No">Not Allowed</option>
                             <option value="No">Conditional</option>
@@ -608,7 +608,7 @@ function Index({
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            (44A) Place of taking in Charge 
+                            (44A) Place of taking in Charge
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
@@ -629,7 +629,7 @@ function Index({
                               lcData?.portOfLoading
                                 ? lcData?.portOfLoading
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.loadPort
+                                  ?.transactionDetails?.loadPort
                             }
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
@@ -654,7 +654,7 @@ function Index({
                               lcData?.portOfDischarge
                                 ? lcData.portOfDischarge
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.portOfDischarge
+                                  ?.transactionDetails?.portOfDischarge
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -711,9 +711,9 @@ function Index({
                         <label
                           className={`${styles.label_heading} label_heading`}
                         >
-                          
+
                           (45A) Description Of The Goods
-                           <strong className="text-danger">*</strong>
+                          <strong className="text-danger">*</strong>
                         </label>
                       </Col>
                     </Row>
@@ -738,12 +738,12 @@ function Index({
                         value={currentComment}
                       />
                       <div className="d-flex justify-content-between align-items-center">
-                         <img
-                        className="img-fluid ml-4"
-                        src="/static/add-btn.svg"
-                        alt="add button"
-                        onClick={() => addDocArr()}
-                      />
+                        <img
+                          className="img-fluid ml-4"
+                          src="/static/add-btn.svg"
+                          alt="add button"
+                          onClick={() => addDocArr()}
+                        />
                       </div>
                     </div>
                     {lcDocuments?.map((comment, index) => (
@@ -757,35 +757,35 @@ function Index({
                         <Form.Control
                           className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
-                           value={comment.value}
-                           rows={3}
-                           readOnly={!comment.action}
-                           onChange={(e) => {
+                          value={comment.value}
+                          rows={3}
+                          readOnly={!comment.action}
+                          onChange={(e) => {
                             lcDocEdit(e.target.value, index)
                           }}
                         />
-                       <div className="mt-3">
-                          {comment.action?
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.image} ml-4`}
-                            alt="edit"
-                            onClick={(e) => {
-                              editLcDocComments(!comment.action,index)
-                            }}
-                          />
-                          :
-                          <img
-                            src="/static/mode_edit.svg"
-                            className={`${styles.image} ml-4`}
-                            alt="edit"
-                            onClick={(e) => {
-                              editLcDocComments(!comment.action,index)
-                            }}
-                          />
-                          
+                        <div className="mt-3">
+                          {comment.action ?
+                            <img
+                              src="/static/save-3.svg"
+                              className={`${styles.image} ml-4`}
+                              alt="edit"
+                              onClick={(e) => {
+                                editLcDocComments(!comment.action, index)
+                              }}
+                            />
+                            :
+                            <img
+                              src="/static/mode_edit.svg"
+                              className={`${styles.image} ml-4`}
+                              alt="edit"
+                              onClick={(e) => {
+                                editLcDocComments(!comment.action, index)
+                              }}
+                            />
+
                           }
-                          
+
 
                           <img
                             src="/static/delete 2.svg"
@@ -817,14 +817,14 @@ function Index({
                         onChange={(e) => addConditionComment(e.target.value)}
                         value={currentComment2}
                       />
-                     <div className="d-flex justify-content-between align-items-center">
-                       <img
-                        className="img-fluid ml-4"
-                        src="/static/add-btn.svg"
-                        alt="add button"
-                        onClick={() => addConditionArr()}
-                      />
-                     </div>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <img
+                          className="img-fluid ml-4"
+                          src="/static/add-btn.svg"
+                          alt="add button"
+                          onClick={() => addConditionArr()}
+                        />
+                      </div>
                     </div>
                     {lcComments?.map((comment, index) => (
                       <div
@@ -845,27 +845,27 @@ function Index({
                           }}
                         />
                         <div className="mt-3">
-                          {comment.action?
-                          <img
-                            src="/static/save-3.svg"
-                            className={`${styles.image} ml-4`}
-                            alt="edit"
-                            onClick={(e) => {
-                              editLcComments(!comment.action,index)
-                            }}
-                          />
-                          :
-                          <img
-                            src="/static/mode_edit.svg"
-                            className={`${styles.image} ml-4`}
-                            alt="edit"
-                            onClick={(e) => {
-                              editLcComments(!comment.action,index)
-                            }}
-                          />
-                          
+                          {comment.action ?
+                            <img
+                              src="/static/save-3.svg"
+                              className={`${styles.image} ml-4`}
+                              alt="edit"
+                              onClick={(e) => {
+                                editLcComments(!comment.action, index)
+                              }}
+                            />
+                            :
+                            <img
+                              src="/static/mode_edit.svg"
+                              className={`${styles.image} ml-4`}
+                              alt="edit"
+                              onClick={(e) => {
+                                editLcComments(!comment.action, index)
+                              }}
+                            />
+
                           }
-                          
+
 
                           <img
                             src="/static/delete 2.svg"
@@ -968,37 +968,37 @@ function Index({
                             </label>
                           </Col>
                           <Col className="mb-4 mt-4" md={12}>
-                             <div className="d-flex">
-                          <select
-                            name="confirmationInstructions"
-                            onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value)
-                            }}
-                            value={lcData?.confirmationInstructions}
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            <option value="May Add">May Add </option>
-                            <option value="Confirm">Confirm</option>
-                          
-                            <option value="Without">Without</option>
-                            <option value="May add at beneficiary cost">May add at beneficiary cost</option>
-                          </select>
+                            <div className="d-flex">
+                              <select
+                                name="confirmationInstructions"
+                                onChange={(e) => {
+                                  saveLcData(e.target.name, e.target.value)
+                                }}
+                                value={lcData?.confirmationInstructions}
+                                className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                              >
+                                <option selected disabled>
+                                  Select an option
+                                </option>
+                                <option value="May Add">May Add </option>
+                                <option value="Confirm">Confirm</option>
 
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            (49) Confirmation Instructions
-                            <strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
+                                <option value="Without">Without</option>
+                                <option value="May add at beneficiary cost">May add at beneficiary cost</option>
+                              </select>
+
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                (49) Confirmation Instructions
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                             {/* <textarea
                               className={`${styles.input_field} input form-control`}
                               style={{ height: '103px' }}

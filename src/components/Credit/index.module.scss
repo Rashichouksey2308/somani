@@ -2,25 +2,34 @@
 .main {
   margin-bottom: 26px;
   border-radius: 6px !important;
+  @include respond(lg-desktop) {
+      margin-bottom: 20px;
+  }
   .head_container {
     min-height: 80px;
     cursor: pointer;
     border-bottom: none;
     padding: 0 35px !important;
+    @include respond(lg-desktop) {
+        min-height: 60px;
+    }
     .heading {
       font-size: 22px;
       color: #3687e8;
       font-weight: bold;
       font-size: 22px;
       line-height: 27px;
-      @include respond(md-desktop) {
-        font-size: 20px;
+      @include respond(lg-desktop) {
+          font-size: 20px; 
+          line-height: 1.3;
       }
       @include respond(sm-desktop) {
-        font-size: 18px;
+          font-size: 18px; 
+          margin: 20px 0;
       }
       @include respond(phone) {
-        font-size: 15px;
+          font-size: 16px;
+          margin: 13px 0;
       }
     }
     span {
@@ -28,11 +37,11 @@
       color: #3687e8;
       font-weight: normal;
       line-height: 20px;
-      @include respond(md-desktop) {
-        font-size: 42px;
+      @include respond(lg-desktop) {
+          font-size: 35px;
       }
       @include respond(sm-desktop) {
-        font-size: 35px;
+        font-size: 32px;
       }
       @include respond(phone) {
         font-size: 30px;
@@ -119,6 +128,12 @@
           position: absolute;
           transform: translateY(-50%);
         }
+        @include respond(lg-desktop) {
+            top: 15px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
+        }
         // @include respond(sm-desktop) {
         //   font-size: 16px;
         // }
@@ -143,7 +158,15 @@
         &:focus {
           & + label {
             transform: translateY(-30px);
+            @include respond(lg-desktop) {
+              transform: translateY(-22px);
+            }
           }
+        }
+        @include respond(lg-desktop) {
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
         }
         // @include respond(md-desktop) {
         //   font-size: 18px;
@@ -171,6 +194,10 @@
           border-radius: 4px 0 0 4px;
           border-top-right-radius: 0px;
           border-bottom-right-radius: 0px;
+          @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
+          }
         }
       }
       .percent {
@@ -195,6 +222,9 @@
       .label_heading {
         left: 90px;
         transform: translate(-61px, -30px);
+        @include respond(lg-desktop) {
+          transform: translate(-61px, -22px);
+        }
       }
       .input_field {
         border-top-left-radius: 0px;
@@ -202,6 +232,9 @@
         &:focus {
           & + label {
             transform: translate(-61px, -30px);
+            @include respond(lg-desktop) {
+              transform: translate(-61px, -22px);
+            }
           }
         }
       }
@@ -349,9 +382,10 @@
                 padding-right: 15px;
               }
             }
-            @include respond(md-desktop) {
-              font-size: 14px;
-              line-height: 1.2;
+            @include respond(lg-desktop) {
+                height: 50px;
+                font-size: 14px;
+                line-height: 1.2;
             }
             @include respond(sm-desktop) {
               font-size: 13px;
@@ -382,13 +416,10 @@
                   padding-right: 15px;
                 }
               }
-              @include respond(md-desktop) {
-                font-size: 17px;
-                padding: 18px 10px;
-              }
-              @include respond(sm-desktop) {
-                font-size: 15px;
-                padding: 15px 10px;
+              @include respond(lg-desktop) {
+                  font-size: 15px;
+                  line-height: 1.3;
+                  padding: 17px 10px;
               }
               @include respond(phone) {
                 font-size: 14px;

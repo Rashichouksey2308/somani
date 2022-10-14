@@ -7,51 +7,64 @@ import {
   GetDocuments,
   AddingDocument,
   DeleteDocument,
+  changeModuleDocument,
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import moment from 'moment'
+import TermsheetPopUp from '../TermsheetPopUp'
 import { toast } from 'react-toastify'
 
 const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch()
 
-  // console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
-  // console.log(documentsFetched, 'documentsFetched')
 
   const [editInput, setEditInput] = useState(true)
+
   const [manualDocModule, setManualDocModule] = useState(true)
+
   const [newDoc, setNewDoc] = useState({
     document: null,
     order: orderid,
     name: '',
     module: module,
   })
+
+  const [open, setOpen] = useState(false)
+
+  const openbar = () => {
+    setOpen(true)
+  }
+
+  const close = () => {
+    setOpen(false)
+  }
+
   const [moduleSelected, setModuleSelected] = useState(module)
 
   const [filteredDoc, setFilteredDoc] = useState([])
-  const [currentDoc, setCurrentDoc] = useState('')
-  console.log(filteredDoc, 'newDOc')
+
+  const [currentDoc, setCurrentDoc] = useState(null)
+
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase()
     })
-    // console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
+
     setFilteredDoc(tempArray)
     dispatch(GetDocuments(`?order=${orderid}`))
   }, [dispatch, orderid, moduleSelected])
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.filter((doc) => {
+    const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
       return doc.module === moduleSelected
-    })
-    // console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
+    }).map(obj => ({ ...obj, moving: false }))
+
+    // console.log(tempArray, 'dltDoc2')
     setFilteredDoc(tempArray)
   }, [orderid, documentsFetched])
-
-  // console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -62,9 +75,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }
   const DocDlt = (index) => {
     let tempArray = filteredDoc
-    tempArray.pop(index)
+    tempArray.splice(index, 1)
+    console.log(tempArray, index, 'dltDoc')
     setFilteredDoc(tempArray)
   }
+  // console.log(filteredDoc, 'dltDoc1')
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
@@ -76,8 +91,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }
 
-  console.log(newDoc, 'uploadother')
-
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
@@ -86,7 +99,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       module: module,
     })
   }
-
+  const [openDropdown, setDropdown] = useState(false)
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
@@ -107,7 +120,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
       }
     } else {
       const fd = new FormData()
-      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
       fd.append('document', newDoc.document)
       fd.append('module', newDoc.module)
       fd.append('order', orderid)
@@ -124,16 +136,27 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }
   const [filterValue, setFilterValue] = useState('')
+
   const filterDocBySearch = (val) => {
+    if (!val.length >= 3) return
     const tempArray = documentsFetched?.documents?.filter((doc) => {
-      // console.log(doc.name, val, 'ser')
-      if (doc.name.toLowerCase().includes(val)) {
+      if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
         return doc
       }
     })
     setFilteredDoc(tempArray)
   }
-  // console.log(filterValue, 'filterValue')
+  const handleDocModuleChange = (index) => {
+    let tempArray = [...filteredDoc]
+    tempArray[index].moving = true
+    setFilteredDoc(tempArray)
+  }
+
+  const handleShareDoc = (doc) => {
+    console.log(doc, 'handleShareDoc')
+  }
+
+
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
@@ -181,8 +204,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         alt="Close"
                       />{' '}
                     </div>
-                    // </div>
                   ) : (
+                    // </div>
                     <p className={styles.drop_para}>
                       Drop Files here or
                       <br />
@@ -213,7 +236,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}
-                          <option value='' disabled>
+                          <option value="" disabled>
                             Select an option
                           </option>
                           <option value="Certificate of Incorporation">
@@ -238,7 +261,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'Loading-Transit-Unloading' ? (
                         <>
-                          <option value='' disabled>
+                          <option value="" disabled>
                             Select an option
                           </option>
                           <option value="Certificate Of Origin">
@@ -282,7 +305,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'Agreements & Insurance & LC & Opening' ? (
                         <>
-                          <option value='' disabled>
+                          <option value="" disabled>
                             Select an option
                           </option>
 
@@ -311,7 +334,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'Custom Clearance And Ware housing' ? (
                         <>
-                          <option value='' disabled>
+                          <option value="" disabled>
                             Select an option
                           </option>
 
@@ -354,7 +377,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : (
                         <>
-                          <option value='' disabled>
+                          <option value="" disabled>
                             Select an option
                           </option>
 
@@ -410,7 +433,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 onChange={(e) => setModuleSelected(e.target.value)}
                 className={`${styles.dropDown} ${styles.customSelect} input form-control`}
               >
-                <option selected disabled>Select an option</option>
+                <option selected disabled>
+                  Select an option
+                </option>
                 <option value="LeadOnboarding&OrderApproval">
                   Lead Onboarding &amp; Order Approval
                 </option>
@@ -551,20 +576,72 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 src="/static/upload.svg"
                                 className="mr-3"
                                 alt="Share"
-                                onClick={() => {
-                                  dispatch(
-                                    ViewDocument({
-                                      path: document.path,
-                                      orderId: documentsFetched._id,
-                                    }),
-                                  )
+                                onClick={(document) => {
+                                  handleShareDoc(document)
+                                  openbar()
                                 }}
                               />
-                              <img
-                                src="/static/drive_file.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                alt="Share"
-                              />
+
+                              {!document.moving ?
+                                (
+                                  <img
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    alt="Share"
+                                    onClick={() => {
+                                      handleDocModuleChange(index)
+                                    }}
+                                  />
+                                )
+                                :
+                                (
+                                  <div className='d-inline-block'>
+                                    <div className="d-flex align-items-center">
+                                      <select
+                                       value={moduleSelected}
+
+                                        onChange={(e) => {
+
+                                          dispatch(
+                                            changeModuleDocument({
+                                              orderDocumentId: documentsFetched._id,
+                                              name: document.name,
+                                              module: e.target.value
+                                            }),
+                                          )
+                                          DocDlt(index)
+                                        }
+                                        }
+                                        className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                        style={{ width: '150px', paddingRight: '30px' }}    >
+
+                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+                                          Lead Onboarding &amp; Order Approval
+                                        </option>
+                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                          Agreements, Insurance &amp; LC Opening
+                                        </option>
+                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
+                                          Loading-Transit-Unloading
+                                        </option>
+                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                          Custom Clearance And Warehousing
+                                        </option>
+                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                          Payments Invoicing & Delivery
+                                        </option>
+                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </div>
+                                  </div>
+                                )
+
+                              }
                             </td>
                           </tr>
                         )
@@ -576,6 +653,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
           </div>
         </div>
       </div>
+      {open ? <TermsheetPopUp close={close} open={open} istermsheet /> : null}
     </div>
   )
 }

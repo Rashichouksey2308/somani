@@ -148,12 +148,12 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
    
-      <div className={`${styles.content} card`}>
+      <div className={`${styles.content} card border_color shadow-none`}>
          
           
                                         
            {assignmentSupplier(data)}
-           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+           <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`} >
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
                                                
@@ -183,77 +183,77 @@ const assignmentSupplier=(data)=>{
        <p className="text_sales">The title in Goods shall pass on to Seller upon receipt of payment by Supplier from the Seller and the risks associated therewith shall pass on to Buyer as per Incoterms 2020. Buyer shall be solely responsible for performance of the obligations enumerated in the sales contract mentioned herein above. The supplier shall have no claim whatsoever.
 </p>
      <p className="text-center text_sales"> <strong>Schedule I</strong></p>
-     <div className={`${styles.inputsContainer}`}>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
+     <div className={`${styles.inputsContainer} border_black`}>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Place of execution of  Assignment Letter</Col>
         <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
         <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Seller</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Seller</Col>
         <Col md={7 } className={styles.right}>{data.seller}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Seller</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Seller</Col>
         <Col md={7 } className={styles.right}>{data.sellerAddress}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Buyer</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Buyer</Col>
         <Col md={7 } className={styles.right}>{data.buyer}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Buyer</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Buyer</Col>
         <Col md={7 } className={styles.right}>{data.buyerAddress}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Name of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplier}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Address of Supplier</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Address of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplierAddress}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Description of Goods</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Description of Goods</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}>{data.quan} MT</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods in MT</Col>
+        <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Date of execution of Assignment Letter</Col>
         <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Price of Goods / MT</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Price of Goods / MT</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}>{data.toleranceLevel}</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Tolerance levels</Col>
+        <Col md={7 } className={styles.right}>{data.toleranceLevel?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Load Port</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>
         <Col md={7 } className={styles.right}>{data.lordPort}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Discharge Port</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Discharge Port</Col>
         <Col md={7 } className={styles.right}>{data.dischargePort}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Inco-Terms</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Inco-Terms</Col>
         <Col md={7 } className={styles.right}>{data.incoTerms}</Col>
       </Row>
-      <Row className={`${styles.row}`}>
-        <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
+      <Row className={`${styles.row} border_black`}>
+        <Col md={5} className={`${styles.left} border_black`}>Month of loading of Cargo</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
-        <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
+        <Col md={5} className={`${styles.left} border_black`}>Date of Sales Contract between Supplier and Buyer</Col>
         <Col md={7 } className={styles.right}>{''}</Col>
       </Row>
       

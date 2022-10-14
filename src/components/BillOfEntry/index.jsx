@@ -29,7 +29,7 @@ export default function Index({
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
-const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
+  const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
@@ -72,7 +72,7 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
     document2: null,
     document3: null,
   })
- console.log(billOfEntryData,"billOfEntryData")
+  console.log(billOfEntryData, 'billOfEntryData')
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
@@ -138,7 +138,6 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
   const [pfCheckBox, setPfCheckBox] = useState(true)
 
   const handlePfCheckBox = (e) => {
-  
     saveBillOfEntryData('pdBond', !pfCheckBox)
     setPfCheckBox(!pfCheckBox)
   }
@@ -331,16 +330,15 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if  (billOfEntryData.document2 === null) {
-        let toastMessage = 'please upload Duty Paid Challan '
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        isOk = false
-      
-    }  
-    
-    console.log(billOfEntryData.pdBond,"billOfEntryData.pdBond",pfCheckBox)
+    } else if (billOfEntryData.document2 === null) {
+      let toastMessage = 'please upload Duty Paid Challan '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      isOk = false
+    }
+
+    console.log(billOfEntryData.pdBond, 'billOfEntryData.pdBond', pfCheckBox)
     if (billOfEntryData.pdBond) {
       if (billOfEntryData.document3 === null) {
         let toastMessage = 'please upload PD Bond '
@@ -587,7 +585,7 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                       <input
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
-                        checked={billOfEntryData.pdBond ?"checked":""}
+                        checked={billOfEntryData.pdBond ? 'checked' : ''}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -691,10 +689,12 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                    })}{' '}
-                    {/* {customData?.order?.unitOfQuantity?.toUpperCase()} */}
+                    {customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity?.toLocaleString(
+                      'en-IN',
+                      {
+                        maximumFractionDigits: 2,
+                      },
+                    )}{' '}
                   </span>
                 </div>
                 <div
@@ -887,18 +887,22 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                     onFocus={(e) => {
-                              setIsFieldInFocus2(true),
-                                e.target.type = 'number'
-                            }}
-                            onBlur={(e) => {
-                              setIsFieldInFocus2(false),
-                                e.target.type = 'text'
-                            }}
+                    onFocus={(e) => {
+                      setIsFieldInFocus2(true), (e.target.type = 'number')
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus2(false), (e.target.type = 'text')
+                    }}
                     // onKeyPress={preventMinus}
-                      value={isFieldInFocus2 ?
-                              billOfEntryData?.boeDetails?.invoiceQuantity :
-                              billOfEntryData?.boeDetails?.invoiceQuantity==0? "": Number(billOfEntryData?.boeDetails?.invoiceQuantity)?.toLocaleString("en-IN")+ ` MT`}
+                    value={
+                      isFieldInFocus2
+                        ? billOfEntryData?.boeDetails?.invoiceQuantity
+                        : billOfEntryData?.boeDetails?.invoiceQuantity == 0
+                        ? ''
+                        : Number(
+                            billOfEntryData?.boeDetails?.invoiceQuantity,
+                          )?.toLocaleString('en-IN') + ` MT`
+                    }
                     // value={addPrefixOrSuffix(
                     //   billOfEntryData?.boeDetails?.invoiceQuantity,
                     //   'MT',
@@ -950,12 +954,14 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     type="text"
                     required
                     value={
-                       billOfEntryData?.boeDetails?.conversionRate== "INR 0"?"":
-                      addPrefixOrSuffix(
-                      billOfEntryData?.boeDetails?.conversionRate,
-                      'INR',
-                      'front',
-                    )}
+                      billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
+                        ? ''
+                        : addPrefixOrSuffix(
+                            billOfEntryData?.boeDetails?.conversionRate,
+                            'INR',
+                            'front',
+                          )
+                    }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
                       conversionRateChange(e.target.name, e.target.value)
@@ -977,12 +983,10 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                     disabled
                     required
                     value={
-                      accessibleValueCalc=="INR 0"?"":
-                      addPrefixOrSuffix(
-                      accessibleValueCalc,
-                      'INR',
-                      'front',
-                    )}
+                      accessibleValueCalc == 'INR 0'
+                        ? ''
+                        : addPrefixOrSuffix(accessibleValueCalc, 'INR', 'front')
+                    }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1379,7 +1383,13 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{billOfEntryData.document1 === null ? '' : moment(billOfEntryData.document1.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>
+                        {billOfEntryData.document1 === null
+                          ? ''
+                          : moment(billOfEntryData.document1.date).format(
+                              'DD-MM-YYYY, h:mm a',
+                            )}
+                      </td>
 
                       <td>
                         {billOfEntryData.document1 === null ? (
@@ -1425,7 +1435,13 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{billOfEntryData.document2 === null ? '' : moment(billOfEntryData.document2.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>
+                        {billOfEntryData.document2 === null
+                          ? ''
+                          : moment(billOfEntryData.document2.date).format(
+                              'DD-MM-YYYY, h:mm a',
+                            )}
+                      </td>
 
                       <td>
                         {billOfEntryData?.document2 === null ? (
@@ -1472,7 +1488,13 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>{billOfEntryData.document3 === null ? '' : moment(billOfEntryData.document3.date).format('DD-MM-YYYY, h:mm a')}</td>
+                        <td className={styles.doc_row}>
+                          {billOfEntryData.document3 === null
+                            ? ''
+                            : moment(billOfEntryData.document3.date).format(
+                                'DD-MM-YYYY, h:mm a',
+                              )}
+                        </td>
                         <td>
                           {billOfEntryData.document3 === null ? (
                             <>

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import _get from 'lodash/get'
+import { addPrefixSymbol } from 'utils/helper'
 
 
 const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditions, handleSave, onChangeInsurance, onChangeDutyAndTaxes, onChangeOther, onChangeLcOpening, onChangeCha }) => {
@@ -142,7 +143,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
 
                                         <div className='d-flex align-items-center'>
                                             <input id="lcOpeningCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges} onChange={onChangeLcOpening} />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" className={`${styles.igpl_para} ${styles.input} input`} placeholder={`${'USD'} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500').toLocaleString('en-In')}`} />)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" style={{padding:'0px' , width:'auto'}} className={`${styles.igpl_para} ${styles.input} input`} placeholder={`${addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase())} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500').toLocaleString('en-In')}`} />)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="lcAmendmentCost" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost} onChange={onChangeLcOpening} />

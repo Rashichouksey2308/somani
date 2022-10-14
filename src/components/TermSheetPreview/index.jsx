@@ -6,7 +6,7 @@ import TermsheetPopUp from '../TermsheetPopUp'
 import { Form } from 'react-bootstrap'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetTermsheet,sharingTermsheetEmail } from 'redux/buyerProfile/action'
+import { GetTermsheet, sharingTermsheetEmail } from 'redux/buyerProfile/action'
 import {
   setPageName,
   setDynamicName,
@@ -285,7 +285,7 @@ function Index() {
     //    10
 
     //  ];
-  
+
     const doc = new jsPDF('p', 'pt', [1500, 1600])
     doc.html(
       ReactDOMServer.renderToString(
@@ -299,9 +299,9 @@ function Index() {
         autoPaging: 'text',
       },
     )
-    console.log(doc,"doc")
+    console.log(doc, "doc")
   }
-    const exportPDF2 = () => {
+  const exportPDF2 = () => {
     //  let margins = [
     //    10,
     //    10,
@@ -309,40 +309,40 @@ function Index() {
     //    10
 
     //  ];
-  
+
     const doc = new jsPDF('p', 'pt', [1500, 1600])
-     doc.addFileToVFS("Termsheet.pdf", toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions),);
-     return  doc.getFileFromVFS("Termsheet.pdf");
+    doc.addFileToVFS("Termsheet.pdf", toPrintPdf2(termsheet, termsheetDetails, additionalComments, otherTermConditions),);
+    return doc.getFileFromVFS("Termsheet.pdf");
     // doc.html(
     //   ReactDOMServer.renderToString(
     //     toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),
     //   ),
     //   {
     //     callback: function (doc) {
-        
+
     //     },
     //     // margin:margins,
     //     autoPaging: 'text',
     //   },
     // )
-    console.log(doc,"doc")
+    console.log(doc, "doc")
   }
-  const shareEmail=async(email)=> {
-   console.log(email,"setEmail")
-   let doc= exportPDF2()
-   console.log(doc,"doc")
-     let formData = new FormData()
-    formData.append('document1',"" )
-    formData.append('data',{
-      "subject":"this is subject",
-      "text":"this is text",
-      "receiver":email
-      })
-  
+  const shareEmail = async (email) => {
+    console.log(email, "setEmail")
+    let doc = exportPDF2()
+    console.log(doc, "doc")
+    let formData = new FormData()
+    formData.append('document1', "")
+    formData.append('data', {
+      "subject": "this is subject",
+      "text": "this is text",
+      "receiver": email
+    })
 
- 
-  await dispatch(sharingTermsheetEmail(formData))
-     setOpen(false)
+
+
+    await dispatch(sharingTermsheetEmail(formData))
+    setOpen(false)
   }
   return (
     <>
@@ -601,7 +601,7 @@ function Index() {
                  ${(termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                       ? termsheetDetails?.paymentDueDate
                         ?.daysFromVesselDischargeDate
-                      : termsheetDetails?.paymentDueDate?.daysFromBlDate ) ?? ''
+                      : termsheetDetails?.paymentDueDate?.daysFromBlDate) ?? ''
                     } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate ?? ''
                     }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                   `}</li>
@@ -1481,7 +1481,8 @@ function Index() {
 export default Index
 
 const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
-  console.log(termsheetDetails, 'ldwfsdf')
+  console.log('Check PDFFF otherTermConditions::::', otherTermConditions)
+  console.log('Check PDFFF::::', termsheetDetails, 'ldwfsdf')
   return (
     <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -1755,7 +1756,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                          {termsheetDetails?.commodityDetails?.orderCurrency}{" "} {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>
@@ -4428,7 +4429,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                   >
                                     IGST with CESS, if applicable
                                   </label>
-                                </li>
+                                </li>                               
                                 <li
                                   style={{
                                     marginBottom: '24px',
@@ -4481,15 +4482,14 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                       float: 'left',
                                       height: '30px'
                                     }}
+                                    checked={
+                                      otherTermConditions?.dutyAndTaxes?.taxCollectedatSource
+                                    }
                                     id="taxCharges"
                                     type="checkbox"
                                   />
                                   <label
                                     htmlFor="taxCharges"
-                                    checked={
-                                      otherTermConditions?.dutyAndTaxes
-                                        ?.taxCollectedatSource
-                                    }
                                     style={{
                                       fontSize: '20px',
                                       display: 'table-cell',
@@ -4502,6 +4502,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                     Tax Collected at Source ( if applicable )
                                   </label>
                                 </li>
+
                               </ul>
                             </td>
                           </tr>
@@ -4540,7 +4541,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
 const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermConditions) => {
   console.log(termsheetDetails, 'ldwfsdf')
   return (
-   `  <>
+    `  <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
@@ -4812,7 +4813,7 @@ const toPrintPdf2 = (data, termsheetDetails, additionalComments, otherTermCondit
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                        {termsheetDetails?.commodityDetails?.orderCurrency}{" "}  {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>

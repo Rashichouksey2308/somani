@@ -40,7 +40,6 @@ const Index = () => {
     let Id = sessionStorage.getItem('termID')
 
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
-
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal =
@@ -57,7 +56,8 @@ const Index = () => {
       dispatch(
         setDynamicOrder(
           sheetData?.order?.orderId
-            ? sheetData?.order?.orderId : sheetData?.order?.applicationId
+            ? sheetData?.order?.orderId
+            : sheetData?.order?.applicationId,
         ),
       )
       termsheet &&
@@ -370,7 +370,7 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment = () => { }
+  const changePayment = () => {}
   const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = { ...termsheetDetails }
@@ -616,7 +616,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.portOfDischarge ==
-      'Select an option' ||
+        'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -768,11 +768,13 @@ const Index = () => {
     // console.log(termsheetDetails, 'updatedtermsheet')
     let code = await dispatch(updateTermsheet(UpdatedTermsheet))
     if (code == 200) {
-       sessionStorage.setItem('marginId', _get(termsheet,"data[0].order._id",""))
-       dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-       router.push(`/margin-money/id`)
+      sessionStorage.setItem(
+        'marginId',
+        _get(termsheet, 'data[0].order._id', ''),
+      )
+      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+      router.push(`/margin-money/id`)
     }
-
   }
 
   const handleChange = (name, value) => {
@@ -781,8 +783,18 @@ const Index = () => {
   }
 
   const handlePreview = () => {
-    // dispatch(GetTermsheet({companyId: sheet.company._id}))
-    router.push('/termsheet-preview')
+    const commercialTerms = _get(termsheet, 'data[0].commercials', false)
+    const transactional = _get(termsheet, 'data[0].transactionDetails', false)
+    const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
+    if (commercialTerms || transactional || paymentDueDate) {
+      // dispatch(GetTermsheet({companyId: sheet.company._id}))
+      router.push('/termsheet-preview')
+    } else {
+      let toastMessage = 'please save termsheet First'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   }
 
   const addCommentHandler = (commentType, comment) => {
@@ -804,134 +816,156 @@ const Index = () => {
 
   return (
     <>
-      {gettingTermsheet ? (<Loader />) :
-        <>  <div className="container-fluid px-0">
-          <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
-            <div className={`${styles.head_header} align-items-center`}>
-              <img
-                className={`${styles.arrow} img-fluid image_arrow mr-2`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow"
-                onClick={() => Router.push('/termsheet/order-list')}
-              />
-              <h1 className={`${styles.heading} heading`}>
-                {_get(termsheet, 'data[0].company.companyName', '')}
-              </h1>
-            </div>
-            <div className="">
-              {termsheet &&
-                termsheet?.data?.map((sheet, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.card_body} border_color border card-body container-fluid`}
-                  >
-                    <div className="row">
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Customer ID
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          {sheet?.company?.customerId}
-                        </p>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Buyer Name
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          {sheet?.company?.companyName}
-                        </p>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Created On
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          {moment(
-                            (sheet?.company?.createdAt).slice(0, 10),
-                            'YYYY-MM-DD',
-                            true,
-                          ).format('DD-MM-YYYY')}
-                        </p>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Last Modified
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          {moment(
-                            (sheet?.company?.updatedAt).slice(0, 10),
-                            'YYYY-MM-DD',
-                            true,
-                          ).format('DD-MM-YYYY')}
-                        </p>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Approved Date
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          {sheet?.order?.cam?.approvedAt
-                            ? moment(
-                              sheet?.order?.cam?.approvedAt?.slice(0, 10),
+      {gettingTermsheet ? (
+        <Loader />
+      ) : (
+        <>
+          {' '}
+          <div className="container-fluid px-0">
+            <div
+              className={`${styles.card} tabHeader border-bottom-0 shadow-none`}
+            >
+              <div className={`${styles.head_header} align-items-center`}>
+                <img
+                  className={`${styles.arrow} img-fluid image_arrow mr-2`}
+                  src="/static/keyboard_arrow_right-3.svg"
+                  alt="arrow"
+                  onClick={() => Router.push('/termsheet/order-list')}
+                />
+                <h1 className={`${styles.heading} heading`}>
+                  {_get(termsheet, 'data[0].company.companyName', '')}
+                </h1>
+              </div>
+              <div className="">
+                {termsheet &&
+                  termsheet?.data?.map((sheet, index) => (
+                    <div
+                      key={index}
+                      className={`${styles.card_body} border_color border card-body container-fluid`}
+                    >
+                      <div className="row">
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Customer ID
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            {sheet?.company?.customerId
+                              ? sheet.company.customerId
+                              : sheet.company.temporaryCustomerId}
+                          </p>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Buyer Name
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            {sheet?.company?.companyName}
+                          </p>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Created On
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            {moment(
+                              (sheet?.company?.createdAt).slice(0, 10),
                               'YYYY-MM-DD',
                               true,
-                            ).format('DD-MM-YYYY')
-                            : ''}
-                        </p>
-                      </div>
-                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                        <h3 className={`${styles.label} label_heading`}>
-                          Status{' '}
-                        </h3>
-                        <p className={`${styles.value} accordion_Text`}>
-                          <span className={`${styles.status}`}></span>
-                          {sheet?.order?.cam?.status}
-                        </p>
+                            ).format('DD-MM-YYYY')}
+                          </p>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Last Modified
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            {moment(
+                              (sheet?.company?.updatedAt).slice(0, 10),
+                              'YYYY-MM-DD',
+                              true,
+                            ).format('DD-MM-YYYY')}
+                          </p>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Approved Date
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            {sheet?.order?.cam?.approvedAt
+                              ? moment(
+                                  sheet?.order?.cam?.approvedAt?.slice(0, 10),
+                                  'YYYY-MM-DD',
+                                  true,
+                                ).format('DD-MM-YYYY')
+                              : ''}
+                          </p>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-md-2 col-sm-4`}
+                        >
+                          <h3 className={`${styles.label} label_heading`}>
+                            Status{' '}
+                          </h3>
+                          <p className={`${styles.value} accordion_Text`}>
+                            <span className={`${styles.status}`}></span>
+                            {sheet?.order?.cam?.status}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              <TermDetails
-                onChangeTransactionDetails={onChangeTransactionDetails}
-                onChangeCommodityDetails={onChangeCommodityDetails}
-                onChangeCommercialTerms={onChangeCommercialTerms}
-                onChangePaymentDueDate={onChangePaymentDueDate}
-                termsheetDetails={termsheetDetails}
-                handleSave={handleSave}
-                termsheet={termsheet}
-                newLcVal={newLcVal}
-                changePayment={changePayment}
-              />
-              <AdditionalComment
-                setAdditionalComments={setAdditionalComments}
-                additionalComments={additionalComments}
-                termsheetDetails={termsheetDetails}
-              />
-              <OtherTerms
-                onChangeDropDown={onChangeDropDown}
-                otherTermConditions={otherTermsAndConditions}
-                onChangeInsurance={onChangeInsurance}
-                onChangeDutyAndTaxes={onChangeDutyAndTaxes}
-                onChangeOther={onChangeOther}
-                onChangeLcOpening={onChangeLcOpening}
-                onChangeCha={onChangeCha}
-                termsheet={termsheet}
-                termsheetDetails={termsheetDetails}
-              />
-              <UploadOther
-                module="LeadOnboarding&OrderApproval"
-                orderid={OrdID}
-              />
+                  ))}
+                <TermDetails
+                  onChangeTransactionDetails={onChangeTransactionDetails}
+                  onChangeCommodityDetails={onChangeCommodityDetails}
+                  onChangeCommercialTerms={onChangeCommercialTerms}
+                  onChangePaymentDueDate={onChangePaymentDueDate}
+                  termsheetDetails={termsheetDetails}
+                  handleSave={handleSave}
+                  termsheet={termsheet}
+                  newLcVal={newLcVal}
+                  changePayment={changePayment}
+                />
+                <AdditionalComment
+                  setAdditionalComments={setAdditionalComments}
+                  additionalComments={additionalComments}
+                  termsheetDetails={termsheetDetails}
+                />
+                <OtherTerms
+                  onChangeDropDown={onChangeDropDown}
+                  otherTermConditions={otherTermsAndConditions}
+                  onChangeInsurance={onChangeInsurance}
+                  onChangeDutyAndTaxes={onChangeDutyAndTaxes}
+                  onChangeOther={onChangeOther}
+                  onChangeLcOpening={onChangeLcOpening}
+                  onChangeCha={onChangeCha}
+                  termsheet={termsheet}
+                  termsheetDetails={termsheetDetails}
+                />
+                <UploadOther
+                  module="LeadOnboarding&OrderApproval"
+                  orderid={OrdID}
+                />
+              </div>
             </div>
           </div>
-        </div>
           <ApproveBar
             handleReject={handleSave}
             handleApprove={handlePreview}
             button={'Save'}
             button2={'Preview'}
-          /></>}
+          />
+        </>
+      )}
     </>
   )
 }

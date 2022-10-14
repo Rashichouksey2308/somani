@@ -3,20 +3,35 @@
     box-shadow: 0 3px 6px #CAD0E2;
     border: 1px solid #D2D7E5;
     margin-bottom: 26px;
-    border-radius: 6px !important;    
+    border-radius: 6px !important;
+    @include respond(lg-desktop) {
+        margin-bottom: 20px;
+    }
     .head_container {
         cursor: pointer;
         min-height: 80px;
         padding: 0 35px !important;
         border-bottom: 2px solid #CAD6E6;
+        @include respond(lg-desktop) {
+            min-height: 60px;
+        }
         .heading{
             font-size: 22px;
             font-weight: bold;
             color: #3687E8;
             line-height: 27px;
             margin-bottom: 0;
+            @include respond(lg-desktop) {
+                font-size: 20px; 
+                line-height: 1.3;
+            }
+            @include respond(sm-desktop) {
+                font-size: 18px; 
+                margin: 20px 0;
+            }
             @include respond(phone) {
-                font-size: $font_size_mobile_accordion;                   
+                font-size: 16px;
+                margin: 13px 0;
             }
         }
         span {
@@ -24,6 +39,9 @@
             color: #3687e8;
             font-weight: normal;
             line-height: 20px;
+            @include respond(lg-desktop) {
+                font-size: 35px;
+            }
         }
     }
     .dashboard_form {
@@ -40,7 +58,7 @@
         }
         .igpl_para{
             border-radius: 4px;
-            padding: 5px 8px 5px 8px;
+           padding: 5px 8px 5px 8px;
             margin: 0 10px 0 10px;
             line-height: 30px;
             font-weight: bold;

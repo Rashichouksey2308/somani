@@ -73,6 +73,7 @@ export default {
   getDocuments: '/order/order-document',
   addDocuments: '/order/order-document',
   deleteDocument: '/order/order-document',
+  changeDocModule: '/order/document-module',
 
   //Update Cam Sheet
   updateCam: '/order/cam',
@@ -85,7 +86,10 @@ export default {
   uploadDocVessel: '/vessel/upload-doc',
 
   //getGstKarza
+
   getGstKarza: '/lead/refetch-gst-karza',
+
+  // getGstKarza: 'karza/send-gst-link',
 
   // Insurance
 

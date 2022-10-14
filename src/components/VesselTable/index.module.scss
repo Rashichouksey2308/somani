@@ -1,18 +1,27 @@
 @import '../styles/Core/config';
 .container_inner {
   margin: 28px;
-  margin-bottom: 70px;
+  margin-bottom: 68px;
+  @include respond(lg-desktop) {
+      margin: 20px;
+      margin-bottom: 60px;
+  }
   @include respond(sm-desktop) {
-    margin: 20px;
+      margin: 18px;
+      margin-bottom: 58px;
   }
   @include respond(phone) {
-    margin: 15px;
-    margin-bottom: 70px;
+      margin: 15px;
+      margin-bottom: 71px;
   }
   .filter {
     // margin: 15px 0 22px;
     min-height: 48px;
     margin: 0 0 27px 10px;
+    @include respond(lg-desktop) {
+        min-height: 40px;
+        margin-bottom: 20px;
+    }
     @include respond(sm-desktop) {
       display: block !important;
     }
@@ -22,8 +31,12 @@
       .arrow {
         width: 13px;
         height: 21px;
-        background: transparent;
         cursor: pointer;
+        background: transparent;
+        @include respond(lg-desktop) {
+          width: 10px;
+          height: auto;
+        }
       }
       .heading {
         font-size: 34px;
@@ -31,73 +44,214 @@
         line-height: 41px;
         margin: 0;
         padding-left: 18px;
-        @include respond(md-desktop) {
-          font-size: 28px;
+        text-transform: lowercase;
+        &:first-letter {
+            text-transform: uppercase;
+        }
+        &:first-line {
+            text-transform: capitalize;
+        }
+        @include respond(lg-desktop) {
+          font-size: 24px;
+          line-height: 1.4;
+          padding-left: 10px;
         }
         @include respond(sm-desktop) {
-          font-size: 26px;
+          font-size: 20px;
         }
         @include respond(phone) {
-          font-size: 24px;
+          font-size: 18px;
         }
       }
     }
     .search {
       width: 492px;
       position: relative;
-      margin-left: 20px;
+      // @include respond(md-desktop) {
+      //     width: 50%;
+      // }
+      @include respond(lg-desktop) {
+          width: 400px;
+      }
       @include respond(sm-desktop) {
-        width: 100%;
-        margin-bottom: 15px;
+          width: 100%;
+          margin-bottom: 15px;
       }
       .inputGroupPrepend {
-        top: 50%;
-        left: 31px;
-        z-index: 1;
-        position: absolute;
-        transform: translateY(-50%);
+          top: 50%;
+          left: 31px;
+          z-index: 1;
+          position: absolute;
+          transform: translateY(-50%);
+          @include respond(lg-desktop) {
+              left: 28px;
+          }
+          @include respond(md-desktop) {
+              left: 25px;
+          }
+          @include respond(sm-desktop) {
+              left: 20px;
+          }
+          img {
+              @include respond(lg-desktop) {
+                  height: 20px;
+              }
+              @include respond(md-desktop) {
+                  height: 18px;
+              }
+              @include respond(sm-desktop) {
+                  height: 16px;
+              }
+          }
       }
       .formControl {
-        font-size: 18px !important;
-        font-weight: 500 !important;
-        line-height: 23px !important;
-        height: 48px !important;
-        z-index: 0 !important;
-        position: relative !important;
-        box-shadow: none !important;
-        padding-left: 65px !important;
-        border-radius: 24px !important;
-        border: 2px solid #d2d7e5 !important;
+          font-size: 18px !important;
+          font-weight: 500 !important;
+          line-height: 23px !important;
+          height: 48px !important;
+          z-index: 0 !important;
+          position: relative !important;
+          box-shadow: none !important;
+          padding-left: 65px !important;
+          border-radius: 24px !important;
+          // border: 2px solid #d2d7e5 !important;
+          @include respond(lg-desktop) {
+              font-size: 16px !important;
+              line-height: 1.3 !important;
+              height: 40px !important;
+              padding-left: 55px !important;
+          }
+          @include respond(md-desktop) {
+              font-size: 15px !important;
+              padding-left: 50px !important;
+          }
+          @include respond(sm-desktop) {
+              font-size: 14px !important;
+              padding-left: 45px !important;
+          }
+      }
+      .searchResults {
+          width: 100%;
+          top: 65px;
+          z-index: 1;
+          padding: 10px 30px;
+          position: absolute;
+          border-radius: 24px;
+          background: #ffffff;
+          border: 2px solid #d2d7e5;
+          @include respond(lg-desktop) {
+              top: 55px;
+              padding: 7px 20px;
+              border-radius: 20px;
+          }
+          @include respond(md-desktop) {
+              padding: 7px 15px;
+          }
+          &::after {
+              top: -15px;
+              left: 40px;
+              content: "";
+              position: absolute;
+              border-left: 12px solid transparent;
+              border-right: 12px solid transparent;
+              border-bottom: 15px solid #d2d7e5;
+          }
+          ul {
+              margin: 0;
+              padding: 0;
+              list-style: none;
+              li {
+                  font-size: 18px;
+                  color: #3687e8;
+                  font-weight: bold;
+                  line-height: 1.5;
+                  padding: 7px 0;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  border-bottom: 2px solid #d2d7e5;
+                  @include respond(lg-desktop) {
+                      font-size: 16px;
+                      line-height: 1.3;
+                  }
+                  @include respond(md-desktop) {
+                      font-size: 15px;
+                  }
+                  @include respond(sm-desktop) {
+                      font-size: 14px;
+                  }
+                  span {
+                      font-size: 15px;
+                      font-weight: 500;
+                      color: #8492a6;
+                      margin-left: 10px;
+                  }
+                  @include respond(lg-desktop) {
+                      font-size: 14px;
+                  }
+                  @include respond(md-desktop) {
+                      font-size: 13px;
+                  }
+                  @include respond(sm-desktop) {
+                      font-size: 12px;
+                  }
+                  &:last-child {
+                      border-bottom: none;
+                  }
+              }
+          }
       }
     }
     .filterIcon {
-      width: 48px;
-      height: 48px;
-      margin: 0 20px;
-      line-height: 40px;
-      text-align: center;
-      border-radius: 5px;
-      display: inline-block;
-      border: 3px solid #3687e8;
-      @include respond(sm-desktop) {
-        margin-left: 0;
-      }
+        width: 48px;
+        height: 48px;
+        margin: 0 20px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 5px;
+        display: inline-block;
+        border: 3px solid #3687e8;
+        @include respond(md-desktop) {
+            width: 44px;
+            height: 44px;
+            line-height: 40px;
+        }
+        @include respond(sm-desktop) {
+            width: 40px;
+            height: 40px;
+            margin-left: 0;
+            line-height: 36px;
+        }
+        img {
+            @include respond(md-desktop) {
+                height: 18px;
+            }
+        }
     }
     .filterList {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 25px;
-      padding: 9px 12px;
-      border-radius: 8px;
-      margin: 0 10px 0 5px;
-      letter-spacing: 0.17px;
-      display: inline-block;
-      text-transform: capitalize;
-      img {
-        width: 10px;
-        margin-left: 12px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 25px;
+        padding: 9px 12px;
+        border-radius: 8px;
+        margin: 0 10px 0 5px;
+        letter-spacing: 0.17px;
         display: inline-block;
-      }
+        text-transform: capitalize;
+        white-space: nowrap;
+        @include respond(md-desktop) {
+            font-size: 16px;
+            padding: 8px 10px;
+        }
+        @include respond(sm-desktop) {
+            font-size: 14px;
+            padding: 6px 10px 7px;
+        }
+        img {
+            width: 10px;
+            margin-left: 12px;
+            display: inline-block;
+        }
     }
     .createBtn {
       font-size: 20px;
@@ -114,6 +268,18 @@
       background: #3687e8;
       //display: inline-block;
       text-transform: capitalize;
+      @include respond(lg-desktop) {
+          font-size: 18px;
+          width: 160px;
+          height: 40px;
+          line-height: 0.9;
+      }
+      @include respond(md-desktop) {
+          font-size: 16px;
+      }
+      @include respond(sm-desktop) {
+          font-size: 15px;
+      }
     }
   }
   .datatable {
@@ -227,10 +393,15 @@
             img {
               width: 14px;
               height: 14px;
+              @include respond(lg-desktop) {
+                width: 12px;
+                height: 12px;
+              }
             }
-            @include respond(md-desktop) {
-              font-size: 14px;
-              line-height: 1.2;
+            @include respond(lg-desktop) {
+                height: 50px;
+                font-size: 14px;
+                line-height: 1.2;
             }
             @include respond(sm-desktop) {
               font-size: 13px;
@@ -257,13 +428,10 @@
                   padding-left: 15px;
                 }
               }
-              @include respond(md-desktop) {
-                font-size: 17px;
-                padding: 18px 10px;
-              }
-              @include respond(sm-desktop) {
-                font-size: 15px;
-                padding: 15px 10px;
+              @include respond(lg-desktop) {
+                  font-size: 15px;
+                  line-height: 1.3;
+                  padding: 17px 10px;
               }
               @include respond(phone) {
                 font-size: 14px;

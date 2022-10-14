@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import styles from './index.module.scss'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
+import { addPrefixOrSuffix, addPrefixSymbol, removePrefixOrSuffix } from '../../utils/helper'
 
 const Index = ({
   termsheet,
@@ -17,7 +17,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
-  
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -237,12 +237,12 @@ const Index = ({
                 //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                 //   'front',
                 // )}
-                onChange={(e)=>{
-                   let temp =  e.target.value.replace(/[^\w\s]/gi, "")
-                      if(temp=="_"){
-                        temp=""
-                      }
-                      e.target.value=temp
+                onChange={(e) => {
+                  let temp = e.target.value.replace(/[^\w\s]/gi, "")
+                  if (temp == "_") {
+                    temp = ""
+                  }
+                  e.target.value = temp
                   onChangeCommodityDetails(e)
                 }}
                 type="text"
@@ -273,10 +273,10 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance ?
                       termsheetDetails?.commodityDetails?.tolerance :
-                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + ` %`}
+                      '±' + Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) + ` %`}
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   // }
@@ -397,7 +397,7 @@ const Index = ({
                   LC Opening Bank<strong className="text-danger">*</strong>
                 </label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -424,7 +424,7 @@ const Index = ({
                   INCO Terms<strong className="text-danger">*</strong>
                 </label>
                 <img
-                  className={`${styles.arrow} img-fluid`}
+                  className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
                 />
@@ -642,7 +642,7 @@ const Index = ({
                     <option disabled selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">Both Lord Port and Discharge Port</option>
+                    <option value="Both">Both Load Port and Discharge Port</option>
                   </select>
 
                   <img
@@ -814,10 +814,13 @@ const Index = ({
                 Trade Margin(%)<strong className="text-danger">*</strong>
               </label>
             </div>
-            <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+            <div className={`${styles.form_group} col-md-4 col-sm-6 d-flex`}>
+              <div className={`${styles.value} input form-control w-25 disable border-right-0 rounded-left pt-3`}>
+                {addPrefixSymbol(termsheetDetails?.commodityDetails?.orderCurrency?.toUpperCase()) }
+              </div>
               <input
                 id="lcOpeningChargesUnit"
-                className={`${styles.value} input form-control`}
+                className={`${styles.value} input form-control border-left-0`}
                 type="text"
                 onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 // value={addPrefixOrSuffix(
@@ -835,11 +838,14 @@ const Index = ({
                   setIsFieldInFocus({ ...isFieldInFocus, lcOpeningCharges: false }),
                     e.target.type = 'text'
                 }}
+                // value={
+                //   isFieldInFocus.lcOpeningCharges ?
+                //     termsheetDetails?.commercials?.lcOpeningChargesUnit :
+                //     `USD` + ` ` +
+                //     Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')}
                 value={
                   isFieldInFocus.lcOpeningCharges ?
-                    termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                     `USD` + ` ` +
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In') }
+                    termsheetDetails?.commercials?.lcOpeningChargesUnit : Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In')}
 
 
                 onChange={onChangeCommercialTerms}

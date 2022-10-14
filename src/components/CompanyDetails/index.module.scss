@@ -65,11 +65,11 @@
       font-weight: normal;
       line-height: 20px;
       margin-left: 25px;
-      @include respond(md-desktop) {
-        font-size: 42px;
+      @include respond(lg-desktop) {
+          font-size: 35px;
       }
       @include respond(sm-desktop) {
-        font-size: 35px;
+        font-size: 32px;
       }
       @include respond(phone) {
         font-size: 30px;
@@ -155,8 +155,9 @@
       font-weight: 500;
       padding: 10px 0 15px;
       letter-spacing: 0.53px;
-      @include respond(phone) {
-        font-size: $font_size_mobile_input_label;
+      @include respond(lg-desktop) {
+        font-size: 14px;
+        line-height: 15px;
       }
     }
   }
@@ -199,16 +200,10 @@
           transform: translateY(-50%);
         }
         @include respond(lg-desktop) {
-          font-size: $font_size_mobile_input_label;
-        }
-        @include respond(md-desktop) {
-          font-size: $font_size_mobile_input_label;
-        }
-        @include respond(sm-desktop) {
-          font-size: $font_size_sm_input_label;
-        }
-        @include respond(phone) {
-          font-size: $font_size_mobile_input_label;
+          top: 15px;
+          font-size: 14px;
+          line-height: 15px;
+          transform: translateY(-22px);
         }
       }
       .slider_value {
@@ -248,7 +243,15 @@
         &:focus {
           & + label {
             transform: translateY(-30px);
+            @include respond(lg-desktop) {
+              transform: translateY(-22px);
+            }
           }
+        }
+        @include respond(lg-desktop) {
+          height: 45px;
+          font-size: 15px;
+          line-height: 1.3;
         }
         // &.company_name {
         //   &:valid([value=""]) {
@@ -343,6 +346,10 @@
           text-transform: capitalize;
           outline: none;
           border-radius: 4px 0 0 4px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
+          }
         }
       }
       .range_field {
@@ -358,6 +365,10 @@
           margin-left: 0;
           position: static;
           transform: none;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 15px;
+          }
         }
         .input_container {
           width: 86px;
@@ -372,6 +383,9 @@
       .label_heading {
         left: 90px;
         transform: translate(-61px, -30px);
+        @include respond(lg-desktop) {
+          transform: translate(-61px, -22px);
+        }
       }
       .input_field {
         border-top-left-radius: 0px;
@@ -379,6 +393,9 @@
         &:focus {
           & + label {
             transform: translate(-61px, -30px);
+            @include respond(lg-desktop) {
+              transform: translate(-61px, -22px);
+            }
           }
         }
       }
@@ -438,11 +455,11 @@
     font-weight: normal;
     line-height: 20px;
     margin-left: 25px;
-    @include respond(md-desktop) {
-      font-size: 42px;
+    @include respond(lg-desktop) {
+        font-size: 35px;
     }
     @include respond(sm-desktop) {
-      font-size: 35px;
+      font-size: 32px;
     }
     @include respond(phone) {
       font-size: 30px;

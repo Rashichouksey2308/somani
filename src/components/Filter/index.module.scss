@@ -9,8 +9,18 @@
         border-radius: 5px;
         display: inline-block;
         border: 3px solid #3687E8;
+        @include respond(lg-desktop) {
+            width: 40px;
+            height: 40px;
+            line-height: 35px;
+        }
         @include respond(sm-desktop) {
             margin-left: 0;
+        }
+        img {
+            @include respond(lg-desktop) {
+                height: 18px;
+            }
         }
     }
     .dropdown_menu {
@@ -22,6 +32,10 @@
         margin-top: -48px;
         // background: #FFFFFF;
         // box-shadow: 0px 11px 12px #BBBBBB;
+        @include respond(lg-desktop) {
+            width: 100%;
+            max-width: 381px;
+        }
         .dropdown_header {
             padding: 13px 24px 15px;
             // color: #111111;
