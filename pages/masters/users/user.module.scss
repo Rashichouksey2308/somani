@@ -20,7 +20,7 @@
     background: none;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0 0 27px 10px;
+  
     @include respond(lg-desktop) {
         height: 40px;
         margin-bottom: 20px;
@@ -69,13 +69,32 @@
         }
       }
     }
+    .lastModified {
+      font-size: 14px;
+      color: rgba(40, 55, 86, 0.6);
+      font-weight: normal;
+      line-height: 16px;
+      margin-top: 7px;
+      @include respond(lg-desktop) {
+          font-size: 12px;
+          line-height: 1.2;
+      }
+      span {
+          color: #283756;
+          font-weight: bold;
+          line-height: 17px;
+          @include respond(lg-desktop) {
+              line-height: 1.2;
+          }
+      }
+    }
     .clear_btn {
       border: 3px solid #3687e8;
       border-radius: 5px;
       width: 190px;
       height: 48px;
       text-align: center;
-      background: transparent;
+      background: none;
       font-size: 20px;
       line-height: 25px;
       font-weight: bold;
