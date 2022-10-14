@@ -63,7 +63,7 @@ const Index = ({ saveOrderData, orderData }) => {
       </div>
       <div
         id="orderSummary"
-        className="collapse"
+        //className="collapse"
         aria-labelledby="orderSummary"
       >
         <div className={`${styles.dashboard_form} card-body border_color`}>
