@@ -676,6 +676,71 @@ function Index(props) {
           return
         }
       }
+      let error=false;
+         if (
+        dataToSend.supplier.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.supplier.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo,"dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.supplier.authorisedSignatoryDetails[i].name=="" ||dataToSend.supplier.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.supplier.authorisedSignatoryDetails[i].designation==""||dataToSend.supplier.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.supplier.authorisedSignatoryDetails[i].email==""||dataToSend.supplier.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
+      }
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -758,6 +823,71 @@ function Index(props) {
           }
         }
       }
+       let error=false;
+         if (
+        dataToSend.seller.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.seller.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.seller.authorisedSignatoryDetails[i].phoneNo,"dataToSend.seller.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.seller.authorisedSignatoryDetails[i].name=="" ||dataToSend.seller.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.seller.authorisedSignatoryDetails[i].designation==""||dataToSend.seller.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.seller.authorisedSignatoryDetails[i].email==""||dataToSend.seller.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.seller.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.seller.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
+      }
     }
     if (key == 'Buyer') {
       dataToSend = {
@@ -818,6 +948,71 @@ function Index(props) {
           setSubmitData(false)
           return
         }
+      }
+       let error=false;
+         if (
+        dataToSend.buyer.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.buyer.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo,"dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.buyer.authorisedSignatoryDetails[i].name=="" ||dataToSend.buyer.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.buyer.authorisedSignatoryDetails[i].designation==""||dataToSend.buyer.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.buyer.authorisedSignatoryDetails[i].email==""||dataToSend.buyer.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
       }
     }
     if (key == 'Financing Bank') {
@@ -929,6 +1124,71 @@ function Index(props) {
           return
         }
       }
+       let error=false;
+         if (
+        dataToSend.CMA.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.CMA.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo,"dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.CMA.authorisedSignatoryDetails[i].name=="" ||dataToSend.CMA.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.CMA.authorisedSignatoryDetails[i].designation==""||dataToSend.CMA.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.CMA.authorisedSignatoryDetails[i].email==""||dataToSend.CMA.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
+      }
     }
     if (key == 'CHA') {
       dataToSend = {
@@ -1000,6 +1260,71 @@ function Index(props) {
           setSubmitData(false)
           return
         }
+      }
+       let error=false;
+         if (
+        dataToSend.CHA.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.CHA.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo,"dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.CHA.authorisedSignatoryDetails[i].name=="" ||dataToSend.CHA.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.CHA.authorisedSignatoryDetails[i].designation==""||dataToSend.CHA.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.CHA.authorisedSignatoryDetails[i].email==""||dataToSend.CHA.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
       }
     }
     if (key == 'Stevedore') {
@@ -1079,6 +1404,71 @@ function Index(props) {
           setSubmitData(false)
           return
         }
+      }
+       let error=false;
+         if (
+        dataToSend.stevedore.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.stevedore.authorisedSignatoryDetails.length;i++){
+          
+           console.log(dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo,"dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.stevedore.authorisedSignatoryDetails[i].name=="" ||dataToSend.stevedore.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.stevedore.authorisedSignatoryDetails[i].designation==""||dataToSend.stevedore.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.stevedore.authorisedSignatoryDetails[i].email==""||dataToSend.stevedore.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          if(dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length<10 ||dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length>10){
+             toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          
+          
+        }
+      }
+      if(error){
+        return
       }
     }
     if (key == 'Shipping Line') {
