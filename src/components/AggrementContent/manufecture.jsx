@@ -161,26 +161,20 @@ console.log(multiList,"props?.order?.supplierName")
        setMultiList(savedData.multiPartyAddresses)
        setSupplierState(supplier)
          let tempArr=savedData?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(savedData.multiParty,"tempArr")
+          let optionArray=[...options]
           tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
          
-          if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
           }
 
           })
+          setOptions([...optionArray])
        console.log(savedData.authorisedSignatoryDetails,"savedData.authorisedSignatoryDetails")
     }else{
        let supplier={
@@ -203,26 +197,20 @@ console.log(multiList,"props?.order?.supplierName")
 
       
           let tempArr=props.data?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(tempArr,"tempArr")
+         let optionArray=[...options]
           tempArr.forEach((val,index)=>{
           val.actions = "true"
-          if(tempArr?.length>0){
-        if(val.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
           }
-          if(val.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
+         
           }
 
           })
+          setOptions([...optionArray])
           setList(tempArr)
         }else{
           setList([{
@@ -241,21 +229,27 @@ console.log(multiList,"props?.order?.supplierName")
    }
   },[props])
   console.log(list,"props23424234")
-  const onEdit=(index)=>{
-    let tempArr=list;
+ const onEdit = (index) => {
+    let tempArr = list;
+    // tempArr[index].actions.edit="false"
+
     setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+      const newState = prevState.map((obj, i) => {
+        // 👇️ if id equals 2, update country property
         if (i == index) {
-          return {...obj, actions: 'false'};
+          setRemovedOption(obj.name)
+          return { ...obj, actions: 'false' };
         }
 
+        // 👇️ otherwise return object as is
         return obj;
       });
 
       return newState;
     });
-
+      // let temp=[...options]
+      // var indexOption = temp.indexOf(value.name);
+      //  setRemovedOption(value.name)
   }
   const onEditRemove=(index,value)=>{
     console.log(value,"value")
@@ -275,12 +269,12 @@ console.log(multiList,"props?.order?.supplierName")
       });
       let temp=[...options]
       var indexOption = temp.indexOf(value.name);
-      console.log(value.name,"value.name")
+      
       setRemovedOption(value.name)
       if (indexOption !== -1) {
-      temp.splice(indexOption, 1);
+        temp.splice(indexOption, 1);
       }
-      
+      console.log(temp,"temp")
       setOptions([...temp])
   }
     const addMoreRows=()=>{
@@ -290,18 +284,19 @@ console.log(multiList,"props?.order?.supplierName")
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false"
     }])
-
+setRemovedOption(null)
   }
 const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
     if(index==val.index){
     setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
     }
+    
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
 setRemovedOption(null)
 
-if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="Fatima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
   setOptions([...temp])
@@ -1281,6 +1276,8 @@ setEditAddress(
             </div>
           </div>
         </div>
+        
+        {docList.length>0 && 
         <div className={styles.displaytable}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
@@ -1293,48 +1290,7 @@ setEditAddress(
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  {/* <tr  className='table_row'>
-                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                      <td>{`28-02-2022,5:30 PM`}</td>
-                      <td>
-                  <td style={{padding:"0"}}>
-                    {doc.attachDoc == '' ? (
-                      <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={async(e) => {
-                           
-                             let data = await props.uploadDoc(e)
-                           console.log(data,"upload")
-                          }}
-                        />
-                        <button className={`${styles.button_upload} btn`}>
-                          Upload
-                        </button>
-                      </div>
-                    ) : (
-                      <div className={`${styles.certificate} d-flex justify-content-between`}>
-                        <span>
-                          {doc.attachDoc.originalName}
-                        </span>
-                        <img
-                          className={`${styles.close_image}`}
-                          src="/static/close.svg"
-                          onClick={() =>setdoc({attachDoc:""})}
-                          alt="Close"
-                        />{' '}
-                      </div>
-                    )}
-                      </td>
-                      </td>
-                      <td>
-                       
-                        <img  src="/static/upload.svg" alt="upload"/>
-                      </td>
-                  </tr> */}
+               
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
@@ -1390,6 +1346,8 @@ setEditAddress(
             </div>
           </div>
         </div>
+        }
+        
         {props.multiPart==true?
         <>
          
