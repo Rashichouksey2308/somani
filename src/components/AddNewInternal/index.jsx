@@ -10,6 +10,25 @@ import Router from 'next/router'
 import Image from 'next/image'
 
 function Index() {
+
+  const [addRow, setAddRow] = useState([{
+    compName: '' ,
+    branchName: '',
+
+
+  }])
+  const handleDelete = (index) => {
+    setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)])
+  }
+  const onAddRow = () => {
+    setAddRow([
+      ...addRow,
+      {
+        compName: '' ,
+        branchName: '',
+      },
+    ])
+  }
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -51,6 +70,7 @@ function Index() {
               ))}
             </div>
             <div className="row">
+              {/* <div className='col-8'> */}
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
@@ -61,8 +81,8 @@ function Index() {
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Company Business Name
-                  <strong className="text-danger">*</strong>
+                  Full Name
+                  <strong className="text-danger ml-1">*</strong>
                 </label>
               </div>
               <div
@@ -75,23 +95,23 @@ function Index() {
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Short Name
+                  Username
                 </label>
               </div>
-              
+
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <input
                   type="text"
                   id="textInput"
                   name="email"
                   className={`${styles.input_field} border_color input form-control`}
-                  
                 />
                 <label
                   className={`${styles.label_heading} label_heading`}
                   id="textInput"
                 >
-                  Official Email ID<strong className="text-danger">*</strong>
+                  Official Email ID
+                  <strong className="text-danger ml-1">*</strong>
                 </label>
               </div>
               <div
@@ -100,14 +120,12 @@ function Index() {
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="password"
-                  
-                  name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Password<strong className="text-danger">*</strong>
+                  Password
                 </label>
               </div>
-             
+           
             </div>
           </div>
         </div>
@@ -129,82 +147,39 @@ function Index() {
             aria-labelledby="keyAddress"
           >
             <div className={`${styles.dashboard_form} vessel_card card-body`}>
-             
-           
-              <div className='row'>
-            <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              </div>
               <div className="row">
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option value="">CHA</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    User Role<strong className="text-danger ml-1">*</strong>
+                  </label>
                 </div>
-                <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <div className={`${styles.delete_image} mt-2 ml-2`}>
-                          <Image
-                            src="/static/delete.svg"
-                            width="40px"
-                            height="40px"
-                            alt="Bin"
-                          />
-                        </div>
-              </div>
-              <div
+              <div className="row">
+
+              {addRow && addRow.map((val, index) => {
+                            return (
+                              <>
+                <div key={index}
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
                     <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                     >
-                      <option value="">CHA</option>
+                      <option value="">Indo German</option>
+                      <option value="">Ergo Products</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
+                      Company/Business Name
+                      <strong className="text-danger ml-1">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
                       <Image
@@ -217,257 +192,252 @@ function Index() {
                   </div>
                 </div>
                 <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <div className={`${styles.delete_image} mt-2 ml-2`}>
-                          <Image
-                            src="/static/delete.svg"
-                            width="40px"
-                            height="40px"
-                            alt="Bin"
-                          />
-                        </div>
-              </div>
-              <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option value="">CHA</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Branch<strong className="text-danger ml-1">*</strong>
+                  </label>
                 </div>
                 <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option value="">CHA</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option value="">CHA</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-                <div
-                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-              >
-                <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
+                  <div className='d-flex mt-2'>
+                  {/* { addRow.length >= 0 && ( */}
+                  <div className={`${styles.delete_image} mr-4`}>
+                
                     <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
+                      src="/static/delete.svg"
+                      onClick={() => handleDelete(index)}
+                      width="40px"
+                      height="40px"
+                      alt="Bin"
                     />
                   </div>
+                  {/* )} */}
+                  {/* { addRow.length === 1 && ( */}
+                  <Image
+                   width="36px"
+                   height="36px"
+                    src="/static/add-btn.svg"
+                    className={`${styles.add_image} `}
+                    alt="Add button"
+                    onClick={(e) => {
+                      onAddRow()
+                    }}
+                  />
+                  {/* ) } */}
                 </div>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-              >
-                  <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
-                    />
-                  </div>
                 </div>
-              </div>
-              <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
-                      <option value="">CHA</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Party Type<strong className="text-danger">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
-                </label>
-              </div>
-                <div
-                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-              >
-                  <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-              >
-                  <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
-                  <div className={`${styles.calanderIcon} image_arrow`}>
-                    <Image
-                      width="22px"
-                      height="24px"
-                      src="/static/caldericon.svg"
-                      alt="Calender"
-                    />
-                  </div>
-                </div>
-              </div>
+
                
+                </>
+                            )
+                           })}
+                            <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                    >
+                      <option value="">Finance</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Department<strong className="text-danger ml-1">*</strong>
+                    </label>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image
+                        width="13px"
+                        height="8px"
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    EMP ID<strong className="text-danger">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Designation<strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                    >
+                      <option value="">CHA</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Reporting Manager
+                      <strong className="text-danger ml-1">*</strong>
+                    </label>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image
+                        width="13px"
+                        height="8px"
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Alternate Email ID
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Date of Joining" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Last Working Day" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Activation Date" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Deactivation Date" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Phone Number<strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Blocked From" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <DateCalender labelName="Blocked Till" />
+                    <div className={`${styles.calanderIcon} image_arrow`}>
+                      <Image
+                        width="22px"
+                        height="24px"
+                        src="/static/caldericon.svg"
+                        alt="Calender"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Remarks<strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -541,6 +511,7 @@ function Index() {
                               alt="Sort icon"
                             />
                           </th>
+                          <th>ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -557,6 +528,13 @@ function Index() {
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
                         </tr>
                         <tr className="table_row">
                           <td className={styles.doc_name}>GST Certificate</td>
@@ -571,6 +549,13 @@ function Index() {
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
                         </tr>
                         <tr className="table_row">
                           <td className={styles.doc_name}>Board Resolution</td>
@@ -585,6 +570,13 @@ function Index() {
                           </td>
                           <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                           <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
                         </tr>
                       </tbody>
                     </table>
