@@ -49,10 +49,6 @@
           line-height: 15px;
           transform: translateY(-22px);
       }
-      @include respond(phone) {
-        font-size: 14px;
-        //top: 20px;
-      }
     }
     .input_field {
       height: 60px;

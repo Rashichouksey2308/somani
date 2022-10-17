@@ -27,6 +27,7 @@ export default function Index({
   TransitDetails,
   orderid,
   docUploadFunction,
+  fetchInitialData,
 }) {
   let transId = _get(TransitDetails, 'data[0]', '')
   const initialStateForLiner = {
@@ -220,7 +221,7 @@ export default function Index({
       })
     }
     console.log(filteredVessel, 'filteredVessel')
-    const newArray = [...bolList]
+    let newArray = [...bolList]
     newArray[index].vesselName = _get(
       filteredVessel,
       'vesselInformation[0].name',
@@ -340,6 +341,11 @@ export default function Index({
       return newState
     })
   }
+
+  // const checkAvail = (vessel) => {
+  //   console.log(vessel)
+  //   return false
+  // }
 
   const validation = () => {
     let isOk = true
@@ -547,7 +553,7 @@ export default function Index({
     }
   }
 
-  const saveData = () => {
+  const saveData = async () => {
     if (!validation()) return
     // const billOfLanding = [...bolList]
     let bol = { billOfLanding: bolList }
@@ -560,7 +566,11 @@ export default function Index({
     fd.append('transitId', transId._id)
 
     let task = 'submit'
-    dispatch(UpdateTransitDetails({ fd, task }))
+    let responseData = await dispatch(UpdateTransitDetails({ fd, task }))
+    if (responseData) {
+      fetchInitialData()
+    }
+    console.log(responseData, 'responseData')
     console.log(fd, bol, 'filteredVessel')
   }
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
@@ -672,7 +682,7 @@ export default function Index({
                       '',
                     )?.toLocaleString('en-IN')}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -753,26 +763,26 @@ export default function Index({
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation[0]?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation[0]?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -885,13 +895,13 @@ export default function Index({
                               isFieldInFocus
                                 ? bol?.blQuantity
                                 : Number(bol?.blQuantity)?.toLocaleString(
-                                    'en-IN',
-                                  ) +
-                                  ` ${_get(
-                                    TransitDetails,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                  'en-IN',
+                                ) +
+                                ` ${_get(
+                                  TransitDetails,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                )}`
                             }
                           />
                           <label
@@ -1196,8 +1206,8 @@ export default function Index({
                                 {bolList[index]?.blDoc == null
                                   ? ''
                                   : moment(bolList[index]?.blDoc.date).format(
-                                      'DD-MM-YYYY , h:mm a ',
-                                    )}
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1282,7 +1292,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.containerNumberListDoc ==
+                                      bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1361,7 +1371,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.packingListDoc == null ? (
+                                      bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1510,12 +1520,12 @@ export default function Index({
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
                                   : moment(
-                                      bolList[index]?.blSurrenderDoc?.Date,
-                                    ).format(' DD-MM-YYYY , h:mm a')}
+                                    bolList[index]?.blSurrenderDoc?.Date,
+                                  ).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
-                                bolList[index]?.blSurrenderDoc == null ? (
+                                  bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input

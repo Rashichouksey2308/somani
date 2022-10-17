@@ -100,12 +100,20 @@
           padding: 5px;
           background-color: transparent;
           border: none;
+          @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
+          }
         }
         .dropDown_label {
           letter-spacing: 0.53px;
           font-weight: 500;
           font-size: 16px;
           line-height: 17px;
+          @include respond(lg-desktop) {
+              font-size: 14px;
+              line-height: 15px;
+          }
         }
       }
     }
@@ -279,6 +287,10 @@
         left: 30px;
         margin-bottom: 15px;
         color: #00000080;
+        @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 15px;
+        }
       }
       .value {
         font-size: 20px;
@@ -688,13 +700,14 @@
         line-height: 1;
         left: 30px;
         top: -8px;
-
+        @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 15px;
+        }
         @include respond(sm-desktop) {
           margin-top: 5px !important;
-          font-size: $font_size_mobile_input_label;
         }
         @include respond(phone) {
-          font-size: $font_size_mobile_text;
           margin-top: 5px !important;
         }
       }

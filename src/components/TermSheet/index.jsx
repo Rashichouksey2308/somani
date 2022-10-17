@@ -812,7 +812,6 @@ const Index = () => {
       buyer: { ...prev.buyer, bank: value },
     }))
   }
-  console.log(termsheet, 'otherTermsAndConditions')
 
   return (
     <>
