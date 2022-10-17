@@ -335,9 +335,9 @@
               padding: 6px 10px;
               display: inline-block;
               white-space: nowrap;
-              @include respond(md-desktop) {
+              @include respond(lg-desktop) {
                 font-size: 15px !important;
-                white-space: nowrap;
+                line-height: 1.3;
               }
               @include respond(sm-desktop) {
                 font-size: 14px !important;
