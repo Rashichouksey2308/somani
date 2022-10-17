@@ -252,7 +252,6 @@ let masterList=[
       setOptions([...temp])
   }
 const addMoreRows=()=>{
-
    
   setList([...list,{
       name:"",designation:"",email:"",phone:"",

@@ -12,7 +12,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 import AddressComponent from './addressComponent'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
-
+import MultiSelect from '../MutilSelect'
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -453,6 +453,18 @@ const index = ({
     setInfoCircle(!infoCircle)
     console.log(infoCircle, 'this is info circle')
   }
+  const [emails,setemails]=useState([])
+  useEffect(() => {
+    if(creditDetail?.existingCHA.length>0){
+      setemails(creditDetail?.existingCHA)
+    }
+  },[creditDetail?.existingCHA])
+  console.log(emails,"emails")
+  const removeEmailParent=(index)=>{
+    let temp = emails
+     temp.splice(index, 1);
+     setemails(temp)
+  }
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -806,6 +818,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
+                
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
@@ -826,11 +839,11 @@ const index = ({
                     Existing Supplier(s)
                     <strong className="text-danger">*</strong>
                   </label>
-                  {/* <img
+                  <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
-                  /> */}
+                  />
                 </div>
               </div>
 
@@ -925,7 +938,36 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <input
+                    <MultiSelect
+                   placeholder="Existing CHA(s)"
+                   emails={emails}
+                   onChange={(_emails) => {
+                    console.log(_emails,"cxzczxczxczxc")
+                    let temp=[...emails]
+                    temp.push(_emails[0])
+                    setemails([...temp]);
+                 }}
+              getLabel={(
+                email,
+                index,
+                removeEmail,
+                ) => {
+                  return (
+                    <div data-tag key={index}>
+                      {email}
+                      <span data-tag-handle onClick={() => 
+                     {
+                      removeEmail(index)
+                      removeEmailParent(index)
+                     }
+                      }>
+                        ×
+                      </span>
+                    </div>
+                  );
+                }}
+                  ></MultiSelect> 
+                  {/* <input
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
@@ -939,12 +981,8 @@ const index = ({
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
-                  </label>
-                  {/* <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  /> */}
+                  </label> */}
+                
                 </div>
               </div>
             </div>
@@ -953,7 +991,7 @@ const index = ({
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
-                    handleProductSave()
+                    handleProductSave(emails)
                   }
                 }}
               >
