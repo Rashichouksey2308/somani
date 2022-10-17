@@ -439,7 +439,7 @@ export default function Index({
     fd.append('transitId', transId._id)
     let task = 'submit'
     let code = await dispatch(UpdateTransitDetails({ fd, task }))
-    if (code == 200) {
+    if (code == true) {
       sessionStorage.setItem(
         'docFetchID',
         _get(TransitDetails, 'order._id', ''),
