@@ -537,11 +537,11 @@ function Index({ directorData }) {
                                   <label className={`accordion_Text`}>
                                     Fathers Name
                                   </label>
-                                  {director?.fatherName}
+                                  {director?.fatherName} 
                                   <img
                                     src="/static/approved.svg"
                                     alt="Approved"
-                                    className="img-fluid mt-n1"
+                                    className="img-fluid mt-n1 ml-1"
                                   />
                                 </div>
                                 <div
