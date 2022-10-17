@@ -108,6 +108,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 name="myfile"
                                 accept="application/msword, text/plain, application/pdf, .docx"
                                 onChange={(e) => vesselDocFunction(e)}
+                                
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload

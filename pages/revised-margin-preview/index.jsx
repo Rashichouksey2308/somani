@@ -1725,7 +1725,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          -
+                             ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                            0}
                         </p>
                       </td>
                     </tr>
@@ -2399,7 +2400,8 @@ function Index() {
                       ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
                         0}
                     </td>
-                    <td>-</td>
+                    <td>  ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                        0}</td>
                   </tr>
 
                   <tr>
