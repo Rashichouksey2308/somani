@@ -730,15 +730,22 @@ function Index(props) {
   const onLeftChange = () => {
     let tempArr = sideBar
     for (let i = 0; i < tempArr.length; i++) {
-      if (tempArr[i].state == 'current') {
+      if (tempArr[i].name == active) {
         if (i != 0) {
           tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
+        if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete'  && tempArr[i].state != 'default') {
+          
+             tempArr[i].image = '/static/Group 3256.svg'
+          }
           let a = i - 1
           console.log(a, 'tempArr[a]234')
-          tempArr[a].state = 'current'
-          tempArr[a].image = '/static/currnet.svg'
+           tempArr[a].state = 'current'
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+         
+             tempArr[a].image = '/static/currnet.svg'
+            }
           setActive(tempArr[a].name)
+
         }
       }
     }
@@ -753,15 +760,23 @@ function Index(props) {
     if (active !== 'Additional Comments') {
       for (let i = 0; i < tempArr.length; i++) {
         console.log(tempArr[i], '987')
-        if (tempArr[i].state == 'current') {
+        if (tempArr[i].name == active) {
           if (i != tempArr.length) {
-            tempArr[i].state = 'default'
+             tempArr[i].state = 'default'
+            if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+           
             tempArr[i].image = '/static/Group 3256.svg'
+            }
             console.log(tempArr[i].state, 'tempArr[a]')
             let a = i + 1
             console.log(a, 'tempArr[a]234')
+           
             tempArr[a].state = 'current'
-            tempArr[a].image = '/static/currnet.svg'
+             if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete' && tempArr[i].state != 'default') {
+           
+             tempArr[a].image = '/static/currnet.svg'
+            }
+           
             setActive(tempArr[a].name)
             break
           }
@@ -787,9 +802,14 @@ function Index(props) {
     console.log('this13', data, key)
 
     if (key == 'Supplier') {
-      data.list.forEach((val, index) => {
+       data.list.forEach((val, index) => {
         delete val['actions']
         delete val['addnew']
+        val.document = {}
+      })
+      data.multiList.forEach((val, index) => {
+      
+        delete val['document']
         val.document = {}
       })
       dataToSend = {
@@ -806,7 +826,8 @@ function Index(props) {
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
           multiParty: data.supplierState.multiParty,
-          multiPartyAddresses: data.supplierState.multiPartyAddresses,
+          multiPartyAddresses: data.multiList,
+          multiPartyName: data.supplierState.multiPartyName,
           isSubmitted: true,
         },
       }
@@ -823,6 +844,8 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
         multiParty: data.supplierState.multiParty,
+        multiPartyName: data.supplierState.multiPartyName,
+        multiPartyAddresses: data.multiList,
       }
       sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2))
 
@@ -2246,6 +2269,11 @@ function Index(props) {
         delete val['addnew']
         val.document = {}
       })
+      data.multiList.forEach((val, index) => {
+      
+        delete val['document']
+        val.document = {}
+      })
       dataToSend = {
         genericId: props.genericData?._id,
         supplier: {
@@ -2260,7 +2288,8 @@ function Index(props) {
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
           multiParty: data.supplierState.multiParty,
-          multiPartyAddresses: data.supplierState.multiPartyAddresses,
+          multiPartyName: data.supplierState.multiPartyName,
+          multiPartyAddresses: data.multiList,
           isSubmitted: false,
         },
       }
@@ -2277,6 +2306,9 @@ function Index(props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
         multiParty: data.supplierState.multiParty,
+        multiPartyName: data.supplierState.multiPartyName,
+        
+        multiPartyAddresses: data.multiList,
       }
       sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2))
 
@@ -2556,22 +2588,22 @@ function Index(props) {
     // props.setDate(timestamp)
     // localStorage.setItem('timeGenericUpdated', timestamp)
     setSubmitData(false)
-    let tempArr = sideBar
-    tempArr.forEach((val, index) => {
-      if (val.value == key) {
-        tempArr[index].state = 'pending'
-        tempArr[index].image = '/static/pending2.svg'
-        if (key !== 'Additional Comments') {
-          let a = index + 1
-        tempArr[index].state = 'pending'
-          tempArr[a].image = '/static/pending2.svg'
+    // let tempArr = sideBar
+    // tempArr.forEach((val, index) => {
+    //   if (val.value == key) {
+    //     tempArr[index].state = 'pending'
+    //     tempArr[index].image = '/static/pending2.svg'
+    //     if (key !== 'Additional Comments') {
+    //       let a = index + 1
+    //     tempArr[index].state = 'pending'
+    //       tempArr[a].image = '/static/pending2.svg'
 
-          setActive(tempArr[a].name)
-        }
-      }
-    })
+    //       setActive(tempArr[a].name)
+    //     }
+    //   }
+    // })
 
-    setSidebar([...tempArr])
+    // setSidebar([...tempArr])
    
     setSideStateToLocal(key)
   }
