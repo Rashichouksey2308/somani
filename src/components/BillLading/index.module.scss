@@ -9,8 +9,9 @@
       font-weight: bold;
       line-height: 27px;
       margin: 0 0 0 35px;
-      @include respond(md-desktop) {
-        font-size: 22px;
+      @include respond(lg-desktop) {
+        font-size: 20px;
+        line-height: 1.3;
       }
       @include respond(sm-desktop) {
         font-size: 18px;
@@ -499,6 +500,20 @@
           }
         }
       }
+      .small_box {
+        @include respond(lg-desktop) {
+          flex: 0 0 33.333333% !important;
+          max-width: 33.333333% !important;
+        }
+        @include respond(sm-desktop) {
+          flex: 0 0 50% !important;
+          max-width: 50% !important;
+        }
+        @include respond(sm-phone) {
+          flex: 0 0 100% !important;
+          max-width: 100% !important;
+        }
+      }
     }
     .search_container {
       //background: #F0F0F0;
@@ -543,6 +558,10 @@
   .wrapper {
     margin-bottom: 26px;
     border-radius: 6px !important;
+    @include respond(lg-desktop) {
+      min-height: 60px;
+      margin-bottom: 20px;
+    }
   }
 }
 
