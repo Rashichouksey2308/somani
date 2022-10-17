@@ -682,7 +682,8 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            'true' ? (
+            'true'|| termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
+            true ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select

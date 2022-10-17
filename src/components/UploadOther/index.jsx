@@ -153,6 +153,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   }
 
   const handleShareDoc = (doc) => {
+    openbar()
     console.log(doc, 'handleShareDoc')
   }
 
@@ -578,7 +579,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 alt="Share"
                                 onClick={(document) => {
                                   handleShareDoc(document)
-                                  openbar()
+                                  
                                 }}
                               />
 
@@ -595,13 +596,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 )
                                 :
                                 (
-                                  <div className='d-inline-block'  style={{marginRight:'25px'}}>
+                                  <div className='d-inline-block' style={{ marginRight: '25px' }}>
                                     <div className="d-flex align-items-center">
                                       <select
-                                       value={moduleSelected}
-
+                                        value={moduleSelected}
                                         onChange={(e) => {
-
+                                          DocDlt(index)
                                           dispatch(
                                             changeModuleDocument({
                                               orderDocumentId: documentsFetched._id,
@@ -609,7 +609,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                               module: e.target.value
                                             }),
                                           )
-                                          DocDlt(index)
+
                                         }
                                         }
                                         className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}

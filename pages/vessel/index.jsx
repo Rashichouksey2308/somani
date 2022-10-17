@@ -754,6 +754,16 @@ export default function Home() {
           }
         }
 
+           if (
+          list[i].vesselInformation[0].IMONumber.length !==7 
+        ) {
+          toastMessage = `Please add valid IMO Number  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
         if (
           list[i].vesselInformation[0].flag == '' ||
           list[i].vesselInformation[0].flag == undefined
@@ -765,6 +775,7 @@ export default function Home() {
             break
           }
         }
+      
 
         if (
           list[i].vesselInformation[0].yearOfBuilt == '' ||
