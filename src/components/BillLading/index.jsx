@@ -1592,7 +1592,7 @@ export default function Index({
         backdropClassName={styles.backdrop}
       >
         <Modal.Header
-          className={`${styles.card_header} card-header bg-transparent`}
+          className={`${styles.card_header} card-header background`}
         >
           <Modal.Title>
             <h3>Updated Successfully</h3>
