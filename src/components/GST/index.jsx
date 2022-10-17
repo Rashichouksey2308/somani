@@ -1285,8 +1285,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     value={selected}
                     onChange={setSelected}
                     labelledBy="Select"
-                    disableSearch="true"
-                    hasSelectAll="false"
+                  
                   />
                   {/* <select
                     value={credential.gstin}

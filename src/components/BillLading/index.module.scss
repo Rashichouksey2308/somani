@@ -438,7 +438,7 @@
           left: 30px;
           margin-bottom: 0;
           position: absolute;
-          pointer-events: none;
+          pointer-events: none; 
           box-sizing: border-box;
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
@@ -458,7 +458,7 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
+              top: 14px;
               font-size: 14px;
               line-height: 15px;
               transform: translateY(-22px);
@@ -907,7 +907,7 @@
   max-width: 562px;
   max-height: 463px;
   border-radius: 12px;
-  background: #ffffff;
+ // background: #ffffff;
   box-shadow: none !important;
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
@@ -920,6 +920,7 @@
   }
   .card_header {
     padding: 22px 34px;
+    background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 2px solid #cad6e65e;
     h3 {
       font-size: 22px;
@@ -936,14 +937,14 @@
     }
     h4 {
       font-size: 20px;
-      color: #111111;
+      //color: #111111;
       font-weight: bold;
       line-height: 25px;
       margin-bottom: 16px;
     }
     p {
       font-size: 20px;
-      color: #344054;
+      //color: #344054;
       font-weight: normal;
       line-height: 25px;
       letter-spacing: 0.19px;
@@ -961,7 +962,7 @@
       &.close {
         color: #3687e8;
         margin-right: 14px;
-        background: #ffffff;
+       // background: #ffffff;
         border: 3px solid #3687e8;
         &:hover {
           color: #ffffff;

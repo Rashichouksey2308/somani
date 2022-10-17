@@ -3,7 +3,7 @@ import React from 'react'
 const index = () => {
   return (
     <div className={`${styles.tpi_popup} card`}>
-      <div className="card-header p-0 bg-transparent border-0 d-flex justify-content-between">
+      <div className="background1 card-header p-0 bg-transparent border-0 d-flex justify-content-between">
         <h3>Product Specification</h3>
         <img src="/static/close.svg" alt="close" className="img-fluid" />
       </div>
