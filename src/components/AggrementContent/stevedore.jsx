@@ -106,6 +106,21 @@ useEffect(() => {
        setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
+        let tempArr=savedData?.authorisedSignatoryDetails
+         let optionArray=[...options]
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
+         
+          }
+
+          })
+          setOptions([...optionArray])
        setAddressList(savedData?.addresses|| [{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -132,6 +147,21 @@ useEffect(() => {
       setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
+        let tempArr=props?.data?.authorisedSignatoryDetails
+         let optionArray=[...options]
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
+         
+          }
+
+          })
+          setOptions([...optionArray])
        setAddressList(savedData.addresses|| [])
        setSeteveState(supplier)
     }else{
@@ -145,10 +175,26 @@ useEffect(() => {
         
        }
       setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
-      name:"",designation:"",email:"",phone:"",
+       
+        name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
        setAddressList(props.data?.addresses|| [])
        setSeteveState(supplier)
+       let tempArr=props?.data?.authorisedSignatoryDetails
+         let optionArray=[...options]
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
+         
+          }
+
+          })
+          setOptions([...optionArray])
     }
    }
   },[props,props.sameAsCHA])
@@ -178,39 +224,53 @@ useEffect(() => {
  
    
   },[props.saveData,props.submitData])
-  const onEdit=(index)=>{
-    let tempArr=list;
+ const onEdit = (index) => {
+    let tempArr = list;
+    // tempArr[index].actions.edit="false"
+
     setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-        
+      const newState = prevState.map((obj, i) => {
+        // 👇️ if id equals 2, update country property
         if (i == index) {
-          return {...obj, actions: 'false'};
+          setRemovedOption(obj.name)
+          return { ...obj, actions: 'false' };
         }
-// 👇️ otherwise return object as is
+
+        // 👇️ otherwise return object as is
         return obj;
       });
 
       return newState;
     });
-
+      // let temp=[...options]
+      // var indexOption = temp.indexOf(value.name);
+      //  setRemovedOption(value.name)
   }
-  const onEditRemove=(index,value)=>{
- 
+ const onEditRemove=(index,value)=>{
+    console.log(value,"value")
 
-       setList(prevState => {
+      setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj, actions: 'true'};
-        }
 
-        
-        return obj;
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
+
+
+      return obj;
       });
 
       return newState;
-    });
-   setRemovedOption(value.name)
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      
+      setRemovedOption(value.name)
+      if (indexOption !== -1) {
+        temp.splice(indexOption, 1);
+      }
+      console.log(temp,"temp")
+      setOptions([...temp])
   }
   const addMoreRows=()=>{
 
@@ -219,16 +279,22 @@ useEffect(() => {
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false"
     }])
-
+  setRemovedOption(null)
   }
-const handleRemove = (index) => {
-  docList.forEach((val,i)=>{
-      if(index==val.index){
-      setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
-      }
-    })
-  setList([...list.slice(0, index), ...list.slice(index + 1)])
- setRemovedOption(null)
+const handleRemove = (index,val) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="Fatima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
 }
   const handleInput=(name,value,key)=>{
    

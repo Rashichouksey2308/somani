@@ -88,26 +88,20 @@ useEffect(() => {
        setAddressList(savedData.addresses)
        setChaState(supplier)
                let tempArr=savedData?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(tempArr,"tempArr")
+          let optionArray=[...options]
           tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
          
-          if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
           }
 
           })
+          setOptions([...optionArray])
     }else{
        let supplier={
         "name": props.data?.name||"Integral Trading and Logistics",
@@ -127,26 +121,20 @@ useEffect(() => {
        setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
        setChaState(supplier)
             let tempArr=props.data?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(tempArr,"tempArr")
+          let optionArray=[...options]
           tempArr.forEach((val,index)=>{
           val.actions = "true"
-          if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
           }
-          if(val.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
+         
           }
 
           })
+          setOptions([...optionArray])
           setAddressList([...addressList,{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -228,6 +216,7 @@ return newState;
       const newState = prevState.map((obj ,i)=> {
         
         if (i == index) {
+           setRemovedOption(obj.name)
           return {...obj, actions: 'false'};
         }
 // 👇️ otherwise return object as is
@@ -269,7 +258,7 @@ const onEditRemove=(index,value)=>{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false"
     }])
-
+setRemovedOption(null)
   }
 const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
@@ -278,8 +267,8 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
-setRemovedOption(null)
-if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="Fatima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
   setOptions([...temp])

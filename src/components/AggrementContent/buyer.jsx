@@ -72,24 +72,20 @@ function Index(props) {
 
         setBuyerData(buyer)
         let tempArr = savedData?.authorisedSignatoryDetails
-        let optionArray = []
-        console.log(tempArr, 'tempArr')
-        tempArr.forEach((val, index) => {
-          if (tempArr?.length > 0) {
-            if (val.name == 'Bhawana Jain') {
-              setOptions(['Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Vipin Kumar') {
-              setOptions(['Bhawana Jain', 'Devesh Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Devesh Jain') {
-              setOptions(['Vipin Kumar', 'Bhawana Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Fatima Yannoulis') {
-              setOptions(['Vipin Kumar', 'Bhawana Jain', 'Devesh Jain'])
-            }
+          let optionArray=[...options]
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
           }
-        })
+         
+          }
+
+          })
+          setOptions([...optionArray])
       } else {
         let buyer = {
           name:
@@ -108,25 +104,20 @@ function Index(props) {
 
         setBuyerData(buyer)
         let tempArr = props.data?.authorisedSignatoryDetails
-        let optionArray = []
-        console.log(tempArr, 'tempArr')
-        tempArr.forEach((val, index) => {
-          val.actions = 'true'
-          if (tempArr?.length > 0) {
-            if (val.name == 'Bhawana Jain') {
-              setOptions(['Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Vipin Kumar') {
-              setOptions(['Bhawana Jain', 'Devesh Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Devesh Jain') {
-              setOptions(['Vipin Kumar', 'Bhawana Jain', 'Fatima Yannoulis'])
-            }
-            if (val.name == 'Fatima Yannoulis') {
-              setOptions(['Vipin Kumar', 'Bhawana Jain', 'Devesh Jain'])
-            }
+         let optionArray=[...options]
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
           }
-        })
+         
+          }
+
+          })
+          setOptions([...optionArray])
       }
     }
   }, [props])
@@ -186,6 +177,7 @@ function Index(props) {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
+          setRemovedOption(obj.name)
           return { ...obj, actions: 'false' }
         }
 
@@ -234,6 +226,7 @@ function Index(props) {
         addnew: 'false',
       },
     ])
+    setRemovedOption(null)
   }
 const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
@@ -242,9 +235,9 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
-setRemovedOption(null)
 
-if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="Fatima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
   setOptions([...temp])
