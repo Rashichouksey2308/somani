@@ -179,4 +179,9 @@
     width: 23px;
     height: 26px;
     pointer-events: none;
+    @include respond(lg-desktop) {
+      width: 18px;
+      margin-top: 9px;
+      margin-left: -33px;
+    }
 }
