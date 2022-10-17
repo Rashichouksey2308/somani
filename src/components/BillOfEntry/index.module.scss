@@ -8,8 +8,9 @@
       color: #3687e8;
       font-weight: bold;
       line-height: 27px;
-      @include respond(md-desktop) {
-        font-size: 22px;
+      @include respond(lg-desktop) {
+        font-size: 20px;
+        line-height: 1.3;
       }
       @include respond(sm-desktop) {
         font-size: 18px;
@@ -20,20 +21,21 @@
     }
 
     .radio_form {
-      padding: 26px 0px 20px 35px;
+      padding: 0 0 0 35px;
+      min-height: 80px;
+      @include respond(lg-desktop) {
+        min-height: 60px;
+      }
       .radio_group {
         display: flex;
-
         .radio {
           font-size: 20px;
           color: #111111;
           letter-spacing: 0.19px;
           padding-right: 50px;
-          @include respond(md-desktop) {
-            font-size: 18px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 16px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 14px;
@@ -311,7 +313,7 @@
                     border-radius: 4px;
                     padding: 10px 9px 10px 9px;
                     cursor: pointer;
-                    @include respond(md-desktop) {
+                    @include respond(lg-desktop) {
                       height: 30px;
                       padding: 7px;
                     }
@@ -448,7 +450,10 @@
         border-radius: 9px;
         .vessel_card {
           padding: 0 35px;
-          min-height: 78px;
+          min-height: 80px;
+          @include respond(lg-desktop) {
+            min-height: 60px;
+          }
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -461,8 +466,9 @@
             margin: 0 15px 0 30px;
             width: 78px;
             height: 36px;
-            @include respond(md-desktop) {
-              font-size: 16px;
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
             }
             @include respond(sm-desktop) {
               font-size: 14px;
@@ -667,11 +673,9 @@
         height: 60px;
         line-height: 25px;
         font-weight: 500;
-        @include respond(sm-desktop) {
-          font-size: 18px;
-        }
-        @include respond(phone) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
         }
       }
 
@@ -982,6 +986,9 @@
   .wrapper {
     margin-bottom: 26px;
     border-radius: 6px !important;
+    @include respond(lg-desktop) {
+      margin-bottom: 20px;
+    }
   }
 }
 
@@ -1043,6 +1050,7 @@
 
   @include respond(lg-desktop) {
     width: 50px;
+    height: 28px;
   }
 
   @include respond(md-desktop) {
@@ -1079,11 +1087,12 @@
   height: 1.5rem;
 
   @include respond(lg-desktop) {
+    bottom: 4px;
+    height: 1.2rem;
   }
 
   @include respond(md-desktop) {
     bottom: 2px;
-    height: 1.2rem;
   }
 
   @include respond(sm-desktop) {
@@ -1104,8 +1113,8 @@
   transition: 0.4s;
 
   @include respond(lg-desktop) {
-    height: 1.8rem;
-    width: 1.8rem;
+    height: 1.7rem;
+    width: 1.7rem;
   }
 
   @include respond(md-desktop) {
@@ -1210,6 +1219,7 @@ input:checked + .slider:before {
   margin-top: 15px;
   width: 23px;
   height: 26px;
+  z-index: 1;
   pointer-events: none;
   @include respond(lg-desktop) {
     width: 18px;

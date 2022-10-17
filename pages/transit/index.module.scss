@@ -421,6 +421,7 @@
   border: 1px solid #d2d7e5;
   .tableFilter {
     min-height: 80px;
+    padding: 0 15px 0 35px;
     @include respond(lg-desktop) {
         min-height: 60px;
     }

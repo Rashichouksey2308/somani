@@ -873,7 +873,7 @@ function Index() {
     setSupplierCred(tempSupplierCredentials)
   }, [orderList])
 
-  const handleProductSave = () => {
+  const handleProductSave = (chas,exsupp) => {
     if (
       product.capacityUtilization === '' ||
       product.contributionCommoditySenstivity === ''
@@ -884,6 +884,8 @@ function Index() {
       }
     } else {
       let data = { ...product }
+      data.existingCHA=chas
+       data.existingSuppliers=exsupp
       data.monthlyProductionCapacity = removePrefixOrSuffix(
         product.monthlyProductionCapacity,
       )
@@ -908,6 +910,7 @@ function Index() {
         productSummary: { ...data },
         gstin: gstData.gstin,
       }
+      
       dispatch(UpdateCreditCalculate(obj))
     }
   }

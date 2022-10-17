@@ -575,7 +575,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                               />
                               <img
                                 src="/static/upload.svg"
-                                className="mr-3"
+                                className={`${styles.delete_image} p-0 border-0 bg-transparent mr-3`}
                                 alt="Share"
                                 onClick={(document) => {
                                   handleShareDoc(document)
