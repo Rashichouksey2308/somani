@@ -454,6 +454,11 @@ const index = ({
     console.log(infoCircle, 'this is info circle')
   }
   const [emails,setemails]=useState([])
+  useEffect(() => {
+    if(creditDetail?.existingCHA.length>0){
+      setemails(creditDetail?.existingCHA)
+    }
+  },[creditDetail?.existingCHA])
   console.log(emails,"emails")
   const removeEmailParent=(index)=>{
     let temp = emails
@@ -933,7 +938,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    {/* <MultiSelect
+                    <MultiSelect
                    placeholder="Existing CHA(s)"
                    emails={emails}
                    onChange={(_emails) => {
@@ -961,8 +966,8 @@ const index = ({
                     </div>
                   );
                 }}
-                  ></MultiSelect> */}
-                  <input
+                  ></MultiSelect> 
+                  {/* <input
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
@@ -976,7 +981,7 @@ const index = ({
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
-                  </label>
+                  </label> */}
                 
                 </div>
               </div>
@@ -986,7 +991,7 @@ const index = ({
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
-                    handleProductSave()
+                    handleProductSave(emails)
                   }
                 }}
               >
