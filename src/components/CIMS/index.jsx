@@ -44,7 +44,7 @@ export default function Index({
   ])
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-  console.log(TransitDetails, 'TransitDetails')
+
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', [])
     if (data.length > 0) {
@@ -171,12 +171,19 @@ export default function Index({
         circNumber: '',
         circDate: '',
         cimsCharges: '',
-        paymentBy: '',
+        paymentBy: _get(
+          TransitDetails,
+          'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+          '',
+        ),
         document1: null,
         document2: null,
       },
     ])
+    setIsFieldInFocus(prevState => [...prevState, { blQuantity: false, cimsCharges: false }])
   }
+
+
 
   const handleCloseDoc = (e, index) => {
     let tempArr = [...cimsDetails]
@@ -220,7 +227,7 @@ export default function Index({
         cimsDetails[i]?.vesselName == '' ||
         cimsDetails[i]?.vesselName == undefined
       ) {
-        toastMessage = `Please select vessel name of CIMS NO   - ${i}  `
+        toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -231,7 +238,7 @@ export default function Index({
         cimsDetails[i]?.quantity == '' ||
         cimsDetails[i]?.quantity == undefined
       ) {
-        toastMessage = `Please  FILL quantity of CIMS NO   - ${i}  `
+        toastMessage = `Please  FILL quantity of CIMS NO   - ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -242,7 +249,7 @@ export default function Index({
         cimsDetails[i]?.circNumber == '' ||
         cimsDetails[i]?.circNumber == undefined
       ) {
-        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i}  `
+        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -253,7 +260,7 @@ export default function Index({
       //   cimsDetails[i]?.circDate == '' ||
       //   cimsDetails[i]?.circDate == undefined
       // ) {
-      //   toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i}  `
+      //   toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i +1}  `
       //   if (!toast.isActive(toastMessage.toUpperCase())) {
       //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       //     isOk = false
@@ -264,7 +271,7 @@ export default function Index({
         cimsDetails[i]?.cimsCharges == '' ||
         cimsDetails[i]?.cimsCharges == undefined
       ) {
-        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i}  `
+        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -275,7 +282,7 @@ export default function Index({
         cimsDetails[i]?.paymentBy == '' ||
         cimsDetails[i]?.paymentBy == undefined
       ) {
-        toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i}  `
+        toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i + 1}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -286,7 +293,7 @@ export default function Index({
         cimsDetails[i]?.coalImportRegistrationDoc == null ||
         cimsDetails[i]?.coalImportRegistrationDoc == undefined
       ) {
-        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${i} `
+        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           isOk = false
@@ -301,15 +308,15 @@ export default function Index({
     // const billOfLanding = [...bolList]
     if (validation()) {
       const cims = { cimsDetails: cimsDetails }
-      let idtrans =  transId._id
+      let idtrans = transId._id
 
       let fd = new FormData()
       fd.append('cims', JSON.stringify(cims))
       fd.append('transitId', transId._id)
 
       let task = 'submit'
-      console.log({ fd, task,  idtrans },'transitUpdatePayload')
-      dispatch(UpdateTransitDetails({ fd, task,idtrans }))
+      console.log({ fd, task, idtrans }, 'transitUpdatePayload')
+      dispatch(UpdateTransitDetails({ fd, task, idtrans }))
     }
   }
 
@@ -416,9 +423,9 @@ export default function Index({
                       }}
                       // _get(TransitDetails, 'data[0].order.quantity', 0)
                       value={
-                        isFieldInFocus
-                          ? cimsDetails[0].quantity
-                          : Number(cimsDetails[0].quantity)?.toLocaleString(
+                        isFieldInFocus[index]?.blQuantity
+                          ? list.quantity
+                          : Number(list.quantity)?.toLocaleString(
                             'en-IN',
                           ) +
                           ` ${_get(
@@ -465,8 +472,8 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        value={moment(list?.circDate).format('DD-MM-YYYY')}
-                        defaultDate={list?.circDate}
+                        value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
+                        // defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -518,18 +525,18 @@ export default function Index({
                       <select
                         value={
                           list.paymentBy
-                            ? list.paymentBy
-                            : _get(
-                              TransitDetails,
-                              'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                              '',
-                            )
+                          // ? list.paymentBy
+                          // : _get(
+                          //   TransitDetails,
+                          //   'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                          //   '',
+                          // )
                         }
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option disabled selected >Select an option</option>
+                        <option disabled defaultChecked >Select an option</option>
                         <option
                           value={_get(
                             TransitDetails,
