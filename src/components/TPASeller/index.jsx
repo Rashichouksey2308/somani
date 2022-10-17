@@ -79,6 +79,7 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
+          // addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
@@ -92,6 +93,7 @@ function Index(props) {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
         console.log(data, "data22222")
         let exe;
+        let comment=[]
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
@@ -101,8 +103,14 @@ function Index(props) {
             }
           }
         })
+         data?.additionalComments?.comments?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+            comment.push(val.comment) 
+           
+          }
+        })
 
-        console.log(dat, exe, "exedasa")
+        console.log(dat, exe, "exedasa",comment)
 
         setData({
           seller: data?.seller?.name,
@@ -125,7 +133,8 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.additionalComments?.comments,
+          addComm: comment,
+         
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,

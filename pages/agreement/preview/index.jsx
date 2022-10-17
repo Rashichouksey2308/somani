@@ -94,7 +94,8 @@ function index() {
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
-          addComm: data?.additionalComments?.comments,
+          // addComm: data?.additionalComments?.comments,
+           addComm:[],
           spec: data?.productSpecifications?.specificationTable,
           unitOfGrade:data?.order?.unitOfGrade,
           unitOfQuantity:data?.order?.unitOfQuantity,
