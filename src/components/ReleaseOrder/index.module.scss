@@ -1315,6 +1315,7 @@ input:checked + .slider:before {
   margin-top: 15px;
   width: 23px;
   height: 26px;
+  z-index: 1;
   pointer-events: none;
   @include respond(lg-desktop) {
     width: 18px;
