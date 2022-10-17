@@ -567,7 +567,7 @@ function Index() {
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
-                        <div className="d-flex">
+                        <div className="d-flex align-items-center">
                           {fieldType == "" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
@@ -650,7 +650,7 @@ function Index() {
                             New Value<strong className="text-danger">*</strong>
                           </label>
                           <img
-                            className="img-fluid ml-4"
+                            className="ml-4"
                             src="/static/add-btn.svg"
                             alt="add button"
                             onClick={() => addToArr()}

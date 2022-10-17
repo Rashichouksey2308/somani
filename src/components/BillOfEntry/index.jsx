@@ -491,7 +491,7 @@ export default function Index({
           <div className={`${styles.wrapper} border_color p-2 card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
-              <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
+              <div className={`${styles.radio_form} ml-lg-5 ml-n4 d-flex align-items-center`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
@@ -581,7 +581,7 @@ export default function Index({
                     >
                       No
                     </div>
-                    <label className={styles.switch}>
+                    <label className={`${styles.switch} mb-0`}>
                       <input
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
@@ -1195,7 +1195,7 @@ export default function Index({
                                   {!val.actions ? (
                                     <img
                                       src="/static/mode_edit.svg"
-                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      className={`${styles.edit_image} mr-3`}
                                       onClick={() => {
                                         setActions(index, true)
                                       }}
@@ -1204,7 +1204,7 @@ export default function Index({
                                     <>
                                       <img
                                         src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
                                           setActions(index, false)
@@ -1214,7 +1214,7 @@ export default function Index({
                                   )}
                                   <img
                                     src="/static/delete 2.svg"
-                                    className="img-fluid"
+                                    className={`${styles.edit_image} p-0 border-0 img-fluid`}
                                     style={{ cursor: 'pointer' }}
                                     alt="delete"
                                     onClick={() => handleDeleteRow(index)}
@@ -1228,7 +1228,7 @@ export default function Index({
                     <hr className="mt-0" />
                     <div className="d-flex justify-content-between align-items-center mx-4 ">
                       <div className="d-flex align-items-center">
-                        <div className={`${styles.label} text mb-2`}>
+                        <div className={`${styles.label} text`}>
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
