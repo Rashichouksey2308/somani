@@ -188,26 +188,35 @@ export default function Home() {
               "data[0].vessels[0].transitDetails.portOfDischarge",
               ""
             ),
-            laycanFrom: "" || _get(
+            laycanFrom:  _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            )!==""?
+            _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
             )
-            //  !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.laycanFrom",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.loadPort.fromDate",
-            //   ""
-            // )
+            :  _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.fromDate",
+              ""
+            ) || ""
             ,
-            laycanTo: "" || _get(
+            laycanTo:  _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
               ""
-            )
+            ) !==""? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) :_get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.toDate",
+              ""
+            )|| ""
             // !== '' ? _get(
             //   Vessel,
             //   "data[0].vessels[0].transitDetails.laycanTo",

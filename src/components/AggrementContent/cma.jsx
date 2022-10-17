@@ -99,7 +99,7 @@ const cancelAddress=()=>{
       actions:"false",addnew:"false" }])
         setAddressList(savedData.addresses!==undefined?savedData.addresses:[])
         setCmaState(cma)
-              let tempArr=savedData?.authorisedSignatoryDetails
+          let tempArr=savedData?.authorisedSignatoryDetails
          let optionArray=[...options]
           tempArr.forEach((val,index)=>{
           val.actions = "true"

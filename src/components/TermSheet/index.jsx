@@ -141,7 +141,8 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
-   
+       console.log( sheet?.otherTermsAndConditions?.dutyAndTaxes
+                  ?.taxCollectedatSource,"yguyfvj")
           setOtherTermConditions({
             buyer: {
               bank:
@@ -262,7 +263,7 @@ const Index = () => {
                 sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
               taxCollectedatSource:
                 sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.taxCollectedatSource,
+                  ?.taxCollectedatSource || true,
             },
             insurance: {
               marineInsurance:
