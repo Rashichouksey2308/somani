@@ -1182,3 +1182,28 @@ img {
   appearance: none;
   // position: relative;
 }
+
+.btn {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 25px;
+    height: 48px;
+    cursor: pointer;
+    width: 49%;
+    max-width: 239px;
+    border-radius: 5px;
+    box-shadow: none;
+    @include respond(md-desktop) {
+        font-size: 16px;
+    }
+    &.close {
+        color: #4D4D4D;
+       // background: #FFFFFF;
+        border: 3px solid #D5D5D5;
+    }
+    &.submit {
+        color: #FFFFFF;
+        background: #3687E8;
+        border: 3px solid #3687E8;
+    }
+}
