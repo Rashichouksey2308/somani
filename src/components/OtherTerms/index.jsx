@@ -21,9 +21,11 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                 <div className={`${styles.dashboard_form} card-body`}>
                     <Form>
                         <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.
-                        <select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}>
+                        <select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}
+                        value={otherTermConditions?.buyer?.bank}
+                        >
                            
-                            <option selected value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
+                            <option  value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
                             <option value={`Emergent Industrial Solutions Limited (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                         </select>
 

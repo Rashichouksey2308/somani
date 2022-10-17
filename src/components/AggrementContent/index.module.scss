@@ -1024,6 +1024,11 @@ img {
     width: 15px;
     height: 20px !important;
     pointer-events: none;
+    @include respond(lg-desktop) {
+      width: 18px;
+      margin-top: 9px;
+      margin-left: -33px;
+    }
   }
 
   .button_upload2 {
@@ -1053,6 +1058,11 @@ img {
     width: 15px;
     height: 20px !important;
     pointer-events: none;
+    @include respond(lg-desktop) {
+      width: 18px;
+      margin-top: 9px;
+      margin-left: -33px;
+    }
   }
 }
 
@@ -1132,6 +1142,11 @@ img {
   width: 23px !important;
   height: 26px !important;
   pointer-events: none;
+  @include respond(lg-desktop) {
+    width: 18px;
+    margin-top: 9px;
+    margin-left: -33px;
+  }
 }
 .certificate {
   font-size: 20px;

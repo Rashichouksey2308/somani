@@ -21,6 +21,7 @@ let supplier={
 
         ],
         "multiParty": true,
+        "multiPartyName":"",
         "multiPartyAddresses": [
          
           ]
@@ -64,6 +65,7 @@ const [options,setOptions]=useState([
 let op=[
   "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
 ]
+console.log(supplierState,"supplierState")
 //multiParty
   const [multiList,setMultiList]=useState([])
   const [newMultiAddress,setNewMultiAddress]=useState(
@@ -98,7 +100,7 @@ let op=[
 
 
  
-console.log(props?.order?.supplierName,"props?.order?.supplierName")
+console.log(multiList,"props?.order?.supplierName")
 
   useEffect(() => {
     if(props.saveData==true && props.active=="Supplier"){
@@ -106,6 +108,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         supplierState:supplierState,
         list:list,
         addressList:addressList,
+        multiList:multiList
        }
        props.sendData("Supplier",data)
     }
@@ -114,6 +117,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         supplierState:supplierState,
         list:list,
         addressList:addressList,
+        multiList:multiList
        }
 
       props.updateData("Supplier",data)
@@ -143,7 +147,8 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         "addresses": savedData.addresses,
         "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
         "multiParty": savedData.multiParty,
-        "savedData": savedData.multiPartyAddresses
+        "multiPartyName":savedData.multiPartyName,
+        "multiPartyAddresses": savedData.multiPartyAddresses
         
        }
        setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:
@@ -153,11 +158,11 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
       )
 
        setAddressList(savedData.addresses)
-       setMultiList(savedData.authorisedSignatoryDetails)
+       setMultiList(savedData.multiPartyAddresses)
        setSupplierState(supplier)
          let tempArr=savedData?.authorisedSignatoryDetails
           let optionArray=[]
-          console.log(tempArr,"tempArr")
+          console.log(savedData.multiParty,"tempArr")
           tempArr.forEach((val,index)=>{
          
           if(tempArr?.length>0){
@@ -190,6 +195,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         "addresses": props.data?.addresses,
         "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
         "multiParty": props.data?.multiParty,
+        "multiPartyName":props.data?.multiPartyName,
         "multiPartyAddresses": props.data?.multiPartyAddresses
         
        }
@@ -228,7 +234,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
        
       //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
        setAddressList(props.data?.addresses)
-       setMultiList(props.data?.authorisedSignatoryDetails)
+       setMultiList(props.data?.multiPartyAddresses)
        setSupplierState(supplier)
     }
    
@@ -1396,7 +1402,8 @@ setEditAddress(
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="name"
+                name="multiPartyName"
+                value={supplierState.multiPartyName}
                 onChange={(e) => {
                   handleInput(e.target.name,e.target.value)
                 }}

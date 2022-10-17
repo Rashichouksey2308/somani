@@ -1149,3 +1149,23 @@ body.light-mode .border_black {
 body.dark-mode .border_black {
   border-color: #434e61 !important;
 }
+body.light-mode .input .dropdown-container,
+body.dark-mode .input .dropdown-container {
+  width: 200px;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+body.light-mode .input .dropdown-heading,
+body.dark-mode .input .dropdown-heading {
+  height: auto;
+  padding: 0;
+}
+body.light-mode .input .dropdown-heading span,
+body.dark-mode .input .dropdown-heading span {
+  font-size: 18px;
+}
+body.light-mode .input .dropdown-content span,
+body.dark-mode .input .dropdown-content span {
+  font-size: 18px;
+}

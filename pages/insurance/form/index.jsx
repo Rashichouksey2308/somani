@@ -315,9 +315,9 @@ const Index = () => {
              
               className={`${styles.head_header} align-items-center`}
             >
-              <div style={{cursor:'pointer'}}  onClick={() => Router.push('/insurance')}>
+              <div style={{cursor:'pointer',width: "13px"}} className={`d-flex`}  onClick={() => Router.push('/insurance')}>
               <img
-                className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+                className={`${styles.arrow} img-fluid ml-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />

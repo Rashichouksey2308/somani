@@ -190,6 +190,9 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
+                            <option value="First Class European Bank">
+                             First Class European Bank
+                            </option>
                             <option value="Reserve Bank of Spain">
                               Reserve Bank of Spain
                             </option>
