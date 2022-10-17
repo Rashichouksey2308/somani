@@ -459,11 +459,25 @@ const index = ({
       setemails(creditDetail?.existingCHA)
     }
   },[creditDetail?.existingCHA])
+  
+  
+const [exSupplier,setexSupplier]=useState([])
+  useEffect(() => {
+    if(creditDetail?.existingSuppliers.length>0){
+      setexSupplier(creditDetail?.existingSuppliers)
+    }
+  },[creditDetail?.existingSuppliers])
+
   console.log(emails,"emails")
   const removeEmailParent=(index)=>{
     let temp = emails
      temp.splice(index, 1);
      setemails(temp)
+  }
+   const removeExSupplierParent=(index)=>{
+    let temp = emails
+     temp.splice(index, 1);
+     setexSupplier(temp)
   }
   return (
     <>
@@ -818,8 +832,36 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                
-                  <input
+                  <MultiSelect
+                   placeholder="Existing Supplier(s)"
+                   emails={exSupplier}
+                   onChange={(_emails) => {
+                    console.log(_emails,"cxzczxczxczxc")
+                    let temp=[...emails]
+                    temp.push(_emails[0])
+                    setexSupplier([...temp]);
+                 }}
+                  getLabel={(
+                    email,
+                    index,
+                    removeEmail,
+                    ) => {
+                      return (
+                        <div data-tag key={index}>
+                          {email}
+                          <span data-tag-handle onClick={() => 
+                        {
+                          removeEmail(index)
+                          removeExSupplierParent(index)
+                        }
+                          }>
+                            ×
+                          </span>
+                    </div>
+                  );
+                }}
+                  ></MultiSelect> 
+                  {/* <input
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
@@ -843,7 +885,7 @@ const index = ({
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </div>
 
@@ -890,6 +932,7 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
@@ -938,7 +981,7 @@ const index = ({
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                    <MultiSelect
+                <MultiSelect
                    placeholder="Existing CHA(s)"
                    emails={emails}
                    onChange={(_emails) => {
@@ -947,22 +990,22 @@ const index = ({
                     temp.push(_emails[0])
                     setemails([...temp]);
                  }}
-              getLabel={(
-                email,
-                index,
-                removeEmail,
-                ) => {
-                  return (
-                    <div data-tag key={index}>
-                      {email}
-                      <span data-tag-handle onClick={() => 
-                     {
-                      removeEmail(index)
-                      removeEmailParent(index)
-                     }
-                      }>
-                        ×
-                      </span>
+                  getLabel={(
+                    email,
+                    index,
+                    removeEmail,
+                    ) => {
+                      return (
+                        <div data-tag key={index}>
+                          {email}
+                          <span data-tag-handle onClick={() => 
+                        {
+                          removeEmail(index)
+                          removeEmailParent(index)
+                        }
+                          }>
+                            ×
+                          </span>
                     </div>
                   );
                 }}
@@ -991,7 +1034,7 @@ const index = ({
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
-                    handleProductSave(emails)
+                    handleProductSave(emails,exSupplier)
                   }
                 }}
               >
