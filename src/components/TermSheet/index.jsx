@@ -128,22 +128,24 @@ const Index = () => {
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
                 sheet?.commercials?.otherTermsAndConditions ||
-                'As Per Sales Contract',
+                'As per the Agreements',
               version: sheet?.commercials?.version || '1',
             },
           }),
         )
     }
   }, [termsheet])
-  //  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
+  
 
   useEffect(() => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
+   
           setOtherTermConditions({
             buyer: {
               bank:
+            
                 sheet?.otherTermsAndConditions?.buyer?.bank ||
                 'Indo German International Private Limited (IGPL)',
             },
