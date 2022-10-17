@@ -110,8 +110,11 @@
         position: absolute;
         transform: translateY(-50%);
       }
-      @include respond(sm-desktop) {
-        font-size: 15px;
+      @include respond(lg-desktop) {
+          top: 15px;
+          font-size: 14px;
+          line-height: 15px;
+          transform: translateY(-22px);
       }
       @include respond(phone) {
         font-size: 13px;
@@ -161,6 +164,9 @@
       &:focus {
         & + label {
           transform: translateY(-30px);
+          @include respond(lg-desktop) {
+            transform: translateY(-22px);
+          }
         }
       }
       @include respond(sm-desktop) {

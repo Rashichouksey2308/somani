@@ -28,8 +28,11 @@ export default function Index({
   docUploadFunction,
 }) {
   let transId = _get(TransitDetails, `data[0]`, '')
- 
-  console.log( _get(TransitDetails, `data[0].order.forwardHedging`, ''),"hediii")
+
+  console.log(
+    _get(TransitDetails, `data[0].order.forwardHedging`, ''),
+    'hediii',
+  )
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -435,11 +438,24 @@ export default function Index({
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
     let task = 'submit'
-   let code = await  dispatch(UpdateTransitDetails({ fd, task }))
-    if(code==200){
-      sessionStorage.setItem('docFetchID',_get(TransitDetails,"order._id",""))
-      sessionStorage.setItem('headgingId',_get(TransitDetails,"order.transit",""))
-      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'))
+    let code = await dispatch(UpdateTransitDetails({ fd, task }))
+    if (code == true) {
+      sessionStorage.setItem(
+        'docFetchID',
+        _get(TransitDetails, 'order._id', ''),
+      )
+      sessionStorage.setItem(
+        'headgingId',
+        _get(TransitDetails, 'order.transit', ''),
+      )
+      dispatch(
+        settingSidebar(
+          'Loading, Transit & Unloadinge',
+          'Forward Hedging',
+          'Forward Hedging',
+          '3',
+        ),
+      )
       router.push(`/forward-hedging`)
     }
   }
@@ -695,7 +711,7 @@ export default function Index({
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}
-                        className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                        className={`${styles.add_btn} mr-0 ml-0 d-flex align-items-center justify-content-between border-danger text-danger`}
                       >
                         <img src="/static/delete.svg" width={12} alt="delete" />{' '}
                         Delete

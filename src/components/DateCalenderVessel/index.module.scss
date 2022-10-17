@@ -1,3 +1,4 @@
+@import '../styles/Core/config';
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -32,12 +33,16 @@
     position: absolute;
     transform: translateY(-50%);
   }
+  @include respond(lg-desktop) {
+      top: 15px;
+      font-size: 14px;
+      line-height: 15px;
+      transform: translateY(-22px);
+  }
 }
-
 .line {
   border: 3px solid #d9dde8;
 }
-
 .input_field {
   font-size: 20px;
   height: 60px;
@@ -60,6 +65,14 @@
   &:focus {
     & + label {
       transform: translateY(-30px);
+      @include respond(lg-desktop) {
+        transform: translateY(-22px);
+      }
     }
+  }
+  @include respond(lg-desktop) {
+      height: 45px;
+      font-size: 15px;
+      line-height: 1.3;
   }
 }

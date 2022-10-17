@@ -283,17 +283,11 @@
                       border-top: none;
                       vertical-align: middle;
                       white-space: nowrap;
-
-                      @include respond(md-desktop) {
-                        font-size: 17px;
-                        padding: 18px 10px;
+                      @include respond(lg-desktop) {
+                          font-size: 15px;
+                          line-height: 1.3;
+                          padding: 17px 10px;
                       }
-
-                      @include respond(sm-desktop) {
-                        font-size: 15px;
-                        padding: 15px 10px;
-                      }
-
                       @include respond(phone) {
                         font-size: 14px;
                         padding: 10px;
@@ -452,8 +446,11 @@
                 position: absolute;
                 transform: translateY(-50%);
               }
-              @include respond(sm-desktop) {
-                font-size: 15px;
+              @include respond(lg-desktop) {
+                  top: 15px;
+                  font-size: 14px;
+                  line-height: 15px;
+                  transform: translateY(-22px);
               }
               @include respond(phone) {
                 font-size: 13px;
@@ -485,13 +482,15 @@
               &:focus {
                 & + label {
                   transform: translateY(-30px);
+                  @include respond(lg-desktop) {
+                      transform: translateY(-22px);
+                  }
                 }
               }
-              @include respond(sm-desktop) {
-                font-size: 18px;
-              }
-              @include respond(phone) {
-                font-size: 16px;
+              @include respond(lg-desktop) {
+                  height: 45px;
+                  font-size: 15px;
+                  line-height: 1.3;
               }
             }
           }
@@ -642,17 +641,11 @@
                   border-top: none;
                   vertical-align: middle;
                   white-space: nowrap;
-
-                  @include respond(md-desktop) {
-                    font-size: 17px;
-                    padding: 18px 10px;
+                  @include respond(lg-desktop) {
+                      font-size: 15px;
+                      line-height: 1.3;
+                      padding: 17px 10px;
                   }
-
-                  @include respond(sm-desktop) {
-                    font-size: 15px;
-                    padding: 15px 10px;
-                  }
-
                   @include respond(phone) {
                     font-size: 14px;
                     padding: 10px;
@@ -763,8 +756,11 @@
             position: absolute;
             transform: translateY(-50%);
           }
-          @include respond(sm-desktop) {
-            font-size: 15px;
+          @include respond(lg-desktop) {
+              top: 15px;
+              font-size: 14px;
+              line-height: 15px;
+              transform: translateY(-22px);
           }
           @include respond(phone) {
             font-size: 13px;
@@ -796,10 +792,15 @@
           &:focus {
             & + label {
               transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
             }
           }
-          @include respond(sm-desktop) {
-            font-size: 18px;
+          @include respond(lg-desktop) {
+              height: 45px;
+              font-size: 15px;
+              line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 16px;
@@ -1031,8 +1032,11 @@
             position: absolute;
             transform: translateY(-50%);
           }
-          @include respond(sm-desktop) {
-            font-size: 15px;
+          @include respond(lg-desktop) {
+              top: 15px;
+              font-size: 14px;
+              line-height: 15px;
+              transform: translateY(-22px);
           }
           @include respond(phone) {
             font-size: 13px;
@@ -1060,6 +1064,9 @@
             & + label {
               // background: #ffffff;
               transform: translateY(-30px);
+              @include respond(lg-desktop) {
+                transform: translateY(-22px);
+              }
             }
           }
           &:-webkit-autofill,
@@ -1068,6 +1075,11 @@
           &:-webkit-autofill:active {
             box-shadow: 0 0 0 30px #f8f8f8 inset !important;
             -webkit-box-shadow: 0 0 0 30px #f8f8f8 inset !important;
+          }
+          @include respond(lg-desktop) {
+              height: 45px;
+              font-size: 15px;
+              line-height: 1.3;
           }
         }
         img {
@@ -1080,6 +1092,9 @@
           .label_heading {
             left: 78px;
             transform: translate(-61px, -30px);
+            @include respond(lg-desktop) {
+              transform: translate(-61px, -22px);
+            }
           }
           .formControl {
             border-top-left-radius: 0px;
@@ -1087,6 +1102,9 @@
             &:focus {
               & + label {
                 transform: translate(-61px, -30px);
+                @include respond(lg-desktop) {
+                  transform: translate(-61px, -22px);
+                }
               }
             }
           }

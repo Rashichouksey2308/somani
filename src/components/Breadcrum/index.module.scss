@@ -125,7 +125,7 @@
             padding: 3px 8px;
             outline: none;
             // background: #F3F4F7;
-            @include respond(sm-desktop) {
+            @include respond(lg-desktop) {
                 font-size: 15px;
                 line-height: 1.3;
             }

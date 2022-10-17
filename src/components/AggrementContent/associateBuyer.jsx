@@ -94,26 +94,20 @@ if (window) {
      setDocList(temp)
     setAssociateData(buyer)
             let tempArr=savedData?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(tempArr,"tempArr")
+           let optionArray=[...options]
           tempArr.forEach((val,index)=>{
+          val.actions = "true"
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
+          }
          
-          if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
           }
 
           })
+          setOptions([...optionArray])
   }else{
     console.log("in props")
     let buyer = {
@@ -145,26 +139,20 @@ if (window) {
 
     setAssociateData(buyer)
              let tempArr=props.data?.authorisedSignatoryDetails
-          let optionArray=[]
-          console.log(tempArr,"tempArr")
+          let optionArray=[...options]
           tempArr.forEach((val,index)=>{
           val.actions = "true"
-          if(tempArr?.length>0){
-               if(val?.name=="Bhawana Jain"){
-             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+           if(tempArr?.length>0){
+            
+          let index = optionArray.indexOf(val.name);
+          if (index > -1) { 
+              optionArray.splice(index, 1);
           }
-          if(val?.name=="Vipin Kumar"){
-             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
-          }
-          if(val?.name=="Devesh Jain"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
-          }
-          if(val?.name=="Fatima Yannoulis"){
-             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
-          }
+         
           }
 
           })
+          setOptions([...optionArray])
   }
 }
 }, [props])
@@ -245,6 +233,7 @@ props.updateData("Associate Buyer",data)
       const newState = prevState.map((obj ,i)=> {
         // 👇️ if id equals 2, update country property
         if (i == index) {
+          setRemovedOption(obj.name)
           return {...obj, actions: 'false'};
         }
 
@@ -287,7 +276,7 @@ props.updateData("Associate Buyer",data)
       name:"",designation:"",email:"",phoneNo:"",
       actions:"false",addnew:"false"
     }])
-
+setRemovedOption(null)
   }
 const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
@@ -296,8 +285,8 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
-setRemovedOption(null)
-if(val?.name=="Bhawana Jain" ||val?.name=="Vipin Kumar" ||val?.name=="Devesh Jain" ||val?.name=="atima Yannoulis"  ){
+
+if(val?.name=="Bhawana Jain" ||val?.name=="Vipin Kumar" ||val?.name=="Devesh Jain" ||val?.name=="Fatima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
   setOptions([...temp])
@@ -731,6 +720,7 @@ console.log(associateData.gstin,"associateData")
                     onChange={(e) => {
                     setAddress(e.target.name,e.target.value)
                   }}
+                  onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country<strong className="text-danger">*</strong>
@@ -1167,6 +1157,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
+                        onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>

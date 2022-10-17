@@ -429,8 +429,9 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
+    dispatch(setNotLoading())
   }
-  dispatch(setNotLoading())
+ 
 }
 
 export const sharingTermsheetEmail =

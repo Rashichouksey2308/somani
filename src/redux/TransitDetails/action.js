@@ -177,7 +177,7 @@ export const UpdateTransitDetails =
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         dispatch(setNotLoading())
-        return response.data.code
+        return true
       } else {
         dispatch(updateTransitDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'

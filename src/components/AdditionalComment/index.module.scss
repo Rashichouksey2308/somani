@@ -116,17 +116,17 @@
                     top: 51%;
                     left: 0;
                     width: 100%;
-                    height: 2px;
+                    height: 3px;
                     content: "";
                     z-index: -1;
                     position: absolute;
                     transform: translateY(-50%);
                 }
-                @include respond(phone) {
-                    font-size: $font_size_mobile_input_label;
-                }
-                @include respond(sm-desktop) {
-                    font-size: $font_size_mobile_input_label;
+                @include respond(lg-desktop) {
+                    top: 15px;
+                    font-size: 14px;
+                    line-height: 15px;
+                    transform: translateY(-22px);
                 }
             }
             .value {
@@ -145,7 +145,15 @@
                 &:focus {
                     &+label {
                         transform: translateY(-30px);
+                        @include respond(lg-desktop) {
+                            transform: translateY(-22px);
+                        }
                     }
+                }
+                @include respond(lg-desktop) {
+                    height: 45px;
+                    font-size: 15px;
+                    line-height: 1.3;
                 }
             }
             .comment_name {

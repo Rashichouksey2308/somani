@@ -157,7 +157,8 @@ export default function Index({
       return
     }
     
-    if (dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' 
+    if(_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner'){
+ if (dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' 
        || dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined) {
       let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -165,6 +166,8 @@ export default function Index({
       }
       return
     }
+    }
+   
     // else if (dischargeOfCargo.dischargeOfCargo.vesselName === '') {
 
     //   let toastMessage = 'PLEASE SELCT A VESSEL  '

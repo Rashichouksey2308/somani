@@ -84,7 +84,9 @@ console.log(lcModuleData,"lcModuleData")
       portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge
         ? lcModuleData?.lcApplication?.portOfDischarge
         : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
-      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment ?
+      lcModuleData?.lcApplication?.latestDateOfShipment : 
+      lcModuleData?.order?.supplierCredential?.latestShipmentDate,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod
         ? lcModuleData?.lcApplication?.presentaionPeriod
@@ -365,7 +367,7 @@ console.log(lcModuleData,"lcModuleData")
       }
     }
     if (lcData.atSight === '' || lcData.atSight == undefined) {
-      toastMessage = 'Please select At Sight'
+      toastMessage = 'Please select DRAFT AT'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false
