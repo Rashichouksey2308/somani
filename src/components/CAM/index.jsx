@@ -1129,7 +1129,9 @@ const supplierInfo = (camData) => {
                   <span
                     className={`${styles.value} ${styles.danger_highlight} value`}
                   >
-                    {camData?.supplierCredential?.commodityOfTotalTrade} %
+                   
+                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', { maximumFractionDigits: 2 })} %
+
                   </span>
                 </Col>
               </Row>
