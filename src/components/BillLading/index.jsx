@@ -18,6 +18,7 @@ import {
   CovertvaluefromtoCR,
   addPrefixOrSuffix,
   removePrefixOrSuffix,
+  convertValue,
 } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
@@ -692,11 +693,11 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(
+                    {convertValue(_get(
                       TransitDetails,
                       'data[0].order.marginMoney.calculation.orderValueInINR',
                       '',
-                    )?.toLocaleString('en-IN')}{' '}
+                    ))?.toLocaleString('en-IN',{maximumFractionDigits: 2})}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
