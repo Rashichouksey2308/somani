@@ -359,9 +359,9 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
+              top: 22px;
               font-size: 14px;
-              line-height: 15px;
+              line-height: 16px;
               transform: translateY(-22px);
           }
         }
