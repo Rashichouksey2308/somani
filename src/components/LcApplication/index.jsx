@@ -289,9 +289,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : (Number(
-                                lcData?.currecyCodeAndAmountValue,
-                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) + ` USD`
+                              : `USD ` +  (Number(
+                                  lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) 
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(

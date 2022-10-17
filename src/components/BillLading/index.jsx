@@ -458,6 +458,22 @@ export default function Index({
             break
           }
         }
+        if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
+          toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
+        if (bolList[i]?.packingListDoc == null || bolList[i]?.packingListDoc == undefined) {
+          toastMessage = `Packing List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
       }
 
       return isOk
@@ -679,7 +695,7 @@ export default function Index({
                   <span className={styles.value}>
                     {_get(
                       TransitDetails,
-                      'data[0].order.orderValue',
+                      'data[0].order.marginMoney.calculation.orderValueInINR',
                       '',
                     )?.toLocaleString('en-IN')}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
@@ -1276,7 +1292,11 @@ export default function Index({
                                     />
                                   </td>
                                   <td className={styles.doc_row}>
-                                    28-02-2022,5:30 PM
+                                  {bolList[index]?.containerNumberListDoc == null
+                                  ? ''
+                                  : moment(bolList[index]?.containerNumberListDoc.date).format(
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1355,7 +1375,11 @@ export default function Index({
                                     />
                                   </td>
                                   <td className={styles.doc_row}>
-                                    28-02-2022,5:30 PM
+                                  {bolList[index]?.packingListDoc == null
+                                  ? ''
+                                  : moment(bolList[index]?.packingListDoc.date).format(
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1593,7 +1617,7 @@ export default function Index({
         backdropClassName={styles.backdrop}
       >
         <Modal.Header
-          className={`${styles.card_header} card-header bg-transparent`}
+          className={`${styles.card_header} card-header background`}
         >
           <Modal.Title>
             <h3>Updated Successfully</h3>

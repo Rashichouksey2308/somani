@@ -2605,7 +2605,7 @@ function Index() {
                     paddingBottom: '25px',
                   }}
                 >
-                  {camData?.supplierCredential?.commodityOfTotalTrade} %
+                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', { maximumFractionDigits: 2 })} %
                 </td>
               </tr>
               <tr>
@@ -3612,7 +3612,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -7444,7 +7444,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br /> <br /> <br />  <br /> <br /> <br /> 
+            <br /> <br /> <br /> <br />  <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
