@@ -2552,6 +2552,7 @@ function Index(props) {
     if (timestamp == 500) {
       return
     }
+     setSaveData(false)  
     // props.setDate(timestamp)
     // localStorage.setItem('timeGenericUpdated', timestamp)
     setSubmitData(false)
@@ -2571,7 +2572,7 @@ function Index(props) {
     })
 
     setSidebar([...tempArr])
-
+   
     setSideStateToLocal(key)
   }
   const onShowSideBar = () => {
