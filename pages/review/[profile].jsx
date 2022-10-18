@@ -12,6 +12,7 @@ import router from 'next/router'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import { GetBuyer } from '../../src/redux/registerBuyer/action'
 import { toast } from 'react-toastify'
+import { settingSidebar } from '../../src/redux/breadcrumb/action'
 const Index = () => {
   const dispatch = useDispatch()
 
@@ -40,7 +41,7 @@ const Index = () => {
     dispatch(setPageName('review-queue'))
     dispatch(setDynamicName(buyerList?.companyName))
   }, [buyerList, dispatch])
-  const handleApprove = () => {
+  const handleApprove = async () => {
     if (!buyerList?.commodity?.apiResponse) {
       if (!payloadData.hasOwnProperty('commodity')) {
         let toastMessage = 'Please select commodity'
@@ -111,7 +112,11 @@ const Index = () => {
     }
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
-    dispatch(UpdateBuyer(payload))
+   let code = await  dispatch(UpdateBuyer(payload))
+   if(code==200){
+       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
+       Router.push('/review')
+   }
 
   }
   const handleReject = () => {
