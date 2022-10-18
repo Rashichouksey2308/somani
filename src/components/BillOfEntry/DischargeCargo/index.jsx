@@ -5,7 +5,7 @@ import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
 import _get from 'lodash/get'
-import { UpdateCustomClearance,GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { UpdateCustomClearance, GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
@@ -23,7 +23,7 @@ export default function Index({
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
-  
+
   const [billOfEntryData, setBillOfEntryData] = useState({
     // boeAssessment: '',
     // pdBond: true,
@@ -36,7 +36,7 @@ export default function Index({
       invoiceQuantityUnit: '',
     },
   })
- const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -56,7 +56,7 @@ export default function Index({
         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
         '',
       ),
-      numberOfContainers:_get(
+      numberOfContainers: _get(
         customData,
         'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
         '',
@@ -68,32 +68,32 @@ export default function Index({
     document1: null,
     document2: null,
   })
-  console.log(dischargeOfCargo,"dischargeOfCargo111111")
-// useEffect((
- 
-// ) => {
-//    setDischargeOfCargo({
-//     dischargeOfCargo: {
-//       vesselName: _get(
-//         customData,
-//         'dischargeOfCargo.dischargeOfCargo.vesselName',
-//         '',
-//       ),
-//       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-//       dischargeQuantity: _get(
-//         customData,
-//         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
-//         '',
-//       ),
-//       numberOfContainers:"",
-//       vesselArrivaldate: '',
-//       dischargeStartDate: '',
-//       dischargeEndDate: '',
-//     },
-//     document1: null,
-//     document2: null,
-//   })
-// },[customData])
+  console.log(dischargeOfCargo, "dischargeOfCargo111111")
+  // useEffect((
+
+  // ) => {
+  //    setDischargeOfCargo({
+  //     dischargeOfCargo: {
+  //       vesselName: _get(
+  //         customData,
+  //         'dischargeOfCargo.dischargeOfCargo.vesselName',
+  //         '',
+  //       ),
+  //       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
+  //       dischargeQuantity: _get(
+  //         customData,
+  //         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
+  //         '',
+  //       ),
+  //       numberOfContainers:"",
+  //       vesselArrivaldate: '',
+  //       dischargeStartDate: '',
+  //       dischargeEndDate: '',
+  //     },
+  //     document1: null,
+  //     document2: null,
+  //   })
+  // },[customData])
   const saveDate = (value, name) => {
     console.log(value, name, 'save date')
     const d = new Date(value)
@@ -136,7 +136,7 @@ export default function Index({
   }
 
   const onSaveDischarge = () => {
-    console.log(dischargeOfCargo,"dischargeOfCargo?.dischargeOfCargo?.numberOfContainers")
+    console.log(dischargeOfCargo, "dischargeOfCargo?.dischargeOfCargo?.numberOfContainers")
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -144,7 +144,7 @@ export default function Index({
       }
       return
     }
-   
+
     if (
       Number(dischargeOfCargo.dischargeOfCargo.dischargeQuantity) >
       Number(customData?.order?.quantity)
@@ -156,18 +156,18 @@ export default function Index({
       }
       return
     }
-    
-    if(_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner'){
- if (dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' 
-       || dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined) {
-      let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+
+    if (_get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Liner') {
+      if (dischargeOfCargo.dischargeOfCargo?.numberOfContainers == ''
+        || dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined) {
+        let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
       }
-      return
     }
-    }
-   
+
     // else if (dischargeOfCargo.dischargeOfCargo.vesselName === '') {
 
     //   let toastMessage = 'PLEASE SELCT A VESSEL  '
@@ -282,11 +282,11 @@ export default function Index({
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
-          numberOfContainers:_get(
-        customData,
-        'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
-        '',
-      ),
+          numberOfContainers: _get(
+            customData,
+            'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
+            '',
+          ),
         },
         document1: data?.document1 ?? null,
         document2: data?.document2 ?? null,
@@ -385,24 +385,24 @@ export default function Index({
                         </option>
                         {shipmentTypeBulk
                           ? _get(customData, 'order.vessel.vessels', []).map(
-                              (vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation?.name}
-                                  key={index}
-                                >
-                                  {_get(vessel, 'vesselInformation[0].name', '')}
-                                </option>
-                              ),
-                            )
-                          : _get(
-                              customData,
-                              'order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
+                            (vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {_get(vessel, 'vesselInformation[0].name', '')}
                               </option>
-                            ))}
+                            ),
+                          )
+                          : _get(
+                            customData,
+                            'order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                       </select>
                       <label className={`${styles.label_heading} label_heading`}>
                         Vessel Name<strong className="text-danger">*</strong>
@@ -431,27 +431,30 @@ export default function Index({
                     <input
                       // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                       className={`${styles.input_field} input form-control`}
-                    
+
                       type="text"
-                              onFocus={(e) => {
-                                setIsFieldInFocus(true),
-                                  e.target.type = 'number'
-                              }}
-                              onBlur={(e) => {
-                                setIsFieldInFocus(false),
-                                  e.target.type = 'text'
-                              }}
+                      onWheel={(event) =>
+                        event.currentTarget.blur()
+                      }
+                      onFocus={(e) => {
+                        setIsFieldInFocus(true),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus(false),
+                          e.target.type = 'text'
+                      }}
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                       value={isFieldInFocus ?
-                                dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
-                                Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN")+ ` MT`}
-                      
+                        dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
+                        Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN") + ` MT`}
+
                       name="dischargeQuantity"
                       onChange={(e) =>
                         onChangeDischargeOfCargo(e.target.name, e.target.value)
                       }
                       required
-                      // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Discharge Quantity<strong className="text-danger">*</strong>
@@ -466,18 +469,18 @@ export default function Index({
                         //   val?.shippingInformation?.numberOfContainers
                         // }
                         className={`${styles.input_field} input form-control`}
-                         type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                        type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
                           evt.preventDefault()
                         }
                         onChange={(e) =>
-                        onChangeDischargeOfCargo(e.target.name, e.target.value)
-                      }
+                          onChangeDischargeOfCargo(e.target.name, e.target.value)
+                        }
                         required
                       />
                       <label className={`${styles.label_heading} label_heading`}>
@@ -600,12 +603,12 @@ export default function Index({
                             {dischargeOfCargo.document1 === null
                               ? ''
                               : moment(dischargeOfCargo?.document1?.Date).format(
-                                  'DD-MM-YYYY, h:mm a',
-                                )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                           </td>
                           <td>
                             {dischargeOfCargo &&
-                            dischargeOfCargo.document1 === null ? (
+                              dischargeOfCargo.document1 === null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -655,12 +658,12 @@ export default function Index({
                             {dischargeOfCargo.document2 === null
                               ? ''
                               : moment(dischargeOfCargo?.document2?.Date).format(
-                                  'DD-MM-YYYY, h:mm a',
-                                )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                           </td>
                           <td>
                             {dischargeOfCargo &&
-                            dischargeOfCargo.document2 === null ? (
+                              dischargeOfCargo.document2 === null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input

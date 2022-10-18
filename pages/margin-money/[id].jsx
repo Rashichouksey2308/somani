@@ -5129,6 +5129,9 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onFocus={(e) => {
                                   setIsFieldInFocus(true),
                                     (e.target.type = 'number')
