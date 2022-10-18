@@ -112,7 +112,7 @@ const Index = ({
           style={{ cursor: 'default' }}
         >
           <div className={`${styles.commodity}`}>
-            <span className={`${styles.comm_head} sub_heading mb-2`}>
+            <span className={`${styles.comm_head} sub_heading`}>
               Commodity
             </span>
             <span className={`${styles.comm_val} heading`}>

@@ -51,18 +51,27 @@
   border-top: 2px solid red !important;
   .row {
     padding: 25px 35px !important;
+    @include respond(lg-desktop) {
+      padding: 17px 35px !important;
+    }
   }
   .content {
     padding: 25px 35px !important;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    @include respond(lg-desktop) {
+      padding: 17px 35px !important;
+    }
     .key {
       width: 48%;
       font-size: 20px;
       line-height: 24px;
       margin-right: 2%;
-
       // opacity: 0.7;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+      }
     }
 
     .value {
@@ -72,6 +81,10 @@
       font-weight: 500;
       // white-space: nowrap;
       opacity: 1;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+      }
     }
     .danger_highlight {
       color: #ea3f3f !important;
@@ -85,8 +98,11 @@
     .remark_head {
       font-size: 20px;
       line-height: 24px;
-
       opacity: 0.7;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+      }
     }
     p {
       font-size: 20px;
@@ -107,12 +123,21 @@
     border: 1px solid #d2d7e5;
     border-radius: 6px;
     padding: 1rem;
+    @include respond(lg-desktop) {
+      padding: 17px 20px !important;
+    }
     .icon {
       background: #ffeccf;
       border-radius: 8px;
       width: 60px;
       height: 60px;
+      min-width: 60px;
       padding: 0px;
+      @include respond(lg-desktop) {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+      }
       span {
         display: flex;
         justify-content: flex-start;
@@ -122,6 +147,10 @@
         color: #ff9d00;
         height: 100%;
         align-items: center;
+        @include respond(lg-desktop) {
+          font-size: 22px;
+          line-height: 1.3;
+        }
       }
     }
     .name {
@@ -134,8 +163,19 @@
       justify-content: center;
       display: flex;
       padding: 0px;
+      @include respond(lg-desktop) {
+        height: 50px;
+        font-size: 20px;
+        line-height: 1.3;
+      }
     }
     .limit {
+      @include respond(lg-desktop) {
+        margin-bottom: 2rem !important;
+        &:last-child {
+          margin-bottom: 0 !important;
+        }
+      }
       .label {
         .limit_box {
           padding: 1rem;
@@ -185,6 +225,10 @@
         font-size: 18px;
         line-height: 28px;
         font-weight: 300;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
+        }
       }
     }
   }
@@ -197,8 +241,12 @@
     font-size: 22px;
     line-height: 27px;
     font-weight: bold;
-
     padding-left: 35px;
+    @include respond(lg-desktop) {
+      height: 50px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
   }
   ul {
     padding-left: 35px;
@@ -224,14 +272,23 @@
       font-weight: bold;
       border-radius: 5px;
       background: rgba(255, 0, 0, 0);
+      @include respond(lg-desktop) {
+        width: 150px;
+        height: 38px;
+        font-size: 18px;
+        line-height: 1.3;
+      }
     }
     .heading {
       height: fit-content;
       font-size: 22px;
       line-height: 27px;
       font-weight: bold;
-
       padding-left: 0px;
+      @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
     }
   }
 
@@ -299,7 +356,6 @@
         font-size: 16px;
         font-weight: bold;
         line-height: 19px;
-        font-family: Helvetica;
         letter-spacing: 0px;
         top: 0px;
         left: 0px;
@@ -309,7 +365,7 @@
       }
       .highlight {
         color: #61c554;
-        font: normal normal bold 17px/21px Helvetica;
+        font: normal normal bold 17px/21px;
       }
     }
     .name {
@@ -332,17 +388,25 @@
           height: 22px;
           min-width: 22px;
           border-radius: 2px;
+          @include respond(lg-desktop) {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+          }
         }
 
         span {
           font-weight: bold;
           font-size: 16px;
           line-height: 19px;
-
           text-transform: capitalize;
           opacity: 0.7;
           margin-left: 16px;
           margin-right: 10px;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 1.3;
+          }
         }
       }
     }
@@ -376,7 +440,13 @@
       border-radius: 8px;
       width: 60px;
       height: 60px;
+      min-width: 60px;
       padding: 0px;
+      @include respond(lg-desktop) {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+      }
 
       span {
         display: flex;
@@ -392,10 +462,11 @@
     .text {
       display: flex;
       justify-content: flex-start;
-
       height: 60px;
-
       align-items: center;
+      @include respond(lg-desktop) {
+        height: 50px;
+      }
     }
     .name {
       min-height: 60px;
@@ -420,13 +491,20 @@
         font-size: 15px;
         line-height: 19px;
         font-weight: bold;
-
         color: #8492a6;
         background: #fafafb;
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 1.2;
+        }
       }
       td {
         border-top: none;
         vertical-align: baseline;
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 1.2;
+        }
         .dashedLine {
           border-bottom: 1px dashed black;
         }
@@ -437,7 +515,11 @@
           height: 60px;
           min-width: 60px;
           padding: 0px;
-
+          @include respond(lg-desktop) {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+          }
           span {
             font-size: 28px;
             line-height: 34px;
@@ -448,6 +530,10 @@
             justify-content: flex-start;
             align-items: center;
             padding: 0px;
+            @include respond(lg-desktop) {
+              font-size: 22px;
+              line-height: 1.3;
+            }
           }
           .name {
             height: 60px;
@@ -458,6 +544,11 @@
             align-items: center;
             justify-content: center;
             display: flex;
+            @include respond(lg-desktop) {
+              height: 50px;
+              font-size: 18px;
+              line-height: 1.3;
+            }
           }
         }
         select {
@@ -478,7 +569,7 @@
     padding: 0px;
 
     padding-left: 15px;
-    border-top: 2px solid red !important;
+    // border-top: 2px solid red !important;
     border-right: 2px solid red !important;
 
     .chart {
@@ -594,24 +685,33 @@
         font-size: 15px;
         line-height: 19px;
         font-weight: bold;
-
         color: #8492a6;
         background: #fafafb;
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 1.2;
+        }
         &.bold_heading {
           font-size: 22px;
           font-weight: bold;
           line-height: 27px;
+          @include respond(lg-desktop) {
+            font-size: 18px;
+            line-height: 1.3;
+          }
         }
       }
 
       td {
         border-top: none !important;
         vertical-align: baseline;
-
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 1.2;
+        }
         .dashedLine {
           border-bottom: 1px dashed black;
         }
-
         .icon {
           background: #ffeccf;
           border-radius: 8px;
@@ -663,16 +763,28 @@
     .head_wrapper {
       padding: 25px 35px !important;
       height: 67px;
+      @include respond(lg-desktop) {
+        height: 50px;
+        padding: 13px 35px !important;
+      }
       .head {
         font-size: 22px;
         font-weight: bold;
         line-height: 27px;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
       .child {
         font-size: 22px;
         font-weight: 500;
         line-height: 27px;
         //color: #111111;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3
+        }
       }
     }
     .chart {
@@ -739,16 +851,24 @@
           width: 21px;
           height: 21px;
           border-radius: 2px;
+          @include respond(lg-desktop) {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+          }
         }
 
         span {
           font-weight: bold;
           font-size: 16px;
           line-height: 19px;
-
           text-transform: capitalize;
           opacity: 0.7;
           margin-left: 16px;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
         }
       }
     }
@@ -760,11 +880,18 @@
     .head_wrapper {
       padding: 25px 35px !important;
       height: 67px;
-
+      @include respond(lg-desktop) {
+        height: 50px;
+        padding: 13px 35px !important;
+      }
       .head {
         font-size: 22px;
         font-weight: bold;
         line-height: 27px;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
 
       .child {
@@ -772,6 +899,10 @@
         //color: #111111;
         font-weight: 500;
         line-height: 27px;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
     }
 
@@ -844,16 +975,24 @@
           width: 21px;
           height: 21px;
           border-radius: 2px;
+          @include respond(lg-desktop) {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+          }
         }
 
         span {
           font-weight: bold;
           font-size: 16px;
           line-height: 19px;
-
           text-transform: capitalize;
           opacity: 0.7;
           margin-left: 16px;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
         }
       }
     }
@@ -870,7 +1009,7 @@
   line-height: 23px;
   margin-bottom: 0;
   @include respond(lg-desktop) {
-      font-size: 15px;
+      font-size: 15px !important;
       line-height: 1.3;
   }
 }
@@ -919,9 +1058,10 @@
 
           tr {
             height: 67px;
-
             border: none !important;
-
+            @include respond(lg-desktop) {
+              height: 50px;
+            }
             th {
               text-align: center;
               vertical-align: middle;
@@ -936,12 +1076,20 @@
                 padding-left: 35px;
                 text-align: left;
               }
+              @include respond(lg-desktop) {
+                font-size: 14px;
+                line-height: 1.2;
+              }
             }
 
             td {
               vertical-align: baseline;
               text-align: center;
               border: none !important;
+              @include respond(lg-desktop) {
+                font-size: 14px;
+                line-height: 1.2;
+              }
               input {
                 width: 19px;
                 height: 14px;
@@ -951,6 +1099,12 @@
                 height: 50px;
                 border-radius: 4px;
                 padding-left: 10px;
+                outline: none;
+                @include respond(lg-desktop) {
+                  height: 34px;
+                  font-size: 15px;
+                  line-height: 1.3;
+                }
               }
 
               select {
@@ -975,6 +1129,10 @@
     font-weight: bold;
     margin-left: 80px;
     margin-top: 0;
+    @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+    }
   }
 
   .complaintExtra {
@@ -982,6 +1140,11 @@
     font-size: 18px;
     line-height: 23px;
     font-weight: 500;
+    @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+        margin-top: 4px;
+    }
   }
 }
 .rating_wrapper {
