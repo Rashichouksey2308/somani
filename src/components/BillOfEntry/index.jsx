@@ -918,6 +918,9 @@ export default function Index({
                     //   billOfEntryData?.boeDetails?.invoiceQuantity,
                     //   'MT',
                     // )}
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
                     name="boeDetails.invoiceQuantity"
                     required
                     onKeyDown={(evt) =>
@@ -943,6 +946,9 @@ export default function Index({
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
                     value={addPrefixOrSuffix(
                       billOfEntryData?.boeDetails?.invoiceValue,
                       'USD',
