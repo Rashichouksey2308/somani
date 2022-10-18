@@ -154,7 +154,9 @@ function Index({
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
 
+
     const length = _get(filteredData[0], 'bankName', '')
+    console.log(length, 'PRIMARY BANK NAME', filteredData)
 
     return length
   }
