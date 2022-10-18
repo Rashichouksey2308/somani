@@ -679,8 +679,8 @@ const Index = () => {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         return
-      } 
-       if (
+      }
+      if (
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
         termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
       ) {
@@ -824,17 +824,17 @@ const Index = () => {
       otherTermsAndConditions,
       additionalComments,
     }
-
+     dispatch(updateTermsheet(UpdatedTermsheet))
     // console.log(termsheetDetails, 'updatedtermsheet')
-    let code = await dispatch(updateTermsheet(UpdatedTermsheet))
-    if (code == 200) {
-      sessionStorage.setItem(
-        'marginId',
-        _get(termsheet, 'data[0].order._id', ''),
-      )
-      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-      router.push(`/margin-money/id`)
-    }
+    // let code = await dispatch(updateTermsheet(UpdatedTermsheet))
+    // if (code == 200) {
+    //   sessionStorage.setItem(
+    //     'marginId',
+    //     _get(termsheet, 'data[0].order._id', ''),
+    //   )
+    //   dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+    //   router.push(`/margin-money/id`)
+    // }
   }
 
   const handleChange = (name, value) => {
