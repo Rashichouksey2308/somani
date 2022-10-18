@@ -689,7 +689,10 @@ const addDoc=(e,index)=>{
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -760,7 +763,10 @@ const addDoc=(e,index)=>{
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   value={newAddress.pinCode}
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -1018,7 +1024,10 @@ const addDoc=(e,index)=>{
                             <input
                              value={val.phoneNo}
                               className='input'
-                              type="number"
+                               type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
@@ -1127,7 +1136,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -1198,7 +1210,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 

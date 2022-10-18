@@ -1041,7 +1041,10 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                              type="number"
+                               type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()

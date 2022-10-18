@@ -15,7 +15,7 @@ import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
 
 function Index() {
-  const dispatch = useDispatch() 
+  const dispatch = useDispatch()
 
   const { margin } = useSelector((state) => state.marginMoney)
 
@@ -264,7 +264,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.quantity
-                              ?( marginData?.order?.quantity)?.toLocaleString('en-In', {maximumFractionDigits: 2})
+                              ? (marginData?.order?.quantity)?.toLocaleString('en-In', { maximumFractionDigits: 2 })
                               : 0,
                             'MT',
                             '',
@@ -285,7 +285,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.quantity
-                              ? (marginData?.order?.quantity)?.toLocaleString('en-In', {maximumFractionDigits: 2})
+                              ? (marginData?.order?.quantity)?.toLocaleString('en-In', { maximumFractionDigits: 2 })
                               : 0,
                             'MT',
                             '',
@@ -333,7 +333,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                        USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
+                          USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ?? 0}
                         </p>
                       </td>
                       <td align="left">
@@ -348,7 +348,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                          USD {marginData?.order?.perUnitPrice?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -453,7 +453,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             (marginData?.order?.termsheet?.commercials
-                              ?.usanceInterestPercetage)?.toLocaleString('en-In', {maximumFractionDigits: 2}),
+                              ?.usanceInterestPercetage)?.toLocaleString('en-In', { maximumFractionDigits: 2 }),
                             '%',
                             '',
                           )}
@@ -473,7 +473,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             (marginData?.order?.termsheet?.commercials
-                              ?.usanceInterestPercetage)?.toLocaleString('en-In', {maximumFractionDigits: 2}),
+                              ?.usanceInterestPercetage)?.toLocaleString('en-In', { maximumFractionDigits: 2 }),
                             '%',
                             '',
                           )}
@@ -521,8 +521,8 @@ function Index() {
                           }}
                         >
                           {addPrefixOrSuffix(
-                           ( marginData?.order?.termsheet?.commercials
-                              ?.tradeMarginPercentage)?.toLocaleString('en-In', {maximumFractionDigits: 2}),
+                            (marginData?.order?.termsheet?.commercials
+                              ?.tradeMarginPercentage)?.toLocaleString('en-In', { maximumFractionDigits: 2 }),
                             '%',
                             '',
                           )}
@@ -542,7 +542,7 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             (marginData?.order?.termsheet?.commercials
-                              ?.tradeMarginPercentage)?.toLocaleString('en-In', {maximumFractionDigits: 2}),
+                              ?.tradeMarginPercentage)?.toLocaleString('en-In', { maximumFractionDigits: 2 }),
                             '%',
                             '',
                           )}
@@ -670,7 +670,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? (marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney)?.toLocaleString('en-In', {maximumFractionDigits: 2})
+                                ?.marginMoney)?.toLocaleString('en-In', { maximumFractionDigits: 2 })
                               : 0,
                             '%',
                             '',
@@ -693,7 +693,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? (marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney)?.toLocaleString('en-In', {maximumFractionDigits: 2})
+                                ?.marginMoney)?.toLocaleString('en-In', { maximumFractionDigits: 2 })
                               : 0,
                             '%',
                             '',
@@ -741,7 +741,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                          {marginData?.numberOfPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ?? 0}
                         </p>
                       </td>
                       <td align="left">
@@ -756,7 +756,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                          {marginData?.numberOfPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -800,7 +800,7 @@ function Index() {
                             marginBottom: '0'
                           }}
                         >
-                          {marginData?.additionalPDC?.toLocaleString('en-In', {maximumFractionDigits: 2})}
+                          {marginData?.additionalPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                         </p>
                       </td>
                       <td align="left">
@@ -815,7 +815,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          -
+                           {marginData?.additionalPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                         </p>
                       </td>
                     </tr>
@@ -890,7 +890,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -906,7 +906,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -959,7 +959,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -975,7 +975,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1028,7 +1028,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1044,7 +1044,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1097,7 +1097,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1113,7 +1113,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1166,7 +1166,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1182,7 +1182,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1235,7 +1235,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1251,7 +1251,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1304,7 +1304,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1320,7 +1320,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1373,7 +1373,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1389,7 +1389,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1442,7 +1442,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1458,7 +1458,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1512,7 +1512,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1528,7 +1528,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1581,7 +1581,7 @@ function Index() {
                             lineHeight: '24px'
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1649,7 +1649,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1709,7 +1709,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1725,7 +1725,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                             ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1778,7 +1778,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1838,7 +1838,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1906,7 +1906,7 @@ function Index() {
                             marginBottom: '0'
                           }}
                         >
-                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                             0}
                         </p>
                       </td>
@@ -1944,14 +1944,14 @@ function Index() {
       autoPaging: 'text',
     })
   }
-  console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+  console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
     0, "asasasasasas")
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>
         <div className={styles.head_container}>
           <div className={styles.head_header}>
-          <img
+            <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
@@ -2041,10 +2041,10 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
+                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ?? 0}
                     </td>
                     <td>
-                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
+                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -2165,9 +2165,9 @@ function Index() {
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      {marginData?.numberOfPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                      {marginData?.numberOfPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ?? 0}
                     </td>
-                    <td>{marginData?.numberOfPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}</td>
+                    <td>{marginData?.numberOfPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ?? 0}</td>
                   </tr>
 
                   <tr>
@@ -2176,9 +2176,10 @@ function Index() {
                       <span className={`ml-2`}>Additional PDC's</span>
                     </td>
                     <td className={`${styles.highlight} satisfactory`}>
-                      {marginData?.additionalPDC?.toLocaleString('en-In', {maximumFractionDigits: 2})}
+                      {marginData?.additionalPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                     </td>
-                    <td>-</td>
+                    <td>                      {marginData?.additionalPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -2204,11 +2205,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
+                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
+                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2223,7 +2224,7 @@ function Index() {
                         0}
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2238,11 +2239,11 @@ function Index() {
                       </span>
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2253,11 +2254,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(K*E)</span>
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2268,11 +2269,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(K+L+M)</span>
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2284,11 +2285,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(N*F)</span>
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2299,11 +2300,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(N+O)</span>
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2317,11 +2318,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(N/A)</span>
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹ {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹ {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2332,11 +2333,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(P*G)</span>
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2349,11 +2350,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(P-R)</span>
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>
-                      ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                   </tr>
@@ -2370,7 +2371,7 @@ function Index() {
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>-</td>
@@ -2386,7 +2387,7 @@ function Index() {
                       </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>-</td>
@@ -2397,11 +2398,11 @@ function Index() {
                       <span className={`ml-2`}>Margin Money (INR) </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
-                    <td>  ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
-                        0}</td>
+                    <td>  ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
+                      0}</td>
                   </tr>
 
                   <tr>
@@ -2413,7 +2414,7 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(R)</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>-</td>
@@ -2426,7 +2427,7 @@ function Index() {
                       </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>-</td>
@@ -2442,7 +2443,7 @@ function Index() {
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString('en-In', { maximumFractionDigits: 2 }) ??
                         0}
                     </td>
                     <td>-</td>

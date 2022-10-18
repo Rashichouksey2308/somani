@@ -1043,7 +1043,10 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="numberOfContainers"
-                                type="number"
+                                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -1070,7 +1073,10 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="freeDetentionPeriod"
-                                type="number"
+                                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()

@@ -692,7 +692,10 @@ console.log(isEdit,"associateData")
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -915,7 +918,10 @@ console.log(isEdit,"associateData")
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                             type="number"
+                              type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()
@@ -1133,7 +1139,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
