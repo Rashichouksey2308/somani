@@ -28,9 +28,10 @@ function Index({
   lcModuleData,
   editLcComments,
   editLcDocComments,
-  name
+  name,
+
 }) {
-  console.log(lcData, 'lcCondition12234')
+  console.log(lcModuleData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -289,9 +290,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : `USD ` + (Number(
+                              : `${lcModuleData?.order?.orderCurrency} ` + (Number(
                                 lcData?.currecyCodeAndAmountValue,
-                              ).toLocaleString(undefined, { maximumFractionDigits: 2, }))
+                              ).toLocaleString(lcModuleData?.order?.orderCurrency?.toLowerCase() === 'inr' ? 'en-In' : undefined, { maximumFractionDigits: 2, }))
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(

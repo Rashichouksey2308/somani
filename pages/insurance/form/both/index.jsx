@@ -49,7 +49,7 @@ const Index = () => {
     dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')))
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
-  
+
   console.log(insuranceResponse, 'insuranceResponse')
 
   const [marineData, setMarineData] = useState({
@@ -80,20 +80,20 @@ const Index = () => {
     premiumAmount: '',
   })
 
-  console.log( marineData, 'Premium', storageData)
+  console.log(marineData, 'Premium', storageData)
 
   useEffect(() => {
     setMarineData({
-      policyNumber: insuranceData?.marineInsurance?.policyNumber|| "",
-      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer|| "Policy Bazaar",
-      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer|| "",
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured|| "",
-      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured|| "",
+      policyNumber: insuranceData?.marineInsurance?.policyNumber || "",
+      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer || "Policy Bazaar",
+      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || "",
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured || "",
+      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured || "",
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
       periodOfInsurance: getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)|| "",
+      lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee) || "",
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
@@ -106,35 +106,35 @@ const Index = () => {
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
       periodOfInsurance: getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
+      lossPayee: insuranceData?.storageInsurance?.lossPayee || "",
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
     setInsuranceDocument({
       storagePolicyDocument: insuranceData?.storagePolicyDocument || null,
-    marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
+      marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
     })
-  }, [insuranceResponse,insuranceData])
- console.log(marineData,"marineData")
+  }, [insuranceResponse, insuranceData])
+  console.log(marineData, "marineData")
 
- let dateM1 = new Date(marineData?.insuranceFrom)
- let dateM2 = new Date(marineData?.insuranceTo)
- 
-
- function getDifferenceInDaysMarine() {
-  let date1 = moment(dateM1, "DD.MM.YYYY");
-  let date2 = moment(dateM2, "DD.MM.YYYY");
-  return date2.diff(date1, 'days')
-}
-
-let dateS1 = new Date(storageData?.insuranceFrom)
-let dateS2 = new Date(storageData?.insuranceTo)
+  let dateM1 = new Date(marineData?.insuranceFrom)
+  let dateM2 = new Date(marineData?.insuranceTo)
 
 
-function getDifferenceInDaysStorage() {
-  let date3 = moment(dateS1, 'DD.MM.YYYY')
-  let date4 = moment(dateS2, 'DD.MM.YYYY')
-  return date4.diff(date3, 'days')
-}
+  function getDifferenceInDaysMarine() {
+    let date1 = moment(dateM1, "DD.MM.YYYY");
+    let date2 = moment(dateM2, "DD.MM.YYYY");
+    return date2.diff(date1, 'days')
+  }
+
+  let dateS1 = new Date(storageData?.insuranceFrom)
+  let dateS2 = new Date(storageData?.insuranceTo)
+
+
+  function getDifferenceInDaysStorage() {
+    let date3 = moment(dateS1, 'DD.MM.YYYY')
+    let date4 = moment(dateS2, 'DD.MM.YYYY')
+    return date4.diff(date3, 'days')
+  }
 
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
@@ -144,7 +144,7 @@ function getDifferenceInDaysStorage() {
     // }
     setMarineData(newInput)
   }
-  console.log(marineData,"setMarineData")
+  console.log(marineData, "setMarineData")
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
@@ -196,33 +196,33 @@ function getDifferenceInDaysStorage() {
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData)
-   
-    
+
+
   }
   useEffect(() => {
-   if(isInsurerSameData){
-    
-    setStorageData({ ...marineData })
-   }
-   if(isInsurerSameData==false){
-     console.log(insuranceData,"insuranceData?.storageInsurance?.policyNumber")
-    setStorageData({
-      policyNumber: insuranceData?.storageInsurance?.policyNumber ||"",
-      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || "",
-      gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer||"",
-      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured||"",
-      gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured||"",
-      insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
-      insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-      periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance ||"",
-      insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
-      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
-    })
-   
-   }
+    if (isInsurerSameData) {
+
+      setStorageData({ ...marineData })
+    }
+    if (isInsurerSameData == false) {
+      console.log(insuranceData, "insuranceData?.storageInsurance?.policyNumber")
+      setStorageData({
+        policyNumber: insuranceData?.storageInsurance?.policyNumber || "",
+        nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || "",
+        gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer || "",
+        nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured || "",
+        gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured || "",
+        insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
+        insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
+        periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance || "",
+        insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
+        lossPayee: insuranceData?.storageInsurance?.lossPayee || "",
+        premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
+      })
+
+    }
   },
-  [isInsurerSameData])
+    [isInsurerSameData])
 
   const validate = () => {
     let toastMessage = ''
@@ -240,7 +240,7 @@ function getDifferenceInDaysStorage() {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        (marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined )
+        (marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined)
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -282,7 +282,7 @@ function getDifferenceInDaysStorage() {
     ) {
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        (storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined )
+        (storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined)
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -411,12 +411,12 @@ function getDifferenceInDaysStorage() {
       insuranceDocument.storagePolicyDocument,
     )
 
-     let code = await   dispatch(UpdateInsurance(fd))
-     if(code==200){
-         sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
-         dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
-         Router.push(`/third-party`)
-       }
+    let code = await dispatch(UpdateInsurance(fd))
+    if (code == 200) {
+      sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
+      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
+      Router.push(`/third-party`)
+    }
 
   }
 
@@ -428,15 +428,15 @@ function getDifferenceInDaysStorage() {
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={`${styles.head_header}`}>
-           
+
           <img
-            style={{cursor:'pointer'}}  
+            style={{ cursor: 'pointer' }}
             onClick={() => Router.push('/insurance')}
             className={`${styles.back_arrow} image_arrow img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
-  
+
           <h1 className={styles.heading}>
             {insuranceData?.company?.companyName}
           </h1>
@@ -536,7 +536,7 @@ function getDifferenceInDaysStorage() {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
+                          checked={marineData?.insuranceFromType == 'Domestic'}
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'Domestic')
                           }
@@ -548,7 +548,7 @@ function getDifferenceInDaysStorage() {
                           className={styles.radio}
                           inline
                           label="International"
-                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
+                          checked={marineData?.insuranceFromType == 'International'}
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
@@ -641,7 +641,7 @@ function getDifferenceInDaysStorage() {
                               GSTIN of Insurer
                               {marineData?.insuranceFromType === 'Domestic' ? (
                                 <strong className="text-danger">*</strong>
-                              ): ''}
+                              ) : ''}
                             </label>
 
                           </div>
@@ -717,12 +717,12 @@ function getDifferenceInDaysStorage() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                            type="number"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             name="periodOfInsurance"
-                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
+                            value={getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -738,7 +738,7 @@ function getDifferenceInDaysStorage() {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                             
+
                               name="lossPayee"
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
@@ -750,7 +750,7 @@ function getDifferenceInDaysStorage() {
                               {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
                               <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
-                              
+
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -778,10 +778,12 @@ function getDifferenceInDaysStorage() {
                             }}
                             className={`${styles.input_field} input form-control`}
                             required
-
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             value={isFieldInFocus ?
                               marineData?.premiumAmount :
-                              `${marineData?.premiumAmount === 'Domestic' ? 'INR' : 'USD'} ` + Number(marineData?.premiumAmount)?.toLocaleString()}
+                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(marineData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
                             onChange={(e) =>
@@ -1142,15 +1144,15 @@ function getDifferenceInDaysStorage() {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <input
+                          <input
                             className={`${styles.input_field} input form-control`}
                             required
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                            type="number"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             name="periodOfInsurance"
-                            value={ getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
+                            value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1174,7 +1176,7 @@ function getDifferenceInDaysStorage() {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                             <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1205,7 +1207,7 @@ function getDifferenceInDaysStorage() {
                             name="premiumAmount"
                             value={isFieldInFocus ?
                               storageData?.premiumAmount :
-                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
+                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : storageData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -1474,7 +1476,7 @@ function getDifferenceInDaysStorage() {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
-                             {marineData?.insuranceFromType == 'Domestic' ? <strong className="text-danger">*</strong> : ''}
+                              {marineData?.insuranceFromType == 'Domestic' ? <strong className="text-danger">*</strong> : ''}
                             </label>
 
                           </div>
@@ -1550,12 +1552,12 @@ function getDifferenceInDaysStorage() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                            type="number"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             name="periodOfInsurance"
-                            value={ getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
+                            value={getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1610,9 +1612,12 @@ function getDifferenceInDaysStorage() {
                                 e.target.type = 'text'
                             }}
                             name="premiumAmount"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             value={isFieldInFocus ?
                               marineData?.premiumAmount :
-                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(marineData?.premiumAmount)?.toLocaleString()}
+                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(marineData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -1837,13 +1842,13 @@ function getDifferenceInDaysStorage() {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <input
+                          <input
                             className={`${styles.input_field} input form-control`}
                             required
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                            type="number"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             name="periodOfInsurance"
                             value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -1862,7 +1867,7 @@ function getDifferenceInDaysStorage() {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                            
+
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -1870,7 +1875,7 @@ function getDifferenceInDaysStorage() {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
- 
+
                               <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
@@ -1900,9 +1905,12 @@ function getDifferenceInDaysStorage() {
                                 e.target.type = 'text'
                             }}
                             name="premiumAmount"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             value={isFieldInFocus ?
                               storageData?.premiumAmount :
-                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
+                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(storageData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)

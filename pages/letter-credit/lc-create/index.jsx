@@ -614,6 +614,7 @@ console.log(lcModuleData,"lcModuleData")
         editLcComments={editLcComments}
         editLcDocComments={editLcDocComments}
         name={_get(lcModule,"data[0].company.companyName","")}
+        
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>
