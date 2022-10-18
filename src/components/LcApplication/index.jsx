@@ -190,6 +190,9 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
+                            <option value="First Class European Bank">
+                             First Class European Bank
+                            </option>
                             <option value="Reserve Bank of Spain">
                               Reserve Bank of Spain
                             </option>
@@ -286,9 +289,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : (Number(
-                                lcData?.currecyCodeAndAmountValue,
-                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) + ` USD`
+                              : `USD ` +  (Number(
+                                  lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) 
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(

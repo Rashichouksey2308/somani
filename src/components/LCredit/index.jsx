@@ -78,7 +78,7 @@ function Index() {
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
+      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank || "First Class European Bank",
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue:
@@ -401,6 +401,9 @@ function Index() {
                             value={lcData?.lcIssuingBank}
                           >
                             <option selected disabled>Select an option</option>
+                            <option value="First Class European Bank">
+                             First Class European Bank
+                            </option>
                             <option value="Reserve Bank of Spain">
                               Reserve Bank of Spain
                             </option>
@@ -564,7 +567,7 @@ function Index() {
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
-                        <div className="d-flex">
+                        <div className="d-flex align-items-center">
                           {fieldType == "" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
@@ -647,7 +650,7 @@ function Index() {
                             New Value<strong className="text-danger">*</strong>
                           </label>
                           <img
-                            className="img-fluid ml-4"
+                            className="ml-4"
                             src="/static/add-btn.svg"
                             alt="add button"
                             onClick={() => addToArr()}

@@ -228,7 +228,7 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
+              top: 14px;
               font-size: 14px;
               line-height: 15px;
               transform: translateY(-22px);
@@ -340,7 +340,13 @@
   margin-top: 15px;
   width: 23px;
   height: 26px;
+  z-index: 1;
   pointer-events: none;
+  @include respond(lg-desktop) {
+    width: 18px;
+    margin-top: 9px;
+    margin-left: -33px;
+  }
 }
 .newAddressContainer {
   //margin: 19px 35px 41px !important;

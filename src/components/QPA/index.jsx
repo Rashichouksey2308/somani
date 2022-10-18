@@ -102,7 +102,12 @@ function Index(props) {
             }
           }
         })
-
+        let comment=[]
+         data?.additionalComments?.comments?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+              comment.push(val.comment)
+          }
+        })
         console.log(dat, exe, "exedasa")
 
         setData({
@@ -126,8 +131,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          // addComm: data?.additionalComments?.comments,
-           addComm:[],
+          addComm: data?.comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,

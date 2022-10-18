@@ -89,7 +89,7 @@ function Index(props) {
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
-          specComment: data?.specComment,
+          specComment: data?.specComment, 
         })
       } else {
 
@@ -97,7 +97,6 @@ function Index(props) {
         console.log(data, "data22222")
         let exe;
         let dat = "";
-        let comment=[]
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
             exe = val.place
@@ -106,12 +105,13 @@ function Index(props) {
             }
           }
         })
-  data?.additionalComments?.comments?.forEach((val, index) => {
+        let comment=[]
+         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
-            comment.push(val.comment) 
-           
+              comment.push(val.comment)
           }
         })
+
         console.log(dat, exe, "exedasa")
 
         setData({
@@ -137,8 +137,7 @@ function Index(props) {
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: comment,
-        
+          addComm: data?.comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -575,7 +574,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
-            <Col md={7} className={styles.right}>{data.details}</Col>
+            <Col md={7} className={styles.right}>{data.buyer}</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
@@ -591,7 +590,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Total Order Value</Col>
-            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-In', { maximumFractionDigits: 2 })} </Col>
+            <Col md={7} className={styles.right}> {data.curr}{' '} {(data.totalOrderValue)?.toLocaleString('en-In', { maximumFractionDigits: 2 })} </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Load Port</Col>

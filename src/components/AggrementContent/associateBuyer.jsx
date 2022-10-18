@@ -513,7 +513,7 @@ const cancelAddress=()=>{
   setAddressType("Registered")
 
 }
-console.log(associateData.gstin,"associateData")
+console.log(isEdit,"associateData")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -718,9 +718,13 @@ console.log(associateData.gstin,"associateData")
                   value={newAddress.country}
                   name="country"
                     onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
+                    let temp=e.target.value
+                            // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
+                            //   temp=""
+                            // }
+                          setAddress(e.target.name,temp)
                   }}
-                  onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country<strong className="text-danger">*</strong>
@@ -1155,9 +1159,14 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         value={EditAddress.country}
                         name="country"
                           onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
+                            let temp=e.target.value
+                            console.log(temp,"tempp")
+                            // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
+                            //   temp=""
+                            // }
+                          editNewAddress(e.target.name,temp)
                         }}
-                        onKeyDown={(evt) => ["1", "2","3", "4", "5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
+                       onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
                         Country<strong className="text-danger">*</strong>

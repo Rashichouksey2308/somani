@@ -59,6 +59,9 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
               type="text"
               id="textInput"
               name="quantity"
+              onWheel={(event) =>
+                event.currentTarget.blur()
+              }
               onFocus={(e) => {
                 setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
                   e.target.type = 'number'
@@ -116,35 +119,38 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
                   e.target.type = 'text'
               }}
-                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+              onWheel={(event) =>
+                event.currentTarget.blur()
+              }
               value={
                 isFieldInFocus.orderValue ?
                   orderDetails?.orderValue :
                   Number(orderDetails?.orderValue)?.toLocaleString('en-In') + ` ${orderDetails?.unitOfValue == "Millions" ? "Mn" :
                     orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue}`}
-            onChange={(e) => {
-              // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
-              //  saveOrderData(e.target.name, e.target.value * 10000000)
-              saveOrderData(e.target.name, e.target.value)
-            }}
+              onChange={(e) => {
+                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
+                //  saveOrderData(e.target.name, e.target.value * 10000000)
+                saveOrderData(e.target.name, e.target.value)
+              }}
               // onChange={(e) => {
               //   saveOrderData(e.target.name, e.target.value)
               // }}
-              className = {`${styles.input_field} input form-control`
-            }
+              className={`${styles.input_field} input form-control`
+              }
               // value={
               //   addPrefixOrSuffix(orderDetails?.orderValue?.toString(),
-                  // orderDetails?.unitOfValue == "Millions" ? "Mn" :
-                  //   orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)}
-        
+              // orderDetails?.unitOfValue == "Millions" ? "Mn" :
+              //   orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)}
+
               required
-              />
-              <label
-                className={`${styles.label_heading}  label_heading`}
-                id="textInput"
-              >
-                Order Value<strong className="text-danger">*</strong>
-              </label>
+            />
+            <label
+              className={`${styles.label_heading}  label_heading`}
+              id="textInput"
+            >
+              Order Value<strong className="text-danger">*</strong>
+            </label>
           </div>
 
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>

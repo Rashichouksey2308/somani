@@ -15,6 +15,8 @@ import { setPageName, setDynamicName } from '../../redux/userData/action'
 import Router from 'next/router'
 import _get from 'lodash/get'
 import { addPrefixOrSuffix, convertValue } from 'utils/helper'
+import { toast } from 'react-toastify'
+
 
 function Index({
   vesselData,
@@ -246,14 +248,14 @@ function Index({
                               isFieldInFocus[index]?.value
                                 ? val.quantity
                                 : Number(val.quantity)?.toLocaleString(
-                                    'en-IN',
-                                    { maximumFractionDigits: 2 },
-                                  ) +
-                                  ` ${_get(
-                                    vesselData,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  ).toUpperCase()}`
+                                  'en-IN',
+                                  { maximumFractionDigits: 2 },
+                                ) +
+                                ` ${_get(
+                                  vesselData,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                ).toUpperCase()}`
                             }
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -302,9 +304,9 @@ function Index({
                               orderValueinFocus
                                 ? val.orderValue
                                 : Number(val.orderValue)?.toLocaleString(
-                                    'en-IN',
-                                    { maximumFractionDigits: 2 },
-                                  )
+                                  'en-IN',
+                                  { maximumFractionDigits: 2 },
+                                )
                             }
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -644,11 +646,11 @@ function Index({
                                         value={
                                           vesselInfo.yearOfBuilt
                                             ? vesselInfo?.yearOfBuilt?.slice(
-                                                0,
-                                                4,
-                                              )
+                                              0,
+                                              4,
+                                            )
                                             : // moment(vesselInfo.yearOfBuilt).format("YYYY")
-                                              ''
+                                            ''
                                         }
                                         className={`${styles.input_field} input form-control`}
                                         type="number"
@@ -933,7 +935,7 @@ function Index({
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
                                         : // moment(vesselInfo.yearOfBuilt).format("YYYY")
-                                          ''
+                                        ''
                                     }
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
@@ -979,7 +981,18 @@ function Index({
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   id="containerExcel"
-                                  onChange={(e) => uploadDocHandler1(e)}
+                                  onChange={(e) => {
+                                    if (e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') || e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')) {
+                                      uploadDocHandler1(e)
+                                    } else {
+                                      let toastMessage = 'only XLS files are allowed'
+                                      if (!toast.isActive(toastMessage.toUpperCase())) {
+                                        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                                      }
+                                    }
+                                  }
+                                  }
+
                                   type="file"
                                   name="myfile"
                                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"

@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import _get from 'lodash/get'
 import DownloadBar from '../DownloadBar'
 import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper'
-
+import Router from 'next/router'
 const Index = ({
   finalCal,
   finalCalRevised,
@@ -73,6 +73,9 @@ const Index = ({
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceDataRevised({ ...newInput })
     }
+  }
+    const routeChange = () => {
+    Router.push('/revised-margin-preview')
   }
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
@@ -1517,14 +1520,24 @@ const Index = ({
           </div>
         </div>
       </div>
-
-      <DownloadBar
+              <DownloadBar
+                    downLoadButtonName={`Download`}
+                    handleReject={exportPDF}
+                    isPrevious={true}
+                    handleUpdate={handleUpdateRevisedMarginMoney}
+                    leftButtonName={`Save`}
+                    rightButtonName={`Preview`}
+                    handleApprove={routeChange}
+                    isApprove
+                  />
+      {/* <DownloadBar
         handleReject={exportPDF}
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}
         handleUpdate={handleUpdateRevisedMarginMoney}
-      />
+        rightButtonName={`Preview`}
+      /> */}
     </>
   )
 }

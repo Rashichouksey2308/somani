@@ -1143,8 +1143,13 @@
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
-
+  z-index: 1;
   pointer-events: none;
+  @include respond(lg-desktop) {
+    width: 18px;
+    margin-top: 9px;
+    margin-left: -33px;
+  }
 }
 
 .customSelect {

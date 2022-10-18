@@ -68,6 +68,7 @@ function Index({
   setTop3Open1,
   setTop5Customers1,
   camConversionunit,
+  totalLimitDebt,
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
@@ -155,14 +156,6 @@ function Index({
     const length = _get(filteredData[0], 'bankName', '')
 
     return length
-  }
-
-  const totalLimitDebt = () => {
-    let sum = 0;
-    camData?.company?.debtProfile?.forEach(element => {
-      sum += element.limit;
-    })
-    return Number(sum)
   }
 
 
@@ -1129,7 +1122,9 @@ const supplierInfo = (camData) => {
                   <span
                     className={`${styles.value} ${styles.danger_highlight} value`}
                   >
-                    {camData?.supplierCredential?.commodityOfTotalTrade} %
+
+                    {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', { maximumFractionDigits: 2 })} %
+
                   </span>
                 </Col>
               </Row>
@@ -1240,144 +1235,6 @@ const groupExposure = (camData, camConversionunit) => {
                         </Row>
                       </div>
                     </Col>
-                    //       {/* <Col md={4}>
-                    //   <div className={`${styles.exposureCard}`}>
-                    //     <Row>
-                    //       <Col
-                    //         sm={12}
-                    //         className={`d-flex justify-content-start align-content-center  mb-5`}
-                    //       >
-                    //         <div className={`${styles.icon} `}>
-                    //           <span
-                    //             className={`d-flex justify-content-center align-content-center`}
-                    //           >
-                    //             ET
-                    //           </span>
-                    //         </div>
-
-                    //         <span className={` ${styles.name} ml-3  `}>
-                    //           Emerging Traders
-                    //         </span>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               LIMIT
-                    //             </span>
-                    //           </div>
-                    //           <span>1,900.00</span>
-                    //         </div>
-                    //         <div className={`${styles.bar}`}>
-                    //           <div className={`${styles.fill}`}></div>
-                    //         </div>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               O/S BALANCE
-                    //             </span>
-                    //           </div>
-                    //           <span>1,900.00</span>
-                    //         </div>
-                    //         <div className={`${styles.bar}`}>
-                    //           <div className={`${styles.fill}`}></div>
-                    //         </div>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               CONDUCT
-                    //             </span>
-                    //           </div>
-                    //         </div>
-                    //         <p>
-                    //           {' '}
-                    //           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                    //           sed diam nonumy eirmod tempor invidunt ut labore et
-                    //           dolore magna aliquyam erat, sed diam
-                    //         </p>
-                    //       </Col>
-                    //     </Row>
-                    //   </div>
-                    // </Col>
-                    // <Col md={4}>
-                    //   <div className={`${styles.exposureCard}`}>
-                    //     <Row>
-                    //       <Col
-                    //         sm={12}
-                    //         className={`d-flex justify-content-start align-content-center  mb-5`}
-                    //       >
-                    //         <div className={`${styles.icon} `}>
-                    //           <span
-                    //             className={`d-flex justify-content-center align-content-center`}
-                    //           >
-                    //             ET
-                    //           </span>
-                    //         </div>
-
-                    //         <span className={` ${styles.name} ml-3  `}>
-                    //           Emerging Traders
-                    //         </span>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               LIMIT
-                    //             </span>
-                    //           </div>
-                    //           <span>1,900.00</span>
-                    //         </div>
-                    //         <div className={`${styles.bar}`}>
-                    //           <div className={`${styles.fill}`}></div>
-                    //         </div>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               O/S BALANCE
-                    //             </span>
-                    //           </div>
-                    //           <span>1,900.00</span>
-                    //         </div>
-                    //         <div className={`${styles.bar}`}>
-                    //           <div className={`${styles.fill}`}></div>
-                    //         </div>
-                    //       </Col>
-                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
-                    //         <div
-                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                    //         >
-                    //           <div className={`${styles.limit_box} `}>
-                    //             <span className={`${styles.limit_label} `}>
-                    //               CONDUCT
-                    //             </span>
-                    //           </div>
-                    //         </div>
-                    //         <p>
-                    //           {' '}
-                    //           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                    //           sed diam nonumy eirmod tempor invidunt ut labore et
-                    //           dolore magna aliquyam erat, sed diam
-                    //         </p>
-                    //       </Col>
-                    //     </Row>
-                    //   </div>
-                    // </Col> */}
                   )
                 })}{' '}
             </Row>
@@ -1388,6 +1245,9 @@ const groupExposure = (camData, camConversionunit) => {
   )
 }
 const orderSummary = (camData, camConversionunit) => {
+  let name = camData?.company?.companyName ?? 'N A'
+  let Initials = name?.split(' ')
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1437,7 +1297,8 @@ const orderSummary = (camData, camConversionunit) => {
                     <span
                       className={`d-flex justify-content-center align-content-center`}
                     >
-                      ET
+                      {`${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`}
+
                     </span>
                   </div>
 
@@ -1534,10 +1395,10 @@ const creditProfile = (
                     Change in Auditor
                   </span>
                   <span className={`${styles.value} value `}>
-                    {latestAuditorData?.nameOfAuditor ===
+                    {latestAuditorData?.nameOfAuditor ? latestAuditorData?.nameOfAuditor ===
                       previousAuditorData?.nameOfAuditor
                       ? ' No'
-                      : 'Yes'}
+                      : 'Yes' : ''}
                   </span>
                 </Col>
               </Row>
@@ -1608,7 +1469,7 @@ const directorDetails = (camData) => {
                       <td>{director?.pan[0]}</td>
                       <td>{director.din}</td>
                       <td>{director.tenureStartDate}</td>
-                      <td>30%</td>
+                      <td>{director.percentageShareHolding}%</td>
                     </tr>
                   )
                 },
@@ -2742,13 +2603,13 @@ const revenuDetails = (gstData, camConversionunit) => {
                     ).toFixed(2),
                     true,
                   )} */}
-                  {convertValue(RevenueDetails?.ttlCustomer?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {(RevenueDetails?.ttlCustomer?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
                   Cr
                 </td>
                 <td>
-                  {convertValue(RevenueDetails?.ttlCustomer?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {(RevenueDetails?.ttlCustomer?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
                   Cr
@@ -2788,7 +2649,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     ).toFixed(2),
                     true,
                   )} */}
-                  {convertValue(RevenueDetails?.ttlInv?.current?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {(RevenueDetails?.ttlInv?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
                   Cr
@@ -2800,7 +2661,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                     ).toFixed(2),
                     true,
                   )} */}
-                  {convertValue(RevenueDetails?.ttlInv?.previous?.value, camConversionunit)?.toLocaleString('en-In', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
+                  {(RevenueDetails?.ttlInv?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
                   Cr
@@ -2880,14 +2741,14 @@ const financeDetails = (
                       Liabilities
                     </th>
                     <th>
-                      {moment(
+                      {_get(companyData, 'financial.balanceSheet[0].date', '') === '' ? '' : moment(
                         _get(companyData, 'financial.balanceSheet[0].date', ''),
                       )
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
-                      {moment(
+                      {_get(companyData, 'financial.balanceSheet[1].date', '') === '' ? '' : moment(
                         _get(companyData, 'financial.balanceSheet[1].date', ''),
                       )
                         .format('MMM-YY')
@@ -2914,7 +2775,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.totalEquity',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2936,7 +2797,7 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
                             '',
                           ),
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2955,7 +2816,7 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
                             '',
                           ),
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2977,7 +2838,7 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
                             '',
                           ),
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -2996,7 +2857,7 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
                             '',
                           ),
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3011,7 +2872,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3023,7 +2884,7 @@ const financeDetails = (
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3138,15 +2999,15 @@ const financeDetails = (
                     <th className={`${styles.bold_heading} value`}>Ratios</th>
                     <th>
                       {' '}
-                      {moment(latestYearData?.financialEndDate)
+                      {latestYearData?.financialEndDate ? moment(latestYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase()}
+                        .toUpperCase() : ''}
                     </th>
                     <th>
                       {' '}
-                      {moment(previousYearData?.financialEndDate)
+                      {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase()}
+                        .toUpperCase() : ''}
                     </th>
                   </tr>
                   <tr>
@@ -3157,7 +3018,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3169,7 +3030,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3184,7 +3045,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3196,7 +3057,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3211,7 +3072,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3223,7 +3084,7 @@ const financeDetails = (
                           companyData,
                           'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                           '',
-                        ),camConversionunit
+                        ), camConversionunit
                       )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
@@ -3607,7 +3468,9 @@ const sectionTerms = (
                 Total Limit:
               </span>
               {addPrefixOrSuffix(
-                convertValue(camData?.company?.creditLimit?.totalLimit),
+                convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString(
+                  'en-In',
+                ),
                 'Cr',
                 '',
               )}
@@ -3618,7 +3481,9 @@ const sectionTerms = (
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>
                 Utilised Limit:
               </span>
-              {camData?.company?.creditLimit?.utilizedLimit}
+              {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString(
+                'en-In',
+              )}
             </span>
             <span
               className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}
@@ -3626,7 +3491,9 @@ const sectionTerms = (
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>
                 Available Limit:
               </span>
-              {camData?.company?.creditLimit?.availableLimit}
+              {camData?.company?.creditLimit?.availableLimit?.toLocaleString(
+                'en-In',
+              )}
             </span>
           </div>
           <span
@@ -3842,13 +3709,13 @@ const sectionTerms = (
                   Add
                 </button>
                 <ul className="mt-3 mb-3">
-                {approveComment &&
-                  approveComment?.map((approve, index) => (
-                    // <div key={index} className={`${styles.remarks}`}>
+                  {approveComment &&
+                    approveComment?.map((approve, index) => (
+                      // <div key={index} className={`${styles.remarks}`}>
                       <li key={index}>{approve}</li>
-                    // </div>
-                  ))}
-                  </ul>
+                      // </div>
+                    ))}
+                </ul>
               </div>
             </div>
           </div>

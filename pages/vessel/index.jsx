@@ -188,26 +188,35 @@ export default function Home() {
               "data[0].vessels[0].transitDetails.portOfDischarge",
               ""
             ),
-            laycanFrom: "" || _get(
+            laycanFrom:  _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            )!==""?
+            _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
             )
-            //  !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.laycanFrom",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.loadPort.fromDate",
-            //   ""
-            // )
+            :  _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.fromDate",
+              ""
+            ) || ""
             ,
-            laycanTo: "" || _get(
+            laycanTo:  _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
               ""
-            )
+            ) !==""? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) :_get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.toDate",
+              ""
+            )|| ""
             // !== '' ? _get(
             //   Vessel,
             //   "data[0].vessels[0].transitDetails.laycanTo",
@@ -754,6 +763,16 @@ export default function Home() {
           }
         }
 
+           if (
+          list[i].vesselInformation[0].IMONumber.length !==7 
+        ) {
+          toastMessage = `Please add valid IMO Number  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
         if (
           list[i].vesselInformation[0].flag == '' ||
           list[i].vesselInformation[0].flag == undefined
@@ -765,6 +784,7 @@ export default function Home() {
             break
           }
         }
+      
 
         if (
           list[i].vesselInformation[0].yearOfBuilt == '' ||

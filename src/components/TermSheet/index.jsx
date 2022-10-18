@@ -33,7 +33,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
-  console.log(termsheetDetails, 'termsheetDetails')
+  console.log(termsheet, 'termsheetDetails')
   // console.log(additionalComments, 'additionalCommentType')
   let sheetData = _get(termsheet, 'data[0]', {})
   useEffect(() => {
@@ -68,7 +68,7 @@ const Index = () => {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
               orderCurrency: sheet?.order?.orderCurrency || 'INR',
               quantity: sheet?.order?.quantity,
-              perUnitPrice: sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue/sheet?.order.quantity).toFixed(2) || '',
+              perUnitPrice: sheet?.order?.perUnitPrice || Number(sheet?.order?.orderValue / sheet?.order.quantity).toFixed(2) || '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance ?? '',
             },
@@ -128,22 +128,25 @@ const Index = () => {
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
                 sheet?.commercials?.otherTermsAndConditions ||
-                'As Per Sales Contract',
+                'As per the Agreements',
               version: sheet?.commercials?.version || '1',
             },
           }),
         )
     }
   }, [termsheet])
-  //  console.log(termsheet, termsheetDetails, 'dkfgdfhjgdjfhgdkjfgdkjg')
+  
 
   useEffect(() => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
+       console.log( sheet?.otherTermsAndConditions?.dutyAndTaxes
+                  ?.taxCollectedatSource,"yguyfvj")
           setOtherTermConditions({
             buyer: {
               bank:
+            
                 sheet?.otherTermsAndConditions?.buyer?.bank ||
                 'Indo German International Private Limited (IGPL)',
             },
@@ -260,7 +263,7 @@ const Index = () => {
                 sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
               taxCollectedatSource:
                 sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.taxCollectedatSource,
+                  ?.taxCollectedatSource || true,
             },
             insurance: {
               marineInsurance:
@@ -275,10 +278,13 @@ const Index = () => {
   console.log(otherTermsAndConditions, 'otherTerms')
 
   useEffect(() => {
-    termsheet?.data?.map((sheets) => {
-      setOrder(sheets.order._id)
-      setAdditionalComments(sheets.additionalComments)
-    })
+
+    let comments = JSON.parse(JSON.stringify(_get(termsheet, 'data[0].additionalComments', [{}])))
+    // termsheet?.data?.map((sheets) => {
+    //   setOrder(sheets.order._id)
+    //   setAdditionalComments([...sheets.additionalComments])
+    // })
+    setAdditionalComments([...comments])
   }, [termsheet])
 
   const onChangeCommodityDetails = (e) => {
@@ -370,7 +376,7 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment = () => {}
+  const changePayment = () => { }
   const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = { ...termsheetDetails }
@@ -616,7 +622,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.portOfDischarge ==
-        'Select an option' ||
+      'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -902,10 +908,10 @@ const Index = () => {
                           <p className={`${styles.value} accordion_Text`}>
                             {sheet?.order?.cam?.approvedAt
                               ? moment(
-                                  sheet?.order?.cam?.approvedAt?.slice(0, 10),
-                                  'YYYY-MM-DD',
-                                  true,
-                                ).format('DD-MM-YYYY')
+                                sheet?.order?.cam?.approvedAt?.slice(0, 10),
+                                'YYYY-MM-DD',
+                                true,
+                              ).format('DD-MM-YYYY')
                               : ''}
                           </p>
                         </div>

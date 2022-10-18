@@ -1139,7 +1139,13 @@
   margin-top: 15px;
   width: 23px;
   height: 26px;
+  z-index: 1;
   pointer-events: none;
+  @include respond(lg-desktop) {
+    width: 18px;
+    margin-top: 9px;
+    margin-left: -33px;
+  }
 }
 .close_image {
   margin-left: -30px;

@@ -18,6 +18,7 @@ import {
   CovertvaluefromtoCR,
   addPrefixOrSuffix,
   removePrefixOrSuffix,
+  convertValue,
 } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
@@ -458,6 +459,22 @@ export default function Index({
             break
           }
         }
+        if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
+          toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
+        if (bolList[i]?.packingListDoc == null || bolList[i]?.packingListDoc == undefined) {
+          toastMessage = `Packing List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
       }
 
       return isOk
@@ -579,52 +596,53 @@ export default function Index({
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
-          <div className={`${styles.wrapper} border_color card`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
-              <h2 className="">Shipment Type</h2>
-              <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
-                {['radio'].map((type) => (
-                  <div key={`inline-${type}`} className={styles.radio_group}>
-                    <Form.Check
-                      className={styles.radio}
-                      inline
-                      label="Bulk"
-                      name="group1"
-                      disabled={!shipmentTypeBulk}
-                      type={type}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Bulk' ? 'checked' : ''
-                      // }
-                      checked={shipmentTypeBulk}
-                      id={`inline-${type}-1`}
-                    />
-                    <Form.Check
-                      className={styles.radio}
-                      inline
-                      label="Liner"
-                      name="group1"
-                      disabled={shipmentTypeBulk}
-                      // checked={
-                      //   _get(
-                      //     TransitDetails,
-                      //     'data[0].order.vessel.vessels[0].shipmentType',
-                      //     '',
-                      //   ) == 'Liner' ? 'checked' : ''
-                      // }
-                      checked={!shipmentTypeBulk}
-                      type={type}
-                      id={`inline-${type}-2`}
-                    />
-                  </div>
-                ))}
+          <div className={`${styles.wrapper} card`}>
+            <div className={`${styles.border_color}`}>
+              <div className="d-lg-flex align-items-center d-inline-block">
+                <h2 className="">Shipment Type</h2>
+                <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
+                  {['radio'].map((type) => (
+                    <div key={`inline-${type}`} className={styles.radio_group}>
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="Bulk"
+                        name="group1"
+                        disabled={!shipmentTypeBulk}
+                        type={type}
+                        // checked={
+                        //   _get(
+                        //     TransitDetails,
+                        //     'data[0].order.vessel.vessels[0].shipmentType',
+                        //     '',
+                        //   ) == 'Bulk' ? 'checked' : ''
+                        // }
+                        checked={shipmentTypeBulk}
+                        id={`inline-${type}-1`}
+                      />
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="Liner"
+                        name="group1"
+                        disabled={shipmentTypeBulk}
+                        // checked={
+                        //   _get(
+                        //     TransitDetails,
+                        //     'data[0].order.vessel.vessels[0].shipmentType',
+                        //     '',
+                        //   ) == 'Liner' ? 'checked' : ''
+                        // }
+                        checked={!shipmentTypeBulk}
+                        type={type}
+                        id={`inline-${type}-2`}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-
           <div className={`${styles.main} border_color card `}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
@@ -676,11 +694,11 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(
+                    {convertValue(_get(
                       TransitDetails,
-                      'data[0].order.orderValue',
+                      'data[0].order.marginMoney.calculation.orderValueInINR',
                       '',
-                    )?.toLocaleString('en-IN')}{' '}
+                    ))?.toLocaleString('en-IN',{maximumFractionDigits: 2})}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
@@ -916,7 +934,7 @@ export default function Index({
                           <strong className="text-danger">*</strong>
                         </div>
                         <div
-                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                          className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
                             {/* //<DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
@@ -960,7 +978,7 @@ export default function Index({
                           </div>
                         </div>
                         <div
-                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                          className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
                             <DatePicker
@@ -1275,7 +1293,11 @@ export default function Index({
                                     />
                                   </td>
                                   <td className={styles.doc_row}>
-                                    28-02-2022,5:30 PM
+                                  {bolList[index]?.containerNumberListDoc == null
+                                  ? ''
+                                  : moment(bolList[index]?.containerNumberListDoc.date).format(
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1354,7 +1376,11 @@ export default function Index({
                                     />
                                   </td>
                                   <td className={styles.doc_row}>
-                                    28-02-2022,5:30 PM
+                                  {bolList[index]?.packingListDoc == null
+                                  ? ''
+                                  : moment(bolList[index]?.packingListDoc.date).format(
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1592,7 +1618,7 @@ export default function Index({
         backdropClassName={styles.backdrop}
       >
         <Modal.Header
-          className={`${styles.card_header} card-header bg-transparent`}
+          className={`${styles.card_header} card-header background`}
         >
           <Modal.Title>
             <h3>Updated Successfully</h3>

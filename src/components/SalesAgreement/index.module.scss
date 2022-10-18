@@ -15,6 +15,9 @@
         padding: 10px 26px 15px 30px;
         visibility:visible;
         transition : width 0.2s , padding 0.2s, visibility 0.2s;
+        @include respond(lg-desktop) {
+            width: 340px;
+        }
         .sidebar_content {
             height: 70px;
             padding: 20px 0;
@@ -34,6 +37,10 @@
                     // opacity: 0.6;
                     margin-right: 20px;
                     margin-left: 22px !important;
+                    @include respond(lg-desktop) {
+                        font-size: 20px;
+                        line-height: 1.3;
+                    }
                 }
                 img {
                     width: 27px;
@@ -70,6 +77,9 @@
         box-shadow: 0 3px 6px #CAD0E2;
         border-radius: 6px !important;
         transition: margin-left 0.2s;
+        @include respond(lg-desktop) {
+            margin-left: 360px;
+        }
         .cardHeader {
             padding: 15px 11px 15px 37px !important;
             border-bottom-width: 2px !important;
@@ -78,6 +88,10 @@
                 color: #3687E8;
                 font-weight: bold;
                 line-height: 27px;
+                @include respond(lg-desktop) {
+                    font-size: 20px;
+                    line-height: 1.3;
+                }
             }
             .switchContainer {
                 position: relative;
@@ -221,6 +235,10 @@
             font-size: 22px;
             padding: 25px 35px;
             border-top: 2px solid #D2D7E5;
+            @include respond(lg-desktop) {
+                font-size: 18px;
+                line-height: 1.3;
+            }
         }
     }
     .fullScreen{
@@ -256,6 +274,14 @@
         width: 11px;
         height: 18px;
         opacity: 1;
+        @include respond(lg-desktop) {
+            width: 9px;
+        }
+    }
+    @include respond(lg-desktop) {
+        width: 40px;
+        height: 40px;
+        line-height: 35px;
     }
 }
 .reject {
@@ -268,6 +294,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @include respond(lg-desktop) {
+        width: 200px;
+        height: 38px;
+    }
 }
 .approve {
     cursor: pointer;
@@ -280,6 +310,10 @@
     align-items: center;
     justify-content: center;
     margin-left: 1rem;
+    @include respond(lg-desktop) {
+        width: 200px;
+        height: 38px;
+    }
 }
 .image_reverse {
     transform: rotate(180deg);
@@ -294,6 +328,10 @@
     letter-spacing: 0.19px;
     border-radius: 4px !important;
     opacity: 0.5 !important;
+    @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+    }
 }
  .customSelect {
     appearance: none;

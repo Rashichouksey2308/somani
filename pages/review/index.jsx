@@ -873,7 +873,7 @@ function Index() {
     setSupplierCred(tempSupplierCredentials)
   }, [orderList])
 
-  const handleProductSave = () => {
+  const handleProductSave = (chas, exsupp) => {
     if (
       product.capacityUtilization === '' ||
       product.contributionCommoditySenstivity === ''
@@ -884,6 +884,8 @@ function Index() {
       }
     } else {
       let data = { ...product }
+      data.existingCHA = chas
+      data.existingSuppliers = exsupp
       data.monthlyProductionCapacity = removePrefixOrSuffix(
         product.monthlyProductionCapacity,
       )
@@ -908,9 +910,19 @@ function Index() {
         productSummary: { ...data },
         gstin: gstData.gstin,
       }
+
       dispatch(UpdateCreditCalculate(obj))
     }
   }
+
+  const totalLimitDebt = () => {
+    let sum = 0;
+    orderList?.company?.debtProfile?.forEach(element => {
+      sum += element.limit;
+    })
+    return Number(sum)
+  }
+
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
@@ -1681,6 +1693,13 @@ function Index() {
     dispatch(UpdateCam(obj, 'CAM REJECTED'))
   }
 
+  const initials = () => {
+    let name = orderList?.company?.companyName ?? 'N A'
+    let Initials = name?.split(' ')
+    return `${Initials[0]?.charAt(0)}${Initials[1]?.charAt(0)}`
+  }
+
+
   const currentOpenLink = (e) => {
     console.log(e.target.attributes[4].nodeValue, 'eee')
     if (e.target.attributes[4].nodeValue == 'Compliance') {
@@ -2266,7 +2285,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.portOfLoading}
+                  {camData?.shipmentDetail?.portOfLoading}
                 </td>
                 <td
                   style={{
@@ -2607,7 +2626,7 @@ function Index() {
                     paddingBottom: '25px',
                   }}
                 >
-                  {camData?.supplierCredential?.commodityOfTotalTrade} %
+                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', { maximumFractionDigits: 2 })} %
                 </td>
               </tr>
               <tr>
@@ -3159,11 +3178,12 @@ function Index() {
                                       display: 'inline-block',
                                     }}
                                   >
-                                    {name?.map((item, index) => {
-                                      if (index < 2) {
-                                        return item?.charAt(0)?.toUpperCase()
-                                      }
-                                    })}
+                                    {isArray(name) &&
+                                      name?.map((item, index) => {
+                                        if (index < 2) {
+                                          return item?.charAt(0).toUpperCase()
+                                        }
+                                      })}
                                   </span>
                                 </td>
                                 <td
@@ -3395,7 +3415,7 @@ function Index() {
                 >
                   SUPPLIER NAME
                 </td>
-                <td
+                {/* <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3405,7 +3425,7 @@ function Index() {
                   }}
                 >
                   CUSTOMER NAME
-                </td>
+                </td> */}
                 <td
                   style={{
                     fontSize: '15px',
@@ -3511,7 +3531,7 @@ function Index() {
                       display: 'inline-block',
                     }}
                   >
-                    ET
+                    {initials()}
                   </span>{' '}
                 </td>
                 <td
@@ -3614,7 +3634,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br/> <br/> <br/> <br/> <br/> <br/> <br/> <br/>
+            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3641,7 +3661,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Operational Details
+                  Credit Profile
                 </td>
               </tr>
               <tr>
@@ -3686,7 +3706,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {openChargesLength()}
+                  A3+
                 </td>
               </tr>
               <tr>
@@ -3708,7 +3728,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  value
+                  {openChargesLength()}
                 </td>
                 <td
                   style={{
@@ -3965,7 +3985,7 @@ function Index() {
                           paddingBottom: '21px',
                         }}
                       >
-                        30%
+                        {director.percentageShareHolding}%
                       </td>
                     </tr>
                   )
@@ -4447,9 +4467,8 @@ function Index() {
                                   paddingBottom: '21px',
                                 }}
                               >
-                                {Number(
-                                  charge?.finalAmountSecured,
-                                )?.toLocaleString('en-In')}
+                                {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', { maximumFractionDigits: 2 })}
+
                               </td>
                               <td
                                 style={{
@@ -4471,7 +4490,7 @@ function Index() {
                           )
                         },
                       )}
-                    <tr>
+                    {/* <tr>
                       <td
                         width="5%"
                         height="60"
@@ -4532,7 +4551,7 @@ function Index() {
                       >
                         22-02-2020
                       </td>
-                    </tr>
+                    </tr> */}
                   </table>
                 </td>
               </tr>
@@ -4601,7 +4620,10 @@ function Index() {
                           padding: '32px 35px 6px 6px',
                         }}
                       >
-                        1,900.00
+                        {totalLimitDebt().toLocaleString('en-In',
+                          {
+                            maximumFractionDigits: 2,
+                          })}
                       </td>
                     </tr>
                     <tr>
@@ -4655,7 +4677,9 @@ function Index() {
                                 padding: '40px 35px 0 6px',
                               }}
                             >
-                              {debt.limit}
+                              {debt.limit?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              })}
                             </td>
                           </tr>
                           <tr>
@@ -4673,16 +4697,16 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debt.conduct == 'Good'
-                                      ? '#43C34D'
-                                      : debt.conduct == 'Satisfactory'
-                                        ? '#FF9D00'
-                                        : debt.conduct == 'Average'
-                                          ? 'average'
-                                          : '#EA3F3F'
+                                    ? '#43C34D'
+                                    : debt.conduct == 'Satisfactory'
+                                      ? '#FF9D00'
+                                      : debt.conduct == 'Average'
+                                        ? 'average'
+                                        : '#EA3F3F'
                                       }`,
-                                    width: `${(Number(debt.limit) / 1900 > 1
+                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
                                       ? 1
-                                      : Number(debt.limit) / 1900) * 100
+                                      : Number(debt.limit) / totalLimitDebt()) * 100
                                       }%`,
                                     height: '10px',
                                     borderRadius: '2px',
@@ -4785,7 +4809,9 @@ function Index() {
                               paddingBottom: '25px',
                             }}
                           >
-                            {debt?.limit}
+                            {debt?.limit?.toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                            })}
                           </td>
                           <td
                             style={{
@@ -4795,6 +4821,14 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
+                              color: `${debt.conduct == 'Good'
+                                    ? '#43C34D'
+                                    : debt.conduct == 'Satisfactory'
+                                      ? '#FF9D00'
+                                      : debt.conduct == 'Average'
+                                        ? 'average'
+                                        : '#EA3F3F'
+                                      }`
                             }}
                           >
                             {debt?.conduct}
@@ -6141,7 +6175,7 @@ function Index() {
                                 )
                               },
                             )}
-                          <tr>
+                          {/* <tr>
                             <td width="5%" align="left">
                               <span
                                 style={{
@@ -6175,7 +6209,7 @@ function Index() {
                             >
                               83.80%
                             </td>
-                          </tr>
+                          </tr> */}
                         </table>
                       </td>
                     </tr>
@@ -6712,7 +6746,7 @@ function Index() {
                                 paddingLeft: '35px',
                               }}
                             >
-                              Creditors Perio
+                              Creditors Period
                             </td>
                             <td
                               style={{
@@ -6728,7 +6762,7 @@ function Index() {
                                 {},
                               )
                                 ?.daysOfPayablesOutstanding?.toFixed(2)
-                                ?.toLocaleString()}
+                              }
                             </td>
                             <td
                               style={{
@@ -6743,6 +6777,42 @@ function Index() {
                                 'financial.ratioAnalysis[1]',
                                 {},
                               )?.daysOfPayablesOutstanding?.toFixed(2)}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Inventory Period
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                                .daysOfInventoryOutstanding?.toFixed(2)
+                                ?.toLocaleString()}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                                .daysOfInventoryOutstanding?.toFixed(2)
+                                ?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -7446,7 +7516,7 @@ function Index() {
         </tr>
         <tr>
           <td valign="top">
-            <br /> <br /> <br /> <br />  <br /> <br /> <br /> 
+            <br /> <br /> <br /> <br />  <br /> <br /> <br />
             <table
               width="100%"
               bgColor="#ffffff"
@@ -8043,7 +8113,13 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        -
+                          {filteredCreditRating.length > 0 ?
+                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating.map((val, index) =>  {checkNan(
+                            convertValue(
+                              val?.derived?.value,
+                            )?.toLocaleString('en-In'),
+                          )}) : '-'}
                       </td>
                       <td
                         align="center"
@@ -8108,7 +8184,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        -
+                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
                       </td>
                     </tr>
                     <tr>
@@ -8184,7 +8260,6 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        -
                       </td>
                       <td
                         align="center"
@@ -8195,9 +8270,8 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {camData?.cam?.approvedOrderValue?.toLocaleString(
-                          'en-In',
-                        )}
+                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
+
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -9840,6 +9914,7 @@ function Index() {
                     setTop3Open1={setTop3Open1}
                     setTop5Customers1={setTop5Customers1}
                     camConversionunit={camConversionunit}
+                    totalLimitDebt={totalLimitDebt}
                   />
                 </div>
               </div>

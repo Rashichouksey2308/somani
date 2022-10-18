@@ -280,7 +280,7 @@ function Index() {
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-        importerName: marginData?.invoiceDetail?.importerName || '',
+        importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  || '',
         branchOffice: marginData?.invoiceDetail?.branchOffice || '',
         companyAddress: marginData?.invoiceDetail?.companyAddress || '',
         importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
@@ -849,7 +849,7 @@ function Index() {
     consigneeAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
     importerName:
-      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
+      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")    ||  '',
     branchOffice:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
     companyAddress:
@@ -865,12 +865,12 @@ function Index() {
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
   })
-
+console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  )
   useEffect(() => {
     getRevisedData()
 
     setInvoiceDataRevised({
-      buyerName: marginData?.company?.companyName || '',
+      buyerName: marginData?.company?.companyName || "",
       buyerGSTIN:
         marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress:
@@ -884,7 +884,7 @@ function Index() {
       consigneeAddress:
         marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
       importerName:
-        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
+        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")    || '',
       branchOffice:
         marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
       companyAddress:
