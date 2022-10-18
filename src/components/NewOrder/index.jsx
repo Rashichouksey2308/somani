@@ -130,6 +130,9 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
                       e.target.type = 'number'
@@ -163,6 +166,9 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
                       e.target.type = 'number'
@@ -255,6 +261,9 @@ const Index = ({ saveOrderData, orderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
                       e.target.type = 'number'
