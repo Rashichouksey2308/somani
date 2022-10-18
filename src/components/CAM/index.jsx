@@ -4245,7 +4245,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <svg
                       width="100%"
                       height="100%"
-                      viewBox="0 0 42 42"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut}`}
                     >
                       <circle
@@ -4313,9 +4313,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       ></circle>
                     </svg>
                     <svg
-                      width="65%"
-                      height="65%"
-                      viewBox="0 0 42 42"
+                      width="76%"
+                      height="76%"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut2}`}
                     >
                       <circle

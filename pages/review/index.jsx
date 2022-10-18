@@ -1841,68 +1841,92 @@ function Index() {
       neddle: neddle10,
       top: '34%',
       left: '37%',
+      width: '26%',
+      height: '35%'
     }
     const filteredCreditRating =
       camData?.company?.creditLimit?.creditRating?.filter((rating) => {
         return camData?._id === rating.order
       })
-    const getRotate = (rat = 1) => {
+      const getRotate = (rat = 1) => {
       let r = Math.round(rat)
       if (r == 0) {
         rotateImageUrl.neddle = neddle1
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '5%'
+        rotateImageUrl.width = '220px'
+        rotateImageUrl.height = '200px'
       }
       if (r == 1) {
         rotateImageUrl.neddle = neddle1
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '5%'
+        rotateImageUrl.width = '220px'
+        rotateImageUrl.height = '200px'
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '12%'
+        rotateImageUrl.left = '-5%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '260px'
       }
       if (r == 3) {
         rotateImageUrl.neddle = neddle3
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '5%'
+        rotateImageUrl.left = '10%'
+        rotateImageUrl.width = '200px'
+        rotateImageUrl.height = '220px'
       }
       if (r == 4) {
         rotateImageUrl.neddle = neddle4
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '-3%'
+        rotateImageUrl.left = '10%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '260px'
       }
       if (r == 5) {
         rotateImageUrl.neddle = neddle5
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '0%'
+        rotateImageUrl.left = '16%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '250px'
       }
       if (r == 6) {
         rotateImageUrl.neddle = neddle6
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '0%'
+        rotateImageUrl.left = '25%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '250px'
       }
       if (r == 7) {
-        rotateImageUrl.neddle = neddle7
-        rotateImageUrl.top = '14%'
+        rotateImageUrl.neddle = neddle8
+        rotateImageUrl.top = '10%'
         rotateImageUrl.left = '30%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '270px'
       }
 
       if (r == 8) {
-        rotateImageUrl.neddle = neddle8
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.neddle = neddle9
+        rotateImageUrl.top = '16%'
+        rotateImageUrl.left = '31%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '270px'
       }
       if (r == 9) {
-        rotateImageUrl.neddle = neddle9
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.neddle = neddle7
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '35%'
+        rotateImageUrl.width = '190px'
+        rotateImageUrl.height = '210px'
       }
       if (r == 10) {
         rotateImageUrl.neddle = neddle10
-        rotateImageUrl.top = '34%'
-        rotateImageUrl.left = '34%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '35%'
+        rotateImageUrl.width = '190px'
+        rotateImageUrl.height = '210px'
       }
     }
     if (filteredCreditRating?.length > 0) {
@@ -2719,8 +2743,8 @@ function Index() {
                             transformOrigin: '50% 50%',
                             top: `${rotateImageUrl.top}`,
                             left: `${rotateImageUrl.left}`,
-                            width: '168px',
-                            height: '184px',
+                            width: `${rotateImageUrl.width}`,
+                            height: `${rotateImageUrl.height}`,
                             rotateZ: '150deg',
                           }}
                           src={rotateImageUrl?.neddle}
@@ -2733,8 +2757,8 @@ function Index() {
                             lineHeight: '37px',
                             fontWeight: 'bold',
                             position: 'absolute',
-                            top: '47%',
-                            left: '52%',
+                            top: '45%',
+                            left: '54%',
                             width: '40px',
                             height: '40px',
                             transform: 'translate(-50%, -50%)',
@@ -2827,7 +2851,11 @@ function Index() {
                                   lineHeight: '37px',
                                 }}
                               >
-                                {checkNan(
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                  }}
+                                >{checkNan(
                                   Math.round(
                                     filteredCreditRating
                                       ? filteredCreditRating[0]?.totalRating
@@ -2835,7 +2863,7 @@ function Index() {
                                   ),
                                   false,
                                   1,
-                                )}
+                                )}</span>
                                 <span
                                   style={{
                                     fontSize: '20px',
@@ -3481,29 +3509,42 @@ function Index() {
                 >
                   DAYS DUE
                 </td>
-              </tr>
+              </tr>              
               <tr>
-                <td
-                  colSpan={8}
-                  style={{
-                    fontSize: '15px',
-                    color: '#8492A6',
-                    lineHeight: '18px',
-                    fontWeight: 'bold',
-                    padding: '21px 35px 13px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  2022
-                  <span
-                    style={{
-                      float: 'right',
-                      height: '8px',
-                      width: '97%',
-                      display: 'inline-block',
-                      borderBottom: '1px dashed #D2D7E5',
-                    }}
-                  ></span>
+                <td valign='top' colSpan={8}>
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0">
+                    <tr>
+                      <td
+                        width="2%"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '21px 35px 0',
+                          textTransform: 'uppercase',
+                        }}><span style={{float:'left'}}>2022</span>
+                      </td>
+                      <td
+                        width="98%"
+                      >
+                        <span
+                          style={{
+                            height: '1px',
+                            width: '100%',
+                            float: 'left',
+                            padding: '21px 35px 0',
+                            display: 'inline-block',
+                            borderBottom: '1px dashed #D2D7E5',
+                          }}
+                        ></span>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
               <tr>
@@ -3608,7 +3649,7 @@ function Index() {
                       display: 'inline-block',
                       background: '#FF9D00',
                       borderRadius: '50%',
-                      marginRight: '10px',
+                      marginRight: '10px'
                     }}
                   ></span>
                   In Process
@@ -4041,7 +4082,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td valign="top" style={{ padding: '20px 35px' }}>
+                      <td valign="top" align='center' style={{ padding: '20px 35px' }}>
                         <table
                           width="100%"
                           cellPadding="0"
@@ -4052,15 +4093,8 @@ function Index() {
                             {top3Share.datasets &&
                               top3Share?.datasets[0]?.data.map((val, index) => {
                                 return (
-                                  <td
-                                    align="center"
-                                    style={{
-                                      fontSize: '16px',
-                                      color: '#111111',
-                                      lineHeight: '19px',
-                                      fontWeight: '500',
-                                    }}
-                                  >
+                                <>
+                                  <td width="5%">
                                     <span
                                       style={{
                                         background: `${backgroundColor[index]}`,
@@ -4070,11 +4104,22 @@ function Index() {
                                         display: 'inline-block',
                                       }}
                                     ></span>
-                                    &nbsp;
+                                  </td>
+                                  <td width="28.33%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '16px',
+                                      color: '#111111',
+                                      lineHeight: '19px',
+                                      fontWeight: '500',
+                                    }}
+                                  >
+                                    <span>
                                     {top3Share.labels[index] == ''
                                       ? 'NA'
-                                      : top3Share.labels[index]}
+                                      : top3Share.labels[index]}</span>
                                   </td>
+                                </>
                                 )
                               })}
                           </tr>
@@ -4304,7 +4349,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td valign="top" style={{ padding: '20px 35px' }}>
+                      <td valign="top" align='center' style={{ padding: '20px 35px' }}>
                         <table
                           width="100%"
                           cellPadding="0"
@@ -4315,29 +4360,33 @@ function Index() {
                             {top3Open.datasets &&
                               top3Open?.datasets[0]?.data.map((val, index) => {
                                 return (
-                                  <td
-                                    align="center"
-                                    style={{
-                                      fontSize: '16px',
-                                      color: '#111111',
-                                      lineHeight: '19px',
-                                      fontWeight: '500',
-                                    }}
-                                  >
-                                    <span
+                                  <>
+                                    <td width="5%">
+                                      <span
+                                        style={{
+                                          background: `${backgroundColor[index]}`,
+                                          borderRadius: '4px',
+                                          width: '16px',
+                                          height: '16px',
+                                          display: 'inline-block',
+                                        }}
+                                      ></span>
+                                    </td>
+                                    <td width="28.33%"
+                                      align="left"
                                       style={{
-                                        background: `${backgroundColor[index]}`,
-                                        borderRadius: '4px',
-                                        width: '16px',
-                                        height: '16px',
-                                        display: 'inline-block',
+                                        fontSize: '16px',
+                                        color: '#111111',
+                                        lineHeight: '19px',
+                                        fontWeight: '500',
                                       }}
-                                    ></span>
-                                    &nbsp;{' '}
-                                    {top3Open.labels[index] == ''
-                                      ? 'NA'
-                                      : top3Open.labels[index]}
-                                  </td>
+                                    >
+                                      &nbsp;{' '}
+                                      {top3Open.labels[index] == ''
+                                        ? 'NA'
+                                        : top3Open.labels[index]}
+                                    </td>
+                                  </>
                                 )
                               })}
                           </tr>
@@ -5860,9 +5909,9 @@ function Index() {
                     lineHeight: '23px',
                     fontWeight: 'bold',
                   }}
-                >
-                  Display By:{' '}
-                  <span style={{ color: '#3687E8' }}>Quarterly</span>
+                >                  
+                  <span style={{ color: '#3687E8', float: 'right'}}>Quarterly</span>
+                  <span style={{float: 'right'}}>Display By:{' '}</span>
                 </td>
               </tr>
               <tr>
@@ -5879,8 +5928,8 @@ function Index() {
                     borderRight: '2px solid #CAD6E6',
                   }}
                 >
-                  Gross Revenue{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{float: 'left'}}>Gross Revenue{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left'}}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -5906,8 +5955,8 @@ function Index() {
                     padding: '0 35px',
                   }}
                 >
-                  Gross Purchases{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{float: 'left'}}>Gross Purchases{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left'}}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -6044,8 +6093,8 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Display By:{' '}
-                  <span style={{ color: '#3687E8' }}>Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right'}}>Quarterly</span>
+                  <span style={{float: 'right'}}>Display By:{' '}</span>
                 </td>
               </tr>
               <tr>
@@ -6061,9 +6110,9 @@ function Index() {
                     padding: '0 35px',
                     borderRight: '2px solid #CAD6E6',
                   }}
-                >
-                  Gross Revenue{' '}
-                  <span style={{ fontWeight: '500' }}>
+                >                  
+                  <span style={{float: 'left'}}>Gross Revenue{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left'}}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -6089,8 +6138,8 @@ function Index() {
                     padding: '0 35px',
                   }}
                 >
-                  Gross Purchases{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{float: 'left'}}>Gross Purchases{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left'}}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -7920,7 +7969,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Total Limit:
+                  <span style={{float: 'left'}}>Total Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7929,6 +7978,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
@@ -7950,7 +8000,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Utilised Limit:
+                  <span style={{float: 'left'}}>Utilised Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7959,6 +8009,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
@@ -7976,7 +8027,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Available Limit:
+                  <span style={{float: 'left'}}>Available Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7985,6 +8036,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
