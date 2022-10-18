@@ -558,7 +558,7 @@ export default function Index({
                       maximumFractionDigits: 2,
                     })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -747,26 +747,26 @@ export default function Index({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation[0]?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation[0]?.name}
-                                </option>
-                              ))
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation[0]?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ))
                             : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -797,6 +797,9 @@ export default function Index({
                         }
                         className={`${styles.input_field} input form-control`}
                         type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
                           evt.preventDefault()
@@ -866,7 +869,10 @@ export default function Index({
                             id="blNumber"
                             onChange={(e) => onChangeBlNumberEntry(e)}
                             className={`${styles.input_field} input form-control`}
-                            type="number"
+                             type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                             onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                             required
                           /> */}
@@ -898,8 +904,8 @@ export default function Index({
                                 <span className={styles.value}>
                                   {blEntry?.blDate
                                     ? moment(blEntry?.blDate).format(
-                                        'DD-MM-YYYY',
-                                      )
+                                      'DD-MM-YYYY',
+                                    )
                                     : ''}
                                 </span>
                               </div>
@@ -1102,8 +1108,8 @@ export default function Index({
                           <td className={styles.doc_row}>
                             {item?.document
                               ? moment(item?.document?.Date).format(
-                                  ' DD-MM-YYYY , h:mm a',
-                                )
+                                ' DD-MM-YYYY , h:mm a',
+                              )
                               : ''}
                           </td>
                           <td>

@@ -993,6 +993,9 @@ const cancelAddress=()=>{
                               className='input'
                               name= "phoneNo"
                              type="number"
+                              onWheel={(event) =>
+                              event.currentTarget.blur()
+                              }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()

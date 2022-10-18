@@ -481,7 +481,10 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <input
-                      type="number"
+                       type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                       name="additionalPDC"
                       onChange={(e) =>
                         saveforCalculationRevised(e.target.name, e.target.value)

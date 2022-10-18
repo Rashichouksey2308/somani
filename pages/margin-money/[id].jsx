@@ -4905,7 +4905,10 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                 <span>C</span>
                               </div>
                               <input
-                                type="number"
+                                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()

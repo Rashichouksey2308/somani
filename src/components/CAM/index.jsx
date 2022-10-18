@@ -3584,6 +3584,9 @@ const sectionTerms = (
                         className={`${styles.text} input`}
                         required={true}
                         type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -3640,6 +3643,9 @@ const sectionTerms = (
                       <input
                         className={`${styles.text} input`}
                         type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"

@@ -347,7 +347,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="orderValue"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 

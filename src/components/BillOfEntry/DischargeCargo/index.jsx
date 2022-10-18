@@ -466,7 +466,10 @@ export default function Index({
                         //   val?.shippingInformation?.numberOfContainers
                         // }
                         className={`${styles.input_field} input form-control`}
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
