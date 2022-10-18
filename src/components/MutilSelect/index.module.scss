@@ -1,3 +1,4 @@
+@import '../../components/styles/Core/config';
 .react_multi_email {
     margin: 0;
     max-width: 100%;
@@ -35,6 +36,9 @@
     color: rgba(0, 0, 0, 0.5019607843);
     font-size: 16px;
     background: white;
+    @include respond(lg-desktop) {
+        line-height: 11px;
+    }
 }
 
 .react_multi_email.focused {

@@ -753,7 +753,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
             <div
               className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
             >
-              <Row className={`mb-3`}>
+              <Row className={``}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span
                     className={`${styles.key} label1`}
