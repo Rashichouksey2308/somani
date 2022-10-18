@@ -2405,7 +2405,7 @@ const [exSupplier,setexSupplier]=useState([])
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option selected disabled>Select</option>
+                            <option selected >Select</option>
                             {FilterUniqueBank().map((item) => (<>
 
                               <option value={item}>{item}</option>
