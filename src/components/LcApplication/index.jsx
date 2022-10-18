@@ -191,7 +191,7 @@ function Index({
                               Select an option
                             </option>
                             <option value="First Class European Bank">
-                             First Class European Bank
+                              First Class European Bank
                             </option>
                             <option value="Reserve Bank of Spain">
                               Reserve Bank of Spain
@@ -289,9 +289,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : `USD ` +  (Number(
-                                  lcData?.currecyCodeAndAmountValue,
-                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) 
+                              : `USD ` + (Number(
+                                lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(undefined, { maximumFractionDigits: 2, }))
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(
@@ -473,6 +473,9 @@ function Index({
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              onWheel={(event) =>
+                                event.currentTarget.blur()
+                              }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()

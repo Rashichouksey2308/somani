@@ -48,7 +48,7 @@ const Index = ({ saveOrderData, orderData }) => {
               className={`${styles.options} accordion_DropDown `}
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
-              style={{paddingRight:'0px'}}
+              style={{ paddingRight: '0px' }}
             >
               <option>Select </option>
               <option value="Crores" selected>
@@ -432,6 +432,9 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   name="transactionPeriodDays"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
