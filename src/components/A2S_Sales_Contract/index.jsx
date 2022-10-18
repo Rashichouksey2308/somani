@@ -104,6 +104,12 @@ function Index(props) {
             }
           }
         })
+        let comment=[]
+         data?.additionalComments?.comments?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+              comment.push(val.comment)
+          }
+        })
 
         console.log(dat, exe, "exedasa")
 
@@ -130,7 +136,7 @@ function Index(props) {
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.additionalComments?.comments,
+          addComm: data?.comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -567,7 +573,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
-            <Col md={7} className={styles.right}>{data.details}</Col>
+            <Col md={7} className={styles.right}>{data.buyer}</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>

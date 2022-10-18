@@ -205,6 +205,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
           response.data.data.form.orderDetails[0],
         )
         sessionStorage.setItem('company', response.data.data.form._id)
+        sessionStorage.setItem('companyID', response.data.data.form._id)
         Router.push(`/review/${response.data.data.form._id}`)
         // if (response.data.data.queue == 'ReviewQueue') {
         //   dispatch(
@@ -249,24 +250,30 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(updateBuyerSuccess(response.data))
-        dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
-        Router.push('/review')
-        dispatch(setNotLoading())
-      } else {
-        dispatch(updateBuyerFailed(response.data))
-        console.log('UPDATE REQUEST FAILED')
-        dispatch(setNotLoading())
-      }
-    })
+    let response = await Axios.post(
+      `${API.corebaseUrl}${API.updateBuyer}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+
+    if (response.data.code === 200) {
+      dispatch(updateBuyerSuccess(response.data))
+
+      dispatch(setNotLoading())
+      return 200
+    } else {
+      dispatch(updateBuyerFailed(response.data))
+      console.log('UPDATE REQUEST FAILED')
+      dispatch(setNotLoading())
+      return 500
+    }
   } catch (error) {
     dispatch(updateBuyerFailed())
     console.log(error, 'UPDATE API FAILED')
     dispatch(setNotLoading())
+    return 500
   }
 }
 
