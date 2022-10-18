@@ -508,7 +508,10 @@ function Index() {
                       <input
                         onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
                           evt.preventDefault()
@@ -874,7 +877,10 @@ function Index() {
                                   className="input"
                                   name="contact"
                                   value={person?.contact}
-                                  type="number"
+                                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                                   onChange={onChangeHandler2}
                                   onKeyDown={(evt) =>
                                     ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1013,7 +1019,10 @@ function Index() {
                                     className="input"
                                     name="contact"
                                     value={detail?.contact}
-                                    type="number"
+                                     type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                                     onKeyDown={(evt) =>
                                       ['e', 'E', '+', '-'].includes(evt.key) &&
                                       evt.preventDefault()

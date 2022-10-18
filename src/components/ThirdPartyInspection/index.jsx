@@ -1045,7 +1045,10 @@ export default function Index({ addButton }) {
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
-                          type="number"
+                           type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                           onKeyDown={(evt) =>
                             evt.key === 'e' && evt.preventDefault()
                           }
@@ -1881,7 +1884,10 @@ const Discharge = (
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
-                type="number"
+                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
               />
               <label className={`${styles.label_heading} label_heading`}>

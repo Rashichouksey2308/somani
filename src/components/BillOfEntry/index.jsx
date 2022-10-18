@@ -14,6 +14,7 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import { checkNan } from '../../utils/helper'
+import { ViewDocument } from '../../redux/ViewDoc/action'
 // import { set } from 'lodash'
 import {
   GetAllCustomClearance,
@@ -93,6 +94,13 @@ export default function Index({
     let newInput = { ...billOfEntryData }
     newInput[name] = docs
     setBillOfEntryData(newInput)
+  }
+  const getDoc=(payload)=>{
+    console.log(payload,"payload")
+     dispatch(ViewDocument({
+          path: payload,
+          // orderId: documentsFetched._id,
+        }))
   }
   console.log(
     billOfEntryData,
@@ -633,7 +641,10 @@ export default function Index({
                 >
                   <input
                     className={`${styles.input_field} input form-control`}
-                    type="number"
+                     type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                     name="boeNumber"
                     required
                     value={billOfEntryData?.boeNumber}
@@ -1001,7 +1012,10 @@ export default function Index({
                 >
                   <input
                     className={`${styles.input_field} input form-control`}
-                    type="number"
+                     type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                     required
                     name="boeDetails.boeRate"
                     onChange={(e) =>
@@ -1305,6 +1319,9 @@ export default function Index({
                             src="/static/preview.svg"
                             className={`${styles.previewImg} img-fluid ml-n4`}
                             alt="Preview"
+                            onClick={(e)=>{
+                              getDoc(bl?.blSurrenderDoc?.path)
+                            }}
                           />
                         </div>
                       </>

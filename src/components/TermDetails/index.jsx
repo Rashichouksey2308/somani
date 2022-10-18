@@ -805,7 +805,10 @@ const Index = ({
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
-                type="number"
+                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
@@ -825,7 +828,10 @@ const Index = ({
               <input
                 id="daysFromVesselDischargeDate"
                 className={`${styles.value} input form-control`}
-                type="number"
+                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
