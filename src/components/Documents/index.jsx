@@ -100,10 +100,12 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
+                            console.log("Addddoc")
                             addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
-                          style={{width: "106px", height: "38px"}}
+            
+                          style={{width: "106px", height: "55px"}}
                         />
                         <button className={`${styles.button_upload} btn`}>
                           Upload

@@ -550,11 +550,11 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(
+                    {convertValue(_get(
                       TransitDetails,
-                      'data[0].order.orderValue',
+                      'data[0].order.marginMoney.calculation.orderValueInINR',
                       '',
-                    ).toLocaleString('en-IN', {
+                    )).toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
@@ -705,15 +705,18 @@ export default function Index({
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
+                      style={{paddingBottom:'10px'}}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}
-                        className={`${styles.add_btn} mr-0 ml-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                        className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
-                        <img src="/static/delete.svg" width={12} alt="delete" />{' '}
+                        <img src="/static/delete.svg"
+                        className='ml-1 mt-n1'
+                         width={13} alt="delete" />{' '}
                         Delete
                       </button>
                     ) : null}
