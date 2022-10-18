@@ -1395,10 +1395,10 @@ const creditProfile = (
                     Change in Auditor
                   </span>
                   <span className={`${styles.value} value `}>
-                    {latestAuditorData?.nameOfAuditor ===
+                    {latestAuditorData?.nameOfAuditor ? latestAuditorData?.nameOfAuditor ===
                       previousAuditorData?.nameOfAuditor
                       ? ' No'
-                      : 'Yes'}
+                      : 'Yes' : ''}
                   </span>
                 </Col>
               </Row>
