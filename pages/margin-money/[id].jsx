@@ -268,25 +268,7 @@ function Index() {
     Router.push('/margin-preview')
   }
 
-  const [invoiceData, setInvoiceData] = useState({
-    buyerName: marginData?.company?.companyName || '',
-    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer:
-      marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
-    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-    importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  || '',
-    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
-    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
-    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
-    bankName: marginData?.invoiceDetail?.bankName || '',
-    branch: marginData?.invoiceDetail?.branch || '',
-    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
-    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-    accountNo: marginData?.invoiceDetail?.accountNo || '123456',
-  })
+  const [invoiceData, setInvoiceData] = useState({})
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -354,7 +336,6 @@ function Index() {
   }
 
   const [changeImporterData, setChangeImporterData] = useState({
-    companyName: '',
     branch: '',
     state: '',
     address: '',
