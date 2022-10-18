@@ -1615,7 +1615,7 @@ const shareHolding = (
                             </td>
                             <td>
                               {share?.percentageShareHolding
-                                ? share?.percentageShareHolding?.toLocaleString(
+                                ? (share?.percentageShareHolding*100)?.toLocaleString(
                                   'en-IN',
                                   {
                                     maximumFractionDigits: 2,

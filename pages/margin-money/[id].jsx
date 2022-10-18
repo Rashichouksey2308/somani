@@ -4802,7 +4802,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                   coversionUnitHandler(e.target.value)
                               }}
                             >
-                              <option>Select</option>
+                              <option disabled >Select</option>
                               <option selected value="Crores">
                                 Crores
                               </option>
