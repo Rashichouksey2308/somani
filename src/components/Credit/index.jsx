@@ -1099,7 +1099,10 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1119,7 +1122,10 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onKeyDown={(evt) =>
@@ -1139,7 +1145,10 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1160,7 +1169,10 @@ const [exSupplier,setexSupplier]=useState([])
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="number"
+                     type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1185,7 +1197,10 @@ const [exSupplier,setexSupplier]=useState([])
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
-                    type="number"
+                     type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
@@ -1566,7 +1581,10 @@ const [exSupplier,setexSupplier]=useState([])
                                 }
                               }
                             }}
-                            type="number"
+                             type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                             disabled={!person.isEdit}
                           />
                         </td>
@@ -1773,7 +1791,10 @@ const [exSupplier,setexSupplier]=useState([])
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          type="number"
+                           type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                           name="pinCode"
                           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? "" : keyAddressData.pinCode}
@@ -1870,7 +1891,10 @@ const [exSupplier,setexSupplier]=useState([])
                         <input
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
-                          type="number"
+                           type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                           name="contact.number"
                           maxLength='10'
                           onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}

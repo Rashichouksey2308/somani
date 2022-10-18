@@ -10,7 +10,7 @@ const index = () => {
       <div className={styles.head_container}>
         <div className={styles.head_header}>
           <img
-            
+
             className={`${styles.arrow} img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
@@ -218,6 +218,9 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
+                      onWheel={(event) =>
+                        event.currentTarget.blur()
+                      }
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     />
@@ -495,6 +498,9 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
+                      onWheel={(event) =>
+                        event.currentTarget.blur()
+                      }
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     />

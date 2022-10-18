@@ -316,13 +316,13 @@ const Index = () => {
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
-  console.log(termsheetDetails.paymentDueDate, 'herer1234')
+  console.log(termsheetDetails, 'herer1234')
 
   const onChangeCommercialTerms = (e) => {
     console.log(e.target.id, e.target.value, 'sdfsdf')
     const Key = e.target.id
     const value = e.target.value
-
+  
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -410,7 +410,7 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, 'tempSheet1')
+    console.log( tempSheet.commercials.lcOpeningChargesPercentage, 'tempSheet1')
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -684,9 +684,13 @@ const Index = () => {
       }
       return
     }
+    console.log(termsheetDetails.commercials.lcOpeningChargesPercentage == '' ,
+      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined,"scsdsdfsdf",
+      termsheetDetails.commercials.lcOpeningChargesPercentage)
     if (
-      termsheetDetails.commercials.lcOpeningChargesPercentage == '' ||
-      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined
+      
+      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined 
+     
     ) {
       let toastMessage = 'Please add lc Opening Charges Percentage '
       if (!toast.isActive(toastMessage.toUpperCase())) {

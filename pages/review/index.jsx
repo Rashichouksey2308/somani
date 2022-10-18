@@ -1321,6 +1321,25 @@ function Index() {
     }
   }, [companyData?.compliance?.alerts])
 
+
+
+  const CreditAgency = () => {
+    let array1 = []
+    let finalarray = [{}]
+    companyData?.profile?.creditRating?.forEach((item) => {
+      let year = (item.dateOfIssuance)?.slice(0, 4)
+      array1.push(year)
+    })
+    finalarray = [...new Set(array1)]
+    let tempdates = finalarray.sort((a, b) => b - a).slice(0, 1)
+
+    const filteredCreditRatingNew = companyData?.profile?.creditRating?.filter((rating) => rating?.dateOfIssuance?.slice(0, 4) === tempdates[0])
+    if (filteredCreditRatingNew?.length > 0) {
+      return filteredCreditRatingNew[0]
+    } 
+  }
+ 
+
   // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
@@ -3745,7 +3764,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  A3+
+                  {CreditAgency()?.rating_}
                 </td>
               </tr>
               <tr>
@@ -3787,7 +3806,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  American First
+                  {CreditAgency()?.ratingAgency}
                 </td>
               </tr>
               <tr>
@@ -3836,11 +3855,12 @@ function Index() {
                   }}
                 >
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
+                    .nameOfAuditor ? camData.company.detailedCompanyInfo.profile.auditorDetail[0]
                     .nameOfAuditor ==
                     camData.company.detailedCompanyInfo.profile.auditorDetail[1]
                       .nameOfAuditor
                     ? 'No'
-                    : 'Yes'}
+                    : 'Yes' : ''}
                 </td>
               </tr>
             </table>
@@ -4744,12 +4764,12 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debt.conduct == 'Good'
-                                    ? '#43C34D'
-                                    : debt.conduct == 'Satisfactory'
-                                      ? '#FF9D00'
-                                      : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
+                                      ? '#43C34D'
+                                      : debt.conduct == 'Satisfactory'
+                                        ? '#FF9D00'
+                                        : debt.conduct == 'Average'
+                                          ? 'average'
+                                          : '#EA3F3F'
                                       }`,
                                     width: `${(Number(debt.limit) / totalLimitDebt() > 1
                                       ? 1
@@ -4869,13 +4889,13 @@ function Index() {
                               paddingTop: '25px',
                               paddingBottom: '25px',
                               color: `${debt.conduct == 'Good'
-                                    ? '#43C34D'
-                                    : debt.conduct == 'Satisfactory'
-                                      ? '#FF9D00'
-                                      : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
-                                      }`
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
+                                  ? '#FF9D00'
+                                  : debt.conduct == 'Average'
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`
                             }}
                           >
                             {debt?.conduct}
@@ -5708,13 +5728,8 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlCustomer?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlCustomer?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
+
                 </td>
                 <td
                   style={{
@@ -5723,13 +5738,9 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlCustomer?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlCustomer?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
+
+
                 </td>
                 <td
                   style={{
@@ -5781,13 +5792,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlInv?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlInv?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5796,13 +5801,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlInv?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlInv?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -8163,13 +8162,15 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                          {filteredCreditRating.length > 0 ?
+                        {filteredCreditRating.length > 0 ?
                           filteredCreditRating.length > 0 &&
-                          filteredCreditRating.map((val, index) =>  {checkNan(
-                            convertValue(
-                              val?.derived?.value,
-                            )?.toLocaleString('en-In'),
-                          )}) : '-'}
+                          filteredCreditRating.map((val, index) => {
+                            checkNan(
+                              convertValue(
+                                val?.derived?.value,
+                              )?.toLocaleString('en-In'),
+                            )
+                          }) : '-'}
                       </td>
                       <td
                         align="center"
@@ -8484,15 +8485,27 @@ function Index() {
 
   // console.log(filterType, 'filterType')
   // console.log(district,'filtered')
-  console.log(filterType.class, 'filterType.class')
+  console.log(filterType.party, 'filterType.class')
   useEffect(() => {
     if (companyData) {
       filterLitigation()
     }
-  }, [companyData, filterType, filterType.class])
+  }, [companyData, filterType, filterType.class,filterType.party])
   const changeClass = (val) => {
     let filter = { ...filterType }
     filter.class = val
+    setFilterType({ ...filter })
+  }
+    const changeParty = (val) => {
+      console.log(val,"valval")
+    let filter = { ...filterType }
+    filter.party = val
+    setFilterType({ ...filter })
+  }
+    const changeRisk = (val) => {
+      console.log(val,"valval")
+    let filter = { ...filterType }
+    filter.risk = val
     setFilterType({ ...filter })
   }
   const filterLitigation = () => {
@@ -8678,6 +8691,59 @@ function Index() {
         },
       )
     }
+    console.log(filterType.risk ,"filterType.risk ")
+    if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
+      const partyFilter = (val) => {
+        console.log(val.memberType, 'val.memberType')
+        if (filterType.party == 'Respondent') {
+          if (val.memberType == 'Respondent') {
+            console.log('1111111111')
+            return val
+          }
+        }
+        if (filterType.party == 'Petitioner') {
+          if (val.memberType == 'Petitioner') {
+            return val
+          }
+        }
+      }
+
+      supremeCourt =
+        supremeCourt.length <= 0
+          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+            return partyFilter(val)
+          })
+          : supremeCourt?.filter((val) => {
+            return partyFilter(val)
+          })
+      highCourt =
+        highCourt.length <= 0
+          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
+            return partyFilter(val)
+          })
+          : highCourt?.filter((val) => {
+            console.log(val, 'secodnoneene')
+            return partyFilter(val)
+          })
+
+      tribunalCourts =
+        tribunalCourts.length <= 0
+          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+            return partyFilter(val)
+          })
+          : tribunalCourts?.filter((val) => {
+            return partyFilter(val)
+          })
+      districtCourt =
+        tribunalCourts.length <= 0
+          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+            return partyFilter(val)
+          })
+          : districtCourt?.filter((val) => {
+            return partyFilter(val)
+          })
+    }
+    console.log(highCourt,"highCourt44444")
     //civil Crimnal
     console.log(highCourt, 'highCourt111')
     if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
@@ -8734,57 +8800,7 @@ function Index() {
     console.log(highCourt, 'highCourt222')
 
     //party2
-    if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
-      const partyFilter = (val) => {
-        console.log(val.civilCriminal, 'val.civilCriminal')
-        if (filterType.class == 'Respondent') {
-          if (val.memberType == 'Respondent') {
-            console.log('1111111111')
-            return val
-          }
-        }
-        if (filterType.class == 'Petitioner') {
-          if (val.memberType == 'Petitioner') {
-            return val
-          }
-        }
-      }
-
-      supremeCourt =
-        supremeCourt.length <= 0
-          ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
-            return partyFilter(val)
-          })
-          : supremeCourt?.filter((val) => {
-            return partyFilter(val)
-          })
-      highCourt =
-        highCourt.length <= 0
-          ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
-            return partyFilter(val)
-          })
-          : highCourt?.filter((val) => {
-            console.log(val, 'secodnoneene')
-            return partyFilter(val)
-          })
-
-      tribunalCourts =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return partyFilter(val)
-          })
-          : tribunalCourts?.filter((val) => {
-            return partyFilter(val)
-          })
-      districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
-            return partyFilter(val)
-          })
-          : districtCourt?.filter((val) => {
-            return partyFilter(val)
-          })
-    }
+    
     //risk
     if (
       filterType.risk == 'relevence' ||
@@ -8794,18 +8810,18 @@ function Index() {
       const riskFilter = (val) => {
         console.log(val.civilCriminal, 'val.civilCriminal')
         if (filterType.risk == 'high') {
-          if (val.severity_ == 'Respondent') {
+          if (val.severity_ == 'high') {
             console.log('1111111111')
             return val
           }
         }
         if (filterType.risk == 'medium') {
-          if (val.severity_ == 'Petitioner') {
+          if (val.severity_ == 'medium') {
             return val
           }
         }
         if (filterType.risk == 'relevence') {
-          if (val.severity_ == 'Petitioner') {
+          if (val.severity_ == 'relevence') {
             return val
           }
         }
@@ -9677,17 +9693,16 @@ function Index() {
                                     type="radio"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault1"
-                                    checked
+                                    checked={filterType.party == 'Respondent'}
+                                     onClick={() => {
+                                      changeParty("Respondent")
+                                     
+                                    }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault1"
-                                    onChange={() => {
-                                      setFilterType({
-                                        ...filterType,
-                                        party: 'Respondent',
-                                      })
-                                    }}
+                                   
                                   >
                                     Respondent
                                   </label>
@@ -9698,16 +9713,16 @@ function Index() {
                                     type="radio"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault2"
+                                      checked={filterType.party == 'Petitioner'}
+                                    onClick={() => {
+                                      changeParty("Petitioner")
+                                    
+                                    }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault2"
-                                    onChange={() => {
-                                      setFilterType({
-                                        ...filterType,
-                                        party: 'Petitioner',
-                                      })
-                                    }}
+                                    
                                   >
                                     Petitioner
                                   </label>
@@ -9773,7 +9788,8 @@ function Index() {
                                 value={'high'}
                                 id={'high'}
                                 onChange={() => {
-                                  setFilterType({ ...filterType, risk: 'high' })
+                                   changeRisk("high")
+                                  // setFilterType({ ...filterType, risk: 'high' })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -9793,10 +9809,11 @@ function Index() {
                                 value={'medium'}
                                 id={'medium'}
                                 onChange={() => {
-                                  setFilterType({
-                                    ...filterType,
-                                    risk: 'medium',
-                                  })
+                                  changeRisk("medium")
+                                  // setFilterType({
+                                  //   ...filterType,
+                                  //   risk: 'medium',
+                                  // })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -9815,10 +9832,11 @@ function Index() {
                                 value={'Relevance'}
                                 id={'Relevance'}
                                 onChange={() => {
-                                  setFilterType({
-                                    ...filterType,
-                                    risk: 'relevence',
-                                  })
+                                   changeRisk("relevance")
+                                  // setFilterType({
+                                  //   ...filterType,
+                                  //   risk: 'relevence',
+                                  // })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -9965,6 +9983,7 @@ function Index() {
                     setTop5Customers1={setTop5Customers1}
                     camConversionunit={camConversionunit}
                     totalLimitDebt={totalLimitDebt}
+                    CreditAgency={CreditAgency}
                   />
                 </div>
               </div>
