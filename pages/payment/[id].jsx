@@ -71,8 +71,8 @@ function Index() {
               liftingQuant: val2.liftingQuantity,
               modeOfTransportation: val2.modeOfTransport,
               eWayBill: val2.ewayBillNo,
-              destination: val2.destination||"",
-              rrlrNumber: val2.rrlrNumber||0,
+              destination: val2.destination || "",
+              rrlrNumber: val2.rrlrNumber || 0,
               LRorRRDoc: val2.LRDocument || val2.RRDocument || {},
               eWayBillDoc: val2.ewayBillDocument || {},
             })
@@ -92,7 +92,7 @@ function Index() {
   useEffect(() => {
     getOrderData()
   }, [dispatch])
-   useEffect(() => {
+  useEffect(() => {
     getOrderData()
   }, [])
   const getOrderData = async () => {
@@ -127,7 +127,7 @@ function Index() {
             LRorRRDoc: {},
             eWayBillDoc: {},
             destination: '',
-            rrlrNumber:'',
+            rrlrNumber: '',
           },
         ],
       },
@@ -146,7 +146,7 @@ function Index() {
           LRorRRDoc: {},
           eWayBillDoc: {},
           destination: '',
-          rrlrNumber:'',
+          rrlrNumber: '',
         })
       }
     })
@@ -186,7 +186,7 @@ function Index() {
             ewayBillDocument: val2.eWayBillDoc || {},
             RRDocument: val2.LRorRRDoc || {},
             destination: val2.destination,
-            rrlrNumber:val2.rrlrNumber,
+            rrlrNumber: val2.rrlrNumber,
           })
         })
         tempArr.push({
@@ -204,7 +204,7 @@ function Index() {
             ewayBillDocument: val2.eWayBillDoc || {},
             LRDocument: val2.LRorRRDoc || {},
             destination: val2.destination,
-            rrlrNumber:val2.rrlrNumber,
+            rrlrNumber: val2.rrlrNumber,
           })
         })
         tempArr.push({
@@ -427,29 +427,63 @@ function Index() {
       }
     })
     setDeliveryOrder([...tempArr])
-  }
-  const onSaveDoHAndler = async () => {
-    let newarr = []
-    deliveryOrder.forEach((item) => {
-      newarr.push({
-        orderNumber: item.orderNumber,
-        unitOfMeasure: item.unitOfMeasure,
-        netQuantityReleased: item.Quantity,
-        deliveryOrderNumber: item.deliveryOrderNo,
-        deliveryOrderDate: item.deliveryOrderDate,
-        deliveryStatus: item.status,
-        
-      })
-    })
 
-    let payload = {
-      deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
-      deliveryDetail: newarr,
-      lastMileDelivery: Boolean(lastMileDelivery),
+  }
+
+  const doValidation = () => {
+    let isOk = true
+    let toastMessage = ''
+    for (let i = 0; i <= deliveryOrder.length - 1; i++) {
+
+      if (
+        deliveryOrder[i]?.Quantity == '' ||
+        deliveryOrder[i]?.Quantity == null
+      ) {
+        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
     }
-    let task = 'save'
-    //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
-    await dispatch(UpdateDelivery({ payload, task }))
+
+    if (BalanceQuantity() < 0) {
+      toastMessage = `total Quantity Released cannot be greater than invoice quantity `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        isOk = false
+      }
+    }
+    return isOk
+  }
+
+
+
+  const onSaveDoHAndler = async () => {
+    if (doValidation()) {
+      let newarr = []
+      deliveryOrder.forEach((item) => {
+        newarr.push({
+          orderNumber: item.orderNumber,
+          unitOfMeasure: item.unitOfMeasure,
+          netQuantityReleased: item.Quantity,
+          deliveryOrderNumber: item.deliveryOrderNo,
+          deliveryOrderDate: item.deliveryOrderDate,
+          deliveryStatus: item.status,
+
+        })
+      })
+
+      let payload = {
+        deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
+        deliveryDetail: newarr,
+        lastMileDelivery: Boolean(lastMileDelivery),
+      }
+      let task = 'save'
+      //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
+      await dispatch(UpdateDelivery({ payload, task }))
+    }
   }
   const removeLiftinDoc = (type, index1, index2) => {
     let temp = [...lifting]
@@ -508,7 +542,7 @@ function Index() {
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
               onClick={() => Router.push('/payment')}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
               <span style={{ textTransform: 'capitalize' }}>

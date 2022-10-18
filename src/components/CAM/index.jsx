@@ -69,9 +69,10 @@ function Index({
   setTop5Customers1,
   camConversionunit,
   totalLimitDebt,
+  CreditAgency,
 }) {
   const dispatch = useDispatch()
-  console.log(GstData, 'GstData')
+  console.log(companyData, 'companyData')
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -675,6 +676,8 @@ function Index({
         primaryBankName,
         latestAuditorData,
         previousAuditorData,
+        companyData,
+        CreditAgency,
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
@@ -1329,6 +1332,8 @@ const creditProfile = (
   primaryBankName,
   latestAuditorData,
   previousAuditorData,
+  companyData,
+  CreditAgency
 ) => {
   return (
     <>
@@ -1362,7 +1367,7 @@ const creditProfile = (
                   <span className={`${styles.key} label1 pl-5`}>
                     External Credit rating
                   </span>
-                  <span className={`${styles.value} value`}>A3+</span>
+                  <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1377,7 +1382,7 @@ const creditProfile = (
                     Credit Rating Agency
                   </span>
                   <span className={`${styles.value} value`}>
-                    American First
+                  {CreditAgency()?.ratingAgency}
                   </span>
                 </Col>
               </Row>
@@ -2605,13 +2610,13 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlCustomer?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {(RevenueDetails?.ttlCustomer?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2651,7 +2656,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlInv?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2663,7 +2668,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlInv?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {checkNan(

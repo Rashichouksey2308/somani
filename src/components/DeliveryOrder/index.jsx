@@ -327,7 +327,7 @@ export default function Index(props) {
                                       />
                                     )}
                                     {props.releaseOrderData.length - 1 ===
-                                      index && (
+                                      index && props.BalanceQuantity() > 0 && (
                                       <img
                                         onClick={(e) => {
                                           props.addNewDelivery()

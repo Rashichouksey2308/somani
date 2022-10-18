@@ -1321,6 +1321,25 @@ function Index() {
     }
   }, [companyData?.compliance?.alerts])
 
+
+
+  const CreditAgency = () => {
+    let array1 = []
+    let finalarray = [{}]
+    companyData?.profile?.creditRating?.forEach((item) => {
+      let year = (item.dateOfIssuance)?.slice(0, 4)
+      array1.push(year)
+    })
+    finalarray = [...new Set(array1)]
+    let tempdates = finalarray.sort((a, b) => b - a).slice(0, 1)
+
+    const filteredCreditRatingNew = companyData?.profile?.creditRating?.filter((rating) => rating?.dateOfIssuance?.slice(0, 4) === tempdates[0])
+    if (filteredCreditRatingNew?.length > 0) {
+      return filteredCreditRatingNew[0]
+    } 
+  }
+ 
+
   // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
@@ -3704,7 +3723,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  A3+
+                  {CreditAgency()?.rating_}
                 </td>
               </tr>
               <tr>
@@ -3746,7 +3765,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  American First
+                  {CreditAgency()?.ratingAgency}
                 </td>
               </tr>
               <tr>
@@ -3795,11 +3814,12 @@ function Index() {
                   }}
                 >
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
+                    .nameOfAuditor ? camData.company.detailedCompanyInfo.profile.auditorDetail[0]
                     .nameOfAuditor ==
                     camData.company.detailedCompanyInfo.profile.auditorDetail[1]
                       .nameOfAuditor
                     ? 'No'
-                    : 'Yes'}
+                    : 'Yes' : ''}
                 </td>
               </tr>
             </table>
@@ -4695,12 +4715,12 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debt.conduct == 'Good'
-                                    ? '#43C34D'
-                                    : debt.conduct == 'Satisfactory'
-                                      ? '#FF9D00'
-                                      : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
+                                      ? '#43C34D'
+                                      : debt.conduct == 'Satisfactory'
+                                        ? '#FF9D00'
+                                        : debt.conduct == 'Average'
+                                          ? 'average'
+                                          : '#EA3F3F'
                                       }`,
                                     width: `${(Number(debt.limit) / totalLimitDebt() > 1
                                       ? 1
@@ -4820,13 +4840,13 @@ function Index() {
                               paddingTop: '25px',
                               paddingBottom: '25px',
                               color: `${debt.conduct == 'Good'
-                                    ? '#43C34D'
-                                    : debt.conduct == 'Satisfactory'
-                                      ? '#FF9D00'
-                                      : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
-                                      }`
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
+                                  ? '#FF9D00'
+                                  : debt.conduct == 'Average'
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`
                             }}
                           >
                             {debt?.conduct}
@@ -5659,13 +5679,8 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlCustomer?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlCustomer?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
+
                 </td>
                 <td
                   style={{
@@ -5674,13 +5689,9 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlCustomer?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlCustomer?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
+
+
                 </td>
                 <td
                   style={{
@@ -5732,13 +5743,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlInv?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlInv?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5747,13 +5752,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.ttlInv?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {(RevenueDetails?.ttlInv?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -8111,13 +8110,15 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                          {filteredCreditRating.length > 0 ?
+                        {filteredCreditRating.length > 0 ?
                           filteredCreditRating.length > 0 &&
-                          filteredCreditRating.map((val, index) =>  {checkNan(
-                            convertValue(
-                              val?.derived?.value,
-                            )?.toLocaleString('en-In'),
-                          )}) : '-'}
+                          filteredCreditRating.map((val, index) => {
+                            checkNan(
+                              convertValue(
+                                val?.derived?.value,
+                              )?.toLocaleString('en-In'),
+                            )
+                          }) : '-'}
                       </td>
                       <td
                         align="center"
@@ -9913,6 +9914,7 @@ function Index() {
                     setTop5Customers1={setTop5Customers1}
                     camConversionunit={camConversionunit}
                     totalLimitDebt={totalLimitDebt}
+                    CreditAgency={CreditAgency}
                   />
                 </div>
               </div>
