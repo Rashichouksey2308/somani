@@ -5,13 +5,13 @@
         padding: 28px 28px 33px;
         margin-bottom: 10px;
         @include respond(lg-desktop) {
-            padding: 20px 20px 0;
+            padding: 20px 20px 15px;
         }
         @include respond(sm-desktop) {
-            padding: 18px 18px 0;
+            padding: 18px 18px 12px;
         }
         @include respond(phone) {
-            padding: 15px 15px 0;
+            padding: 15px 15px 10px;
         }
         .tabHeaderInner {
             min-height: 48px;

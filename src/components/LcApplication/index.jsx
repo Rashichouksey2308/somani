@@ -838,7 +838,7 @@ function Index({
                         className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                       >
                         <div className={`${styles.number} mr-n3`}>
-                          {getSn(index)}
+                          {getSn(index + 1)}
                         </div>
                         <Form.Control
                           className={`${styles.paragraph} pt-0 input`}

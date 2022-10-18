@@ -705,15 +705,18 @@ export default function Index({
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
+                      style={{paddingBottom:'10px'}}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                     {index > 0 ? (
                       <button
                         onClick={() => onDeleteClick(index)}
-                        className={`${styles.add_btn} mr-0 ml-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                        className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
-                        <img src="/static/delete.svg" width={12} alt="delete" />{' '}
+                        <img src="/static/delete.svg"
+                        className='ml-1 mt-n1'
+                         width={13} alt="delete" />{' '}
                         Delete
                       </button>
                     ) : null}

@@ -587,7 +587,7 @@ const Index = ({
           <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Strengths</div>
-              <div className="d-flex mt-5 pb-4">
+              <div className="d-flex mt-5 pb-4 position-relative">
                 <input
                   as="textarea"
                   rows={3}
@@ -652,7 +652,7 @@ const Index = ({
             <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
-              <div className="d-flex mt-5 pb-5">
+              <div className="d-flex mt-5 pb-5 position-relative">
                 <input
                   as="textarea"
                   rows={3}
@@ -896,7 +896,7 @@ const Index = ({
               </div>
             </div>
             <div className={`${styles.comment_inner}`}>
-              <div className="d-flex mt-5 pb-5">
+              <div className="d-flex mt-5 pb-5 position-relative">
                 <input
                   as="textarea"
                   rows={3}

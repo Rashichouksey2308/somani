@@ -138,14 +138,20 @@
           border-radius: 24px;
           border: 2px solid #d9dde9;
           @include respond(lg-desktop) {
+              height: 38px;
               font-size: 15px;
               line-height: 1.3;
+              min-width: 100px;
+              padding: 8px 15px;
           }
         }
         .arrow {
           right: 17px;
           top: 14px;
           position: absolute;
+          @include respond(lg-desktop) {
+            top: 17px;
+          }
         }
       }
     }
@@ -301,8 +307,10 @@
             margin-right: 67px;
             box-shadow: none;
             @include respond(lg-desktop) {
+                height: 38px;
                 font-size: 15px;
                 line-height: 1.3;
+                max-width: 250px;
             }
           }
           .label {
@@ -716,6 +724,12 @@
               border-radius: 31px;
               justify-content: center;
               padding: 0 28px;
+              @include respond(lg-desktop) {
+                height: 50px;
+                padding: 0 20px;
+                min-width: 180px;
+                border-radius: 25px;
+              }
               span {
                 // width:100%;
                 text-align: center;
@@ -723,6 +737,10 @@
                 line-height: 24px;
                 font-weight: 500;
                 margin: 0 3px;
+                @include respond(lg-desktop) {
+                  font-size: 16px;
+                  line-height: 1.3;
+                }
               }
               &:hover {
                 background-color: #3687e8;

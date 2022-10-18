@@ -696,7 +696,7 @@ export default function Index({
                   <span className={styles.value}>
                     {convertValue(_get(
                       TransitDetails,
-                      'data[0].order.marginMoney.calculation.orderValueInINR',
+                      'data[0].order.orderValue',
                       '',
                     ))?.toLocaleString('en-IN',{maximumFractionDigits: 2})}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
