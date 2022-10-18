@@ -268,7 +268,25 @@ function Index() {
     Router.push('/margin-preview')
   }
 
-  const [invoiceData, setInvoiceData] = useState({})
+  const [invoiceData, setInvoiceData] = useState({
+    buyerName: marginData?.company?.companyName || '',
+    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+    isConsigneeSameAsBuyer:
+      marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
+    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
+    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
+    importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  || '',
+    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+    bankName: marginData?.invoiceDetail?.bankName || '',
+    branch: marginData?.invoiceDetail?.branch || '',
+    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+    accountNo: marginData?.invoiceDetail?.accountNo || '123456',
+  })
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -335,7 +353,12 @@ function Index() {
     GSTIN: '24AAACI3028D1Z8',
   }
 
-  const [changeImporterData, setChangeImporterData] = useState()
+  const [changeImporterData, setChangeImporterData] = useState({
+    companyName: '',
+    branch: '',
+    state: '',
+    address: '',
+  })
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
@@ -365,15 +388,24 @@ function Index() {
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value
+      const newInput = { ...invoiceData }
+      newInput['branchOffice'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'companyAddress') {
+      const newInput = { ...invoiceData }
       changeImporterData.address = e.target.value
+      newInput['companyAddress'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'importerGSTIN') {
+      const newInput ={...invoiceData}
       changeImporterData.GSTIN = e.target.value
+      newInput['importerGSTIN'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
   }
 
