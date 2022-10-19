@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { SearchLeads } from 'redux/buyerProfile/action'
 import DownloadMasterBar from '../../../src/components/DownloadMasterBar'
 import Image from 'next/image'
+import Router from 'next/router'
 
 const index = () => {
   const dispatch = useDispatch()
@@ -70,6 +71,7 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
+              onClick={() => Router.push('/add-new-user')}
             >
               Add
             </button>

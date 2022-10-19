@@ -8164,9 +8164,9 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {filteredCreditRating.length > 0 ?
-                          filteredCreditRating.length > 0 &&
-                          filteredCreditRating.map((val, index) => {
+                        {filteredCreditRating && filteredCreditRating?.length > 0 ?
+                          filteredCreditRating?.length > 0 &&
+                          filteredCreditRating?.map((val, index) => {
                             checkNan(
                               convertValue(
                                 val?.derived?.value,

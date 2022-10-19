@@ -87,6 +87,7 @@
                 font-size: 20px;
                 margin-bottom: 1rem;
                 line-height: 1.5;
+                text-align: justify;
                 .para {
                     padding: 0.5rem;
                     text-align: center;
@@ -167,7 +168,7 @@
                 border-bottom: 2px solid black;
             }
             .left{
-                padding-left: 30px;
+                padding: 0 15px;
                 display:flex;
                 align-items: center;
                 border-right:2px solid black ;
@@ -177,11 +178,10 @@
                 border-bottom:none;
             }
             .right{
-            display: flex;
-            align-items: center !important;;
-            justify-content:flex-start !important;
-            padding: 0 15px;
-             
+                display: flex;
+                align-items: center !important;;
+                justify-content:flex-start !important;
+                padding: 0 15px;             
             }
         .para {
             // padding: 0.5rem;
