@@ -35,6 +35,8 @@ export default function Index({
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const { customClearance } = useSelector((state) => state.Custom)
+  
+
 
   console.log(customClearance, 'this is custom doc')
   console.log(dutyData, 'dutyData')
@@ -700,12 +702,12 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity?.toLocaleString(
+                    {Number(customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity)?.toLocaleString(
                       'en-IN',
                       {
                         maximumFractionDigits: 2,
                       },
-                    )}{' '}
+                    )}{' '} {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -1252,7 +1254,7 @@ export default function Index({
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
-                          {totalCustomDuty()?.toLocaleString('en-In')}
+                          INR{' '}{totalCustomDuty()?.toLocaleString('en-In')}
                         </div>
                       </div>
                       <div

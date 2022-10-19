@@ -1104,12 +1104,19 @@ export default function Index({
                                       <input
                                         name={`containerDoc`}
                                         id="containerDoc"
-                                        onChange={(e) =>
-                                          onChangeContainerDetailsDocHandler(
-                                            e,
-                                            index,
-                                          )
+
+                                        onChange={(e) => {
+                                          if (e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') || e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')) {
+                                            onChangeContainerDetailsDocHandler(e,index,)
+                                          } else {
+                                            let toastMessage = 'only XLS files are allowed'
+                                            if (!toast.isActive(toastMessage.toUpperCase())) {
+                                              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                                            }
+                                          }
                                         }
+                                        }
+                                        
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         type="file"
                                       />
