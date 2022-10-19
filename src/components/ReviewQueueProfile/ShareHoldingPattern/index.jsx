@@ -111,12 +111,14 @@ function Index({ shareHolding }) {
     return !item.type === 'EquityShares1Member'
   })
   const topprefrencesShareNo = []
+  let topprefrencesShareName = []
 
 
   const topPrefrenceValues = prefrenceCapital()
     ?.sort((a, b) => b.numberOfShares - a.numberOfShares)?.slice(0, 5)
     ?.forEach((item) => {
       topprefrencesShareNo.push(item.numberOfShares)
+      topprefrencesShareName.push(item.fullName)
 
     })
   prefrenceCapital()?.forEach((item) => {
@@ -156,13 +158,22 @@ function Index({ shareHolding }) {
     ],
   }
   const prefrencedata = {
-    labels: ['Sail', 'Jindal Grou', 'SR Steel'],
+    labels:topprefrencesShareName,
     datasets: [
       {
         label: '',
         data: topprefrencesShareNo,
 
-        backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
+        backgroundColor: [
+          '#4CAF50',
+          '#2884DE',
+          '#FFCE00',
+          '#800000',
+          '#00FF00',
+        ],
+      
+      hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
+      hoverBorderWidth: 3,
       },
     ],
   }
