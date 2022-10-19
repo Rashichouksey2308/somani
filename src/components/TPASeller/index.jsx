@@ -94,7 +94,7 @@ function Index(props) {
         let exe;
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "TPA (Seller)") {
             exe = val.place
             if (val.dateOfExecution) {
               dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
@@ -103,7 +103,7 @@ function Index(props) {
         })
      let comment=[]
          data?.additionalComments?.comments?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "TPA (Seller)") {
               comment.push(val.comment)
           }
         })
@@ -130,7 +130,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -141,10 +141,12 @@ function Index(props) {
           supplierAddress:_get(data,"supplier.address[0]",""),
           supplierAuthorized:_get(data,"supplier.authorisedSignatoryDetails",[]),
           buyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+           associateBuyerAuthorized:_get(data,"associateBuyer.authorisedSignatoryDetails",[]),
           buyerEmail:"",
           supplierEmail:"",
           financialBank:"",
           financialAddress:"",
+          endBuyer:data.company.companyName
 
         })
       }
@@ -221,24 +223,17 @@ const tripartiteAgreement=(data)=>{
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of Supplier</Col>
         <Col md={7 } className={styles.right}>
-   {/* <table>
-            <tr>
-              {data?.supplierAuthorized &&
-                data?.supplierAuthorized.length > 0 &&
-                Object.keys(data?.supplierAuthorized[0]).map((val, index) => (
-                  <th key={index}>{val}</th>
-                ))}
-            </tr>
-            {data?.supplierAuthorized &&
-              data?.supplierAuthorized.length > 0 &&
-              data?.supplierAuthorized.map((item, index) => (
-                <tr>
-                  {Object.values(item).map((value, id) => (
-                    <td key={id}>{value}</td>
-                  ))}
-                </tr>
-              ))}
-        </table> */}
+   <ol>
+          {
+            data?.supplierAuthorized?.length > 0 && data?.supplierAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
         </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
@@ -247,29 +242,22 @@ const tripartiteAgreement=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of End buyer</Col>
-        <Col md={7 } className={styles.right}>{data?.buyer}</Col>
+        <Col md={7 } className={styles.right}>{data?.endBuyer}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Authorized signatory of End Buyer</Col>
-        <Col md={7 } className={styles.right}>
-          {/* <table>
-            <tr>
-              {data?.buyerAuthorized &&
-                data?.buyerAuthorized.length > 0 &&
-                Object.keys(data?.buyerAuthorized[0]).map((val, index) => (
-                  <th key={index}>{val}</th>
-                ))}
-            </tr>
-            {data?.buyerAuthorized &&
-              data?.buyerAuthorized.length > 0 &&
-              data?.buyerAuthorized.map((item, index) => (
-                <tr>
-                  {Object.values(item).map((value, id) => (
-                    <td key={id}>{value}</td>
-                  ))}
-                </tr>
-              ))}
-        </table> */}
+            <Col md={7 } className={styles.right}>
+          <ol>
+          {
+            data?.associateBuyerAuthorized?.length > 0 && data?.associateBuyerAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
         </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
@@ -278,7 +266,43 @@ const tripartiteAgreement=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Details of Goods as per Sales Contract</Col>
-        <Col md={7 } className={styles.right}>{""}</Col>
+        <Col md={7} className={styles.right}>
+              <>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.table_scroll_outer}>
+                    <div className={styles.table_scroll_inner}>
+                      <table>
+                        <tr>
+                          {data?.spec &&
+                            data?.spec.length > 0 &&
+                            Object.keys(data?.spec[0]).map((val, index) => (
+                              <th key={index}>{val}</th>
+                            ))}
+                        </tr>
+                        {data?.spec &&
+                          data?.spec.length > 0 &&
+                          data?.spec.map((item, index) => (
+                            <tr>
+                              {Object.values(item).map((value, id) => (
+                                <td key={id}>{value}</td>
+                              ))}
+                            </tr>
+                          ))}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                {data.specComment.length > 0 ? <b>Comments</b> : null}
+                <ol>
+                  {data.specComment.length > 0 && data.specComment.map((val, index) => {
+                    return (<li>
+                      {val}
+                    </li>)
+                  })}
+                </ol>
+              </>
+
+            </Col>
       </Row>
    
       

@@ -7,6 +7,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
 
   const [deliveryData, setDeliveryData] = useState('')
+  const [monthofLoadingCargo, setMonthOfLoadingCargo] = useState('')
 
   useEffect(() => {
     if (window) {
@@ -75,7 +76,7 @@ function Index(props) {
                   <option value="DDP	Delivery Duties Paid Incoterms 2000">
                     DDP Delivery Duties Paid Incoterms 2000
                   </option>
-                  <option value="EXW	Ex Works Incoterms 2000">
+                  <option value="">
                     EXW Ex Works Incoterms 2000
                   </option>
                   <option value="FOB	Free on Board Incoterms 2000">
@@ -93,6 +94,74 @@ function Index(props) {
                   alt="Search"
                 />
               </div>
+            
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="delivery"
+                  onChange={(e) => {
+                    setMonthOfLoadingCargo(e.target.value)
+                    h
+                  }}
+                  value={monthofLoadingCargo}
+                >
+                  <option value=''>
+                    Select an option
+                  </option>
+                  <option value="January">
+                   January
+                  </option>
+                  <option
+                    value={`February`}
+                  >{`February`}</option>
+                  <option value="March">
+                    March
+                  </option>
+                  <option value="April">
+                    April
+                  </option>
+                  <option value="May">
+                   May
+                  </option>
+                   <option value="June">
+                   June
+                  </option>
+                   <option value="July">
+                   July
+                  </option>
+                   <option value="August">
+                   August
+                  </option>
+                   <option value="September">
+                   September
+                  </option>
+                   <option value="October">
+                   October
+                  </option>
+                   <option value="November">
+                   November
+                  </option>
+                   <option value="December">
+                   December
+                  </option>
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                   
+ 		
+Month of loading of Cargo
+<strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            
             </Form.Group>
           </div>
         </Form>

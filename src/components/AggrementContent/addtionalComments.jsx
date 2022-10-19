@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
 function Index(props) {
   const [addressList, setAddressList] = useState([])
   const [value, setValue] = useState("")
@@ -38,6 +40,7 @@ function Index(props) {
           temp.push({
             value: val,
             comment:val.comment,
+            dateOfExecution:val?.dateOfExecution,
 
             isEdit: false
           })
@@ -80,7 +83,7 @@ function Index(props) {
 
 
     setAddressList([...addressList, {
-      name: "Sales Agreement", comment: "", 
+      name: "Sales Agreement", comment: "", dateOfExecution:null,
       
       actions: "false"
     }])
@@ -212,7 +215,29 @@ function Index(props) {
                                   }}
                                 />
                               </td>   
-                                                      
+                                   <td>
+                              <div className="d-flex align-items-center">
+                               <DateCalender
+                                name="dateOfExecution"
+                                saveDate={ (val,name,index)=>{
+                                  handleChangeInput(name, val, index)
+                                } }
+                                defaultDate={
+                                  val.dateOfExecution==null?null:moment(val.dateOfExecution).toDate()
+                                  }
+                                // small={true}
+                                index={index}
+                                
+                                
+                              />
+                              <img
+                                className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                               
+                              </td>                       
                               <td className={`d-flex`}>
                                 <img className={`${styles.image} mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
                                 <img onClick={() => (handleRemove(index))} src="/static/delete 2.svg"></img>
