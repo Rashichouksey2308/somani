@@ -87,7 +87,7 @@ function index() {
           detailsOfComm: data?.order?.commodity,
           quan: data.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue: data?.order?.orderValue,
+          totalOrderValue:data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
 
