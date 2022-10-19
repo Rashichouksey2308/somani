@@ -98,7 +98,7 @@ function Index(props) {
           setGstin('37AAACI3028D2Z0')
         }
         setAddressList(props?.data.addresses)
-        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
 

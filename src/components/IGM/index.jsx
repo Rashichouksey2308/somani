@@ -30,7 +30,7 @@ export default function Index({
   let transId = _get(TransitDetails, `data[0]`, '')
 
   console.log(
-    _get(TransitDetails, `data[0].order.forwardHedging`, ''),
+    _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`, ''),
     'hediii',
   )
   const dispatch = useDispatch()
@@ -158,18 +158,20 @@ export default function Index({
     false,
   )
 
-  const onigmAdd = () => {
+  const onigmAdd = (index) => {
+    let a=index+1;
     let tempArray = { ...igmList }
     tempArray.igmDetails.push({
-      vesselName: '',
+      vesselName: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.vesselName??"",
+     
       igmNumber: '',
       igmFiling: null,
       document: null,
       blNumber: [
         {
-          blNumber: number,
-          BlDate: '',
-          quantity: '',
+          blNumber:  TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blNumber??"",
+          BlDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate??"").format("DD-MM-YYYY"),
+          quantity: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blQuantity??"",
           noOfContainers: 0,
         },
       ],
@@ -274,6 +276,28 @@ export default function Index({
     setIgmList(tempArray)
   }
 
+  // useEffect(() => {
+  //   if( _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`, '') == "INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+  //     console.log("herehre")
+  //     setConsigneeName('indoGerman')
+  //     setConsigneeInfo({
+  //       name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
+  //       branch: 'DELHI',
+  //       address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
+  //     })
+  //   }
+  //    if( _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`, '')=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+  //     setConsigneeName('EMERGENT')
+  //     setConsigneeInfo({
+  //       name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
+  //       branch: 'VIZAG',
+  //       address:
+  //         '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
+  //     })
+  //   }
+
+  // },[TransitDetails])
+  console.log(consigneeInfo,"consigneeInfo")
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
       setConsigneeInfo({
@@ -303,41 +327,44 @@ export default function Index({
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeName`,
           '',
-        ),
+        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ,
         branch: _get(
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeBranch`,
           '',
-        ),
+        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.branch`) ,
         address: _get(
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeAddress`,
           '',
-        ),
+        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.consigneeAddress`),
       })
+
+     
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' 
       ) {
         setConsigneeName('EMERGENT')
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
+        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' 
       ) {
         setConsigneeName('indoGerman')
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
         {
-          vesselName: '',
+          vesselName: _get(TransitDetails, `data[0].BL.billOfLanding[0].vesselName`,""),
           igmNumber: '',
           igmFiling: null,
           document: null,
           blNumber: [
             {
-              blNumber: number,
-              BlDate: '',
-              quantity: '',
+              blNumber: _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`,"")  ,
+              BlDate:  moment( _get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`,"")).format("DD-MM-YYYY"),
+              quantity:   _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`,""),
               noOfContainers: 0,
             },
           ],
@@ -703,7 +730,7 @@ export default function Index({
                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
                     <button
-                      onClick={() => onigmAdd()}
+                      onClick={() => onigmAdd(index)}
                       className={styles.add_btn}
                       style={{paddingBottom:'10px'}}
                     >
