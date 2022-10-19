@@ -435,7 +435,6 @@ function Index() {
       )
     }
     if((last == '' && last == undefined) || (latest == '' && latest == undefined)  ){
-      console.log(latest, previous, last, 'latest, previous, last', 'KHAALI')
       return <img src='' />
     }
 
