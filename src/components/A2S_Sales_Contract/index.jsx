@@ -111,7 +111,7 @@ function Index(props) {
           }
         })
 
-        console.log(dat, exe, "exedasa")
+        console.log(dat, exe,comment ,"exedasa")
 
         setData({
           seller: data?.seller?.name,
@@ -136,7 +136,7 @@ function Index(props) {
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -612,8 +612,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>{
               <>
                 <ol type="1">
+                 
                   {data?.addComm?.length > 0 &&
                     data?.addComm?.map((val, index) => {
+                     
                       return (<li key={index}>{val}</li>)
                     })
                   }
