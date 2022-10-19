@@ -1061,7 +1061,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Period of Insurance (days)
+                             {quotationData?.insuranceType == 'Marine & Storage Insurance' ? 'Period of Storage Insurance' : 'Period of Insurance (days)'}
                               <strong className="text-danger">*</strong>
                             </label>
                           </Col>

@@ -193,13 +193,13 @@ function Index() {
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
   const [selectedTab, setSelectedTab] = useState('Profile')
-  console.log(selectedTab, 'selectedTab')
+  
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
       let id2 = sessionStorage.getItem('companyID')
 
-      console.log(sessionStorage.getItem('showCAM'), 'sdasdasdasd')
+     
 
       if (sessionStorage.getItem('showCAM') == 'true') {
         sessionStorage.setItem('showCAM', false)
@@ -311,7 +311,7 @@ function Index() {
       })
     }
   }, [companyData])
-  console.log(complienceFilter, 'complienceFilter')
+
   // const [manualDocModule, setManualDocModule] = useState(true)
   // const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
@@ -336,9 +336,10 @@ function Index() {
   // },[documentsFetched])
 
   const rtrnChartIndiaction = (latest, previous, last) => {
-    console.log(latest, previous, last, 'latest, previous, last')
+
 
     if (last < previous && previous < latest) {
+  
       return (
         <img
           src="/static/trend-green-321.svg"
@@ -348,6 +349,7 @@ function Index() {
       )
     }
     if (last > previous && previous < latest) {
+ 
       return (
         <img
           src="/static/trend-green-312.svg"
@@ -358,6 +360,7 @@ function Index() {
     }
     ////doubt
     if (last == previous && previous < latest) {
+   
       return (
         <img
           src="/static/trend-green-311.svg"
@@ -366,7 +369,14 @@ function Index() {
         />
       )
     }
+    if(last == previous && previous > latest){
+
+      return (
+        <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
+      )
+    }
     if (last < previous && previous > latest) {
+ 
       return (
         <img
           src="/static/trend-orange-212.svg"
@@ -376,6 +386,7 @@ function Index() {
       )
     }
     if (last > previous && previous < latest) {
+    
       return (
         <img
           src="/static/trend-orange-121.svg"
@@ -385,7 +396,8 @@ function Index() {
       )
     }
     ////////doubt
-    if (last === previous && previous === latest) {
+    if (last == previous && previous == latest && last != undefined) {
+  
       return (
         <img
           src="/static/trend-orange-121.svg"
@@ -396,6 +408,7 @@ function Index() {
     }
 
     if (last > previous && previous > latest) {
+  
       return (
         <img
           src="/static/trend-red-123.svg"
@@ -406,6 +419,7 @@ function Index() {
     }
     /////doubt
     if (last > previous && previous > latest) {
+    
       return (
         <img
           src="/static/trend-red-121.svg"
@@ -415,9 +429,13 @@ function Index() {
       )
     }
     if (last > previous && previous > latest) {
+
       return (
         <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
       )
+    }
+    if((last == '' && last == undefined) || (latest == '' && latest == undefined)  ){
+      return <img src='' />
     }
 
     // if (latest > previous && previous > last) {

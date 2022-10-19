@@ -254,7 +254,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         })}
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(latestYearData?.borrowingsCurrent?.totalEquity, previousYearData?.borrowingsCurrent?.totalEquity, lastYearData?.borrowingsCurrent?.totalEquity)}
+                        {rtrnChartIndiaction(latestYearData?.equityLiabilities?.borrowingsCurrent, previousYearData?.equityLiabilities?.borrowingsCurrent, lastYearData?.equityLiabilities?.borrowingsCurrent)}
 
                       </td>
                     </tr>
