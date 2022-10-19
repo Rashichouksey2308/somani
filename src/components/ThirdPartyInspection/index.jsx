@@ -1382,7 +1382,7 @@ export default function Index({ addButton }) {
                                       )
                                     }
                                   >
-                                    <option disabled selected>
+                                    <option selected >
                                       Please Specify
                                     </option>
                                     <option
@@ -1571,7 +1571,7 @@ export default function Index({ addButton }) {
                                       )
                                     }
                                   >
-                                    <option disabled selected>
+                                    <option  selected>
                                       Please Specify
                                     </option>
                                     <option
@@ -1761,7 +1761,7 @@ export default function Index({ addButton }) {
                                       )
                                     }
                                   >
-                                    <option disabled selected>
+                                    <option selected>
                                       Please Specify
                                     </option>
                                     <option
