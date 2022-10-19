@@ -783,11 +783,21 @@ export default function Index() {
                                   </strong>
                                 </td>
                                 <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className={`${styles.pdfImage} img-fluid`}
-                                    alt="Pdf"
-                                  />
+                                {item?.forwardSalesContract ? (item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xls') || item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.doc') || item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                                  : null
+                                }
                                 </td>
                                 <td className={styles.doc_row}>
                                   {item?.forwardSalesContract == null
