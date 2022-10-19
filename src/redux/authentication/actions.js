@@ -264,8 +264,11 @@ export function setnewPasswordFailed() {
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
+    let headers = {authorization:'',Cache: 'no-cache' ,}
     // let response = await api.post(API.login, payload);
-    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload)
+    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload,{
+      headers: headers,
+    })
     console.log(response, 'response')
     if (response.data.code === 200) {
       dispatch(loggingUserSuccess(response.data))
@@ -357,7 +360,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: headers,
@@ -455,7 +458,7 @@ export const logoutUser = () => async (dispatch, getState, api) => {
 
 export function resetpassword(state) {
   return async (dispatch, getState, api) => {
-    var payload = {
+    let payload = {
       prevPassword: state.recent_password,
       password: state.new_password,
       cPassword: state.confirm_password,
@@ -478,7 +481,7 @@ export function resetpassword(state) {
 
 export function forgotPassword(state) {
   return async (dispatch, getState, api) => {
-    var payload = {
+    let payload = {
       username: state.mobileNo,
     }
     dispatch(forgotpassword())
@@ -499,7 +502,7 @@ export function forgotPassword(state) {
 
 export function optVerification(state) {
   return async (dispatch, getState, api) => {
-    var payload = {
+    let payload = {
       otp: state.otp_number,
       userid: getState().Auth.userId,
     }
@@ -522,9 +525,9 @@ export function optVerification(state) {
 
 export function setNewPassword(state) {
   return async (dispatch, getState, api) => {
-    var authorization = Cookies.get('token')
-    var headers = { Authorization: authorization, Cache: 'no-cache' }
-    var payload = {
+    let authorization = Cookies.get('token')
+    let headers = { Authorization: authorization, Cache: 'no-cache' }
+    let payload = {
       password: state.newPassword,
       confirmPassword: state.confirmPassword,
     }

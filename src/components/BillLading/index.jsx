@@ -698,7 +698,7 @@ export default function Index({
                       TransitDetails,
                       'data[0].order.orderValue',
                       '',
-                    ))?.toLocaleString('en-IN',{maximumFractionDigits: 2})}{' '}
+                    ))?.toLocaleString('en-IN', { maximumFractionDigits: 2 })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
@@ -750,6 +750,7 @@ export default function Index({
                         onBolAdd()
                       }}
                       className={`${styles.add_btn} mr-0`}
+                      style={{paddingBottom:'10px'}}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -757,9 +758,11 @@ export default function Index({
                   {index > 0 ? (
                     <button
                       onClick={() => onDeleteClick(index)}
-                      className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
-                    >
-                      <img src="/static/delete.svg" width={12} alt="delete" />{' '}
+                      className={`${styles.add_btn} border-danger text-danger`}
+                      >
+                        <img src="/static/delete.svg"
+                        className='ml-1 mt-n1'
+                         width={13} alt="delete" />{' '}
                       Delete
                     </button>
                   ) : null}
@@ -1046,10 +1049,10 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="numberOfContainers"
-                                 type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                                type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -1076,10 +1079,10 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="freeDetentionPeriod"
-                                 type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                                type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -1104,12 +1107,19 @@ export default function Index({
                                       <input
                                         name={`containerDoc`}
                                         id="containerDoc"
-                                        onChange={(e) =>
-                                          onChangeContainerDetailsDocHandler(
-                                            e,
-                                            index,
-                                          )
+
+                                        onChange={(e) => {
+                                          if (e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') || e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')) {
+                                            onChangeContainerDetailsDocHandler(e, index,)
+                                          } else {
+                                            let toastMessage = 'only XLS files are allowed'
+                                            if (!toast.isActive(toastMessage.toUpperCase())) {
+                                              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                                            }
+                                          }
                                         }
+                                        }
+
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         type="file"
                                       />
@@ -1223,11 +1233,21 @@ export default function Index({
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                <img
+                                {bolList[index]?.blDoc ? (bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
                                   src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
+                                  className="img-fluid"
                                   alt="Pdf"
                                 />
+                                  : null
+                                }
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
@@ -1295,18 +1315,28 @@ export default function Index({
                                     </strong>
                                   </td>
                                   <td>
-                                    <img
+                                    {bolList[index]?.containerNumberListDoc ? (bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    /> : (bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    /> : <img
                                       src="/static/pdf.svg"
-                                      className={`${styles.pdfImage} img-fluid`}
+                                      className="img-fluid"
                                       alt="Pdf"
                                     />
+                                      : null
+                                    }
                                   </td>
                                   <td className={styles.doc_row}>
-                                  {bolList[index]?.containerNumberListDoc == null
-                                  ? ''
-                                  : moment(bolList[index]?.containerNumberListDoc.date).format(
-                                    'DD-MM-YYYY , h:mm a ',
-                                  )}
+                                    {bolList[index]?.containerNumberListDoc == null
+                                      ? ''
+                                      : moment(bolList[index]?.containerNumberListDoc.date).format(
+                                        'DD-MM-YYYY , h:mm a ',
+                                      )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1378,18 +1408,28 @@ export default function Index({
                                     </strong>
                                   </td>
                                   <td>
-                                    <img
+                                    {bolList[index]?.packingListDoc ? (bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    /> : (bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    /> : <img
                                       src="/static/pdf.svg"
-                                      className={`${styles.pdfImage} img-fluid`}
+                                      className="img-fluid"
                                       alt="Pdf"
                                     />
+                                      : null
+                                    }
                                   </td>
                                   <td className={styles.doc_row}>
-                                  {bolList[index]?.packingListDoc == null
-                                  ? ''
-                                  : moment(bolList[index]?.packingListDoc.date).format(
-                                    'DD-MM-YYYY , h:mm a ',
-                                  )}
+                                    {bolList[index]?.packingListDoc == null
+                                      ? ''
+                                      : moment(bolList[index]?.packingListDoc.date).format(
+                                        'DD-MM-YYYY , h:mm a ',
+                                      )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1545,11 +1585,21 @@ export default function Index({
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                <img
+                                {bolList[index]?.blSurrenderDoc ? (bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
                                   src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
+                                  className="img-fluid"
                                   alt="Pdf"
                                 />
+                                  : null
+                                }
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null

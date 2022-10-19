@@ -740,11 +740,21 @@ const Index = ({
                               {document.name}
                             </td>
                             <td>
-                              <img
+                              {(document.originalName.toLowerCase().endsWith('.xls') || document.originalName.toLowerCase().endsWith('.xlsx')) ? <img
+                                src="/static/excel.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              /> : (document.originalName.toLowerCase().endsWith('.doc') || document.originalName.toLowerCase().endsWith('.docx')) ? < img
+                                src="/static/doc.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              /> : <img
                                 src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
+                                className="img-fluid"
                                 alt="Pdf"
                               />
+
+                              }
                             </td>
                             <td className={styles.doc_row}>{document.date}</td>
                             <td className={styles.doc_row}>
@@ -793,7 +803,7 @@ const Index = ({
                                 )
                                 :
                                 (
-                                  <div className='d-inline-block' style={{marginRight:'25px'}}>
+                                  <div className='d-inline-block' style={{ marginRight: '25px' }}>
                                     <div className="d-flex align-items-center">
                                       <select
                                         value={moduleSelected}

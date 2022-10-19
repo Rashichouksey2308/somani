@@ -263,7 +263,7 @@ export default function Index({ addButton }) {
   })
 
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString())
+    let new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
       .format('DD-MM-YYYY')
     if (name == 'loadPortInspectionDetails.startDate') {
@@ -1045,10 +1045,8 @@ export default function Index({ addButton }) {
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
-                           type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                          type="number"
+                          onWheel={(event) => event.currentTarget.blur()}
                           onKeyDown={(evt) =>
                             evt.key === 'e' && evt.preventDefault()
                           }
@@ -1358,7 +1356,20 @@ export default function Index({ addButton }) {
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
                                   <select
-                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    className={`${
+                                      inspectionDetails?.certificateOfOriginStatus ===
+                                      'On Hold'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfOriginStatus ===
+                                          'Rejected'
+                                        ? styles.rejected_option
+                                        : inspectionDetails?.certificateOfOriginStatus ===
+                                          'Approved'
+                                        ? styles.approved_option
+                                        : styles.value
+                                    } ${
+                                      styles.customSelect
+                                    } input form-control`}
                                     id="docType"
                                     value={
                                       inspectionDetails?.certificateOfOriginStatus
@@ -1374,10 +1385,24 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
-                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
-                                    <option className={`${styles.approved_option}`}
-                                    value="Approved">Approved</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1520,7 +1545,20 @@ export default function Index({ addButton }) {
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
                                   <select
-                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    className={`${
+                                      inspectionDetails?.certificateOfQualityStatus ===
+                                      'On Hold'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfQualityStatus ===
+                                          'Rejected'
+                                        ? styles.rejected_option
+                                        : inspectionDetails?.certificateOfQualityStatus ===
+                                          'Approved'
+                                        ? styles.approved_option
+                                        : styles.value
+                                    } ${
+                                      styles.customSelect
+                                    } input form-control`}
                                     id="docType"
                                     value={
                                       inspectionDetails?.certificateOfQualityStatus
@@ -1536,10 +1574,24 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
-                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
-                                    <option className={`${styles.approved_option}`}
-                                    value="Approved">Approved</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1683,7 +1735,20 @@ export default function Index({ addButton }) {
                               <Form.Group className={styles.form_group}>
                                 <div className="d-flex">
                                   <select
-                                    className={`${styles.value} ${styles.customSelect} input form-control`}
+                                    className={`${
+                                      inspectionDetails?.certificateOfWeightStatus ===
+                                      'On Hold'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfWeightStatus ===
+                                          'Rejected'
+                                        ? styles.rejected_option
+                                        : inspectionDetails?.certificateOfWeightStatus ===
+                                          'Approved'
+                                        ? styles.approved_option
+                                        : styles.value
+                                    } ${
+                                      styles.customSelect
+                                    } input form-control`}
                                     id="docType"
                                     value={
                                       inspectionDetails?.certificateOfWeightStatus
@@ -1699,10 +1764,24 @@ export default function Index({ addButton }) {
                                     <option disabled selected>
                                       Please Specify
                                     </option>
-                                    <option className={`${styles.hold_option}`} value="On Hold">On Hold</option>
-                                    <option className={`${styles.rejected_option}`} value="Rejected">Rejected</option>
-                                    <option className={`${styles.approved_option}`}
-                                    value="Approved">Approved</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
                                   </select>
                                   <img
                                     className={`${styles.arrow} image_arrow img-fluid`}
@@ -1884,10 +1963,8 @@ const Discharge = (
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
-                 type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                type="number"
+                onWheel={(event) => event.currentTarget.blur()}
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
               />
               <label className={`${styles.label_heading} label_heading`}>

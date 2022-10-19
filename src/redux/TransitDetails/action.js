@@ -78,7 +78,7 @@ export const GetAllTransitDetails =
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.getTransitDetails}${payload ? payload : ''}`,
@@ -116,7 +116,7 @@ export const GetTransitDetails =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.get(
         `${API.corebaseUrl}${API.getTransitDetails}${payload}`,
@@ -156,7 +156,7 @@ export const UpdateTransitDetails =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.put(
         `${API.corebaseUrl}${API.updateTransitDetails}`,
@@ -203,7 +203,7 @@ export const GetAdditionalData =
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.fetchAdditionalData}${payload}`,

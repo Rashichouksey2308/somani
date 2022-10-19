@@ -90,11 +90,21 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                         <strong className="text-danger">*</strong>
                       </td>
                       <td>
-                        <img
+                        {vesselCertificate ? (vesselCertificate?.originalName?.toLowerCase().endsWith('.xls') || vesselCertificate?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          src="/static/excel.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : (vesselCertificate?.originalName?.toLowerCase().endsWith('.doc') || vesselCertificate?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          src="/static/doc.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : <img
                           src="/static/pdf.svg"
-                          className={`${styles.pdfImage} img-fluid`}
+                          className="img-fluid"
                           alt="Pdf"
                         />
+                          : null
+                        }
                       </td>
                       <td className={styles.doc_row}>{vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
@@ -108,7 +118,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 name="myfile"
                                 accept="application/msword, text/plain, application/pdf, .docx"
                                 onChange={(e) => vesselDocFunction(e)}
-                                
+
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
@@ -134,11 +144,21 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                         <strong className="text-danger">*</strong>
                       </td>
                       <td>
-                        <img
+                      {containerList ? (containerList?.originalName?.toLowerCase().endsWith('.xls') || containerList?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          src="/static/excel.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : (containerList?.originalName?.toLowerCase().endsWith('.doc') || containerList?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          src="/static/doc.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : <img
                           src="/static/pdf.svg"
-                          className={`${styles.pdfImage} img-fluid`}
+                          className="img-fluid"
                           alt="Pdf"
                         />
+                          : null
+                        }
                       </td>
                       <td className={styles.doc_row}>{containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
@@ -160,7 +180,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{  containerList?.originalName ?? containerList?.name}</span>
+                            <span>{containerList?.originalName ?? containerList?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"

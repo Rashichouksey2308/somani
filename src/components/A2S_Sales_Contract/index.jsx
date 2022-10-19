@@ -43,7 +43,7 @@ function Index(props) {
   const getAddress = (buyer) => {
     if (buyer.name == "Indo German International Private Limited") {
       if (buyer.branch == "Delhi") {
-        return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+        return "7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001"
       } else {
         return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016"
       }
@@ -52,7 +52,7 @@ function Index(props) {
       if (buyer.branch == "Delhi") {
         return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
       } else {
-        return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+        return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016"
       }
     }
   }
@@ -82,7 +82,8 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          addComm: data?.addComm,
+          // addComm: data?.addComm,
+          addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
@@ -116,7 +117,7 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress: data?.seller?.name == "Indo Intertrade Ag" ? "Industriestrasse 16, Zug,6300" : "",
+          sellerAddress: data?.seller?.name == "Indo Intertrade Ag" ? "Industriestrasse 16, Zug, 6300" : "",
           buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : "",
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,

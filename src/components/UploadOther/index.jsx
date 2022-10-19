@@ -537,11 +537,23 @@ const Index = ({ orderid, module, isDocumentName }) => {
                               {document.name}
                             </td>
                             <td>
-                              <img
+
+                              {(document.originalName.toLowerCase().endsWith('.xls') || document.originalName.toLowerCase().endsWith('.xlsx')) ? <img
+                                src="/static/excel.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              /> : (document.originalName.toLowerCase().endsWith('.doc') || document.originalName.toLowerCase().endsWith('.docx')) ? < img
+                                src="/static/doc.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              /> : <img
                                 src="/static/pdf.svg"
                                 className="img-fluid"
                                 alt="Pdf"
                               />
+
+                              }
+
                             </td>
                             <td className={styles.doc_row}>
                               {moment(document.date).format(
@@ -579,7 +591,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 alt="Share"
                                 onClick={(document) => {
                                   handleShareDoc(document)
-                                  
+
                                 }}
                               />
 

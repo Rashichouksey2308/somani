@@ -100,7 +100,7 @@ export const GettingAllInsurance =
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
       let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+      let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
       Axios.get(
         `${API.corebaseUrl}${API.getInsurance}${payload ? payload : ''}`,
         {
@@ -136,7 +136,7 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getInsurance}`, payload, {
       headers: headers,
