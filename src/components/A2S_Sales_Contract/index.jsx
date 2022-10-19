@@ -125,7 +125,7 @@ function Index(props) {
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
-          detailsOfEndBuyer: "",
+          detailsOfEndBuyer: data.company.companyName,
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
@@ -573,7 +573,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
-            <Col md={7} className={styles.right}>{data.buyer}</Col>
+            <Col md={7} className={styles.right}>{data.detailsOfEndBuyer}</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>

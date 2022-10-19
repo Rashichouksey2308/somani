@@ -475,7 +475,7 @@ const index = ({
     setemails(temp)
   }
   const removeExSupplierParent = (index) => {
-    let temp = emails
+    let temp = exSupplier
     temp.splice(index, 1);
     setexSupplier(temp)
   }
@@ -856,7 +856,7 @@ const index = ({
                     emails={exSupplier}
                     onChange={(_emails) => {
                       console.log(_emails, "cxzczxczxczxc")
-                      let temp = [...emails]
+                      let temp = [...exSupplier]
                       temp.push(_emails[0])
                       setexSupplier([...temp]);
                     }}
