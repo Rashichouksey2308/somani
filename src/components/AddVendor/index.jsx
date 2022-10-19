@@ -21,83 +21,124 @@ function Index() {
           </div>
 
           <div className={`${styles.dashboard_form} card-body`}>
-            <div className={`${styles.radio_form} mb-4`}>
-              <div className={`${styles.sub_heading} label_heading`}>
-                Vendor <strong className="text-danger">*</strong>
-              </div>
-              {['radio'].map((type, index) => (
-                <div
-                  key={`inline-${index}`}
-                  className={`${styles.radio_group} mt-2`}
-                >
-                  <Form.Check
-                    className={styles.radio}
-                    inline
-                    defaultChecked
-                    label="Domestic"
-                    name="group1"
-                    type={type}
-                    id={`inline-${type}-1`}
-                  />
-                  <Form.Check
-                    className={styles.radio}
-                    inline
-                    label="International"
-                    name="group1"
-                    type={type}
-                    id={`inline-${type}-2`}
-                  />
-                </div>
-              ))}
-            </div>
             <div className="row">
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Company Business Name
-                  <strong className="text-danger">*</strong>
-                </label>
+                <div className={`${styles.radio_form}`}>
+                  <div className={`${styles.sub_heading} label_heading`}>
+                    Vendor <strong className="text-danger">*</strong>
+                  </div>
+                  {['radio'].map((type, index) => (
+                    <div
+                      key={`inline-${index}`}
+                      className={`${styles.radio_group}`}
+                    >
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        defaultChecked
+                        label="Domestic"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-1`}
+                      />
+                      <Form.Check
+                        className={styles.radio}
+                        inline
+                        label="International"
+                        name="group1"
+                        type={type}
+                        id={`inline-${type}-2`}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Short Name
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  PAN
-                  <strong className="text-danger">*</strong>
-                </label>
-              </div>
-
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                  >
+                    <option value="">CMA</option>
+                    <option value="">CHA</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Vendor Type<strong className="text-danger ml-1">*</strong>
+                  </label>
+                  <div className={`${styles.img_arrow} image_arrow`}>
+                    <Image
+                      width="13px"
+                      height="8px"
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+              >
+                <input
+                  className={`${styles.input_field} border_color input form-control`}
+                  type="text"
+                  required
+                  name="supplierName"
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                PAN/Tax ID <strong className="text-danger">*</strong>
+                </label>
+              </div>
+              <div
+                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+              >
+                <input
+                  className={`${styles.input_field} border_color input form-control`}
+                  type="text"
+                  required
+                  name="supplierName"
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Company Name  <strong className="text-danger">*</strong>
+                </label>
+              </div>
+              <div
+                className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+              >
+                <div className="d-flex">
+                  <DateCalender labelName="Activation Date" />
+                  <div className={`${styles.calanderIcon} image_arrow`}>
+                    <Image
+                      width="22px"
+                      height="24px"
+                      src="/static/caldericon.svg"
+                      alt="Calender"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+              >
+                <div className="d-flex">
+                  <DateCalender labelName="Deactivation Date" />
+                  <div className={`${styles.calanderIcon} image_arrow`}>
+                    <Image
+                      width="22px"
+                      height="24px"
+                      src="/static/caldericon.svg"
+                      alt="Calender"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+              >
+                <div className="d-flex">
+                  <DateCalender labelName="Blacklisted Date" />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -119,7 +160,7 @@ function Index() {
                   className={`${styles.label_heading} label_heading`}
                   id="textInput"
                 >
-                  Official Email ID<strong className="text-danger">*</strong>
+                 Email ID <strong className="text-danger">*</strong>
                 </label>
               </div>
               <div
@@ -127,11 +168,13 @@ function Index() {
               >
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="password"
+                  type="text"
+                  required
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Password<strong className="text-danger">*</strong>
+                  Phone  <strong className="text-danger">*</strong>
+                 
                 </label>
               </div>
 
@@ -145,82 +188,11 @@ function Index() {
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  User Role<strong className="text-danger">*</strong>
+                  Website
                 </label>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Phone Number
-                  <strong className="text-danger">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Alternate Phone Number
-                </label>
-              </div>
-              <div
-                className={`${styles.each_input} col-md-6 col-lg-4  col-sm-6`}
-                style={{ marginTop: -1 }}
-              >
-                <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
-                  <div className={`${styles.sub_heading} label_heading`}>
-                    Communication Mode<strong className="text-danger">*</strong>
-                  </div>
-                  <Form selected="">
-                    {['checkbox'].map((type) => (
-                      <div
-                        key={`inline-${type}`}
-                        className={styles.radio_group}
-                      >
-                        <Form.Check
-                          className={`${styles.radio} radio`}
-                          inline
-                          // defaultChecked={true}
-                          label="Email ID"
-                          name="Email"
-                          type={type}
-                          id={`inline-${type}-1`}
-                        />
-                        <Form.Check
-                          className={`${styles.radio} radio`}
-                          inline
-                          label="SMS"
-                          name="SMS"
-                          type={type}
-                          id={`inline-${type}-2`}
-                        />
-
-                        <Form.Check
-                          className={`${styles.radio} radio`}
-                          inline
-                          label="Whatsapp"
-                          name="Whatsapp"
-                          // type={type}
-                          id={`inline-${type}-2`}
-                        />
-                      </div>
-                    ))}
-                  </Form>
-                </div>
-              </div>
-              <div
+             
+              {/* <div
                 className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
               >
                 <div className={`${styles.phone_card}`}>
@@ -240,7 +212,6 @@ function Index() {
                     id="textNumber"
                     name="phoneNumber"
                     className={`${styles.input_field} border_color input form-control border-left-0`}
-                    
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
@@ -250,8 +221,21 @@ function Index() {
                     <strong className="text-danger">*</strong>
                   </label>
                 </div>
-              </div>
+              </div> */}
             </div>
+            <div className='row'>
+            <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Remarks<strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
+                </div>
           </div>
         </div>
 
@@ -485,128 +469,491 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className={`${styles.doc_main} mt-4 border_color card`}>
-          <div
-            className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
-            data-toggle="collapse"
-            data-target="#upload"
-            aria-expanded="true"
-            aria-controls="upload"
-          >
-            <h3 className={styles.heading}>Documents</h3>
-            <span>+</span>
-          </div>
-          <div
-            id="upload"
-            className="collapse"
-            aria-labelledby="upload"
-            data-parent="#upload"
-          >
-            <div className={`${styles.table_form}`}>
-              <div className={styles.table_container}>
-                <div className={styles.table_scroll_outer}>
-                  <div className={styles.table_scroll_inner}>
-                    <table
-                      className={`${styles.table} mb-0 table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
+        <div className={`${styles.upload_main} vessel_card border_color card`}>
+      <div
+        className={`${styles.head_container} border_color d-flex  align-items-center justify-content-between`}
+        data-toggle="collapse"
+        data-target="#uploadOther"
+        aria-expanded="true"
+        aria-controls="uploadOther"
+      >
+      
+          <h3 className={styles.heading}>Document</h3>
+       
+        <span>+</span>
+      </div>
+      <div
+        id="uploadOther"
+        className="collapse show"
+        aria-labelledby="uploadOther"
+        data-parent="#uploadOther"
+      >
+        <div className={`${styles.dashboard_form} vessel_card card-body`}>
+          <Form>
+            <div className="row align-items-center vessel_card pb-4">
+              <div
+                className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
+              >
+                <div className="text-center w-100">
+                  <img
+                    className={`${styles.upload_image} img-fluid d-block mx-auto`}
+                    src="/static/browse.svg"
+                    alt="Browse"
+                  />
+                  {/* {newDoc?.document?.name ? (
+                    // <div className=''>
+                    <div
+                      className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
                     >
-                      <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            UPLOADED BY{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>PAN</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>GST Certificate</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>Board Resolution</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                      <span>{newDoc?.document?.name}</span>
+                      <img
+                        className={`${styles.close_image} image_arrow mx-2`}
+                        src="/static/close.svg"
+                        onClick={(e) => handleCloseDoc()}
+                        alt="Close"
+                      />{' '}
+                    </div>
+                  ) : ( */}
+                    // </div>
+                    <p className={styles.drop_para}>
+                      Drop Files here or
+                      <br />
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          onChange={(e) => uploadDocument2(e)}
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        />
+
+                        <a href="#">Browse</a>
+                      </div>
+                    </p>
+             
                 </div>
               </div>
+              <div className="col-md-4 offset-md-1 col-sm-6">
+                <Form.Group className={`${styles.form_group}`}>
+                  <div className="d-flex">
+                    <select
+                      // value={manualDocModule ? newDoc.name : 'others'}
+                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                      id="name"
+                      onChange={(e) => handleNewDocModule(e)}
+                    >
+                      {/* <option disabled selected>Select an option </option> */}
+                      {module === 'LeadOnboarding&OrderApproval' ? (
+                        <>
+                          {' '}
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          <option value="Certificate of Incorporation">
+                            Certificate of Incorporation
+                          </option>
+                          <option value="IEC Certificate">
+                            IEC Certificate
+                          </option>
+                          <option value="Business Registration Certificate ">
+                            Business Registration Certificate{' '}
+                          </option>
+                          <option value="PAN Card">PAN Card</option>
+                          <option value="GST Certificate">
+                            GST Certificate
+                          </option>
+                          <option value="Bank Reference Letter">
+                            Bank Reference Letter
+                          </option>
+                          <option value="Financial Year ">
+                            Financial Year{' '}
+                          </option>
+                        </>
+                      ) : module === 'Loading-Transit-Unloading' ? (
+                        <>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+                          <option value="Certificate Of Origin">
+                            Certificate of Origin{' '}
+                          </option>
+                          <option value="Certificate Of Quality">
+                            {' '}
+                            Certificate of Quality
+                          </option>
+                          <option value="Certificate Of Weight ">
+                            {' '}
+                            Certificate of Weight
+                          </option>
+                          <option value="Plot Inspection Report">
+                            {' '}
+                            Plot Inspection Report
+                          </option>
+                          <option value="BL "> BL</option>
+                          <option value="Container No List ">
+                            {' '}
+                            Container No. List
+                          </option>
+                          <option value="Packing List "> Packing list</option>
+                          <option value="BL Acknowledgment Copy">
+                            {' '}
+                            BL Acknowledgment Copy
+                          </option>
+                          <option value="Forward Sales Contract ">
+                            {' '}
+                            Forward Sales Contract
+                          </option>
+                          <option value="Coal Import Registration Certificate">
+                            {' '}
+                            Coal Import Registration Certificate
+                          </option>{' '}
+                          <option value="CIMS Payment Receipt ">
+                            {' '}
+                            CIMS Payment Receipt
+                          </option>{' '}
+                          <option value="IGM Copy "> IGM Copy</option>{' '}
+                        </>
+                      ) : module === 'Agreements & Insurance & LC & Opening' ? (
+                        <>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+
+                          <option value="Lc Draft">LC Draft </option>
+
+                          <option value="lC Ammendment Draft">
+                            {' '}
+                            LC Ammendment Draft
+                          </option>
+                          <option value="vessel Certificate">
+                            {' '}
+                            Vessel certificate
+                          </option>
+                          <option value="vessel Certificate Container List">
+                            {' '}
+                            Vessel Certificate, Container List
+                          </option>
+                          <option value="policy Document Marine">
+                            {' '}
+                            Policy Document - Marine
+                          </option>
+                          <option value="policy Document Storage">
+                            {' '}
+                            Policy Document - Storage
+                          </option>
+                        </>
+                      ) : module === 'Custom Clearance And Ware housing' ? (
+                        <>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+
+                          <option value="BOE Provisional">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment.">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="BOE Final"> BOE Final</option>
+                          <option value="BOE Provisional ">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment. ">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="Statements of Facts">
+                            {' '}
+                            Statements of Facts
+                          </option>
+                          <option value="Discharge Confirmation">
+                            {' '}
+                            Discharge Confirmation
+                          </option>
+                          <option value="BOE Final"> BOE Final</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
+
+                          <option value="RR"> RR</option>
+                          <option value="eWay Bill"> eWay Bill</option>
+                        </>
+                      )}
+                      <option value="others">Other</option>
+                    </select>
+                    <Form.Label className={`${styles.label} label_heading`}>
+                      Document Type
+                    </Form.Label>
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </Form.Group>
+                <Form.Group className={`${styles.form_group}`}>
+                  <input
+                    id="otherDocName"
+                    onChange={(e) =>
+                      setNewDoc({ ...newDoc, name: e.target.value })
+                    }
+                    className={`${styles.value} input form-control`}
+                    type="text"
+                    // disabled={manualDocModule}
+                  />
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Please Specify Document Name
+                  </Form.Label>
+                </Form.Group>
+                <div
+                  onClick={(e) => uploadDocumentHandler(e)}
+                  className={styles.uploadBtnWrapper}
+                >
+                  <button className={`${styles.upload_button} btn`}>
+                    Upload
+                  </button>
+                </div>
+              </div>
+          
+          </Form>
+        </div>
+        <div className={styles.table_container}>
+          <div
+            className={`${styles.search_container} background2 p-2 pl-4 d-flex justify-content-between align-items-center`}
+          >
+            <div className="d-flex align-items-center">
+              <select
+                // value={moduleSelected}
+                onChange={(e) => setModuleSelected(e.target.value)}
+                className={`${styles.dropDown} ${styles.customSelect} input form-control`}
+              >
+                <option selected disabled>
+                  Select an option
+                </option>
+                <option value="LeadOnboarding&OrderApproval">
+                  Lead Onboarding &amp; Order Approval
+                </option>
+                <option value="Agreements&Insurance&LC&Opening">
+                  Agreements, Insurance &amp; LC Opening
+                </option>
+                <option value="Loading-Transit-Unloading">
+                  Loading-Transit-Unloading
+                </option>
+                <option value="customClearanceAndWarehousing">
+                  Custom Clearance And Warehousing
+                </option>
+                <option value="PaymentsInvoicing&Delivery">
+                  Payments Invoicing & Delivery
+                </option>
+                <option value="Others">Others</option>
+              </select>
+              <img
+                className={`${styles.arrow2} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="Search"
+              />
+            </div>
+            <div
+              className={`d-flex align-items-center ${styles.searchBarContainer} `}
+            >
+              <img
+                className={` ${styles.searchImage} img-fluid`}
+                src="/static/search.svg"
+                alt="Search"
+              ></img>
+              <input
+                className={`${styles.searchBar} border_color input form-control`}
+                placeholder="Search"
+                onChange={(e) => {
+                  filterDocBySearch(e.target.value)
+                }}
+              ></input>
+            </div>
+          </div>
+          <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_inner}>
+              <table
+                className={`${styles.table} table`}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <thead>
+                  <tr>
+                    <th>
+                      DOCUMENT NAME{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      FORMAT{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      DOCUMENT DATE{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>
+                      UPLOADED BY{' '}
+                      <img
+                        className={`${styles.sort_image} mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th>STATUS </th>
+                    <th>ACTION</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr></tr>
+
+               
+                          <tr  className="uploadRowTable">
+                            <td className={`${styles.doc_name}`}>
+                           
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                             
+                            </td>
+                            <td className={styles.doc_row}>
+                             
+                            </td>
+                            <td>
+                              <span
+                                className={`${styles.status} ${styles.approved}`}
+                              ></span>
+                             
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                onClick={(e) => {
+                                  DocDlt(index)
+                                  dispatch(
+                                    DeleteDocument({
+                                      orderDocumentId: documentsFetched._id,
+                                      name: document.name,
+                                    }),
+                                  )
+                                }}
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className={`${styles.delete_image} p-0 border-0 bg-transparent mr-3`}
+                                alt="Share"
+                                onClick={(document) => {
+                                  handleShareDoc(document)
+                                  
+                                }}
+                              />
+
+                              {!document.moving ?
+                                (
+                                  <img
+                                    src="/static/drive_file.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    alt="Share"
+                                    onClick={() => {
+                                      handleDocModuleChange(index)
+                                    }}
+                                  />
+                                )
+                                :
+                                (
+                                  <div className='d-inline-block' style={{ marginRight: '25px' }}>
+                                    <div className="d-flex align-items-center">
+                                      <select
+                                        value={moduleSelected}
+                                        onChange={(e) => {
+                                          DocDlt(index)
+                                          dispatch(
+                                            changeModuleDocument({
+                                              orderDocumentId: documentsFetched._id,
+                                              name: document.name,
+                                              module: e.target.value
+                                            }),
+                                          )
+
+                                        }
+                                        }
+                                        className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                        style={{ width: '150px', paddingRight: '30px' }}    >
+
+                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
+                                          Lead Onboarding &amp; Order Approval
+                                        </option>
+                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
+                                          Agreements, Insurance &amp; LC Opening
+                                        </option>
+                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
+                                          Loading-Transit-Unloading
+                                        </option>
+                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
+                                          Custom Clearance And Warehousing
+                                        </option>
+                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
+                                          Payments Invoicing & Delivery
+                                        </option>
+                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </div>
+                                  </div>
+                                )
+
+                              }
+                            </td>
+                          </tr>
+                  
+                 
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
+   
+    </div>
       </div>
     </div>
   )
