@@ -206,7 +206,7 @@ function Index() {
                       border="0"
                     >
                       <tbody>
-                        <tr>
+                       {lcModuleData && lcModuleData?.lcApplication?.formOfDocumentaryCredit ? <tr>
                           <td
                             width="40%"
                             align="left"
@@ -263,8 +263,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>: ''}
+                       {lcModuleData && lcModuleData?.lcApplication?.applicableRules ? <tr>
                           <td
                             align="left"
                             style={{
@@ -319,8 +319,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                        {lcModuleData && lcModuleData?.lcApplication?.dateOfExpiry ? <tr>
                           <td
                             align="left"
                             style={{
@@ -373,14 +373,12 @@ function Index() {
                               }}
                             >
                               {moment(
-                                lcModuleData?.lcApplication?.dateOfExpiry?.split(
-                                  'T',
-                                )[0],
+                                lcModuleData?.lcApplication?.dateOfExpiry
                               ).format('DD-MM-YYYY')}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                        {lcModuleData && lcModuleData?.lcApplication?.placeOfExpiry ? <tr>
                           <td
                             align="left"
                             style={{
@@ -435,8 +433,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                        {lcModuleData && lcModuleData?.lcApplication?.lcIssuingBank ? <tr>
                           <td
                             align="left"
                             style={{
@@ -491,8 +489,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.applicant ? <tr>
                           <td
                             align="left"
                             style={{
@@ -547,8 +545,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> : '' }
+                       {lcModuleData && lcModuleData?.lcApplication?.beneficiary ? <tr>
                           <td
                             align="left"
                             style={{
@@ -604,8 +602,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> :''}
+                       {lcModuleData && lcModuleData?.lcApplication?.currecyCodeAndAmountValue ? <tr>
                           <td
                             align="left"
                             style={{
@@ -666,8 +664,8 @@ function Index() {
                               )}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> :''}
+                        {lcModuleData && lcModuleData?.lcApplication?.tolerancePercentage ? <tr>
                           <td
                             align="left"
                             style={{
@@ -733,8 +731,8 @@ function Index() {
                               )}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       { lcModuleData && lcModuleData?.lcApplication?.creditAvailablewith ? <tr>
                           <td
                             align="left"
                             style={{
@@ -790,8 +788,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> :''}
+                      {lcModuleData && lcModuleData?.lcApplication?.creditAvailableBy ?  <tr>
                           <td
                             align="left"
                             style={{
@@ -822,7 +820,7 @@ function Index() {
                               >
                                 41B
                               </span>
-                              CREDIT AVAILABLE
+                              CREDIT AVAILABLE BY
                             </p>
                           </td>
                           <td
@@ -847,8 +845,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> :''}
+                        {lcModuleData && lcModuleData?.lcApplication?.atSight ? <tr>
                           <td
                             align="left"
                             style={{
@@ -907,8 +905,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.numberOfDays}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       { lcModuleData && lcModuleData?.lcApplication?.drawee ? <tr>
                           <td
                             align="left"
                             style={{
@@ -964,8 +962,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:'' }
+                        {lcModuleData && lcModuleData?.lcApplication?.deferredPayment ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1020,8 +1018,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       { lcModuleData && lcModuleData?.lcApplication?.partialShipment ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1077,8 +1075,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.transhipments ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1133,8 +1131,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.shipmentForm ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1190,10 +1188,10 @@ function Index() {
                               {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
+                        </tr> :''}
                       </tbody>
                       <tbody>
-                        <tr>
+                        {lcModuleData && lcModuleData?.lcApplication?.portOfLoading ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1249,8 +1247,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.portOfDischarge ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1305,8 +1303,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.latestDateOfShipment ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1366,8 +1364,8 @@ function Index() {
                               ).format('DD-MM-YYYY')}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr> :''} 
+                       {lcModuleData && lcModuleData?.lcApplication?.DescriptionOfGoods ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1423,7 +1421,7 @@ function Index() {
                               {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
+                        </tr>:'' } 
                         <tr height="100">
                           <td colSpan={2}></td>
                         </tr>
@@ -1637,7 +1635,7 @@ function Index() {
                             </p>
                           </td>
                         </tr> */}
-                        <tr>
+                       {lcModuleData && lcModuleData?.lcApplication?.presentaionPeriod ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1693,8 +1691,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.confirmationInstructions ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1750,8 +1748,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.reimbursingBank ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1807,8 +1805,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.adviceThroughBank ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1864,8 +1862,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       { lcModuleData && lcModuleData?.lcApplication?.secondAdvisingBank ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1921,8 +1919,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.requestedConfirmationParty ? <tr>
                           <td
                             align="left"
                             style={{
@@ -1978,8 +1976,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       {lcModuleData && lcModuleData?.lcApplication?.charges ? <tr>
                           <td
                             align="left"
                             style={{
@@ -2035,8 +2033,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.charges?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                      { lcModuleData && lcModuleData?.lcApplication?.instructionToBank ? <tr>
                           <td
                             align="left"
                             style={{
@@ -2093,8 +2091,8 @@ function Index() {
                               {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
-                        <tr>
+                        </tr>:''}
+                       { lcModuleData && lcModuleData?.lcApplication?.senderToReceiverInformation ? <tr>
                           <td
                             align="left"
                             style={{
@@ -2142,7 +2140,7 @@ function Index() {
                               {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
                             </p>
                           </td>
-                        </tr>
+                        </tr>:''}
                       </tbody>
                     </table>
                   </td>
