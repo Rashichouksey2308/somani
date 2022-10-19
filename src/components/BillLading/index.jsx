@@ -909,6 +909,9 @@ export default function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             value={
                               isFieldInFocus
                                 ? bol?.blQuantity

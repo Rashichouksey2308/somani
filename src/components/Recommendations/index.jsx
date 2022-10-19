@@ -132,7 +132,7 @@ const Index = ({
         val[name] = value
       }
     })
-    console.log(tempArr,"tempArr")
+    console.log(tempArr, "tempArr")
     // console.log(tempArr, 'tempArr')
     setGroupExposureData([...tempArr])
   }
@@ -352,7 +352,7 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} border_color m-0`}/>
+          <hr className={`${styles.line} border_color m-0`} />
 
           <div className={`${styles.datatable} datatable border border_color`}>
             <h5 className="d-flex align-items-center">
@@ -730,7 +730,7 @@ const Index = ({
               <div
                 className={`${styles.limit_container} d-flex justify-content-center`}
               >
-                  <div className={`${styles.limit} accordion_Text`}>
+                <div className={`${styles.limit} accordion_Text`}>
                   Total Limit:{' '}
                   <span className='text1'>
                     {checkNan(
@@ -743,7 +743,7 @@ const Index = ({
                 <div className={`${styles.limit} accordion_Text`}>
                   Utilised Limit:{' '}
                   <span>
-                  <span className='text1'>
+                    <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.utilizedLimt ??
@@ -756,7 +756,7 @@ const Index = ({
                 <div className={`${styles.limit} accordion_Text`}>
                   Available Limit:{' '}
                   <span>
-                  <span className='text1'>
+                    <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.availableLimit ??
@@ -819,158 +819,165 @@ const Index = ({
                         className={`${styles.text} input`}
                         type="text"
                         name="suggestedCreditLimit"
-                        onFocus={(e) => {
-                          setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: true }),
-                            e.target.type = 'number'
-                        }}
-                        onBlur={(e) => {
-                          setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: false }),
-                            e.target.type = 'text'
-                        }}
-                        value={
-                          isFieldInFocus.suggestedCreditLimit ?
-                            suggestedCredit?.suggestedCreditLimit :
-                            Number(suggestedCredit?.suggestedCreditLimit ?? "")?.toLocaleString('en-In') + ` CR`}
-                        // value={addPrefixOrSuffix( 
-                        //   suggestedCredit?.suggestedCreditLimit,
-                        //   '',
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
-                        onChange={(e) => {
-                          saveSuggestedCreditData(e.target.name, e.target.value)
-                        }}
-                      ></input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Order Value</td>
-                    <td>-</td>
-                    <td>
-                      {checkNan(
-                        CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
-                      )?.toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
-                    </td>
-
-                    <td>-</td>
-
-                    <td>
-                      <input
-                        className={`${styles.text} input`}
-                        type="text"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
                         }
-                        name="suggestedOrderValue"
-                        onFocus={(e) => {
-                          setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: true }),
-                            e.target.type = 'number'
-                        }}
-                        onBlur={(e) => {
-                          setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: false }),
-                            e.target.type = 'text'
-                        }}
-                        value={
-                          isFieldInFocus.suggestedOrderValue ?
-                            suggestedCredit?.suggestedOrderValue :
-                            Number(suggestedCredit?.suggestedOrderValue ?? "")?.toLocaleString('en-In') + ` CR`}
-                        // value={(
-                        //   addPrefixOrSuffix(
-                        //     suggestedCredit?.suggestedOrderValue,
-                        //     '',
-                        //   ) ?? ''
-                        // )?.toLocaleString(undefined, {
-                        //   minimumFractionDigits: 2,
-                        // })}
-                        // defaultValue={creditDetail?.suggestedOrderValue}
-                        onChange={(e) => {
-                          saveSuggestedCreditData(e.target.name, e.target.value)
-                        }}
-                      ></input>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div className={`${styles.comment_inner}`}>
-              <div className="d-flex mt-5 pb-5 position-relative">
-                <input
-                  as="textarea"
-                  rows={3}
-                  placeholder=""
-                  value={sanctionComments}
-                  className={`${styles.comment_field} input form-control`}
-                  onChange={(e) => setSanctionComments(e.target.value)}
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Comments
-                </label>
-
-                <img
-                  className="img-fluid ml-4"
-                  role="button"
-                  src="/static/add-btn.svg"
-                  alt="add button"
-                  onClick={() => {
-                    sanctionComments.length > 0 &&
-                      addSanctionCommentArr(sanctionComments)
-                    setSanctionComments('')
-                  }}
-                />
-              </div>
-              {/* <div className={`${styles.strength} value`}>Weakness</div> */}
-              {sanctionComment &&
-                sanctionComment.map((sanction, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
-                  >
-                    <Form.Control
-                      className={`${styles.paragraph} input pl-0`}
-                      defaultValue={sanction}
-                      as="textarea"
-                      rows={3}
-                      readOnly={!sanctionCommentsIndex.includes(index)}
-                      onChange={(e) => {
-                        handleInput(e.target.value, index)
+                       
+                          onFocus = {(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: true }),
+                        e.target.type = 'number'
                       }}
-                    />
-                    <div className="mt-3">
-                      {sanctionCommentsIndex.includes(index) ? (
-                        <img
-                          src="/static/mode_edit.svg"
-                          role="button"
-                          className={`${styles.edit_image} mr-3`}
-                          onClick={() => onEditClickHandler(index, 'save')}
-                        />
-                      ) : (
-                        <img
-                          src="/static/save-3.svg"
-                          role="button"
-                          className={`${styles.edit_image} mr-3`}
-                          alt="save"
-                          onClick={() => onEditClickHandler(index, 'edit')}
-                        />
-                      )}
-                      <img
-                        src="/static/delete 2.svg"
-                        role="button"
-                        className={`${styles.delete_image}`}
-                        onClick={() => {
-                          onSanctionCommentRemove(index)
-                        }}
-                        alt="delete"
-                      />
-                    </div>
-                  </div>
-                ))}
+                      onBlur={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: false }),
+                          e.target.type = 'text'
+                      }}
+                      value={
+                        isFieldInFocus.suggestedCreditLimit ?
+                          suggestedCredit?.suggestedCreditLimit :
+                          Number(suggestedCredit?.suggestedCreditLimit ?? "")?.toLocaleString('en-In') + ` CR`}
+                        // value={addPrefixOrSuffix(
+                            //   suggestedCredit?.suggestedCreditLimit,
+                            //   '',
+                            // )?.toLocaleString(undefined, {
+                            //   minimumFractionDigits: 2,
+                            // })}
+                            onChange = {(e) => {
+                        saveSuggestedCreditData(e.target.name, e.target.value)
+                      }}
+                      ></input>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Order Value</td>
+                  <td>-</td>
+                  <td>
+                    {checkNan(
+                      CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
+                    )?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </td>
+
+                  <td>-</td>
+
+                  <td>
+                    <input
+                      className={`${styles.text} input`}
+                      type="text"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
+                      onWheel={(event) =>
+                        event.currentTarget.blur()
+                      }
+                      name="suggestedOrderValue"
+                      onFocus={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: true }),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: false }),
+                          e.target.type = 'text'
+                      }}
+                      value={
+                        isFieldInFocus.suggestedOrderValue ?
+                          suggestedCredit?.suggestedOrderValue :
+                          Number(suggestedCredit?.suggestedOrderValue ?? "")?.toLocaleString('en-In') + ` CR`}
+                      // value={(
+                      //   addPrefixOrSuffix(
+                      //     suggestedCredit?.suggestedOrderValue,
+                      //     '',
+                      //   ) ?? ''
+                      // )?.toLocaleString(undefined, {
+                      //   minimumFractionDigits: 2,
+                      // })}
+                      // defaultValue={creditDetail?.suggestedOrderValue}
+                      onChange={(e) => {
+                        saveSuggestedCreditData(e.target.name, e.target.value)
+                      }}
+                    ></input>
+                  </td>
+                </tr>
+              </table>
             </div>
+          </div>
+          <div className={`${styles.comment_inner}`}>
+            <div className="d-flex mt-5 pb-5 position-relative">
+              <input
+                as="textarea"
+                rows={3}
+                placeholder=""
+                value={sanctionComments}
+                className={`${styles.comment_field} input form-control`}
+                onChange={(e) => setSanctionComments(e.target.value)}
+              />
+              <label className={`${styles.label_heading} label_heading`}>
+                Comments
+              </label>
+
+              <img
+                className="img-fluid ml-4"
+                role="button"
+                src="/static/add-btn.svg"
+                alt="add button"
+                onClick={() => {
+                  sanctionComments.length > 0 &&
+                    addSanctionCommentArr(sanctionComments)
+                  setSanctionComments('')
+                }}
+              />
+            </div>
+            {/* <div className={`${styles.strength} value`}>Weakness</div> */}
+            {sanctionComment &&
+              sanctionComment.map((sanction, index) => (
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex border_color justify-content-between`}
+                >
+                  <Form.Control
+                    className={`${styles.paragraph} input pl-0`}
+                    defaultValue={sanction}
+                    as="textarea"
+                    rows={3}
+                    readOnly={!sanctionCommentsIndex.includes(index)}
+                    onChange={(e) => {
+                      handleInput(e.target.value, index)
+                    }}
+                  />
+                  <div className="mt-3">
+                    {sanctionCommentsIndex.includes(index) ? (
+                      <img
+                        src="/static/mode_edit.svg"
+                        role="button"
+                        className={`${styles.edit_image} mr-3`}
+                        onClick={() => onEditClickHandler(index, 'save')}
+                      />
+                    ) : (
+                      <img
+                        src="/static/save-3.svg"
+                        role="button"
+                        className={`${styles.edit_image} mr-3`}
+                        alt="save"
+                        onClick={() => onEditClickHandler(index, 'edit')}
+                      />
+                    )}
+                    <img
+                      src="/static/delete 2.svg"
+                      role="button"
+                      className={`${styles.delete_image}`}
+                      onClick={() => {
+                        onSanctionCommentRemove(index)
+                      }}
+                      alt="delete"
+                    />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>
+    </div>
     </>
   )
 }

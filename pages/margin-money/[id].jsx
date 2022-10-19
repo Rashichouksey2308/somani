@@ -335,7 +335,11 @@ function Index() {
     GSTIN: '24AAACI3028D1Z8',
   }
 
-  const [changeImporterData, setChangeImporterData] = useState()
+  const [changeImporterData, setChangeImporterData] = useState({
+    branch: '',
+    state: '',
+    address: '',
+  })
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
@@ -365,15 +369,24 @@ function Index() {
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value
+      const newInput = { ...invoiceData }
+      newInput['branchOffice'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'companyAddress') {
+      const newInput = { ...invoiceData }
       changeImporterData.address = e.target.value
+      newInput['companyAddress'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'importerGSTIN') {
+      const newInput ={...invoiceData}
       changeImporterData.GSTIN = e.target.value
+      newInput['importerGSTIN'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
   }
 
@@ -5116,6 +5129,9 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onFocus={(e) => {
                                   setIsFieldInFocus(true),
                                     (e.target.type = 'number')

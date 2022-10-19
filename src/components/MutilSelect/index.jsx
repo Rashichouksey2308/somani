@@ -93,26 +93,37 @@ setState({...state,inputValue:inputValue});
     }
     }
  const handleOnKeydown = (e) => {
+  console.log(e.which,"e.which")
     switch (e.which) {
       case 13:
+      
       case 9:
-        e.preventDefault();
-        break;
+        {e.preventDefault();
+        break;}
       case 8:
-        if (!e.currentTarget.value) {
-        //   removeEmail(state.emails.length - 1, false);
+       { if (!e.currentTarget.value) {
+          removeEmail(state.emails.length - 1, false);
         }
-        break;
+        
+        break;}
+        case 32:
+      {  e.preventDefault();
+        break;}
       default:
     }
   };
 
   const handleOnKeyup = (e) => {
+    console.log(e.which,"e.which")
     switch (e.which) {
       case 13:
+      
       case 9:
-        findEmailAddress(e.currentTarget.value, true);
-        break;
+        {findEmailAddress(e.currentTarget.value, true);
+        break;}
+      case 32:
+       { e.preventDefault();
+        break;  }
       default:
     }
   };

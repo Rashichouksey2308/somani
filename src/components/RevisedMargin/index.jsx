@@ -45,7 +45,11 @@ const Index = ({
     GSTIN: '24AAACI3028D1Z8',
   }
 
-  const [changeImporterData, setChangeImporterData] = useState()
+  const [changeImporterData, setChangeImporterData] = useState({
+    branch: '',
+    state: '',
+    address: '',
+  })
   const [conversionRateUnit, setConversionRateUnit] = useState()
   // console.log(conversionRateUnit, 'conversionRateUnit')
 
@@ -80,15 +84,24 @@ const Index = ({
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value
+      const newInput = { ...invoiceDataRevised }
+      newInput['branchOffice'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceDataRevised({ ...newInput })
     }
     if (e.target.name == 'companyAddress') {
+      const newInput = { ...invoiceDataRevised }
       changeImporterData.address = e.target.value
+      newInput['companyAddress'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceDataRevised({ ...newInput })
     }
     if (e.target.name == 'importerGSTIN') {
+      const newInput ={...invoiceDataRevised}
       changeImporterData.GSTIN = e.target.value
+      newInput['importerGSTIN'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
+      setInvoiceDataRevised({ ...newInput })
     }
   }
   const coversionUnitHandler = (val) => {
