@@ -17,13 +17,13 @@ function Index() {
           <div
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
           >
-            <h3 className={`${styles.heading}`}>Profile Details</h3>
+            <h3 className={`${styles.heading}`}>Vendor Details</h3>
           </div>
 
           <div className={`${styles.dashboard_form} card-body`}>
             <div className={`${styles.radio_form} mb-4`}>
               <div className={`${styles.sub_heading} label_heading`}>
-                User Type <strong className="text-danger">*</strong>
+                Vendor <strong className="text-danger">*</strong>
               </div>
               {['radio'].map((type, index) => (
                 <div
@@ -34,7 +34,7 @@ function Index() {
                     className={styles.radio}
                     inline
                     defaultChecked
-                    label="Internal"
+                    label="Domestic"
                     name="group1"
                     type={type}
                     id={`inline-${type}-1`}
@@ -42,7 +42,7 @@ function Index() {
                   <Form.Check
                     className={styles.radio}
                     inline
-                    label="External"
+                    label="International"
                     name="group1"
                     type={type}
                     id={`inline-${type}-2`}
@@ -239,15 +239,15 @@ function Index() {
                     type="tel"
                     id="textNumber"
                     name="phoneNumber"
-                    className={`${styles.input_field}  input form-control border-left-0`}
+                    className={`${styles.input_field} border_color input form-control border-left-0`}
                     
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
                     id="textNumber"
                   >
-                    Whatsapp Number (Optional)
-                  
+                    Phone Number
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
               </div>

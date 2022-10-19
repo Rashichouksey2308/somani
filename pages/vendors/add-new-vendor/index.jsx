@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
+import AddVendor from '../../../src/components/AddVendor'
 
 function Index() {
   return (
@@ -32,7 +33,7 @@ function Index() {
         </div>
       
       </Card.Header>
-      {/* <AddNewVendor/> */}
+       <AddVendor/> 
       </div>
     </Card>
   )

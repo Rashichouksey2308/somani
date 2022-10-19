@@ -746,7 +746,7 @@ export default function Index({
                          width={13} alt="delete" />{' '}
                         Delete
                       </button>
-                    ) : null}
+                    ) : null} 
                   </div>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
