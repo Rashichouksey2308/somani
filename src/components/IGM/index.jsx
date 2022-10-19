@@ -159,19 +159,19 @@ export default function Index({
   )
 
   const onigmAdd = (index) => {
-    let a=index+1;
+    let a = index + 1;
     let tempArray = { ...igmList }
     tempArray.igmDetails.push({
-      vesselName: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.vesselName??"",
-     
+      vesselName: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.vesselName ?? "",
+
       igmNumber: '',
       igmFiling: null,
       document: null,
       blNumber: [
         {
-          blNumber:  TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blNumber??"",
-          BlDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate??"").format("DD-MM-YYYY"),
-          quantity: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blQuantity??"",
+          blNumber: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blNumber ?? "",
+          BlDate: moment(TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blDate ?? "").format("DD-MM-YYYY"),
+          quantity: TransitDetails?.data[0]?.BL?.billOfLanding[a]?.blQuantity ?? "",
           noOfContainers: 0,
         },
       ],
@@ -297,7 +297,7 @@ export default function Index({
   //   }
 
   // },[TransitDetails])
-  console.log(consigneeInfo,"consigneeInfo")
+  console.log(consigneeInfo, "consigneeInfo")
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
       setConsigneeInfo({
@@ -327,12 +327,12 @@ export default function Index({
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeName`,
           '',
-        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ,
+        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`),
         branch: _get(
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeBranch`,
           '',
-        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.branch`) ,
+        ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.branch`),
         address: _get(
           TransitDetails,
           `data[0].IGM.shipmentDetails.consigneeAddress`,
@@ -340,31 +340,31 @@ export default function Index({
         ) || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.consigneeAddress`),
       })
 
-     
+
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' 
+        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
         setConsigneeName('EMERGENT')
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
         'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' || _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`) ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' 
+        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
         setConsigneeName('indoGerman')
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
         {
-          vesselName: _get(TransitDetails, `data[0].BL.billOfLanding[0].vesselName`,""),
+          vesselName: _get(TransitDetails, `data[0].BL.billOfLanding[0].vesselName`, ""),
           igmNumber: '',
           igmFiling: null,
           document: null,
           blNumber: [
             {
-              blNumber: _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`,"")  ,
-              BlDate:  moment( _get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`,"")).format("DD-MM-YYYY"),
-              quantity:   _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`,""),
+              blNumber: _get(TransitDetails, `data[0].BL.billOfLanding[0].blNumber`, ""),
+              BlDate: moment(_get(TransitDetails, `data[0].BL.billOfLanding[0].blDate`, "")).format("DD-MM-YYYY"),
+              quantity: _get(TransitDetails, `data[0].BL.billOfLanding[0].blQuantity`, ""),
               noOfContainers: 0,
             },
           ],
@@ -732,7 +732,7 @@ export default function Index({
                     <button
                       onClick={() => onigmAdd(index)}
                       className={styles.add_btn}
-                      style={{paddingBottom:'10px'}}
+                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -742,8 +742,8 @@ export default function Index({
                         className={`${styles.add_btn} mt-2 border-danger text-danger`}
                       >
                         <img src="/static/delete.svg"
-                        className='ml-1 mt-n1'
-                         width={13} alt="delete" />{' '}
+                          className='ml-1 mt-n1'
+                          width={13} alt="delete" />{' '}
                         Delete
                       </button>
                     ) : null} 
@@ -877,11 +877,16 @@ export default function Index({
                             <div className="d-flex">
                               <select
                                 id="vesselName"
-                                onChange={(e) => onChangeBlDropDown(e)}
+                                onChange={(e) => {
+                                  if (e.target.value !== 'select an option') {
+                                    onChangeBlDropDown(e)
+                                  }
+                                }
+                                }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                                 value={`${blEntry.blNumber}-${index}-${index2}`}
                               >
-                                <option>Select an option</option>
+                                <option value='select an option' >Select an option</option>
                                 {_get(
                                   TransitDetails,
                                   'data[0].BL.billOfLanding',
@@ -1006,13 +1011,7 @@ export default function Index({
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {moment(
-                                        blEntry?.blDate
-                                          ?.toLocaleString()
-                                          ?.slice(0, 10),
-                                        'YYYY-MM-DD',
-                                        true,
-                                      ).format('DD-MM-YYYY')}
+                                      {blEntry?.blDate ? moment(blEntry?.blDate).format('DD-MM-YYYY') : ''}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -1129,11 +1128,21 @@ export default function Index({
                             <strong className="text-danger ml-0">*</strong>
                           </td>
                           <td>
-                            <img
+                            {item?.document ? (item?.document?.originalName?.toLowerCase().endsWith('.xls') || item?.document?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                              src="/static/excel.svg"
+                              className="img-fluid"
+                              alt="Pdf"
+                            /> : (item?.document?.originalName?.toLowerCase().endsWith('.doc') || item?.document?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                              src="/static/doc.svg"
+                              className="img-fluid"
+                              alt="Pdf"
+                            /> : <img
                               src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
+                              className="img-fluid"
                               alt="Pdf"
                             />
+                              : null
+                            }
                           </td>
                           <td className={styles.doc_row}>
                             {item?.document

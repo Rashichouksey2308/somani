@@ -36,6 +36,8 @@ export default function Index({
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const { customClearance } = useSelector((state) => state.Custom)
 
+
+
   console.log(customClearance, 'this is custom doc')
   console.log(dutyData, 'dutyData')
   useEffect(() => {
@@ -95,12 +97,12 @@ export default function Index({
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
-  const getDoc=(payload)=>{
-    console.log(payload,"payload")
-     dispatch(ViewDocument({
-          path: payload,
-          // orderId: documentsFetched._id,
-        }))
+  const getDoc = (payload) => {
+    console.log(payload, "payload")
+    dispatch(ViewDocument({
+      path: payload,
+      // orderId: documentsFetched._id,
+    }))
   }
   console.log(
     billOfEntryData,
@@ -331,9 +333,8 @@ export default function Index({
       }
       isOk = false
     } else if (billOfEntryData.document1 === null) {
-      let toastMessage = `please upload Boe ${
-        billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
-      }`
+      let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
+        }`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -419,7 +420,7 @@ export default function Index({
     setAcc(
       checkNan(
         removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
@@ -641,10 +642,10 @@ export default function Index({
                 >
                   <input
                     className={`${styles.input_field} input form-control`}
-                     type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                    type="number"
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
                     name="boeNumber"
                     required
                     value={billOfEntryData?.boeNumber}
@@ -700,12 +701,12 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity?.toLocaleString(
+                    {Number(customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity)?.toLocaleString(
                       'en-IN',
                       {
                         maximumFractionDigits: 2,
                       },
-                    )}{' '}
+                    )}{' '} {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -777,23 +778,23 @@ export default function Index({
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
                     ) ||
-                    _get(
-                      customData,
-                      'order.transit.IGM.igmDetails[0].igmFiling',
-                      '',
-                    ) === ''
+                      _get(
+                        customData,
+                        'order.transit.IGM.igmDetails[0].igmFiling',
+                        '',
+                      ) === ''
                       ? ''
                       : moment(
-                          _get(
-                            customData,
-                            'order.transit.IGM.igmDetails[0].igmFiling',
-                            '',
-                          ),
-                        ).format('DD-MM-YYYY')}
+                        _get(
+                          customData,
+                          'order.transit.IGM.igmDetails[0].igmFiling',
+                          '',
+                        ),
+                      ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                'coal' ? (
+                  'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -816,9 +817,9 @@ export default function Index({
                         {customData?.order?.transit?.CIMS?.cimsDetails[0]
                           ?.circDate
                           ? moment(
-                              customData?.order?.transit?.CIMS?.cimsDetails[0]
-                                ?.circDate,
-                            ).format('DD-MM-YYYY')
+                            customData?.order?.transit?.CIMS?.cimsDetails[0]
+                              ?.circDate,
+                          ).format('DD-MM-YYYY')
                           : ''}
                       </span>
                     </div>
@@ -909,8 +910,8 @@ export default function Index({
                       isFieldInFocus2
                         ? billOfEntryData?.boeDetails?.invoiceQuantity
                         : billOfEntryData?.boeDetails?.invoiceQuantity == 0
-                        ? ''
-                        : Number(
+                          ? ''
+                          : Number(
                             billOfEntryData?.boeDetails?.invoiceQuantity,
                           )?.toLocaleString('en-IN') + ` MT`
                     }
@@ -930,8 +931,8 @@ export default function Index({
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
-                    // required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  // required
+                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -974,10 +975,10 @@ export default function Index({
                       billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
                         ? ''
                         : addPrefixOrSuffix(
-                            billOfEntryData?.boeDetails?.conversionRate,
-                            'INR',
-                            'front',
-                          )
+                          billOfEntryData?.boeDetails?.conversionRate,
+                          'INR',
+                          'front',
+                        )
                     }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
@@ -1104,15 +1105,15 @@ export default function Index({
                                   <td>
                                     {val.amount
                                       ? `${'INR'} ${Number(
-                                          val.amount,
-                                        )?.toLocaleString('en-IN')}  `
+                                        val.amount,
+                                      )?.toLocaleString('en-IN')}  `
                                       : ''}
                                   </td>
                                   <td>
                                     {val.percentage
                                       ? `${Number(
-                                          val?.percentage,
-                                        )?.toFixed()} ${'%'}`
+                                        val?.percentage,
+                                      )?.toFixed()} ${'%'}`
                                       : ''}
                                   </td>
                                 </>
@@ -1162,9 +1163,9 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.amount
                                           : `${'INR'}  ` +
-                                            Number(val.amount)?.toLocaleString(
-                                              'en-IN',
-                                            )
+                                          Number(val.amount)?.toLocaleString(
+                                            'en-IN',
+                                          )
                                       }
                                       disabled={!val.actions}
                                       onChange={(e) =>
@@ -1194,7 +1195,7 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.percentage
                                           : Number(val.percentage).toFixed(2) +
-                                            `${'%'}`
+                                          `${'%'}`
                                       }
                                       name="percentage"
                                       // value={val.percentage}
@@ -1252,7 +1253,7 @@ export default function Index({
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
-                          {totalCustomDuty()?.toLocaleString('en-In')}
+                          INR{' '}{totalCustomDuty()?.toLocaleString('en-In')}
                         </div>
                       </div>
                       <div
@@ -1325,7 +1326,7 @@ export default function Index({
                             src="/static/preview.svg"
                             className={`${styles.previewImg} img-fluid ml-n4`}
                             alt="Preview"
-                            onClick={(e)=>{
+                            onClick={(e) => {
                               getDoc(bl?.blSurrenderDoc?.path)
                             }}
                           />
@@ -1400,18 +1401,28 @@ export default function Index({
                         </td>
                       )}
                       <td>
-                        <img
+                        {billOfEntryData.document1 ? (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          src="/static/excel.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          src="/static/doc.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : <img
                           src="/static/pdf.svg"
-                          className={`${styles.pdfImage} img-fluid`}
+                          className="img-fluid"
                           alt="Pdf"
                         />
+                          : null
+                        }
                       </td>
                       <td className={styles.doc_row}>
                         {billOfEntryData.document1 === null
                           ? ''
                           : moment(billOfEntryData.document1.date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                            'DD-MM-YYYY, h:mm a',
+                          )}
                       </td>
 
                       <td>
@@ -1452,18 +1463,28 @@ export default function Index({
                         <strong className="text-danger ml-1">*</strong>
                       </td>
                       <td>
-                        <img
+                        {billOfEntryData.document2 ? (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          src="/static/excel.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          src="/static/doc.svg"
+                          className="img-fluid"
+                          alt="Pdf"
+                        /> : <img
                           src="/static/pdf.svg"
-                          className={`${styles.pdfImage} img-fluid`}
+                          className="img-fluid"
                           alt="Pdf"
                         />
+                          : null
+                        }
                       </td>
                       <td className={styles.doc_row}>
                         {billOfEntryData.document2 === null
                           ? ''
                           : moment(billOfEntryData.document2.date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                            'DD-MM-YYYY, h:mm a',
+                          )}
                       </td>
 
                       <td>
@@ -1505,18 +1526,28 @@ export default function Index({
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          <img
+                          {billOfEntryData.document3 ? (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                            src="/static/excel.svg"
+                            className="img-fluid"
+                            alt="Pdf"
+                          /> : (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                            src="/static/doc.svg"
+                            className="img-fluid"
+                            alt="Pdf"
+                          /> : <img
                             src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
+                            className="img-fluid"
                             alt="Pdf"
                           />
+                            : null
+                          }
                         </td>
                         <td className={styles.doc_row}>
                           {billOfEntryData.document3 === null
                             ? ''
                             : moment(billOfEntryData.document3.date).format(
-                                'DD-MM-YYYY, h:mm a',
-                              )}
+                              'DD-MM-YYYY, h:mm a',
+                            )}
                         </td>
                         <td>
                           {billOfEntryData.document3 === null ? (

@@ -79,6 +79,7 @@ function Index(props) {
           lastDate: data?.lastDate,
           terms: data?.terms,
           addComm: data?.addComm,
+          // addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,

@@ -61,7 +61,7 @@ export const GetAllForwardHedging =
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.getForwardHedging}${payload ? payload : ''}`,
@@ -99,7 +99,7 @@ export const GetForwardHedging =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
         headers: headers,
@@ -134,7 +134,7 @@ export const UpdateForwardHedging =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
         headers: headers,

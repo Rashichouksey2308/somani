@@ -488,7 +488,7 @@ const Index = () => {
                     label="Marine Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                      'Marine Insurance'
+                        'Marine Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -504,7 +504,7 @@ const Index = () => {
                     label="Storage Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                      'Storage Insurance'
+                        'Storage Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -523,7 +523,7 @@ const Index = () => {
                     value="Both"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                      'Marine & Storage Insurance'
+                        'Marine & Storage Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -540,7 +540,7 @@ const Index = () => {
           </div>
         </div>
         {insuranceData?.quotationRequest?.insuranceType ==
-        'Marine Insurance' ? (
+          'Marine Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
@@ -822,21 +822,20 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(
-                                    marineData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
-                                  )
+                                : `${marineData?.insuranceFromType === 'Domestic'
+                                  ? 'INR'
+                                  : marineData?.insuranceFromType ===
+                                    'International'
+                                    ? 'USD'
+                                    : ''
+                                } ` +
+                                Number(
+                                  marineData?.premiumAmount,
+                                )?.toLocaleString(
+                                  marineData?.insuranceFromType === 'Domestic'
+                                    ? 'en-In'
+                                    : undefined,
+                                )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
@@ -924,14 +923,28 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                <img
+                                {insuranceDocument?.marinePolicyDocument ? (insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.xls') || insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.doc') || insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
                                   src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
+                                  className="img-fluid"
                                   alt="Pdf"
                                 />
+                                  : null
+                                }
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                                {insuranceDocument?.marinePolicyDocument && insuranceDocument?.marinePolicyDocument
+                                  ? moment(insuranceDocument?.marinePolicyDocument?.date).format(
+                                    'DD-MM-YYYY,h:mm A',
+                                  )
+                                  : ''}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -948,7 +961,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                insuranceDocument.marinePolicyDocument ==
+                                  insuranceDocument.marinePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1003,7 +1016,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-                data-toggle="collapse"
+                // data-toggle="collapse"
                 data-target="#storageInsurance"
                 aria-expanded="true"
                 aria-controls="storageInsurance"
@@ -1290,18 +1303,17 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${
-                                    storageData?.insuranceFromType ===
-                                    'Domestic'
-                                      ? 'INR'
-                                      : storageData?.insuranceFromType ===
-                                        'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(
-                                    storageData?.premiumAmount,
-                                  )?.toLocaleString()
+                                : `${storageData?.insuranceFromType ===
+                                  'Domestic'
+                                  ? 'INR'
+                                  : storageData?.insuranceFromType ===
+                                    'International'
+                                    ? 'USD'
+                                    : ''
+                                } ` +
+                                Number(
+                                  storageData?.premiumAmount,
+                                )?.toLocaleString()
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
@@ -1389,18 +1401,37 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
+                                {console.log(insuranceDocument?.storagePolicyDocument, 'insuranceDocument?.storagePolicyDocument')}
+                                {insuranceDocument?.storagePolicyDocument ?
+                                  (insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.xls') || insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                    src="/static/excel.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  /> : (insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.doc') || insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                    src="/static/doc.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  /> : <img
+                                    src="/static/pdf.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                  : null
+                                }
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                                {insuranceDocument?.storagePolicyDocument ?
+                                  insuranceDocument?.storagePolicyDocument?.date
+                                    ? moment(insuranceDocument?.storagePolicyDocument?.date).format(
+                                      'DD-MM-YYYY,h:mm A',
+                                    )
+                                    : moment(new Date()).format(
+                                      'DD-MM-YYYY,h:mm A',
+                                    ) : ''}
                               </td>
                               <td>
                                 {insuranceDocument &&
-                                insuranceDocument?.storagePolicyDocument ==
+                                  insuranceDocument?.storagePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1741,21 +1772,20 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(
-                                    marineData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
-                                  )
+                                : `${marineData?.insuranceFromType === 'Domestic'
+                                  ? 'INR'
+                                  : marineData?.insuranceFromType ===
+                                    'International'
+                                    ? 'USD'
+                                    : ''
+                                } ` +
+                                Number(
+                                  marineData?.premiumAmount,
+                                )?.toLocaleString(
+                                  marineData?.insuranceFromType === 'Domestic'
+                                    ? 'en-In'
+                                    : undefined,
+                                )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
@@ -2057,21 +2087,20 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'INR'
-                                      : marineData?.insuranceFromType ===
-                                        'International'
-                                      ? 'USD'
-                                      : ''
-                                  } ` +
-                                  Number(
-                                    storageData?.premiumAmount,
-                                  )?.toLocaleString(
-                                    marineData?.insuranceFromType === 'Domestic'
-                                      ? 'en-In'
-                                      : undefined,
-                                  )
+                                : `${marineData?.insuranceFromType === 'Domestic'
+                                  ? 'INR'
+                                  : marineData?.insuranceFromType ===
+                                    'International'
+                                    ? 'USD'
+                                    : ''
+                                } ` +
+                                Number(
+                                  storageData?.premiumAmount,
+                                )?.toLocaleString(
+                                  marineData?.insuranceFromType === 'Domestic'
+                                    ? 'en-In'
+                                    : undefined,
+                                )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
@@ -2179,7 +2208,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                insuranceDocument.marinePolicyDocument ==
+                                  insuranceDocument.marinePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2247,7 +2276,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                insuranceDocument?.storagePolicyDocument ==
+                                  insuranceDocument?.storagePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>

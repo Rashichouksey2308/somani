@@ -27,7 +27,7 @@ function Index() {
       let px_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
       window.addEventListener('resize', () => {
         function isZooming() {
-          var newPx_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
+          let newPx_ratio = window.devicePixelRatio || window.screen.availWidth / document.documentElement.clientWidth;
           if (newPx_ratio != px_ratio) {
          
             return true;

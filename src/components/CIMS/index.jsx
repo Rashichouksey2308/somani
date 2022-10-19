@@ -610,11 +610,21 @@ export default function Index({
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          <img
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
+                        {cimsDetails[index]?.coalImportRegistrationDoc ? (cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.xls') || cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.doc') || cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                                  : null
+                                }
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
@@ -675,11 +685,21 @@ export default function Index({
                           CIMS Payment Receipt
                         </td>
                         <td>
-                          <img
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
+                        {cimsDetails[index]?.cimsPaymentReceiptDoc ? (cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') || cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.doc') || cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                                  : null
+                                }
                         </td>
                         <td className={styles.doc_row}>
                           {' '}
