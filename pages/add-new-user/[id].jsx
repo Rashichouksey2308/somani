@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
+import styles from './user.module.scss'
 import { Card } from 'react-bootstrap'
 import Router from 'next/router'
-import AddNewInternal from '../../src/components/AddNewInternal'
+import AddNewUser from '../../src/components/AddNewUser'
 
 function Index() {
   return (
@@ -11,7 +11,7 @@ function Index() {
       <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
           <div
-            onClick={() => Router.push('/masters/users')}
+           onClick={() => Router.push('/masters/users')}
             style={{ cursor: 'pointer' }}
           >
             <img
@@ -33,7 +33,7 @@ function Index() {
         </div>
       
       </Card.Header>
-      <AddNewInternal/>
+      <AddNewUser />
       </div>
     </Card>
   )
