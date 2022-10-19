@@ -17,10 +17,12 @@ import {
 import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../../src/utils/helper'
 import {
-  settingSidebar,
-} from '../../../../src/redux/breadcrumb/action'
+  addPrefixOrSuffix,
+  gSTINValidation,
+  removePrefixOrSuffix,
+} from '../../../../src/utils/helper'
+import { settingSidebar } from '../../../../src/redux/breadcrumb/action'
 
 import moment from 'moment/moment'
 
@@ -28,9 +30,7 @@ const Index = () => {
   const [insuranceType, setInsuranceType] = useState('')
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
@@ -40,13 +40,18 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
   const [insuranceData, setInsuranceData] = useState()
 
-
   useEffect(() => {
     dispatch(setPageName('insurance Request Letter'))
     dispatch(
-      setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')),
+      setDynamicName(
+        _get(insuranceResponse, 'data[0].company.companyName', 'Company Name'),
+      ),
     )
-    dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')))
+    dispatch(
+      setDynamicOrder(
+        _get(insuranceResponse, 'data[0].order.orderId', 'Order Id'),
+      ),
+    )
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
 
@@ -84,16 +89,24 @@ const Index = () => {
 
   useEffect(() => {
     setMarineData({
-      policyNumber: insuranceData?.marineInsurance?.policyNumber || "",
-      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer || "Policy Bazaar",
-      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || "",
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured || "",
-      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured || "",
+      policyNumber: insuranceData?.marineInsurance?.policyNumber || '',
+      nameOfInsurer:
+        insuranceData?.marineInsurance?.nameOfInsurer || 'Policy Bazaar',
+      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || '',
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured || '',
+      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured || '',
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
-      periodOfInsurance: getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : insuranceData?.marineInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysMarine()
+        ? getDifferenceInDaysMarine()
+        : insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee) || "",
+      lossPayee:
+        _get(
+          insuranceData,
+          'order.termsheet.transactionDetails.lcOpeningBank',
+          insuranceData?.quotationRequest?.lossPayee,
+        ) || '',
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
@@ -104,9 +117,11 @@ const Index = () => {
       gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
       insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-      periodOfInsurance: getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : insuranceData?.storageInsurance?.periodOfInsurance,
+      periodOfInsurance: getDifferenceInDaysStorage()
+        ? getDifferenceInDaysStorage()
+        : insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee || "",
+      lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
     setInsuranceDocument({
@@ -114,21 +129,19 @@ const Index = () => {
       marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
     })
   }, [insuranceResponse, insuranceData])
-  console.log(marineData, "marineData")
+  console.log(marineData, 'marineData')
 
   let dateM1 = new Date(marineData?.insuranceFrom)
   let dateM2 = new Date(marineData?.insuranceTo)
 
-
   function getDifferenceInDaysMarine() {
-    let date1 = moment(dateM1, "DD.MM.YYYY");
-    let date2 = moment(dateM2, "DD.MM.YYYY");
+    let date1 = moment(dateM1, 'DD.MM.YYYY')
+    let date2 = moment(dateM2, 'DD.MM.YYYY')
     return date2.diff(date1, 'days')
   }
 
   let dateS1 = new Date(storageData?.insuranceFrom)
   let dateS2 = new Date(storageData?.insuranceTo)
-
 
   function getDifferenceInDaysStorage() {
     let date3 = moment(dateS1, 'DD.MM.YYYY')
@@ -144,14 +157,13 @@ const Index = () => {
     // }
     setMarineData(newInput)
   }
-  console.log(marineData, "setMarineData")
+  console.log(marineData, 'setMarineData')
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     saveMarineData(name, text)
   }
-
 
   const saveStorageDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -196,43 +208,44 @@ const Index = () => {
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData)
-
-
   }
   useEffect(() => {
     if (isInsurerSameData) {
-
       setStorageData({ ...marineData })
     }
     if (isInsurerSameData == false) {
-      console.log(insuranceData, "insuranceData?.storageInsurance?.policyNumber")
+      console.log(
+        insuranceData,
+        'insuranceData?.storageInsurance?.policyNumber',
+      )
       setStorageData({
-        policyNumber: insuranceData?.storageInsurance?.policyNumber || "",
-        nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || "",
-        gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer || "",
-        nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured || "",
-        gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured || "",
+        policyNumber: insuranceData?.storageInsurance?.policyNumber || '',
+        nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || '',
+        gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer || '',
+        nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured || '',
+        gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured || '',
         insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
         insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-        periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance || "",
+        periodOfInsurance:
+          insuranceData?.storageInsurance?.periodOfInsurance || '',
         insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-        lossPayee: insuranceData?.storageInsurance?.lossPayee || "",
+        lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
         premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
       })
-
     }
-  },
-    [isInsurerSameData])
+  }, [isInsurerSameData])
 
   const validate = () => {
     let toastMessage = ''
-    console.log(marineData, "marineData")
+    console.log(marineData, 'marineData')
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        (marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined)
+        (marineData.gstOfInsurer == '' ||
+          marineData.gstOfInsurer == undefined ||
+          !gSTINValidation(marineData.gstOfInsurer))
       ) {
-        toastMessage = 'GST OF INSURER IS MANDATORY'
+        toastMessage = 'PLEASE ADD A VALID GSTIN OF INSURER'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -240,16 +253,19 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        (marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined)
+        (marineData.gstOfInsured == '' ||
+          marineData.gstOfInsured == undefined ||
+          !gSTINValidation(marineData.gstOfInsured))
       ) {
-        toastMessage = 'GST OF INSURED IS MANDATORY'
+        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
         }
       }
       if (
-        marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined
+        marineData.insuranceFrom == '' ||
+        marineData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -258,9 +274,7 @@ const Index = () => {
         }
       }
 
-      if (
-        marineData.insuranceTo == '' || marineData.insuranceTo == undefined
-      ) {
+      if (marineData.insuranceTo == '' || marineData.insuranceTo == undefined) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -277,14 +291,14 @@ const Index = () => {
 
       return true
     }
-    if (
-      insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance'
-    ) {
+    if (insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance') {
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        (storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined)
+        (storageData.gstOfInsurer == '' ||
+          storageData.gstOfInsurer == undefined ||
+          !gSTINValidation(storageData.gstOfInsurer))
       ) {
-        toastMessage = 'GST OF INSURER IS MANDATORY'
+        toastMessage = ' PLEASE ADD VALID GST OF INSURER FOR STORAGE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -292,16 +306,19 @@ const Index = () => {
       }
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        (storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined)
+        (storageData.gstOfInsured == '' ||
+          storageData.gstOfInsured == undefined ||
+          !gSTINValidation(storageData.gstOfInsured))
       ) {
-        toastMessage = 'GST OF INSURED IS MANDATORY'
+        toastMessage = ' PLEASE ADD A VALID GST OF INSURED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
         }
       }
       if (
-        storageData.insuranceFrom == '' || storageData.insuranceFrom == undefined
+        storageData.insuranceFrom == '' ||
+        storageData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -310,7 +327,8 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceTo == '' || storageData.insuranceTo == undefined
+        storageData.insuranceTo == '' ||
+        storageData.insuranceTo == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -333,38 +351,46 @@ const Index = () => {
       'Marine & Storage Insurance'
     ) {
       if (
-        storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined
+        storageData.gstOfInsurer == '' ||
+        storageData.gstOfInsurer == undefined ||
+        gSTINValidation(storageData?.gstOfInsurer)
       ) {
-        toastMessage = 'GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage = 'VALID GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
         }
       }
       if (
-        storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined
+        storageData.gstOfInsured == '' ||
+        storageData.gstOfInsured == undefined ||
+        gSTINValidation(storageData?.gstOfInsured)
       ) {
-        toastMessage = 'GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage = 'VALID GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
         }
       }
       if (
-        marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined
+        (marineData.insuranceFromType == 'Domestic' &&
+          marineData.gstOfInsurer == '') ||
+        marineData.gstOfInsurer == undefined ||
+        gSTINValidation(marineData?.gstOfInsurer)
       ) {
-        toastMessage = 'GST OF INSURER IS MANDATORY'
+        toastMessage = 'VALID GST OF INSURER IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
         }
       }
       if (
-        marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined
+        (marineData.insuranceFromType == 'Domestic' &&
+          marineData.gstOfInsured == '') ||
+        marineData.gstOfInsured == undefined ||
+        gSTINValidation(marineData?.gstOfInsured)
       ) {
-        toastMessage = 'GST OF INSURED IS MANDATORY'
+        toastMessage = ' VALID GST OF INSURED IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -382,8 +408,6 @@ const Index = () => {
       }
       return true
     }
-
-
   }
 
   console.log(insuranceData, 'insuranceData')
@@ -406,18 +430,24 @@ const Index = () => {
       JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
     )
     fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-    fd.append(
-      'storagePolicyDocument',
-      insuranceDocument.storagePolicyDocument,
-    )
+    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
 
     let code = await dispatch(UpdateInsurance(fd))
     if (code == 200) {
-      sessionStorage.setItem('inspectionId', _get(insuranceResponse, 'data[0].order.inspection', ""))
-      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Inspection', 'Inspection', '3'))
+      sessionStorage.setItem(
+        'inspectionId',
+        _get(insuranceResponse, 'data[0].order.inspection', ''),
+      )
+      dispatch(
+        settingSidebar(
+          'Loading, Transit & Unloadinge',
+          'Inspection',
+          'Inspection',
+          '3',
+        ),
+      )
       Router.push(`/third-party`)
     }
-
   }
 
   const handleRoute = () => {
@@ -428,7 +458,6 @@ const Index = () => {
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={`${styles.head_header}`}>
-
           <img
             style={{ cursor: 'pointer' }}
             onClick={() => Router.push('/insurance')}
@@ -459,7 +488,7 @@ const Index = () => {
                     label="Marine Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Marine Insurance'
+                      'Marine Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -475,7 +504,7 @@ const Index = () => {
                     label="Storage Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Storage Insurance'
+                      'Storage Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -494,7 +523,7 @@ const Index = () => {
                     value="Both"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Marine & Storage Insurance'
+                      'Marine & Storage Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -511,7 +540,7 @@ const Index = () => {
           </div>
         </div>
         {insuranceData?.quotationRequest?.insuranceType ==
-          'Marine Insurance' ? (
+        'Marine Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
@@ -548,7 +577,9 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          checked={marineData?.insuranceFromType == 'International'}
+                          checked={
+                            marineData?.insuranceFromType == 'International'
+                          }
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
@@ -560,11 +591,15 @@ const Index = () => {
                     ))}
                   </div>
 
-                  <span data-toggle="collapse"
+                  <span
+                    data-toggle="collapse"
                     data-target="#marineInsurance"
                     aria-expanded="true"
                     aria-controls="marineInsurance"
-                    style={{ cursor: 'pointer' }}>+</span>
+                    style={{ cursor: 'pointer' }}
+                  >
+                    +
+                  </span>
                 </div>
               </div>
               <div
@@ -604,7 +639,9 @@ const Index = () => {
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -627,7 +664,6 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-
                               type="text"
                               name="gstOfInsurer"
                               value={marineData?.gstOfInsurer}
@@ -641,9 +677,10 @@ const Index = () => {
                               GSTIN of Insurer
                               {marineData?.insuranceFromType === 'Domestic' ? (
                                 <strong className="text-danger">*</strong>
-                              ) : ''}
+                              ) : (
+                                ''
+                              )}
                             </label>
-
                           </div>
                         </Col>
 
@@ -718,13 +755,17 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
-                            value={getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                            value={
+                              getDifferenceInDaysMarine()
+                                ? getDifferenceInDaysMarine()
+                                : marineData?.periodOfInsurance
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -738,7 +779,6 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-
                               name="lossPayee"
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
@@ -748,9 +788,10 @@ const Index = () => {
                             >
                               <option>Select an option</option>
                               {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
-                              <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
+                              <option value="Zurcher Kantonal Bank,Zurich">
+                                Zurcher Kantonal Bank,Zurich
+                              </option>
                               <option value="SBI">SBI</option>
-
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -770,20 +811,33 @@ const Index = () => {
                             type="text"
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
                             className={`${styles.input_field} input form-control`}
                             required
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
+                            onWheel={(event) => event.currentTarget.blur()}
+                            value={
+                              isFieldInFocus
+                                ? marineData?.premiumAmount
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    marineData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
-                            value={isFieldInFocus ?
-                              marineData?.premiumAmount :
-                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(marineData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
                             onChange={(e) =>
@@ -893,7 +947,9 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
+                                {insuranceDocument &&
+                                insuranceDocument.marinePolicyDocument ==
+                                  null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -903,14 +959,23 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button className={`${styles.button_upload} btn`}>
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
                                         Upload
                                       </button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                    <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
+                                  <div
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                  >
+                                    <span>
+                                      {
+                                        insuranceDocument?.marinePolicyDocument
+                                          ?.name
+                                      }
+                                    </span>
                                     <img
                                       className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -919,10 +984,8 @@ const Index = () => {
                                     />{' '}
                                   </div>
                                 )}
-
                               </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
@@ -961,7 +1024,11 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          checked={storageData?.insuranceFromType == 'Domestic' ? 'checked' : ''}
+                          checked={
+                            storageData?.insuranceFromType == 'Domestic'
+                              ? 'checked'
+                              : ''
+                          }
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'Domestic')
                           }
@@ -975,7 +1042,11 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          checked={storageData?.insuranceFromType == 'International' ? 'checked' : ''}
+                          checked={
+                            storageData?.insuranceFromType == 'International'
+                              ? 'checked'
+                              : ''
+                          }
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'International')
                           }
@@ -1035,7 +1106,9 @@ const Index = () => {
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -1058,7 +1131,6 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-
                               required
                               name="gstOfInsurer"
                               value={storageData?.gstOfInsurer}
@@ -1073,7 +1145,6 @@ const Index = () => {
                               GSTIN of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
-
                           </div>
                         </Col>
 
@@ -1148,13 +1219,17 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
-                            value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                            value={
+                              getDifferenceInDaysStorage()
+                                ? getDifferenceInDaysStorage()
+                                : storageData?.periodOfInsurance
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1169,14 +1244,22 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                              value={_get(
+                                insuranceData,
+                                'order.termsheet.transactionDetails.lcOpeningBank',
+                                insuranceData?.quotationRequest?.lossPayee,
+                              )}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
-                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">
+                                Zurcher Kantonal Bank,Zurich
+                              </option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1198,16 +1281,28 @@ const Index = () => {
                             required
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
                             name="premiumAmount"
-                            value={isFieldInFocus ?
-                              storageData?.premiumAmount :
-                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : storageData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
+                            value={
+                              isFieldInFocus
+                                ? storageData?.premiumAmount
+                                : `${
+                                    storageData?.insuranceFromType ===
+                                    'Domestic'
+                                      ? 'INR'
+                                      : storageData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    storageData?.premiumAmount,
+                                  )?.toLocaleString()
+                            }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -1304,8 +1399,9 @@ const Index = () => {
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-
-                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
+                                {insuranceDocument &&
+                                insuranceDocument?.storagePolicyDocument ==
+                                  null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1315,14 +1411,23 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument2(e)}
                                       />
-                                      <button className={`${styles.button_upload} btn`}>
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
                                         Upload
                                       </button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                    <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
+                                  <div
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                  >
+                                    <span>
+                                      {
+                                        insuranceDocument?.storagePolicyDocument
+                                          ?.name
+                                      }
+                                    </span>
                                     <img
                                       className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -1331,10 +1436,8 @@ const Index = () => {
                                     />{' '}
                                   </div>
                                 )}
-
                               </td>
                             </tr>
-
                           </tbody>
                         </table>
                       </div>
@@ -1344,14 +1447,14 @@ const Index = () => {
               </div>
             </div>
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType ==
+          'Marine & Storage Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-
                 style={{ cursor: 'default' }}
               >
                 <h2 className="mb-0">Marine Insurance Policy Details</h2>
@@ -1370,7 +1473,10 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
+                          defaultChecked={
+                            insuranceData?.marineInsurance?.insuranceFromType ==
+                            'Domestic'
+                          }
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'Domestic')
                           }
@@ -1383,7 +1489,10 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
+                          defaultChecked={
+                            insuranceData?.marineInsurance?.insuranceFromType ==
+                            'International'
+                          }
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'International')
                           }
@@ -1394,11 +1503,15 @@ const Index = () => {
                     ))}
                   </div>
 
-                  <span data-toggle="collapse"
+                  <span
+                    data-toggle="collapse"
                     data-target="#marineInsurance"
                     aria-expanded="true"
                     aria-controls="marineInsurance"
-                    style={{ cursor: 'pointer' }}>+</span>
+                    style={{ cursor: 'pointer' }}
+                  >
+                    +
+                  </span>
                 </div>
               </div>
               <div
@@ -1440,7 +1553,9 @@ const Index = () => {
                               value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -1476,9 +1591,12 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
-                              {marineData?.insuranceFromType == 'Domestic' ? <strong className="text-danger">*</strong> : ''}
+                              {marineData?.insuranceFromType == 'Domestic' ? (
+                                <strong className="text-danger">*</strong>
+                              ) : (
+                                ''
+                              )}
                             </label>
-
                           </div>
                         </Col>
 
@@ -1553,13 +1671,17 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
-                            value={getDifferenceInDaysMarine() ? getDifferenceInDaysMarine() : marineData?.periodOfInsurance}
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                            value={
+                              getDifferenceInDaysMarine()
+                                ? getDifferenceInDaysMarine()
+                                : marineData?.periodOfInsurance
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1581,8 +1703,12 @@ const Index = () => {
                               value={marineData.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
-                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">
+                                Zurcher Kantonal Bank,Zurich
+                              </option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1605,19 +1731,32 @@ const Index = () => {
                             type="text"
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
                             name="premiumAmount"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
+                            onWheel={(event) => event.currentTarget.blur()}
+                            value={
+                              isFieldInFocus
+                                ? marineData?.premiumAmount
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    marineData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
-                            value={isFieldInFocus ?
-                              marineData?.premiumAmount :
-                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(marineData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -1641,7 +1780,6 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className={styles.radio_label}>
@@ -1680,10 +1818,14 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <span data-toggle="collapse"
+                  <span
+                    data-toggle="collapse"
                     data-target="#storageInsurance"
                     aria-expanded="true"
-                    aria-controls="storageInsurance">+</span>
+                    aria-controls="storageInsurance"
+                  >
+                    +
+                  </span>
                 </div>{' '}
               </div>
               <div
@@ -1731,7 +1873,9 @@ const Index = () => {
                               value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -1754,7 +1898,6 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-
                               required
                               name="gstOfInsurer"
                               value={storageData?.gstOfInsurer}
@@ -1769,7 +1912,6 @@ const Index = () => {
                               GSTIN of Insurer
                               <strong className="text-danger">*</strong>
                             </label>
-
                           </div>
                         </Col>
 
@@ -1846,13 +1988,17 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             name="periodOfInsurance"
-                            value={getDifferenceInDaysStorage() ? getDifferenceInDaysStorage() : storageData?.periodOfInsurance}
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                            value={
+                              getDifferenceInDaysStorage()
+                                ? getDifferenceInDaysStorage()
+                                : storageData?.periodOfInsurance
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1867,16 +2013,19 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
                               value={storageData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option selected disabled>Select an option</option>
+                              <option selected disabled>
+                                Select an option
+                              </option>
 
-                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                              <option value="Zurcher Kantonal Bank,Zurich">
+                                Zurcher Kantonal Bank,Zurich
+                              </option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1898,19 +2047,32 @@ const Index = () => {
                             required
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                e.target.type = 'number'
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
+                              setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
                             name="premiumAmount"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
+                            onWheel={(event) => event.currentTarget.blur()}
+                            value={
+                              isFieldInFocus
+                                ? storageData?.premiumAmount
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    storageData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
-                            value={isFieldInFocus ?
-                              storageData?.premiumAmount :
-                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : marineData?.insuranceFromType === 'International' ? 'USD' : ''} ` + Number(storageData?.premiumAmount)?.toLocaleString(marineData?.insuranceFromType === 'Domestic' ? 'en-In' : undefined)}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -2016,7 +2178,9 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
+                                {insuranceDocument &&
+                                insuranceDocument.marinePolicyDocument ==
+                                  null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2026,14 +2190,23 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument1(e)}
                                       />
-                                      <button className={`${styles.button_upload} btn`}>
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
                                         Upload
                                       </button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                    <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
+                                  <div
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                  >
+                                    <span>
+                                      {
+                                        insuranceDocument?.marinePolicyDocument
+                                          ?.name
+                                      }
+                                    </span>
                                     <img
                                       className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
@@ -2042,7 +2215,6 @@ const Index = () => {
                                     />{' '}
                                   </div>
                                 )}
-
                               </td>
                             </tr>
                             <tr className="table_row">
@@ -2074,7 +2246,9 @@ const Index = () => {
                                     Upload
                                   </button>
                                 </div> */}
-                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
+                                {insuranceDocument &&
+                                insuranceDocument?.storagePolicyDocument ==
+                                  null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2084,14 +2258,23 @@ const Index = () => {
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDocument2(e)}
                                       />
-                                      <button className={`${styles.button_upload} btn`}>
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
                                         Upload
                                       </button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                                    <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
+                                  <div
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                  >
+                                    <span>
+                                      {
+                                        insuranceDocument?.storagePolicyDocument
+                                          ?.name
+                                      }
+                                    </span>
                                     <img
                                       className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
