@@ -60,7 +60,7 @@ const index = ({
   const [keyNameList, setKeyNameList] = useState([])
 
   useEffect(() => {
-    if (personData?.length>0) {
+    if (personData?.length > 0) {
       let temp = []
       personData.forEach((val) => {
         if (val.name !== "") {
@@ -71,7 +71,7 @@ const index = ({
       setKeyNameList([...temp])
     }
   }, [personData])
-  console.log(keyNameList,"keyNameList")
+  console.log(keyNameList, "keyNameList")
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -214,7 +214,7 @@ const index = ({
   }
   console.log(keyPersonData, "keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
-    console.log(keyPersonData,"keyPersonData")
+    console.log(keyPersonData, "keyPersonData")
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
   }
@@ -315,7 +315,7 @@ const index = ({
     if (
       data.contact.number === null ||
       data.contact.number === '' ||
-      data.contact.number === undefined 
+      data.contact.number === undefined
     ) {
       let toastMessage = 'Please add phone number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -453,31 +453,31 @@ const index = ({
     setInfoCircle(!infoCircle)
     console.log(infoCircle, 'this is info circle')
   }
-  const [emails,setemails]=useState([])
+  const [emails, setemails] = useState([])
   useEffect(() => {
-    if(creditDetail?.existingCHA.length>0){
+    if (creditDetail?.existingCHA.length > 0) {
       setemails(creditDetail?.existingCHA)
     }
-  },[creditDetail?.existingCHA])
-  
-  
-const [exSupplier,setexSupplier]=useState([])
+  }, [creditDetail?.existingCHA])
+
+
+  const [exSupplier, setexSupplier] = useState([])
   useEffect(() => {
-    if(creditDetail?.existingSuppliers.length>0){
+    if (creditDetail?.existingSuppliers.length > 0) {
       setexSupplier(creditDetail?.existingSuppliers)
     }
-  },[creditDetail?.existingSuppliers])
+  }, [creditDetail?.existingSuppliers])
 
-  console.log(emails,"emails")
-  const removeEmailParent=(index)=>{
+  console.log(emails, "emails")
+  const removeEmailParent = (index) => {
     let temp = emails
-     temp.splice(index, 1);
-     setemails(temp)
+    temp.splice(index, 1);
+    setemails(temp)
   }
-   const removeExSupplierParent=(index)=>{
+  const removeExSupplierParent = (index) => {
     let temp = emails
-     temp.splice(index, 1);
-     setexSupplier(temp)
+    temp.splice(index, 1);
+    setexSupplier(temp)
   }
   return (
     <>
@@ -505,6 +505,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -551,6 +554,10 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -595,6 +602,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -641,6 +651,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -687,6 +700,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -731,6 +747,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -833,34 +852,33 @@ const [exSupplier,setexSupplier]=useState([])
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <MultiSelect
-                   placeholder="Existing Supplier(s)"
-                   emails={exSupplier}
-                   onChange={(_emails) => {
-                    console.log(_emails,"cxzczxczxczxc")
-                    let temp=[...emails]
-                    temp.push(_emails[0])
-                    setexSupplier([...temp]);
-                 }}
-                  getLabel={(
-                    email,
-                    index,
-                    removeEmail,
+                    placeholder="Existing Supplier(s)"
+                    emails={exSupplier}
+                    onChange={(_emails) => {
+                      console.log(_emails, "cxzczxczxczxc")
+                      let temp = [...emails]
+                      temp.push(_emails[0])
+                      setexSupplier([...temp]);
+                    }}
+                    getLabel={(
+                      email,
+                      index,
+                      removeEmail,
                     ) => {
                       return (
                         <div data-tag key={index}>
                           {email}
-                          <span data-tag-handle onClick={() => 
-                        {
-                          removeEmail(index)
-                          removeExSupplierParent(index)
-                        }
+                          <span data-tag-handle onClick={() => {
+                            removeEmail(index)
+                            removeExSupplierParent(index)
+                          }
                           }>
                             ×
                           </span>
-                    </div>
-                  );
-                }}
-                  ></MultiSelect> 
+                        </div>
+                      );
+                    }}
+                  ></MultiSelect>
                   {/* <input
                     className={`${styles.input_field} input form-control`}
                     required
@@ -932,11 +950,14 @@ const [exSupplier,setexSupplier]=useState([])
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                
+
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -981,35 +1002,34 @@ const [exSupplier,setexSupplier]=useState([])
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <MultiSelect
-                   placeholder="Existing CHA(s)"
-                   emails={emails}
-                   onChange={(_emails) => {
-                    console.log(_emails,"cxzczxczxczxc")
-                    let temp=[...emails]
-                    temp.push(_emails[0])
-                    setemails([...temp]);
-                 }}
-                  getLabel={(
-                    email,
-                    index,
-                    removeEmail,
+                  <MultiSelect
+                    placeholder="Existing CHA(s)"
+                    emails={emails}
+                    onChange={(_emails) => {
+                      console.log(_emails, "cxzczxczxczxc")
+                      let temp = [...emails]
+                      temp.push(_emails[0])
+                      setemails([...temp]);
+                    }}
+                    getLabel={(
+                      email,
+                      index,
+                      removeEmail,
                     ) => {
                       return (
                         <div data-tag key={index}>
                           {email}
-                          <span data-tag-handle onClick={() => 
-                        {
-                          removeEmail(index)
-                          removeEmailParent(index)
-                        }
+                          <span data-tag-handle onClick={() => {
+                            removeEmail(index)
+                            removeEmailParent(index)
+                          }
                           }>
                             ×
                           </span>
-                    </div>
-                  );
-                }}
-                  ></MultiSelect> 
+                        </div>
+                      );
+                    }}
+                  ></MultiSelect>
                   {/* <input
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1025,7 +1045,7 @@ const [exSupplier,setexSupplier]=useState([])
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
                   </label> */}
-                
+
                 </div>
               </div>
             </div>
@@ -1034,7 +1054,7 @@ const [exSupplier,setexSupplier]=useState([])
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
-                    handleProductSave(emails,exSupplier)
+                    handleProductSave(emails, exSupplier)
                   }
                 }}
               >
@@ -1099,10 +1119,11 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                   type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                  type="number"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
+                 
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1122,12 +1143,13 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                   type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                  type="number"
+                 
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1145,10 +1167,11 @@ const [exSupplier,setexSupplier]=useState([])
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                   type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                  type="number"
+                  
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1169,10 +1192,11 @@ const [exSupplier,setexSupplier]=useState([])
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                     type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                    type="number"
+                   
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1193,14 +1217,15 @@ const [exSupplier,setexSupplier]=useState([])
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
-                     type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                    type="number"
+                   
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
@@ -1284,6 +1309,9 @@ const [exSupplier,setexSupplier]=useState([])
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1407,79 +1435,79 @@ const [exSupplier,setexSupplier]=useState([])
                       <th></th>
                     </tr>
                   </thead>
-                  {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
+                  {keyPersonData?.length > 0 && keyPersonData?.map((person, index) => (
                     <tbody className='border_color'>
-                    <>
-                    {!person.isEdit? <>
-                      <tr><td>{person.name}</td>
-                     <td>{person.designation}</td>
-                     <td>{person.department}</td>
-                     <td>{person.contact.number}</td>
-                     <td>{person.email}</td>
-                        <td>
-                          <div className="d-flex">
-                           
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                onClick={(e) => {
-                                  setEditRow(index)
-                                }}
-                              />
-                      
-                            <img
-                              onClick={() => deleteAddress(index)}
-                              src="/static/delete 2.svg"
-                              alt="delete"
-                            />
-                          </div>
-                        </td>
-                     </tr>
-                    </> :
-                      <tr key={index} className="table_credit shadow-none">
-                        <td>
-                          <div className="d-inline-flex align-items-center position-relative">
-                            {person.addnew ?
-                              
-                              <>
-                                <input
-                                  className="input"
-                                  value={person.name}
-                                  placeholder={"ADD NEW"}
-                                  name="name"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  type="text"
-                                  readOnly={!person.isEdit}
-                                />
-                              </>
-                              :
-                              <>
-                                {console.log(person.name, "person.name")}
-                                <select
-                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      <>
+                        {!person.isEdit ? <>
+                          <tr><td>{person.name}</td>
+                            <td>{person.designation}</td>
+                            <td>{person.department}</td>
+                            <td>{person.contact.number}</td>
+                            <td>{person.email}</td>
+                            <td>
+                              <div className="d-flex">
 
-                                  name="name"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  disabled={!person.isEdit}
-                                  value={person.name}
-                                >
-                                  <option selected>Select an Option</option>
-                                  {keyNameList.length > 0 &&
-                                    keyNameList.map((val) => {
-                                      return <option value={val}>{val}</option>
-                                    })}
-                                  <option value={`addnew`}>ADD NEW</option>
-                                </select>
                                 <img
-                                  className={`${styles.arrow2} img-fluid`}
-                                  src="/static/inputDropDown.svg"
-                                  alt="arrow"
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3`}
+                                  onClick={(e) => {
+                                    setEditRow(index)
+                                  }}
                                 />
-                              </>
-                            }
 
-                          </div>
-                          {/* <input
+                                <img
+                                  onClick={() => deleteAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  alt="delete"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        </> :
+                          <tr key={index} className="table_credit shadow-none">
+                            <td>
+                              <div className="d-inline-flex align-items-center position-relative">
+                                {person.addnew ?
+
+                                  <>
+                                    <input
+                                      className="input"
+                                      value={person.name}
+                                      placeholder={"ADD NEW"}
+                                      name="name"
+                                      onChange={(e) => handlePersonChange(e, index)}
+                                      type="text"
+                                      readOnly={!person.isEdit}
+                                    />
+                                  </>
+                                  :
+                                  <>
+                                    {console.log(person.name, "person.name")}
+                                    <select
+                                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+
+                                      name="name"
+                                      onChange={(e) => handlePersonChange(e, index)}
+                                      disabled={!person.isEdit}
+                                      value={person.name}
+                                    >
+                                      <option selected>Select an Option</option>
+                                      {keyNameList.length > 0 &&
+                                        keyNameList.map((val) => {
+                                          return <option value={val}>{val}</option>
+                                        })}
+                                      <option value={`addnew`}>ADD NEW</option>
+                                    </select>
+                                    <img
+                                      className={`${styles.arrow2} img-fluid`}
+                                      src="/static/inputDropDown.svg"
+                                      alt="arrow"
+                                    />
+                                  </>
+                                }
+
+                              </div>
+                              {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
                             name="name"
@@ -1487,20 +1515,20 @@ const [exSupplier,setexSupplier]=useState([])
                             type="text"
                             readOnly={!saveContactTable}
                           /> */}
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            <input
-                              className="input"
+                            </td>
+                            <td>
+                              <div className="d-flex">
+                                <input
+                                  className="input"
 
-                              placeholder={"Designation"}
-                              value={person.designation}
-                              name="designation"
-                              onChange={(e) => handlePersonChange(e, index)}
-                              type="text"
-                              readOnly={!person.isEdit}
-                            />
-                            {/* <select
+                                  placeholder={"Designation"}
+                                  value={person.designation}
+                                  name="designation"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                                {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
                               name="designation"
@@ -1517,8 +1545,8 @@ const [exSupplier,setexSupplier]=useState([])
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             /> */}
-                          </div>
-                          {/* <input
+                              </div>
+                              {/* <input
                             className="input"
                             defaultValue={person.designation}
                             name="designation"
@@ -1526,20 +1554,20 @@ const [exSupplier,setexSupplier]=useState([])
                             type="text"
                             readOnly={!saveContactTable}
                           /> */}
-                        </td>
-                        <td width="25%">
-                          <div className="d-flex">
-                            <input
-                              className="input"
+                            </td>
+                            <td width="25%">
+                              <div className="d-flex">
+                                <input
+                                  className="input"
 
-                              placeholder={"Department"}
-                              value={person.department}
-                              name="department"
-                              onChange={(e) => handlePersonChange(e, index)}
-                              type="text"
-                              readOnly={!person.isEdit}
-                            />
-                            {/* <select
+                                  placeholder={"Department"}
+                                  value={person.department}
+                                  name="department"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                                {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
                               name="department"
@@ -1555,80 +1583,80 @@ const [exSupplier,setexSupplier]=useState([])
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             /> */}
-                          </div>
-                        </td>
-                        <td>
-                          <input
-                            className="input"
-                            defaultValue={person.contact.number}
-                            placeholder={"Contact number"}
-                            name="contact.number"
-                            style={{ maxWidth: '170px' }}
-                            onChange={(e) => {
-                              handlePersonChange(e, index)
-                            }}
-                            onBlur={(e) => {
-                              if (phoneValidation(e.target.value)) {
-                                handlePersonChange(e, index)
-                              } else {
-                                let toastMessage = 'Enter a valid Phone Number'
-                                if (
-                                  !toast.isActive(toastMessage.toUpperCase())
-                                ) {
-                                  toast.error(toastMessage, {
-                                    toastId: toastMessage,
-                                  })
+                              </div>
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                defaultValue={person.contact.number}
+                                placeholder={"Contact number"}
+                                name="contact.number"
+                                style={{ maxWidth: '170px' }}
+                                onChange={(e) => {
+                                  handlePersonChange(e, index)
+                                }}
+                                onBlur={(e) => {
+                                  if (phoneValidation(e.target.value)) {
+                                    handlePersonChange(e, index)
+                                  } else {
+                                    let toastMessage = 'Enter a valid Phone Number'
+                                    if (
+                                      !toast.isActive(toastMessage.toUpperCase())
+                                    ) {
+                                      toast.error(toastMessage, {
+                                        toastId: toastMessage,
+                                      })
+                                    }
+                                  }
+                                }}
+                                type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
                                 }
-                              }
-                            }}
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
-                            disabled={!person.isEdit}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            className="input"
-                            defaultValue={person.email}
-                            placeholder={"Email"}
-                            name="email"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            type="text"
-                            disabled={!person.isEdit}
-                          />
-                        </td>
-                        <td>
-                          <div className="d-flex">
-                            {!person.isEdit ? (
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                onClick={(e) => {
-                                  setEditRow(index)
-                                }}
+                                disabled={!person.isEdit}
                               />
-                            ) : (
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                alt="save"
-                                onClick={(e) => {
-                                  setEditRow(index)
-                                  //addPersonArr(keyPersonData)
-                                }}
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                defaultValue={person.email}
+                                placeholder={"Email"}
+                                name="email"
+                                onChange={(e) => handlePersonChange(e, index)}
+                                type="text"
+                                disabled={!person.isEdit}
                               />
-                            )}
-                            <img
-                              onClick={() => deleteAddress(index)}
-                              src="/static/delete 2.svg"
-                              alt="delete"
-                            />
-                          </div>
-                        </td>
-                      </tr>}
-                    </>
+                            </td>
+                            <td>
+                              <div className="d-flex">
+                                {!person.isEdit ? (
+                                  <img
+                                    src="/static/mode_edit.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    onClick={(e) => {
+                                      setEditRow(index)
+                                    }}
+                                  />
+                                ) : (
+                                  <img
+                                    src="/static/save-3.svg"
+                                    className={`${styles.edit_image} mr-3`}
+                                    alt="save"
+                                    onClick={(e) => {
+                                      setEditRow(index)
+                                      //addPersonArr(keyPersonData)
+                                    }}
+                                  />
+                                )}
+                                <img
+                                  onClick={() => deleteAddress(index)}
+                                  src="/static/delete 2.svg"
+                                  alt="delete"
+                                />
+                              </div>
+                            </td>
+                          </tr>}
+                      </>
                     </tbody>
                   ))}
                 </table>
@@ -1638,10 +1666,10 @@ const [exSupplier,setexSupplier]=useState([])
               className={`${styles.add_row} d-flex justify-content-end`}
 
             >
-              <div className={`d-flex justify-content-end`} 
-              onClick={(e) => {
-                onKeyPersonSave(keyPersonData)
-              }}>  <span>+</span>
+              <div className={`d-flex justify-content-end`}
+                onClick={(e) => {
+                  onKeyPersonSave(keyPersonData)
+                }}>  <span>+</span>
                 <div>Add More Rows</div></div>
 
             </div>
@@ -1791,11 +1819,12 @@ const [exSupplier,setexSupplier]=useState([])
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                           type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                          type="number"
+                          onWheel={(event) =>
+                            event.currentTarget.blur()
+                          }
                           name="pinCode"
+                         
                           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode == null ? "" : keyAddressData.pinCode}
                           onChange={(e) => {
@@ -1891,16 +1920,17 @@ const [exSupplier,setexSupplier]=useState([])
                         <input
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
-                           type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                          type="number"
+                          onWheel={(event) =>
+                            event.currentTarget.blur()
+                          }
                           name="contact.number"
                           maxLength='10'
+                         
                           onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.contact.number == null ? "" : keyAddressData.contact.number}
                           onChange={(e) => {
-                              mobileFunction(e)
+                            mobileFunction(e)
                           }}
                         // onBlur={(e) => {`  
                         //   if (phoneValidation(e.target.value)) {
@@ -2405,7 +2435,7 @@ const [exSupplier,setexSupplier]=useState([])
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option selected disabled>Select</option>
+                            <option selected >Select</option>
                             {FilterUniqueBank().map((item) => (<>
 
                               <option value={item}>{item}</option>

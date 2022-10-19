@@ -70,6 +70,7 @@ function Index({
   camConversionunit,
   totalLimitDebt,
   CreditAgency,
+  litigationStatus
 }) {
   const dispatch = useDispatch()
   console.log(companyData, 'companyData')
@@ -154,7 +155,9 @@ function Index({
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
 
+
     const length = _get(filteredData[0], 'bankName', '')
+    console.log(length, 'PRIMARY BANK NAME', filteredData)
 
     return length
   }
@@ -708,7 +711,7 @@ function Index({
         previousYearData,
         camConversionunit
       )}
-      {compilanceStatus(companyData, camData)}
+      {compilanceStatus(companyData, camData,litigationStatus)}
       {strengthAndWeakness(camData)}
       {sectionTerms(
         camData,
@@ -3206,7 +3209,7 @@ const financeDetails = (
     </>
   )
 }
-const compilanceStatus = (companyData, camData) => {
+const compilanceStatus = (companyData, camData,litigationStatus) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3287,7 +3290,7 @@ const compilanceStatus = (companyData, camData) => {
                     Litigation Status
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.company?.litigationStatus}
+                    {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -4256,7 +4259,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <svg
                       width="100%"
                       height="100%"
-                      viewBox="0 0 42 42"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut}`}
                     >
                       <circle
@@ -4324,9 +4327,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       ></circle>
                     </svg>
                     <svg
-                      width="65%"
-                      height="65%"
-                      viewBox="0 0 42 42"
+                      width="76%"
+                      height="76%"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut2}`}
                     >
                       <circle

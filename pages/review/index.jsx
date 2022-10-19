@@ -188,6 +188,7 @@ function Index() {
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
   const [camConversionunit, setCamCoversionUnit] = useState(10000000)
+  const [litigationStatus, setlitigationStatus] = useState(null)
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
@@ -1336,9 +1337,9 @@ function Index() {
     const filteredCreditRatingNew = companyData?.profile?.creditRating?.filter((rating) => rating?.dateOfIssuance?.slice(0, 4) === tempdates[0])
     if (filteredCreditRatingNew?.length > 0) {
       return filteredCreditRatingNew[0]
-    } 
+    }
   }
- 
+
 
   // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
@@ -1788,6 +1789,7 @@ function Index() {
   }
 
   const updateLitigationStatus = (e) => {
+    setlitigationStatus(e.target.value)
     dispatch(
       UpdateCompanyDetails({
         _id: orderList?.company?._id,
@@ -1860,6 +1862,8 @@ function Index() {
       neddle: neddle10,
       top: '34%',
       left: '37%',
+      width: '26%',
+      height: '35%'
     }
     const filteredCreditRating =
       camData?.company?.creditLimit?.creditRating?.filter((rating) => {
@@ -1869,59 +1873,81 @@ function Index() {
       let r = Math.round(rat)
       if (r == 0) {
         rotateImageUrl.neddle = neddle1
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '5%'
+        rotateImageUrl.width = '220px'
+        rotateImageUrl.height = '200px'
       }
       if (r == 1) {
         rotateImageUrl.neddle = neddle1
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '5%'
+        rotateImageUrl.width = '220px'
+        rotateImageUrl.height = '200px'
       }
       if (r == 2) {
         rotateImageUrl.neddle = neddle2
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '12%'
+        rotateImageUrl.left = '-5%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '260px'
       }
       if (r == 3) {
         rotateImageUrl.neddle = neddle3
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '5%'
+        rotateImageUrl.left = '10%'
+        rotateImageUrl.width = '200px'
+        rotateImageUrl.height = '220px'
       }
       if (r == 4) {
         rotateImageUrl.neddle = neddle4
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '-3%'
+        rotateImageUrl.left = '10%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '260px'
       }
       if (r == 5) {
         rotateImageUrl.neddle = neddle5
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '0%'
+        rotateImageUrl.left = '16%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '250px'
       }
       if (r == 6) {
         rotateImageUrl.neddle = neddle6
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.top = '0%'
+        rotateImageUrl.left = '25%'
+        rotateImageUrl.width = '250px'
+        rotateImageUrl.height = '250px'
       }
       if (r == 7) {
-        rotateImageUrl.neddle = neddle7
-        rotateImageUrl.top = '14%'
+        rotateImageUrl.neddle = neddle8
+        rotateImageUrl.top = '10%'
         rotateImageUrl.left = '30%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '270px'
       }
 
       if (r == 8) {
-        rotateImageUrl.neddle = neddle8
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.neddle = neddle9
+        rotateImageUrl.top = '16%'
+        rotateImageUrl.left = '31%'
+        rotateImageUrl.width = '260px'
+        rotateImageUrl.height = '270px'
       }
       if (r == 9) {
-        rotateImageUrl.neddle = neddle9
-        rotateImageUrl.top = '14%'
-        rotateImageUrl.left = '30%'
+        rotateImageUrl.neddle = neddle7
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '35%'
+        rotateImageUrl.width = '190px'
+        rotateImageUrl.height = '210px'
       }
       if (r == 10) {
         rotateImageUrl.neddle = neddle10
-        rotateImageUrl.top = '34%'
-        rotateImageUrl.left = '34%'
+        rotateImageUrl.top = '30%'
+        rotateImageUrl.left = '35%'
+        rotateImageUrl.width = '190px'
+        rotateImageUrl.height = '210px'
       }
     }
     if (filteredCreditRating?.length > 0) {
@@ -2738,8 +2764,8 @@ function Index() {
                             transformOrigin: '50% 50%',
                             top: `${rotateImageUrl.top}`,
                             left: `${rotateImageUrl.left}`,
-                            width: '168px',
-                            height: '184px',
+                            width: `${rotateImageUrl.width}`,
+                            height: `${rotateImageUrl.height}`,
                             rotateZ: '150deg',
                           }}
                           src={rotateImageUrl?.neddle}
@@ -2752,8 +2778,8 @@ function Index() {
                             lineHeight: '37px',
                             fontWeight: 'bold',
                             position: 'absolute',
-                            top: '47%',
-                            left: '52%',
+                            top: '45%',
+                            left: '54%',
                             width: '40px',
                             height: '40px',
                             transform: 'translate(-50%, -50%)',
@@ -2846,7 +2872,11 @@ function Index() {
                                   lineHeight: '37px',
                                 }}
                               >
-                                {checkNan(
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                  }}
+                                >{checkNan(
                                   Math.round(
                                     filteredCreditRating
                                       ? filteredCreditRating[0]?.totalRating
@@ -2854,7 +2884,7 @@ function Index() {
                                   ),
                                   false,
                                   1,
-                                )}
+                                )}</span>
                                 <span
                                   style={{
                                     fontSize: '20px',
@@ -3430,7 +3460,7 @@ function Index() {
                     textTransform: 'uppercase',
                   }}
                 >
-                  SUPPLIER NAME
+                 CUSTOMER NAME
                 </td>
                 {/* <td
                   style={{
@@ -3502,27 +3532,40 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  colSpan={8}
-                  style={{
-                    fontSize: '15px',
-                    color: '#8492A6',
-                    lineHeight: '18px',
-                    fontWeight: 'bold',
-                    padding: '21px 35px 13px',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  2022
-                  <span
-                    style={{
-                      float: 'right',
-                      height: '8px',
-                      width: '97%',
-                      display: 'inline-block',
-                      borderBottom: '1px dashed #D2D7E5',
-                    }}
-                  ></span>
+                <td valign='top' colSpan={8}>
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0">
+                    <tr>
+                      <td
+                        width="2%"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '21px 35px 0',
+                          textTransform: 'uppercase',
+                        }}><span style={{ float: 'left' }}>2022</span>
+                      </td>
+                      <td
+                        width="98%"
+                      >
+                        <span
+                          style={{
+                            height: '1px',
+                            width: '100%',
+                            float: 'left',
+                            padding: '21px 35px 0',
+                            display: 'inline-block',
+                            borderBottom: '1px dashed #D2D7E5',
+                          }}
+                        ></span>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
               <tr>
@@ -3564,7 +3607,7 @@ function Index() {
                 >
                   {camData?.company?.companyName}
                 </td>
-                <td
+                {/* <td
                   style={{
                     fontSize: '19px',
                     color: '#111111',
@@ -3574,7 +3617,7 @@ function Index() {
                   }}
                 >
                   Customer Name
-                </td>
+                </td> */}
                 <td
                   style={{
                     fontSize: '19px',
@@ -3627,7 +3670,7 @@ function Index() {
                       display: 'inline-block',
                       background: '#FF9D00',
                       borderRadius: '50%',
-                      marginRight: '10px',
+                      marginRight: '10px'
                     }}
                   ></span>
                   In Process
@@ -3815,9 +3858,9 @@ function Index() {
                 >
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
                     .nameOfAuditor ? camData.company.detailedCompanyInfo.profile.auditorDetail[0]
-                    .nameOfAuditor ==
-                    camData.company.detailedCompanyInfo.profile.auditorDetail[1]
-                      .nameOfAuditor
+                      .nameOfAuditor ==
+                      camData.company.detailedCompanyInfo.profile.auditorDetail[1]
+                        .nameOfAuditor
                     ? 'No'
                     : 'Yes' : ''}
                 </td>
@@ -4061,7 +4104,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td valign="top" style={{ padding: '20px 35px' }}>
+                      <td valign="top" align='center' style={{ padding: '20px 35px' }}>
                         <table
                           width="100%"
                           cellPadding="0"
@@ -4072,29 +4115,33 @@ function Index() {
                             {top3Share.datasets &&
                               top3Share?.datasets[0]?.data.map((val, index) => {
                                 return (
-                                  <td
-                                    align="center"
-                                    style={{
-                                      fontSize: '16px',
-                                      color: '#111111',
-                                      lineHeight: '19px',
-                                      fontWeight: '500',
-                                    }}
-                                  >
-                                    <span
+                                  <>
+                                    <td width="5%">
+                                      <span
+                                        style={{
+                                          background: `${backgroundColor[index]}`,
+                                          borderRadius: '4px',
+                                          width: '16px',
+                                          height: '16px',
+                                          display: 'inline-block',
+                                        }}
+                                      ></span>
+                                    </td>
+                                    <td width="28.33%"
+                                      align="left"
                                       style={{
-                                        background: `${backgroundColor[index]}`,
-                                        borderRadius: '4px',
-                                        width: '16px',
-                                        height: '16px',
-                                        display: 'inline-block',
+                                        fontSize: '16px',
+                                        color: '#111111',
+                                        lineHeight: '19px',
+                                        fontWeight: '500',
                                       }}
-                                    ></span>
-                                    &nbsp;
-                                    {top3Share.labels[index] == ''
-                                      ? 'NA'
-                                      : top3Share.labels[index]}
-                                  </td>
+                                    >
+                                      <span>
+                                        {top3Share.labels[index] == ''
+                                          ? 'NA'
+                                          : top3Share.labels[index]}</span>
+                                    </td>
+                                  </>
                                 )
                               })}
                           </tr>
@@ -4324,7 +4371,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td valign="top" style={{ padding: '20px 35px' }}>
+                      <td valign="top" align='center' style={{ padding: '20px 35px' }}>
                         <table
                           width="100%"
                           cellPadding="0"
@@ -4335,29 +4382,33 @@ function Index() {
                             {top3Open.datasets &&
                               top3Open?.datasets[0]?.data.map((val, index) => {
                                 return (
-                                  <td
-                                    align="center"
-                                    style={{
-                                      fontSize: '16px',
-                                      color: '#111111',
-                                      lineHeight: '19px',
-                                      fontWeight: '500',
-                                    }}
-                                  >
-                                    <span
+                                  <>
+                                    <td width="5%">
+                                      <span
+                                        style={{
+                                          background: `${backgroundColor[index]}`,
+                                          borderRadius: '4px',
+                                          width: '16px',
+                                          height: '16px',
+                                          display: 'inline-block',
+                                        }}
+                                      ></span>
+                                    </td>
+                                    <td width="28.33%"
+                                      align="left"
                                       style={{
-                                        background: `${backgroundColor[index]}`,
-                                        borderRadius: '4px',
-                                        width: '16px',
-                                        height: '16px',
-                                        display: 'inline-block',
+                                        fontSize: '16px',
+                                        color: '#111111',
+                                        lineHeight: '19px',
+                                        fontWeight: '500',
                                       }}
-                                    ></span>
-                                    &nbsp;{' '}
-                                    {top3Open.labels[index] == ''
-                                      ? 'NA'
-                                      : top3Open.labels[index]}
-                                  </td>
+                                    >
+                                      &nbsp;{' '}
+                                      {top3Open.labels[index] == ''
+                                        ? 'NA'
+                                        : top3Open.labels[index]}
+                                    </td>
+                                  </>
                                 )
                               })}
                           </tr>
@@ -4768,7 +4819,7 @@ function Index() {
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
                         }}
-                      ></td>
+                      >LIMIT TYPE</td>
                       <td
                         style={{
                           fontSize: '15px',
@@ -5860,8 +5911,8 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Display By:{' '}
-                  <span style={{ color: '#3687E8' }}>Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
+                  <span style={{ float: 'right' }}>Display By:{' '}</span>
                 </td>
               </tr>
               <tr>
@@ -5878,8 +5929,8 @@ function Index() {
                     borderRight: '2px solid #CAD6E6',
                   }}
                 >
-                  Gross Revenue{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{ float: 'left' }}>Gross Revenue{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -5905,8 +5956,8 @@ function Index() {
                     padding: '0 35px',
                   }}
                 >
-                  Gross Purchases{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{ float: 'left' }}>Gross Purchases{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -6043,8 +6094,8 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Display By:{' '}
-                  <span style={{ color: '#3687E8' }}>Quarterly</span>
+                  <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
+                  <span style={{ float: 'right' }}>Display By:{' '}</span>
                 </td>
               </tr>
               <tr>
@@ -6061,8 +6112,8 @@ function Index() {
                     borderRight: '2px solid #CAD6E6',
                   }}
                 >
-                  Gross Revenue{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{ float: 'left' }}>Gross Revenue{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -6088,8 +6139,8 @@ function Index() {
                     padding: '0 35px',
                   }}
                 >
-                  Gross Purchases{' '}
-                  <span style={{ fontWeight: '500' }}>
+                  <span style={{ float: 'left' }}>Gross Purchases{' '}</span>
+                  <span style={{ fontWeight: '500', float: 'left' }}>
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
@@ -7670,7 +7721,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.company?.litigationStatus}
+                  {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                 </td>
                 <td
                   style={{
@@ -7919,7 +7970,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Total Limit:
+                  <span style={{ float: 'left' }}>Total Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7928,6 +7979,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
@@ -7949,7 +8001,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Utilised Limit:
+                  <span style={{ float: 'left' }}>Utilised Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7958,6 +8010,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
@@ -7975,7 +8028,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  Available Limit:
+                  <span style={{ float: 'left' }}>Available Limit:</span>
                   <span
                     style={{
                       fontSize: '19px',
@@ -7984,6 +8037,7 @@ function Index() {
                       fontWeight: '500',
                       display: 'inline-block',
                       marginLeft: '15px',
+                      float: 'left'
                     }}
                   >
                     {' '}
@@ -8438,20 +8492,20 @@ function Index() {
     if (companyData) {
       filterLitigation()
     }
-  }, [companyData, filterType, filterType.class,filterType.party])
+  }, [companyData, filterType, filterType.class, filterType.party])
   const changeClass = (val) => {
     let filter = { ...filterType }
     filter.class = val
     setFilterType({ ...filter })
   }
-    const changeParty = (val) => {
-      console.log(val,"valval")
+  const changeParty = (val) => {
+    console.log(val, "valval")
     let filter = { ...filterType }
     filter.party = val
     setFilterType({ ...filter })
   }
-    const changeRisk = (val) => {
-      console.log(val,"valval")
+  const changeRisk = (val) => {
+    console.log(val, "valval")
     let filter = { ...filterType }
     filter.risk = val
     setFilterType({ ...filter })
@@ -8639,7 +8693,7 @@ function Index() {
         },
       )
     }
-    console.log(filterType.risk ,"filterType.risk ")
+    console.log(filterType.risk, "filterType.risk ")
     if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
       const partyFilter = (val) => {
         console.log(val.memberType, 'val.memberType')
@@ -8691,7 +8745,7 @@ function Index() {
             return partyFilter(val)
           })
     }
-    console.log(highCourt,"highCourt44444")
+    console.log(highCourt, "highCourt44444")
     //civil Crimnal
     console.log(highCourt, 'highCourt111')
     if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
@@ -8748,7 +8802,7 @@ function Index() {
     console.log(highCourt, 'highCourt222')
 
     //party2
-    
+
     //risk
     if (
       filterType.risk == 'relevence' ||
@@ -9510,25 +9564,16 @@ function Index() {
                               style={{ minWidth: '140px' }}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
+                              value={litigationStatus ? litigationStatus : orderList?.company?.litigationStatus}
                             >
-                              {orderList?.company?.litigationStatus !==
-                                'Pending' ? (
-                                <>
+                              
                                   <option selected value="All">
                                     All
                                   </option>
                                   <option value="Pending">Pending</option>
                                   <option value="Disposed">Disposed</option>
-                                </>
-                              ) : (
-                                <>
-                                  <option selected value="All">
-                                    All
-                                  </option>
-                                  <option value="Disposed">Disposed</option>
-                                  <option value="Pending">Pending</option>
-                                </>
-                              )}
+                               
+                             
                             </select>
                             <img
                               className={`${styles.arrow3} image_arrow img-fluid`}
@@ -9642,15 +9687,15 @@ function Index() {
                                     name="flexRadioDefault"
                                     id="flexRadioDefault1"
                                     checked={filterType.party == 'Respondent'}
-                                     onClick={() => {
+                                    onClick={() => {
                                       changeParty("Respondent")
-                                     
+
                                     }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault1"
-                                   
+
                                   >
                                     Respondent
                                   </label>
@@ -9661,16 +9706,16 @@ function Index() {
                                     type="radio"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault2"
-                                      checked={filterType.party == 'Petitioner'}
+                                    checked={filterType.party == 'Petitioner'}
                                     onClick={() => {
                                       changeParty("Petitioner")
-                                    
+
                                     }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault2"
-                                    
+
                                   >
                                     Petitioner
                                   </label>
@@ -9736,7 +9781,7 @@ function Index() {
                                 value={'high'}
                                 id={'high'}
                                 onChange={() => {
-                                   changeRisk("high")
+                                  changeRisk("high")
                                   // setFilterType({ ...filterType, risk: 'high' })
                                 }}
                               />
@@ -9780,7 +9825,7 @@ function Index() {
                                 value={'Relevance'}
                                 id={'Relevance'}
                                 onChange={() => {
-                                   changeRisk("relevance")
+                                  changeRisk("relevance")
                                   // setFilterType({
                                   //   ...filterType,
                                   //   risk: 'relevence',
@@ -9932,6 +9977,7 @@ function Index() {
                     camConversionunit={camConversionunit}
                     totalLimitDebt={totalLimitDebt}
                     CreditAgency={CreditAgency}
+                    litigationStatus={litigationStatus}
                   />
                 </div>
               </div>

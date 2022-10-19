@@ -682,6 +682,9 @@ const Index = () => {
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
                               }
+                              onWheel={(event) =>
+                                event.currentTarget.blur()
+                              }
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured

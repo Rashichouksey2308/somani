@@ -209,6 +209,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                         setIsWarehouseQuantityInFocus(false),
                           (e.target.type = 'text')
                       }}
+                      onWheel={(event) =>
+                        event.currentTarget.blur()
+                      }
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
