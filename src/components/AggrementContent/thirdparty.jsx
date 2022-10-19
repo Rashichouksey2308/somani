@@ -7,7 +7,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
 
   const [deliveryData, setDeliveryData] = useState('')
-  const [monthofLoadingCargo, setMonthOfLoadingCargo] = useState('')
+  const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('')
 
   useEffect(() => {
     if (window) {
@@ -16,9 +16,11 @@ function Index(props) {
 
         console.log('savd')
         setDeliveryData(savedData.deliveryTerms)
+        setMonthOfLoadingCargo(savedData.monthOfLoadingCargo)
       }
     } else {
       setDeliveryData(props?.delivery?.deliveryTerms)
+      setMonthOfLoadingCargo(props.delivery.monthOfLoadingCargo)
     }
   }, [props])
 
@@ -26,6 +28,7 @@ function Index(props) {
     if (props.saveData == true && props.active == 'Delivery Terms') {
       let data = {
         deliveryData: deliveryData,
+        monthOfLoadingCargo:monthOfLoadingCargo
       }
       props.sendData('Delivery Terms', data)
     }
@@ -33,6 +36,7 @@ function Index(props) {
       console.log('this12')
       let data = {
         deliveryData: deliveryData,
+        monthOfLoadingCargo:monthOfLoadingCargo
       }
       console.log(data, deliveryData, 'deliveryData')
       props.updateData('Delivery Terms', data)
@@ -103,9 +107,9 @@ function Index(props) {
                   name="delivery"
                   onChange={(e) => {
                     setMonthOfLoadingCargo(e.target.value)
-                    h
+                    
                   }}
-                  value={monthofLoadingCargo}
+                  value={monthOfLoadingCargo}
                 >
                   <option value=''>
                     Select an option

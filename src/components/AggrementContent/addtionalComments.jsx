@@ -158,6 +158,7 @@ function Index(props) {
                   <tr>
                     <th width="25%" className='border-0 generic_th'>Agreement Name</th>
                     <th width="50%" className='border-0 generic_th'>Additional Comments</th>
+                     <th width="50%" className='border-0 generic_th'>Date of Execution</th>
                     <th className='border-0 generic_th'>Actions</th>
                     
                   </tr>

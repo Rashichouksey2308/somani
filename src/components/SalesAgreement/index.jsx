@@ -523,6 +523,7 @@ function Index(props) {
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
+          
         />
       )
     }
@@ -537,6 +538,7 @@ function Index(props) {
           data={props?.genericData?.CMA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
+          termsheet={props?.genericData?.order?.termsheet}
         />
       )
     }
@@ -1316,6 +1318,7 @@ function Index(props) {
           name: data.cmaData.name,
           shortName: data.cmaData.shortName,
           gstin: data.cmaData.gstin,
+            designatedStorageArea:data.cmaData.designatedStorageArea,
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
            isSubmitted: true,
@@ -1325,6 +1328,7 @@ function Index(props) {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
         shortName: data.cmaData.gstin,
+          designatedStorageArea:data.cmaData.designatedStorageArea,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
       }
@@ -1356,7 +1360,15 @@ function Index(props) {
           return
         }
       }
-
+    
+    if (dataToSend.CMA.designatedStorageArea == '' || dataToSend.CMA.designatedStorageArea == undefined) {
+        toastMessage = `Please add designated Storage Area  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
+        }
+      }
       if (
         dataToSend?.CMA?.addresses?.length <= 0 ||
         dataToSend?.CMA?.addresses == undefined
@@ -1763,11 +1775,13 @@ function Index(props) {
         genericId: props.genericData?._id,
         deliveryTerms: {
           deliveryTerm: data.deliveryData,
+           monthOfLoadingCargo: data.monthOfLoadingCargo,
            isSubmitted: true,
         },
       }
       let dataToSend2 = {
         deliveryTerms: data.deliveryData,
+         monthOfLoadingCargo: data.monthOfLoadingCargo,
       }
 
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
@@ -1782,7 +1796,19 @@ function Index(props) {
           return
         }
       }
+      if (
+        dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
+        dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
+      ) {
+        toastMessage = `Please select month Of Loading Cargo  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
+        }
+      }
     }
+    
     if (key == 'Product Specifications') {
       console.log('this14')
       dataToSend = {
@@ -1826,6 +1852,7 @@ function Index(props) {
          list.push({
           agreementName: val.name,
           comment: val.comment,
+          dateOfExecution:val.dateOfExecution,
          
           isSubmitted: true,
         })
@@ -1836,6 +1863,7 @@ function Index(props) {
         genericId: props.genericData?._id,
         additionalComments: {
            comments: list,
+           
            isSubmitted: true,
         },
       }
@@ -2385,6 +2413,7 @@ function Index(props) {
           name: data.cmaData.name,
           shortName: data.cmaData.shortName,
           gstin: data.cmaData.gstin,
+          designatedStorageArea:data.cmaData.designatedStorageArea,
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
            isSubmitted: false,
@@ -2393,6 +2422,7 @@ function Index(props) {
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
+          designatedStorageArea:data.cmaData.designatedStorageArea,
         shortName: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
@@ -2474,11 +2504,13 @@ function Index(props) {
         genericId: props.genericData?._id,
         deliveryTerms: {
           deliveryTerm: data.deliveryData,
+           monthOfLoadingCargo: data.monthOfLoadingCargo,
            isSubmitted: false,
         },
       }
       let dataToSend2 = {
         deliveryTerms: data.deliveryData,
+        monthOfLoadingCargo: data.monthOfLoadingCargo,
       }
 
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
@@ -2507,6 +2539,7 @@ function Index(props) {
          list.push({
           agreementName: val.name,
           comment: val.comment,
+          dateOfExecution:val.dateOfExecution,
          
           isSubmitted: false,
         })
@@ -2517,6 +2550,7 @@ function Index(props) {
         genericId: props.genericData?._id,
         additionalComments: {
            comments: list,
+           
            
         },
       }

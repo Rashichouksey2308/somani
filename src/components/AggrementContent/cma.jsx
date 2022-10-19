@@ -7,7 +7,7 @@ let cma = {
   "name": "Dr. Amin Controllers Private Limited",
   "shortName": "",
   "gstin": "27AAACA3912A2ZE",
-   "designatedStorageArea":""
+  "designatedStorageArea":""
   
  
 
@@ -90,7 +90,7 @@ const cancelAddress=()=>{
           "name": savedData.name || "Dr. Amin Controllers Private Limited",
           "shortName": savedData.shortName,
           "gstin": savedData.gstin ||"27AAACA3912A2ZE",
-          "designatedStorageArea":"",
+          "designatedStorageArea":savedData.designatedStorageArea,
 
           "addresses": savedData.addresses,
           "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
@@ -123,7 +123,7 @@ const cancelAddress=()=>{
           "name": props.data?.name || "Dr. Amin Controllers Private Limited",
           "shortName": props.data?.shortName,
           "gstin": props.data?.gstin||"27AAACA3912A2ZE",
-          "designatedStorageArea":"",
+          "designatedStorageArea":props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           "addresses": props.data?.addresses,
           "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
 
