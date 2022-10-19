@@ -95,7 +95,7 @@ function Index(props) {
         let exe;
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "TPA (CMA)") {
             exe = val.place
             if (val.dateOfExecution) {
               dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
@@ -104,7 +104,7 @@ function Index(props) {
         })
       let comment=[]
          data?.additionalComments?.comments?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "TPA (CMA)") {
               comment.push(val.comment)
           }
         })
@@ -131,7 +131,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -148,6 +148,9 @@ function Index(props) {
           incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank:data?.financingBank?.name,
           financialAddress:"",
+          cma:data?.CMA?.name,
+          cmaAddress:"Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba",
+          cmaAuthorized:_get(data,"CMA.authorisedSignatoryDetails",[]),
         })
       }
     }
@@ -320,15 +323,27 @@ const tpaSeller=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>{data.cma}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Address of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>{data.cmaAddress}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Authorized Signatory of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>
+            <ol>
+          {
+            data?.cmaAuthorized?.length > 0 && data?.cmaAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
+        </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Designated Storage Area</Col>
@@ -336,11 +351,11 @@ const tpaSeller=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>{data?.detailsOfComm}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods</Col>
-        <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT</Col>
+        <Col md={7 } className={styles.right}>{data?.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>

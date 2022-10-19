@@ -89,13 +89,16 @@ function Index({ shareHolding }) {
     return item.type === 'EquityShares1Member'
   })
   let equityShareNo = []
+  let equityShareName = []
 
   const topEquityValues = equityCapital()?.sort(
     (a, b) => b.numberOfShares - a.numberOfShares,
   )
     .slice(0, 5)
     .forEach((item) => {
+      console.log(item,"item")
       equityShareNo.push(item.numberOfShares)
+      equityShareName.push(item.fullName)
     })
   equityCapital()?.forEach((equity) => {
     totalEquityShare += equity.numberOfShares
@@ -108,12 +111,14 @@ function Index({ shareHolding }) {
     return !item.type === 'EquityShares1Member'
   })
   const topprefrencesShareNo = []
+  let topprefrencesShareName = []
 
 
   const topPrefrenceValues = prefrenceCapital()
     ?.sort((a, b) => b.numberOfShares - a.numberOfShares)?.slice(0, 5)
     ?.forEach((item) => {
       topprefrencesShareNo.push(item.numberOfShares)
+      topprefrencesShareName.push(item.fullName)
 
     })
   prefrenceCapital()?.forEach((item) => {
@@ -131,10 +136,10 @@ function Index({ shareHolding }) {
   // const equityShare1 = equityCapital()?.slice(0, 5)
   console.log(equityShareNo, 'equityCapital')
   const equitydata = {
-    labels: ['Sail', 'Jindal Grou', 'SR Steel'],
+    labels: equityShareName,
     datasets: [
       {
-        label: '',
+        
         data: equityShareNo,
 
         backgroundColor: [
@@ -144,24 +149,41 @@ function Index({ shareHolding }) {
           '#800000',
           '#00FF00',
         ],
-        hoverOffset: 4,
-        hoverBorderWidth: 70,
-        hoverBackgroundColor: 'red',
+      
+      hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
+      hoverBorderWidth: 3,
+        
+        
       },
     ],
   }
   const prefrencedata = {
-    labels: ['Sail', 'Jindal Grou', 'SR Steel'],
+    labels:topprefrencesShareName,
     datasets: [
       {
         label: '',
         data: topprefrencesShareNo,
 
-        backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
+        backgroundColor: [
+          '#4CAF50',
+          '#2884DE',
+          '#FFCE00',
+          '#800000',
+          '#00FF00',
+        ],
+      
+      hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
+      hoverBorderWidth: 3,
       },
     ],
   }
   const options = {
+    aspectRatio: 1,
+  elements: {
+      arc: {
+        borderWidth: 0,
+      },
+    },
     plugins: {
       legend: {
         display: false
@@ -184,6 +206,12 @@ function Index({ shareHolding }) {
         },
       },
     },
+     
+   tooltip: {
+         titleFontSize: 50,
+          bodyFontSize: 50
+        
+      },
 
     responsive: true,
     cutout: 100,
@@ -278,31 +306,21 @@ function Index({ shareHolding }) {
                               data={equitydata}
                               ref={chartRef}
                               options={options}
-                              onClick={(e) => {
-                                onClickEvent(e)
-                              }}
-                              getElementAtEvent={(data) => {
-                                console.log('data')
-                                if (data.length >= 1) {
-                                  // redirect or do stuff
-                                }
-                              }}
-                              onElementsClick={(e) => {
-                                onClickEvent(e)
-                              }}
+                            
+                              
                             />
-                            <div className={`${styles.total_value} `}>
-                              {/* <span className={styles.headSpan}>
+                            {/* <div className={`${styles.total_value} `}>
+                              <span className={styles.headSpan}>
                                 {shareHolding
                                   ? shareHolding[0]?.fullName ?? 'Name'
                                   : ''}
-                              </span> */}
-                              {/* <span className={styles.subSpan}>{`${shareHolding
+                              </span>
+                              <span className={styles.subSpan}>{`${shareHolding
                                   ? shareHolding[0]?.percentageShareHolding ??
                                   '0'
                                   : ''
-                                }%`}</span> */}
-                            </div>
+                                }%`}</span>
+                            </div> */}
                           </div>
                         </th>
                         <th width="5%" className='border_color'></th>
