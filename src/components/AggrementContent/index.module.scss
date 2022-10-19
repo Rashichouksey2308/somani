@@ -1029,13 +1029,13 @@ img {
       margin-bottom: 0px !important;
     }
     textarea {
-      width: 90%;
+      max-width: 90%;
       outline: none;
       // border: none;
       margin-bottom: 0px !important;
     }
     div {
-      width: 10%;
+      min-width: 10%;
       img {
         // margin-right: 1rem !important;
         margin-bottom: 0rem !important;
