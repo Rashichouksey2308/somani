@@ -494,6 +494,7 @@ function Index(props) {
           pan={_get(companyData, 'profile.companyDetail.pans[0]', '')}
           gstList={_get(orderList, 'company.gstList', [])}
           selectedGST={_get(orderList, 'company.GST', '')}
+          address={props?.genericData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
         />
       )
     }

@@ -833,6 +833,63 @@ function Index({
                         />
                       </div>
                     </div>
+
+                    <div
+                  className={`${styles.dashboard_form} border_color`}
+                  style={{ borderBottom: '2px solid #CAD6E6', marginLeft:'-38px' }}
+                >
+                  <div className={styles.doc_card}>
+                    <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
+                      <div className="d-flex">
+                        <div className={`${styles.number}`}>1.</div>
+                        <h5>PRODUCT SPECIFICATION</h5>
+                      </div>
+                      {/* <div className="mt-3">
+                        <img
+                          src="/static/mode_edit.svg"
+                          className={`${styles.image} ml-4`}
+                          alt="edit"
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="ml-4"
+                          alt="delete"
+                        />
+                      </div> */}
+                    </div>
+                  </div>
+                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr className="table_row">
+                              {excelFile &&
+                                excelFile.length > 0 &&
+                                Object.keys(excelFile[0]).map((val, index) => (
+                                  <th key={index}>{val}</th>
+                                ))}
+                            </tr>
+                            {excelFile &&
+                              excelFile.length > 0 &&
+                              excelFile.map((item, index) => (
+                                <tr>
+                                  {Object.values(item).map((value, id) => (
+                                    <td key={id}>{value}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                     {lcComments?.map((comment, index) => (
                       <div
                         key={index}
@@ -887,62 +944,7 @@ function Index({
                     ))}
                   </div>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} border_color`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
-                  <div className={styles.doc_card}>
-                    <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
-                      <div className="d-flex">
-                        <div className={`${styles.number}`}>1.</div>
-                        <h5>PRODUCT SPECIFICATION</h5>
-                      </div>
-                      {/* <div className="mt-3">
-                        <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.image} ml-4`}
-                          alt="edit"
-                        />
-                        <img
-                          src="/static/delete 2.svg"
-                          className="ml-4"
-                          alt="delete"
-                        />
-                      </div> */}
-                    </div>
-                  </div>
-                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr className="table_row">
-                              {excelFile &&
-                                excelFile.length > 0 &&
-                                Object.keys(excelFile[0]).map((val, index) => (
-                                  <th key={index}>{val}</th>
-                                ))}
-                            </tr>
-                            {excelFile &&
-                              excelFile.length > 0 &&
-                              excelFile.map((item, index) => (
-                                <tr>
-                                  {Object.values(item).map((value, id) => (
-                                    <td key={id}>{value}</td>
-                                  ))}
-                                </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+             
                 <div
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
