@@ -136,7 +136,7 @@ function Index(props) {
 
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== "Yes" ? "Full" : "Partial"}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
