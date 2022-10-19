@@ -73,9 +73,21 @@ export default function Index({
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
-      consigneeName: '',
-      consigneeBranch: '',
-      consigneeAddress: '',
+      consigneeName: _get(
+        TransitDetails,
+        `data.data[0].order.marginMoney.invoiceDetail.importerName`,
+        '',
+      ),
+      consigneeBranch: _get(
+        TransitDetails,
+        `data.data[0].order.marginMoney.invoiceDetail.branch`,
+        '',
+      ),
+      consigneeAddress: _get(
+        TransitDetails,
+        `data.data[0].order.marginMoney.invoiceDetail.buyerAddress`,
+        '',
+      ),
     },
     igmDetails: [
       {
@@ -746,7 +758,7 @@ export default function Index({
                           width={13} alt="delete" />{' '}
                         Delete
                       </button>
-                    ) : null} 
+                    ) : null}
                   </div>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>

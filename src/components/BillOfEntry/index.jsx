@@ -38,7 +38,7 @@ export default function Index({
 
 
 
-  console.log(customClearance, 'this is custom doc')
+  console.log(customData, 'this is custom doc')
   console.log(dutyData, 'dutyData')
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
@@ -46,8 +46,8 @@ export default function Index({
   }, [dispatch])
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
-    pdBond: true,
-    billOfEntryFor: '',
+    pdBond: false,
+    billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
     boeNumber: '',
     boeDate: '',
 
@@ -701,12 +701,12 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {Number(customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity)?.toLocaleString(
+                    {customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity ? Number(customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity)?.toLocaleString(
                       'en-IN',
                       {
                         maximumFractionDigits: 2,
                       },
-                    )}{' '} {customData?.order?.unitOfQuantity?.toUpperCase()}
+                    ) : ''}{' '} {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -1297,11 +1297,7 @@ export default function Index({
                             <strong className="text-danger ml-n1">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {moment(
-                              bl?.blDate?.slice(0, 10),
-                              'YYYY-MM-DD',
-                              true,
-                            ).format('DD-MM-YYYY')}
+                            {bl?.blDate ? moment(bl?.blDate).format('DD-MM-YYYY') : ''}
                           </span>
                         </div>
                         <div

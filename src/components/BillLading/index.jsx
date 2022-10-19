@@ -119,8 +119,7 @@ export default function Index({
     useState(null)
 
   const [lastDate, setlastDate] = useState(new Date())
-  // console.log(bolList, existingBlData, 'existingBlData')
-  // console.log(bolList, existingBlData, 'existingBlData')
+
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
@@ -696,7 +695,7 @@ export default function Index({
                   <span className={styles.value}>
                     {convertValue(_get(
                       TransitDetails,
-                      'data[0].order.orderValue',
+                      'data[0].order.marginMoney.calculation.orderValue',
                       '',
                     ))?.toLocaleString('en-IN', { maximumFractionDigits: 2 })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==

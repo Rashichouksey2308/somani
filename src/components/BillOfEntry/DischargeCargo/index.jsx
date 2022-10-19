@@ -41,7 +41,7 @@ export default function Index({
   const handleShow = () => setShow(true)
 
   let shipmentTypeBulk =
-    _get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Bulk'
+    _get(customData, `order.vessel.vessels[0].shipmentType`, '').toLowerCase() === 'bulk'
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
@@ -767,7 +767,7 @@ export default function Index({
                 <tr className="table_row">
                   <th width="25%">BL NUMBER</th>
                   <th width="25%">BL DATE</th>
-                  <th width="25%">NO. OF CONTAINERS</th>
+                 {!shipmentTypeBulk && <th width="25%">NO. OF CONTAINERS</th>}
                   <th width="25%">BL QUANTITY</th>
                 </tr>
                 {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
@@ -775,18 +775,14 @@ export default function Index({
                     <tr className="table_row " key={indexbl}>
                       <td className="font-weight-bold">{bl?.blNumber}</td>
                       <td>
-                        {moment(
-                          bl?.blDate?.slice(0, 10),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')}
+                        {bl?.blDate ? moment(bl?.blDate).format('DD-MM-YYYY') : ''}
                       </td>
-                      <td>
-                        {bl?.blQuantity
-                          ? Number(bl?.blQuantity)?.toLocaleString('en-In')
-                          : ''}{' '}
-                        {/* {customData?.order?.unitOfQuantity} */}
-                      </td>
+                  {!shipmentTypeBulk &&  <td>
+                      {bl?.blQuantity
+                        ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                        : ''}{' '}
+                      {/* {customData?.order?.unitOfQuantity} */}
+                    </td>}
                       <td>
                         {bl?.blQuantity
                           ? Number(bl?.blQuantity)?.toLocaleString('en-In')
