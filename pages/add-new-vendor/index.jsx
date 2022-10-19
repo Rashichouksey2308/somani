@@ -33,7 +33,7 @@ function Index() {
         </div>
       
       </Card.Header>
-      <AddNewInternal/>
+      <AddNewVendor/>
       </div>
     </Card>
   )
