@@ -22,10 +22,12 @@ import { convertValue } from '../../../src/utils/helper'
 function Index() {
   const dispatch = useDispatch()
 
+
   useEffect(() => {
     let id = sessionStorage.getItem('letterId')
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
   }, [dispatch])
+
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -66,9 +68,7 @@ function Index() {
     }
   }
   dispatch(setPageName('insurance Request Letter'))
-  dispatch(
-    setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
-  )
+  dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   const exportPDF = () => {
@@ -128,7 +128,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left',
+                              float: 'left'
                             }}
                           >
                             <span
@@ -155,7 +155,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left',
+                              float: 'left'
                             }}
                           >
                             <span
@@ -168,7 +168,9 @@ function Index() {
                             >
                               Date:{' '}
                             </span>
-                            {moment(new Date()).format('DD.MM.yyyy')}
+                            {moment(new Date()).format(
+                              'DD.MM.yyyy',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -796,12 +798,10 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.laycanFrom,
-                            ).format('DD MMM')}{' '}
+                              insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
                             -{' '}
                             {moment(
-                              insuranceData?.quotationRequest?.laycanTo,
-                            ).format('DD MMM, YYYY')}
+                              insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -842,10 +842,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(
-                              insuranceData?.quotationRequest
-                                ?.expectedTimeOfDispatch,
-                            ).format('DD MMMM , YYYY')}
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -886,10 +883,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(
-                              insuranceData?.quotationRequest
-                                ?.expectedTimeOfArrival,
-                            ).format('DD MMMM , YYYY')}
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -1147,7 +1141,9 @@ function Index() {
                   {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
                     'DD.MM.yyyy',
                   )} */}
-                  {moment(new Date()).format('DD.MM.yyyy')}
+                  {moment(new Date()).format(
+                    'DD.MM.yyyy',
+                  )}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -1376,13 +1372,11 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.laycanFrom).format(
-                      'DD MMM',
-                    )}{' '}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
                     -{' '}
-                    {moment(insuranceData?.quotationRequest?.laycanTo).format(
-                      'DD MMM, YYYY',
-                    )}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1395,9 +1389,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfDispatch,
-                    ).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1410,9 +1402,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfArrival,
-                    ).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1425,8 +1415,7 @@ function Index() {
                     Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Loading,
-                    Unloading, Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1439,11 +1428,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} , <br></br>{' '}
-                    {
-                      insuranceData?.company?.detailedCompanyInfo?.profile
-                        ?.companyDetail?.registeredAddress
-                    }
+                    {insuranceData?.company?.companyName} , <br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
