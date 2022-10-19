@@ -27,6 +27,7 @@ export default function Index({
   setComponentId,
   componentId,
 }) {
+
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
@@ -37,13 +38,11 @@ export default function Index({
   const { customClearance } = useSelector((state) => state.Custom)
 
 
-
-  console.log(customData, 'this is custom doc')
-  console.log(dutyData, 'dutyData')
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
+
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
     pdBond: false,
@@ -75,7 +74,9 @@ export default function Index({
     document2: null,
     document3: null,
   })
+
   console.log(billOfEntryData, 'billOfEntryData')
+
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
@@ -86,8 +87,8 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData, 'boeDetails')
-  console.log(customData, 'sdasd')
+
+
   const uploadDoc1 = async (e) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
