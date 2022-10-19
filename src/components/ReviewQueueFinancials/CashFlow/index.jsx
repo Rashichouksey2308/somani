@@ -221,7 +221,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
-                          previousBalanceData
+                          previousYearData
                             ?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
                           lastYearData?.cashFlowsFromUsedInInvestingActivities
@@ -343,7 +343,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           latestYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
-                          previousBalanceData
+                          previousYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           lastYearData

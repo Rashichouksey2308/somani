@@ -336,9 +336,10 @@ function Index() {
   // },[documentsFetched])
 
   const rtrnChartIndiaction = (latest, previous, last) => {
-    console.log(latest, previous, last, 'latest, previous, last')
+    console.log(latest, previous, last, 'latest, previous, last', 'MAIN')
 
     if (last < previous && previous < latest) {
+      console.log(latest, previous, last, 'latest, previous, last', 'PROFIT')
       return (
         <img
           src="/static/trend-green-321.svg"
@@ -348,6 +349,7 @@ function Index() {
       )
     }
     if (last > previous && previous < latest) {
+      console.log(latest, previous, last, 'latest, previous, last', 'PROFIT1')
       return (
         <img
           src="/static/trend-green-312.svg"
@@ -358,6 +360,7 @@ function Index() {
     }
     ////doubt
     if (last == previous && previous < latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '2')
       return (
         <img
           src="/static/trend-green-311.svg"
@@ -366,7 +369,14 @@ function Index() {
         />
       )
     }
+    if(last == previous && previous > latest){
+      console.log(latest, previous, last, 'latest, previous, last', 'LOSS')
+      return (
+        <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
+      )
+    }
     if (last < previous && previous > latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '3')
       return (
         <img
           src="/static/trend-orange-212.svg"
@@ -376,6 +386,7 @@ function Index() {
       )
     }
     if (last > previous && previous < latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '4')
       return (
         <img
           src="/static/trend-orange-121.svg"
@@ -385,7 +396,8 @@ function Index() {
       )
     }
     ////////doubt
-    if (last === previous && previous === latest) {
+    if (last == previous && previous == latest && last != undefined) {
+      console.log(latest, previous, last, 'latest, previous, last', '5')
       return (
         <img
           src="/static/trend-orange-121.svg"
@@ -396,6 +408,7 @@ function Index() {
     }
 
     if (last > previous && previous > latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '6')
       return (
         <img
           src="/static/trend-red-123.svg"
@@ -406,6 +419,7 @@ function Index() {
     }
     /////doubt
     if (last > previous && previous > latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '7')
       return (
         <img
           src="/static/trend-red-121.svg"
@@ -415,9 +429,14 @@ function Index() {
       )
     }
     if (last > previous && previous > latest) {
+      console.log(latest, previous, last, 'latest, previous, last', '8')
       return (
         <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
       )
+    }
+    if((last == '' && last == undefined) || (latest == '' && latest == undefined)  ){
+      console.log(latest, previous, last, 'latest, previous, last', 'KHAALI')
+      return <img src='' />
     }
 
     // if (latest > previous && previous > last) {
