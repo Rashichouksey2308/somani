@@ -1128,7 +1128,7 @@ const associateShip = (data) => {
         <p className="text-center text_sales"> <strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p>
         <p className="text_sales">This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
         <p className="text_sales"> <b>{data.buyer}</b>, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at <b>{data.buyerAddress}</b>, through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.</p>
-        <p className=" text-center text_sales">And</p>
+        <p className=" text-center text_sales">AND</p>
         <p className="text_sales">Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "<strong>Associate Buyer</strong>") of the other Part.</p>
         <p className="text_sales"><b>{data.shortbuyer}</b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.</p>
         <p className="  text_sales"><strong>Recitals</strong></p>
@@ -1304,7 +1304,7 @@ const associateShip = (data) => {
             <p className="text_sales">Title to the Goods shall be deemed to have been transferred to the Associate Buyer and the Goods shall be deemed to be sold and delivered to the Associate Buyer only upon receipt by the Seller of the entire contract value from the Associate Buyer. It is clarified that the Seller shall retain full legal ownership in the Goods, to secure the Associate buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value. All risk of loss or damage thereto shall pass to the Associate Buyer as per Incoterms 2020.</p>
           </li>
           <li>
-            <p className={`${styles.oderListParent_Head}`}>.	 Exchange Rate and Exchange Risk</p>
+            <p className={`${styles.oderListParent_Head}`}>Exchange Rate and Exchange Risk</p>
             <p className="text_sales">Seller will take forward cover from its Bank, in consultation with Associate Buyer, at the cost and risk of Associate Buyer. The exchange rate so decided, shall be acceptable to Associate Buyer.</p>
           </li>
           <li>

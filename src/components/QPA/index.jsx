@@ -332,39 +332,39 @@ obtaining gate passes,
         <Col md={5} className={`${styles.left} border_black`}>Name of CMA Agent</Col>
         <Col md={7 } className={styles.right}>{data.cma}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Address of CMA Agent</Col>
         <Col md={7 } className={styles.right}>{data.cmaAddress}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Signatory of CMA Agent</Col>
         <Col md={7 } className={styles.right}></Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Commodity Details</Col>
         <Col md={7 } className={styles.right}>{data.detailsOfComm}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
         <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplier}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Details of Vessel</Col>
         <Col md={7 } className={styles.right}>{data.vessel}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Port of Loading</Col>
         <Col md={7 } className={styles.right}>{data.lordPort}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Port of Discharge</Col>
         <Col md={7 } className={styles.right}>{data.dischargePort}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} ${styles.last} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Storage Plot allotted to IGI</Col>
         <Col md={7 } className={styles.right}></Col>
       </Row>
