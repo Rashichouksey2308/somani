@@ -1191,13 +1191,13 @@ function Index() {
                             >
                               T
                             </span>
-                            <span style={{marginRight: '10px'}}>Additional Amount Per SPDC (INR)</span>
+                            <span style={{marginRight: '10px'}}>Amount per SPDC (INR)</span>
                             <span
                               style={{
                                 fontWeight: 'bold'                                
                               }}
                             >
-                              [(S-Previous Value)/I)]
+                              [(S/H)]
                             </span>
                           </p>
                         </td>

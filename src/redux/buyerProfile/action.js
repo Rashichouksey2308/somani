@@ -159,7 +159,7 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken }
+  let headers = { authorization: jwtAccessToken }
   try {
     dispatch(searchLeads())
     Axios.get(`${API.corebaseUrl}${API.search}${payload}`, {
@@ -194,7 +194,7 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
       headers: headers,
@@ -281,7 +281,7 @@ export const UpdateOrderShipment =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
         headers: headers,
@@ -361,7 +361,7 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     Axios.get(
       `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
       {
@@ -398,7 +398,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.put(
       `${API.corebaseUrl}${API.gettermsheet}`,
