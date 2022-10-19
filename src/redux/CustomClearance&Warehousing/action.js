@@ -146,6 +146,8 @@ export const UpdateCustomClearance =
       )
       if (response.data.code === 200) {
         // dispatch(GetAllCustomClearance(`?customClearanceId=${CustomId}`))
+        let id = sessionStorage.getItem('customId')
+        dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
         dispatch(updateCustomClearanceSuccess(response.data.data))
 
         let toastMessage = 'updated  SUCCESSFULLY'
