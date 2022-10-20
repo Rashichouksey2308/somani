@@ -114,7 +114,6 @@ function Index() {
                   id="textInput"
                   name="email"
                   className={`${styles.input_field} border_color input form-control`}
-                  required
                 />
                 <label
                   className={`${styles.label_heading} label_heading`}
@@ -129,13 +128,13 @@ function Index() {
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="password"
-                  required
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
                   Password<strong className="text-danger">*</strong>
                 </label>
               </div>
+
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
@@ -228,9 +227,8 @@ function Index() {
                   <select
                     name="callingCode"
                     id="Code"
-                    className={`${styles.code_phone} border_color input border-right-0`}
+                    className={`${styles.code_phone} input border-right-0`}
                   >
-                    <option>Select an option</option>
                     <option>+91</option>
                     <option>+1</option>
                     <option>+92</option>
@@ -242,14 +240,14 @@ function Index() {
                     id="textNumber"
                     name="phoneNumber"
                     className={`${styles.input_field}  input form-control border-left-0`}
-                    required
+                    
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
                     id="textNumber"
                   >
-                    Phone Number
-                    <strong className="text-danger">*</strong>
+                    Whatsapp Number (Optional)
+                  
                   </label>
                 </div>
               </div>

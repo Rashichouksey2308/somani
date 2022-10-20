@@ -527,25 +527,27 @@ const addDoc=(e,index)=>{
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form} border_color`}>
           <div className="row border_color ">
-       <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
-              <Form.Control
-                className={`${styles.input_field} input form-control`}
-                required
-                type="text"
-                name="name"
-                value={seteveState.name}
-                onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-                Name<strong className="text-danger">*</strong>
-              </Form.Label>
+            <Form.Group className={`${styles.form_group} d-flex col-md-8 col-sm-6`}>
+              <div className="d-flex align-items-center">
+                <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="name"
+                  value={seteveState.name}
+                  onChange={(e) => {
+                    handleInput(e.target.name,e.target.value)
+                  }}
+                />
+                <Form.Label className={`${styles.label_heading} label_heading`}>
+                  Name<strong className="text-danger">*</strong>
+                </Form.Label>
                 <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
                   />
+              </div>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
@@ -563,7 +565,7 @@ const addDoc=(e,index)=>{
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className='d-flex'>
+              <div className='d-flex align-items-center'>
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="gstin"
@@ -637,7 +639,7 @@ const addDoc=(e,index)=>{
           <div className="card-body p-0">
             <div className={`${styles.newAddressContent} row`}>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="addressType"
@@ -687,7 +689,10 @@ const addDoc=(e,index)=>{
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -729,7 +734,7 @@ const addDoc=(e,index)=>{
               </>
               :<>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="gstin"
@@ -758,7 +763,10 @@ const addDoc=(e,index)=>{
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   value={newAddress.pinCode}
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -1016,7 +1024,10 @@ const addDoc=(e,index)=>{
                             <input
                              value={val.phoneNo}
                               className='input'
-                              type="number"
+                               type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
@@ -1075,7 +1086,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className='d-flex align-items-center'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
@@ -1125,7 +1136,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -1167,7 +1181,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                     </>
                     :<>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className='d-flex align-items-center'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="gstin"
@@ -1196,7 +1210,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 

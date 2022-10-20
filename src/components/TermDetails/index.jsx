@@ -196,6 +196,9 @@ const Index = ({
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 //  value={termsheetDetails?.commodityDetails?.quantity}
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
                     (e.target.type = 'number')
@@ -208,9 +211,9 @@ const Index = ({
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
                     : Number(
-                        termsheetDetails?.commodityDetails?.quantity,
-                      ).toLocaleString('en-In') +
-                      ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
+                      termsheetDetails?.commodityDetails?.quantity,
+                    ).toLocaleString('en-In') +
+                    ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.quantity,
@@ -237,6 +240,9 @@ const Index = ({
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, unitPrice: true }),
                     (e.target.type = 'number')
@@ -249,9 +255,12 @@ const Index = ({
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                      Number(
-                        termsheetDetails?.commodityDetails?.perUnitPrice,
-                      )?.toLocaleString('en-In')
+                    Number(
+                      termsheetDetails?.commodityDetails?.perUnitPrice,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    })
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
@@ -260,14 +269,16 @@ const Index = ({
                 //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                 //   'front',
                 // )}
-                onChange={(e) => {
-                  let temp = e.target.value.replace(/[^\w\s]/gi, '')
-                  if (temp == '_') {
-                    temp = ''
-                  }
-                  e.target.value = temp
-                  onChangeCommodityDetails(e)
-                }}
+                // onChange={(e) => {
+                //   let temp = e.target.value.replace(/[^\w\s]/gi, '')
+                //   if (temp == '_') {
+                //     temp = ''
+                //   }
+                //   e.target.value = temp
+                //   onChangeCommodityDetails(e)
+                // }}
+                onChange={onChangeCommodityDetails}
+
                 type="text"
                 required
               />
@@ -279,10 +290,13 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div
                 className={`${styles.suffixWrapper} d-flex text-muted`}
-                // customSuffix="%"
+              // customSuffix="%"
               >
                 <input
                   id="tolerance"
+                  onWheel={(event) =>
+                    event.currentTarget.blur()
+                  }
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
                       (e.target.type = 'number')
@@ -295,13 +309,13 @@ const Index = ({
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
                       : '±' +
-                        Number(
-                          termsheetDetails?.commodityDetails?.tolerance,
-                        )?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) +
-                        ` %`
+                      Number(
+                        termsheetDetails?.commodityDetails?.tolerance,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) +
+                      ` %`
                   }
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
@@ -345,6 +359,7 @@ const Index = ({
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
+
                 // onFocus={(e) => {
                 //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: true }),
                 //     e.target.type = 'number'
@@ -359,7 +374,8 @@ const Index = ({
                 //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
                 // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                className={`${styles.value} input form-control`}
+                className={`${styles.value} input form-control`
+                }
                 onChange={onChangeTransactionDetails}
                 required
               />
@@ -376,6 +392,9 @@ const Index = ({
                 id="marginMoney"
                 className={`${styles.value} ${styles.marginPercent} input form-control`}
                 type="text"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, marginMoney: true }),
                     (e.target.type = 'number')
@@ -388,8 +407,8 @@ const Index = ({
                   isFieldInFocus.marginMoney
                     ? termsheetDetails?.transactionDetails?.marginMoney
                     : Number(
-                        termsheetDetails?.transactionDetails?.marginMoney,
-                      ).toLocaleString() + ` %`
+                      termsheetDetails?.transactionDetails?.marginMoney,
+                    ).toLocaleString() + ` %`
                 }
                 // defaultValue={termsheetDetails?.transactionDetails?.marginMoney}
                 // value={addPrefixOrSuffix(
@@ -569,7 +588,7 @@ const Index = ({
                     Select an option
                   </option>
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                  'Yes' ? (
+                    'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -682,8 +701,8 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            'true'|| termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            true ? (
+              'true' || termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
+              true ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -806,14 +825,17 @@ const Index = ({
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 type="number"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
@@ -826,6 +848,9 @@ const Index = ({
                 id="daysFromVesselDischargeDate"
                 className={`${styles.value} input form-control`}
                 type="number"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
@@ -837,8 +862,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
@@ -861,6 +886,9 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
@@ -879,8 +907,8 @@ const Index = ({
                   isFieldInFocus.tradeMarginPercentage
                     ? termsheetDetails.commercials?.tradeMarginPercentage
                     : Number(
-                        termsheetDetails.commercials?.tradeMarginPercentage,
-                      ).toLocaleString() + ` %`
+                      termsheetDetails.commercials?.tradeMarginPercentage,
+                    ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails.commercials?.tradeMarginPercentage?.toString(),
@@ -921,6 +949,9 @@ const Index = ({
                 //   'USD',
                 //   'front',
                 // )}
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
@@ -944,8 +975,8 @@ const Index = ({
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
                     : Number(
-                        termsheetDetails?.commercials?.lcOpeningChargesUnit,
-                      ).toLocaleString('en-In')
+                      termsheetDetails?.commercials?.lcOpeningChargesUnit,
+                    ).toLocaleString('en-In')
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -962,6 +993,9 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
@@ -980,9 +1014,9 @@ const Index = ({
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
                     : Number(
-                        termsheetDetails?.commercials
-                          ?.lcOpeningChargesPercentage,
-                      ).toLocaleString('en-In') + ` %`
+                      termsheetDetails?.commercials
+                        ?.lcOpeningChargesPercentage,
+                    ).toLocaleString('en-In') + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),
@@ -1008,6 +1042,9 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
@@ -1026,8 +1063,8 @@ const Index = ({
                   isFieldInFocus.usanceInterestPercetage
                     ? termsheetDetails?.commercials?.usanceInterestPercetage
                     : Number(
-                        termsheetDetails?.commercials?.usanceInterestPercetage,
-                      ).toLocaleString() + ` %`
+                      termsheetDetails?.commercials?.usanceInterestPercetage,
+                    ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.usanceInterestPercetage?.toString(),
@@ -1053,6 +1090,9 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
+                onWheel={(event) =>
+                  event.currentTarget.blur()
+                }
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
@@ -1071,8 +1111,8 @@ const Index = ({
                   isFieldInFocus.overDueInterestPerMonth
                     ? termsheetDetails?.commercials?.overDueInterestPerMonth
                     : Number(
-                        termsheetDetails?.commercials?.overDueInterestPerMonth,
-                      ).toLocaleString() + ` %`
+                      termsheetDetails?.commercials?.overDueInterestPerMonth,
+                    ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.overDueInterestPerMonth?.toString(),

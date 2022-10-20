@@ -28,9 +28,10 @@ function Index({
   lcModuleData,
   editLcComments,
   editLcDocComments,
-  name
+  name,
+
 }) {
-  console.log(lcData, 'lcCondition12234')
+  console.log(lcModuleData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -191,7 +192,7 @@ function Index({
                               Select an option
                             </option>
                             <option value="First Class European Bank">
-                             First Class European Bank
+                              First Class European Bank
                             </option>
                             <option value="Reserve Bank of Spain">
                               Reserve Bank of Spain
@@ -289,9 +290,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : `USD ` +  (Number(
-                                  lcData?.currecyCodeAndAmountValue,
-                              ).toLocaleString(undefined, {  maximumFractionDigits: 2,})) 
+                              : `${lcModuleData?.order?.orderCurrency} ` + (Number(
+                                lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(lcModuleData?.order?.orderCurrency?.toLowerCase() === 'inr' ? 'en-In' : undefined, { maximumFractionDigits: 2, }))
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(
@@ -473,6 +474,9 @@ function Index({
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              onWheel={(event) =>
+                                event.currentTarget.blur()
+                              }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
@@ -829,6 +833,63 @@ function Index({
                         />
                       </div>
                     </div>
+
+                    <div
+                  className={`${styles.dashboard_form} border_color`}
+                  style={{ borderBottom: '2px solid #CAD6E6', marginLeft:'-38px' }}
+                >
+                  <div className={styles.doc_card}>
+                    <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
+                      <div className="d-flex">
+                        <div className={`${styles.number}`}>1.</div>
+                        <h5>PRODUCT SPECIFICATION</h5>
+                      </div>
+                      {/* <div className="mt-3">
+                        <img
+                          src="/static/mode_edit.svg"
+                          className={`${styles.image} ml-4`}
+                          alt="edit"
+                        />
+                        <img
+                          src="/static/delete 2.svg"
+                          className="ml-4"
+                          alt="delete"
+                        />
+                      </div> */}
+                    </div>
+                  </div>
+                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr className="table_row">
+                              {excelFile &&
+                                excelFile.length > 0 &&
+                                Object.keys(excelFile[0]).map((val, index) => (
+                                  <th key={index}>{val}</th>
+                                ))}
+                            </tr>
+                            {excelFile &&
+                              excelFile.length > 0 &&
+                              excelFile.map((item, index) => (
+                                <tr>
+                                  {Object.values(item).map((value, id) => (
+                                    <td key={id}>{value}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                     {lcComments?.map((comment, index) => (
                       <div
                         key={index}
@@ -883,62 +944,7 @@ function Index({
                     ))}
                   </div>
                 </div>
-                <div
-                  className={`${styles.dashboard_form} border_color`}
-                  style={{ borderTop: '2px solid #CAD6E6' }}
-                >
-                  <div className={styles.doc_card}>
-                    <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
-                      <div className="d-flex">
-                        <div className={`${styles.number}`}>1.</div>
-                        <h5>PRODUCT SPECIFICATION</h5>
-                      </div>
-                      {/* <div className="mt-3">
-                        <img
-                          src="/static/mode_edit.svg"
-                          className={`${styles.image} ml-4`}
-                          alt="edit"
-                        />
-                        <img
-                          src="/static/delete 2.svg"
-                          className="ml-4"
-                          alt="delete"
-                        />
-                      </div> */}
-                    </div>
-                  </div>
-                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr className="table_row">
-                              {excelFile &&
-                                excelFile.length > 0 &&
-                                Object.keys(excelFile[0]).map((val, index) => (
-                                  <th key={index}>{val}</th>
-                                ))}
-                            </tr>
-                            {excelFile &&
-                              excelFile.length > 0 &&
-                              excelFile.map((item, index) => (
-                                <tr>
-                                  {Object.values(item).map((value, id) => (
-                                    <td key={id}>{value}</td>
-                                  ))}
-                                </tr>
-                              ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+             
                 <div
                   className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}

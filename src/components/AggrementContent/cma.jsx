@@ -7,6 +7,8 @@ let cma = {
   "name": "Dr. Amin Controllers Private Limited",
   "shortName": "",
   "gstin": "27AAACA3912A2ZE",
+  "designatedStorageArea":""
+  
  
 
 
@@ -88,6 +90,7 @@ const cancelAddress=()=>{
           "name": savedData.name || "Dr. Amin Controllers Private Limited",
           "shortName": savedData.shortName,
           "gstin": savedData.gstin ||"27AAACA3912A2ZE",
+          "designatedStorageArea":savedData.designatedStorageArea,
 
           "addresses": savedData.addresses,
           "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
@@ -120,7 +123,7 @@ const cancelAddress=()=>{
           "name": props.data?.name || "Dr. Amin Controllers Private Limited",
           "shortName": props.data?.shortName,
           "gstin": props.data?.gstin||"27AAACA3912A2ZE",
-
+          "designatedStorageArea":props?.data?.designatedStorageArea || props.termsheet.transactionDetails.portOfDischarge,
           "addresses": props.data?.addresses,
           "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
 
@@ -563,6 +566,21 @@ setEditAddress(
                 />
               </div>
             </Form.Group>
+             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                value={cmaState.designatedStorageArea}
+                 name="designatedStorageArea"
+                onChange={(e) => {
+                  handleInput(e.target.name, e.target.value)
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+               Designated Storage Area<strong className="text-danger">*</strong>
+              </Form.Label>
+            </Form.Group>
           </div>
         </Form>
         <div className={`${styles.addressContainer}`}>
@@ -731,7 +749,10 @@ setEditAddress(
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="text"
                   // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -988,7 +1009,10 @@ setEditAddress(
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                             type="number"
+                              type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()

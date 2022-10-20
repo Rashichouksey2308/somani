@@ -43,16 +43,16 @@ function Index(props) {
   const getAddress = (buyer) => {
     if (buyer.name == "Indo German International Private Limited") {
       if (buyer.branch == "Delhi") {
-        return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+        return "7A, SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001"
       } else {
-        return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+        return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016"
       }
     }
     if (buyer.name == "Emergent Industrial Solution Limited") {
       if (buyer.branch == "Delhi") {
         return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
       } else {
-        return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+        return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016"
       }
     }
   }
@@ -82,13 +82,13 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          // addComm: data?.addComm,
-          addComm: [],
+          addComm: data?.addComm,
+         
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency,
+          curr: data?.curr,
           specComment: data?.specComment, 
         })
       } else {
@@ -112,12 +112,12 @@ function Index(props) {
           }
         })
 
-        console.log(dat, exe, "exedasa")
+        console.log(dat, exe,comment ,"exedasa")
 
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress: data?.seller?.name == "Indo Intertrade Ag" ? "Industriestrasse 16, Zug,6300" : "",
+          sellerAddress: data?.seller?.name == "Indo Intertrade Ag" ? "Industriestrasse 16, Zug, 6300" : "",
           buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : "",
           shortseller: data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
@@ -126,7 +126,7 @@ function Index(props) {
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
-          detailsOfEndBuyer: "",
+          detailsOfEndBuyer: data.company.companyName,
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
@@ -136,8 +136,8 @@ function Index(props) {
 
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== "Yes" ? "Full" : "Partial"}`,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -271,31 +271,31 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>9</Col>
             <Col md={4} className={`${styles.left} border_black`}>Quality / Inspection </Col>
-            <Col md={7} className={styles.right}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose.  If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and binding between Seller and Buyer for all purpose.  If any dispute arises relating but not limited to quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>10</Col>
             <Col md={4} className={`${styles.left} border_black`}>Duties and Taxes</Col>
-            <Col md={7} className={styles.right}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>All Taxes and duties, present or future, including variations thereto and other taxes shall be borne and paid by Buyer.</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>11</Col>
             <Col md={4} className={`${styles.left} border_black`}>Shipment </Col>
-            <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>Details as per Schedule 1</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>12</Col>
             <Col md={4} className={`${styles.left} border_black`}>Payment Terms </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <div> <ol type="A">
                 <li>
-                  <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</p>
+                  <p className="text_sales mb-3">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</p>
                 </li>
                 <li>
-                  <p className="text_sales">The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p>
+                  <p className="text_sales mb-3">The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p>
                 </li>
                 <li>
-                  <p className="text_sales">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
+                  <p className="text_sales mb-3">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day.
 
                   </p>
                 </li>
@@ -318,13 +318,13 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>13</Col>
             <Col md={4} className={`${styles.left} border_black`}>Insurance </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <ol type="A">
                 <li>
-                  <p className="text_sales">Marine Insurance: Seller will provide Marine Insurance as received from Shipper.  </p>
+                  <p className="text_sales mb-3">Marine Insurance: Seller will provide Marine Insurance as received from Shipper.  </p>
                 </li>
                 <li>
-                  <p className="text_sales">Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port, valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in favour of the Seller or its nominated Bank.  The Beneficiary of the Insurance Claim shall be the Seller or its nominated Bank as per Seller's instructions.</p>
+                  <p className="text_sales mb-3">Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port, valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in favour of the Seller or its nominated Bank.  The Beneficiary of the Insurance Claim shall be the Seller or its nominated Bank as per Seller's instructions.</p>
                 </li>
               </ol>
 
@@ -333,22 +333,22 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>14</Col>
             <Col md={4} className={`${styles.left} border_black`}>Shipping Terms </Col>
-            <Col md={7} className={styles.right}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent and End User with no liability upon the Seller whatsoever</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>15</Col>
             <Col md={4} className={`${styles.left} border_black`}>Title / Risk </Col>
-            <Col md={7} className={styles.right}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>16</Col>
             <Col md={4} className={`${styles.left} border_black`}>Time is the essence</Col>
-            <Col md={7} className={styles.right}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within   the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </Col>
+            <Col md={7} className={`${styles.right} text-justify`}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within   the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>17</Col>
             <Col md={4} className={`${styles.left} border_black`}>Remedies Available to the Seller</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <ol type='A'>
                 <li>
                   <p className="text_sales">In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for each day of delay.  However, the delay in making the payment shall in no event exceed 15 days beyond the due date of making the payment as specified hereinabove.
@@ -374,58 +374,60 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>18</Col>
             <Col md={4} className={`${styles.left} border_black`}>Special Conditions </Col>
-            <Col md={7} className={styles.right}>
-              <ol type="1">
+            <Col md={7} className={`${styles.right} text-justify`}>
+              <ol type="1" className='mb-0'>
                 <li>
-                  <p className="text_sales">It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods / material shall pass on to the Buyer only in respect of such specific quantity thereof as released from the storage facility by Collateral Manager in terms of the ‘Tripartite Agreement' after receipt of the price and other payables in respect thereof and actual delivery of the goods having been made to the Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Buyer in any contingency including of Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Buyer until the Goods are released and delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until the Goods are released and delivered by the Seller in accordance with this Agreement.
+                  <p className="text_sales mb-3">It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods / material shall pass on to the Buyer only in respect of such specific quantity thereof as released from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt of the price and other payables in respect thereof and actual delivery of the goods having been made to the Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Buyer in any contingency including of Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Buyer until the Goods are released and delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until the Goods are released and delivered by the Seller in accordance with this Agreement.
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller shall in no way be responsible or liable for the same.
+                  <p className="text_sales mb-3">Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller shall in no way be responsible or liable for the same.
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">The BUYER unconditionally agrees to abide by a collateral management agreement by and among “<strong>Collateral Manager</strong>”, “<strong>Financing Bank</strong>” and “<strong>Seller</strong>” and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of the Goods in accordance with the Bank's written release instructions under the Collateral Management Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence, then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any expenses incurred) without any demur or protest. The Seller shall be under obligation to issue delivery order for the quantity for which the payment has been received within one banking day.
-                  </p>
-                </li>
-              </ol>
-              <ol type="a">
-                <li>
-                  <p className="text_sales ml-n4 pl-1"><br />4. Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility is under Buyer's control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest.</p>
-                </li>
-                <li>
-                  <p className="text_sales ml-n4 pl-1"><br />5. Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods.</p>
-                </li>
-                <li>
-                  <p className="text_sales ml-n4 pl-1"><br />6. Any payment to be made by the Buyer under this contract shall be made free and clear of and without deduction or withholding for or on account of any taxes. If at any time the Buyer is required to make any deduction or withholding in respect of taxes from any payment to be made under this contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the making of such deduction or withholding, the Seller receives for such payment a net sum equal to the sum it would have received had no such deduction or withholding been made.</p>
-                </li>
-                <li>
-                  <p className="text_sales ml-n4 pl-1"><br />7. It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and payable from then onwards by the Buyer to the Seller.
+                  <p className="text_sales mb-3">The BUYER unconditionally agrees to abide by a collateral management agreement by and among “<strong>Collateral Manager</strong>”, “<strong>Financing Bank</strong>” and “<strong>Seller</strong>” and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of the Goods in accordance with the Bank's written release instructions under the Collateral Management Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence, then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any expenses incurred) without any demur or protest. The Seller shall be under obligation to issue delivery order for the quantity for which the payment has been received within one banking day.
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales ml-n4 pl-1"><br />8. The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt due and payable by the Buyer to the Seller.
-                    <span className="text_sales d-block pt-3">9. Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does not provide any comment on the statement of accounts, then such statement of accounts shall deem to be accepted by Buyer and binding on it.</span>
-                    <span className="text_sales d-block pt-3">10. The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:</span></p>
+                  <p className="text_sales mb-3">Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility is under Buyer's control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest.</p>
+                </li>
+                <li>
+                  <p className="text_sales mb-3">Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods.</p>
+                </li>
+                <li>
+                  <p className="text_sales mb-3">Any payment to be made by the Buyer under this contract shall be made free and clear of and without deduction or withholding for or on account of any taxes. If at any time the Buyer is required to make any deduction or withholding in respect of taxes from any payment to be made under this contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the making of such deduction or withholding, the Seller receives for such payment a net sum equal to the sum it would have received had no such deduction or withholding been made.</p>
+                </li>
+                <li>
+                  <p className="text_sales mb-3">It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and payable from then onwards by the Buyer to the Seller.
+                  </p>
+                </li>
+                <li>
+                  <p className="text_sales mb-3">The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt due and payable by the Buyer to the Seller.</p>
+                </li>
+                <li>
+                  <p className="text_sales mb-3">Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does not provide any comment on the statement of accounts, then such statement of accounts shall deem to be accepted by Buyer and binding on it.</p>
+                </li>
+                <li>
+                  <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:</p>
                 </li>
               </ol>
               <p className=''>a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper,</p>
               <p className=''>b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,</p>
               <p className=''>c) Loss of cargo,</p>
-              <p className=''>d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper,</p><br />
-              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
+              <p className=''>d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper,</p>
+              <p className='mt-3'>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
 
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>19</Col>
             <Col md={4} className={`${styles.left} border_black`}>Mutual Collaboration </Col>
-            <Col md={7} className={styles.right}>Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at the time this Contract is being entered into. Both Parties agree that they will use their commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any unforeseen circumstances in the spirit of mutual understanding and collaboration</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen at the time this Contract is being entered into. Both Parties agree that they will use their commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise due to any unforeseen circumstances in the spirit of mutual understanding and collaboration</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>20</Col>
             <Col md={4} className={`${styles.left} border_black`}>Termination</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <p className='mb-3'>1. In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.</p>
               <p>In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
               </p>
@@ -434,12 +436,12 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>21</Col>
             <Col md={4} className={`${styles.left} border_black`}>Notices</Col>
-            <Col md={7} className={styles.right}>Any notice given by one Party to the other shall be in the English language and sent by facsimile or by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.</Col>
+            <Col md={7} className={`${styles.right} text-justify`}>Any notice given by one Party to the other shall be in the English language and sent by facsimile or by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>22</Col>
             <Col md={4} className={`${styles.left} border_black`}>Force Majeure</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <div>
                 <p className='mb-3'>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer's  warehouse or the like or any other cause which may be beyond the control of the Seller.</p>
                 <p className='mb-3'>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.</p>
@@ -450,7 +452,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>23</Col>
             <Col md={4} className={`${styles.left} border_black`}>Breach of Contract </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <ol type="1">
                 <li>
                   <p className="text_sales">In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be fully responsible and liable for all losses, damages, both direct and consequential incurred by the Seller.
@@ -484,7 +486,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>24</Col>
             <Col md={4} className={`${styles.left} border_black`}>Dispute Resolution &amp; Arbitration</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               <div>
                 <p className='mb-3'>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.</p>
                 <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
@@ -497,21 +499,21 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>25</Col>
             <Col md={4} className={`${styles.left} border_black`}>Modifications of the contract</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>26</Col>
             <Col md={4} className={`${styles.left} border_black`}>No Assignment</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other's consent in writing.
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>27</Col>
             <Col md={4} className={`${styles.left} border_black`}>Severability</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               The Parties intend each provision of this Agreement to be severable and distinct from the others.  If a provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall not be affected.
 
 
@@ -520,7 +522,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>28</Col>
             <Col md={4} className={`${styles.left} border_black`}>Waiver</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} text-justify`}>
               Failure to enforce any condition herein contained shall not operate as a  waiver of the condition itself or any subsequent breach thereof.
 
 
@@ -529,8 +531,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row} border_black`}>
             <Col md={1} className={`${styles.left} border_black`}>29</Col>
             <Col md={4} className={`${styles.left} border_black`}>Representations and Warranties </Col>
-            <Col md={7} className={styles.right}>
-              Each party to this Agreement hereby represents and warrants that:
+            <Col md={7} className={`${styles.right} text-justify`}>
+              <p className='mb-3'>Each party to this Agreement hereby represents and warrants that:</p>
               <ol type="1">
                 <li>
                   <p className="text_sales">it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its incorporation and has all necessary corporate power, authority and capacity to execute this Agreement and undertake the transactions contemplated herein;
@@ -574,7 +576,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of End Buyer</Col>
-            <Col md={7} className={styles.right}>{data.buyer}</Col>
+            <Col md={7} className={styles.right}>{data.detailsOfEndBuyer}</Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Details of Commodity</Col>
@@ -586,7 +588,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
+            <Col md={7} className={styles.right}>
+              {data.curr} {(data.unitPrice)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+              </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Total Order Value</Col>
@@ -613,8 +617,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>{
               <>
                 <ol type="1">
+                 
                   {data?.addComm?.length > 0 &&
                     data?.addComm?.map((val, index) => {
+                     
                       return (<li key={index}>{val}</li>)
                     })
                   }

@@ -39,7 +39,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(true)
+  const [isFieldInFocus, setIsFieldInFocus] = useState({ conversion: false, noOfPdcs: false })
 
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
@@ -155,11 +155,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -175,7 +175,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -218,11 +218,11 @@ function Index() {
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -238,7 +238,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -280,7 +280,7 @@ function Index() {
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-        importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  || '',
+        importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
         branchOffice: marginData?.invoiceDetail?.branchOffice || '',
         companyAddress: marginData?.invoiceDetail?.companyAddress || '',
         importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
@@ -382,7 +382,7 @@ function Index() {
       setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'importerGSTIN') {
-      const newInput ={...invoiceData}
+      const newInput = { ...invoiceData }
       changeImporterData.GSTIN = e.target.value
       newInput['importerGSTIN'] = e.target.value
       setChangeImporterData({ ...changeImporterData })
@@ -702,7 +702,7 @@ function Index() {
     })
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-        Number(forCalculationRevised.perUnitPrice),
+      Number(forCalculationRevised.perUnitPrice),
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
@@ -714,11 +714,11 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -734,7 +734,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculationRevised.marginMoney) / 100),
+      Number(Number(forCalculationRevised.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -766,7 +766,7 @@ function Index() {
   const getDataRevised = () => {
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-        Number(forCalculationRevised.perUnitPrice),
+      Number(forCalculationRevised.perUnitPrice),
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
@@ -778,11 +778,11 @@ function Index() {
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -798,7 +798,7 @@ function Index() {
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculationRevised.marginMoney) / 100),
+      Number(Number(forCalculationRevised.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -862,7 +862,7 @@ function Index() {
     consigneeAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
     importerName:
-      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")    ||  '',
+      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
     branchOffice:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
     companyAddress:
@@ -878,7 +878,7 @@ function Index() {
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
   })
-console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")  )
+  console.log(marginData?.invoiceDetail?.importerName, "ssdsdfsdf", marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, ""))
   useEffect(() => {
     getRevisedData()
 
@@ -897,7 +897,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
       consigneeAddress:
         marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
       importerName:
-        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "")    || '',
+        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
       branchOffice:
         marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
       companyAddress:
@@ -932,12 +932,12 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
     let additionalAmountPerPDC = parseFloat(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
     // u calculation
     let revisedNetOrderValueNew = parseFloat(
       marginData?.revisedMarginMoney?.totalOrderValue -
-        marginData?.calculation?.totalOrderValue,
+      marginData?.calculation?.totalOrderValue,
     ).toFixed(2)
 
     let marginMoneyRevised = marginData?.calculation?.marginMoney
@@ -962,7 +962,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
     let additionalAmountPerPDC = parseFloat(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
 
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
@@ -1542,12 +1542,12 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                )
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                               : 0,
                             '%',
                             '',
@@ -1599,7 +1599,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3184,12 +3184,12 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                )
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                               : 0,
                             '%',
                             '',
@@ -3267,7 +3267,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3290,7 +3290,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -4815,7 +4815,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                   coversionUnitHandler(e.target.value)
                               }}
                             >
-                              <option>Select</option>
+                              <option disabled >Select</option>
                               <option selected value="Crores">
                                 Crores
                               </option>
@@ -4876,7 +4876,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
                                     marginData?.order?.quantity?.toLocaleString(
-                                      'en-In',
+                                      'en-In', { maximumFractionDigits: 2 }
                                     ),
                                     '',
                                   )}{' '}
@@ -4905,7 +4905,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )?.toLocaleString('en-In')}
+                                  )?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                                 </div>
                               </div>
                             </div>
@@ -4919,6 +4919,7 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                               </div>
                               <input
                                 type="number"
+
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -4930,8 +4931,26 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                     e.target.name,
                                     e.target.value,
                                   )
+                                } onWheel={(event) =>
+                                  event.currentTarget.blur()
                                 }
-                                value={forCalculation?.conversionRate}
+                                onFocus={(e) => {
+                                  setIsFieldInFocus({ ...isFieldInFocus, conversion: true }),
+                                    (e.target.type = 'number')
+                                }}
+                                onBlur={(e) => {
+                                  setIsFieldInFocus({ ...isFieldInFocus, conversion: false }),
+
+                                    (e.target.type = 'text')
+                                }}
+                                value={
+                                  isFieldInFocus.conversion
+                                    ? forCalculation?.conversionRate
+                                    : checkNan(
+                                      Number(forCalculation?.conversionRate),
+                                    )?.toLocaleString('en-In', { maximumFractionDigits: 2 })
+                                }
+                                // value={forCalculation?.conversionRate}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -5126,20 +5145,24 @@ console.log( marginData?.invoiceDetail?.importerName  ,"ssdsdfsdf", marginData?.
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onFocus={(e) => {
-                                  setIsFieldInFocus(true),
+                                  setIsFieldInFocus({ ...isFieldInFocus, noOfPdcs: true }),
                                     (e.target.type = 'number')
                                 }}
                                 onBlur={(e) => {
-                                  setIsFieldInFocus(false),
+                                  setIsFieldInFocus({ ...isFieldInFocus, noOfPdcs: false }),
+
                                     (e.target.type = 'text')
                                 }}
                                 value={
-                                  isFieldInFocus
+                                  isFieldInFocus.noOfPdcs
                                     ? forCalculation?.numberOfPDC
                                     : checkNan(
-                                        Number(forCalculation?.numberOfPDC),
-                                      )?.toLocaleString('en-In')
+                                      Number(forCalculation?.numberOfPDC),
+                                    )?.toLocaleString('en-In')
                                 }
                                 onChange={(e) =>
                                   saveForCalculation(

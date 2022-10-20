@@ -315,13 +315,11 @@ const Index = () => {
              
               className={`${styles.head_header} align-items-center`}
             >
-              <div style={{cursor:'pointer',width: "13px"}} className={`d-flex`}  onClick={() => Router.push('/insurance')}>
-              <img
-                className={`${styles.arrow} img-fluid ml-2 image_arrow`}
+              <img onClick={() => Router.push('/insurance')}
+                className={`${styles.back_arrow} img-fluid mr-2 ml-0 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
-              </div>
               <h1 className={styles.heading}>
                 {insuranceData?.company?.companyName}
               </h1>
@@ -682,6 +680,9 @@ const Index = () => {
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
                               }
+                              onWheel={(event) =>
+                                event.currentTarget.blur()
+                              }
                               value={
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
@@ -1041,7 +1042,10 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                              type="number"
+                               type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
@@ -1057,7 +1061,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Period of Insurance (days)
+                             {quotationData?.insuranceType == 'Marine & Storage Insurance' ? 'Period of Storage Insurance' : 'Period of Insurance (days)'}
                               <strong className="text-danger">*</strong>
                             </label>
                           </Col>

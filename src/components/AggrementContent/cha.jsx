@@ -528,7 +528,7 @@ setEditAddress(
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className='d-flex'>
+              <div className='d-flex align-items-center'>
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="gstin"
@@ -600,7 +600,7 @@ setEditAddress(
             <div className="card-body">
               <div className={`${styles.newAddressContent} row`}>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="addressType"
@@ -647,26 +647,27 @@ setEditAddress(
                   
               </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="number"
-                  name="pinCode"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                <div className='d-flex align-items-center'>
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="number"
+                    name="pinCode"
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                  value={newAddress.pinCode}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Pin Code<strong className="text-danger">*</strong>
-                </Form.Label>
+                    value={newAddress.pinCode}
+                    onChange={(e) => {
+                      setAddress(e.target.name,e.target.value)
+                    }}
+                  />
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                    Pin Code<strong className="text-danger">*</strong>
+                  </Form.Label>
                   <img
                       className={`${styles.search_image} img-fluid`}
                       src="/static/search-grey.svg"
-                      alt="Search"
-                    />
+                      alt="Search"/>
+                </div>
               </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                 <Form.Control
@@ -692,7 +693,7 @@ setEditAddress(
               </>
               :<>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="gstin"
@@ -718,26 +719,28 @@ setEditAddress(
                 </div>
               </Form.Group>
               <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="number"
-                  name="pinCode"
-                  value={newAddress.pinCode}
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                <div className='d-flex align-items-center'>
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="number"
+                    name="pinCode"
+                    value={newAddress.pinCode}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Pin Code<strong className="text-danger">*</strong>
-                </Form.Label>
+                    onChange={(e) => {
+                      setAddress(e.target.name,e.target.value)
+                    }}
+                  />
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                    Pin Code<strong className="text-danger">*</strong>
+                  </Form.Label>
                   <img
                       className={`${styles.search_image} img-fluid`}
                       src="/static/search-grey.svg"
                       alt="Search"
                     />
+                </div>
               </Form.Group>
                 <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <Form.Control
@@ -978,7 +981,10 @@ setEditAddress(
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                             type="number"
+                              type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()
@@ -1036,7 +1042,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className='d-flex align-items-center'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
@@ -1083,26 +1089,28 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                        name="pinCode"
-                        value={EditAddress.pinCode}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                      <div className='d-flex align-items-center'>
+                        <Form.Control
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="number"
+                          name="pinCode"
+                          value={EditAddress.pinCode}
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Pin Code<strong className="text-danger">*</strong>
-                      </Form.Label>
+                          onChange={(e) => {
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        />
+                        <Form.Label className={`${styles.label_heading} label_heading`}>
+                          Pin Code<strong className="text-danger">*</strong>
+                        </Form.Label>
                         <img
                             className={`${styles.search_image} img-fluid`}
                             src="/static/search-grey.svg"
                             alt="Search"
                           />
+                      </div>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
@@ -1128,7 +1136,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                     </>
                     :<>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
+                      <div className='d-flex align-items-center'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="gstin"
@@ -1154,26 +1162,28 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       </div>
                     </Form.Group>
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                        name="pinCode"
-                         value={EditAddress.pinCode}
-                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                      <div className='d-flex align-items-center'>
+                        <Form.Control
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="number"
+                          name="pinCode"
+                          value={EditAddress.pinCode}
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Pin Code<strong className="text-danger">*</strong>
-                      </Form.Label>
+                          onChange={(e) => {
+                            editNewAddress(e.target.name,e.target.value)
+                          }}
+                        />
+                        <Form.Label className={`${styles.label_heading} label_heading`}>
+                          Pin Code<strong className="text-danger">*</strong>
+                        </Form.Label>
                         <img
                             className={`${styles.search_image} img-fluid`}
                             src="/static/search-grey.svg"
                             alt="Search"
                           />
+                      </div>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <Form.Control

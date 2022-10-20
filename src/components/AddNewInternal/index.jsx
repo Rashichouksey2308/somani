@@ -10,13 +10,12 @@ import Router from 'next/router'
 import Image from 'next/image'
 
 function Index() {
-
-  const [addRow, setAddRow] = useState([{
-    compName: '' ,
-    branchName: '',
-
-
-  }])
+  const [addRow, setAddRow] = useState([
+    {
+      compName: '',
+      branchName: '',
+    },
+  ])
   const handleDelete = (index) => {
     setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)])
   }
@@ -24,7 +23,7 @@ function Index() {
     setAddRow([
       ...addRow,
       {
-        compName: '' ,
+        compName: '',
         branchName: '',
       },
     ])
@@ -125,7 +124,6 @@ function Index() {
                   Password
                 </label>
               </div>
-           
             </div>
           </div>
         </div>
@@ -163,83 +161,86 @@ function Index() {
                 </div>
               </div>
               <div className="row">
-
-              {addRow && addRow.map((val, index) => {
-                            return (
-                              <>
-                <div key={index}
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                    >
-                      <option value="">Indo German</option>
-                      <option value="">Ergo Products</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Company/Business Name
-                      <strong className="text-danger ml-1">*</strong>
-                    </label>
-                    <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
-                    </div>
-                  </div>
-                </div>
+                {addRow &&
+                  addRow.map((val, index) => {
+                    return (
+                      <>
+                        <div
+                          key={index}
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                        >
+                          <div className="d-flex">
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option value="">Indo German</option>
+                              <option value="">Ergo Products</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Company/Business Name
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                        >
+                          <input
+                            className={`${styles.input_field} border_color input form-control`}
+                            type="text"
+                            required
+                            name="supplierName"
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Branch
+                            <strong className="text-danger ml-1">*</strong>
+                          </label>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                        >
+                          <div className="d-flex mt-2">
+                            {/* { addRow.length >= 0 && ( */}
+                            <div className={`${styles.delete_image} mr-4`}>
+                              <Image
+                                src="/static/delete.svg"
+                                onClick={() => handleDelete(index)}
+                                width="40px"
+                                height="40px"
+                                alt="Bin"
+                              />
+                            </div>
+                            {/* )} */}
+                            {/* { addRow.length === 1 && ( */}
+                            <Image
+                              width="36px"
+                              height="36px"
+                              src="/static/add-btn.svg"
+                              className={`${styles.add_image} `}
+                              alt="Add button"
+                              onClick={(e) => {
+                                onAddRow()
+                              }}
+                            />
+                            {/* ) } */}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })}
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} border_color input form-control`}
-                    type="text"
-                    required
-                    name="supplierName"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Branch<strong className="text-danger ml-1">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className='d-flex mt-2'>
-                  {/* { addRow.length >= 0 && ( */}
-                  <div className={`${styles.delete_image} mr-4`}>
-                
-                    <Image
-                      src="/static/delete.svg"
-                      onClick={() => handleDelete(index)}
-                      width="40px"
-                      height="40px"
-                      alt="Bin"
-                    />
-                  </div>
-                  {/* )} */}
-                  {/* { addRow.length === 1 && ( */}
-                  <Image
-                   width="36px"
-                   height="36px"
-                    src="/static/add-btn.svg"
-                    className={`${styles.add_image} `}
-                    alt="Add button"
-                    onClick={(e) => {
-                      onAddRow()
-                    }}
-                  />
-                  {/* ) } */}
-                </div>
-                </div>
-
-               
-                </>
-                            )
-                           })}
-                            <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">

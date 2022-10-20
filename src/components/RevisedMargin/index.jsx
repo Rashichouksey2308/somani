@@ -125,7 +125,7 @@ const Index = ({
           style={{ cursor: 'default' }}
         >
           <div className={`${styles.commodity}`}>
-            <span className={`${styles.comm_head} sub_heading mb-2`}>
+            <span className={`${styles.comm_head} sub_heading`}>
               Commodity
             </span>
             <span className={`${styles.comm_val} heading`}>
@@ -494,7 +494,10 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <input
-                      type="number"
+                       type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                       name="additionalPDC"
                       onChange={(e) =>
                         saveforCalculationRevised(e.target.name, e.target.value)

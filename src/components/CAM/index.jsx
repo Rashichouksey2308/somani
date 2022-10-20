@@ -69,9 +69,11 @@ function Index({
   setTop5Customers1,
   camConversionunit,
   totalLimitDebt,
+  CreditAgency,
+  litigationStatus
 }) {
   const dispatch = useDispatch()
-  console.log(GstData, 'GstData')
+  console.log(companyData, 'companyData')
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
@@ -153,7 +155,9 @@ function Index({
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
 
+
     const length = _get(filteredData[0], 'bankName', '')
+    console.log(length, 'PRIMARY BANK NAME', filteredData)
 
     return length
   }
@@ -675,6 +679,8 @@ function Index({
         primaryBankName,
         latestAuditorData,
         previousAuditorData,
+        companyData,
+        CreditAgency,
       )}
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
@@ -705,7 +711,7 @@ function Index({
         previousYearData,
         camConversionunit
       )}
-      {compilanceStatus(companyData, camData)}
+      {compilanceStatus(companyData, camData,litigationStatus)}
       {strengthAndWeakness(camData)}
       {sectionTerms(
         camData,
@@ -753,7 +759,7 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
             <div
               className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
             >
-              <Row className={`mb-3`}>
+              <Row className={``}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span
                     className={`${styles.key} label1`}
@@ -1329,6 +1335,8 @@ const creditProfile = (
   primaryBankName,
   latestAuditorData,
   previousAuditorData,
+  companyData,
+  CreditAgency
 ) => {
   return (
     <>
@@ -1362,7 +1370,7 @@ const creditProfile = (
                   <span className={`${styles.key} label1 pl-5`}>
                     External Credit rating
                   </span>
-                  <span className={`${styles.value} value`}>A3+</span>
+                  <span className={`${styles.value} value`}>{CreditAgency()?.rating_}</span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -1377,7 +1385,7 @@ const creditProfile = (
                     Credit Rating Agency
                   </span>
                   <span className={`${styles.value} value`}>
-                    American First
+                  {CreditAgency()?.ratingAgency}
                   </span>
                 </Col>
               </Row>
@@ -1610,7 +1618,7 @@ const shareHolding = (
                             </td>
                             <td>
                               {share?.percentageShareHolding
-                                ? share?.percentageShareHolding?.toLocaleString(
+                                ? (share?.percentageShareHolding*100)?.toLocaleString(
                                   'en-IN',
                                   {
                                     maximumFractionDigits: 2,
@@ -2606,13 +2614,13 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlCustomer?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {(RevenueDetails?.ttlCustomer?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2652,7 +2660,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlInv?.current?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {/* {checkNan(
@@ -2664,7 +2672,7 @@ const revenuDetails = (gstData, camConversionunit) => {
                   {(RevenueDetails?.ttlInv?.previous?.value)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
 
                   {' '}
-                  Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -3202,7 +3210,7 @@ const financeDetails = (
     </>
   )
 }
-const compilanceStatus = (companyData, camData) => {
+const compilanceStatus = (companyData, camData,litigationStatus) => {
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3283,7 +3291,7 @@ const compilanceStatus = (companyData, camData) => {
                     Litigation Status
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.company?.litigationStatus}
+                    {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -3585,6 +3593,9 @@ const sectionTerms = (
                         className={`${styles.text} input`}
                         required={true}
                         type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         onFocus={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
@@ -3641,6 +3652,9 @@ const sectionTerms = (
                       <input
                         className={`${styles.text} input`}
                         type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
@@ -4246,7 +4260,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <svg
                       width="100%"
                       height="100%"
-                      viewBox="0 0 42 42"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut}`}
                     >
                       <circle
@@ -4314,9 +4328,9 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                       ></circle>
                     </svg>
                     <svg
-                      width="65%"
-                      height="65%"
-                      viewBox="0 0 42 42"
+                      width="76%"
+                      height="76%"
+                      viewBox="0 0 39 39"
                       className={`${styles.donut2}`}
                     >
                       <circle

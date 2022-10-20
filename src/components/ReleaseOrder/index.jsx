@@ -411,6 +411,9 @@ export default function Index({
                             onBlur={(e) => {
                               setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             type="text"
                             onChange={(e) => {
                               e.target.value

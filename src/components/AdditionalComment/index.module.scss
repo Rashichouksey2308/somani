@@ -64,6 +64,10 @@
             font-size: 19px;
             line-height: 17px;
             font-weight: bold;
+            @include respond(lg-desktop) {
+                font-size: 16px;
+                line-height: 1;
+            }
         }
         .form_group {
             position: relative;

@@ -508,6 +508,9 @@ export default function Index() {
                                 (e.target.type = 'text')
                             }}
                             name="bookedRate"
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             value={
                               isFieldInFocus.bookedRate
                                 ? item.bookedRate
@@ -542,6 +545,9 @@ export default function Index() {
                             className={`${styles.input_field} input form-control`}
                             type="text"
                             required
+                            onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             onFocus={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
@@ -658,7 +664,10 @@ export default function Index() {
                           >
                             <input
                               className={`${styles.input_field} input form-control`}
-                              type="number"
+                               type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                               required
                               name="closingRate"
                               value={item?.closingRate}
@@ -774,11 +783,21 @@ export default function Index() {
                                   </strong>
                                 </td>
                                 <td>
-                                  <img
-                                    src="/static/pdf.svg"
-                                    className={`${styles.pdfImage} img-fluid`}
-                                    alt="Pdf"
-                                  />
+                                {item?.forwardSalesContract ? (item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xls') || item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : (item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.doc') || item?.forwardSalesContract?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                /> : <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                                  : null
+                                }
                                 </td>
                                 <td className={styles.doc_row}>
                                   {item?.forwardSalesContract == null

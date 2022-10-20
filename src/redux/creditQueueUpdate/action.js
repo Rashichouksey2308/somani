@@ -217,7 +217,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading())
       } else {
         dispatch(VerifyingGstFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        let toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -315,39 +315,40 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading())
   }
 }
-export const changeModuleDocument = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const changeModuleDocument =
+  (payload) => async (dispatch, getState, api) => {
+    dispatch(setIsLoading())
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  try {
-    Axios.post(`${API.corebaseUrl}${API.changeDocModule}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(changeModuleDocumentsSuccess(response.data.data))
-        let toastMessage = 'Document Successfully MOVED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.post(`${API.corebaseUrl}${API.changeDocModule}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(changeModuleDocumentsSuccess(response.data.data))
+          let toastMessage = 'Document Successfully MOVED'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          dispatch(setNotLoading())
+        } else {
+          dispatch(changeModuleDocumentsFailed(response.data.data))
+          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          dispatch(setNotLoading())
         }
-        dispatch(setNotLoading())
-      } else {
-        dispatch(changeModuleDocumentsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        dispatch(setNotLoading())
+      })
+    } catch (error) {
+      dispatch(changeModuleDocumentsFailed())
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
-  } catch (error) {
-    dispatch(changeModuleDocumentsFailed())
-    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      dispatch(setNotLoading())
     }
-    dispatch(setNotLoading())
   }
-}

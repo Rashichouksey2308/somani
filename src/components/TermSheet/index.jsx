@@ -135,18 +135,18 @@ const Index = () => {
         )
     }
   }, [termsheet])
-  
+
 
   useEffect(() => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
-       console.log( sheet?.otherTermsAndConditions?.dutyAndTaxes
-                  ?.taxCollectedatSource,"yguyfvj")
+          console.log(sheet?.otherTermsAndConditions?.dutyAndTaxes
+            ?.taxCollectedatSource, "yguyfvj")
           setOtherTermConditions({
             buyer: {
               bank:
-            
+
                 sheet?.otherTermsAndConditions?.buyer?.bank ||
                 'Indo German International Private Limited (IGPL)',
             },
@@ -316,7 +316,7 @@ const Index = () => {
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
-  console.log(termsheetDetails.paymentDueDate, 'herer1234')
+  console.log(termsheetDetails, 'herer1234')
 
   const onChangeCommercialTerms = (e) => {
     console.log(e.target.id, e.target.value, 'sdfsdf')
@@ -375,7 +375,7 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-  console.log(termsheetDetails, 'tempSheet')
+  console.log(termsheetDetails?.paymentDueDate, 'termsheetDetails?.paymentDueDate')
   const changePayment = () => { }
   const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
@@ -410,7 +410,7 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, 'tempSheet1')
+    console.log(tempSheet.commercials.lcOpeningChargesPercentage, 'tempSheet1')
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -595,7 +595,7 @@ const Index = () => {
       termsheetDetails.transactionDetails.billOfEntity == '' ||
       termsheetDetails.transactionDetails.billOfEntity == undefined
     ) {
-      let toastMessage = 'Please add bill Of Entity'
+      let toastMessage = 'Please add bill Of Entry'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -633,15 +633,65 @@ const Index = () => {
       return
     }
     if (
-      termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
-      termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+      termsheetDetails?.paymentDueDate?.computationOfDueDate == '' ||
+      termsheetDetails?.paymentDueDate?.computationOfDueDate == undefined
     ) {
-      let toastMessage = 'Please add days From Bl Date '
+      let toastMessage = 'Please select a option for computation of due date'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+      ) {
+        let toastMessage = 'Please add days From Bl Date '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+      ) {
+        let toastMessage = 'Please add days From vessel discharge date Date '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+      ) {
+        let toastMessage = 'Please add days From Bl Date '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+      if (
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+      ) {
+        let toastMessage = 'Please add days From vessel discharge date Date '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
 
     if (
       termsheetDetails.commercials.tradeMarginPercentage == '' ||
@@ -684,9 +734,13 @@ const Index = () => {
       }
       return
     }
+    console.log(termsheetDetails.commercials.lcOpeningChargesPercentage == '',
+      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined, "scsdsdfsdf",
+      termsheetDetails.commercials.lcOpeningChargesPercentage)
     if (
-      termsheetDetails.commercials.lcOpeningChargesPercentage == '' ||
+
       termsheetDetails.commercials.lcOpeningChargesPercentage == undefined
+
     ) {
       let toastMessage = 'Please add lc Opening Charges Percentage '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -770,17 +824,17 @@ const Index = () => {
       otherTermsAndConditions,
       additionalComments,
     }
-
+     dispatch(updateTermsheet(UpdatedTermsheet))
     // console.log(termsheetDetails, 'updatedtermsheet')
-    let code = await dispatch(updateTermsheet(UpdatedTermsheet))
-    if (code == 200) {
-      sessionStorage.setItem(
-        'marginId',
-        _get(termsheet, 'data[0].order._id', ''),
-      )
-      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-      router.push(`/margin-money/id`)
-    }
+    // let code = await dispatch(updateTermsheet(UpdatedTermsheet))
+    // if (code == 200) {
+    //   sessionStorage.setItem(
+    //     'marginId',
+    //     _get(termsheet, 'data[0].order._id', ''),
+    //   )
+    //   dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+    //   router.push(`/margin-money/id`)
+    // }
   }
 
   const handleChange = (name, value) => {

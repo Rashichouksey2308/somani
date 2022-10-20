@@ -115,6 +115,39 @@ export default function Home() {
           'Bulk',
         ),
       )
+      let vesselInfo = JSON.parse(JSON.stringify(_get(
+        Vessel,
+        "data[0].vessels[0].vesselInformation",
+        [{
+          isVesselInsured: false,
+          name: _get(
+            Vessel,
+            "data[0].order.generic.shippingLine.vesselName",
+            ""
+          ),
+          IMONumber: "",
+          flag: "",
+          yearOfBuilt: "",
+          shippingLineOrCharter: _get(
+            Vessel,
+            "data[0].order.generic.shippingLine.name",
+            ""
+          )
+        }]
+      )))
+
+      vesselInfo[0].shippingLineOrCharter = vesselInfo[0].shippingLineOrCharter !== '' ? vesselInfo[0].shippingLineOrCharter : _get(
+        Vessel,
+        "data[0].order.generic.shippingLine.name",
+        ""
+      )
+      vesselInfo[0].name = vesselInfo[0].name !== '' ? vesselInfo[0].name : _get(
+        Vessel,
+        "data[0].order.generic.shippingLine.vesselName",
+        ""
+      )
+
+
       setContainerExcel(_get(Vessel, 'data[0].containerExcel', null))
       setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null))
       setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null))
@@ -188,35 +221,35 @@ export default function Home() {
               "data[0].vessels[0].transitDetails.portOfDischarge",
               ""
             ),
-            laycanFrom:  _get(
+            laycanFrom: _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
-            )!==""?
-            _get(
-              Vessel,
-              "data[0].vessels[0].transitDetails.laycanFrom",
-              ""
-            )
-            :  _get(
-              Vessel,
-              "data[0].order.shipmentDetail.loadPort.fromDate",
-              ""
-            ) || ""
+            ) !== "" ?
+              _get(
+                Vessel,
+                "data[0].vessels[0].transitDetails.laycanFrom",
+                ""
+              )
+              : _get(
+                Vessel,
+                "data[0].order.shipmentDetail.loadPort.fromDate",
+                ""
+              ) || ""
             ,
-            laycanTo:  _get(
+            laycanTo: _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
               ""
-            ) !==""? _get(
+            ) !== "" ? _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
               ""
-            ) :_get(
+            ) : _get(
               Vessel,
               "data[0].order.shipmentDetail.loadPort.toDate",
               ""
-            )|| ""
+            ) || ""
             // !== '' ? _get(
             //   Vessel,
             //   "data[0].vessels[0].transitDetails.laycanTo",
@@ -262,6 +295,14 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
               ""
+            ) !== "" ? _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.generic.shippingLine.name",
+              ""
             ),
             numberOfContainers: _get(
               Vessel,
@@ -275,34 +316,7 @@ export default function Home() {
             )
           },
 
-          vesselInformation: [{
-            name: '' || _get(
-              Vessel,
-              "data[0].vessels[0].vesselInformation[0].name",
-              ""
-            )
-            ,
-            IMONumber: '' || _get(
-              Vessel,
-              "data[0].vessels[0].vesselInformation[0].IMONumber",
-              ""
-            ),
-            flag: '' || _get(
-              Vessel,
-              "data[0].vessels[0].vesselInformation[0].flag",
-              ""
-            ),
-            yearOfBuilt: '' || _get(
-              Vessel,
-              "data[0].vessels[0].vesselInformation[0].yearOfBuilt",
-              ""
-            ),
-            shippingLineOrCharter: '' || _get(
-              Vessel,
-              "data[0].vessels[0].vesselInformation[0].shippingLineOrCharter",
-              ""
-            ),
-          }]
+          vesselInformation: vesselInfo
         },
       ])
     } else {
@@ -763,8 +777,8 @@ export default function Home() {
           }
         }
 
-           if (
-          list[i].vesselInformation[0].IMONumber.length !==7 
+        if (
+          list[i].vesselInformation[0].IMONumber.length !== 7
         ) {
           toastMessage = `Please add valid IMO Number  of Vessel Information ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -784,7 +798,7 @@ export default function Home() {
             break
           }
         }
-      
+
 
         if (
           list[i].vesselInformation[0].yearOfBuilt == '' ||
@@ -842,14 +856,14 @@ export default function Home() {
             isOk = false
           }
         }
-        
-    if (!containerListDocument) {
-      toastMessage = `please upload container List Document`
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        isOk = false
-      }
-    }
+
+        if (!containerListDocument) {
+          toastMessage = `please upload container List Document`
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+          }
+        }
 
       }
     }

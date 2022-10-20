@@ -11,7 +11,7 @@ function Index() {
       <Card.Header className={`${styles.head_container}  d-flex justify-content-between  border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
           <div
-            onClick={() => Router.push('/leads')}
+            onClick={() => Router.push('/masters/users')}
             style={{ cursor: 'pointer' }}
           >
             <img

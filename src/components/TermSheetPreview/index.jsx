@@ -310,6 +310,7 @@ function Index() {
         termsheetDetails,
         additionalComments,
         otherTermConditions,
+        filteredValue,
       ),
     )
     return doc.getFileFromVFS('Termsheet.pdf')
@@ -515,8 +516,8 @@ function Index() {
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {termsheetDetails?.transactionDetails?.lcValue
                       ? Number(
-                          termsheetDetails?.transactionDetails?.lcValue,
-                        )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                        termsheetDetails?.transactionDetails?.lcValue,
+                      )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
                       : ''}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
@@ -633,25 +634,25 @@ function Index() {
                     {filteredValue('Deliveries/Due Date/Payment')
                       ? filteredValue('Deliveries/Due Date/Payment')
                       : termsheetDetails?.paymentDueDate
-                          ?.computationOfDueDate === 'DaysfromBLDate'
-                      ? `${_get(
+                        ?.computationOfDueDate === 'DaysfromBLDate'
+                        ? `${_get(
                           termsheetDetails,
                           'paymentDueDate.daysFromBlDate',
                         )} days from the date of Bill of Lading.`
-                      : termsheetDetails?.paymentDueDate
+                        : termsheetDetails?.paymentDueDate
                           ?.computationOfDueDate ===
-                        'DaysfromVesselDischargeDate'
-                      ? `${_get(
-                          termsheetDetails,
-                          'paymentDueDate.daysFromVesselDischargeDate',
-                        )} days from the discharge date of vessel/container(s) at discharge port.`
-                      : `${_get(
-                          termsheetDetails,
-                          'paymentDueDate.daysFromVesselDischargeDate',
-                        )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
-                          termsheetDetails,
-                          'paymentDueDate.daysFromBlDate',
-                        )} days from the date of Bill of Lading, whichever is earlier.`}
+                          'DaysfromVesselDischargeDate'
+                          ? `${_get(
+                            termsheetDetails,
+                            'paymentDueDate.daysFromVesselDischargeDate',
+                          )} days from the discharge date of vessel/container(s) at discharge port.`
+                          : `${_get(
+                            termsheetDetails,
+                            'paymentDueDate.daysFromVesselDischargeDate',
+                          )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
+                            termsheetDetails,
+                            'paymentDueDate.daysFromBlDate',
+                          )} days from the date of Bill of Lading, whichever is earlier.`}
                   </li>
                   {console.log(termsheet, 'HARSH')}
                 </ul>
@@ -701,11 +702,11 @@ function Index() {
                     {' '}
                     {termsheetDetails.commercials?.tradeMarginPercentage
                       ? Number(
-                          termsheetDetails.commercials?.tradeMarginPercentage,
-                        )?.toLocaleString('en-IN', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        })
+                        termsheetDetails.commercials?.tradeMarginPercentage,
+                      )?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })
                       : ''}
                     %{' '}
                   </li>
@@ -721,23 +722,23 @@ function Index() {
                     {' '}
                     {termsheetDetails.commercials?.lcOpeningChargesPercentage
                       ? Number(
-                          termsheetDetails.commercials
-                            ?.lcOpeningChargesPercentage,
-                        )?.toLocaleString('en-IN', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) + '%'
+                        termsheetDetails.commercials
+                          ?.lcOpeningChargesPercentage,
+                      )?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) + '%'
                       : ''}{' '}
                   </li>
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.usanceInterestPercetage
                       ? Number(
-                          termsheetDetails.commercials?.usanceInterestPercetage,
-                        )?.toLocaleString('en-IN', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) + '%'
+                        termsheetDetails.commercials?.usanceInterestPercetage,
+                      )?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) + '%'
                       : ''}
                     {/* {termsheetDetails.commercials?.usanceInterestPercetage}% */}
                   </li>
@@ -745,11 +746,11 @@ function Index() {
                     {' '}
                     {termsheetDetails.commercials?.overDueInterestPerMonth
                       ? Number(
-                          termsheetDetails.commercials?.overDueInterestPerMonth,
-                        )?.toLocaleString('en-IN', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }) + '%'
+                        termsheetDetails.commercials?.overDueInterestPerMonth,
+                      )?.toLocaleString('en-IN', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) + '%'
                       : ''}
                     {/* {termsheetDetails.commercials?.overDueInterestPerMonth}% */}
                   </li>
@@ -1564,9 +1565,17 @@ const toPrintPdf = (
   termsheetDetails,
   additionalComments,
   otherTermConditions,
+
 ) => {
   console.log('Check PDFFF otherTermConditions::::', otherTermConditions)
   console.log('Check PDFFF::::', termsheetDetails, 'ldwfsdf')
+  const filteredValue = (commentType) => {
+    let filteredComments = additionalComments?.filter(
+      (comment) => comment.additionalCommentType === commentType,
+    )
+
+    return filteredComments?.[0]?.comment
+  }
   return (
     <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -1942,8 +1951,8 @@ const toPrintPdf = (
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {termsheetDetails?.transactionDetails?.lcValue
                             ? Number(
-                                termsheetDetails?.transactionDetails?.lcValue,
-                              )?.toLocaleString('en-In')
+                              termsheetDetails?.transactionDetails?.lcValue,
+                            )?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
@@ -2489,15 +2498,10 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails.commercials?.tradeMarginPercentage
-                            ? Number(
-                                termsheetDetails.commercials
-                                  ?.tradeMarginPercentage,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) + ' %'
-                            : ''}
+                          {' '}
+                          {filteredValue('Storage of Goods')
+                            ? filteredValue('Storage of Goods')
+                            : 'Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the Indo’s nominated party and all expenses/charges to be born and paid by the Buyer. '}
                         </p>
                       </td>
                     </tr>
@@ -2566,18 +2570,28 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {`
-                            ${
-                              termsheetDetails?.paymentDueDate
-                                ?.daysFromVesselDischargeDate
-                                ? termsheetDetails?.paymentDueDate
-                                    ?.daysFromVesselDischargeDate
-                                : termsheetDetails?.paymentDueDate
-                                    ?.daysFromBlDate
-                            } days from the vessel/container(s) at discharge date at discharge port or  ${
-                            termsheetDetails?.paymentDueDate?.daysFromBlDate
-                          }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
-                              `}
+                          {filteredValue('Deliveries/Due Date/Payment')
+                            ? filteredValue('Deliveries/Due Date/Payment')
+                            : termsheetDetails?.paymentDueDate
+                              ?.computationOfDueDate === 'DaysfromBLDate'
+                              ? `${_get(
+                                termsheetDetails,
+                                'paymentDueDate.daysFromBlDate',
+                              )} days from the date of Bill of Lading.`
+                              : termsheetDetails?.paymentDueDate
+                                ?.computationOfDueDate ===
+                                'DaysfromVesselDischargeDate'
+                                ? `${_get(
+                                  termsheetDetails,
+                                  'paymentDueDate.daysFromVesselDischargeDate',
+                                )} days from the discharge date of vessel/container(s) at discharge port.`
+                                : `${_get(
+                                  termsheetDetails,
+                                  'paymentDueDate.daysFromVesselDischargeDate',
+                                )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
+                                  termsheetDetails,
+                                  'paymentDueDate.daysFromBlDate',
+                                )} days from the date of Bill of Lading, whichever is earlier.`}
                         </p>
                       </td>
                     </tr>
@@ -2648,12 +2662,12 @@ const toPrintPdf = (
                         >
                           {termsheetDetails.commercials?.tradeMarginPercentage
                             ? Number(
-                                termsheetDetails.commercials
-                                  ?.tradeMarginPercentage,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) + ' %'
+                              termsheetDetails.commercials
+                                ?.tradeMarginPercentage,
+                            )?.toLocaleString('en-IN', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }) + ' %'
                             : ''}
                         </p>
                       </td>
@@ -2703,9 +2717,9 @@ const toPrintPdf = (
                           {`USD`}{' '}
                           {termsheetDetails.commercials?.lcOpeningChargesUnit
                             ? Number(
-                                termsheetDetails.commercials
-                                  ?.lcOpeningChargesUnit,
-                              )?.toLocaleString('en-In')
+                              termsheetDetails.commercials
+                                ?.lcOpeningChargesUnit,
+                            )?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
@@ -2755,12 +2769,12 @@ const toPrintPdf = (
                           {termsheetDetails.commercials
                             ?.lcOpeningChargesPercentage
                             ? Number(
-                                termsheetDetails.commercials
-                                  ?.lcOpeningChargesPercentage,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                              termsheetDetails.commercials
+                                ?.lcOpeningChargesPercentage,
+                            )?.toLocaleString('en-IN', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })
                             : ''}
                           %{' '}
                         </p>
@@ -2811,12 +2825,12 @@ const toPrintPdf = (
                           {' '}
                           {termsheetDetails.commercials?.usanceInterestPercetage
                             ? Number(
-                                termsheetDetails.commercials
-                                  ?.usanceInterestPercetage,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                              termsheetDetails.commercials
+                                ?.usanceInterestPercetage,
+                            )?.toLocaleString('en-IN', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })
                             : ''}
                           %
                         </p>
@@ -2867,12 +2881,12 @@ const toPrintPdf = (
                           {' '}
                           {termsheetDetails.commercials?.overDueInterestPerMonth
                             ? Number(
-                                termsheetDetails.commercials
-                                  ?.overDueInterestPerMonth,
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })
+                              termsheetDetails.commercials
+                                ?.overDueInterestPerMonth,
+                            )?.toLocaleString('en-IN', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })
                             : ''}
                           %
                         </p>
@@ -3012,10 +3026,9 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {
-                            termsheetDetails.commercials
-                              ?.otherTermsAndConditions
-                          }
+                          {filteredValue('Other terms and conditions')
+                            ? filteredValue('Other terms and conditions')
+                            : 'As per the Agreements executed between the parties.'}
                         </p>
                       </td>
                     </tr>
@@ -3084,8 +3097,9 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          Post CFR expenses to be reimbursed on actual basis if
-                          applicable as attached.
+                          {filteredValue('Payment Reimbursement of Charges')
+                            ? filteredValue('Payment Reimbursement of Charges')
+                            : 'All applicable charges to be paid by the buyer as and when they becomes due.'}
                         </p>
                       </td>
                     </tr>

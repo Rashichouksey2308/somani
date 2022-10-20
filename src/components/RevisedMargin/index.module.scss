@@ -5,12 +5,20 @@
     .cardHeader {
         cursor: pointer;
         border-bottom: none;
-        padding: 25px 35px !important;
+        min-height: 80px;
+        padding: 0 35px !important;
+        @include respond(lg-desktop) {
+            min-height: 60px;
+        }
         h2 {
             font-size: 22px;
             color: #3687e8;
             font-weight: bold;
             line-height: 27px;
+            @include respond(lg-desktop) {
+                font-size: 18px;
+                line-height: 1.3;
+            }
         }
         span {
             font-size: 45px;
@@ -28,6 +36,10 @@
             line-height: 17px;
             margin-bottom: 10px;
             letter-spacing: 0.53px;
+            @include respond(lg-desktop) {
+                font-size: 14px;
+                line-height: 15px;
+            }
         }
         .categories {
             margin-right: 1rem;
@@ -50,6 +62,10 @@
                     height: 19px;
                     color: #ea3f3f;
                 }
+                @include respond(lg-desktop) {
+                    font-size: 14px;
+                    line-height: 15px;
+                }
             }
         }
         .commodity {
@@ -64,12 +80,20 @@
                 line-height: 17px;
                 font-weight: 500;
                 background: transparent;
+                @include respond(lg-desktop) {
+                    font-size: 14px;
+                    line-height: 15px;
+                }
             }
             .comm_val {
                 text-transform: capitalize;
                 font-weight: 500;
                 line-height: 25px;
                 font-size: 20px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
             }
         }
         .unit_container {
@@ -80,6 +104,10 @@
                 margin-top: 10px;
                 padding-right: 10px;
                 line-height: 23px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
             }
             .options {
                 font-size: 18px;
@@ -93,22 +121,38 @@
                 margin-right: 50px;
                 outline: none;
                 padding: 4px 6px 4px 8px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
             }
             .pay {
                 display: flex;
                 font-size: 20px;
                 line-height: 25px;
+                @include respond(lg-desktop) {
+                    font-size: 15px;
+                    line-height: 1.3;
+                }
                 .round {
                     width: 15px;
                     height: 15px;
                     border-radius: 50%;
                     /* UI Properties */
                     background: #ff9d00;
+                    @include respond(lg-desktop) {
+                        width: 12px;
+                        height: 12px;
+                    }
                 }
                 span {
                     font-size: 20px;
                     letter-spacing: 0px;
                     color: #111111;
+                    @include respond(lg-desktop) {
+                        font-size: 15px;
+                        line-height: 1.3;
+                    }
                 }
             }
         }
@@ -134,14 +178,23 @@
                 .alphabet {
                     width: 26px;
                     height: 26px;
+                    min-width: 26px;
                     /* UI Properties */
                     background: #f0f8ff;
                     border-radius: 6px;
+                    @include respond(lg-desktop) {
+                        width: 24px;
+                        height: 24px;
+                        min-width: 24px;
+                    }
                     span {
                         font-size: 16px;
                         font-weight: bold;
                         letter-spacing: 0.53px;
                         color: #3687e8;
+                        @include respond(lg-desktop) {
+                          font-size: 14px;
+                        }
                     }
                 }
                 .val_wrapper {
@@ -211,7 +264,7 @@
                         transform: translateY(-50%);
                     }
                     @include respond(lg-desktop) {
-                        top: 15px;
+                        top: 14px;
                         font-size: 14px;
                         line-height: 15px;
                         transform: translateY(-22px);
@@ -348,6 +401,11 @@
         .tooltiptext {
             visibility: visible;
             opacity: 1;
+        }
+    }
+    img {
+        @include respond(lg-desktop) {
+            width: 17px;
         }
     }
 }

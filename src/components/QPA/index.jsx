@@ -95,7 +95,7 @@ function Index(props) {
         let exe;
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "QPA") {
             exe = val.place
             if (val.dateOfExecution) {
               dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
@@ -104,7 +104,7 @@ function Index(props) {
         })
         let comment=[]
          data?.additionalComments?.comments?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "QPA") {
               comment.push(val.comment)
           }
         })
@@ -131,7 +131,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -152,14 +152,15 @@ function Index(props) {
           associateBuyerAddress:_get(data,"associateBuyer.addresses.[0].fullAddress",""),
           associateBuyerGst:data?.associateBuyer?.gstin,
           associateBuyerPan:"AAACG7917K",
-          associateBuyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+          associateBuyerAuthorized:_get(data,"associateBuyer.authorisedSignatoryDetails",[]),
           stevedore:data?.stevedore?.name,
           stevedoreAddress:_get(data,"stevedore.addresses.[0].fullAddress",""),
           stevedoreAuthorized:_get(data,"stevedore.authorisedSignatoryDetails",[]),
           cma:data?.CMA?.name,
           cmaAddress:"Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba",
           cmaAuthorized:_get(data,"CMA.authorisedSignatoryDetails",[]),
-          vessel:"",
+          vessel:data?.shippingLine?.vesselName,
+          storagePlot:data?.order?.termsheet?.transactionDetails?.portOfDischarge
         })
       }
     }
@@ -315,7 +316,19 @@ obtaining gate passes,
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Signatory of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>
+          <ol>
+          {
+            data?.associateBuyerAuthorized?.length > 0 && data?.associateBuyerAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
+        </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Stevedore</Col>
@@ -327,47 +340,72 @@ obtaining gate passes,
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Signatory of Stevedore</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>
+
+           <ol>
+          {
+            data?.stevedoreAuthorized?.length > 0 && data?.stevedoreAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
+        </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of CMA Agent</Col>
         <Col md={7 } className={styles.right}>{data.cma}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Address of CMA Agent</Col>
         <Col md={7 } className={styles.right}>{data.cmaAddress}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Signatory of CMA Agent</Col>
-        <Col md={7 } className={styles.right}></Col>
+        <Col md={7 } className={styles.right}>
+             <ol>
+          {
+            data?.cmaAuthorized?.length > 0 && data?.cmaAuthorized?.map((val,index)=>{
+               return(<li>
+                 <div>Name- <span>{val.name}</span></div>
+                  <div>Designation- <span>{val.designation}</span></div>
+
+               </li>)
+            })
+          }
+          </ol>
+        </Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Commodity Details</Col>
         <Col md={7 } className={styles.right}>{data.detailsOfComm}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity</Col>
         <Col md={7 } className={styles.right}>{data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Name of Supplier</Col>
         <Col md={7 } className={styles.right}>{data.supplier}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Details of Vessel</Col>
         <Col md={7 } className={styles.right}>{data.vessel}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Port of Loading</Col>
         <Col md={7 } className={styles.right}>{data.lordPort}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Port of Discharge</Col>
         <Col md={7 } className={styles.right}>{data.dischargePort}</Col>
       </Row>
-      <Row className={`${styles.row} ${styles.last}`}>
+      <Row className={`${styles.row} ${styles.last} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Storage Plot allotted to IGI</Col>
-        <Col md={7 } className={styles.right}></Col>
+        <Col md={7 } className={styles.right}>{data.storagePlot}</Col>
       </Row>
     
      

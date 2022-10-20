@@ -154,6 +154,37 @@ if (window) {
           })
           setOptions([...optionArray])
   }
+  let isPresent=false
+  if(props?.data?.addresses.length>0){
+    props?.data?.addresses.forEach((val,index)=>{
+      console.log(val.fullAddress,"val.fullAddress")
+       if(val.fullAddress==props.address){
+         isPresent=true
+       }
+    })
+  }
+  console.log(isPresent,"isPresent")
+  if(isPresent==false){
+  let temp=[...addressList]
+
+  temp.push({
+    "addressType": "Registered",
+    "fullAddress": props.address,
+    "pinCode": "",
+    "country": "",
+    "gstin": "",
+    "state": "",
+    "city": ""
+  })
+   props?.data?.addresses.forEach((val,index)=>{
+      console.log(val.fullAddress,"val.fullAddress")
+        temp.push(val)
+    })
+ 
+   console.log(temp,"tempp")
+  setAddressList([...temp])
+  }
+
 }
 }, [props])
 console.log(docList,"sasads")
@@ -611,7 +642,7 @@ console.log(isEdit,"associateData")
                   {val.fullAddress} {" "} {val.pinCode} {" "} {val.country}
                 </div>
               </div>
-              <div className={`d-flex ${styles.actions} `}>
+               {props.address!==val.fullAddress? <div className={`d-flex ${styles.actions} `}>
                 <div
                   className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
@@ -628,7 +659,7 @@ console.log(isEdit,"associateData")
                   >
                     <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
                 </div>
-              </div>
+              </div>:null}
             </div>
             )
            }) }
@@ -692,7 +723,10 @@ console.log(isEdit,"associateData")
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                   type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                   name="pinCode"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -915,7 +949,10 @@ console.log(isEdit,"associateData")
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                             type="number"
+                              type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()
@@ -1133,7 +1170,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                         name="pinCode"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 

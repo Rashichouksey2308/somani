@@ -180,6 +180,9 @@ export default function Index(props) {
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
+                                     onWheel={(event) =>
+                                      event.currentTarget.blur()
+                                    }
                                     onFocus={(e) => {
                                       setIsFieldInFocus(true),
                                         (e.target.type = 'number')
@@ -327,7 +330,7 @@ export default function Index(props) {
                                       />
                                     )}
                                     {props.releaseOrderData.length - 1 ===
-                                      index && (
+                                      index && props.BalanceQuantity() > 0 && (
                                       <img
                                         onClick={(e) => {
                                           props.addNewDelivery()

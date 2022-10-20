@@ -231,6 +231,9 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <input
+                             onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             onFocus={(e) => {
                               setOnFocus(index)
                               e.target.type = 'number'
@@ -282,6 +285,9 @@ function Index({
                             <option value="EURO">EURO</option>
                           </select>
                           <input
+                             onWheel={(event) =>
+                              event.currentTarget.blur()
+                            }
                             onFocus={(e) => {
                               setOrderValueInFocus(true)
                               e.target.type = 'number'
@@ -654,6 +660,10 @@ function Index({
                                         }
                                         className={`${styles.input_field} input form-control`}
                                         type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
+
                                         onKeyDown={(evt) =>
                                           ['e', 'E', '+', '-', '.'].includes(
                                             evt.key,
@@ -783,6 +793,9 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -809,6 +822,9 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -940,6 +956,9 @@ function Index({
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
+                                    onWheel={(event) =>
+                                      event.currentTarget.blur()
+                                    }
                                     onKeyDown={(evt) =>
                                       ['e', 'E', '+', '-', '.'].includes(
                                         evt.key,

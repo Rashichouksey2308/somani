@@ -98,7 +98,7 @@ function Index(props) {
           setGstin('37AAACI3028D2Z0')
         }
         setAddressList(props?.data.addresses)
-        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails:  [{
       name:"",designation:"",email:"",phone:"",
       actions:"false",addnew:"false" }])
 
@@ -744,7 +744,10 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     <Form.Control
                       className={`${styles.input_field} input form-control`}
                       required
-                      type="number"
+                       type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                       name="pinCode"
                       onKeyDown={(evt) =>
                         ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -827,7 +830,10 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     <Form.Control
                       className={`${styles.input_field} input form-control`}
                       required
-                      type="number"
+                       type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                       name="pinCode"
                       onKeyDown={(evt) =>
                         ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1109,7 +1115,10 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                             type="number"
+                              type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                              onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
                               evt.preventDefault()
@@ -1229,7 +1238,10 @@ const editData = (
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                type="number"
+                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                 name="pinCode"
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) =>
@@ -1305,7 +1317,10 @@ const editData = (
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                type="number"
+                 type="number"
+                                        onWheel={(event) =>
+                                          event.currentTarget.blur()
+                                        }
                 name="pinCode"
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) =>

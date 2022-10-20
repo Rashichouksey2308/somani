@@ -2,7 +2,6 @@
 @import '../../src/components/styles/Core/config';
 .dashboardTab {
   margin-bottom: 105px;
-
   @include respond(phone) {
     margin-bottom: 105px;
   }
