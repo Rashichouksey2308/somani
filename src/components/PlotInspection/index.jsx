@@ -196,7 +196,7 @@ console.log(_get(inspectionData,"order.transit"),"transit")
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="9%">ACTION</th>
+                              <th width="15%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>

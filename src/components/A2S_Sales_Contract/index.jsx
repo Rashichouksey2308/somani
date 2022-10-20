@@ -43,7 +43,7 @@ function Index(props) {
   const getAddress = (buyer) => {
     if (buyer.name == "Indo German International Private Limited") {
       if (buyer.branch == "Delhi") {
-        return "7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001"
+        return "7A, SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001"
       } else {
         return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016"
       }

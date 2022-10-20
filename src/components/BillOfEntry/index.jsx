@@ -27,10 +27,15 @@ export default function Index({
   setComponentId,
   componentId,
 }) {
+
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
-  const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
+  const [isFieldInFocus2, setIsFieldInFocus2] = useState({
+    invoiceValue: false,
+    invoiceQuantity: false,
+    conversionRate: false,
+  })
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
@@ -599,6 +604,13 @@ const addNewRow=()=>{
   }
     ])
 }
+const deleteNewRow=(index)=>{
+   setBillOfEntryData([
+      ...billOfEntryData.slice(0, index),
+      ...billOfEntryData.slice(index + 1),
+    ])
+
+}
 console.log(billOfEntryData,"billOfEntryData")
   console.log('data', billOfEntryData?.billOfEntryFor)
   return (
@@ -645,7 +657,8 @@ console.log(billOfEntryData,"billOfEntryData")
             >
               <h3 className={`${styles.heading}`}>Bill of Entry</h3>
 
-              <button className={styles.add_btn} 
+              <div className={`d-flex `}>
+                   <button className={styles.add_btn} 
               onClick={(e)=>{
                  
                   addNewRow()}}
@@ -654,6 +667,19 @@ console.log(billOfEntryData,"billOfEntryData")
                 
                 >+</span>Add
               </button>
+              {index>0?
+               
+              <button className={styles.add_btn} 
+              onClick={(e)=>{
+                 
+                  deleteNewRow(index)}}
+              >
+                <span className={styles.add_sign}
+                
+                >+</span>Delete
+              </button>:null  
+            }
+              </div>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
@@ -1019,12 +1045,12 @@ console.log(billOfEntryData,"billOfEntryData")
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     onFocus={(e) => {
-                      setIsFieldInFocus2(true), (e.target.type = 'number')
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceQuantity: true}), (e.target.type = 'number')
                     }}
                     onBlur={(e) => {
-                      setIsFieldInFocus2(false), (e.target.type = 'text')
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceQuantity: false}), (e.target.type = 'text')
                     }}
-                    // onKeyPress={preventMinus}
+                    
                     value={
                       isFieldInFocus2
                         ? val?.boeDetails?.invoiceQuantity
@@ -1034,10 +1060,6 @@ console.log(billOfEntryData,"billOfEntryData")
                             val?.boeDetails?.invoiceQuantity,
                           )?.toLocaleString('en-IN') + ` MT`
                     }
-                    // value={addPrefixOrSuffix(
-                    //   billOfEntryData?.boeDetails?.invoiceQuantity,
-                    //   'MT',
-                    // )}
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
@@ -1065,7 +1087,22 @@ console.log(billOfEntryData,"billOfEntryData")
                     // value={billOfEntryData?.boeDetails?.invoiceValue}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    required
+                    onFocus={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: true}), (e.target.type = 'number')
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: false}), (e.target.type = 'text')
+                    }}
+                    
+                    // value={
+                    //   isFieldInFocus2.invoiceValue
+                    //     ? billOfEntryData?.boeDetails?.invoiceValue
+                    //     : billOfEntryData?.boeDetails?.invoiceValue == 0
+                    //       ? ''
+                    //       : `USD` + ' ' + Number(
+                    //         billOfEntryData?.boeDetails?.invoiceValue,
+                    //       )?.toLocaleString('en-IN')  
+                    // }
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
@@ -1074,6 +1111,10 @@ console.log(billOfEntryData,"billOfEntryData")
                       'USD',
                       'front',
                     )}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value,index)
@@ -1089,7 +1130,13 @@ console.log(billOfEntryData,"billOfEntryData")
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    required
+                    onFocus={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, conversionRate: true}), (e.target.type = 'number')
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, conversionRate: false}), (e.target.type = 'text')
+                    }}
+                    
                     value={
                       val?.boeDetails?.conversionRate == 'INR 0'
                         ? ''
@@ -1099,6 +1146,24 @@ console.log(billOfEntryData,"billOfEntryData")
                           'front',
                         )
                     }
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
+                    required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    // required
+                    // value={
+                    //   billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
+                    //     ? ''
+                    //     : addPrefixOrSuffix(
+                    //       billOfEntryData?.boeDetails?.conversionRate,
+                    //       'INR',
+                    //       'front',
+                    //     )
+                    // }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
                       conversionRateChange(e.target.name, e.target.value,index)
