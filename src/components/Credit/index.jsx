@@ -2539,7 +2539,7 @@ const index = ({
                             value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option selected disabled>Select</option>
+                            <option selected >Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>
