@@ -38,12 +38,12 @@ export default function Index({
 
 
 
-  console.log(customData, 'this is custom doc')
+  console.log(_get(customData, 'order.transit'), 'this is custom doc')
   console.log(dutyData, 'dutyData')
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
-  }, [dispatch])
+  }, [])
   const [billOfEntryData, setBillOfEntryData] = useState(
    [
         {
@@ -64,7 +64,7 @@ export default function Index({
       invoiceDate: '',
       boeRate: '',
       bankName: '',
-      accessibleValue: accessibleValueCalc,
+      accessibleValue: 0,
     },
     duty: [
       {
@@ -80,9 +80,9 @@ export default function Index({
    ]
   )
   console.log(billOfEntryData, 'billOfEntryData')
-  const totalCustomDuty = () => {
+  const totalCustomDuty = (index) => {
     let number = 0
-    billOfEntryData?.duty?.forEach((val) => {
+    billOfEntryData[index]?.duty?.forEach((val) => {
       number += Number(val.amount)
     })
     //console.log(totalCustomDuty, 'totalCustomDuty')
@@ -92,14 +92,14 @@ export default function Index({
   }
   console.log(billOfEntryData, 'boeDetails')
   console.log(customData, 'sdasd')
-  const uploadDoc1 = async (e) => {
+  const uploadDoc1 = async (e,index) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
-    let newInput = { ...billOfEntryData }
-    newInput[name] = docs
-    setBillOfEntryData(newInput)
+    let newInput = [ ...billOfEntryData ]
+    newInput[index][name] = docs
+    setBillOfEntryData([...newInput])
   }
   const getDoc = (payload) => {
     console.log(payload, "payload")
@@ -116,11 +116,11 @@ export default function Index({
   )
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
-  const saveDate = (value, name) => {
+  const saveDate = (value, name,index) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    saveBillOfEntryData(name, text)
+    saveBillOfEntryData(name, text,index)
   }
   const saveBoeDetaiDate = (value, name,index) => {
     // console.log(value, name, 'save date')
@@ -133,13 +133,24 @@ export default function Index({
   const saveBillOfEntryData = (name, value,index) => {
     console.log(name, value, 'Event1')
     const newInput = [ ...billOfEntryData ]
-    console.log(newInput,"newInput")
+    console.log(newInput,"newInput",index)
     const namesplit = name.split('.')
    
-    namesplit.length > 1
-      ? (newInput[index] [namesplit[0]][namesplit[1]] = value)
-      : (newInput[index][name] = value)
-    console.log(newInput, 'newInput')
+   
+      namesplit.length > 1
+            ? (newInput[index] [namesplit[0]][namesplit[1]] = value)
+            : (newInput[index][name] = value)
+          console.log(newInput, 'newInput')
+   let conversion=0
+    
+     
+    if(name=="boeDetails.invoiceValue"){
+ conversion=checkNan(
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
+       newInput[index]['boeDetails']['accessibleValue'] = conversion
+    }
 
     setBillOfEntryData([...newInput ])
   }
@@ -147,7 +158,16 @@ export default function Index({
     const newInput = [ ...billOfEntryData ]
     newInput[index]['boeDetails']['conversionRate'] = value
     console.log(newInput, 'newInput')
-
+    let conversion=0
+    if(name=="boeDetails.conversionRate"){
+      conversion=checkNan(
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
+   
+    
+  }
+    newInput[index]['boeDetails']['accessibleValue'] = conversion
     setBillOfEntryData([ ...newInput ])
   }
 
@@ -155,7 +175,7 @@ export default function Index({
 
   const handlePfCheckBox = (e,index) => {
      const newInput = [ ...billOfEntryData ]
-     newInput[index].pdBond=!newInput.pdBond
+     newInput[index].pdBond=!newInput[index].pdBond
      setBillOfEntryData([...newInput ])
     // setPfCheckBox(!pfCheckBox)
   }
@@ -186,8 +206,8 @@ export default function Index({
           temp2.push({ value: false })
         },
       )
-      setDutyData(temp)
-      setIsFieldInFocus([...temp2] || [])
+    
+     
     }
   }, [customData])
   console.log(isFieldInFocus, 'isFieldInFocus')
@@ -237,7 +257,10 @@ export default function Index({
   }
   const handleDeleteRow = (index2,index) => {
       const newInput = [ ...billOfEntryData ]
-      let a = newInput[index].duty[index2]
+      let a = newInput[index].duty
+      a.splice(index2, 1);
+      newInput[index].duty=a
+      setBillOfEntryData([...newInput ])
     // setBillOfEntryData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
 
     // setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
@@ -247,8 +270,11 @@ export default function Index({
     // ])
   }
 
-  const removeDoc = (name) => {
-    setBillOfEntryData({ ...billOfEntryData, [name]: null })
+  const removeDoc = (name,index) => {
+    const newInput = [ ...billOfEntryData ]
+   newInput[index] [name]=null
+    setBillOfEntryData([...newInput ])
+    
   }
 
   const addMoredutyDataRows = (index) => {
@@ -283,67 +309,77 @@ export default function Index({
   }
   console.log(billOfEntryData, 'billOfEntryData')
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     let isOk = true
-    if (billOfEntryData.boeNumber === '') {
+    for (let i = 0; i <billOfEntryData.length;i++){
+         if (billOfEntryData[i].boeNumber === '') {
       let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+      break;
     } else if (
-      billOfEntryData.boeDate === null ||
-      billOfEntryData.boeDate === ''
+      billOfEntryData[i].boeDate === null ||
+      billOfEntryData[i].boeDate === ''
     ) {
       let toastMessage = 'BOE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.currency === '') {
+      break;
+    } else if (billOfEntryData[i].boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.currency === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceNumber === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceNumber === '') {
       let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceDate === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceDate === '') {
       let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceQuantity === '') {
       let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceValue === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceValue === '') {
       let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.conversionRate === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.conversionRate === '') {
       let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+       break;
     } else if (
-      billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
+      billOfEntryData[i].boeDetails.invoiceQuantity > customData?.order?.quantity
     ) {
       let toastMessage =
         'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY'
@@ -351,44 +387,52 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.document1 === null) {
+       break;
+    } else if (billOfEntryData[i].document1 === null) {
       let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
         }`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.document2 === null) {
+       break;
+    } else if (billOfEntryData[i].document2 === null) {
       let toastMessage = 'please upload Duty Paid Challan '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+       break;
     }
 
     console.log(billOfEntryData.pdBond, 'billOfEntryData.pdBond', pfCheckBox)
-    if (billOfEntryData.pdBond) {
-      if (billOfEntryData.document3 === null) {
+    if (billOfEntryData[i].pdBond) {
+      if (billOfEntryData[i].document3 === null) {
         let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         isOk = false
+         break;
       }
+    }
     }
     if (isOk) {
       console.log('billOfEntryDatasubmit')
-      let tempData = { ...billOfEntryData }
-      tempData.boeDetails.conversionRate = removePrefixOrSuffix(
-        billOfEntryData?.boeDetails?.conversionRate,
+      let tempData = [...billOfEntryData ]
+       for(let i=0;i<tempData.length;i++){
+     tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.conversionRate,
       )
-      tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
-        billOfEntryData?.boeDetails?.invoiceQuantity,
+      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceQuantity,
       )
-      tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
-        billOfEntryData?.boeDetails?.invoiceValue,
+      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceValue,
       )
-      const billOfEntry = { billOfEntry: [tempData] }
+       }
+     
+      const billOfEntry = { billOfEntry: tempData }
 
       const fd = new FormData()
       fd.append('customClearanceId', customData?._id)
@@ -396,33 +440,35 @@ export default function Index({
 
       let task = 'submit'
 
-      dispatch(UpdateCustomClearance({ fd, task }))
-      let id = sessionStorage.getItem('customId')
-      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+     await  dispatch(UpdateCustomClearance({ fd, task }))
+       let id = sessionStorage.getItem('customId')
+      await  dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
     console.log(isOk, 'billOfEntryDatasubmit1')
   }
 
-  const handleSave = () => {
-    let tempData = { ...billOfEntryData }
-    tempData.boeDetails.conversionRate = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.conversionRate,
-    )
-    tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.invoiceQuantity,
-    )
-    tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.invoiceValue,
-    )
-    const billOfEntry = { billOfEntry: [tempData] }
+  const handleSave = async() => {
+   let tempData = [...billOfEntryData ]
+       for(let i=0;i<tempData.length;i++){
+     tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.conversionRate,
+      )
+      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceQuantity,
+      )
+      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceValue,
+      )
+       }
+   const billOfEntry = { billOfEntry: tempData }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
     let task = 'save'
 
-    dispatch(UpdateCustomClearance({ fd, task }))
+    await dispatch(UpdateCustomClearance({ fd, task }))
   }
 
   // fuction to prevent negative values in input
@@ -432,26 +478,26 @@ export default function Index({
     }
   }
 
-  const [accessibleValueCalc, setAcc] = useState(0)
-  useEffect(() => {
-    // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
+  // const [accessibleValueCalc, setAcc] = useState([])
+  // useEffect(() => {
+  //   // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
 
-    setAcc(
-      checkNan(
-        removePrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue) *
-        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
-      ),
-    )
-  }, [
-    billOfEntryData?.boeDetails?.conversionRate,
-    billOfEntryData?.boeDetails?.invoiceValue,
-  ])
+  //   setAcc(
+  //     checkNan(
+  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue) *
+  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+  //     ),
+  //   )
+  // }, [
+  //   billOfEntryData?.boeDetails?.conversionRate,
+  //   billOfEntryData?.boeDetails?.invoiceValue,
+  // ])
 
-  useEffect(() => {
-    let tempEntryData = { ...billOfEntryData }
-    tempEntryData.duty = dutyData
-    setBillOfEntryData(tempEntryData)
-  }, [dutyData])
+  // useEffect(() => {
+  //   let tempEntryData = { ...billOfEntryData }
+  //   tempEntryData.duty = dutyData
+  //   setBillOfEntryData(tempEntryData)
+  // }, [dutyData])
 
   useEffect(() => {
     if (customData) {
@@ -468,6 +514,7 @@ export default function Index({
     if (customData?.billOfEntry?.billOfEntry) {
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
       let tempArray =[]
+      console.log(data,"datadata")
       data.forEach((val,index)=>{
        tempArray.push(
 
@@ -493,9 +540,7 @@ export default function Index({
           invoiceDate: val?.boeDetails?.invoiceDate,
           boeRate: val?.boeDetails?.boeRate,
           bankName: val?.boeDetails?.bankName,
-          accessibleValue: accessibleValueCalc
-            ? accessibleValueCalc
-            : val?.boeDetails?.accessibleValue,
+          accessibleValue: val?.boeDetails?.accessibleValue,
         },
         duty: val.duty,
 
@@ -505,7 +550,7 @@ export default function Index({
       }
        )
       })
-      
+      console.log(tempArray,"tempArray")
       setBillOfEntryData([...tempArray])
     }
   }, [customData])
@@ -539,7 +584,7 @@ const addNewRow=()=>{
       invoiceDate: '',
       boeRate: '',
       bankName: '',
-      accessibleValue: accessibleValueCalc,
+      accessibleValue: 0,
     },
     duty: [
       {
@@ -591,7 +636,7 @@ console.log(billOfEntryData,"billOfEntryData")
               </div>
             </div>
           </div>
-          {billOfEntryData.map((val,index)=>{
+          {billOfEntryData?.length>0 && billOfEntryData.map((val,index)=>{
             return(
               <>
               <div className={`${styles.main} vessel_card card border_color`}>
@@ -1075,9 +1120,9 @@ console.log(billOfEntryData,"billOfEntryData")
                     disabled
                     required
                     value={
-                      accessibleValueCalc == 'INR 0'
+                      val?.boeDetails?.accessibleValue == 'INR 0'
                         ? ''
-                        : addPrefixOrSuffix(accessibleValueCalc, 'INR', 'front')
+                        : addPrefixOrSuffix(val?.boeDetails?.accessibleValue, 'INR', 'front')
                     }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1327,7 +1372,7 @@ console.log(billOfEntryData,"billOfEntryData")
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
-                          INR{' '}{totalCustomDuty()?.toLocaleString('en-In')}
+                          INR{' '}{totalCustomDuty(index)?.toLocaleString('en-In')}
                         </div>
                       </div>
                       <div
