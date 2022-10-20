@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import Filter from '../Filter'
 import _get from 'lodash/get'
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
+import Image from 'next/image'
 import {
   UpdateTransitDetails,
   GetTransitDetails,
@@ -373,12 +374,21 @@ function Index({ TransitDetails }) {
                     ) : null
                   ) : null}
                   {index1 > 0 ? (
-                    <button
-                      onClick={() => onDeleteClick(index1)}
-                      className={`${styles.add_btn}`}
-                    >
-                      <span className={styles.add_sign}>-</span>Delete
-                    </button>
+                    // <button
+                    //   onClick={() => onDeleteClick(index1)}
+                    //   className={`${styles.add_btn}`}
+                    // >
+                    //   <span className={styles.add_sign}>-</span>Delete
+                    // </button>
+                    <div className={`${styles.delete_image} ml-3`}       
+                    onClick={() => onDeleteClick(index1)}>
+                    <Image
+                      src="/static/delete.svg"
+                      width="40px"
+                      height="40px"
+                      alt="Bin"
+                    />
+                  </div>
                   ) : null}
                 </div>
               </>

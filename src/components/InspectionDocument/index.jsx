@@ -23,10 +23,10 @@ const Index = ({
   lcDoc,
   setLcDoc,
   isOpen,
+  isSupplier,
 }) => {
 
   const dispatch = useDispatch()
-
   const [editInput, setEditInput] = useState(true)
   const [open, setOpen] = useState(false)
   const openbar = () => {
@@ -228,8 +228,8 @@ const Index = ({
                 <tbody>
                   <tr className="table_row">
                     <td className={styles.doc_name}>
-                      {documentName}
-                      <strong className="text-danger ml-0">*</strong>{' '}
+                      {documentName}  <strong className="text-danger ml-0">*</strong>{' '}
+                     
                     </td>
 
                     <td>
@@ -280,6 +280,43 @@ const Index = ({
                       )}
                     </td>
                   </tr>
+                  {isSupplier ? (
+                  <tr className="table_row">
+                    <td className={styles.doc_name}>
+                    Third Party Certificate <strong className="text-danger ml-0">*</strong>
+                      
+                    </td>
+
+                    <td>
+                      <img
+                        src="/static/pdf.svg"
+                        className={`${styles.pdfImage} img-fluid`}
+                        alt="Pdf"
+                      />
+                    </td>
+                    <td className={styles.doc_row}>
+                     
+                    </td>
+                    <td colSpan={2}>
+                 
+                          <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                              onChange={(e) => uploadDocument1(e)}
+                            />
+                            <button className={`${styles.button_upload} btn`}>
+                              Upload
+                            </button>
+                          </div>
+                      
+                     
+                    </td>
+                  </tr>
+                  
+) : ' '}
+                  
                 </tbody>
               </table>
             </div>

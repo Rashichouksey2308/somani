@@ -159,7 +159,7 @@ function Index() {
     {
       main: 'Supplier Onboarding',
       image: '/static/Masters.svg',
-      route: '/supplier',
+      route: '/add-supplier',
     },
   ]
   const [className, setClassName] = useState('')
@@ -279,7 +279,7 @@ function Index() {
                       <img src={`${val.image}`}></img>
                       <span>{val.main}</span>
                     </div>
-                    {val.Other.length > 0 ? (
+                    {val?.Other?.length > 0 ? (
                       <img
                         src="/static/Accordion - menu.svg"
                         className={styles.icon}
@@ -293,7 +293,7 @@ function Index() {
                      index12  == index    ? className : null
                     }`}
                   >
-                    {val.Other.length > 0
+                    {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
                           const className12 =
                             index12 == index|| subCategory==other.main
