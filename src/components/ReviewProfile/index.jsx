@@ -5,18 +5,18 @@ import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { convertValue, CovertvaluefromtoCR } from '../../utils/helper'
 
 import DateCalender from '../DateCalender'
-function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
+function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFields, fields, setPayloadData }) {
 
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
     'Import',
     'Domestic',
   ])
-  console.log(payloadData,"payloadData")
-  const commodityDropdown = ['Iron', 'Crude', 'Steel',"Coal"]
-  const countryOfOriginDropdown = ['India', 'Australia',"Sri Lanka","Qatar","Dubai"]
+  console.log(fields, "payloadData")
+  const commodityDropdown = ['Iron', 'Crude', 'Steel', "Coal"]
+  const countryOfOriginDropdown = ['India', 'Australia', "Sri Lanka", "Qatar", "Dubai"]
   const portOfDischargeDropdown = [
     'Mumbai, India',
     'Gujrat, India',
@@ -35,67 +35,55 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
   }, [reviewedProfile])
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
-   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const DropDown = (values, name, disabled) => {
     return (
-        <div className="d-inline-flex align-items-center position-relative">
-          <Form.Select
-            size="sm"
-            name={name}
-            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-            onChange={(e) => {
-              handleChange(e.target.name, e.target.value)
-            }}
-            disabled={disabled}
-          >
-            {' '}
-            <option>Select an option</option>
-            {values.map((options) => {
-              return <option>{options}</option>
-            })}{' '}
-          </Form.Select>
-          <img
-            className={`${styles.arrow2} image_arrow img-fluid`}
-            src="/static/inputDropDown.svg"
-            alt="Search"
-          />
-        </div>
+      <div className="d-inline-flex align-items-center position-relative">
+        <Form.Select
+          size="sm"
+          name={name}
+          className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+          onChange={(e) => {
+            handleChange(e.target.name, e.target.value)
+          }}
+          value={payloadData[name] ?? ''}
+          disabled={disabled}
+        >
+          {' '}
+          <option value='' >Select an option</option>
+          {values.map((options) => {
+            return <option>{options}</option>
+          })}{' '}
+        </Form.Select>
+        <img
+          className={`${styles.arrow2} image_arrow img-fluid`}
+          src="/static/inputDropDown.svg"
+          alt="Search"
+        />
+      </div>
     )
   }
 
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset()
   }
-  const [fields, setFields] = useState([
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-    {
-      isEdit: true,
-    },
-  ])
-  const handleCheckBox = (index) => {
+
+
+  console.log(payloadData, 'payloadData')
+
+
+  const handleCheckBox = (index, name) => {
+
     let tempArr = [...fields]
     tempArr[index].isEdit = !tempArr[index].isEdit
     setFields([...tempArr])
+
+
+    let tempObj = payloadData
+    delete tempObj[name]
+    if (tempArr[index]) {
+      setPayloadData(tempObj)
+    }
   }
   console.log(fields, 'fields')
   console.log(reviewedProfile, 'this is reviewed')
@@ -172,7 +160,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(0)}
+                        onChange={(e) => handleCheckBox(0, 'transactionType')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -181,10 +169,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse &&
                       DropDown(
-                      transactionTypeDropdown,
-                      'transactionType',
-                      fields[0]?.isEdit,
-                    )}
+                        transactionTypeDropdown,
+                        'transactionType',
+                        fields[0]?.isEdit,
+                      )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -206,7 +194,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(1)}
+                        onChange={(e) => handleCheckBox(1, 'typeOfBusiness')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -214,17 +202,17 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   </td>
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse &&
-                    DropDown(
-                      typeOfBusinessDropdown,
-                      'typeOfBusiness',
-                      fields[1].isEdit,
-                    )}
+                      DropDown(
+                        typeOfBusinessDropdown,
+                        'typeOfBusiness',
+                        fields[1].isEdit,
+                      )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Turnover (Cr)</td>
                   <td>
-                    {CovertvaluefromtoCR(
+                    {convertValue(
                       reviewedProfile?.turnOver?.originalValue,
                     ).toLocaleString('en-in')}{' '}
                     Cr
@@ -245,7 +233,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(2)}
+                        onChange={(e) => handleCheckBox(2, 'turnOver')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -254,27 +242,27 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse && (
                       <Form.Control
-                         type="text"
-                            onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                e.target.type = 'number'
-                            }}
-                            onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                e.target.type = 'text'
-                            }}
+                        type="text"
+                        onFocus={(e) => {
+                          setIsFieldInFocus(true),
+                            e.target.type = 'number'
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus(false),
+                            e.target.type = 'text'
+                        }}
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                          
+
                         name="turnOver"
                         id="textDate"
-                      value={isFieldInFocus ?
-                               payloadData?.turnOver :
-                               Number(payloadData?.turnOver?payloadData?.turnOver:0)?.toLocaleString("en-IN")+ ` Cr`}
+                        value={isFieldInFocus ?
+                          payloadData?.turnOver :
+                          Number(payloadData?.turnOver ? payloadData?.turnOver : 0)?.toLocaleString("en-IN") + ` Cr`}
                         className={`${styles.input} input`}
                         onChange={(e) =>
                           handleChange(
                             e.target.name,
-                            Number(e.target.value ),
+                            Number(e.target.value),
                           )
                         }
                         disabled={fields[2]?.isEdit}
@@ -302,7 +290,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(3)}
+                        onChange={(e) => handleCheckBox(3, 'commodity')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -310,7 +298,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   </td>
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse &&
-                    DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}                  
+                      DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}
                   </td>
                 </tr>
 
@@ -338,7 +326,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(4)}
+                        onChange={(e) => handleCheckBox(4, 'orderValue')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -347,10 +335,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
-                         type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                        type="number"
+                        onWheel={(event) =>
+                          event.currentTarget.blur()
+                        }
                         name="orderValue"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -387,19 +375,19 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(5)}
+                        onChange={(e) => handleCheckBox(5, 'countryOfOrigin')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
                     ) : null}
-                  </td>                  
+                  </td>
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse &&
                       DropDown(
-                      countryOfOriginDropdown,
-                      'countryOfOrigin',
-                      fields[5].isEdit,
-                    )}
+                        countryOfOriginDropdown,
+                        'countryOfOrigin',
+                        fields[5].isEdit,
+                      )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -421,7 +409,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(6)}
+                        onChange={(e) => handleCheckBox(6, 'portOfDischarge')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -430,10 +418,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse &&
                       DropDown(
-                      portOfDischargeDropdown,
-                      'portOfDischarge',
-                      fields[6]?.isEdit,
-                    )}
+                        portOfDischargeDropdown,
+                        'portOfDischarge',
+                        fields[6]?.isEdit,
+                      )}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -457,7 +445,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(7)}
+                        onChange={(e) => handleCheckBox(7, 'ExpectedDateOfShipment')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -476,28 +464,30 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                       //   disabled={fields[8]?.isEdit}
                       // />
                       <div className={`${styles.calender}  d-flex`}>
-                      <DateCalender
-                        name="ExpectedDateOfShipment"
-                        saveDate={(name, value) => {
-                          handleChange(name, value)
-                        }}
-                        disabled={fields[7]?.isEdit}
-                        labelName=""
-                        maxDate={moment(
-                         new Date()
-                        )
-                          .add(3, 'months')
-                          .toDate()}
-                        lastDate={moment(
-                          reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
-                        small={true}
-                      />
-                       <img
+                        <DateCalender
+                          defaultDate={payloadData.ExpectedDateOfShipment}
+                          reset={fields[7]?.isEdit}
+                          name="ExpectedDateOfShipment"
+                          saveDate={(name, value) => {
+                            handleChange(value, name)
+                          }}
+                          disabled={fields[7]?.isEdit}
+                          labelName=""
+                          maxDate={moment(
+                            new Date()
+                          )
+                            .add(3, 'months')
+                            .toDate()}
+                          lastDate={moment(
+                            reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
+                          small={true}
+                        />
+                        <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
                         />
-                    </div>
+                      </div>
                     )}
                   </td>
                 </tr>
@@ -524,7 +514,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                         <input
-                          onChange={(e) => handleCheckBox(8)}
+                          onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
                           className={styles.checkBox}
                           type="checkbox"
                         />
@@ -533,17 +523,17 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment
                         ?.apiResponse && (
-                        <Form.Control
-                          type="date"
-                          name="ExpectedDateOfShipment"
-                          id="textDate"
-                          className={`${styles.input}`}
-                          onBlur={(e) =>
-                            handleChange(e.target.name, e.target.value)
-                          }
-                          disabled={fields[8]?.isEdit}
-                        />
-                      )}
+                          <Form.Control
+                            type="date"
+                            name="ExpectedDateOfShipment"
+                            id="textDate"
+                            className={`${styles.input}`}
+                            onBlur={(e) =>
+                              handleChange(e.target.name, e.target.value)
+                            }
+                            disabled={fields[8]?.isEdit}
+                          />
+                        )}
                     </td>
                   </tr>
                 ) : (
@@ -552,16 +542,16 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
               </tbody>
             </table>
           </form>
-       
-      <div className={`${styles.remarks} border-bottom-0 table_row`}>
-        <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          className={`${styles.remarksTextarea} input`}
-        />
-      </div>
-      </div>
+
+          <div className={`${styles.remarks} border-bottom-0 table_row`}>
+            <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              className={`${styles.remarksTextarea} input`}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
