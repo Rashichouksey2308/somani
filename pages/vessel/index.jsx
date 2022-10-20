@@ -115,6 +115,39 @@ export default function Home() {
           'Bulk',
         ),
       )
+      let vesselInfo = JSON.parse(JSON.stringify(_get(
+        Vessel,
+        "data[0].vessels[0].vesselInformation",
+        [{
+          isVesselInsured: false,
+          name: _get(
+            Vessel,
+            "data[0].order.generic.shippingLine.vesselName",
+            ""
+          ),
+          IMONumber: "",
+          flag: "",
+          yearOfBuilt: "",
+          shippingLineOrCharter: _get(
+            Vessel,
+            "data[0].order.generic.shippingLine.name",
+            ""
+          )
+        }]
+      )))
+
+      vesselInfo[0].shippingLineOrCharter = vesselInfo[0].shippingLineOrCharter !== '' ? vesselInfo[0].shippingLineOrCharter : _get(
+        Vessel,
+        "data[0].order.generic.shippingLine.name",
+        ""
+      )
+      vesselInfo[0].name = vesselInfo[0].name !== '' ? vesselInfo[0].name : _get(
+        Vessel,
+        "data[0].order.generic.shippingLine.vesselName",
+        ""
+      )
+
+
       setContainerExcel(_get(Vessel, 'data[0].containerExcel', null))
       setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null))
       setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null))
@@ -262,6 +295,14 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
               ""
+            ) !== "" ? _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.generic.shippingLine.name",
+              ""
             ),
             numberOfContainers: _get(
               Vessel,
@@ -275,11 +316,7 @@ export default function Home() {
             )
           },
 
-          vesselInformation: JSON.parse(JSON.stringify(_get(
-            Vessel,
-            "data[0].vessels[0].vesselInformation",
-            ""
-          )))
+          vesselInformation: vesselInfo
         },
       ])
     } else {
