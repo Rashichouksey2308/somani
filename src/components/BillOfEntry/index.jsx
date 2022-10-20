@@ -42,12 +42,16 @@ export default function Index({
   const { customClearance } = useSelector((state) => state.Custom)
 
 
+
+  console.log(_get(customData, 'order.transit'), 'this is custom doc')
+  console.log(dutyData, 'dutyData')
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
-  }, [dispatch])
-
-  const [billOfEntryData, setBillOfEntryData] = useState({
+  }, [])
+  const [billOfEntryData, setBillOfEntryData] = useState(
+   [
+        {
     boeAssessment: '',
     pdBond: false,
     billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
@@ -65,7 +69,7 @@ export default function Index({
       invoiceDate: '',
       boeRate: '',
       bankName: '',
-      accessibleValue: accessibleValueCalc,
+      accessibleValue: 0,
     },
     duty: [
       {
@@ -77,13 +81,13 @@ export default function Index({
     document1: null,
     document2: null,
     document3: null,
-  })
-
+  }
+   ]
+  )
   console.log(billOfEntryData, 'billOfEntryData')
-
-  const totalCustomDuty = () => {
+  const totalCustomDuty = (index) => {
     let number = 0
-    billOfEntryData?.duty?.forEach((val) => {
+    billOfEntryData[index]?.duty?.forEach((val) => {
       number += Number(val.amount)
     })
     //console.log(totalCustomDuty, 'totalCustomDuty')
@@ -91,16 +95,16 @@ export default function Index({
       return number
     }
   }
-
-
-  const uploadDoc1 = async (e) => {
+  console.log(billOfEntryData, 'boeDetails')
+  console.log(customData, 'sdasd')
+  const uploadDoc1 = async (e,index) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
-    let newInput = { ...billOfEntryData }
-    newInput[name] = docs
-    setBillOfEntryData(newInput)
+    let newInput = [ ...billOfEntryData ]
+    newInput[index][name] = docs
+    setBillOfEntryData([...newInput])
   }
   const getDoc = (payload) => {
     console.log(payload, "payload")
@@ -117,46 +121,70 @@ export default function Index({
   )
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
-  const saveDate = (value, name) => {
+  const saveDate = (value, name,index) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    saveBillOfEntryData(name, text)
+    saveBillOfEntryData(name, text,index)
   }
-  const saveBoeDetaiDate = (value, name) => {
+  const saveBoeDetaiDate = (value, name,index) => {
     // console.log(value, name, 'save date')
     // const namesplit = name?.split('.')
     const d = new Date(value)
     let text = d.toISOString()
-    saveBillOfEntryData(name, text)
+    saveBillOfEntryData(name, text,index)
   }
 
-  const saveBillOfEntryData = (name, value) => {
+  const saveBillOfEntryData = (name, value,index) => {
     console.log(name, value, 'Event1')
-    const newInput = { ...billOfEntryData }
+    const newInput = [ ...billOfEntryData ]
+    console.log(newInput,"newInput",index)
     const namesplit = name.split('.')
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value)
-    console.log(newInput, 'newInput')
+   
+   
+      namesplit.length > 1
+            ? (newInput[index] [namesplit[0]][namesplit[1]] = value)
+            : (newInput[index][name] = value)
+          console.log(newInput, 'newInput')
+   let conversion=0
+    
+     
+    if(name=="boeDetails.invoiceValue"){
+ conversion=checkNan(
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
+       newInput[index]['boeDetails']['accessibleValue'] = conversion
+    }
 
-    setBillOfEntryData({ ...newInput })
+    setBillOfEntryData([...newInput ])
   }
-  const conversionRateChange = (name, value) => {
-    const newInput = { ...billOfEntryData }
-    newInput['boeDetails']['conversionRate'] = value
+  const conversionRateChange = (name, value,index) => {
+    const newInput = [ ...billOfEntryData ]
+    newInput[index]['boeDetails']['conversionRate'] = value
     console.log(newInput, 'newInput')
-
-    setBillOfEntryData({ ...newInput })
+    let conversion=0
+    if(name=="boeDetails.conversionRate"){
+      conversion=checkNan(
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
+         removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
+   
+    
+  }
+    newInput[index]['boeDetails']['accessibleValue'] = conversion
+    setBillOfEntryData([ ...newInput ])
   }
 
   const [pfCheckBox, setPfCheckBox] = useState(true)
 
-  const handlePfCheckBox = (e) => {
-    saveBillOfEntryData('pdBond', !pfCheckBox)
-    setPfCheckBox(!pfCheckBox)
+  const handlePfCheckBox = (e,index) => {
+     const newInput = [ ...billOfEntryData ]
+     newInput[index].pdBond=!newInput[index].pdBond
+     setBillOfEntryData([...newInput ])
+    // setPfCheckBox(!pfCheckBox)
   }
-  //console.log(pfCheckBox, 'pfCheckBox')
+  console.log(billOfEntryData, 'billOfEntryDatabillOfEntryData')
 
   const [dutyData, setDutyData] = useState([])
 
@@ -183,153 +211,180 @@ export default function Index({
           temp2.push({ value: false })
         },
       )
-      setDutyData(temp)
-      setIsFieldInFocus([...temp2] || [])
+    
+     
     }
   }, [customData])
   console.log(isFieldInFocus, 'isFieldInFocus')
-  const handleDutyChange = (name, value, index) => {
+  const handleDutyChange = (name, value,index2,index) => {
     // console.log(name,value,index,"name,value")
-    let tempArr = [...dutyData]
-    tempArr.forEach((val, i) => {
-      if (i == index) {
-        val[name] = value
-      }
-    })
-
-    // console.log(tempArr,"tempArr")
-    setDutyData(tempArr)
+   const newInput = [ ...billOfEntryData ]
+   newInput[index].duty[index2][name]=value
+    setBillOfEntryData([...newInput ])
   }
 
-  const setActions = (index, val) => {
-    setDutyData((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, actions: val }
-        }
+  const setActions = (index2, val,index) => {
+      const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].actions=val
+      setBillOfEntryData([...newInput ])
+    // setDutyData((prevState) => {
+    //   const newState = prevState.map((obj, i) => {
+    //     if (i == index) {
+    //       return { ...obj, actions: val }
+    //     }
 
-        return obj
-      })
+    //     return obj
+    //   })
 
-      return newState
-    })
+    //   return newState
+    // })
 
-    let newInput = { ...billOfEntryData }
-    newInput.duty = dutyData
-    setBillOfEntryData(newInput)
+    // let newInput = { ...billOfEntryData }
+    // newInput.duty = dutyData
+    // setBillOfEntryData(newInput)
   }
-  const onFiledFocus = (e, index) => {
-    let tempArr2 = [...isFieldInFocus]
-    tempArr2.forEach((val, i) => {
-      if (i == index) {
-        val.value = true
-      }
-    })
-    setIsFieldInFocus([...tempArr2])
+  const onFiledFocus = (index2,e, index) => {
+     const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].value=true
+      setBillOfEntryData([...newInput ])
+    // let tempArr2 = [...isFieldInFocus]
+    // tempArr2.forEach((val, i) => {
+    //   if (i == index) {
+    //     val.value = true
+    //   }
+    // })
+    // setIsFieldInFocus([...tempArr2])
   }
-  const onFiledBlur = (e, index) => {
-    let tempArr2 = [...isFieldInFocus]
-    tempArr2.forEach((val, i) => {
-      if (i == index) {
-        val.value = false
-      }
-    })
-    setIsFieldInFocus([...tempArr2])
+  const onFiledBlur = (index2,e, index) => {
+    const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].value=false
+      setBillOfEntryData([...newInput ])
   }
-  const handleDeleteRow = (index) => {
-    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-    setIsFieldInFocus([
-      ...isFieldInFocus.slice(0, index),
-      ...isFieldInFocus.slice(index + 1),
-    ])
+  const handleDeleteRow = (index2,index) => {
+      const newInput = [ ...billOfEntryData ]
+      let a = newInput[index].duty
+      a.splice(index2, 1);
+      newInput[index].duty=a
+      setBillOfEntryData([...newInput ])
+    // setBillOfEntryData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+
+    // setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+    // setIsFieldInFocus([
+    //   ...isFieldInFocus.slice(0, index),
+    //   ...isFieldInFocus.slice(index + 1),
+    // ])
   }
 
-  const removeDoc = (name) => {
-    setBillOfEntryData({ ...billOfEntryData, [name]: null })
+  const removeDoc = (name,index) => {
+    const newInput = [ ...billOfEntryData ]
+   newInput[index] [name]=null
+    setBillOfEntryData([...newInput ])
+    
   }
 
-  const addMoredutyDataRows = () => {
-    setDutyData([
-      ...dutyData,
+  const addMoredutyDataRows = (index) => {
+        const newInput = [ ...billOfEntryData ]
+        newInput[index].duty.push(
+          {
+          percentage: '',
+          duty: '',
+          amount: '',
+          action: false,
+          value:false
+         },
+        )
+         setBillOfEntryData([...newInput ])
+    // setDutyData([
+    //   ...dutyData,
 
-      {
-        percentage: '',
-        duty: '',
-        amount: '',
-        action: false,
-      },
-    ])
-    setIsFieldInFocus([
-      ...isFieldInFocus,
+    //   {
+    //     percentage: '',
+    //     duty: '',
+    //     amount: '',
+    //     action: false,
+    //   },
+    // ])
+    // setIsFieldInFocus([
+    //   ...isFieldInFocus,
 
-      {
-        value: false,
-      },
-    ])
+    //   {
+    //     value: false,
+    //   },
+    // ])
   }
   console.log(billOfEntryData, 'billOfEntryData')
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     let isOk = true
-    if (billOfEntryData.boeNumber === '') {
+    for (let i = 0; i <billOfEntryData.length;i++){
+         if (billOfEntryData[i].boeNumber === '') {
       let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+      break;
     } else if (
-      billOfEntryData.boeDate === null ||
-      billOfEntryData.boeDate === ''
+      billOfEntryData[i].boeDate === null ||
+      billOfEntryData[i].boeDate === ''
     ) {
       let toastMessage = 'BOE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.currency === '') {
+      break;
+    } else if (billOfEntryData[i].boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.currency === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceNumber === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceNumber === '') {
       let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceDate === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceDate === '') {
       let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceQuantity === '') {
       let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.invoiceValue === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.invoiceValue === '') {
       let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.boeDetails.conversionRate === '') {
+       break;
+    } else if (billOfEntryData[i].boeDetails.conversionRate === '') {
       let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+       break;
     } else if (
-      billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
+      billOfEntryData[i].boeDetails.invoiceQuantity > customData?.order?.quantity
     ) {
       let toastMessage =
         'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY'
@@ -337,44 +392,52 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.document1 === null) {
+       break;
+    } else if (billOfEntryData[i].document1 === null) {
       let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
         }`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    } else if (billOfEntryData.document2 === null) {
+       break;
+    } else if (billOfEntryData[i].document2 === null) {
       let toastMessage = 'please upload Duty Paid Challan '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
+       break;
     }
 
     console.log(billOfEntryData.pdBond, 'billOfEntryData.pdBond', pfCheckBox)
-    if (billOfEntryData.pdBond) {
-      if (billOfEntryData.document3 === null) {
+    if (billOfEntryData[i].pdBond) {
+      if (billOfEntryData[i].document3 === null) {
         let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         isOk = false
+         break;
       }
+    }
     }
     if (isOk) {
       console.log('billOfEntryDatasubmit')
-      let tempData = { ...billOfEntryData }
-      tempData.boeDetails.conversionRate = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.conversionRate,
+      let tempData = [...billOfEntryData ]
+       for(let i=0;i<tempData.length;i++){
+     tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.conversionRate,
       )
-      tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.invoiceQuantity,
+      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceQuantity,
       )
-      tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.invoiceValue,
+      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceValue,
       )
-      const billOfEntry = { billOfEntry: [tempData] }
+       }
+     
+      const billOfEntry = { billOfEntry: tempData }
 
       const fd = new FormData()
       fd.append('customClearanceId', customData?._id)
@@ -382,33 +445,35 @@ export default function Index({
 
       let task = 'submit'
 
-      dispatch(UpdateCustomClearance({ fd, task }))
-      let id = sessionStorage.getItem('customId')
-      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+     await  dispatch(UpdateCustomClearance({ fd, task }))
+       let id = sessionStorage.getItem('customId')
+      await  dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
     console.log(isOk, 'billOfEntryDatasubmit1')
   }
 
-  const handleSave = () => {
-    let tempData = { ...billOfEntryData }
-    tempData.boeDetails.conversionRate = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.conversionRate,
-    )
-    tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.invoiceQuantity,
-    )
-    tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
-      billOfEntryData.boeDetails.invoiceValue,
-    )
-    const billOfEntry = { billOfEntry: [tempData] }
+  const handleSave = async() => {
+   let tempData = [...billOfEntryData ]
+       for(let i=0;i<tempData.length;i++){
+     tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.conversionRate,
+      )
+      tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceQuantity,
+      )
+      tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
+        billOfEntryData[i]?.boeDetails?.invoiceValue,
+      )
+       }
+   const billOfEntry = { billOfEntry: tempData }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
     let task = 'save'
 
-    dispatch(UpdateCustomClearance({ fd, task }))
+    await dispatch(UpdateCustomClearance({ fd, task }))
   }
 
   // fuction to prevent negative values in input
@@ -418,26 +483,26 @@ export default function Index({
     }
   }
 
-  const [accessibleValueCalc, setAcc] = useState(0)
-  useEffect(() => {
-    // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
+  // const [accessibleValueCalc, setAcc] = useState([])
+  // useEffect(() => {
+  //   // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
 
-    setAcc(
-      checkNan(
-        removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
-      ),
-    )
-  }, [
-    billOfEntryData.boeDetails.conversionRate,
-    billOfEntryData.boeDetails.invoiceValue,
-  ])
+  //   setAcc(
+  //     checkNan(
+  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue) *
+  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+  //     ),
+  //   )
+  // }, [
+  //   billOfEntryData?.boeDetails?.conversionRate,
+  //   billOfEntryData?.boeDetails?.invoiceValue,
+  // ])
 
-  useEffect(() => {
-    let tempEntryData = { ...billOfEntryData }
-    tempEntryData.duty = dutyData
-    setBillOfEntryData(tempEntryData)
-  }, [dutyData])
+  // useEffect(() => {
+  //   let tempEntryData = { ...billOfEntryData }
+  //   tempEntryData.duty = dutyData
+  //   setBillOfEntryData(tempEntryData)
+  // }, [dutyData])
 
   useEffect(() => {
     if (customData) {
@@ -452,40 +517,46 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      let data = _get(customData, 'billOfEntry.billOfEntry[0]', [{}])
-      let tempArray = {
-        boeAssessment: data?.boeAssessment,
-        pdBond: data?.pdBond,
+      let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
+      let tempArray =[]
+      console.log(data,"datadata")
+      data.forEach((val,index)=>{
+       tempArray.push(
+
+         {
+        boeAssessment: val?.boeAssessment,
+        pdBond: val?.pdBond,
         billOfEntryFor: _get(
           customData,
           'order.termsheet.transactionDetails.billOfEntity',
           '',
         ),
-        boeNumber: data?.boeNumber,
-        boeDate: data?.boeDate,
+        boeNumber: val?.boeNumber,
+        boeDate: val?.boeDate,
 
         boeDetails: {
-          invoiceQuantity: data?.boeDetails?.invoiceQuantity,
-          invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
-          currency: data?.boeDetails?.currency,
-          conversionRate: data?.boeDetails?.conversionRate || '',
-          invoiceNumber: data?.boeDetails?.invoiceNumber,
-          invoiceValue: data?.boeDetails?.invoiceValue,
-          invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
-          invoiceDate: data?.boeDetails?.invoiceDate,
-          boeRate: data?.boeDetails?.boeRate,
-          bankName: data?.boeDetails?.bankName,
-          accessibleValue: accessibleValueCalc
-            ? accessibleValueCalc
-            : data?.boeDetails?.accessibleValue,
+          invoiceQuantity: val?.boeDetails?.invoiceQuantity,
+          invoiceQuantityUnit: val?.boeDetails?.invoiceQuantityUnit,
+          currency: val?.boeDetails?.currency,
+          conversionRate: val?.boeDetails?.conversionRate || '',
+          invoiceNumber: val?.boeDetails?.invoiceNumber,
+          invoiceValue: val?.boeDetails?.invoiceValue,
+          invoiceValueCurrency: val?.boeDetails?.invoiceValueCurrency,
+          invoiceDate: val?.boeDetails?.invoiceDate,
+          boeRate: val?.boeDetails?.boeRate,
+          bankName: val?.boeDetails?.bankName,
+          accessibleValue: val?.boeDetails?.accessibleValue,
         },
-        duty: data.duty,
+        duty: val.duty,
 
-        document1: data?.document1 ?? null,
-        document2: data?.document2 ?? null,
-        document3: data?.document3 ?? null,
+        document1: val?.document1 ?? null,
+        document2: val?.document2 ?? null,
+        document3: val?.document3 ?? null,
       }
-      setBillOfEntryData(tempArray)
+       )
+      })
+      console.log(tempArray,"tempArray")
+      setBillOfEntryData([...tempArray])
     }
   }, [customData])
 
@@ -496,7 +567,51 @@ export default function Index({
   const getIndex = (index) => {
     return index + 1
   }
+const addNewRow=()=>{
+  console.log("SDfsdfs")
+  setBillOfEntryData([
+      ...billOfEntryData,
+   {
+    boeAssessment: '',
+    pdBond: false,
+    billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
+    boeNumber: '',
+    boeDate: '',
 
+    boeDetails: {
+      invoiceQuantity: '',
+      invoiceQuantityUnit: '',
+      currency: 'INR',
+      conversionRate: '',
+      invoiceNumber: '',
+      invoiceValue: '',
+      invoiceValueCurrency: '',
+      invoiceDate: '',
+      boeRate: '',
+      bankName: '',
+      accessibleValue: 0,
+    },
+    duty: [
+      {
+        duty: dutyData?.duty,
+        amount: dutyData?.amount,
+      },
+    ],
+
+    document1: null,
+    document2: null,
+    document3: null,
+  }
+    ])
+}
+const deleteNewRow=(index)=>{
+   setBillOfEntryData([
+      ...billOfEntryData.slice(0, index),
+      ...billOfEntryData.slice(index + 1),
+    ])
+
+}
+console.log(billOfEntryData,"billOfEntryData")
   console.log('data', billOfEntryData?.billOfEntryFor)
   return (
     <>
@@ -533,15 +648,38 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card card border_color`}>
+          {billOfEntryData?.length>0 && billOfEntryData.map((val,index)=>{
+            return(
+              <>
+              <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Bill of Entry</h3>
 
-              <button className={styles.add_btn}>
-                <span className={styles.add_sign}>+</span>Add
+              <div className={`d-flex `}>
+                   <button className={styles.add_btn} 
+              onClick={(e)=>{
+                 
+                  addNewRow()}}
+              >
+                <span className={styles.add_sign}
+                
+                >+</span>Add
               </button>
+              {index>0?
+               
+              <button className={styles.add_btn} 
+              onClick={(e)=>{
+                 
+                  deleteNewRow(index)}}
+              >
+                <span className={styles.add_sign}
+                
+                >+</span>Delete
+              </button>:null  
+            }
+              </div>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
@@ -560,10 +698,10 @@ export default function Index({
                           inline
                           label="Provisional"
                           checked={
-                            billOfEntryData.boeAssessment === 'Provisional'
+                            val.boeAssessment === 'Provisional'
                           }
                           onChange={() => {
-                            saveBillOfEntryData('boeAssessment', 'Provisional')
+                            saveBillOfEntryData('boeAssessment', 'Provisional',index)
                           }}
                           // name="group1"
                           type={type}
@@ -573,9 +711,9 @@ export default function Index({
                           className={styles.radio}
                           inline
                           label="Final"
-                          checked={billOfEntryData.boeAssessment === 'Final'}
+                          checked={val.boeAssessment === 'Final'}
                           onChange={() => {
-                            saveBillOfEntryData('boeAssessment', 'Final')
+                            saveBillOfEntryData('boeAssessment', 'Final',index)
                           }}
                           // name="group1"
                           type={type}
@@ -597,9 +735,9 @@ export default function Index({
                     </div>
                     <label className={`${styles.switch} mb-0`}>
                       <input
-                        onChange={(e) => handlePfCheckBox(e)}
+                        onChange={(e) => handlePfCheckBox(e,index)}
                         type="checkbox"
-                        checked={billOfEntryData.pdBond ? 'checked' : ''}
+                        checked={val.pdBond ? 'checked' : ''}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -620,9 +758,9 @@ export default function Index({
                     <select
                       name="billOfEntryFor"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.billOfEntryFor}
+                      value={val?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option disabled selected>
@@ -653,13 +791,13 @@ export default function Index({
                     }
                     name="boeNumber"
                     required
-                    value={billOfEntryData?.boeNumber}
+                    value={val?.boeNumber}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -671,10 +809,11 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                      defaultDate={billOfEntryData.boeDate}
+                      defaultDate={val.boeDate}
                       name="boeDate"
                       saveDate={saveDate}
                       labelName="BOE Date"
+                      index={index}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -837,9 +976,9 @@ export default function Index({
                     <select
                       name="boeDetails.currency"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.boeDetails?.currency}
+                      value={val?.boeDetails?.currency}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select an option</option>
@@ -862,7 +1001,7 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceNumber}
+                    value={val?.boeDetails?.invoiceNumber}
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     name="boeDetails.invoiceNumber"
@@ -872,7 +1011,7 @@ export default function Index({
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -884,10 +1023,11 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                      defaultDate={billOfEntryData?.boeDetails?.invoiceDate}
+                      defaultDate={val?.boeDetails?.invoiceDate}
                       name="boeDetails.invoiceDate"
                       saveDate={saveBoeDetaiDate}
                       labelName="Invoice Date"
+                      index={index}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -912,12 +1052,12 @@ export default function Index({
                     }}
                     
                     value={
-                      isFieldInFocus2.invoiceQuantity
-                        ? billOfEntryData?.boeDetails?.invoiceQuantity
-                        : billOfEntryData?.boeDetails?.invoiceQuantity == 0
+                      isFieldInFocus2
+                        ? val?.boeDetails?.invoiceQuantity
+                        : val?.boeDetails?.invoiceQuantity == 0
                           ? ''
                           : Number(
-                            billOfEntryData?.boeDetails?.invoiceQuantity,
+                            val?.boeDetails?.invoiceQuantity,
                           )?.toLocaleString('en-IN') + ` MT`
                     }
                     onWheel={(event) =>
@@ -930,7 +1070,7 @@ export default function Index({
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   // required
                   // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
@@ -954,31 +1094,30 @@ export default function Index({
                       setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: false}), (e.target.type = 'text')
                     }}
                     
-                    value={
-                      isFieldInFocus2.invoiceValue
-                        ? billOfEntryData?.boeDetails?.invoiceValue
-                        : billOfEntryData?.boeDetails?.invoiceValue == 0
-                          ? ''
-                          : `USD` + ' ' + Number(
-                            billOfEntryData?.boeDetails?.invoiceValue,
-                          )?.toLocaleString('en-IN')  
-                    }
+                    // value={
+                    //   isFieldInFocus2.invoiceValue
+                    //     ? billOfEntryData?.boeDetails?.invoiceValue
+                    //     : billOfEntryData?.boeDetails?.invoiceValue == 0
+                    //       ? ''
+                    //       : `USD` + ' ' + Number(
+                    //         billOfEntryData?.boeDetails?.invoiceValue,
+                    //       )?.toLocaleString('en-IN')  
+                    // }
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
-                    required
+                    value={addPrefixOrSuffix(
+                      val?.boeDetails?.invoiceValue,
+                      'USD',
+                      'front',
+                    )}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
                     }
-                    // value={addPrefixOrSuffix(
-                    //   billOfEntryData?.boeDetails?.invoiceValue,
-                    //   'USD',
-                    //   'front',
-                    // )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -999,13 +1138,13 @@ export default function Index({
                     }}
                     
                     value={
-                      isFieldInFocus2.conversionRate
-                        ? billOfEntryData?.boeDetails?.conversionRate
-                        : billOfEntryData?.boeDetails?.conversionRate == 0
-                          ? ''
-                          : `INR` + ' ' + Number(
-                            billOfEntryData?.boeDetails?.conversionRate,
-                          )?.toLocaleString('en-IN')  
+                      val?.boeDetails?.conversionRate == 'INR 0'
+                        ? ''
+                        : addPrefixOrSuffix(
+                          val?.boeDetails?.conversionRate,
+                          'INR',
+                          'front',
+                        )
                     }
                     onWheel={(event) =>
                       event.currentTarget.blur()
@@ -1027,7 +1166,7 @@ export default function Index({
                     // }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
-                      conversionRateChange(e.target.name, e.target.value)
+                      conversionRateChange(e.target.name, e.target.value,index)
                     }
                   />
 
@@ -1046,9 +1185,9 @@ export default function Index({
                     disabled
                     required
                     value={
-                      accessibleValueCalc == 'INR 0'
+                      val?.boeDetails?.accessibleValue == 'INR 0'
                         ? ''
-                        : addPrefixOrSuffix(accessibleValueCalc, 'INR', 'front')
+                        : addPrefixOrSuffix(val?.boeDetails?.accessibleValue, 'INR', 'front')
                     }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1085,9 +1224,9 @@ export default function Index({
                     <select
                       name="boeDetails.bankName"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.boeDetails?.bankName}
+                      value={val?.boeDetails?.bankName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select Bank</option>
@@ -1138,26 +1277,26 @@ export default function Index({
                         </tr>
                       </thead>
                       <tbody>
-                        {dutyData.length > 0 &&
-                          dutyData.map((val, index) => (
+                        {val.duty.length > 0 &&
+                          val.duty.map((duty, index2) => (
                             <tr key={index} className="table_row">
-                              {!val.actions ? (
+                              {!duty.actions ? (
                                 <>
                                   <td className={styles.doc_name}>
-                                    {getIndex(index)}
+                                    {getIndex(index2)}
                                   </td>
-                                  <td>{val.duty}</td>
+                                  <td>{duty.duty}</td>
                                   <td>
-                                    {val.amount
+                                    {duty.amount
                                       ? `${'INR'} ${Number(
-                                        val.amount,
+                                        duty.amount,
                                       )?.toLocaleString('en-IN')}  `
                                       : ''}
                                   </td>
                                   <td>
-                                    {val.percentage
+                                    {duty.percentage
                                       ? `${Number(
-                                        val?.percentage,
+                                        duty?.percentage,
                                       )?.toFixed()} ${'%'}`
                                       : ''}
                                   </td>
@@ -1166,20 +1305,20 @@ export default function Index({
                                 <>
                                   {' '}
                                   <td className={styles.doc_name}>
-                                    {getIndex(index)}
+                                    {getIndex(index2)}
                                   </td>
                                   <td>
                                     <select
                                       name="duty"
-                                      value={val.duty}
+                                      value={duty.duty}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                          index2,index
                                         )
                                       }
-                                      disabled={!val.actions}
+                                      disabled={!duty.actions}
                                       className={`${styles.dutyDropdown} input`}
                                     >
                                       <option>Select an option</option>
@@ -1191,12 +1330,12 @@ export default function Index({
                                   <td>
                                     <input
                                       onFocus={(e) => {
-                                        onFiledFocus(e, index)
+                                        onFiledFocus(index2,e, index)
                                         // setIsFieldInFocus(true),
                                         e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                        onFiledBlur(e, index)
+                                        onFiledBlur(index2,e, index)
                                         // setIsFieldInFocus(false),
                                         e.target.type = 'text'
                                       }}
@@ -1205,19 +1344,19 @@ export default function Index({
                                       name="amount"
                                       // value={val.amount}
                                       value={
-                                        isFieldInFocus[index].value
-                                          ? val.amount
+                                        duty.value
+                                          ? duty.amount
                                           : `${'INR'}  ` +
-                                          Number(val.amount)?.toLocaleString(
+                                          Number(duty.amount)?.toLocaleString(
                                             'en-IN',
                                           )
                                       }
-                                      disabled={!val.actions}
+                                      disabled={!duty.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                            index2,index
                                         )
                                       }
                                     />
@@ -1226,20 +1365,20 @@ export default function Index({
                                     <input
                                       className={`${styles.dutyDropdown} input`}
                                       onFocus={(e) => {
-                                        onFiledFocus(e, index)
+                                        onFiledFocus(index2,e, index)
                                         // setIsFieldInFocus(true),
                                         e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                        onFiledBlur(e, index)
+                                        onFiledBlur(index2,e, index)
                                         // setIsFieldInFocus(false),
                                         e.target.type = 'text'
                                       }}
                                       type="text"
                                       value={
-                                        isFieldInFocus[index].value
-                                          ? val.percentage
-                                          : Number(val.percentage).toFixed(2) +
+                                        duty.value
+                                          ? duty.percentage
+                                          : Number(duty.percentage).toFixed(2) +
                                           `${'%'}`
                                       }
                                       name="percentage"
@@ -1248,7 +1387,7 @@ export default function Index({
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                            index2,index
                                         )
                                       }
                                     />
@@ -1258,12 +1397,12 @@ export default function Index({
 
                               <td>
                                 <div>
-                                  {!val.actions ? (
+                                  {!duty.actions ? (
                                     <img
                                       src="/static/mode_edit.svg"
                                       className={`${styles.edit_image} mr-3`}
                                       onClick={() => {
-                                        setActions(index, true)
+                                        setActions(index2,true,index)
                                       }}
                                     />
                                   ) : (
@@ -1273,7 +1412,7 @@ export default function Index({
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setActions(index, false)
+                                          setActions(index2,false,index)
                                         }}
                                       />
                                     </>
@@ -1283,7 +1422,7 @@ export default function Index({
                                     className={`${styles.edit_image} p-0 border-0 img-fluid`}
                                     style={{ cursor: 'pointer' }}
                                     alt="delete"
-                                    onClick={() => handleDeleteRow(index)}
+                                    onClick={() => handleDeleteRow(index2,index)}
                                   />
                                 </div>
                               </td>
@@ -1298,13 +1437,13 @@ export default function Index({
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
-                          INR{' '}{totalCustomDuty()?.toLocaleString('en-In')}
+                          INR{' '}{totalCustomDuty(index)?.toLocaleString('en-In')}
                         </div>
                       </div>
                       <div
                         className={`${styles.add_row} d-flex `}
                         onClick={(e) => {
-                          addMoredutyDataRows()
+                          addMoredutyDataRows(index)
                         }}
                       >
                         <span>+</span>
@@ -1316,7 +1455,8 @@ export default function Index({
               </div>
 
               <div className="row ml-auto">
-                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+              {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+
                   (bl, indexbl) => {
                     return (
                       <>
@@ -1430,7 +1570,7 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                      {billOfEntryData.boeAssessment === 'Final' ? (
+                      {val.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
                           <strong className="text-danger ml-1">*</strong>
@@ -1442,11 +1582,11 @@ export default function Index({
                         </td>
                       )}
                       <td>
-                        {billOfEntryData.document1 ? (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                        {val.document1 ? (val.document1?.originalName?.toLowerCase().endsWith('.xls') || val.document1?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                           src="/static/excel.svg"
                           className="img-fluid"
                           alt="Pdf"
-                        /> : (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                        /> : (val.document1?.originalName?.toLowerCase().endsWith('.doc') || val.document1?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                           src="/static/doc.svg"
                           className="img-fluid"
                           alt="Pdf"
@@ -1459,22 +1599,22 @@ export default function Index({
                         }
                       </td>
                       <td className={styles.doc_row}>
-                        {billOfEntryData.document1 === null
+                        {val.document1 === null
                           ? ''
-                          : moment(billOfEntryData.document1.date).format(
+                          : moment(val?.document1?.date).format(
                             'DD-MM-YYYY, h:mm a',
                           )}
                       </td>
 
                       <td>
-                        {billOfEntryData.document1 === null ? (
+                        {val.document1 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
                                 name="document1"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDoc1(e)}
+                                onChange={(e) => uploadDoc1(e,index)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
@@ -1486,7 +1626,7 @@ export default function Index({
                             className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
-                              {billOfEntryData?.document1?.originalName}
+                              {val?.document1?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document1')}
@@ -1504,11 +1644,11 @@ export default function Index({
                         <strong className="text-danger ml-1">*</strong>
                       </td>
                       <td>
-                        {billOfEntryData.document2 ? (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                        {val.document2 ? (val.document2?.originalName?.toLowerCase().endsWith('.xls') || val.document2?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                           src="/static/excel.svg"
                           className="img-fluid"
                           alt="Pdf"
-                        /> : (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                        /> : (val.document2?.originalName?.toLowerCase().endsWith('.doc') || val.document2?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                           src="/static/doc.svg"
                           className="img-fluid"
                           alt="Pdf"
@@ -1521,22 +1661,22 @@ export default function Index({
                         }
                       </td>
                       <td className={styles.doc_row}>
-                        {billOfEntryData.document2 === null
+                        {val.document2 === null
                           ? ''
-                          : moment(billOfEntryData.document2.date).format(
+                          : moment(val?.document2?.date).format(
                             'DD-MM-YYYY, h:mm a',
                           )}
                       </td>
 
                       <td>
-                        {billOfEntryData?.document2 === null ? (
+                        {val?.document2 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
                                 name="document2"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDoc1(e)}
+                                onChange={(e) => uploadDoc1(e,index)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
@@ -1548,10 +1688,10 @@ export default function Index({
                             className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
-                              {billOfEntryData?.document2?.originalName}
+                              {val?.document2?.originalName}
                             </span>
                             <img
-                              onClick={() => removeDoc('document2')}
+                              onClick={() => removeDoc('document2',index)}
                               className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
@@ -1560,18 +1700,18 @@ export default function Index({
                         )}
                       </td>
                     </tr>
-                    {billOfEntryData.pdBond ? (
+                    {val?.pdBond ? (
                       <tr className="table_row">
                         <td className={styles.doc_name}>
                           PD Bond
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {billOfEntryData.document3 ? (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          {val?.document3 ? (val.document3?.originalName?.toLowerCase().endsWith('.xls') || val.document3?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                             src="/static/excel.svg"
                             className="img-fluid"
                             alt="Pdf"
-                          /> : (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          /> : (val.document3?.originalName?.toLowerCase().endsWith('.doc') || val.document3?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                             src="/static/doc.svg"
                             className="img-fluid"
                             alt="Pdf"
@@ -1584,21 +1724,21 @@ export default function Index({
                           }
                         </td>
                         <td className={styles.doc_row}>
-                          {billOfEntryData.document3 === null
+                          {val.document3 === null
                             ? ''
-                            : moment(billOfEntryData.document3.date).format(
+                            : moment(val.document3.date).format(
                               'DD-MM-YYYY, h:mm a',
                             )}
                         </td>
                         <td>
-                          {billOfEntryData.document3 === null ? (
+                          {val.document3 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
                                   name="document3"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => uploadDoc1(e)}
+                                  onChange={(e) => uploadDoc1(e,index)}
                                 />
                                 <button
                                   className={`${styles.button_upload} btn`}
@@ -1612,10 +1752,10 @@ export default function Index({
                               className={`${styles.certificate} text1 d-flex justify-content-between`}
                             >
                               <span>
-                                {billOfEntryData?.document3?.originalName}
+                                {val?.document3?.originalName}
                               </span>
                               <img
-                                onClick={() => removeDoc('document3')}
+                                onClick={() => removeDoc('document3',index)}
                                 className={`${styles.close_image} image_arrow`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -1630,6 +1770,9 @@ export default function Index({
               </div>
             </div>
           </div>
+              </>
+            )
+          })}
           <div className="">
             <UploadOther
               orderid={OrderId}

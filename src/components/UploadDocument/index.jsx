@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerList, vesselCertificate, setVesselCertificate, setContainerListDocument }) => {
 
@@ -117,6 +118,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 type="file"
                                 name="myfile"
                                 accept="application/msword, text/plain, application/pdf, .docx"
+
                                 onChange={(e) => vesselDocFunction(e)}
 
                               />
@@ -144,7 +146,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                         <strong className="text-danger">*</strong>
                       </td>
                       <td>
-                      {containerList ? (containerList?.originalName?.toLowerCase().endsWith('.xls') || containerList?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                        {containerList ? (containerList?.originalName?.toLowerCase().endsWith('.xls') || containerList?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                           src="/static/excel.svg"
                           className="img-fluid"
                           alt="Pdf"
@@ -170,8 +172,20 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 id={docName2}
                                 type="file"
                                 name="myfile"
-                                accept="application/msword, text/plain, application/pdf, .docx"
-                                onChange={(e) => vesselDocFunction(e)}
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+
+                                onChange={(e) => {
+                                  if (e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') || e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')) {
+                                    vesselDocFunction(e)
+                                  } else {
+                                    let toastMessage = 'only XLS files are allowed'
+                                    if (!toast.isActive(toastMessage.toUpperCase())) {
+                                      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                                    }
+                                  }
+                                }
+                                }
+
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
