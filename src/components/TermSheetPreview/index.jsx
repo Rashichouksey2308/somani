@@ -2714,7 +2714,7 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {`USD`}{' '}
+                          {termsheetDetails?.commodityDetails?.orderCurrency ? termsheetDetails?.commodityDetails?.orderCurrency : ''}{' '}
                           {termsheetDetails.commercials?.lcOpeningChargesUnit
                             ? Number(
                               termsheetDetails.commercials
@@ -4164,7 +4164,10 @@ const toPrintPdf = (
                                     }}
                                   >
                                     LC Opening Charges ( on LC value subject to
-                                    minimum of INR )
+                                    minimum of {termsheetDetails?.commodityDetails?.orderCurrency} {Number(
+                              termsheetDetails.commercials
+                                ?.lcOpeningChargesUnit,
+                            )?.toLocaleString('en-In')} )
                                   </label>
                                 </li>
                                 <li
