@@ -44,7 +44,9 @@ export default function Index({
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
-  const [billOfEntryData, setBillOfEntryData] = useState({
+  const [billOfEntryData, setBillOfEntryData] = useState(
+   [
+        {
     boeAssessment: '',
     pdBond: false,
     billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
@@ -74,7 +76,9 @@ export default function Index({
     document1: null,
     document2: null,
     document3: null,
-  })
+  }
+   ]
+  )
   console.log(billOfEntryData, 'billOfEntryData')
   const totalCustomDuty = () => {
     let number = 0
@@ -118,40 +122,44 @@ export default function Index({
     let text = d.toISOString()
     saveBillOfEntryData(name, text)
   }
-  const saveBoeDetaiDate = (value, name) => {
+  const saveBoeDetaiDate = (value, name,index) => {
     // console.log(value, name, 'save date')
     // const namesplit = name?.split('.')
     const d = new Date(value)
     let text = d.toISOString()
-    saveBillOfEntryData(name, text)
+    saveBillOfEntryData(name, text,index)
   }
 
-  const saveBillOfEntryData = (name, value) => {
+  const saveBillOfEntryData = (name, value,index) => {
     console.log(name, value, 'Event1')
-    const newInput = { ...billOfEntryData }
+    const newInput = [ ...billOfEntryData ]
+    console.log(newInput,"newInput")
     const namesplit = name.split('.')
+   
     namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value)
+      ? (newInput[index] [namesplit[0]][namesplit[1]] = value)
+      : (newInput[index][name] = value)
     console.log(newInput, 'newInput')
 
-    setBillOfEntryData({ ...newInput })
+    setBillOfEntryData([...newInput ])
   }
-  const conversionRateChange = (name, value) => {
-    const newInput = { ...billOfEntryData }
-    newInput['boeDetails']['conversionRate'] = value
+  const conversionRateChange = (name, value,index) => {
+    const newInput = [ ...billOfEntryData ]
+    newInput[index]['boeDetails']['conversionRate'] = value
     console.log(newInput, 'newInput')
 
-    setBillOfEntryData({ ...newInput })
+    setBillOfEntryData([ ...newInput ])
   }
 
   const [pfCheckBox, setPfCheckBox] = useState(true)
 
-  const handlePfCheckBox = (e) => {
-    saveBillOfEntryData('pdBond', !pfCheckBox)
-    setPfCheckBox(!pfCheckBox)
+  const handlePfCheckBox = (e,index) => {
+     const newInput = [ ...billOfEntryData ]
+     newInput[index].pdBond=!newInput.pdBond
+     setBillOfEntryData([...newInput ])
+    // setPfCheckBox(!pfCheckBox)
   }
-  //console.log(pfCheckBox, 'pfCheckBox')
+  console.log(billOfEntryData, 'billOfEntryDatabillOfEntryData')
 
   const [dutyData, setDutyData] = useState([])
 
@@ -183,84 +191,95 @@ export default function Index({
     }
   }, [customData])
   console.log(isFieldInFocus, 'isFieldInFocus')
-  const handleDutyChange = (name, value, index) => {
+  const handleDutyChange = (name, value,index2,index) => {
     // console.log(name,value,index,"name,value")
-    let tempArr = [...dutyData]
-    tempArr.forEach((val, i) => {
-      if (i == index) {
-        val[name] = value
-      }
-    })
-
-    // console.log(tempArr,"tempArr")
-    setDutyData(tempArr)
+   const newInput = [ ...billOfEntryData ]
+   newInput[index].duty[index2][name]=value
+    setBillOfEntryData([...newInput ])
   }
 
-  const setActions = (index, val) => {
-    setDutyData((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, actions: val }
-        }
+  const setActions = (index2, val,index) => {
+      const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].actions=val
+      setBillOfEntryData([...newInput ])
+    // setDutyData((prevState) => {
+    //   const newState = prevState.map((obj, i) => {
+    //     if (i == index) {
+    //       return { ...obj, actions: val }
+    //     }
 
-        return obj
-      })
+    //     return obj
+    //   })
 
-      return newState
-    })
+    //   return newState
+    // })
 
-    let newInput = { ...billOfEntryData }
-    newInput.duty = dutyData
-    setBillOfEntryData(newInput)
+    // let newInput = { ...billOfEntryData }
+    // newInput.duty = dutyData
+    // setBillOfEntryData(newInput)
   }
-  const onFiledFocus = (e, index) => {
-    let tempArr2 = [...isFieldInFocus]
-    tempArr2.forEach((val, i) => {
-      if (i == index) {
-        val.value = true
-      }
-    })
-    setIsFieldInFocus([...tempArr2])
+  const onFiledFocus = (index2,e, index) => {
+     const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].value=true
+      setBillOfEntryData([...newInput ])
+    // let tempArr2 = [...isFieldInFocus]
+    // tempArr2.forEach((val, i) => {
+    //   if (i == index) {
+    //     val.value = true
+    //   }
+    // })
+    // setIsFieldInFocus([...tempArr2])
   }
-  const onFiledBlur = (e, index) => {
-    let tempArr2 = [...isFieldInFocus]
-    tempArr2.forEach((val, i) => {
-      if (i == index) {
-        val.value = false
-      }
-    })
-    setIsFieldInFocus([...tempArr2])
+  const onFiledBlur = (index2,e, index) => {
+    const newInput = [ ...billOfEntryData ]
+      newInput[index].duty[index2].value=false
+      setBillOfEntryData([...newInput ])
   }
-  const handleDeleteRow = (index) => {
-    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-    setIsFieldInFocus([
-      ...isFieldInFocus.slice(0, index),
-      ...isFieldInFocus.slice(index + 1),
-    ])
+  const handleDeleteRow = (index2,index) => {
+      const newInput = [ ...billOfEntryData ]
+      let a = newInput[index].duty[index2]
+    // setBillOfEntryData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+
+    // setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+    // setIsFieldInFocus([
+    //   ...isFieldInFocus.slice(0, index),
+    //   ...isFieldInFocus.slice(index + 1),
+    // ])
   }
 
   const removeDoc = (name) => {
     setBillOfEntryData({ ...billOfEntryData, [name]: null })
   }
 
-  const addMoredutyDataRows = () => {
-    setDutyData([
-      ...dutyData,
+  const addMoredutyDataRows = (index) => {
+        const newInput = [ ...billOfEntryData ]
+        newInput[index].duty.push(
+          {
+          percentage: '',
+          duty: '',
+          amount: '',
+          action: false,
+          value:false
+         },
+        )
+         setBillOfEntryData([...newInput ])
+    // setDutyData([
+    //   ...dutyData,
 
-      {
-        percentage: '',
-        duty: '',
-        amount: '',
-        action: false,
-      },
-    ])
-    setIsFieldInFocus([
-      ...isFieldInFocus,
+    //   {
+    //     percentage: '',
+    //     duty: '',
+    //     amount: '',
+    //     action: false,
+    //   },
+    // ])
+    // setIsFieldInFocus([
+    //   ...isFieldInFocus,
 
-      {
-        value: false,
-      },
-    ])
+    //   {
+    //     value: false,
+    //   },
+    // ])
   }
   console.log(billOfEntryData, 'billOfEntryData')
 
@@ -361,13 +380,13 @@ export default function Index({
       console.log('billOfEntryDatasubmit')
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.conversionRate,
+        billOfEntryData?.boeDetails?.conversionRate,
       )
       tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.invoiceQuantity,
+        billOfEntryData?.boeDetails?.invoiceQuantity,
       )
       tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
-        billOfEntryData.boeDetails.invoiceValue,
+        billOfEntryData?.boeDetails?.invoiceValue,
       )
       const billOfEntry = { billOfEntry: [tempData] }
 
@@ -419,13 +438,13 @@ export default function Index({
 
     setAcc(
       checkNan(
-        removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
+        removePrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue) *
         removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
-    billOfEntryData.boeDetails.conversionRate,
-    billOfEntryData.boeDetails.invoiceValue,
+    billOfEntryData?.boeDetails?.conversionRate,
+    billOfEntryData?.boeDetails?.invoiceValue,
   ])
 
   useEffect(() => {
@@ -447,40 +466,47 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      let data = _get(customData, 'billOfEntry.billOfEntry[0]', [{}])
-      let tempArray = {
-        boeAssessment: data?.boeAssessment,
-        pdBond: data?.pdBond,
+      let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
+      let tempArray =[]
+      data.forEach((val,index)=>{
+       tempArray.push(
+
+         {
+        boeAssessment: val?.boeAssessment,
+        pdBond: val?.pdBond,
         billOfEntryFor: _get(
           customData,
           'order.termsheet.transactionDetails.billOfEntity',
           '',
         ),
-        boeNumber: data?.boeNumber,
-        boeDate: data?.boeDate,
+        boeNumber: val?.boeNumber,
+        boeDate: val?.boeDate,
 
         boeDetails: {
-          invoiceQuantity: data?.boeDetails?.invoiceQuantity,
-          invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
-          currency: data?.boeDetails?.currency,
-          conversionRate: data?.boeDetails?.conversionRate || '',
-          invoiceNumber: data?.boeDetails?.invoiceNumber,
-          invoiceValue: data?.boeDetails?.invoiceValue,
-          invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
-          invoiceDate: data?.boeDetails?.invoiceDate,
-          boeRate: data?.boeDetails?.boeRate,
-          bankName: data?.boeDetails?.bankName,
+          invoiceQuantity: val?.boeDetails?.invoiceQuantity,
+          invoiceQuantityUnit: val?.boeDetails?.invoiceQuantityUnit,
+          currency: val?.boeDetails?.currency,
+          conversionRate: val?.boeDetails?.conversionRate || '',
+          invoiceNumber: val?.boeDetails?.invoiceNumber,
+          invoiceValue: val?.boeDetails?.invoiceValue,
+          invoiceValueCurrency: val?.boeDetails?.invoiceValueCurrency,
+          invoiceDate: val?.boeDetails?.invoiceDate,
+          boeRate: val?.boeDetails?.boeRate,
+          bankName: val?.boeDetails?.bankName,
           accessibleValue: accessibleValueCalc
             ? accessibleValueCalc
-            : data?.boeDetails?.accessibleValue,
+            : val?.boeDetails?.accessibleValue,
         },
-        duty: data.duty,
+        duty: val.duty,
 
-        document1: data?.document1 ?? null,
-        document2: data?.document2 ?? null,
-        document3: data?.document3 ?? null,
+        document1: val?.document1 ?? null,
+        document2: val?.document2 ?? null,
+        document3: val?.document3 ?? null,
       }
-      setBillOfEntryData(tempArray)
+       )
+      })
+      
+      setBillOfEntryData([...tempArray])
     }
   }, [customData])
 
@@ -491,7 +517,44 @@ export default function Index({
   const getIndex = (index) => {
     return index + 1
   }
+const addNewRow=()=>{
+  console.log("SDfsdfs")
+  setBillOfEntryData([
+      ...billOfEntryData,
+   {
+    boeAssessment: '',
+    pdBond: false,
+    billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
+    boeNumber: '',
+    boeDate: '',
 
+    boeDetails: {
+      invoiceQuantity: '',
+      invoiceQuantityUnit: '',
+      currency: 'INR',
+      conversionRate: '',
+      invoiceNumber: '',
+      invoiceValue: '',
+      invoiceValueCurrency: '',
+      invoiceDate: '',
+      boeRate: '',
+      bankName: '',
+      accessibleValue: accessibleValueCalc,
+    },
+    duty: [
+      {
+        duty: dutyData?.duty,
+        amount: dutyData?.amount,
+      },
+    ],
+
+    document1: null,
+    document2: null,
+    document3: null,
+  }
+    ])
+}
+console.log(billOfEntryData,"billOfEntryData")
   console.log('data', billOfEntryData?.billOfEntryFor)
   return (
     <>
@@ -528,14 +591,23 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card card border_color`}>
+          {billOfEntryData.map((val,index)=>{
+            return(
+              <>
+              <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Bill of Entry</h3>
 
-              <button className={styles.add_btn}>
-                <span className={styles.add_sign}>+</span>Add
+              <button className={styles.add_btn} 
+              onClick={(e)=>{
+                 
+                  addNewRow()}}
+              >
+                <span className={styles.add_sign}
+                
+                >+</span>Add
               </button>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
@@ -555,10 +627,10 @@ export default function Index({
                           inline
                           label="Provisional"
                           checked={
-                            billOfEntryData.boeAssessment === 'Provisional'
+                            val.boeAssessment === 'Provisional'
                           }
                           onChange={() => {
-                            saveBillOfEntryData('boeAssessment', 'Provisional')
+                            saveBillOfEntryData('boeAssessment', 'Provisional',index)
                           }}
                           // name="group1"
                           type={type}
@@ -568,9 +640,9 @@ export default function Index({
                           className={styles.radio}
                           inline
                           label="Final"
-                          checked={billOfEntryData.boeAssessment === 'Final'}
+                          checked={val.boeAssessment === 'Final'}
                           onChange={() => {
-                            saveBillOfEntryData('boeAssessment', 'Final')
+                            saveBillOfEntryData('boeAssessment', 'Final',index)
                           }}
                           // name="group1"
                           type={type}
@@ -592,9 +664,9 @@ export default function Index({
                     </div>
                     <label className={`${styles.switch} mb-0`}>
                       <input
-                        onChange={(e) => handlePfCheckBox(e)}
+                        onChange={(e) => handlePfCheckBox(e,index)}
                         type="checkbox"
-                        checked={billOfEntryData.pdBond ? 'checked' : ''}
+                        checked={val.pdBond ? 'checked' : ''}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -615,9 +687,9 @@ export default function Index({
                     <select
                       name="billOfEntryFor"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.billOfEntryFor}
+                      value={val?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option disabled selected>
@@ -648,13 +720,13 @@ export default function Index({
                     }
                     name="boeNumber"
                     required
-                    value={billOfEntryData?.boeNumber}
+                    value={val?.boeNumber}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -666,10 +738,11 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                      defaultDate={billOfEntryData.boeDate}
+                      defaultDate={val.boeDate}
                       name="boeDate"
                       saveDate={saveDate}
                       labelName="BOE Date"
+                      index={index}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -832,9 +905,9 @@ export default function Index({
                     <select
                       name="boeDetails.currency"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.boeDetails?.currency}
+                      value={val?.boeDetails?.currency}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select an option</option>
@@ -857,7 +930,7 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceNumber}
+                    value={val?.boeDetails?.invoiceNumber}
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     name="boeDetails.invoiceNumber"
@@ -867,7 +940,7 @@ export default function Index({
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -879,10 +952,11 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                      defaultDate={billOfEntryData?.boeDetails?.invoiceDate}
+                      defaultDate={val?.boeDetails?.invoiceDate}
                       name="boeDetails.invoiceDate"
                       saveDate={saveBoeDetaiDate}
                       labelName="Invoice Date"
+                      index={index}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -908,11 +982,11 @@ export default function Index({
                     // onKeyPress={preventMinus}
                     value={
                       isFieldInFocus2
-                        ? billOfEntryData?.boeDetails?.invoiceQuantity
-                        : billOfEntryData?.boeDetails?.invoiceQuantity == 0
+                        ? val?.boeDetails?.invoiceQuantity
+                        : val?.boeDetails?.invoiceQuantity == 0
                           ? ''
                           : Number(
-                            billOfEntryData?.boeDetails?.invoiceQuantity,
+                            val?.boeDetails?.invoiceQuantity,
                           )?.toLocaleString('en-IN') + ` MT`
                     }
                     // value={addPrefixOrSuffix(
@@ -929,7 +1003,7 @@ export default function Index({
                       evt.preventDefault()
                     }
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   // required
                   // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
@@ -951,13 +1025,13 @@ export default function Index({
                       event.currentTarget.blur()
                     }
                     value={addPrefixOrSuffix(
-                      billOfEntryData?.boeDetails?.invoiceValue,
+                      val?.boeDetails?.invoiceValue,
                       'USD',
                       'front',
                     )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      saveBillOfEntryData(e.target.name, e.target.value,index)
                     }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -972,17 +1046,17 @@ export default function Index({
                     type="text"
                     required
                     value={
-                      billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
+                      val?.boeDetails?.conversionRate == 'INR 0'
                         ? ''
                         : addPrefixOrSuffix(
-                          billOfEntryData?.boeDetails?.conversionRate,
+                          val?.boeDetails?.conversionRate,
                           'INR',
                           'front',
                         )
                     }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
-                      conversionRateChange(e.target.name, e.target.value)
+                      conversionRateChange(e.target.name, e.target.value,index)
                     }
                   />
 
@@ -1040,9 +1114,9 @@ export default function Index({
                     <select
                       name="boeDetails.bankName"
                       onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
+                        saveBillOfEntryData(e.target.name, e.target.value,index)
                       }
-                      value={billOfEntryData?.boeDetails?.bankName}
+                      value={val?.boeDetails?.bankName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select Bank</option>
@@ -1093,26 +1167,26 @@ export default function Index({
                         </tr>
                       </thead>
                       <tbody>
-                        {dutyData.length > 0 &&
-                          dutyData.map((val, index) => (
+                        {val.duty.length > 0 &&
+                          val.duty.map((duty, index2) => (
                             <tr key={index} className="table_row">
-                              {!val.actions ? (
+                              {!duty.actions ? (
                                 <>
                                   <td className={styles.doc_name}>
-                                    {getIndex(index)}
+                                    {getIndex(index2)}
                                   </td>
-                                  <td>{val.duty}</td>
+                                  <td>{duty.duty}</td>
                                   <td>
-                                    {val.amount
+                                    {duty.amount
                                       ? `${'INR'} ${Number(
-                                        val.amount,
+                                        duty.amount,
                                       )?.toLocaleString('en-IN')}  `
                                       : ''}
                                   </td>
                                   <td>
-                                    {val.percentage
+                                    {duty.percentage
                                       ? `${Number(
-                                        val?.percentage,
+                                        duty?.percentage,
                                       )?.toFixed()} ${'%'}`
                                       : ''}
                                   </td>
@@ -1121,20 +1195,20 @@ export default function Index({
                                 <>
                                   {' '}
                                   <td className={styles.doc_name}>
-                                    {getIndex(index)}
+                                    {getIndex(index2)}
                                   </td>
                                   <td>
                                     <select
                                       name="duty"
-                                      value={val.duty}
+                                      value={duty.duty}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                          index2,index
                                         )
                                       }
-                                      disabled={!val.actions}
+                                      disabled={!duty.actions}
                                       className={`${styles.dutyDropdown} input`}
                                     >
                                       <option>Select an option</option>
@@ -1146,12 +1220,12 @@ export default function Index({
                                   <td>
                                     <input
                                       onFocus={(e) => {
-                                        onFiledFocus(e, index)
+                                        onFiledFocus(index2,e, index)
                                         // setIsFieldInFocus(true),
                                         e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                        onFiledBlur(e, index)
+                                        onFiledBlur(index2,e, index)
                                         // setIsFieldInFocus(false),
                                         e.target.type = 'text'
                                       }}
@@ -1160,19 +1234,19 @@ export default function Index({
                                       name="amount"
                                       // value={val.amount}
                                       value={
-                                        isFieldInFocus[index].value
-                                          ? val.amount
+                                        duty.value
+                                          ? duty.amount
                                           : `${'INR'}  ` +
-                                          Number(val.amount)?.toLocaleString(
+                                          Number(duty.amount)?.toLocaleString(
                                             'en-IN',
                                           )
                                       }
-                                      disabled={!val.actions}
+                                      disabled={!duty.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                            index2,index
                                         )
                                       }
                                     />
@@ -1181,20 +1255,20 @@ export default function Index({
                                     <input
                                       className={`${styles.dutyDropdown} input`}
                                       onFocus={(e) => {
-                                        onFiledFocus(e, index)
+                                        onFiledFocus(index2,e, index)
                                         // setIsFieldInFocus(true),
                                         e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                        onFiledBlur(e, index)
+                                        onFiledBlur(index2,e, index)
                                         // setIsFieldInFocus(false),
                                         e.target.type = 'text'
                                       }}
                                       type="text"
                                       value={
-                                        isFieldInFocus[index].value
-                                          ? val.percentage
-                                          : Number(val.percentage).toFixed(2) +
+                                        duty.value
+                                          ? duty.percentage
+                                          : Number(duty.percentage).toFixed(2) +
                                           `${'%'}`
                                       }
                                       name="percentage"
@@ -1203,7 +1277,7 @@ export default function Index({
                                         handleDutyChange(
                                           e.target.name,
                                           e.target.value,
-                                          index,
+                                            index2,index
                                         )
                                       }
                                     />
@@ -1213,12 +1287,12 @@ export default function Index({
 
                               <td>
                                 <div>
-                                  {!val.actions ? (
+                                  {!duty.actions ? (
                                     <img
                                       src="/static/mode_edit.svg"
                                       className={`${styles.edit_image} mr-3`}
                                       onClick={() => {
-                                        setActions(index, true)
+                                        setActions(index2,true,index)
                                       }}
                                     />
                                   ) : (
@@ -1228,7 +1302,7 @@ export default function Index({
                                         className={`${styles.edit_image} mr-3`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setActions(index, false)
+                                          setActions(index2,false,index)
                                         }}
                                       />
                                     </>
@@ -1238,7 +1312,7 @@ export default function Index({
                                     className={`${styles.edit_image} p-0 border-0 img-fluid`}
                                     style={{ cursor: 'pointer' }}
                                     alt="delete"
-                                    onClick={() => handleDeleteRow(index)}
+                                    onClick={() => handleDeleteRow(index2,index)}
                                   />
                                 </div>
                               </td>
@@ -1259,7 +1333,7 @@ export default function Index({
                       <div
                         className={`${styles.add_row} d-flex `}
                         onClick={(e) => {
-                          addMoredutyDataRows()
+                          addMoredutyDataRows(index)
                         }}
                       >
                         <span>+</span>
@@ -1271,7 +1345,8 @@ export default function Index({
               </div>
 
               <div className="row ml-auto">
-                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+              {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+
                   (bl, indexbl) => {
                     return (
                       <>
@@ -1385,7 +1460,7 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                      {billOfEntryData.boeAssessment === 'Final' ? (
+                      {val.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
                           <strong className="text-danger ml-1">*</strong>
@@ -1397,11 +1472,11 @@ export default function Index({
                         </td>
                       )}
                       <td>
-                        {billOfEntryData.document1 ? (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                        {val.document1 ? (val.document1?.originalName?.toLowerCase().endsWith('.xls') || val.document1?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                           src="/static/excel.svg"
                           className="img-fluid"
                           alt="Pdf"
-                        /> : (billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document1?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                        /> : (val.document1?.originalName?.toLowerCase().endsWith('.doc') || val.document1?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                           src="/static/doc.svg"
                           className="img-fluid"
                           alt="Pdf"
@@ -1414,22 +1489,22 @@ export default function Index({
                         }
                       </td>
                       <td className={styles.doc_row}>
-                        {billOfEntryData.document1 === null
+                        {val.document1 === null
                           ? ''
-                          : moment(billOfEntryData.document1.date).format(
+                          : moment(val?.document1?.date).format(
                             'DD-MM-YYYY, h:mm a',
                           )}
                       </td>
 
                       <td>
-                        {billOfEntryData.document1 === null ? (
+                        {val.document1 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
                                 name="document1"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDoc1(e)}
+                                onChange={(e) => uploadDoc1(e,index)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
@@ -1441,7 +1516,7 @@ export default function Index({
                             className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
-                              {billOfEntryData?.document1?.originalName}
+                              {val?.document1?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document1')}
@@ -1459,11 +1534,11 @@ export default function Index({
                         <strong className="text-danger ml-1">*</strong>
                       </td>
                       <td>
-                        {billOfEntryData.document2 ? (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                        {val.document2 ? (val.document2?.originalName?.toLowerCase().endsWith('.xls') || val.document2?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                           src="/static/excel.svg"
                           className="img-fluid"
                           alt="Pdf"
-                        /> : (billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document2?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                        /> : (val.document2?.originalName?.toLowerCase().endsWith('.doc') || val.document2?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                           src="/static/doc.svg"
                           className="img-fluid"
                           alt="Pdf"
@@ -1476,22 +1551,22 @@ export default function Index({
                         }
                       </td>
                       <td className={styles.doc_row}>
-                        {billOfEntryData.document2 === null
+                        {val.document2 === null
                           ? ''
-                          : moment(billOfEntryData.document2.date).format(
+                          : moment(val?.document2?.date).format(
                             'DD-MM-YYYY, h:mm a',
                           )}
                       </td>
 
                       <td>
-                        {billOfEntryData?.document2 === null ? (
+                        {val?.document2 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
                                 name="document2"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDoc1(e)}
+                                onChange={(e) => uploadDoc1(e,index)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
@@ -1503,10 +1578,10 @@ export default function Index({
                             className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
-                              {billOfEntryData?.document2?.originalName}
+                              {val?.document2?.originalName}
                             </span>
                             <img
-                              onClick={() => removeDoc('document2')}
+                              onClick={() => removeDoc('document2',index)}
                               className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
@@ -1515,18 +1590,18 @@ export default function Index({
                         )}
                       </td>
                     </tr>
-                    {billOfEntryData.pdBond ? (
+                    {val?.pdBond ? (
                       <tr className="table_row">
                         <td className={styles.doc_name}>
                           PD Bond
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                          {billOfEntryData.document3 ? (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xls') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
+                          {val?.document3 ? (val.document3?.originalName?.toLowerCase().endsWith('.xls') || val.document3?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
                             src="/static/excel.svg"
                             className="img-fluid"
                             alt="Pdf"
-                          /> : (billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.doc') || billOfEntryData.document3?.originalName?.toLowerCase().endsWith('.docx')) ? < img
+                          /> : (val.document3?.originalName?.toLowerCase().endsWith('.doc') || val.document3?.originalName?.toLowerCase().endsWith('.docx')) ? < img
                             src="/static/doc.svg"
                             className="img-fluid"
                             alt="Pdf"
@@ -1539,21 +1614,21 @@ export default function Index({
                           }
                         </td>
                         <td className={styles.doc_row}>
-                          {billOfEntryData.document3 === null
+                          {val.document3 === null
                             ? ''
-                            : moment(billOfEntryData.document3.date).format(
+                            : moment(val.document3.date).format(
                               'DD-MM-YYYY, h:mm a',
                             )}
                         </td>
                         <td>
-                          {billOfEntryData.document3 === null ? (
+                          {val.document3 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
                                   name="document3"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => uploadDoc1(e)}
+                                  onChange={(e) => uploadDoc1(e,index)}
                                 />
                                 <button
                                   className={`${styles.button_upload} btn`}
@@ -1567,10 +1642,10 @@ export default function Index({
                               className={`${styles.certificate} text1 d-flex justify-content-between`}
                             >
                               <span>
-                                {billOfEntryData?.document3?.originalName}
+                                {val?.document3?.originalName}
                               </span>
                               <img
-                                onClick={() => removeDoc('document3')}
+                                onClick={() => removeDoc('document3',index)}
                                 className={`${styles.close_image} image_arrow`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -1585,6 +1660,9 @@ export default function Index({
               </div>
             </div>
           </div>
+              </>
+            )
+          })}
           <div className="">
             <UploadOther
               orderid={OrderId}
