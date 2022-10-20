@@ -1403,6 +1403,7 @@ const Index = () => {
                   setAdditionalComments={setAdditionalComments}
                   additionalComments={additionalComments}
                   termsheetDetails={termsheetDetails}
+                  otherTermConditions={otherTermsAndConditions}
                 />
                 <OtherTerms
                   onChangeDropDown={onChangeDropDown}

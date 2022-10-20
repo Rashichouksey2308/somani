@@ -21,16 +21,43 @@ const Index = () => {
     '🚀 ~ file: [profile].jsx ~ line 19 ~ Index ~ buyerList',
     buyerList,
   )
+  const [fields, setFields] = useState([
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+    {
+      isEdit: true,
+    },
+  ])
+
 
   const [payloadData, setPayloadData] = useState({
     action: 'APPROVE',
-    
+
   })
-  console.log(payloadData,"payloadData")
+  console.log(payloadData, "payloadData")
   const [rejectPayloadData, setRejectPayloadData] = useState({
     action: 'REJECT',
   })
-
+  console.log(buyerList, 'buyerList')
   useEffect(() => {
     const orderId = sessionStorage.getItem('orderID')
     const companyId = sessionStorage.getItem('company')
@@ -41,6 +68,9 @@ const Index = () => {
     dispatch(setPageName('review-queue'))
     dispatch(setDynamicName(buyerList?.companyName))
   }, [buyerList, dispatch])
+
+
+  
   const handleApprove = async () => {
     if (!buyerList?.commodity?.apiResponse) {
       if (!payloadData.hasOwnProperty('commodity')) {
@@ -106,17 +136,55 @@ const Index = () => {
         return
       }
     }
-     let tempData=payloadData
-    if(tempData.turnOver){
-       tempData.turnOver= Number(payloadData.turnOver)*10000000
+    if (!buyerList?.orderValue?.apiResponse) {
+      if (!payloadData.hasOwnProperty('orderValue')) {
+        let toastMessage = 'Please fill order Value'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    if (!buyerList?.countryOfOrigin?.apiResponse) {
+      if (!payloadData.hasOwnProperty('countryOfOrigin')) {
+        let toastMessage = 'Please select a country of origin'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+    if (!buyerList?.portOfDischarge?.apiResponse) {
+      if (!payloadData.hasOwnProperty('portOfDischarge')) {
+        let toastMessage = 'Please select a port Of Discharge'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+    if (!buyerList?.ExpectedDateOfShipment?.apiResponse) {
+      if (!payloadData.hasOwnProperty('ExpectedDateOfShipment')) {
+        let toastMessage = 'Please select a Expected Date Of Shipment'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    let tempData = payloadData
+    if (tempData.turnOver) {
+      tempData.turnOver = Number(payloadData.turnOver) * 10000000
     }
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
-   let code = await  dispatch(UpdateBuyer(payload))
-   if(code==200){
-       dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
-       Router.push('/review')
-   }
+    let code = await dispatch(UpdateBuyer(payload))
+    if (code == 200) {
+      dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
+      Router.push('/review')
+    }
 
   }
   const handleReject = () => {
@@ -127,7 +195,7 @@ const Index = () => {
   }
 
   const handleChange = (name, value) => {
-    console.log(name,"nammwaa")
+    console.log(name, "nammwaa")
     const newInput = { ...payloadData, [name]: value }
     setPayloadData(newInput)
   }
@@ -149,6 +217,10 @@ const Index = () => {
             reviewedProfile={buyerList}
             handleChange={handleChange}
             payloadData={payloadData}
+            setFields={setFields}
+            fields={fields}
+            setPayloadData={setPayloadData}
+
           />
           <CompanyProfile />
           <OrderProfile />
