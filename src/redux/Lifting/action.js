@@ -65,7 +65,7 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
   )
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.get(`${API.corebaseUrl}${API.lifting}${payload ? payload : ''}`, {
       headers: headers,
@@ -99,7 +99,7 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getLifting}${payload}`, {
       headers: headers,
@@ -135,7 +135,7 @@ export const UpdateLiftingData =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.put(`${API.corebaseUrl}${API.lifting}`, payload, {
         headers: headers,

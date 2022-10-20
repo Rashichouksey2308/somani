@@ -832,8 +832,8 @@ const index = ({
                       saveProductData(e.target.name, e.target.value)
                     }}
                   >
-                    <option disabled selected>
-                      Select
+                    <option  selected>
+                      Select an option
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>

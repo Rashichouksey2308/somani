@@ -61,7 +61,7 @@ export const GetAllCustomClearance =
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.get(
         `${API.corebaseUrl}${API.customClearance}${payload ? payload : ''}`,
@@ -99,7 +99,7 @@ export const GetCustomClearance =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       Axios.get(`${API.corebaseUrl}${API.customClearance}${payload}`, {
         headers: headers,
@@ -135,7 +135,7 @@ export const UpdateCustomClearance =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.put(
         `${API.corebaseUrl}${API.customClearance}`,
@@ -146,6 +146,8 @@ export const UpdateCustomClearance =
       )
       if (response.data.code === 200) {
         // dispatch(GetAllCustomClearance(`?customClearanceId=${CustomId}`))
+        let id = sessionStorage.getItem('customId')
+        dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
         dispatch(updateCustomClearanceSuccess(response.data.data))
 
         let toastMessage = 'updated  SUCCESSFULLY'
@@ -182,7 +184,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, payload, {
       headers: headers,

@@ -79,7 +79,8 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          addComm: data?.addComm,
+          // addComm: data?.addComm,
+          addComm: [],
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
@@ -95,7 +96,7 @@ function Index(props) {
         let exe;
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "Assignment Letter") {
             exe = val.place
             if (val.dateOfExecution) {
               dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
@@ -104,7 +105,7 @@ function Index(props) {
         })
         let comment=[]
          data?.additionalComments?.comments?.forEach((val, index) => {
-          if (val.agreementName == "Sales Agreement") {
+          if (val.agreementName == "Assignment Letter") {
               comment.push(val.comment)
           }
         })
@@ -131,7 +132,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
-          addComm: data?.comment,
+          addComm:comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
@@ -145,7 +146,11 @@ function Index(props) {
           buyerEmail:"",
           supplierEmail:"",
           toleranceLevel:data?.order?.tolerance,
-          incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms
+          incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms,
+          spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
+          priceOfGoods:data?.order?.perUnitPrice
+
         })
       }
     }
@@ -223,7 +228,43 @@ const assignmentSupplier=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Description of Goods</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+         <Col md={7} className={styles.right}>
+              <>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.table_scroll_outer}>
+                    <div className={styles.table_scroll_inner}>
+                      <table>
+                        <tr>
+                          {data?.spec &&
+                            data?.spec.length > 0 &&
+                            Object.keys(data?.spec[0]).map((val, index) => (
+                              <th key={index}>{val}</th>
+                            ))}
+                        </tr>
+                        {data?.spec &&
+                          data?.spec.length > 0 &&
+                          data?.spec.map((item, index) => (
+                            <tr>
+                              {Object.values(item).map((value, id) => (
+                                <td key={id}>{value}</td>
+                              ))}
+                            </tr>
+                          ))}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                {data?.specComment?.length > 0 ? <b>Comments</b> : null}
+                <ol>
+                  {data.specComment.length > 0 && data.specComment.map((val, index) => {
+                    return (<li>
+                      {val}
+                    </li>)
+                  })}
+                </ol>
+              </>
+
+            </Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Quantity of Goods in MT</Col>
@@ -235,7 +276,7 @@ const assignmentSupplier=(data)=>{
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Price of Goods / MT</Col>
-        <Col md={7 } className={styles.right}>{''}</Col>
+        <Col md={7 } className={styles.right}>{"INR "}{data.priceOfGoods}</Col>
       </Row>
       <Row className={`${styles.row} border_black`}>
         <Col md={5} className={`${styles.left} border_black`}>Tolerance levels</Col>

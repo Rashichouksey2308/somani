@@ -365,7 +365,7 @@ function Index({
   function createGradient(ctx, area, color, color2) {
     console.log('cts', color2, color)
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, 300)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
     gradient.addColorStop(0, color2)
     gradient.addColorStop(1, color)
 
@@ -1757,8 +1757,9 @@ const chargeDetails = (
                     <th>DATE OF CREATION</th>
                   </tr>
 
-                  {camData &&
-                    camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
+                  {camData && 
+                 
+                    _get(camData,"company.detailedCompanyInfo.financial.openCharges",[]).map(
                       (charge, index) => {
                         let name = charge?.nameOfChargeHolder
                         let [fName, lName] = name?.split(' ')
