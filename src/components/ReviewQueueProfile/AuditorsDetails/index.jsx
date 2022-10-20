@@ -94,34 +94,40 @@ function Index({ auditorsDetails, companyData }) {
                           ? 'No'
                           : 'Yes'
                         : ''}
-                      {`${latestYearData?.regstrnNum?.trim() !==
-                        previousYearData?.regstrnNum?.trim() ?
-                        (latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate).format(
-                            'YYYY',
-                          )
-                          : '') : ''
+                      {`${latestYearData?.regstrnNum ?
+                        latestYearData?.regstrnNum?.trim() !==
+                          previousYearData?.regstrnNum?.trim() ?
+                          (latestYearData?.financialEndDate
+                            ? moment(latestYearData?.financialEndDate).format(
+                              'YYYY',
+                            )
+                            : '') : '' : ''
                         }`}
                     </td>
+
+
                     <td
-                      className={`${previousYearData?.regstrnNum?.trim() ===
+                      className={`${previousYearData?.regstrnNum ? (previousYearData?.regstrnNum?.trim() ===
                         lastYearData?.regstrnNum?.trim()
                         ? null
-                        : styles.danger
+                        : styles.danger)
+                        : null
                         }`}
                     >
-                      {previousYearData?.regstrnNum ? previousYearData?.regstrnNum?.trim() ===
+                      {previousYearData?.regstrnNum ? (previousYearData?.regstrnNum?.trim() ===
                         lastYearData?.regstrnNum?.trim()
                         ? 'No'
-                        : 'Yes' : ''}
-                      {` ${previousYearData?.regstrnNum?.trim() !==
+                        : 'Yes') : ''}
+                      {` ${previousYearData?.regstrnNum ? (previousYearData?.regstrnNum?.trim() !==
                         lastYearData?.regstrnNum?.trim()
-                        ? `${moment(
+                        ? `${previousYearData?.financialEndDate ? moment(
                           previousYearData?.financialEndDate,
-                        ).format('YYYY')}`
-                        : ''
+                        ).format('YYYY') : ''}`
+                        : '') : ''
                         }`}
                     </td>
+
+
                     <td
                       className={`${previousYearData?.regstrnNum?.trim() ===
                         previousYearData?.regstrnNum?.trim()
