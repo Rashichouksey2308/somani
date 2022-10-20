@@ -456,12 +456,12 @@ const Index = () => {
 
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
-      <div className={styles.head_container}>
-        <div className={`${styles.head_header}`}>
+       <div className={`${styles.head_container} align-items-center`}>
+        <div className={`${styles.head_header}  align-items-center`}>
           <img
             style={{ cursor: 'pointer' }}
             onClick={() => Router.push('/insurance')}
-            className={`${styles.back_arrow} image_arrow img-fluid`}
+            className={`${styles.back_arrow} image_arrow  mr-2 ml-0 img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
@@ -475,7 +475,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className={`${styles.vessel_card} mt-3 border_color`}>
+      <div className={`${styles.vessel_card} border_color`}>
         <div className={`${styles.wrapper} p-2 card`}>
           <div className="d-lg-flex align-items-center d-inline-block mt-4 mb-4 pl-4">
             <h2 className="mb-0">Insurance Type</h2>

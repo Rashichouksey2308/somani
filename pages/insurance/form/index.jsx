@@ -316,7 +316,7 @@ const Index = () => {
               className={`${styles.head_header} align-items-center`}
             >
               <img onClick={() => Router.push('/insurance')}
-                className={`${styles.arrow} img-fluid mr-2 ml-0 image_arrow`}
+                className={`${styles.back_arrow} img-fluid mr-2 ml-0 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
