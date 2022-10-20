@@ -31,7 +31,11 @@ export default function Index({
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
-  const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
+  const [isFieldInFocus2, setIsFieldInFocus2] = useState({
+    invoiceValue: false,
+    invoiceQuantity: false,
+    conversionRate: false,
+  })
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
@@ -901,14 +905,14 @@ export default function Index({
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     onFocus={(e) => {
-                      setIsFieldInFocus2(true), (e.target.type = 'number')
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceQuantity: true}), (e.target.type = 'number')
                     }}
                     onBlur={(e) => {
-                      setIsFieldInFocus2(false), (e.target.type = 'text')
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceQuantity: false}), (e.target.type = 'text')
                     }}
-                    // onKeyPress={preventMinus}
+                    
                     value={
-                      isFieldInFocus2
+                      isFieldInFocus2.invoiceQuantity
                         ? billOfEntryData?.boeDetails?.invoiceQuantity
                         : billOfEntryData?.boeDetails?.invoiceQuantity == 0
                           ? ''
@@ -916,10 +920,6 @@ export default function Index({
                             billOfEntryData?.boeDetails?.invoiceQuantity,
                           )?.toLocaleString('en-IN') + ` MT`
                     }
-                    // value={addPrefixOrSuffix(
-                    //   billOfEntryData?.boeDetails?.invoiceQuantity,
-                    //   'MT',
-                    // )}
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
@@ -947,15 +947,35 @@ export default function Index({
                     // value={billOfEntryData?.boeDetails?.invoiceValue}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    required
+                    onFocus={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: true}), (e.target.type = 'number')
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: false}), (e.target.type = 'text')
+                    }}
+                    
+                    value={
+                      isFieldInFocus2.invoiceValue
+                        ? billOfEntryData?.boeDetails?.invoiceValue
+                        : billOfEntryData?.boeDetails?.invoiceValue == 0
+                          ? ''
+                          : `USD` + ' ' + Number(
+                            billOfEntryData?.boeDetails?.invoiceValue,
+                          )?.toLocaleString('en-IN')  
+                    }
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
-                    value={addPrefixOrSuffix(
-                      billOfEntryData?.boeDetails?.invoiceValue,
-                      'USD',
-                      'front',
-                    )}
+                    required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    // value={addPrefixOrSuffix(
+                    //   billOfEntryData?.boeDetails?.invoiceValue,
+                    //   'USD',
+                    //   'front',
+                    // )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -971,16 +991,40 @@ export default function Index({
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    required
+                    onFocus={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, conversionRate: true}), (e.target.type = 'number')
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus2({...isFieldInFocus2, conversionRate: false}), (e.target.type = 'text')
+                    }}
+                    
                     value={
-                      billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
-                        ? ''
-                        : addPrefixOrSuffix(
-                          billOfEntryData?.boeDetails?.conversionRate,
-                          'INR',
-                          'front',
-                        )
+                      isFieldInFocus2.conversionRate
+                        ? billOfEntryData?.boeDetails?.conversionRate
+                        : billOfEntryData?.boeDetails?.conversionRate == 0
+                          ? ''
+                          : `INR` + ' ' + Number(
+                            billOfEntryData?.boeDetails?.conversionRate,
+                          )?.toLocaleString('en-IN')  
                     }
+                    onWheel={(event) =>
+                      event.currentTarget.blur()
+                    }
+                    required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    // required
+                    // value={
+                    //   billOfEntryData?.boeDetails?.conversionRate == 'INR 0'
+                    //     ? ''
+                    //     : addPrefixOrSuffix(
+                    //       billOfEntryData?.boeDetails?.conversionRate,
+                    //       'INR',
+                    //       'front',
+                    //     )
+                    // }
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
                       conversionRateChange(e.target.name, e.target.value)
