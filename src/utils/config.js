@@ -9,8 +9,7 @@
 //    'http://aebe3546d63a44165b13cdee5eae4269-1800895422.ap-south-1.elb.amazonaws.com:3003/node',
 //  }
 
-
-  // UAT
+// UAT
 // export default {
 //   authServerUrl:
 //     'http://ac28f8eec78724f91a29a7396ffb6d94-1944199995.ap-south-1.elb.amazonaws.com:3001/node',
@@ -20,17 +19,14 @@
 //     'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
 // }
 
-
-
 //Https
 
 export default {
-  baseUrl: 'https://api-dev.simport.global',
-  authServerUrl: 'https://api-dev.simport.global/auth',
-  userServerUrl: 'https://api-dev.simport.global/user',
-  coreServerUrl: 'https://api-dev.simport.global/core',
+  baseUrl: 'https://api-uat.simport.global',
+  authServerUrl: 'https://api-uat.simport.global/auth',
+  userServerUrl: 'https://api-uat.simport.global/user',
+  coreServerUrl: 'https://api-uat.simport.global/core',
 }
-
 //local
 
 // export default {
