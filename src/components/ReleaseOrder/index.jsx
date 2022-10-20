@@ -225,7 +225,7 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
     }
     let task = 'save'
     // console.log(payload)
-       if(netBalanceQuantity==0){
+       if(netBalanceQuantity>=0){
      await dispatch(UpdateDelivery({ payload, task }))
     }else{
       const toastMessage =
@@ -282,7 +282,7 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
     let task = 'submit'
 
     // console.log(payload)
-    if(netBalanceQuantity==0){
+    if(netBalanceQuantity>=0){
       await dispatch(UpdateDelivery({ payload, task }))
     }else{
       const toastMessage =
