@@ -241,6 +241,7 @@
                 }
               }
               .certificate {
+                width: 155px;
                 font-size: 20px;
                 letter-spacing: 0.19px;
                 //color: #111111;
@@ -254,10 +255,12 @@
                   white-space: nowrap;
                   display: inline-block;
                   text-overflow: ellipsis;
+                  margin-left: 5px;
                 }
                 img {
                   width: auto !important;
                   height: auto !important;
+                 margin-right: 5px;
                 }
               }
               .doc_name {
