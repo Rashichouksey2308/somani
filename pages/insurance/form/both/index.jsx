@@ -298,7 +298,7 @@ const Index = () => {
           storageData.gstOfInsurer == undefined ||
           !gSTINValidation(storageData.gstOfInsurer))
       ) {
-        toastMessage = ' PLEASE ADD VALID GST OF INSURER FOR STORAGE'
+        toastMessage = ' PLEASE ADD VALID GSTIN OF INSURER FOR STORAGE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -310,7 +310,7 @@ const Index = () => {
           storageData.gstOfInsured == undefined ||
           !gSTINValidation(storageData.gstOfInsured))
       ) {
-        toastMessage = ' PLEASE ADD A VALID GST OF INSURED'
+        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -353,9 +353,9 @@ const Index = () => {
       if (
         storageData.gstOfInsurer == '' ||
         storageData.gstOfInsurer == undefined ||
-        gSTINValidation(storageData?.gstOfInsurer)
+        !gSTINValidation(storageData?.gstOfInsurer)
       ) {
-        toastMessage = 'VALID GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -364,9 +364,9 @@ const Index = () => {
       if (
         storageData.gstOfInsured == '' ||
         storageData.gstOfInsured == undefined ||
-        gSTINValidation(storageData?.gstOfInsured)
+        !gSTINValidation(storageData?.gstOfInsured)
       ) {
-        toastMessage = 'VALID GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage = 'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -376,9 +376,9 @@ const Index = () => {
         (marineData.insuranceFromType == 'Domestic' &&
           marineData.gstOfInsurer == '') ||
         marineData.gstOfInsurer == undefined ||
-        gSTINValidation(marineData?.gstOfInsurer)
+        !gSTINValidation(marineData?.gstOfInsurer)
       ) {
-        toastMessage = 'VALID GST OF INSURER IS MANDATORY IN MARINE INSURANCE'
+        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
@@ -388,9 +388,9 @@ const Index = () => {
         (marineData.insuranceFromType == 'Domestic' &&
           marineData.gstOfInsured == '') ||
         marineData.gstOfInsured == undefined ||
-        gSTINValidation(marineData?.gstOfInsured)
+        !gSTINValidation(marineData?.gstOfInsured)
       ) {
-        toastMessage = ' VALID GST OF INSURED IS MANDATORY IN MARINE INSURANCE'
+        toastMessage = ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           return false
