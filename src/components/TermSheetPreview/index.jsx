@@ -7027,7 +7027,7 @@ const toPrintPdf2 = (
                                     }}
                                   >
                                     LC Opening Charges ( on LC value subject to
-                                    minimum of INR )
+                                    minimum of USD )
                                   </label>
                                 </li>
                                 <li
