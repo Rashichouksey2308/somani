@@ -30,6 +30,17 @@ function Index(props) {
           "city": ""
       }
   )
+  const [companyAddress,setCompanyAddress]=useState(
+          {
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      }
+  )
   console.log(props.order,"companyName23243534")
   const [EditAddress,setEditAddress]=useState(
           {
@@ -138,7 +149,7 @@ if (window) {
      setDocList(temp)
 
     setAssociateData(buyer)
-             let tempArr=props.data?.authorisedSignatoryDetails
+          let tempArr=props.data?.authorisedSignatoryDetails
           let optionArray=[...options]
           tempArr.forEach((val,index)=>{
           val.actions = "true"
@@ -154,39 +165,33 @@ if (window) {
           })
           setOptions([...optionArray])
   }
-  let isPresent=false
-  if(props?.data?.addresses.length>0){
-    props?.data?.addresses.forEach((val,index)=>{
-      console.log(val.fullAddress,"val.fullAddress")
-       if(val.fullAddress==props.address){
-         isPresent=true
-       }
-    })
-  }
-  console.log(isPresent,"isPresent")
-  if(isPresent==false){
-  let temp=[...addressList]
-
-  temp.push({
-    "addressType": "Registered",
-    "fullAddress": props.address,
-    "pinCode": "",
-    "country": "",
-    "gstin": "",
-    "state": "",
-    "city": ""
-  })
-   props?.data?.addresses.forEach((val,index)=>{
-      console.log(val.fullAddress,"val.fullAddress")
-        temp.push(val)
-    })
  
-   console.log(temp,"tempp")
-  setAddressList([...temp])
-  }
+  
+
+  setAddressList(props?.data.addresses)
 
 }
 }, [props])
+
+useEffect(() => {
+  if(props?.address){
+      
+      
+
+      let a={
+        "addressType": "Registered",
+        "fullAddress": props.address,
+        "pinCode": "",
+        "country": "",
+        "gstin": "",
+        "state": "",
+        "city": ""
+      }
+        
+        setCompanyAddress(a)
+  }
+},[props.address])
+console.log(companyAddress,"companyAddress")
 console.log(docList,"sasads")
 useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
@@ -630,6 +635,23 @@ console.log(isEdit,"associateData")
          <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
+           {companyAddress.fullAddress!==""?
+           <>
+            <div className={`${styles.registeredAddress} d-flex justify-content-between border_color`}
+            >
+              <div className={`${styles.registeredAddressHeading}`}>
+                <span>{companyAddress.addressType} Address</span>
+                <div className={`${styles.address_text}`}>
+                  {companyAddress.fullAddress} {" "} {companyAddress.pinCode} {" "} {companyAddress.country}
+                </div>
+              </div>
+            
+            </div>  
+           </>
+           :null 
+           
+           
+            }
            {addressList?.map((val,index)=>{
             return(
             <div
