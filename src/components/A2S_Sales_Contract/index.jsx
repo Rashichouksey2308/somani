@@ -82,13 +82,13 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          // addComm: data?.addComm,
-          addComm: [],
+          addComm: data?.addComm,
+         
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency,
+          curr: data?.curr,
           specComment: data?.specComment, 
         })
       } else {
@@ -588,7 +588,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}</Col>
+            <Col md={7} className={styles.right}>
+              {data.curr} {(data.unitPrice)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+              </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>Total Order Value</Col>

@@ -877,9 +877,9 @@ function Index() {
                               >
                                 42C
                               </span>
-                              AT SIGHT
+                               DRAFT AT
                               <br />
-                              NO. OF DAYS
+                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()=="AT SIGHT"?null:`NO. OF DAYS`}
                             </p>
                           </td>
                           <td
@@ -2416,9 +2416,10 @@ function Index() {
                               42C{' '}
                             </span>
                             <span>
-                              AT SIGHT
+                              DRAFT AT
                               <br />
-                              NO. OF DAYS
+                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()=="AT SIGHT"?null:`NO. OF DAYS`}
+                            
                             </span>
                           </td>
                           <td className="term_para">
