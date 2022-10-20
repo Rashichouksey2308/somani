@@ -156,6 +156,11 @@ function Index() {
       image: '/static/Masters.svg',
       route: '',
     },
+    {
+      main: 'Supplier Onboarding',
+      image: '/static/Masters.svg',
+      route: '/supplier',
+    },
   ]
   const [className, setClassName] = useState('')
   const [category, setcategory] = useState('Dashboard')
@@ -368,7 +373,7 @@ function Index() {
                       <img src={`${val.image}`} style={{filter:'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)'}}></img>
                       <span>{val.main}</span>
                     </div>
-                    {val.Other.length > 0 ? (
+                    {val.Other?.length > 0 ? (
                       <img
                         src="/static/Accordion - menu.svg"
                         className={styles.icon}
@@ -382,7 +387,7 @@ function Index() {
                       index12 == index ? className : null
                     }`}
                   >
-                    {val.Other.length > 0
+                    {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
                           const className12 =
                             index12 == index
