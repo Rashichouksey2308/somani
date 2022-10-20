@@ -353,7 +353,7 @@ const Index = () => {
       if (
         storageData.gstOfInsurer == '' ||
         storageData.gstOfInsurer == undefined ||
-        gSTINValidation(storageData?.gstOfInsurer)
+        !gSTINValidation(storageData?.gstOfInsurer)
       ) {
         toastMessage = 'VALID GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -364,7 +364,7 @@ const Index = () => {
       if (
         storageData.gstOfInsured == '' ||
         storageData.gstOfInsured == undefined ||
-        gSTINValidation(storageData?.gstOfInsured)
+        !gSTINValidation(storageData?.gstOfInsured)
       ) {
         toastMessage = 'VALID GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -376,7 +376,7 @@ const Index = () => {
         (marineData.insuranceFromType == 'Domestic' &&
           marineData.gstOfInsurer == '') ||
         marineData.gstOfInsurer == undefined ||
-        gSTINValidation(marineData?.gstOfInsurer)
+        !gSTINValidation(marineData?.gstOfInsurer)
       ) {
         toastMessage = 'VALID GST OF INSURER IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -388,7 +388,7 @@ const Index = () => {
         (marineData.insuranceFromType == 'Domestic' &&
           marineData.gstOfInsured == '') ||
         marineData.gstOfInsured == undefined ||
-        gSTINValidation(marineData?.gstOfInsured)
+        !gSTINValidation(marineData?.gstOfInsured)
       ) {
         toastMessage = ' VALID GST OF INSURED IS MANDATORY IN MARINE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
