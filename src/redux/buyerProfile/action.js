@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { GetAllOrders } from 'redux/registerBuyer/action'
 import { GetCompanyDetails } from 'redux/companyDetail/action'
 import { setIsLoading, setNotLoading } from '../Loaders/action'
+import Router from 'next/router'
 function updateCredit() {
   return {
     type: types.UPDATE_CREDIT,
@@ -393,6 +394,7 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
 /////////******** Update Termsheet *******////////
 
 export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
+
   dispatch(setIsLoading())
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -402,7 +404,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
     let response = await Axios.put(
       `${API.corebaseUrl}${API.gettermsheet}`,
-      payload,
+      payload.UpdatedTermsheet,
       {
         headers: headers,
       },
@@ -412,6 +414,10 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
       let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      if(payload.updateObj == 'Preview'){
+      
+        Router.push('/termsheet-preview')
       }
       dispatch(setNotLoading())
       return response.data.code
