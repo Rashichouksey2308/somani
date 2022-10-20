@@ -335,122 +335,143 @@ function Index() {
 
   // },[documentsFetched])
 
+ 
   const rtrnChartIndiaction = (latest, previous, last) => {
 
+    if (Number(last) === NaN || last === null || last === undefined || Number(previous) === NaN || previous === null || previous === undefined || Number(latest) === NaN || latest === null|| latest === undefined) {
+      return (<img src="/static/noTrend.svg" alt="Loss" className="img-fluid" />)
+    } else {
 
-    if (last < previous && previous < latest) {
-  
-      return (
-        <img
-          src="/static/trend-green-321.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    if (last > previous && previous < latest) {
+      if (last === previous && previous < latest) {
  
-      return (
-        <img
-          src="/static/trend-green-312.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    ////doubt
-    if (last == previous && previous < latest) {
-   
-      return (
-        <img
-          src="/static/trend-green-311.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    if(last == previous && previous > latest){
+        return (
+          <img
+            src="/static/trend-green-311.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+      if (last < previous && previous < latest) {
+        console.log(last, latest, previous, 'trends')
+        return (
+          <img
+            src="/static/trend-green-321.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
 
-      return (
-        <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
-      )
-    }
-    if (last < previous && previous > latest) {
- 
-      return (
-        <img
-          src="/static/trend-orange-212.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    if (last > previous && previous < latest) {
-    
-      return (
-        <img
-          src="/static/trend-orange-121.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    ////////doubt
-    if (last == previous && previous == latest && last != undefined) {
+      if (last > previous && previous < latest) {
+
+        return (
+          <img
+            src="/static/trend-green-312.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+      ////doubt
+
+      if (last == previous && previous > latest) {
+
+        return (
+          <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
+        )
+      }
+      if (last > previous && previous < latest) {
+
+        return (
+          <img
+            src="/static/trend-orange-212.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+      if (last < previous && previous > latest) {
+
+        return (
+          <img
+            src="/static/trend-orange-121.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+
+      if (last == previous && previous == latest) {
   
-      return (
-        <img
-          src="/static/trend-orange-121.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
+        return (
+          <img
+            src="/static/trend-orange-333.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
 
-    if (last > previous && previous > latest) {
-  
-      return (
-        <img
-          src="/static/trend-red-123.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    /////doubt
-    if (last > previous && previous > latest) {
-    
-      return (
-        <img
-          src="/static/trend-red-121.svg"
-          alt="Profit"
-          className="img-fluid"
-        />
-      )
-    }
-    if (last > previous && previous > latest) {
 
-      return (
-        <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />
-      )
-    }
-    if((last == '' && last == undefined) || (latest == '' && latest == undefined)  ){
-      return <img src='' />
-    }
+      ////////doubt
+      if (last == previous && previous == latest && last != undefined) {
 
-    // if (latest > previous && previous > last) {
-    //   return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
-    // } else
-    // if (latest < previous && previous < last) {
-    //   return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
-    // } else
-    //   return (
-    //     <img src="/static/average.svg" alt="Average" className="img-fluid" />
-    //   )
+        return (
+          <img
+            src="/static/trend-orange-121.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
 
-    // if (!last && !previous && !latest) {
-    //   return null
-    // }
+      if (last > previous && previous > latest) {
+
+        return (
+          <img
+            src="/static/trend-red-123.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+      /////doubt
+      if (last > previous && previous > latest) {
+
+        return (
+          <img
+            src="/static/trend-red-121.svg"
+            alt="Profit"
+            className="img-fluid"
+          />
+        )
+      }
+      if (last > previous && previous == latest) {
+
+        return (
+          <img src="/static/trend-red-113.svg" alt="Loss" className="img-fluid" />
+        )
+
+      }
+
+
+
+
+      // if (latest > previous && previous > last) {
+      //   return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
+      // } else
+      // if (latest < previous && previous < last) {
+      //   return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
+      // } else
+      //   return (
+      //     <img src="/static/average.svg" alt="Average" className="img-fluid" />
+      //   )
+
+      // if (!last && !previous && !latest) {
+      //   return null
+      // }
+    }
   }
 
   useEffect(() => {
