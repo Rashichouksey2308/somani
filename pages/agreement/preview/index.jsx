@@ -68,40 +68,45 @@ function index() {
             }
           }
         })
+           let comment=[]
+         data?.additionalComments?.comments?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+              comment.push(val.comment)
+          }
+        })
        
        console.log(dat,exe,"exedasa")
 
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
-          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          sellerAddress: data?.seller?.name == "Indo Intertrade Ag" ? "Industriestrasse 16, Zug, 6300" : "",
+          buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : "",
           shortseller: data?.seller?.shortName,
-          shortbuyer:  `${data?.buyer?.name=="Indo German International Private Limited"?"IGPL":"EISL"}`,
-          sellerSignature: data2.sellerSignature,
-          buyerSignature:  data2.buyerSignature,
+          shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature: data?.seller?.name,
+          buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
-          detailsOfEndBuyer: "",
+          detailsOfEndBuyer: data.company.companyName,
           detailsOfComm: data?.order?.commodity,
-          quan: data.order?.quantity,
+          quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue:data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
 
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
-          // addComm: data?.additionalComments?.comments,
-           addComm:[],
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== "Yes" ? "Full" : "Partial"}`,
+          addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
-          unitOfGrade:data?.order?.unitOfGrade,
-          unitOfQuantity:data?.order?.unitOfQuantity,
-          unitOfValue:data?.order?.unitOfValue,
-          curr:data?.order?.orderCurrency,
-          specComment: data?.productSpecifications?.comments,
+          specComment: data?.productSpecifications.comments,
+          unitOfGrade: data?.order?.unitOfGrade,
+          unitOfQuantity: data?.order?.unitOfQuantity,
+          unitOfValue: data?.order?.unitOfValue,
+          curr: data?.order?.orderCurrency
         })
       
     }
@@ -392,7 +397,7 @@ const toPdf=(data)=>{
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Details of End Buyer</p></td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.details}</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.detailsOfEndBuyer}</p></td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Details of Commodity</p></td>
@@ -400,15 +405,21 @@ const toPdf=(data)=>{
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Quantity</p></td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.quan?.toLocaleString('en-In', {maximumSignificantDigits: 2})} {data?.unitOfQuantity?.toUpperCase()}</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>
+                  {(data.quan)?.toLocaleString('en-In', { maximumFractionDigits: 2 })} {data?.unitOfQuantity?.toUpperCase()}
+                  </p></td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Unit Price</p></td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{data.curr} {data.unitPrice?.toLocaleString('en-In', {maximumSignificantDigits: 2})}</p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>
+                  {data.curr} {(data.unitPrice)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+                  </p></td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Total Order Value</p></td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>{"USD"} {data.totalOrderValue?.toLocaleString('en-In', {maximumSignificantDigits: 2})} </p></td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>
+                  {data.curr}{' '} {(data.totalOrderValue)?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+                  </p></td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Load Port</p></td>
@@ -430,13 +441,17 @@ const toPdf=(data)=>{
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}><p style={{color:'#000000', marginBottom:'0'}}>Additional Conditions</p></td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{
                   <>
-                    <ol type="1" style={{paddingLeft:'16px'}}>
-                      {data?.addComm?.length > 0 &&
-                        data?.addComm?.map((val, index) => {
-                          return (<li style={{marginBottom:'10px', color:'#000000'}} key={index}>{val}</li>)
-                        })
-                      }
-                    </ol>
+                    <>
+                <ol type="1">
+                 
+                  {data?.addComm?.length > 0 &&
+                    data?.addComm?.map((val, index) => {
+                     
+                      return (<li key={index}>{val}</li>)
+                    })
+                  }
+                </ol>
+              </>
                   </>
                 }</td>
               </tr>              
