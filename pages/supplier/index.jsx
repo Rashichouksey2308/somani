@@ -531,6 +531,25 @@ function Index() {
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        onChange={onChangeHandler}
+                        className={`${styles.input_field} input form-control`}
+                         type="text"
+                                       
+                        required
+                        name="nationalIdentificationNumber"
+                        value={formData?.nationalIdentificationNumber}
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                       Website
+                      
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -738,7 +757,7 @@ function Index() {
                               name="phoneNumber"
                               value={address?.phoneNumber}
                               className={`${styles.input_field}  input form-control border-left-0`}
-                              required
+                              
                               onChange={onChangeHandler1}
                             />
                             <label
@@ -772,7 +791,7 @@ function Index() {
                               name="alternatePhoneNumber"
                               value={address?.alternatePhoneNumber}
                               className={`${styles.input_field} input form-control border-left-0`}
-                              required
+                              
                               onChange={onChangeHandler1}
                             />
                             <label
