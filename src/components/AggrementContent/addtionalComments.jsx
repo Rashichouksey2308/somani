@@ -157,7 +157,7 @@ function Index(props) {
                     {isAssignment === 'Assignment Letter' ? (
                       <>
                         <th width="20%" className="border-0 generic_th">
-                          Month of Loading of Cargo
+                          Month of loading of Cargo<strong className="text-danger">*</strong>
                         </th>
                         <th width="15%" className="border-0 generic_th">
                           Date of Contract between Shipper and Buyer
