@@ -299,7 +299,10 @@ function Index() {
   const [DOlimit, setDoLimit] = useState(0)
   let [lastMileDelivery, setLastMileDelivery] = useState(false)
   console.log(DOlimit, 'DOlimit')
-
+ const setLastMile=(val)=>{
+    setLastMileDelivery(val)
+ }
+ console.log(lastMileDelivery,"lastMileDelivery")
   useEffect(() => {
     let limit = DOlimit
     filteredDOArray.forEach((item, index) => {
@@ -475,10 +478,11 @@ function Index() {
         })
       })
 
+      console.log(lastMileDelivery,"lastMileDelivery")
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
-        lastMileDelivery: Boolean(lastMileDelivery),
+        lastMileDelivery:  (lastMileDelivery === 'true'),
       }
       let task = 'save'
       //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
@@ -648,7 +652,7 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
                       BalanceQuantity={BalanceQuantity}
-                      setLastMileDelivery={setLastMileDelivery}
+                      setLastMileDelivery={setLastMile}
                       lastMileDelivery={lastMileDelivery}
                       onSaveHAndler={onSaveDoHAndler}
                       quantity={quantity}

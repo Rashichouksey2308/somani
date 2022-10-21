@@ -43,8 +43,7 @@ export default function Index({
 
 
 
-  console.log(_get(customData, 'order.transit'), 'this is custom doc')
-  console.log(dutyData, 'dutyData')
+  console.log(customData, 'dutyData')
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
@@ -54,7 +53,7 @@ export default function Index({
         {
     boeAssessment: '',
     pdBond: false,
-    billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity ?? '',
+    billOfEntryFor:"",
     boeNumber: '',
     boeDate: '',
 
@@ -73,8 +72,8 @@ export default function Index({
     },
     duty: [
       {
-        duty: dutyData?.duty,
-        amount: dutyData?.amount,
+        duty:'',
+        amount: '',
       },
     ],
 
@@ -87,7 +86,7 @@ export default function Index({
   console.log(billOfEntryData, 'billOfEntryData')
   const totalCustomDuty = (index) => {
     let number = 0
-    billOfEntryData[index]?.duty?.forEach((val) => {
+    dutyData[index]?.forEach((val) => {
       number += Number(val.amount)
     })
     //console.log(totalCustomDuty, 'totalCustomDuty')
@@ -113,12 +112,7 @@ export default function Index({
       // orderId: documentsFetched._id,
     }))
   }
-  console.log(
-    billOfEntryData,
-    'billOfEntryData',
-    customData,
-    _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ''),
-  )
+ 
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name,index) => {
@@ -196,37 +190,38 @@ export default function Index({
   //   setDutyData(dutyDataArr)
   // }, [customData])
 
-  useEffect(() => {
-    let temp = []
-    let temp2 = []
-    if (_get(customData, 'billOfEntry.billOfEntry[0].duty', []).length > 0) {
-      _get(customData, 'billOfEntry.billOfEntry[0].duty', []).forEach(
-        (val, index) => {
-          temp.push({
-            percentage: val.percentage || '',
-            duty: val.duty,
-            amount: val.amount,
-            action: false,
-          })
-          temp2.push({ value: false })
-        },
-      )
+  // useEffect(() => {
+  //   let temp = []
+  //   let temp2 = []
+  //   if (_get(customData, 'billOfEntry.billOfEntry[0].duty', []).length > 0) {
+  //     _get(customData, 'billOfEntry.billOfEntry[0].duty', []).forEach(
+  //       (val, index) => {
+  //         temp.push({
+  //           percentage: val.percentage || '',
+  //           duty: val.duty,
+  //           amount: val.amount,
+  //           action: false,
+  //         })
+  //         temp2.push({ value: false })
+  //       },
+  //     )
     
      
-    }
-  }, [customData])
+  //   }
+  // }, [customData])
   console.log(isFieldInFocus, 'isFieldInFocus')
   const handleDutyChange = (name, value,index2,index) => {
     // console.log(name,value,index,"name,value")
-   const newInput = [ ...billOfEntryData ]
-   newInput[index].duty[index2][name]=value
-    setBillOfEntryData([...newInput ])
+    const newInput = [ ...dutyData ]
+    newInput[index][index2][name]=value
+    setDutyData([...newInput ])
   }
 
   const setActions = (index2, val,index) => {
-      const newInput = [ ...billOfEntryData ]
-      newInput[index].duty[index2].actions=val
-      setBillOfEntryData([...newInput ])
+     const newInput = [ ...dutyData ]
+      newInput[index][index2].actions=val
+    setDutyData([...newInput ])
+     
     // setDutyData((prevState) => {
     //   const newState = prevState.map((obj, i) => {
     //     if (i == index) {
@@ -244,9 +239,13 @@ export default function Index({
     // setBillOfEntryData(newInput)
   }
   const onFiledFocus = (index2,e, index) => {
-     const newInput = [ ...billOfEntryData ]
-      newInput[index].duty[index2].value=true
-      setBillOfEntryData([...newInput ])
+     const newInput = [ ...dutyData ]
+    newInput[index][index2].value=true
+
+    setDutyData([...newInput ])
+     
+     
+      
     // let tempArr2 = [...isFieldInFocus]
     // tempArr2.forEach((val, i) => {
     //   if (i == index) {
@@ -256,16 +255,18 @@ export default function Index({
     // setIsFieldInFocus([...tempArr2])
   }
   const onFiledBlur = (index2,e, index) => {
-    const newInput = [ ...billOfEntryData ]
-      newInput[index].duty[index2].value=false
-      setBillOfEntryData([...newInput ])
+    const newInput = [ ...dutyData ]
+     newInput[index][index2].value=false
+
+    setDutyData([...newInput ])
   }
   const handleDeleteRow = (index2,index) => {
-      const newInput = [ ...billOfEntryData ]
-      let a = newInput[index].duty
-      a.splice(index2, 1);
-      newInput[index].duty=a
-      setBillOfEntryData([...newInput ])
+      const newInput = [ ...dutyData ]
+      let a= newInput[index][index2]
+       a.slice(index2 + 1)
+        setDutyData([...newInput ])
+  
+    
     // setBillOfEntryData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
 
     // setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
@@ -277,14 +278,14 @@ export default function Index({
 
   const removeDoc = (name,index) => {
     const newInput = [ ...billOfEntryData ]
-   newInput[index] [name]=null
+      newInput[index][name]=null
     setBillOfEntryData([...newInput ])
     
   }
 
   const addMoredutyDataRows = (index) => {
-        const newInput = [ ...billOfEntryData ]
-        newInput[index].duty.push(
+        const newInput = [ ...dutyData ]
+        newInput[index].push(
           {
           percentage: '',
           duty: '',
@@ -293,24 +294,8 @@ export default function Index({
           value:false
          },
         )
-         setBillOfEntryData([...newInput ])
-    // setDutyData([
-    //   ...dutyData,
-
-    //   {
-    //     percentage: '',
-    //     duty: '',
-    //     amount: '',
-    //     action: false,
-    //   },
-    // ])
-    // setIsFieldInFocus([
-    //   ...isFieldInFocus,
-
-    //   {
-    //     value: false,
-    //   },
-    // ])
+         setDutyData([...newInput ])
+ 
   }
   console.log(billOfEntryData, 'billOfEntryData')
 
@@ -435,8 +420,10 @@ export default function Index({
       tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
         billOfEntryData[i]?.boeDetails?.invoiceValue,
       )
+       tempData[i].duty=dutyData[i]
        }
-     
+      
+     console.log(tempData)
       const billOfEntry = { billOfEntry: tempData }
 
       const fd = new FormData()
@@ -445,13 +432,14 @@ export default function Index({
 
       let task = 'submit'
 
-     await  dispatch(UpdateCustomClearance({ fd, task }))
-       let id = sessionStorage.getItem('customId')
+      await  dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
       await  dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
     console.log(isOk, 'billOfEntryDatasubmit1')
   }
+  
 
   const handleSave = async() => {
    let tempData = [...billOfEntryData ]
@@ -465,6 +453,7 @@ export default function Index({
       tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
         billOfEntryData[i]?.boeDetails?.invoiceValue,
       )
+      tempData[i].duty=dutyData[i]
        }
    const billOfEntry = { billOfEntry: tempData }
     const fd = new FormData()
@@ -506,6 +495,7 @@ export default function Index({
 
   useEffect(() => {
     if (customData) {
+    
       let total = 0
       let data = customData?.order?.transit?.BL?.billOfLanding
       if (data && data.length > 0) {
@@ -517,15 +507,17 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
+        console.log("hehehee")
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
       let tempArray =[]
+      let duty11=[]
       console.log(data,"datadata")
       data.forEach((val,index)=>{
        tempArray.push(
 
          {
         boeAssessment: val?.boeAssessment,
-        pdBond: val?.pdBond,
+        pdBond: val?.pdBond||false,
         billOfEntryFor: _get(
           customData,
           'order.termsheet.transactionDetails.billOfEntity',
@@ -547,19 +539,26 @@ export default function Index({
           bankName: val?.boeDetails?.bankName,
           accessibleValue: val?.boeDetails?.accessibleValue,
         },
-        duty: val.duty,
+        // duty: val.duty,
 
         document1: val?.document1 ?? null,
         document2: val?.document2 ?? null,
         document3: val?.document3 ?? null,
-      }
+         }
        )
+       console.log(val.duty,"val.duty.percentage")
+       duty11.push(val.duty)
+        
+        
       })
-      console.log(tempArray,"tempArray")
+    
+      console.log(duty11,"tempArray")
+      setDutyData([...duty11])
       setBillOfEntryData([...tempArray])
     }
   }, [customData])
 
+  console.log(dutyData,"setDutydata")
   // console.log(
   //   customData,
   //   // billOfEntryData,
@@ -591,25 +590,39 @@ const addNewRow=()=>{
       bankName: '',
       accessibleValue: 0,
     },
-    duty: [
-      {
-        duty: dutyData?.duty,
-        amount: dutyData?.amount,
-      },
-    ],
+    // duty: [
+    //   {
+    //     duty: dutyData?.duty,
+    //     amount: dutyData?.amount,
+    //   },
+    // ],
 
     document1: null,
     document2: null,
     document3: null,
   }
     ])
+
+    setDutyData([...dutyData,[
+      {
+          percentage: '',
+          duty: '',
+          amount: '',
+          action: false,
+          value:false
+      }
+    ]])
 }
+console.log(dutyData,"asdasdasdasd")
 const deleteNewRow=(index)=>{
    setBillOfEntryData([
       ...billOfEntryData.slice(0, index),
       ...billOfEntryData.slice(index + 1),
     ])
-
+setDutyData([
+      ...dutyData.slice(0, index),
+      ...dutyData.slice(index + 1),
+    ])
 }
 console.log(billOfEntryData,"billOfEntryData")
   console.log('data', billOfEntryData?.billOfEntryFor)
@@ -676,7 +689,7 @@ console.log(billOfEntryData,"billOfEntryData")
               >
                 <span className={styles.add_sign}
                 
-                >+</span>Delete
+                >-</span>Delete
               </button>:null  
             }
               </div>
@@ -1094,23 +1107,23 @@ console.log(billOfEntryData,"billOfEntryData")
                       setIsFieldInFocus2({...isFieldInFocus2, invoiceValue: false}), (e.target.type = 'text')
                     }}
                     
-                    // value={
-                    //   isFieldInFocus2.invoiceValue
-                    //     ? billOfEntryData?.boeDetails?.invoiceValue
-                    //     : billOfEntryData?.boeDetails?.invoiceValue == 0
-                    //       ? ''
-                    //       : `USD` + ' ' + Number(
-                    //         billOfEntryData?.boeDetails?.invoiceValue,
-                    //       )?.toLocaleString('en-IN')  
-                    // }
+                    value={
+                      isFieldInFocus2.invoiceValue
+                        ? val?.boeDetails?.invoiceValue
+                        : val?.boeDetails?.invoiceValue == 0
+                          ? ''
+                          : `USD` + ' ' + Number(
+                            val?.boeDetails?.invoiceValue,
+                          )?.toLocaleString('en-IN')  
+                    }
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
-                    value={addPrefixOrSuffix(
-                      val?.boeDetails?.invoiceValue,
-                      'USD',
-                      'front',
-                    )}
+                    // value={addPrefixOrSuffix(
+                    //   val?.boeDetails?.invoiceValue,
+                    //   'USD',
+                    //   'front',
+                    // )}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1136,16 +1149,24 @@ console.log(billOfEntryData,"billOfEntryData")
                     onBlur={(e) => {
                       setIsFieldInFocus2({...isFieldInFocus2, conversionRate: false}), (e.target.type = 'text')
                     }}
-                    
-                    value={
-                      val?.boeDetails?.conversionRate == 'INR 0'
-                        ? ''
-                        : addPrefixOrSuffix(
-                          val?.boeDetails?.conversionRate,
-                          'INR',
-                          'front',
-                        )
+                     value={
+                      isFieldInFocus2.conversionRate
+                        ? val?.boeDetails?.conversionRate
+                        : val?.boeDetails?.conversionRate == 0
+                          ? ''
+                          : `INR` + ' ' + Number(
+                            val?.boeDetails?.conversionRate,
+                          )?.toLocaleString('en-IN')  
                     }
+                    
+                    // value={
+                     
+                    //    addPrefixOrSuffix(
+                    //       val?.boeDetails?.conversionRate,
+                    //       'INR',
+                    //       'front',)
+                        
+                    // }
                     onWheel={(event) =>
                       event.currentTarget.blur()
                     }
@@ -1277,9 +1298,9 @@ console.log(billOfEntryData,"billOfEntryData")
                         </tr>
                       </thead>
                       <tbody>
-                        {val.duty.length > 0 &&
-                          val.duty.map((duty, index2) => (
-                            <tr key={index} className="table_row">
+                        {dutyData[index]?.length > 0 &&
+                          dutyData[index].map((duty, index2) => (
+                            <tr key={index2} className="table_row">
                               {!duty.actions ? (
                                 <>
                                   <td className={styles.doc_name}>
