@@ -380,7 +380,7 @@ const index = () => {
         </div>
       </div> */}
       </div>
-      <DownloadMasterBar />
+      <DownloadMasterBar  btnName='Download' />
     </>
   )
 }

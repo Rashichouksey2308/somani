@@ -9,6 +9,7 @@ import InspectionDocument from '../../src/components/InspectionDocument'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import SaveBar from '../../src/components/SaveBar'
 import { UpdateSupplier } from '../../src/redux/supplier/action'
+import Image from 'next/image'
 
 function Index() {
   const dispatch = useDispatch()
@@ -366,10 +367,7 @@ function Index() {
             >
               <div
                 className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
-                data-toggle="collapse"
-                data-target="#supplierProfile"
-                aria-expanded="true"
-                aria-controls="supplierProfile"
+                style={{ cursor: 'default' }}
               >
                 <h3 className={`${styles.heading}`}>Supplier Profile</h3>
 
@@ -380,10 +378,11 @@ function Index() {
                   <div className="position-relative">
                     <select
                       className={`${styles.dropDown} ${styles.customSelect} input`}
+                      style={{ marginRight: '5px' }}
                     >
                       <>
                         {' '}
-                        <option >Select an option</option>
+                        <option>Select an option</option>
                         <option value={true}>Active</option>
                         <option value={false}>Not active</option>
                       </>
@@ -395,12 +394,21 @@ function Index() {
                     />
                   </div>
 
-                  <span className="ml-4">+</span>
+                  <span
+                    className="ml-4"
+                    data-toggle="collapse"
+                    data-target="#supplierProfile"
+                    aria-expanded="true"
+                    aria-controls="supplierProfile"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    +
+                  </span>
                 </div>
               </div>
               <div
                 id="supplierProfile"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="supplierProfile"
                 data-parent="#supplierProfile"
               >
@@ -508,10 +516,8 @@ function Index() {
                       <input
                         onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
-                         type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
                           evt.preventDefault()
@@ -525,6 +531,22 @@ function Index() {
                       >
                         National Identification No. / Commercial Registry No.
                         <strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        onChange={onChangeHandler}
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        required
+                        name="nationalIdentificationNumber"
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Website
                       </label>
                     </div>
                   </div>
@@ -556,7 +578,6 @@ function Index() {
                     >
                       <div className="d-flex justify-content-between">
                         <div>
-                          <input type="checkbox" />
                           <label className={styles.label}>
                             Registered Office Address
                           </label>
@@ -572,12 +593,20 @@ function Index() {
                             </p>
                           </div>
                         </div>
-                        <div>
+                        <div className="d-flex">
                           <img
                             className={`${styles.edit_image} img-fluid`}
                             src="/static/mode_edit.svg"
                             alt="Edit"
                           />
+                          <div className={`${styles.delete_image} ml-3`}>
+                            <Image
+                              src="/static/delete.svg"
+                              width="40px"
+                              height="40px"
+                              alt="Bin"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -599,12 +628,20 @@ function Index() {
                             </p>
                           </div>
                         </div>
-                        <div>
+                        <div className="d-flex">
                           <img
                             className={`${styles.edit_image} img-fluid`}
                             src="/static/mode_edit.svg"
                             alt="Edit"
                           />
+                          <div className={`${styles.delete_image} ml-3`}>
+                            <Image
+                              src="/static/delete.svg"
+                              width="40px"
+                              height="40px"
+                              alt="Bin"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -718,7 +755,6 @@ function Index() {
                               name="phoneNumber"
                               value={address?.phoneNumber}
                               className={`${styles.input_field}  input form-control border-left-0`}
-                              required
                               onChange={onChangeHandler1}
                             />
                             <label
@@ -752,7 +788,6 @@ function Index() {
                               name="alternatePhoneNumber"
                               value={address?.alternatePhoneNumber}
                               className={`${styles.input_field} input form-control border-left-0`}
-                              required
                               onChange={onChangeHandler1}
                             />
                             <label
@@ -877,10 +912,10 @@ function Index() {
                                   className="input"
                                   name="contact"
                                   value={person?.contact}
-                                   type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                                  type="number"
+                                  onWheel={(event) =>
+                                    event.currentTarget.blur()
+                                  }
                                   onChange={onChangeHandler2}
                                   onKeyDown={(evt) =>
                                     ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -961,7 +996,7 @@ function Index() {
               aria-expanded="true"
               aria-controls="shareHolding"
             >
-              <h3 className={`${styles.heading} mb-0`}>Shareholding Details</h3>
+              <h3 className={`${styles.heading} mb-0`}>Shareholders Details</h3>
               <span>+</span>
             </div>
             <div
@@ -1019,10 +1054,10 @@ function Index() {
                                     className="input"
                                     name="contact"
                                     value={detail?.contact}
-                                     type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                                    type="number"
+                                    onWheel={(event) =>
+                                      event.currentTarget.blur()
+                                    }
                                     onKeyDown={(evt) =>
                                       ['e', 'E', '+', '-'].includes(evt.key) &&
                                       evt.preventDefault()
@@ -1465,9 +1500,11 @@ function Index() {
               </div>
             </div>
           </div>
-
           <div className="mt-4 ml-2 mr-2 mb-5">
-            <InspectionDocument documentName="Incumbency Certificate" />
+            <InspectionDocument
+              documentName="Incumbency Certificate"
+              isSupplier={true}
+            />
           </div>
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} />

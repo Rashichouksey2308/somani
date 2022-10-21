@@ -275,7 +275,7 @@ const Index = () => {
         })
     }
   }, [termsheet])
-  console.log(otherTermsAndConditions, 'otherTerms')
+ 
 
   useEffect(() => {
 
@@ -316,10 +316,10 @@ const Index = () => {
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
-  console.log(termsheetDetails, 'herer1234')
+ 
 
   const onChangeCommercialTerms = (e) => {
-    console.log(e.target.id, e.target.value, 'sdfsdf')
+ 
     const Key = e.target.id
     const value = e.target.value
 
@@ -377,6 +377,7 @@ const Index = () => {
   }
   console.log(termsheetDetails?.paymentDueDate, 'termsheetDetails?.paymentDueDate')
   const changePayment = () => { }
+
   const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = { ...termsheetDetails }
@@ -824,7 +825,8 @@ const Index = () => {
       otherTermsAndConditions,
       additionalComments,
     }
-     dispatch(updateTermsheet(UpdatedTermsheet))
+    
+     dispatch(updateTermsheet({UpdatedTermsheet}))
     // console.log(termsheetDetails, 'updatedtermsheet')
     // let code = await dispatch(updateTermsheet(UpdatedTermsheet))
     // if (code == 200) {
@@ -842,19 +844,422 @@ const Index = () => {
     setPayloadData(newInput)
   }
 
+
   const handlePreview = () => {
-    const commercialTerms = _get(termsheet, 'data[0].commercials', false)
-    const transactional = _get(termsheet, 'data[0].transactionDetails', false)
-    const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
-    if (commercialTerms || transactional || paymentDueDate) {
-      // dispatch(GetTermsheet({companyId: sheet.company._id}))
-      router.push('/termsheet-preview')
-    } else {
-      let toastMessage = 'please save termsheet First'
+
+    let toastMessage = 'PLEASE SAVE TERMSHEET FIRST'
+    // const commercialTerms = _get(termsheet, 'data[0].commercials', false)
+    // const transactional = _get(termsheet, 'data[0].transactionDetails', false)
+    // const paymentDueDate = _get(termsheet, 'data[0].paymentDueDate', false)
+    // if (commercialTerms || transactional || paymentDueDate) {
+      //  dispatch(GetTermsheet({companyId: sheet.company._id}))
+     
+    // } else {
+    //   let toastMessage = 'please save termsheet First'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    // }
+    let tempSheet = { ...termsheetDetails }
+
+    tempSheet.transactionDetails.lcValue = newLcVal
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.perUnitPrice,
+    )
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.quantity,
+    )
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(
+      termsheetDetails.transactionDetails.marginMoney,
+    )
+    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
+      termsheetDetails.commercials.tradeMarginPercentage,
+    )
+    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
+      termsheetDetails.commercials.overDueInterestPerMonth,
+    )
+    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
+      termsheetDetails.commercials.lcOpeningChargesPercentage,
+    )
+    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
+      termsheetDetails.commercials.usanceInterestPercetage,
+    )
+    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.tolerance,
+    )
+    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
+      termsheetDetails.commercials.lcOpeningChargesUnit,
+    ).toString()
+    //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
+    console.log(tempSheet.commercials.lcOpeningChargesPercentage, 'tempSheet1')
+
+    if (
+      termsheetDetails.commodityDetails.unitOfQuantity == '' ||
+      termsheetDetails.commodityDetails.unitOfQuantity == undefined
+    ) {
+      
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      return
     }
+    if (
+      termsheetDetails.commodityDetails.orderCurrency == '' ||
+      termsheetDetails.commodityDetails.orderCurrency == undefined
+    ) {
+    
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commodityDetails.quantity == '' ||
+      termsheetDetails.commodityDetails.quantity == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commodityDetails.perUnitPrice == '' ||
+      termsheetDetails.commodityDetails.perUnitPrice?.toString() == 'NaN' ||
+      termsheetDetails.commodityDetails.perUnitPrice == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commodityDetails.commodity == '' ||
+      termsheetDetails.commodityDetails.commodity == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commodityDetails.tolerance == '' ||
+      termsheetDetails.commodityDetails.tolerance == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.lcValue == '' ||
+      termsheetDetails.transactionDetails.lcValue == NaN ||
+      termsheetDetails.transactionDetails.lcValue == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.marginMoney == '' ||
+      termsheetDetails.transactionDetails.marginMoney == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.lcOpeningBank == '' ||
+      termsheetDetails.transactionDetails.lcOpeningBank == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.incoTerms == '' ||
+      termsheetDetails.transactionDetails.incoTerms == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.loadPort == '' ||
+      termsheetDetails.transactionDetails.loadPort == undefined
+    ) {
+ 
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.countryOfOrigin == '' ||
+      termsheetDetails.transactionDetails.countryOfOrigin == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.shipmentType == '' ||
+      termsheetDetails.transactionDetails.shipmentType == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.partShipmentAllowed == '' ||
+      termsheetDetails.transactionDetails.partShipmentAllowed == undefined
+    ) {
+ 
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.portOfDischarge == '' ||
+      termsheetDetails.transactionDetails.portOfDischarge == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.billOfEntity == '' ||
+      termsheetDetails.transactionDetails.billOfEntity == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.storageOfGoods == '' ||
+      termsheetDetails.transactionDetails.storageOfGoods == undefined
+    ) {
+  
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.portOfDischarge ==
+      'Select an option' ||
+      termsheetDetails.transactionDetails.portOfDischarge == '' ||
+      termsheetDetails.transactionDetails.portOfDischarge == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails?.paymentDueDate?.computationOfDueDate == '' ||
+      termsheetDetails?.paymentDueDate?.computationOfDueDate == undefined
+    ) {
+    
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromBLDate') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+      ) {
+
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'DaysfromVesselDischargeDate') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+      ) {
+   
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+    if (termsheetDetails?.paymentDueDate?.computationOfDueDate === 'Whicheverisearlier') {
+      if (
+        termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+      ) {
+  
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+      if (
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == '' ||
+        termsheetDetails.paymentDueDate.daysFromVesselDischargeDate == undefined
+      ) {
+    
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+
+
+    if (
+      termsheetDetails.commercials.tradeMarginPercentage == '' ||
+      termsheetDetails.commercials.tradeMarginPercentage?.toString() == 'NaN' ||
+      termsheetDetails.commercials.tradeMarginPercentage == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
+      termsheetDetails.commercials.lcOpeningChargesUnit == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+
+      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined
+
+    ) {
+    
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.usanceInterestPercetage == '' ||
+      termsheetDetails.commercials.usanceInterestPercetage == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.overDueInterestPerMonth == '' ||
+      termsheetDetails.commercials.overDueInterestPerMonth == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.exchangeFluctuation == '' ||
+      termsheetDetails.commercials.exchangeFluctuation == undefined
+    ) {
+  
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.forexHedging == '' ||
+      termsheetDetails.commercials.forexHedging == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.otherTermsAndConditions == '' ||
+      termsheetDetails.commercials.otherTermsAndConditions == undefined
+    ) {
+
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.commercials.version == '' ||
+      termsheetDetails.commercials.version == undefined
+    ) {
+    
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      otherTermsAndConditions.buyer.bank === '' ||
+      otherTermsAndConditions.buyer.bank == undefined
+    ) {
+   
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+    const updateObj = 'Preview'
+   
+    const UpdatedTermsheet = {
+      ...tempSheet,
+      status: 'Approved',
+      otherTermsAndConditions,
+      additionalComments,
+    }
+    
+     dispatch(updateTermsheet({UpdatedTermsheet, updateObj}))
   }
 
   const addCommentHandler = (commentType, comment) => {
@@ -998,6 +1403,7 @@ const Index = () => {
                   setAdditionalComments={setAdditionalComments}
                   additionalComments={additionalComments}
                   termsheetDetails={termsheetDetails}
+                  otherTermConditions={otherTermsAndConditions}
                 />
                 <OtherTerms
                   onChangeDropDown={onChangeDropDown}

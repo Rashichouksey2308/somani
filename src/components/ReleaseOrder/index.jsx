@@ -66,7 +66,7 @@ export default function Index({
 
     setReleaseDetail([...tempArr])
   }
-
+console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
     let fd = new FormData()
@@ -146,8 +146,9 @@ export default function Index({
       setEditInput(true)
     }
   }
+  console.log(netBalanceQuantity,"netBalanceQuantity")
   const netQuantityChange = (e, index) => {
-    console.log(netBalanceQuantity, Number(e.target.value), 'herere12e')
+ 
     if (
       Number(
         _get(
@@ -167,7 +168,9 @@ export default function Index({
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      return
     }
+  
     if (Number(e.target.value) < 0) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
@@ -178,6 +181,7 @@ export default function Index({
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
+      return
     }
     handlereleaseDetailChange(e.target.id, e.target.value, index)
     // getData()
@@ -221,7 +225,18 @@ export default function Index({
     }
     let task = 'save'
     // console.log(payload)
-    await dispatch(UpdateDelivery({ payload, task }))
+       if(netBalanceQuantity>=0){
+     await dispatch(UpdateDelivery({ payload, task }))
+    }else{
+      const toastMessage =
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
+   
+   
+    
   }
 
   const validation = () => {
@@ -267,7 +282,16 @@ export default function Index({
     let task = 'submit'
 
     // console.log(payload)
-    await dispatch(UpdateDelivery({ payload, task }))
+    if(netBalanceQuantity>=0){
+      await dispatch(UpdateDelivery({ payload, task }))
+    }else{
+      const toastMessage =
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
+   
   }
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
@@ -493,7 +517,7 @@ export default function Index({
                                   />
                                 )}
 
-                                {Number(netBalanceQuantity) >= 0 &&
+                                {Number(netBalanceQuantity) > 0 &&
                                   releaseDetail.length - 1 === index && (
                                     <img
                                       onClick={() =>
@@ -541,7 +565,7 @@ export default function Index({
                                   />
                                 )}
 
-                                {Number(netBalanceQuantity) >= 0 &&
+                                {Number(netBalanceQuantity) > 0 &&
                                   releaseDetail.length - 1 === index && (
                                     <img
                                       onClick={() =>

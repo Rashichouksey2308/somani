@@ -20,6 +20,7 @@ const Index = ({
   ref,
   noDate,
 }) => {
+  console.log(reset,'resetReview')
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
 
@@ -38,9 +39,13 @@ const Index = ({
     }
   }, [startFrom])
   console.log(lastDate, 'lastDate')
+
   useEffect(() => {
-    setStartDate(null)
+    if (reset) {
+      setStartDate(null)
+    }
   }, [reset])
+
   console.log('sdasdasda', defaultDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
@@ -61,9 +66,8 @@ const Index = ({
             e.preventDefault()
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''
+            }`}
           onChange={(startDate) => {
             setStartDate(startDate)
             saveDate(startDate, name, index)

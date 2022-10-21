@@ -10,7 +10,10 @@ const Index = ({
   setAdditionalComments,
   additionalComments,
   termsheetDetails,
+  otherTermConditions
 }) => {
+console.log(otherTermConditions?.buyer?.bank.slice(otherTermConditions?.buyer?.bank.length - 5 , otherTermConditions?.buyer?.bank.length -1),'otherTermConditions')
+  
   const [commentType, setCommentType] = useState('select an Option')
 
   const [comment, setComment] = useState([])
@@ -213,7 +216,7 @@ const Index = ({
       )
     } else if (commentType === 'Storage of Goods') {
       setNewComment(
-        'Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the Indo’s nominated party and all expenses/charges to be born and paid by the Buyer. ',
+        `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable  Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank.slice(otherTermConditions?.buyer?.bank.length - 5 , otherTermConditions?.buyer?.bank.length -1)}’s nominated party and all expenses/charges to be born and paid by the Buyer. `,
       )
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
