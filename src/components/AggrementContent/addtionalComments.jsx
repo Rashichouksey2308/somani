@@ -31,18 +31,31 @@ function Index(props) {
         let temp = []
 
         setAddressList(savedData)
+          savedData.forEach((val) => {
+        
+          if(val.name=="Assignment Letter"){
+            setIsAssignment("Assignment Letter")
+          }
+        })
+
       } else {
         let temp = []
         props.data?.comments.forEach((val) => {
           temp.push({
-            value: val,
+            name: val.agreementName,
             comment: val.comment,
             dateOfExecution: val?.dateOfExecution,
+            dateOfContract:val.dateOfContract||null,
+            monthOfLoadingCargo:val.monthOfLoadingCargo||"",
 
             isEdit: false,
           })
+          if(val.agreementName=="Assignment Letter"){
+            setIsAssignment("Assignment Letter")
+          }
         })
         setAddressList(temp)
+        
       }
     }
   }, [props])
@@ -78,6 +91,8 @@ function Index(props) {
         name: 'Sales Agreement',
         comment: '',
         dateOfExecution: null,
+        dateOfContract:null,
+        monthOfLoadingCargo:"",
 
         actions: 'false',
       },
@@ -130,7 +145,7 @@ function Index(props) {
       return newState
     })
   }
-  console.log(addressList, '8512')
+ 
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -275,18 +290,21 @@ function Index(props) {
                                   </div>
                                 </td>
 
-                                {isAssignment === 'Assignment Letter' ? (
+                                {isAssignment === val.name ? (
                                   <>
                                     <td>
                                       <div className="d-flex">
                                         <select
                                           className={`${styles.customSelect} input`}
-                                          name="delivery"
-                                          // onChange={(e) => {
-                                          //   setMonthOfLoadingCargo(e.target.value)
-
-                                          // }}
-                                          // value={monthOfLoadingCargo}
+                                          name="monthOfLoadingCargo"
+                                          value={val.monthOfLoadingCargo}
+                                          onChange={(e) => {
+                                          handleChangeInput(
+                                                e.target.name,
+                                                e.target.value,
+                                                index,
+                                              )
+                                            }}
                                         >
                                           <option value="">
                                             Select an option
@@ -326,17 +344,17 @@ function Index(props) {
                                     <td>
                                       <div className="d-flex align-items-center">
                                         <DateCalender
-                                          name="dateOfExecution"
+                                          name="dateOfContract"
                                           saveDate={(val, name, index) => {
                                             handleChangeInput(name, val, index)
                                           }}
-                                          // defaultDate={
-                                          //   val.dateOfExecution == null
-                                          //     ? null
-                                          //     : moment(val.dateOfExecution).toDate()
-                                          // }
+                                          defaultDate={
+                                            val.dateOfContract == null
+                                              ? null
+                                              : moment(val.dateOfContract).toDate()
+                                          }
                                           // // small={true}
-                                          // index={index}
+                                          index={index}
                                         />
                                         <img
                                           className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
@@ -347,8 +365,13 @@ function Index(props) {
                                     </td>
                                   </>
                                 ) : 
-                                 
-                               (' ')}
+                                <>
+                                 <td>
+
+                                 </td>
+                                 <td></td>
+                                </>
+                               }
                                 <td className={`d-flex`}>
                                   <img
                                     className={`${styles.image} mr-3`}

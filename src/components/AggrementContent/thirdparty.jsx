@@ -1,19 +1,21 @@
-/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/ermsalt-text */
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-
+import DateCalender from '../DateCalender'
+import moment from 'moment'
 function Index(props) {
   const [deliveryData, setDeliveryData] = useState('')
   const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('')
+   const [paymentTerms, setPaymentTerms] = useState('')
   const [saveContactTable, setContactTable] = useState(false)
   const [listContact, setListContact] = useState([
     {
       sNo: '',
       bankName: '',
       chequeNo: '',
-      chequeDate: '',
+      chequeDate: null,
       amount: '',
     },
   ])
@@ -21,10 +23,10 @@ function Index(props) {
     setListContact([
       ...listContact,
       {
-        sNo: '',
+      sNo: '',
       bankName: '',
       chequeNo: '',
-      chequeDate: '',
+      chequeDate: null,
       amount: '',
       },
     ])
@@ -41,12 +43,30 @@ function Index(props) {
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'))
 
         console.log('savd')
-        setDeliveryData(savedData.deliveryTerms)
-        setMonthOfLoadingCargo(savedData.monthOfLoadingCargo)
+        setDeliveryData(savedData?.deliveryTerms)
+        setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo)
+        setPaymentTerms(savedData?.paymentTerms)
+        setListContact(savedData?.cheque?.length>0?savedData.cheque:[  {
+      sNo: '',
+      bankName: '',
+      chequeNo: '',
+      chequeDate: null,
+      amount: '',
+    },])
       }
     } else {
       setDeliveryData(props?.delivery?.deliveryTerms)
-      setMonthOfLoadingCargo(props.delivery.monthOfLoadingCargo)
+      setMonthOfLoadingCargo(props?.delivery?.monthOfLoadingCargo)
+       setPaymentTerms(props?.delivery?.paymentTerms)
+       setListContact(props?.delivery?.cheque?.length>0? props.delivery.cheque:[
+         {
+      sNo: '',
+      bankName: '',
+      chequeNo: '',
+      chequeDate: null,
+      amount: '',
+    },
+       ])
     }
   }, [props])
 
@@ -55,6 +75,8 @@ function Index(props) {
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
+        paymentTerms:paymentTerms,
+        listContact:listContact
       }
       props.sendData('Delivery Terms', data)
     }
@@ -63,20 +85,27 @@ function Index(props) {
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
+        paymentTerms:paymentTerms,
+        listContact:listContact
       }
-      console.log(data, deliveryData, 'deliveryData')
+    
       props.updateData('Delivery Terms', data)
     }
   }, [props.saveData, props.submitData])
 
   const handleInput = (name, value, key) => {
-    console.log(value, 'diler')
+   
 
     setDeliveryData(value)
     let dataToSend2 = {
       deliveryTerms: value,
     }
     sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+  }
+  const handleChangeInput=(name,value,index)=>{
+    let temp=[...listContact]
+    temp[index][name]=value
+    setListContact([...temp])
   }
   console.log(deliveryData, 'deliveryData')
   return (
@@ -125,10 +154,12 @@ function Index(props) {
               <div className="d-flex">
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="delivery"
-                  // onChange={(e) => {
-                  //   handleInput(e.target.name, e.target.value)
-                  // }}
+                  name="paymentTerms"
+                  value={paymentTerms}
+                  onChange={(e) => {
+                    setPaymentTerms(e.target.value)
+                   
+                  }}
                 >
                   <option selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
@@ -224,55 +255,88 @@ function Index(props) {
                         CHEQUE DATE 
                       </th>
                       <th width='20%'>AMOUNT</th>
-                      <th width='10%'></th>
+                      <th width='10%'>Actions</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {listContact.length > 0 &&
+                    {listContact?.length > 0 &&
                       listContact.map((val, index) => (
                         <tr key={index} className="table_credit">
                           <td>
                             <input
                               className="input font-weight-bold"
-                              name="name"
+                              name="sNo"
                               type="text"
+                              value={val.sNo}
+                              onChange={(e)=>{
+                                handleChangeInput(e.target.name,e.target.value, index)
+                              }}
                             />
                           </td>
                           <td>
                             <input
                               className="input"
-                              name="designation"
+                              name="bankName"
                               type="text"
+                              value={val.bankName}
+                               onChange={(e)=>{
+                                handleChangeInput(e.target.name,e.target.value, index)
+                              }}
+                            />
+                          </td>
+                        
+                            <td>
+                            <input
+                              className="input"
+                              name="chequeNo"
+                              type="text"
+                               value={val.chequeNo}
+                                onChange={(e)=>{
+                                handleChangeInput(e.target.name,e.target.value, index)
+                              }}
+                              // readOnly={!saveContactTable}
                             />
                           </td>
                           <td>
-                            <input
-                              className="input"
-                              name="designation"
-                              type="text"
-                            />
-                          </td>
+                             <div className="d-flex align-items-center">
+                                    <DateCalender
+                                      name="chequeDate"
+                                      saveDate={(val, name, index) => {
+                                        handleChangeInput(name, val, index)
+                                      }}
+                                      defaultDate={
+                                        val.chequeDate == null
+                                          ? null
+                                          : moment(val.chequeDate).toDate()
+                                      }
+                                      // small={true}
+                                      index={index}
+                                    />
+                                    <img
+                                      className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                                      src="/static/caldericon.svg"
+                                      alt="Search"
+                                    />
+                              </div>
+                              </td>
                           <td>
                             <input
                               className="input"
-                              name="contact"
+                              name="amount"
                               type="number"
+                              value={val.amount}
                               onKeyDown={(evt) =>
                                 ['e', 'E', '+', '-'].includes(evt.key) &&
                                 evt.preventDefault()
                               }
+                               onChange={(e)=>{
+                                handleChangeInput(e.target.name,e.target.value, index)
+                              }}
                               // readOnly={!saveContactTable}
                             />
                           </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="emailId"
-                              type="text"
-                              // readOnly={!saveContactTable}
-                            />
-                          </td>
+                          
 
                           <td className="text-right">
                             <div className="d-flex">
@@ -285,12 +349,12 @@ function Index(props) {
                                 }}
                               />
 
-                              <img
+                            {index!=0?  <img
                                 src="/static/delete 2.svg"
                                // className="img-fluid"
                                 alt="delete"
                                 onClick={() => handleDeleteContact(index)}
-                              />
+                              />:null}
                             </div>
                           </td>
                         </tr>
