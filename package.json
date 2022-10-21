@@ -41,6 +41,7 @@
     "redux": "^4.2.0",
     "redux-logger": "^3.0.6",
     "sass": "^1.51.0",
+    "sonarqube-scanner": "^2.8.2",
     "styled-components": "^5.3.1",
     "styled-normalize": "^8.0.6",
     "xlsx": "^0.18.5",
