@@ -280,7 +280,7 @@ function Index({ TransitDetails }) {
               ALI, DUBAI, U.A.E
             </div>
           </div>
-          <div>
+          <div className='w-25 text-right'>
             <span>DATE:</span>{' '}
             {moment(
               loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/'),
@@ -399,18 +399,18 @@ function Index({ TransitDetails }) {
           <p>
             The above cargo was shipped on the above ship by{' '}
             <span className={styles.bold}>
-              LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE
-              4000 QUEBSLAND, AUSTRALIA{' '}
+              LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE
+              4000 QUEESLAND, AUSTRALIA{' '}
             </span>
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
-            <span className={styles.bold}>ANY PORT (S) lN INDIA </span> but the
-            Bills of Lading has not arrived and we, EMERGENT INDUSTRIAL
+            <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
+            bill of Lading has not arrived and we, EMERGENT INDUSTRIAL
             SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
-            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 30016,
+            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016,
             INDIA , hereby request you to deliver the said cargo to EMERGENT
             INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, SAKHAPATNAM, ANDHRA PRADESH
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH
             - 530016, INDIA or to such party as you believe to be or to
             represent EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
             FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
@@ -421,71 +421,34 @@ function Index({ TransitDetails }) {
             <span className={styles.bold}>
               VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
-            without production of the original Bill(s) of Lading.
+            without production of the original Bill of Lading.
           </p>
 
           <div className={`${styles.list}`}>
             <p>
-              In consideration of your accepting our request and/or complying
-              with, or taking any steps to comply with, or attempting to comply
-              with our above request, we hereby agree as follows :{' '}
+            In consideration of your accepting our request and/or complying with, or taking any steps to comply with, or attempting to comply with our above request, we hereby agree as follows :{' '}
             </p>
             <ol>
               <li>
-                To indemnify you, your servants, agents and any third party
-                affiliated or associated with Torvald Klaveness and to hold all
-                of you harmless in respect of any liability, loss, damage or
-                expense of whatsoever nature which you may sustain by reason of
-                delivering the cargo in accordance with our request.{' '}
+              To indemnify you, your servants, agents and any third party affiliated or associated with Torvald Klaveness and to hold all of you harmless in respect of any liability, loss, damage or expense of whatsoever nature which you may sustain by reason of delivering the cargo in accordance with our request.{' '}
               </li>
               <li>
-                In the event of any proceedings being commenced against you or
-                any other person or third party mentioned under No. 1 above in
-                connection with the delivery of the cargo as aforesaid, to
-                provide you or them on demand with sufficient funds to defend
-                the same.{' '}
+              In the event of any proceedings being commenced against you or any other person or third party mentioned under No. 1 above in connection with the delivery of the cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.{' '}
               </li>
               <li>
-                If, in connection with the delivery of the cargo as aforesaid,
-                the ship, or any other ship or property in the same or
-                affiliated/associated ownership, management or control, should
-                be arrested or detained or should the arrest or detention
-                thereof be threatened, or should there be any interference in
-                the use or trading of the vessel (whether by virtue of a caveat
-                being entered on the ship’s registry or otherwise howsoever), to
-                provide on demand such bail or other security as may be required
-                to prevent such arrest or detention or to secure the release of
-                such ship or property or to remove such interference and to
-                indemnify you in respect of any liability, loss, damage or
-                expense caused by such arrest or detention or threatened arrest
-                or detention or such interference, whether or not such arrest or
-                detention or threatened arrest or detention or such interference
-                may be justified.{' '}
+              If, in connection with the delivery of the cargo as aforesaid, the ship, or any other ship or property in the same or affiliated/associated ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the vessel (whether by virtue of a caveat being entered on the ship's registry or otherwise howsoever), to provide on demand such bail or other security as may be required to prevent such arrest or detention or to secure the release of such ship or property or to remove such interference and to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or detention or such interference, whether or not such arrest or detention or threatened arrest or detention or such interference  may be justified.{' '}
               </li>
               <li>
-                If the place at which we have asked you to make delivery is a
-                bulk liquid or gas terminal or facility, or another ship,
-                lighter or barge, then delivery to such terminal, facility,
-                ship, lighter or barge shall be deemed to be delivery to the
-                party to whom we have requested you to make such deliver{' '}
+              If the place at which we have asked you to make delivery is a bulk liquid or gas terminal or facility, or another ship, lighter or barge, then delivery to such terminal, facility, ship, lighter or barge shall be deemed to be delivery to the party to whom we have requested you to make such delivery.{' '}
               </li>
               <li>
-                As soon as all original bills of lading for the above cargo
-                shall have come into our possession, to deliver the same to you,
-                or otherwise to cause all original bills of lading to be
-                delivered to you, whereupon our liability hereunder shall cease.{' '}
+              As soon as all original bills of lading for the above cargo shall have come into our possession, to deliver the same to you, or otherwise to cause all original bills of lading to be delivered to you, whereupon our liability hereunder shall cease.{' '}
               </li>
               <li>
-                The liability of each and every person under this indemnity
-                shall be joint and several and shall not be conditional upon
-                your proceeding first against any person, whether or not such
-                person is party to or liable under this indemnity{' '}
+              The liability of each and every person under this indemnity shall be joint and several and shall not be conditional upon your proceeding first against any person, whether or not such person is party to or liable under this indemnity.{' '}
               </li>
               <li>
-                This indemnity shall be governed by and construed in accordance
-                with English law and each and every person liable under this
-                indemnity shall at your request submit to the Jurisdiction of
-                the High Court of Justice of England.{' '}
+              This indemnity shall be governed by and construed in accordance with English law and each and every person liable under this indemnity shall at your request submit to the Jurisdiction of the High Court of Justice of England.{' '}
               </li>
             </ol>
           </div>
@@ -538,7 +501,7 @@ function Index({ TransitDetails }) {
             </div>
           </div>
         </div>
-        <div className={`${styles.footer}`}>
+        <div className={`${styles.footer} mt-5`}>
           <p className='border_color'>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
           <div className={`${styles.inner} d-flex justify-content-between`}>
             <div><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</div>
