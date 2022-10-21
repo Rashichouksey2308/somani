@@ -142,7 +142,7 @@ setState({...state,inputValue:inputValue});
 
   return (
       <div
-        className={`${state.className} ${state.noClass ? '' : `${styles.react_multi_email}`} ${
+        className={`${state.className} border_color ${state.noClass ? '' : `${styles.react_multi_email}`} ${
           state.focused ? 'focused' : ''
         } ${state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''}`}
         // style={style}
