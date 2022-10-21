@@ -1,12 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState,useEffect} from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import moment from 'moment'
-const index = ({ saveShipmentData, shipment }) => {
+const index = ({ saveShipmentData, shipment,expectedShipment }) => {
   // const {shipmentDetail}= orderDetail;
 
+ const [expShipment,setExpectedShipment]=useState(null)
+  const [maxdate,setmaxDate]=useState(null)
+ useEffect(() => {
+  if(expectedShipment){
+      let date=  moment(expectedShipment)
+                      .add(1, 'days')
+                      .toDate()
+    setExpectedShipment(moment(date).format("DD-MM-YYYY"))
+  }
+ },[expectedShipment])
+  useEffect(() => {
+  if(expectedShipment){
+    
+    setmaxDate(moment(expectedShipment).format("DD-MM-YYYY"))
+  }
+ },[expectedShipment])
+
+  console.log(expShipment,"expectedShipment")
   const saveDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
@@ -82,6 +100,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="loadPort.fromDate"
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
+                     maxDate={maxdate}
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -111,7 +130,8 @@ const index = ({ saveShipmentData, shipment }) => {
                     value={shipment.ETAofDischarge.toDate}
                     name="loadPort.toDate"
                     saveDate={saveDate}
-                    startFrom={dateStartFrom.eta}
+                    startFrom={dateStartFrom.laycan}
+                     maxDate={maxdate}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -140,9 +160,9 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
-                    startFrom={moment(shipment.ETAofDischarge.toDate)
-                      .add(1, 'days')
-                      .toDate()}
+                    startFrom={
+                      expShipment}
+                  
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -173,7 +193,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
-                    maxDate={moment(shipment.lastDateOfShipment).toDate()}
+                      maxDate={maxdate}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -205,8 +225,9 @@ const index = ({ saveShipmentData, shipment }) => {
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
-                    startFrom={dateStartFrom.laycan}
-                    maxDate={moment(shipment.lastDateOfShipment).toDate()}
+                    startFrom={dateStartFrom.eta}
+                    maxDate={maxdate}
+                   
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}

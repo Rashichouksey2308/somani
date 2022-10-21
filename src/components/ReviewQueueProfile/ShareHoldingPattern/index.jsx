@@ -66,7 +66,7 @@ function Index({ shareHolding }) {
     return values
   }
 
-  let totalPrefrenceShare = 0 
+  let totalPrefrenceShare = 0
   let totalPrefrenceSharePercentage = 0
   const prefrenceCapital = () => {
     const values = shareHolding?.filter((item) => {
@@ -96,7 +96,7 @@ function Index({ shareHolding }) {
   )
     .slice(0, 5)
     .forEach((item) => {
-      console.log(item,"item")
+      console.log(item, "item")
       equityShareNo.push(item.numberOfShares)
       equityShareName.push(item.fullName)
     })
@@ -139,7 +139,7 @@ function Index({ shareHolding }) {
     labels: equityShareName,
     datasets: [
       {
-        
+
         data: equityShareNo,
 
         backgroundColor: [
@@ -149,16 +149,16 @@ function Index({ shareHolding }) {
           '#800000',
           '#00FF00',
         ],
-      
-      hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
-      hoverBorderWidth: 3,
-        
-        
+
+        hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
+        hoverBorderWidth: 3,
+
+
       },
     ],
   }
   const prefrencedata = {
-    labels:topprefrencesShareName,
+    labels: topprefrencesShareName,
     datasets: [
       {
         label: '',
@@ -171,15 +171,15 @@ function Index({ shareHolding }) {
           '#800000',
           '#00FF00',
         ],
-      
-      hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
-      hoverBorderWidth: 3,
+
+        hoverBorderColor: ['#4CAF50', '#2884DE', '#FFCE00', '#800000', '#00FF00'],
+        hoverBorderWidth: 3,
       },
     ],
   }
   const options = {
     aspectRatio: 1,
-  elements: {
+    elements: {
       arc: {
         borderWidth: 0,
       },
@@ -206,12 +206,12 @@ function Index({ shareHolding }) {
         },
       },
     },
-     
-   tooltip: {
-         titleFontSize: 50,
-          bodyFontSize: 50
-        
-      },
+
+    tooltip: {
+      titleFontSize: 50,
+      bodyFontSize: 50
+
+    },
 
     responsive: true,
     cutout: 100,
@@ -231,7 +231,7 @@ function Index({ shareHolding }) {
       '#00FF00',
     ]
 
-    if (index < 4) {
+    if (index < 5) {
       finalColor = colors[index]
     } else {
       finalColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`
@@ -306,8 +306,8 @@ function Index({ shareHolding }) {
                               data={equitydata}
                               ref={chartRef}
                               options={options}
-                            
-                              
+
+
                             />
                             {/* <div className={`${styles.total_value} `}>
                               <span className={styles.headSpan}>
@@ -375,7 +375,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0 border_color'></td>
                         <td className="border-top-0 border_color"></td>
-                        <td>{Number(totalEquityShare).toLocaleString('en-In')}</td>
+                        <td>{totalEquityShare !== 0 ? Number(totalEquityShare).toLocaleString('en-In') : ''}</td>
                         <td>{totalEquitySharePercentage ? Number(totalEquitySharePercentage * 100).toFixed(2) + '%' : ''}</td>
                         <td className="border-top-0 border_color"></td>
                         <td className="border-top-0 border_color"></td>
@@ -400,7 +400,9 @@ function Index({ shareHolding }) {
                       <tr>
                         <th rowSpan={prefrenceCapital()?.length + 2} width="23%" className='border-bottom-0'>
                           <div className={styles.chart}>
-                            <Doughnut data={prefrencedata} options={options} />
+                            <Doughnut
+                              data={prefrencedata}
+                              options={options} />
                             <div className={`${styles.total_value} `}>
                               {/* <span className={styles.headSpan}>
                                 {shareHolding
@@ -454,7 +456,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{Number(totalPrefrenceShare)?.toLocaleString('en-In')}</td>
+                        <td>{totalPrefrenceShare !== 0 ? Number(totalPrefrenceShare)?.toLocaleString('en-In') : ''}</td>
                         <td>{totalPrefrenceSharePercentage ? Number(totalPrefrenceSharePercentage * 100).toFixed(2) + '%' : ''}</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>

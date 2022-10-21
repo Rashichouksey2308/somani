@@ -5262,6 +5262,9 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {marginData?.order?.orderCurrency}{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
+                                  {/* {convertValue(finalCal?.orderValue, marginData?.order?.orderCurrency !== 'USD' ? 1000000 : 10000000)
+                                  ?.toLocaleString(marginData?.order?.orderCurrency === 'INR' ? 'en-IN' : undefined,
+                                   { maximumFractionDigits: 2 })} */}
                                 </div>
                               </div>
                             </div>
