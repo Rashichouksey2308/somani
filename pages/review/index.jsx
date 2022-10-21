@@ -560,10 +560,13 @@ function Index() {
   const saveOrderData = (name, value) => {
 
     const newInput = { ...orderDetails }
+    console.log(newInput, 'orderdetails')
     newInput[name] = value
     // console.log(newInput)
     setOrderDetails(newInput)
   }
+
+  console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
@@ -705,20 +708,20 @@ function Index() {
       return false
     }
     if ( orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined ) {
-      let toastMessage = 'HSN CODE IS MANDATORY'
+      let toastMessage = 'HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-    if(orderDetails?.hsnCode?.length > 10){
-      console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
-      let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-      return false
-    }
+    // if(orderDetails?.hsnCode?.length > 10){
+    //   console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
+    //   let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return false
+    // }
     if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
       let toastMessage = 'add shipment Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {

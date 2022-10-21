@@ -412,6 +412,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name='hsnCode'
+                  maxLength='10'
                   // onFocus={(e) => {
                   //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: true }),
                   //     e.target.type = 'text'
@@ -433,15 +434,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   //     orderDetail?.hsnCode}
                   defaultValue={orderDetail?.hsnCode}
                  
-                  onBlur={(e) => {if(e.target.value.length <= 10){
-                    saveOrderData(e.target.name, e.target.value)
-                  }else{
-                    let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-                    if(!toast.isActive(toastMessage)){
-                      toast.error(toastMessage, {toastId: toastMessage})
-                    }
-                  }
-                  }}
+                  onChange={(e)=>saveOrderData(e.target.name, e.target.value)}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   HSN code
