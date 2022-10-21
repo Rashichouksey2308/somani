@@ -444,14 +444,15 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                                 latestCashData?.previous?.currentLiabilties)) /
                               2)) *
                           100,
-                          ((lastIncomeData?.revenue?.revenueFromOperations -
-                            lastIncomeData?.expenses?.totExp +
-                            lastIncomeData?.expenses?.finCost) /
-                            ((lastBalanceData?.assets?.totalAssets -
-                              lastBalanceData?.equityLiabilities
+                          ((previousIncomeData?.revenue?.revenueFromOperations -
+                            previousIncomeData?.expenses?.totExp +
+                            previousIncomeData?.expenses?.finCost) /
+                            ((previousBalanceData?.assets?.totalAssets -
+                              previousBalanceData?.equityLiabilities
                                 ?.currentLiabilties +
-                              (lastCashData?.previous?.totalAssets -
-                                lastCashData?.previous?.currentLiabilties)) /
+                              (previousCashData?.previous?.totalAssets -
+                                previousCashData?.previous
+                                  ?.currentLiabilties)) /
                               2)) *
                           100,
                           ((lastIncomeData?.revenue?.revenueFromOperations -
