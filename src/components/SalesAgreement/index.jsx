@@ -1956,6 +1956,9 @@ function Index(props) {
         }
       }
 
+      console.log(data.companyAddress.fullAddress,"data.companyAddress.fullAddress")
+      if(data.companyAddress.fullAddress==""){
+
       if (
         dataToSend.associateBuyer.addresses.length <= 0 ||
         dataToSend.associateBuyer.addresses == undefined
@@ -1967,6 +1970,7 @@ function Index(props) {
           return
         }
       }
+    }
 
       if (
         dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 ||

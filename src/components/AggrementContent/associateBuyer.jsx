@@ -163,12 +163,13 @@ if (window) {
           }
 
           })
+           setAddressList(props?.data.addresses)
           setOptions([...optionArray])
   }
  
   
 
-  setAddressList(props?.data.addresses)
+ 
 
 }
 }, [props])
@@ -198,7 +199,8 @@ if(props.saveData==true && props.active=="Associate Buyer"){
   let data={
   associate:associateData,
   address:addressList,
-  list:list
+  list:list,
+  companyAddress:companyAddress
 
   
   
@@ -210,7 +212,9 @@ console.log("this12")
 let data={
   associate:associateData,
   address:addressList,
-  list:list
+  list:list,
+  companyAddress:companyAddress
+
 
   
   }
