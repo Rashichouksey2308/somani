@@ -19,8 +19,15 @@ export default function Index({
   setComponentId,
   setArrivalDate,
 }) {
+
   console.log(customData, 'customData')
+
   const dispatch = useDispatch()
+
+  const sumOfDischargeQuantities = customData && customData?.billOfEntry?.billOfEntry?.reduce((previousValue, currentValue)=>previousValue + Number(currentValue?.boeDetails?.invoiceQuantity), 0)
+
+  console.log(sumOfDischargeQuantities, 'sumOf')
+
   const [show, setShow] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
 
@@ -36,7 +43,9 @@ export default function Index({
       invoiceQuantityUnit: '',
     },
   })
+
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -51,11 +60,12 @@ export default function Index({
         '',
       ),
       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-      dischargeQuantity: _get(
-        customData,
-        'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
-        '',
-      ),
+      // dischargeQuantity: _get(
+      //   customData,
+      //   'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
+      //   '',
+      // ),
+      dischargeQuantity: sumOfDischargeQuantities ? sumOfDischargeQuantities : _get(customData,'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', ''), 
       numberOfContainers: _get(
         customData,
         'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
@@ -68,32 +78,7 @@ export default function Index({
     document1: null,
     document2: null,
   })
-  console.log(dischargeOfCargo, "dischargeOfCargo111111")
-  // useEffect((
-
-  // ) => {
-  //    setDischargeOfCargo({
-  //     dischargeOfCargo: {
-  //       vesselName: _get(
-  //         customData,
-  //         'dischargeOfCargo.dischargeOfCargo.vesselName',
-  //         '',
-  //       ),
-  //       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
-  //       dischargeQuantity: _get(
-  //         customData,
-  //         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
-  //         '',
-  //       ),
-  //       numberOfContainers:"",
-  //       vesselArrivaldate: '',
-  //       dischargeStartDate: '',
-  //       dischargeEndDate: '',
-  //     },
-  //     document1: null,
-  //     document2: null,
-  //   })
-  // },[customData])
+ 
   const saveDate = (value, name) => {
     console.log(value, name, 'save date')
     const d = new Date(value)
@@ -126,17 +111,15 @@ export default function Index({
     tempData[name] = doc
     setDischargeOfCargo(tempData)
   }
-  console.log(dischargeOfCargo, 'dischargeOfCargo3qqqq')
+
 
   const onRemoveDoc = (name) => {
     setDischargeOfCargo({ ...dischargeOfCargo, [name]: null })
   }
-  {
-    console.log('cargo', dischargeOfCargo)
-  }
+ 
 
   const onSaveDischarge = () => {
-    console.log(dischargeOfCargo, "dischargeOfCargo?.dischargeOfCargo?.numberOfContainers")
+   
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -167,15 +150,6 @@ export default function Index({
         return
       }
     }
-
-    // else if (dischargeOfCargo.dischargeOfCargo.vesselName === '') {
-
-    //   let toastMessage = 'PLEASE SELCT A VESSEL  '
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
     else if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -240,7 +214,6 @@ export default function Index({
       setComponentId(componentId + 1)
     }
   }
-  console.log(dischargeOfCargo, 'dischargeOfCargo')
 
   const handleSave = () => {
     let fd = new FormData()
@@ -262,14 +235,12 @@ export default function Index({
 
   useEffect(() => {
     if (customData) {
-      let data = Number(
-        customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity,
-      )
+      let data = Number(_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''))
       setTotalBl(data)
     }
     if (customData?.dischargeOfCargo) {
       let data = _get(customData, 'dischargeOfCargo', {})
-      console.log(data, 'customData1')
+    
       let tempData = {
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
@@ -278,7 +249,7 @@ export default function Index({
             'order.vessel.vessels[0].transitDetails.portOfDischarge',
             '',
           ),
-          dischargeQuantity: data?.dischargeOfCargo?.dischargeQuantity,
+          dischargeQuantity: sumOfDischargeQuantities ? sumOfDischargeQuantities : _get(customData,'dischargeOfCargo.dischargeOfCargo.dischargeQuantity', '') ,
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
@@ -329,7 +300,6 @@ export default function Index({
     }
   }, [customData])
 
-  console.log(dischargeOfCargo.dischargeOfCargo?.invoiceQuantity, 'dischargeOfCargo.dischargeOfCargo?.invoiceQuantity')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -433,6 +403,7 @@ export default function Index({
                       className={`${styles.input_field} input form-control`}
 
                       type="text"
+                      disabled
                       onWheel={(event) =>
                         event.currentTarget.blur()
                       }
@@ -446,8 +417,8 @@ export default function Index({
                       }}
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                       value={isFieldInFocus ?
-                        dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
-                        Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN") + ` MT`}
+                        sumOfDischargeQuantities : Number(sumOfDischargeQuantities)?.toLocaleString('en-IN') + ` MT`
+                        }
 
                       name="dischargeQuantity"
                       onChange={(e) =>
