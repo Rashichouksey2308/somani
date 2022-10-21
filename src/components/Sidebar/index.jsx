@@ -145,7 +145,7 @@ function Index() {
     {
       main: 'Supplier Onboarding',
       image: '/static/Masters.svg',
-      route: '/supplier',
+      route: '/add-supplier',
     },
   ]
   const [className, setClassName] = useState('')

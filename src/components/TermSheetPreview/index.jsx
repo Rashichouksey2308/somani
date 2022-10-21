@@ -273,7 +273,7 @@ function Index() {
 
     //  ];
 
-    const doc = new jsPDF('p', 'pt', [1500, 1600])
+    const doc = new jsPDF('p', 'pt', [1500, 2150])
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(
@@ -2714,7 +2714,7 @@ const toPrintPdf = (
                             marginBottom: '0',
                           }}
                         >
-                          {`USD`}{' '}
+                          {termsheetDetails?.commodityDetails?.orderCurrency ? termsheetDetails?.commodityDetails?.orderCurrency : ''}{' '}
                           {termsheetDetails.commercials?.lcOpeningChargesUnit
                             ? Number(
                               termsheetDetails.commercials
@@ -3031,7 +3031,37 @@ const toPrintPdf = (
                             : 'As per the Agreements executed between the parties.'}
                         </p>
                       </td>
-                    </tr>
+                    </tr>                   
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" align="left">
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <table
+              width="100%"
+              bgColor="#FFFFFF"
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                border: '2px solid #cad6e64d',
+              }}
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+            >
+              <tr>
+                <td valign="top" align="left">
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr>
                       <td
                         width="33%"
@@ -3056,7 +3086,7 @@ const toPrintPdf = (
                       <td width="67%" bgColor="#FAFAFB" align="left"></td>
                     </tr>
                     <tr>
-                      <td
+                      <td width="33%"
                         align="left"
                         style={{ borderRight: '2px solid #cad6e64d' }}
                       >
@@ -3085,7 +3115,7 @@ const toPrintPdf = (
                           Reimbursement of Expenses
                         </p>
                       </td>
-                      <td align="left">
+                      <td width="67%" align="left">
                         <p
                           style={{
                             fontSize: '20px',
@@ -4164,7 +4194,10 @@ const toPrintPdf = (
                                     }}
                                   >
                                     LC Opening Charges ( on LC value subject to
-                                    minimum of INR )
+                                    minimum of {termsheetDetails?.commodityDetails?.orderCurrency} {Number(
+                              termsheetDetails.commercials
+                                ?.lcOpeningChargesUnit,
+                            )?.toLocaleString('en-In')} )
                                   </label>
                                 </li>
                                 <li
@@ -7024,7 +7057,7 @@ const toPrintPdf2 = (
                                     }}
                                   >
                                     LC Opening Charges ( on LC value subject to
-                                    minimum of INR )
+                                    minimum of USD )
                                   </label>
                                 </li>
                                 <li

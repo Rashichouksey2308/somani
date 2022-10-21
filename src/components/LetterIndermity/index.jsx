@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // import Filter from '../Filter'
 import _get from 'lodash/get'
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
+import Image from 'next/image'
 import {
   UpdateTransitDetails,
   GetTransitDetails,
@@ -256,9 +257,8 @@ function Index({ TransitDetails }) {
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
-        <div className={`${styles.heading} `}>
-          <p>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
-          <p>CIN : L80902DL1983PLC209722</p>
+        <div className={`${styles.heading} d-flex justify-content-end`}>
+          <p><span className={`${styles.title} `}>INDO GERMAN</span><br/><span>INTERNATIONAL (P) LTD.</span><br/>CIN No.: U74899DL1 994PTC063676</p>
         </div>
         <div className={`${styles.aboutLetter}`}>
           <p>
@@ -274,7 +274,7 @@ function Index({ TransitDetails }) {
           <div className={`d-flex`}>
             <span>To:</span>
             {'  '}
-            <div className={`ml-3 ${styles.noadd}`}>
+            <div className={`ml-3 ${styles.noadd} text-left`}>
               {' '}
               INDO INTERNATIONAL TRADING FZCO JAFZA VIEW-18, LOB-180504, JEBEL
               ALI, DUBAI, U.A.E
@@ -373,12 +373,21 @@ function Index({ TransitDetails }) {
                     ) : null
                   ) : null}
                   {index1 > 0 ? (
-                    <button
-                      onClick={() => onDeleteClick(index1)}
-                      className={`${styles.add_btn}`}
-                    >
-                      <span className={styles.add_sign}>-</span>Delete
-                    </button>
+                    // <button
+                    //   onClick={() => onDeleteClick(index1)}
+                    //   className={`${styles.add_btn}`}
+                    // >
+                    //   <span className={styles.add_sign}>-</span>Delete
+                    // </button>
+                    <div className={`${styles.delete_image} ml-3`}       
+                    onClick={() => onDeleteClick(index1)}>
+                    <Image
+                      src="/static/delete.svg"
+                      width="40px"
+                      height="40px"
+                      alt="Bin"
+                    />
+                  </div>
                   ) : null}
                 </div>
               </>
@@ -500,7 +509,7 @@ function Index({ TransitDetails }) {
                     : 'select'
                 }
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
-                className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
+                className={`${styles.input_field} ${styles.customSelect} input mt-2 pl-3`}
               >
                 <option value="select" disabled defaultSelected>
                   Select an option
@@ -520,13 +529,21 @@ function Index({ TransitDetails }) {
             <div>
               Designation:{' '}
               <input
-                className="mt-4 pl-3 input"
+                className="mt-2 pl-3 input"
                 value={loi.authorizedSignatory.designation}
                 onChange={(e) => {
                   changeDesignation(e.target.value)
                 }}
               ></input>
             </div>
+          </div>
+        </div>
+        <div className={`${styles.footer}`}>
+          <p className='border_color'>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
+          <div className={`${styles.inner} d-flex justify-content-between`}>
+            <div><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</div>
+            <div>Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413<br/>Fax : (91) (1 1) 2378-2806<br/>E-mail : indogerman@somanigroup.com</div>            
+            <div><strong>Joint Venture of</strong><br/>Somani Group<br/>New Delhi<br/>lndia</div>
           </div>
         </div>
       </div>

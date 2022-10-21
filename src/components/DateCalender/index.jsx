@@ -20,8 +20,10 @@ const Index = ({
   ref,
   noDate,
 }) => {
+  console.log(reset,'resetReview')
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
+  const [maxDate1, setMaxDate] = useState(null)
 
   const inputRef = useRef(null)
 
@@ -37,10 +39,23 @@ const Index = ({
       }
     }
   }, [startFrom])
-  console.log(lastDate, 'lastDate')
+    useEffect(() => {
+  
+      if (maxDate) {
+       
+        setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate())
+      }
+    
+  }, [maxDate])
+  console.log(startFrom,"startFrom")
+  console.log(maxDate1, 'maxDate',labelName)
+
   useEffect(() => {
-    setStartDate(null)
+    if (reset) {
+      setStartDate(null)
+    }
   }, [reset])
+
   console.log('sdasdasda', defaultDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
@@ -61,9 +76,8 @@ const Index = ({
             e.preventDefault()
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''
+            }`}
           onChange={(startDate) => {
             setStartDate(startDate)
             saveDate(startDate, name, index)
@@ -72,7 +86,7 @@ const Index = ({
             }
           }}
           minDate={lastDate}
-          maxDate={maxDate}
+          maxDate={maxDate1}
           autoComplete="off"
           disabled={disabled ? disabled : false}
         />

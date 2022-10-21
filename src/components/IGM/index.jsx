@@ -589,6 +589,16 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
+{/* 
+                    {_get(TransitDetails, 'data[0].order.orderCurrency', '')} {' '}
+
+                    {convertValue(_get(
+                      TransitDetails,
+                      'data[0].order.marginMoney.calculation.orderValue',
+                      '',
+                    ), _get(TransitDetails, 'data[0].order.orderCurrency', '') !== 'USD' ? 1000000 : 10000000)
+                      ?.toLocaleString(_get(TransitDetails, 'data[0].order.orderCurrency', '') === 'INR' ? 'en-IN' : undefined,
+                        { maximumFractionDigits: 2 })} */}
                     {convertValue(_get(
                       TransitDetails,
                       'data[0].order.marginMoney.calculation.orderValueInINR',

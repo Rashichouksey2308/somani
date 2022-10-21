@@ -228,7 +228,18 @@ export default function Index({
     }
     let task = 'save'
     // console.log(payload)
-    await dispatch(UpdateDelivery({ payload, task }))
+       if(netBalanceQuantity>=0){
+     await dispatch(UpdateDelivery({ payload, task }))
+    }else{
+      const toastMessage =
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
+   
+   
+    
   }
 
   const validation = () => {
@@ -274,7 +285,7 @@ export default function Index({
     let task = 'submit'
 
     // console.log(payload)
-    if (netBalanceQuantity >= 0) {
+    if(netBalanceQuantity>=0){
       await dispatch(UpdateDelivery({ payload, task }))
     } else {
       const toastMessage = `Net Quantity Realesed cannot be Greater than Invoice Quantity`

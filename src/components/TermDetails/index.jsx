@@ -35,10 +35,7 @@ const Index = ({
     overDueInterestPerMonth: false,
   })
 
-  console.log(
-    termsheetDetails?.transactionDetails?.shipmentType,
-    'termsheetDetails',
-  )
+
   const updateThirdPartyInspection = (e) => {
     if (e.target.value == false) {
       setThirdPartyInspection(false)
@@ -68,11 +65,7 @@ const Index = ({
     }
   }
 
-  console.log(
-    termsheetDetails?.commodityDetails?.orderCurrency,
-    '789',
-    termsheetDetails?.commodityDetails?.unitOfQuantity,
-  )
+
 
   console.log(
     termsheetDetails?.transactionDetails?.incoTerms,
@@ -161,9 +154,7 @@ const Index = ({
               <div className="d-flex">
                 <select
                   value={
-                    termsheetDetails?.commodityDetails?.orderCurrency == 'INR'
-                      ? 'INR'
-                      : termsheetDetails?.commodityDetails?.orderCurrency
+                    termsheetDetails?.commodityDetails?.orderCurrency 
                   }
                   id="orderCurrency"
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
@@ -175,8 +166,8 @@ const Index = ({
                   </option>
                   <option value="USD">USD</option>
                   <option value="INR">INR</option>
-                  <option value="Euro">Euro</option>
-                  <option value="BRITISHPOUND">POUND</option>
+                  <option disabled value="Euro">Euro</option>
+                  <option disabled value="BRITISHPOUND">POUND</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>

@@ -87,7 +87,9 @@ export default function Index(props) {
       }
       return returned
     }
-
+const getIndex=(index)=>{
+  return index+1
+}
     return (
       <>
         {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -268,7 +270,7 @@ export default function Index(props) {
                               <div className={`${styles.vessel_card}`}>
                                 <div className="justify-content-between d-flex mt-4">
                                   <div className={`${styles.form_heading}`}>
-                                    Listing Details {index2}
+                                    Listing Details {getIndex(index2)}
                                   </div>
                                   {checkNan(
                                     props.returnLiftingData(val.deliveryOrder)

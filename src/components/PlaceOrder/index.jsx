@@ -359,6 +359,7 @@ const Index = () => {
         <NewShipmentDetails
           shipment={shipment}
           saveShipmentData={saveShipmentData}
+          expectedShipment={orderData?.ExpectedDateOfShipment}
         />
         <div className='mt-4'>
         <CommonSave onSave={onOrderSave} />

@@ -470,15 +470,17 @@ const index = ({
 
   console.log(emails, "emails")
   const removeEmailParent = (index) => {
-    let temp = emails
+    let temp = [...emails]
     temp.splice(index, 1);
-    setemails(temp)
+    setemails([...temp])
   }
   const removeExSupplierParent = (index) => {
-    let temp = exSupplier
+    let temp = [...exSupplier]
     temp.splice(index, 1);
-    setexSupplier(temp)
+    console.log(temp,"temp")
+    setexSupplier([...temp])
   }
+  console.log(exSupplier,"exSupplier")
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -869,8 +871,10 @@ const index = ({
                         <div data-tag key={index}>
                           {email}
                           <span data-tag-handle onClick={() => {
-                            removeEmail(index)
-                            removeExSupplierParent(index)
+                            
+                             removeExSupplierParent(index)
+                             removeEmail(index)
+                           
                           }
                           }>
                             ×
@@ -1020,8 +1024,9 @@ const index = ({
                         <div data-tag key={index}>
                           {email}
                           <span data-tag-handle onClick={() => {
-                            removeEmail(index)
+                            
                             removeEmailParent(index)
+                            removeEmail(index)
                           }
                           }>
                             ×
@@ -2539,7 +2544,7 @@ const index = ({
                             value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option selected disabled>Select</option>
+                            <option selected >Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>

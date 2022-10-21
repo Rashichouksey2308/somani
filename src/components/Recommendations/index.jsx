@@ -948,14 +948,14 @@ const Index = ({
                   <div className="mt-3">
                     {sanctionCommentsIndex.includes(index) ? (
                       <img
-                        src="/static/mode_edit.svg"
+                        src="/static/save-3.svg"
                         role="button"
                         className={`${styles.edit_image} mr-3`}
                         onClick={() => onEditClickHandler(index, 'save')}
                       />
                     ) : (
                       <img
-                        src="/static/save-3.svg"
+                        src="/static/mode_edit.svg"
                         role="button"
                         className={`${styles.edit_image} mr-3`}
                         alt="save"

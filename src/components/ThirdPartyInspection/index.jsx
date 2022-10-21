@@ -1262,7 +1262,7 @@ export default function Index({ addButton }) {
                               {inspectionData?.thirdPartyInspection
                                 ?.certificateOfOrigin ? (
                                 <span
-                                  className="ml-4"
+                               
                                   onClick={() =>
                                     dispatch(
                                       ViewDocument({
