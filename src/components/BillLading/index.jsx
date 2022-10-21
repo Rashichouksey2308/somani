@@ -705,7 +705,7 @@ export default function Index({
 
                     {convertValue(_get(
                       TransitDetails,
-                      'data[0].order.marginMoney.calculation.orderValue',
+                      'data[0].order.marginMoney.calculation.orderValueInINR',
                       '',
                     ))?.toLocaleString('en-IN', { maximumFractionDigits: 2 })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==

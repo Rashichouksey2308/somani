@@ -5,12 +5,14 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { addPrefixOrSuffix } from 'utils/helper'
 import { CovertvaluefromtoCR } from '../../utils/helper'
+import { toast } from 'react-toastify'
 
 const Index = ({ orderDetail, saveOrderData }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
+    hsnCode: false,
   })
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -153,10 +155,6 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
                       e.target.type = 'text'
                   }}
-                  // value={addPrefixOrSuffix(
-                  //   orderDetail?.quantity,
-                  //   orderDetail?.unitOfQuantity?.toUpperCase(),
-                  // )}
                   value={
                     isFieldInFocus.quantity ?
                       orderDetail?.quantity :
@@ -406,26 +404,6 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     alt="Search"
                   />
                 </div>
-                {/* <div className="d-flex">
-                <input
-                  className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                  type="date"
-                  defaultValue={orderDetail?.ExpectedDateOfShipment.split('T')[0]}
-                  name='ExpectedDateOfShipment'
-                  onChange={(e) => { saveDate(e, e.target.value) }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Expected Date Of Shipment
-                  <strong className="text-danger">*</strong>
-                </Form.Label>
-              
-                <img
-                    className={`${styles.calanderIcon} img-fluid`}
-                    src="/static/caldericon.svg"
-                    alt="Search"
-                  />
-                
-                </div> */}
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -433,11 +411,30 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  name='hsnCode'
+                  maxLength='10'
+                  // onFocus={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: true }),
+                  //     e.target.type = 'text'
+                  // }}
+                  // onBlur={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, hsnCode: false }),
+                  //     e.target.type = 'text'
+                  //     if(e.target.value > 10){
+                  //       let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
+                  //          if(!toast.isActive(toastMessage)){
+                  //           toast.error(toastMessage, {toastId: toastMessage})
+                  //          }
+                  //        }
+                  //     }
+                  // }
+                  // value={
+                  //   isFieldInFocus.hsnCode ?
+                  //     orderDetail?.hsnCode :
+                  //     orderDetail?.hsnCode}
                   defaultValue={orderDetail?.hsnCode}
-                  name="hsnCode"
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                  }}
+                 
+                  onChange={(e)=>saveOrderData(e.target.name, e.target.value)}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   HSN code
