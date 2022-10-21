@@ -37,7 +37,7 @@ export default function Index({
     invoiceQuantity: false,
     conversionRate: false,
   })
-  
+
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
@@ -806,12 +806,9 @@ export default function Index({
                             <strong className="text-danger ml-n1">*</strong>
                           </div>
                           <span className={styles.value}>
-                            {customData?.order?.transit?.BL?.billOfLanding[0]
-                              ?.blQuantity
+                            {_get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', '')
                               ? Number(
-                                  customData?.order?.transit?.BL
-                                    ?.billOfLanding[0]?.blQuantity,
-                                )?.toLocaleString('en-IN', {
+                                  _get(customData, 'order.transit.BL.billOfLanding[0].blQuantity', ''))?.toLocaleString('en-IN', {
                                   maximumFractionDigits: 2,
                                 })
                               : ''}{' '}
