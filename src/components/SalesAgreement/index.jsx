@@ -1775,13 +1775,17 @@ function Index(props) {
         genericId: props.genericData?._id,
         deliveryTerms: {
           deliveryTerm: data.deliveryData,
-           monthOfLoadingCargo: data.monthOfLoadingCargo,
+          monthOfLoadingCargo: data.monthOfLoadingCargo,
+          paymentTerms:data.paymentTerms,
+          cheque:data.listContact,
            isSubmitted: true,
         },
       }
       let dataToSend2 = {
         deliveryTerms: data.deliveryData,
          monthOfLoadingCargo: data.monthOfLoadingCargo,
+         paymentTerms:data.paymentTerms,
+         cheque:data.listContact
       }
 
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
@@ -1853,6 +1857,10 @@ function Index(props) {
           agreementName: val.name,
           comment: val.comment,
           dateOfExecution:val.dateOfExecution,
+          dateOfContract:val.dateOfContract||"",
+          monthOfLoadingCargo:val.monthOfLoadingCargo||"",
+
+          
          
           isSubmitted: true,
         })
@@ -2507,14 +2515,18 @@ function Index(props) {
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
-          deliveryTerm: data.deliveryData,
-           monthOfLoadingCargo: data.monthOfLoadingCargo,
+            deliveryTerm: data.deliveryData,
+          monthOfLoadingCargo: data.monthOfLoadingCargo,
+          paymentTerms:data.paymentTerms,
+          cheque:data.listContact,
            isSubmitted: false,
         },
       }
       let dataToSend2 = {
-        deliveryTerms: data.deliveryData,
-        monthOfLoadingCargo: data.monthOfLoadingCargo,
+         deliveryTerm: data.deliveryData,
+          monthOfLoadingCargo: data.monthOfLoadingCargo,
+          paymentTerms:data.paymentTerms,
+          cheque:data.listContact,
       }
 
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
@@ -2544,6 +2556,8 @@ function Index(props) {
           agreementName: val.name,
           comment: val.comment,
           dateOfExecution:val.dateOfExecution,
+          dateOfContract:val.dateOfContract || "",
+          monthOfLoadingCargo:val.monthOfLoadingCargo ||"",
          
           isSubmitted: false,
         })
