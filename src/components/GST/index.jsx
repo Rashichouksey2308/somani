@@ -50,7 +50,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch()
   const GstData = companyData?.GST
-  console.log(companyData, 'companyData')
+  console.log(GstData, 'GstDataGAT')
 
   console.log(GstData, 'GSTDATA')
   const chartRef = useRef(null)
@@ -91,34 +91,21 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [passwordShow, setPasswordShow] = useState(false)
 
   useEffect(() => {
+    console.log(GstData?.length ,"GstData?.length ")
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin })
       console.log('inside GSt UseEffetc')
       SetGstFilteredData({ ...GstData[0] })
       GstDataHandler(GstData[0])
     }
+    if(GstData?.length ==0){
+       setCredential({ ...credential, gstin:"" })
+      console.log('inside GSt UseEffetc')
+      SetGstFilteredData({  })
+      GstDataHandler({})
+    }
 
-    // const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === _get(orderList, 'company.gstList[0]', ''))
-    // // console.log(filteredgstin.length, 'filteredgstin')
-    // if (filteredgstin?.length === 1) {
-    //   filteredgstin?.map((gstData) => {
-    //     const data = { ...gstData }
-    //     SetGstFilteredData(data)
-    //     GstDataHandler(data)
-    //   })
-    // } else {
-    //   setCredential({ ...credential, gstin: _get(orderList, 'company.gstList[0]', '') })
-    //   handleShow()
-    // }
-
-    // const arrayFiltered = GstData?.filter(
-    //   (GstinData) => GstinData === credential.gstin,
-    // )
-    // GstData?.map((gstData) => {
-    //   const data = { ...gstData }
-    //   SetGstFilteredData(data)
-    //   GstDataHandler(data)
-    // })
+    
   }, [GstData])
   // console.log(gstFilteredData, 'gstFilteredData')
 
@@ -1058,7 +1045,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
             let a =
               gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names[t]
             var maxLabelLength = 8
-            if (a.length > maxLabelLength)
+            if (a?.length > maxLabelLength)
               return a.substr(0, maxLabelLength) + '...'
             else return t
           },

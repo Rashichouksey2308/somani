@@ -23,6 +23,7 @@ const Index = ({
   console.log(reset,'resetReview')
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
+  const [maxDate1, setMaxDate] = useState(null)
 
   const inputRef = useRef(null)
 
@@ -38,7 +39,16 @@ const Index = ({
       }
     }
   }, [startFrom])
-  console.log(lastDate, 'lastDate')
+    useEffect(() => {
+  
+      if (maxDate) {
+       
+        setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate())
+      }
+    
+  }, [maxDate])
+  console.log(startFrom,"startFrom")
+  console.log(maxDate1, 'maxDate',labelName)
 
   useEffect(() => {
     if (reset) {
@@ -76,7 +86,7 @@ const Index = ({
             }
           }}
           minDate={lastDate}
-          maxDate={maxDate}
+          maxDate={maxDate1}
           autoComplete="off"
           disabled={disabled ? disabled : false}
         />

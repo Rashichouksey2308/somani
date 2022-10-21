@@ -13,8 +13,8 @@ function Index(props) {
         if(props?.emails?.length>0){
             setState({...state,emails:props.emails})
         }
-    },[props])
-    console.log(state,"zcdvxcv")
+    },[props.emails])
+    console.log(state.emails,"zcdvxcv")
     const emailInputRef = useRef(0);
     const  onChangeInputValue = (value) => {
      findEmailAddress(value);
@@ -85,12 +85,12 @@ setState({...state,inputValue:inputValue});
         return;
     }
     console.log(index,"ondex")
-    let temp = state.emails
-     temp.splice(index, 1);
-    setState({...state,emails:temp});
-    if (props.onChange) {
-          props.onChange(temp);
-    }
+    let temp = {...state}
+     temp.emails.splice(index, 1);
+    setState({...temp});
+    // if (props.onChange) {
+    //       props.onChange(temp.emails);
+    // }
     }
  const handleOnKeydown = (e) => {
   console.log(e.which,"e.which")
@@ -102,7 +102,7 @@ setState({...state,inputValue:inputValue});
         break;}
       case 8:
        { if (!e.currentTarget.value) {
-          removeEmail(state.emails.length - 1, false);
+          // removeEmail(state.emails.length - 1, false);
         }
         
         break;}
@@ -166,10 +166,10 @@ setState({...state,inputValue:inputValue});
       />
         {props.placeholder  ? <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span> : null}
         {state?.emails?.length>0 && state?.emails?.map((email, index) =>{
-               console.log(email,index,removeEmail,"remoebe")
+              
             return (
                 <>
-                {props.getLabel(email, index, removeEmail)}
+                {props.getLabel(email, index,removeEmail)}
                 </>
             )
         }
