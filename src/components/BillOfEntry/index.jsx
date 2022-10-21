@@ -27,24 +27,28 @@ export default function Index({
   setComponentId,
   componentId,
 }) {
-  const isShipmentTypeBULK =
-    _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+
+  const isShipmentTypeBULK = _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+
   const dispatch = useDispatch()
+
   const [isFieldInFocus2, setIsFieldInFocus2] = useState({
     invoiceValue: false,
     invoiceQuantity: false,
     conversionRate: false,
   })
+  
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const { customClearance } = useSelector((state) => state.Custom)
 
-  console.log(customData, 'dutyData')
+  
   useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [])
+
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
       boeAssessment: '',
@@ -78,7 +82,7 @@ export default function Index({
       document3: null,
     },
   ])
-  console.log(billOfEntryData, 'billOfEntryData')
+  
   const totalCustomDuty = (index) => {
     let number = 0
     dutyData[index]?.forEach((val) => {
@@ -89,8 +93,7 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData, 'boeDetails')
-  console.log(customData, 'sdasd')
+
   const uploadDoc1 = async (e, index) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
@@ -100,6 +103,7 @@ export default function Index({
     newInput[index][name] = docs
     setBillOfEntryData([...newInput])
   }
+
   const getDoc = (payload) => {
     console.log(payload, 'payload')
     dispatch(
@@ -127,15 +131,15 @@ export default function Index({
   }
 
   const saveBillOfEntryData = (name, value, index) => {
-    console.log(name, value, 'Event1')
+    
     const newInput = [...billOfEntryData]
-    console.log(newInput, 'newInput', index)
+   
     const namesplit = name.split('.')
 
     namesplit.length > 1
       ? (newInput[index][namesplit[0]][namesplit[1]] = value)
       : (newInput[index][name] = value)
-    console.log(newInput, 'newInput')
+    
     let conversion = 0
 
     if (name == 'boeDetails.invoiceValue') {
@@ -171,37 +175,10 @@ export default function Index({
     setBillOfEntryData([...newInput])
     // setPfCheckBox(!pfCheckBox)
   }
-  console.log(billOfEntryData, 'billOfEntryDatabillOfEntryData')
+  
 
   const [dutyData, setDutyData] = useState([])
 
-  // useEffect(() => {
-  //   let dutyDataArr = []
-  //   customData?.duty?.forEach((element) => {
-  //     dutyDataArr.push(element)
-  //   })
-  //   setDutyData(dutyDataArr)
-  // }, [customData])
-
-  // useEffect(() => {
-  //   let temp = []
-  //   let temp2 = []
-  //   if (_get(customData, 'billOfEntry.billOfEntry[0].duty', []).length > 0) {
-  //     _get(customData, 'billOfEntry.billOfEntry[0].duty', []).forEach(
-  //       (val, index) => {
-  //         temp.push({
-  //           percentage: val.percentage || '',
-  //           duty: val.duty,
-  //           amount: val.amount,
-  //           action: false,
-  //         })
-  //         temp2.push({ value: false })
-  //       },
-  //     )
-
-  //   }
-  // }, [customData])
-  console.log(isFieldInFocus, 'isFieldInFocus')
   const handleDutyChange = (name, value, index2, index) => {
     // console.log(name,value,index,"name,value")
     const newInput = [...dutyData]
@@ -213,22 +190,6 @@ export default function Index({
     const newInput = [...dutyData]
     newInput[index][index2].actions = val
     setDutyData([...newInput])
-
-    // setDutyData((prevState) => {
-    //   const newState = prevState.map((obj, i) => {
-    //     if (i == index) {
-    //       return { ...obj, actions: val }
-    //     }
-
-    //     return obj
-    //   })
-
-    //   return newState
-    // })
-
-    // let newInput = { ...billOfEntryData }
-    // newInput.duty = dutyData
-    // setBillOfEntryData(newInput)
   }
   const onFiledFocus = (index2, e, index) => {
     const newInput = [...dutyData]
@@ -236,33 +197,20 @@ export default function Index({
 
     setDutyData([...newInput])
 
-    // let tempArr2 = [...isFieldInFocus]
-    // tempArr2.forEach((val, i) => {
-    //   if (i == index) {
-    //     val.value = true
-    //   }
-    // })
-    // setIsFieldInFocus([...tempArr2])
   }
+
   const onFiledBlur = (index2, e, index) => {
     const newInput = [...dutyData]
     newInput[index][index2].value = false
 
     setDutyData([...newInput])
   }
+
   const handleDeleteRow = (index2, index) => {
     const newInput = [...dutyData]
     let a = newInput[index][index2]
     a.slice(index2 + 1)
     setDutyData([...newInput])
-
-    // setBillOfEntryData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-
-    // setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-    // setIsFieldInFocus([
-    //   ...isFieldInFocus.slice(0, index),
-    //   ...isFieldInFocus.slice(index + 1),
-    // ])
   }
 
   const removeDoc = (name, index) => {
@@ -282,7 +230,7 @@ export default function Index({
     })
     setDutyData([...newInput])
   }
-  console.log(billOfEntryData, 'billOfEntryData')
+  
 
   const handleSubmit = async () => {
     let isOk = true
@@ -382,7 +330,7 @@ export default function Index({
         break
       }
 
-      console.log(billOfEntryData.pdBond, 'billOfEntryData.pdBond', pfCheckBox)
+   
       if (billOfEntryData[i].pdBond) {
         if (billOfEntryData[i].document3 === null) {
           let toastMessage = 'please upload PD Bond '
@@ -395,7 +343,7 @@ export default function Index({
       }
     }
     if (isOk) {
-      console.log('billOfEntryDatasubmit')
+ 
       let tempData = [...billOfEntryData]
       for (let i = 0; i < tempData.length; i++) {
         tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
@@ -410,7 +358,7 @@ export default function Index({
         tempData[i].duty = dutyData[i]
       }
 
-      console.log(tempData)
+     
       const billOfEntry = { billOfEntry: tempData }
 
       const fd = new FormData()
@@ -424,7 +372,7 @@ export default function Index({
       await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
-    console.log(isOk, 'billOfEntryDatasubmit1')
+
   }
 
   const handleSave = async () => {
@@ -458,32 +406,12 @@ export default function Index({
     }
   }
 
-  // const [accessibleValueCalc, setAcc] = useState([])
-  // useEffect(() => {
-  //   // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
-
-  //   setAcc(
-  //     checkNan(
-  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue) *
-  //       removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
-  //     ),
-  //   )
-  // }, [
-  //   billOfEntryData?.boeDetails?.conversionRate,
-  //   billOfEntryData?.boeDetails?.invoiceValue,
-  // ])
-
-  // useEffect(() => {
-  //   let tempEntryData = { ...billOfEntryData }
-  //   tempEntryData.duty = dutyData
-  //   setBillOfEntryData(tempEntryData)
-  // }, [dutyData])
 
   useEffect(() => {
     if (customData) {
       let total = 0
       let data = customData?.order?.transit?.BL?.billOfLanding
-      if (data && data.length > 0) {
+      if (data && data?.length > 0) {
         for (let i = 0; i <= data.length - 1; i++) {
           total = total + Number(data[i].blQuantity)
         }
@@ -492,11 +420,12 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      console.log('hehehee')
+    
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
       let tempArray = []
       let duty11 = []
-      console.log(data, 'datadata')
+   
+
       data.forEach((val, index) => {
         tempArray.push({
           boeAssessment: val?.boeAssessment,
@@ -528,24 +457,20 @@ export default function Index({
           document2: val?.document2 ?? null,
           document3: val?.document3 ?? null,
         })
-        console.log(val.duty, 'val.duty.percentage')
+    
         duty11.push(val.duty)
       })
 
-      console.log(duty11, 'tempArray')
+   
       setDutyData([...duty11])
       setBillOfEntryData([...tempArray])
     }
   }, [])
 
-  console.log(dutyData, 'setDutydata')
-  // console.log(
-  //   customData,
-  //   // billOfEntryData,
-  //   'customData')
   const getIndex = (index) => {
     return index + 1
   }
+
   const addNewRow = () => {
     console.log('SDfsdfs')
     setBillOfEntryData([
@@ -597,7 +522,7 @@ export default function Index({
       ],
     ])
   }
-  console.log(dutyData, 'asdasdasdasd')
+
   const deleteNewRow = (index) => {
     setBillOfEntryData([
       ...billOfEntryData.slice(0, index),
@@ -605,8 +530,8 @@ export default function Index({
     ])
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
   }
-  console.log(billOfEntryData, 'billOfEntryData')
-  console.log('data', billOfEntryData?.billOfEntryFor)
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -644,8 +569,8 @@ export default function Index({
               </div>
             </div>
           </div>
-          {billOfEntryData?.length > 0 &&
-            billOfEntryData.map((val, index) => {
+          {billOfEntryData && billOfEntryData?.length > 0 &&
+            billOfEntryData?.map((val, index) => {
               return (
                 <>
                   <div
@@ -1008,11 +933,9 @@ export default function Index({
                                 CIRC Date
                               </div>
                               <span className={styles.value}>
-                                {customData?.order?.transit?.CIMS
-                                  ?.cimsDetails[0]?.circDate
+                                {_get(customData, 'order.transit.CIMS.cimsDetails[0].circDate', '')
                                   ? moment(
-                                      customData?.order?.transit?.CIMS
-                                        ?.cimsDetails[0]?.circDate,
+                                      _get(customData, 'order.transit.CIMS.cimsDetails[0].circDate', ''),
                                     ).format('DD-MM-YYYY')
                                   : ''}
                               </span>
@@ -1122,13 +1045,14 @@ export default function Index({
                                 (e.target.type = 'text')
                             }}
                             value={
-                              isFieldInFocus2
+                              isFieldInFocus2.invoiceQuantity
                                 ? val?.boeDetails?.invoiceQuantity
                                 : val?.boeDetails?.invoiceQuantity == 0
                                 ? ''
-                                : Number(
+                                :
+                                  Number(
                                     val?.boeDetails?.invoiceQuantity,
-                                  )?.toLocaleString('en-IN') + ` MT`
+                                  )?.toLocaleString('en-IN') + ' ' + 'MT'
                             }
                             onWheel={(event) => event.currentTarget.blur()}
                             name="boeDetails.invoiceQuantity"
