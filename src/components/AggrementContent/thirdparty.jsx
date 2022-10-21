@@ -38,12 +38,14 @@ function Index(props) {
     ])
   }
   useEffect(() => {
+    
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
+        console.log(props?.data,"sadadsdasd1")
         let savedData = JSON.parse(sessionStorage.getItem('Delivery'))
 
-        console.log('savd')
-        setDeliveryData(savedData?.deliveryTerms)
+        console.log('savd',savedData)
+        setDeliveryData(savedData?.deliveryTerm)
         setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo)
         setPaymentTerms(savedData?.paymentTerms)
         setListContact(savedData?.cheque?.length>0?savedData.cheque:[  {
@@ -54,21 +56,23 @@ function Index(props) {
       amount: '',
     },])
       }
-    } else {
-      setDeliveryData(props?.delivery?.deliveryTerms)
-      setMonthOfLoadingCargo(props?.delivery?.monthOfLoadingCargo)
-       setPaymentTerms(props?.delivery?.paymentTerms)
-       setListContact(props?.delivery?.cheque?.length>0? props.delivery.cheque:[
+     else {
+      console.log(props?.data,"sadadsdasd")
+        setDeliveryData(props?.data?.deliveryTerm)
+        setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo)
+        setPaymentTerms(props?.data?.paymentTerms)
+        setListContact(props?.data?.cheque?.length>0? props.data.cheque:[
          {
-      sNo: '',
-      bankName: '',
-      chequeNo: '',
-      chequeDate: null,
-      amount: '',
-    },
+          sNo: '',
+          bankName: '',
+          chequeNo: '',
+          chequeDate: null,
+          amount: '',
+         },
        ])
     }
-  }, [props])
+    }
+  }, [props.data])
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Delivery Terms') {
@@ -100,7 +104,7 @@ function Index(props) {
     let dataToSend2 = {
       deliveryTerms: value,
     }
-    sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
+    // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
   }
   const handleChangeInput=(name,value,index)=>{
     let temp=[...listContact]

@@ -1782,7 +1782,7 @@ function Index(props) {
         },
       }
       let dataToSend2 = {
-        deliveryTerms: data.deliveryData,
+         deliveryTerm: data.deliveryData,
          monthOfLoadingCargo: data.monthOfLoadingCargo,
          paymentTerms:data.paymentTerms,
          cheque:data.listContact
@@ -1800,7 +1800,19 @@ function Index(props) {
           return
         }
       }
-      if (
+        if (
+        dataToSend?.deliveryTerms?.paymentTerms == '' ||
+        dataToSend?.deliveryTerms?.paymentTerms == undefined
+      ) {
+        toastMessage = `Please select payment Terms  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
+        }
+      }
+      
+       if (
         dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
         dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
       ) {
@@ -1812,6 +1824,8 @@ function Index(props) {
         }
       }
     }
+      
+    
     
     if (key == 'Product Specifications') {
       console.log('this14')
@@ -2523,7 +2537,7 @@ function Index(props) {
         },
       }
       let dataToSend2 = {
-         deliveryTerm: data.deliveryData,
+          deliveryTerm: data.deliveryData,
           monthOfLoadingCargo: data.monthOfLoadingCargo,
           paymentTerms:data.paymentTerms,
           cheque:data.listContact,
