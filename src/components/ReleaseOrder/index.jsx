@@ -66,7 +66,7 @@ export default function Index({
 
     setReleaseDetail([...tempArr])
   }
-console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
+  console.log(Number(netBalanceQuantity), 'Number(netBalanceQuantity)')
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
     let fd = new FormData()
@@ -77,7 +77,11 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.uploadDoc}`,
@@ -146,9 +150,8 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
       setEditInput(true)
     }
   }
-  console.log(netBalanceQuantity,"netBalanceQuantity")
+
   const netQuantityChange = (e, index) => {
- 
     if (
       Number(
         _get(
@@ -164,13 +167,13 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
       // }
 
       const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+        'net quantity Realesed cannot be Greater than net bALance Quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
-  
+
     if (Number(e.target.value) < 0) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
@@ -284,14 +287,12 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
     // console.log(payload)
     if(netBalanceQuantity>=0){
       await dispatch(UpdateDelivery({ payload, task }))
-    }else{
-      const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+    } else {
+      const toastMessage = `Net Quantity Realesed cannot be Greater than Invoice Quantity`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-   
   }
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
@@ -435,9 +436,7 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
                             onBlur={(e) => {
                               setIsFieldInFocus(false), (e.target.type = 'text')
                             }}
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             type="text"
                             onChange={(e) => {
                               e.target.value

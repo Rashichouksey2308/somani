@@ -16,9 +16,6 @@ export default function Index(props) {
     sessionStorage.setItem('dono', val)
     Router.push('/delivery-preview')
   }
-  console.log(props, 'props')
-
-  const handleClose = () => {}
 
   return (
     <>
@@ -180,7 +177,7 @@ export default function Index(props) {
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
-                                     onWheel={(event) =>
+                                    onWheel={(event) =>
                                       event.currentTarget.blur()
                                     }
                                     onFocus={(e) => {
@@ -278,9 +275,9 @@ export default function Index(props) {
                                     className={`${styles.form_group} col-lg-6`}
                                   >
                                     <img
-                                      src="/static/cancel-3.svg"
+                                      src="/static/save-3.svg"
                                       className={`${styles.shareImg} ml-3`}
-                                      alt="Cancel"
+                                      alt="Save"
                                       onClick={(e) => {
                                         props.onEdit(index, false)
                                       }}
@@ -330,16 +327,17 @@ export default function Index(props) {
                                       />
                                     )}
                                     {props.releaseOrderData.length - 1 ===
-                                      index && props.BalanceQuantity() > 0 && (
-                                      <img
-                                        onClick={(e) => {
-                                          props.addNewDelivery()
-                                        }}
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
-                                        alt="add"
-                                      />
-                                    )}
+                                      index &&
+                                      props.BalanceQuantity() > 0 && (
+                                        <img
+                                          onClick={(e) => {
+                                            props.addNewDelivery()
+                                          }}
+                                          src="/static/add-btn.svg"
+                                          className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
+                                          alt="add"
+                                        />
+                                      )}
                                   </div>
                                 )}
                               </div>
