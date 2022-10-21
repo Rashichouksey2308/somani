@@ -1169,3 +1169,11 @@ body.light-mode .input .dropdown-content span,
 body.dark-mode .input .dropdown-content span {
   font-size: 18px;
 }
+body.light-mode .react_multi_email [data-tag] {
+  background: #FFFFFF;
+  border: 1px solid #D2D7E5;
+}
+body.dark-mode .react_multi_email [data-tag] {
+  background: #293141;
+  border: 1px solid #434e61;
+}
