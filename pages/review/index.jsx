@@ -323,8 +323,6 @@ function Index() {
   const { companyData, gettingCompanyDetail } = useSelector(
     (state) => state.companyDetails,
   )
-  console.log(companyData, 'this is company data')
-  console.log(gettingCompanyDetail, 'gettingCompanyDetail')
 
 
 
@@ -560,13 +558,13 @@ function Index() {
   const saveOrderData = (name, value) => {
 
     const newInput = { ...orderDetails }
-    console.log(newInput, 'orderdetails')
+
     newInput[name] = value
     // console.log(newInput)
     setOrderDetails(newInput)
   }
 
-  console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
+
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
