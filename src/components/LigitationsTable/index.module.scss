@@ -90,7 +90,8 @@
         }
         .cardBody_Tribunals {
             height: 300px;
-            overflow-y: auto;
+            overflow-y: auto; 
+            overflow-x: auto;
             padding: 0px;
             @include respond(md-desktop) {
                 width: calc(100vw - 60px)
