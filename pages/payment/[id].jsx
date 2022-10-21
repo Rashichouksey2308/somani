@@ -302,10 +302,10 @@ function Index() {
   const [DOlimit, setDoLimit] = useState(0)
   let [lastMileDelivery, setLastMileDelivery] = useState(false)
   console.log(DOlimit, 'DOlimit')
- const setLastMile=(val)=>{
+  const setLastMile = (val) => {
     setLastMileDelivery(val)
- }
- console.log(lastMileDelivery,"lastMileDelivery")
+  }
+  console.log(lastMileDelivery, 'lastMileDelivery')
   useEffect(() => {
     let limit = DOlimit
     filteredDOArray.forEach((item, index) => {
@@ -383,7 +383,6 @@ function Index() {
     })
     return { doQuantity, balaceQuantity }
   }
- 
 
   const deliverChange = (name, value, index) => {
     let tempArr = deliveryOrder
@@ -457,38 +456,33 @@ function Index() {
         isOk = false
       }
     }
+    let customObj = false
+    for (let i = 0; i < releaseDetail.length; i++) {
+      let orderId = releaseDetail[i].orderNumber
+      let orderQuantity = releaseDetail[i].netQuantityReleased
+      const filterForReleaseOrder = deliveryOrder.filter((item) => {
+        return item.orderNumber == orderId
+      })
+      const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
+        let quantity = Number(acc) + Number(curr.Quantity)
+        return quantity
+      }, 0)
+      if (finalScore > orderQuantity) {
+        customObj = true
+      }
+    }
+    if (customObj) {
+      toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        isOk = false
+      }
+    }
 
-    // if (showValidationForReleaseOrder) {
-    //   toastMessage = `Quantity Release Cannot Be Greater Than Net Quantity Released For Release Order`
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     isOk = false
-    //   }
-    // }
     return isOk
   }
 
   const onSaveDoHAndler = async () => {
-    // console.log(releaseDetail, 'HARSH22')
-    // console.log(deliveryOrder, 'HARSH2')
-
-    // for (let i = 0; i < releaseDetail.length; i++) {
-    //   let orderId = releaseDetail[i].orderNumber
-    //   let orderQuantity = releaseDetail[i].netQuantityReleased
-    //   const filterForReleaseOrder = deliveryOrder.filter((item) => {
-    //     return item.orderNumber == orderId
-    //   })
-    //   const finalScore = filterForReleaseOrder.reduce((acc, curr) => {
-    //     let tempObj = {
-    //       orderNumber: orderId,
-    //       orderQuantity: Number(curr.Quantity),
-    //     }
-    //     return tempObj
-    //   }, 0)
-
-    //   console.log(finalScore, 'HARSHFILTER')
-    // }
-
     if (doValidation()) {
       let newarr = []
       deliveryOrder.forEach((item) => {
@@ -502,11 +496,11 @@ function Index() {
         })
       })
 
-      console.log(lastMileDelivery,"lastMileDelivery")
+      console.log(lastMileDelivery, 'lastMileDelivery')
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
-        lastMileDelivery:  (lastMileDelivery === 'true'),
+        lastMileDelivery: lastMileDelivery === 'true',
       }
       let task = 'save'
       await dispatch(UpdateDelivery({ payload, task }))
