@@ -556,7 +556,7 @@ export default function Index({
       setDutyData([...duty11])
       setBillOfEntryData([...tempArray])
     }
-  }, [customData])
+  }, [])
 
   console.log(dutyData,"setDutydata")
   // console.log(
