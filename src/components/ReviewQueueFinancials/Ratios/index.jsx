@@ -644,7 +644,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debt Service Ratio</td>
                       <td className="text-center">
-                        {(latestYearData?.longTermDebtCoverage * 100
+                        {(latestYearData?.longTermDebtCoverage >=0
                           ? latestYearData?.longTermDebtCoverage * 100
                           : ''
                         )?.toLocaleString('en-In', {
@@ -653,7 +653,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.longTermDebtCoverage * 100
+                        {(previousYearData?.longTermDebtCoverage >=0
                           ? previousYearData?.longTermDebtCoverage * 100
                           : ''
                         )?.toLocaleString('en-In', {
@@ -662,7 +662,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.longTermDebtCoverage * 100
+                        {(lastYearData?.longTermDebtCoverage >=0
                           ? lastYearData?.longTermDebtCoverage * 100
                           : ''
                         )?.toLocaleString('en-In', {
@@ -672,9 +672,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
-                          latestYearData?.longTermDebtCoverage * 100,
-                          previousYearData?.longTermDebtCoverage * 100,
-                          lastYearData?.longTermDebtCoverage * 100,
+                          latestYearData?.longTermDebtCoverage,
+                          previousYearData?.longTermDebtCoverage,
+                          lastYearData?.longTermDebtCoverage,
                         )}
                       </td>
                     </tr>
