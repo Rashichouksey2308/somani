@@ -145,7 +145,24 @@ function Index(props) {
       return newState
     })
   }
- 
+  const getFiled = ()=>{
+    let isPresent=false
+    addressList.forEach((val,index)=>{
+      console.log(val.agreementName,"val.agreementName")
+      if(val.name=="Assignment Letter"){
+        isPresent=true
+      }
+    })
+    console.log(isPresent,"isPresent")
+    if(isPresent){
+      return (<>
+      <td></td>
+      <td></td>
+      </>)
+    }else{
+      return(<></>)
+    }
+  }
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -290,7 +307,7 @@ function Index(props) {
                                   </div>
                                 </td>
 
-                                {isAssignment === val.name ? (
+                                {val.name === "Assignment Letter"? (
                                   <>
                                     <td>
                                       <div className="d-flex">
@@ -366,10 +383,7 @@ function Index(props) {
                                   </>
                                 ) : 
                                 <>
-                                 <td>
-
-                                 </td>
-                                 <td></td>
+                                  {getFiled()}
                                 </>
                                }
                                 <td className={`d-flex`}>
