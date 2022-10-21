@@ -105,6 +105,41 @@ function Index(props) {
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="delivery"
+                  // onChange={(e) => {
+                  //   handleInput(e.target.name, e.target.value)
+                  // }}
+                  
+                >
+                  <option selected>
+                    Select an option
+                  </option>
+                  <option value="DaysfromBLDate">Days from BL Date</option>
+                  <option value="DaysfromVesselDischargeDate">
+                    {' '}
+                    Days from Vessel Discharge Date{' '}
+                  </option>
+                  <option value="Whicheverisearlier">
+                    Whichever is earlier
+                  </option>
+                </select>
+                <Form.Label
+                  className={`${styles.label_heading} ${styles.select}  label_heading`}
+                >
+                  Payment Terms <strong className="text-danger">*</strong>
+                </Form.Label>
+                <img
+                  className={`${styles.arrow} image_arrow img-fluid`}
+                  src="/static/inputDropDown.svg"
+                  alt="Search"
+                />
+              </div>
+            
+            </Form.Group>
+            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+              <div className="d-flex">
+                <select
+                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                  name="delivery"
                   onChange={(e) => {
                     setMonthOfLoadingCargo(e.target.value)
                     

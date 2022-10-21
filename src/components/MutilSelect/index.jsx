@@ -152,7 +152,19 @@ setState({...state,inputValue:inputValue});
           }
         }}
       >
-        {props.placeholder  ? <span className={`${styles.data_placeholder}`}>{props.placeholder}</span> : null}
+      <input
+        ref={emailInputRef}
+        type="text"
+      //   placeholder={props.placeholder}
+        value={state.inputValue}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+        onChange={handleOnChange}
+        onKeyDown={handleOnKeydown}
+        onKeyUp={handleOnKeyup}
+        className={`${styles.input_field}`}
+      />
+        {props.placeholder  ? <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span> : null}
         {state?.emails?.length>0 && state?.emails?.map((email, index) =>{
               
             return (
@@ -163,17 +175,6 @@ setState({...state,inputValue:inputValue});
         }
           
         )}
-        <input
-          ref={emailInputRef}
-          type="text"
-        //   placeholder={props.placeholder}
-          value={state.inputValue}
-          onFocus={handleOnFocus}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          onKeyDown={handleOnKeydown}
-          onKeyUp={handleOnKeyup}
-        />
       </div>
   )
 }
