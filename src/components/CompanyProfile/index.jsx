@@ -1,11 +1,11 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { Card } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import React from 'react';
+import styles from './index.module.scss';
+import { Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
-  const { buyerList } = useSelector((state) => state.buyer)
+  const { buyerList } = useSelector((state) => state.buyer);
   // console.log(buyerList, "this is buyer list")
   return (
     <div className={`${styles.wrapper} card border_color`}>
@@ -40,9 +40,11 @@ function Index() {
           'Turn-Over (in Cr)',
           CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''),
         )} */}
-         {fields(
+        {fields(
           'Turn-Over (in Cr)',
-          CovertvaluefromtoCR(buyerList?.turnOver?.originalValue)?.toLocaleString(),
+          CovertvaluefromtoCR(
+            buyerList?.turnOver?.originalValue,
+          )?.toLocaleString(),
           false,
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
@@ -68,11 +70,11 @@ function Index() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
-const fields = (head, value, countryCode,value3="") => {
+export default Index;
+const fields = (head, value, countryCode, value3 = '') => {
   return (
     <>
       <div
@@ -86,5 +88,5 @@ const fields = (head, value, countryCode,value3="") => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

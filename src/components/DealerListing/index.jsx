@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   Row,
   Col,
@@ -8,22 +8,22 @@ import {
   Input,
   Collapse,
   Form,
-} from 'reactstrap'
-import history from '../../history'
-import InputText from '../InputText'
-import CustomButton from '../CustomButton'
-import CartTitle from '../CartTitle'
-import Loader from '../Loader'
-import MaterialTable from 'material-table'
+} from 'reactstrap';
+import history from '../../history';
+import InputText from '../InputText';
+import CustomButton from '../CustomButton';
+import CartTitle from '../CartTitle';
+import Loader from '../Loader';
+import MaterialTable from 'material-table';
 
-import '../../assets/scss/components/MeterialTable/index.scss'
-import get from 'lodash/get'
+import '../../assets/scss/components/MeterialTable/index.scss';
+import get from 'lodash/get';
 
-const _ = { get }
+const _ = { get };
 
 export default class DealerListing extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       toggleActive: false,
       country: '',
@@ -37,11 +37,11 @@ export default class DealerListing extends Component {
       dealerEmail: '',
       dealerPhone: '',
       pageSize: 10,
-    }
+    };
   }
 
   componentDidMount() {
-    let state = this.state
+    let state = this.state;
     let data = {
       page: state.page,
       country: state.countryCode,
@@ -51,41 +51,41 @@ export default class DealerListing extends Component {
       phone: state.dealerEmail,
       dealerId: state.dealerPhone,
       limit: state.count,
-    }
-    this.props.handleFetchDealer(data)
+    };
+    this.props.handleFetchDealer(data);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.dealers.length !== this.props.dealers.length) {
-      let state = this.state
+      let state = this.state;
 
-      state.page = Math.ceil(this.props.dealers.length / this.state.count)
-      this.setState({ ...state })
+      state.page = Math.ceil(this.props.dealers.length / this.state.count);
+      this.setState({ ...state });
     }
   }
 
   handleOnChangePageSize = (count) => {
-    let state = this.state
-    state.pageSize = count
-    this.setState({ ...state })
-  }
+    let state = this.state;
+    state.pageSize = count;
+    this.setState({ ...state });
+  };
 
   handleToggle = (e) => {
-    let state = this.state
-    state.toggleActive = !state.toggleActive
-    this.setState({ ...state })
-  }
+    let state = this.state;
+    state.toggleActive = !state.toggleActive;
+    this.setState({ ...state });
+  };
 
   handleOnPageChange = (e, page) => {
-    let totalPages = this.props.dealers.length / this.state.pageSize
+    let totalPages = this.props.dealers.length / this.state.pageSize;
     let fetchNextData =
       e >= totalPages - 2 &&
       this.props.dealers.length !== 0 &&
       this.props.dealerStatus === false &&
-      this.props.dealers.length < this.props.dealerCount
+      this.props.dealers.length < this.props.dealerCount;
 
     if (fetchNextData === true) {
-      let state = this.state
+      let state = this.state;
       let data = {
         page: state.page,
         country: state.countryCode,
@@ -95,63 +95,63 @@ export default class DealerListing extends Component {
         phone: state.dealerEmail,
         dealerId: state.dealerPhone,
         limit: state.count,
-      }
-      this.props.handleFetchDealer(data)
+      };
+      this.props.handleFetchDealer(data);
     }
-  }
+  };
 
   handleFilterChange = (e) => {
-    let state = this.state
-    state[e.target.name] = e.target.value
-    this.setState({ ...state })
-  }
+    let state = this.state;
+    state[e.target.name] = e.target.value;
+    this.setState({ ...state });
+  };
 
   handleCountryChange = (e) => {
-    let state = this.state
-    let parsedValue = JSON.parse(e.target.value)
+    let state = this.state;
+    let parsedValue = JSON.parse(e.target.value);
     if (e.target.value !== 'Select Country') {
-      state.countryCode = parsedValue.locality.country
-      state.country = parsedValue.country
-      state.state = ''
-      state.city = ''
+      state.countryCode = parsedValue.locality.country;
+      state.country = parsedValue.country;
+      state.state = '';
+      state.city = '';
     }
-    this.setState({ ...state })
-    this.props.handleFetchState(state.countryCode)
-  }
+    this.setState({ ...state });
+    this.props.handleFetchState(state.countryCode);
+  };
 
   handleStateChange = (e) => {
-    let state = this.state
-    let parsedValue = JSON.parse(e.target.value)
+    let state = this.state;
+    let parsedValue = JSON.parse(e.target.value);
     if (e.target.value !== 'Select Country') {
-      state.state = parsedValue
-      state.city = ''
+      state.state = parsedValue;
+      state.city = '';
     }
-    this.setState({ ...state })
+    this.setState({ ...state });
     let data = {
       countryCode: state.countryCode,
       state: state.state,
-    }
-    this.props.handleFetchCity(data)
-  }
+    };
+    this.props.handleFetchCity(data);
+  };
 
   handleCityChange = (e) => {
-    let state = this.state
-    let parsedValue = JSON.parse(e.target.value)
+    let state = this.state;
+    let parsedValue = JSON.parse(e.target.value);
     if (e.target.value !== 'Select Country') {
-      state.city = parsedValue.cityName
+      state.city = parsedValue.cityName;
     }
-    this.setState({ ...state })
-  }
+    this.setState({ ...state });
+  };
 
   handleRowData = (rowData) => {
-    history.push(`/dealer/detail?dealerId=${rowData._id}&tab=detail`)
-    this.props.handleSelectedRowData(rowData)
-  }
+    history.push(`/dealer/detail?dealerId=${rowData._id}&tab=detail`);
+    this.props.handleSelectedRowData(rowData);
+  };
 
   handleSubmitFilter = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    let state = this.state
+    let state = this.state;
 
     let data = {
       page: 0,
@@ -162,7 +162,7 @@ export default class DealerListing extends Component {
       phone: state.dealerPhone.trim(),
       dealerId: state.dealerId.trim(),
       limit: state.count,
-    }
+    };
 
     if (
       state.countryCode !== '' ||
@@ -172,23 +172,23 @@ export default class DealerListing extends Component {
       state.dealerPhone !== '' ||
       state.dealerId !== ''
     ) {
-      this.props.handleFetchDealer(data)
-      this.props.handleClearPreviousReducersForDealer()
+      this.props.handleFetchDealer(data);
+      this.props.handleClearPreviousReducersForDealer();
     }
-  }
+  };
 
   handleClearFilter = () => {
-    let state = this.state
-    state.page = 0
-    state.country = ''
-    state.countryCode = ''
-    state.state = ''
-    state.city = ''
-    state.dealerEmail = ''
-    state.dealerPhone = ''
-    state.dealerId = ''
-    state.count = 100
-    this.setState({ ...state })
+    let state = this.state;
+    state.page = 0;
+    state.country = '';
+    state.countryCode = '';
+    state.state = '';
+    state.city = '';
+    state.dealerEmail = '';
+    state.dealerPhone = '';
+    state.dealerId = '';
+    state.count = 100;
+    this.setState({ ...state });
     let data = {
       page: 0,
       country: '',
@@ -198,12 +198,12 @@ export default class DealerListing extends Component {
       phone: '',
       dealerId: '',
       limit: 100,
-    }
-    this.props.handleFetchDealer(data)
-    this.props.handleClearPreviousReducersForDealer()
-  }
+    };
+    this.props.handleFetchDealer(data);
+    this.props.handleClearPreviousReducersForDealer();
+  };
   render() {
-    let { elements } = this.props
+    let { elements } = this.props;
     return (
       <div className="hideSearch">
         {this.props.dealerStatus !== false ? <Loader /> : null}
@@ -550,6 +550,6 @@ export default class DealerListing extends Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }

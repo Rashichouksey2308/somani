@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { useRouter } from 'next/router'
-import Router from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
-import { GetOrders } from '../../redux/registerBuyer/action'
-import Filter from '../Filter'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { useRouter } from 'next/router';
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { GetOrders } from '../../redux/registerBuyer/action';
+import Filter from '../Filter';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../redux/userData/action'
-import _get from 'lodash/get'
+} from '../../redux/userData/action';
+import _get from 'lodash/get';
 
 function Index() {
-  const { singleOrder } = useSelector((state) => state.buyer)
-  console.log(singleOrder, 'singleOrder')
-  const [edit, setEdit] = useState(false)
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const { singleOrder } = useSelector((state) => state.buyer);
+  console.log(singleOrder, 'singleOrder');
+  const [edit, setEdit] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let id1 = sessionStorage.getItem('VesselCompany')
-    dispatch(GetOrders(`?company=${id1}`))
-  }, [dispatch])
+    let id1 = sessionStorage.getItem('VesselCompany');
+    dispatch(GetOrders(`?company=${id1}`));
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(setPageName('vessel'))
-    dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', 'Company Name')))
-    dispatch(setDynamicOrder(null))
-  }, [singleOrder])
-
+    dispatch(setPageName('vessel'));
+    dispatch(
+      setDynamicName(
+        _get(singleOrder, 'data[0].company.companyName', 'Company Name'),
+      ),
+    );
+    dispatch(setDynamicOrder(null));
+  }, [singleOrder]);
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -37,12 +40,16 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
-             onClick={()=>{Router.push('/vessel-nomination')}}
+              onClick={() => {
+                Router.push('/vessel-nomination');
+              }}
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>{_get(singleOrder, 'data[0].company.companyName', 'Company Name')}</h1>
+            <h1 className={styles.heading}>
+              {_get(singleOrder, 'data[0].company.companyName', 'Company Name')}
+            </h1>
           </div>
           {/* <div className={styles.search}>
             <div className="input-group">
@@ -136,7 +143,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-                        Router.push('/vessel')
+                        Router.push('/vessel');
                       }}
                     >
                       Iron
@@ -178,7 +185,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-                        Router.push('/vessel')
+                        Router.push('/vessel');
                       }}
                     >
                       Iron
@@ -197,7 +204,7 @@ function Index() {
                     <td
                       className={styles.buyerName}
                       onClick={(e) => {
-                        Router.push('/vessel')
+                        Router.push('/vessel');
                       }}
                     >
                       Copper
@@ -218,6 +225,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col, Modal } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import UploadOther from '../UploadOther'
-import DateCalender from '../DateCalender'
-import moment from 'moment'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col, Modal } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import UploadOther from '../UploadOther';
+import DateCalender from '../DateCalender';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
 export default function Index({}) {
-  const [serviceType, setServiceType] = useState('goods')
-  const [radioBtn, setRadioBtn] = useState('domestic')
+  const [serviceType, setServiceType] = useState('goods');
+  const [radioBtn, setRadioBtn] = useState('domestic');
 
   return (
     <>
@@ -383,10 +383,8 @@ export default function Index({}) {
                     >
                       <input
                         className={`${styles.input_field} input form-control`}
-                         type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
                         required
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -415,10 +413,8 @@ export default function Index({}) {
                     >
                       <input
                         className={`${styles.input_field} input form-control`}
-                         type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
                         required
                         onKeyDown={(evt) =>
                           ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -805,10 +801,8 @@ export default function Index({}) {
                       >
                         <input
                           className={`${styles.input_field} input form-control`}
-                           type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                          type="number"
+                          onWheel={(event) => event.currentTarget.blur()}
                           required
                           onKeyDown={(evt) =>
                             ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -944,10 +938,8 @@ export default function Index({}) {
                       >
                         <input
                           className={`${styles.input_field} input form-control`}
-                           type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                          type="number"
+                          onWheel={(event) => event.currentTarget.blur()}
                           required
                           onKeyDown={(evt) =>
                             ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1283,5 +1275,5 @@ export default function Index({}) {
         <SaveBar rightBtn="Submit" />
       </div>
     </>
-  )
+  );
 }

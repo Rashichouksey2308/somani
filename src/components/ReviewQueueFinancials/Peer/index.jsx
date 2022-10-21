@@ -1,36 +1,64 @@
-import React, { useState } from 'react'
-import styles from '../index.module.scss'
-import moment from 'moment'
-import { checkNan, convertValue } from 'utils/helper'
+import React, { useState } from 'react';
+import styles from '../index.module.scss';
+import moment from 'moment';
+import { checkNan, convertValue } from 'utils/helper';
 
 function Index({ peerData }) {
-  const [conversionUnit, setConversionUnit] = useState(10000000)
+  const [conversionUnit, setConversionUnit] = useState(10000000);
 
   // console.log(peerData?.financial?.peerComparison, 'THIS IS PEER COMPARISON DATA')
 
   return (
-
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
+        <div
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
+        >
           <h2 className="mb-0">Peer Comparison</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <div className="d-flex align-items-center position-relative">
-              <select value={conversionUnit} onChange={(e) => setConversionUnit(e.target.value)} className={`${styles.options} ${styles.customSelect} accordion_DropDown`}>
+              <select
+                value={conversionUnit}
+                onChange={(e) => setConversionUnit(e.target.value)}
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+              >
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img
+                className={`${styles.arrow2} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="arrow"
+              />
             </div>
-            <span data-toggle="collapse" data-target="#peerComparison" aria-expanded="true" aria-controls="peerComparison">+</span>
+            <span
+              data-toggle="collapse"
+              data-target="#peerComparison"
+              aria-expanded="true"
+              aria-controls="peerComparison"
+            >
+              +
+            </span>
           </div>
         </div>
-        <div id="peerComparison" className="collapse" aria-labelledby="peerComparison" data-parent="#FinancialsAccordion">
-          <div className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}>
+        <div
+          id="peerComparison"
+          className="collapse"
+          aria-labelledby="peerComparison"
+          data-parent="#FinancialsAccordion"
+        >
+          <div
+            className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}
+          >
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
+                <table
+                  className={`${styles.table} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
                   <thead>
                     <tr>
                       <th width="30%">COMPANY</th>
@@ -52,28 +80,56 @@ function Index({ peerData }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {peerData && peerData?.financial?.peerComparison?.map((peers, index) => (<tr key={index}>
-                      <td>{peers.name}</td>
-                      <td className="text-center">{moment(peers?.finyrEnddate)
-                        .format('MMM-YY')
-                        .toUpperCase()}</td>
-                      <td className="text-center">{convertValue(peers.revenue, conversionUnit)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })}</td>
-                      <td className="text-center">{checkNan(peers?.ebidtaMargin * 100)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })} %</td>
-                      <td className="text-center">{checkNan(peers?.patMargin * 100)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })}%</td>
-                      <td className="text-center">{convertValue(peers.borrowings,conversionUnit)?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })}</td>
-                    </tr>))}
+                    {peerData &&
+                      peerData?.financial?.peerComparison?.map(
+                        (peers, index) => (
+                          <tr key={index}>
+                            <td>{peers.name}</td>
+                            <td className="text-center">
+                              {moment(peers?.finyrEnddate)
+                                .format('MMM-YY')
+                                .toUpperCase()}
+                            </td>
+                            <td className="text-center">
+                              {convertValue(
+                                peers.revenue,
+                                conversionUnit,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })}
+                            </td>
+                            <td className="text-center">
+                              {checkNan(
+                                peers?.ebidtaMargin * 100,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })}{' '}
+                              %
+                            </td>
+                            <td className="text-center">
+                              {checkNan(peers?.patMargin * 100)?.toLocaleString(
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )}
+                              %
+                            </td>
+                            <td className="text-center">
+                              {convertValue(
+                                peers.borrowings,
+                                conversionUnit,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })}
+                            </td>
+                          </tr>
+                        ),
+                      )}
                     {/* <tr>
                       <td>Ascent Hotels Private Limited</td>
                       <td className="text-center">Mar-2018</td>
@@ -114,7 +170,7 @@ function Index({ peerData }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

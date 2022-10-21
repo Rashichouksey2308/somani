@@ -1,8 +1,8 @@
-import React from 'react'
-import { render } from 'test-utils'
+import React from 'react';
+import { render } from 'test-utils';
 
 describe('Components/SearchResults', () => {
-  let props
+  let props;
   beforeEach(() => {
     props = {
       language: 'lang',
@@ -19,18 +19,18 @@ describe('Components/SearchResults', () => {
           htmlUrl: 'url 2',
         },
       ],
-    }
-  })
+    };
+  });
 
   const setup = () => {
-    const utils = render(<SearchResults {...props} />)
-    return utils
-  }
+    const utils = render(<SearchResults {...props} />);
+    return utils;
+  };
 
   it('renders all items', () => {
-    const utils = setup()
+    const utils = setup();
     props.repos.forEach((repo) => {
-      expect(utils.getByText(repo.name)).toHaveAttribute('href', repo.htmlUrl)
-    })
-  })
-})
+      expect(utils.getByText(repo.name)).toHaveAttribute('href', repo.htmlUrl);
+    });
+  });
+});

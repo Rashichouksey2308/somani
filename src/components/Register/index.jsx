@@ -1,37 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import CompanyDetails from '../CompanyDetails'
-import OrderDetails from '../OrderDetails'
-import Documents from '../Documents'
-import Terms from '../Terms'
-import { Card } from 'react-bootstrap'
-import Router from 'next/router'
-import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import { handleCurrencyOrder } from 'utils/helper'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
-import { debounce } from 'lodash'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import CompanyDetails from '../CompanyDetails';
+import OrderDetails from '../OrderDetails';
+import Documents from '../Documents';
+import Terms from '../Terms';
+import { Card } from 'react-bootstrap';
+import Router from 'next/router';
+import { CreateBuyer, GetBuyer, GetGst } from 'redux/registerBuyer/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { handleCurrencyOrder } from 'utils/helper';
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
+import { debounce } from 'lodash';
 
 function Index() {
-
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
       // console.log('this')
-      setDarkMode(true)
+      setDarkMode(true);
     } else {
       // console.log('this2')
-      setDarkMode(false)
+      setDarkMode(false);
     }
-  }, [])
-  const { createdBuyerResponse } = useSelector((state) => state.buyer)
-
+  }, []);
+  const { createdBuyerResponse } = useSelector((state) => state.buyer);
 
   // useEffect(() => {
   //   if (createdBuyerResponse) {
@@ -57,11 +55,11 @@ function Index() {
   //   }
   // }, [createdBuyerResponse])
 
-  const { gstList } = useSelector((state) => state.buyer)
+  const { gstList } = useSelector((state) => state.buyer);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [termsCheck, setTermsCheck] = useState(false)
+  const [termsCheck, setTermsCheck] = useState(false);
 
   const [companyDetails, setCompanyDetails] = useState({
     companyName: '',
@@ -83,57 +81,56 @@ function Index() {
     communicationMode: [],
 
     turnOverUnit: 'Cr',
-  })
-
+  });
 
   useEffect(() => {
-    const newInput = { ...companyDetails }
-    newInput.companyName = gstList?.data?.companyData?.companyName
-    setCompanyDetails(newInput)
-    setGstListData(gstList?.data?.gstList)
-  }, [gstList])
+    const newInput = { ...companyDetails };
+    newInput.companyName = gstList?.data?.companyData?.companyName;
+    setCompanyDetails(newInput);
+    setGstListData(gstList?.data?.gstList);
+  }, [gstList]);
 
-  const [gstListData, setGstListData] = useState(gstList?.data?.gstList)
+  const [gstListData, setGstListData] = useState(gstList?.data?.gstList);
 
   const handleCommunication = (e) => {
-    let communicationArr = { ...companyDetails }
+    let communicationArr = { ...companyDetails };
     if (e.target.checked) {
-      communicationArr.communicationMode.push(e.target.name)
+      communicationArr.communicationMode.push(e.target.name);
     } else {
-      communicationArr.communicationMode.pop(e.target.name)
+      communicationArr.communicationMode.pop(e.target.name);
     }
-    setCompanyDetails(communicationArr)
-  }
+    setCompanyDetails(communicationArr);
+  };
 
   const mobileFunction = (e) => {
-    const newObj = { ...companyDetails }
-    newObj.mobile.primary.number = e.target.value
-    setCompanyDetails(newObj)
-  }
+    const newObj = { ...companyDetails };
+    newObj.mobile.primary.number = e.target.value;
+    setCompanyDetails(newObj);
+  };
 
   const mobileCallingCodeFunction = (e) => {
-    const newObj = { ...companyDetails }
-    newObj.mobile.primary.callingCode = e.target.value
-    setCompanyDetails(newObj)
-  }
+    const newObj = { ...companyDetails };
+    newObj.mobile.primary.callingCode = e.target.value;
+    setCompanyDetails(newObj);
+  };
 
   const whatsappFunction = (e) => {
-    const newObj = { ...companyDetails }
-    newObj.mobile.whatsapp.number = e.target.value
-    setCompanyDetails(newObj)
-  }
+    const newObj = { ...companyDetails };
+    newObj.mobile.whatsapp.number = e.target.value;
+    setCompanyDetails(newObj);
+  };
 
   const whatsappCallingCodeFunction = (e) => {
-    const newObj = { ...companyDetails }
-    newObj.mobile.whatsapp.callingCode = e.target.value
-    setCompanyDetails(newObj)
-  }
+    const newObj = { ...companyDetails };
+    newObj.mobile.whatsapp.callingCode = e.target.value;
+    setCompanyDetails(newObj);
+  };
 
   useEffect(() => {
     if (companyDetails.companyPan !== '') {
-      dispatch(GetGst(companyDetails.companyPan))
+      dispatch(GetGst(companyDetails.companyPan));
     }
-  }, [companyDetails.companyPan])
+  }, [companyDetails.companyPan]);
 
   const [orderDetails, setOrderDetails] = useState({
     transactionType: 'Import',
@@ -148,92 +145,91 @@ function Index() {
     portOfDischarge: '',
     ExpectedDateOfShipment: null,
     incoTerm: '',
-  })
+  });
   // console.log(orderDetails, "orderDetailjdefhk")
 
   const saveCompanyData = (name, value) => {
-    const newInput = { ...companyDetails }
+    const newInput = { ...companyDetails };
 
     if (name == 'turnOver') {
-      let tempValue = Number(value)
-      newInput[name] = tempValue
+      let tempValue = Number(value);
+      newInput[name] = tempValue;
     } else {
-      newInput[name] = value
+      newInput[name] = value;
     }
 
-    setCompanyDetails(newInput)
-  }
+    setCompanyDetails(newInput);
+  };
 
   const handleCurrOrder = () => {
-    const newInput = { ...orderDetails }
+    const newInput = { ...orderDetails };
     let curr = handleCurrencyOrder(
       orderDetails.orderCurrency,
       orderDetails.orderValue,
-    )
-    newInput.orderValue = curr
-    setOrderDetails(newInput)
-  }
+    );
+    newInput.orderValue = curr;
+    setOrderDetails(newInput);
+  };
 
   const saveOrderData = (name, value) => {
-    const newInput = { ...orderDetails }
+    const newInput = { ...orderDetails };
 
-      newInput[name] = value
-    
+    newInput[name] = value;
 
-    setOrderDetails(newInput)
-  }
+    setOrderDetails(newInput);
+  };
 
   const saveDocument = (e) => {
-    let newDocument = { ...documents }
-    newDocument.typeOfDocument[e.target.name] = e.target.value
-    setDocuments(newDocument)
-  }
+    let newDocument = { ...documents };
+    newDocument.typeOfDocument[e.target.name] = e.target.value;
+    setDocuments(newDocument);
+  };
 
   const uploadDocument1 = (e) => {
-    const newUploadDoc = { ...documents }
-    newUploadDoc.document1 = e.target.files[0]
+    const newUploadDoc = { ...documents };
+    newUploadDoc.document1 = e.target.files[0];
 
-    setDocuments(newUploadDoc)
-  }
+    setDocuments(newUploadDoc);
+  };
   const uploadDocument2 = (e) => {
-    const newUploadDoc1 = { ...documents }
-    newUploadDoc1.document2 = e.target.files[0]
+    const newUploadDoc1 = { ...documents };
+    newUploadDoc1.document2 = e.target.files[0];
 
-    setDocuments(newUploadDoc1)
-  }
+    setDocuments(newUploadDoc1);
+  };
 
   const chanegTermsCheck = () => {
-    setTermsCheck(!termsCheck)
-  }
+    setTermsCheck(!termsCheck);
+  };
   // console.log(companyDetails.transactionType,"trans")
   const submitData = () => {
     //  console.log("submit1")
     // handleCurrOrder()
     if (companyDetails.transactionType === null) {
-      let toastMessage = 'Please Select a valid transaction Type'
+      let toastMessage = 'Please Select a valid transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
     if (companyDetails.companyName === '') {
-      let toastMessage = 'Please Fill The Company Name'
+      let toastMessage = 'Please Fill The Company Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (companyDetails.companyPan.trim().length !== 10) {
-      let toastMessage = 'Please Fill A valid Company Pan'
+      let toastMessage = 'Please Fill A valid Company Pan';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
-      let toastMessage = 'Please Provide a Valid Phone Number '
+      let toastMessage = 'Please Provide a Valid Phone Number ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (
       !String(companyDetails.email)
         .toLowerCase()
@@ -241,27 +237,27 @@ function Index() {
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         )
     ) {
-      let toastMessage = 'Please Fill A valid Email Id'
+      let toastMessage = 'Please Fill A valid Email Id';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (orderDetails.commodity.trim() === '') {
-      let toastMessage = 'Please Fill A valid Commodity'
+      let toastMessage = 'Please Fill A valid Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (
       Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ||
       orderDetails.quantity === null ||
       isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))
     ) {
-      let toastMessage = 'Please Fill A valid quantity'
+      let toastMessage = 'Please Fill A valid quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
     // else if (isNaN(orderDetails.quantity)) {
     //   let toastMessage = 'Please Fill A valid quantity'
@@ -275,11 +271,11 @@ function Index() {
       orderDetails.orderValue === null ||
       isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))
     ) {
-      let toastMessage = 'Please Fill A valid order value'
+      let toastMessage = 'Please Fill A valid order value';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
 
     // else if (orderDetails.supplierName.trim() === '') {
@@ -290,29 +286,29 @@ function Index() {
     //   return
     // }
     else if (orderDetails.countryOfOrigin.trim() === '') {
-      let toastMessage = 'Please Fill A valid Country Of origin'
+      let toastMessage = 'Please Fill A valid Country Of origin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (orderDetails.portOfDischarge.trim() === '') {
-      let toastMessage = 'Please Fill A valid Port Of Discharge'
+      let toastMessage = 'Please Fill A valid Port Of Discharge';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (!orderDetails.ExpectedDateOfShipment) {
-      let toastMessage = 'Please Fill A Expected date of Shipment'
+      let toastMessage = 'Please Fill A Expected date of Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (orderDetails.incoTerm === '') {
-      let toastMessage = 'Please Select A INCO Term'
+      let toastMessage = 'Please Select A INCO Term';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
     //  else if (!documents.document1 && !documents.document1) {
     //   let toastMessage = 'Please Check Document Upload'
@@ -322,57 +318,57 @@ function Index() {
     // }
     else {
       //  console.log("submit3")
-      let docTypeArr = []
+      let docTypeArr = [];
       documents.forEach((val, index) => {
-        docTypeArr.push(val.typeDocument)
-      })
-      let sendOrder = { ...orderDetails }
-      let sendOrder1 = { ...companyDetails }
-      sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
+        docTypeArr.push(val.typeDocument);
+      });
+      let sendOrder = { ...orderDetails };
+      let sendOrder1 = { ...companyDetails };
+      sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity));
       sendOrder.orderValue = Number(
         removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
-      )
+      );
       sendOrder1.turnOver = Number(
         removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
-      )
- 
-      const fd = new FormData()
-      fd.append('companyProfile', JSON.stringify(sendOrder1))
-      fd.append('orderDetails', JSON.stringify(sendOrder))
-      fd.append('documentType', JSON.stringify(docTypeArr))
+      );
+
+      const fd = new FormData();
+      fd.append('companyProfile', JSON.stringify(sendOrder1));
+      fd.append('orderDetails', JSON.stringify(sendOrder));
+      fd.append('documentType', JSON.stringify(docTypeArr));
 
       documents.forEach((val, index) => {
         // console.log(val.attachDoc,"doc")
-        fd.append(`documents`, val.attachDoc)
-      })
+        fd.append(`documents`, val.attachDoc);
+      });
 
       // fd.append('documents', documents.document2)
-      fd.append('gstList', JSON.stringify(gstListData))
+      fd.append('gstList', JSON.stringify(gstListData));
       // console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
 
-      dispatch(CreateBuyer(fd))
+      dispatch(CreateBuyer(fd));
     }
-  }
+  };
   // console.log(companyDetails, 'this is payload2')
   const clearData = () => {
-    document.getElementById('CompanyDetailsForm').reset()
-    document.getElementById('OrderDetailsForm').reset()
-    document.getElementById('documents').reset()
-    document.getElementById('companyInput').value = ''
+    document.getElementById('CompanyDetailsForm').reset();
+    document.getElementById('OrderDetailsForm').reset();
+    document.getElementById('documents').reset();
+    document.getElementById('companyInput').value = '';
 
     // document.querySelector(companyInput).value = ''
-  }
+  };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       // console.log(companyDetails.companyName, "companyName")
-    }, 3000)
-    return () => clearTimeout(delayDebounceFn)
-  }, [companyDetails.companyName])
+    }, 3000);
+    return () => clearTimeout(delayDebounceFn);
+  }, [companyDetails.companyName]);
 
   const [documents, setDocuments] = useState([
     { typeOfDocument: '', attachDoc: '' },
-  ])
+  ]);
 
   const onAddDoc = (index) => {
     setDocuments([
@@ -381,66 +377,67 @@ function Index() {
         typeDocument: '',
         attachDoc: '',
       },
-    ])
-  }
+    ]);
+  };
   const addDoc = (val, index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: val }
+          return { ...obj, attachDoc: val };
         }
-        return obj
-      })
-      return newState
-    })
-  }
-  
+        return obj;
+      });
+      return newState;
+    });
+  };
+
   const removeDoc = (index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' }
+          return { ...obj, attachDoc: '' };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const addTypeOfDoc = (val, index) => {
     setDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, typeDocument: val }
+          return { ...obj, typeDocument: val };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const deleteData = (index) => {
-    setDocuments([...documents.slice(0, index), ...documents.slice(index + 1)])
-  }
-
+    setDocuments([...documents.slice(0, index), ...documents.slice(index + 1)]);
+  };
 
   return (
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
-          <div  onClick={() => Router.push('/leads')} style={{cursor:'pointer'}}>
-          <img
-            className={`${styles.arrow} img-fluid image_arrow mr-2`}
-            src="/static/keyboard_arrow_right-3.svg"
-            alt="ArrowRight"
-            
-          />
+          <div
+            onClick={() => Router.push('/leads')}
+            style={{ cursor: 'pointer' }}
+          >
+            <img
+              className={`${styles.arrow} img-fluid image_arrow mr-2`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
+            />
           </div>
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
           <button
-            onClick={clearData} 
+            onClick={clearData}
             className={`${styles.clear_btn} clear_btn`}
           >
             Clear All
@@ -487,6 +484,6 @@ function Index() {
         />
       </Card.Body>
     </Card>
-  )
+  );
 }
-export default Index
+export default Index;

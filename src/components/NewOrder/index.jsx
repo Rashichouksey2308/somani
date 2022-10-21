@@ -1,26 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
-import { addPrefixOrSuffix } from 'utils/helper'
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import styles from './index.module.scss';
+import DateCalender from '../DateCalender';
+import { addPrefixOrSuffix } from 'utils/helper';
 
 const Index = ({ saveOrderData, orderData }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
-    tolerance: false
-  })
+    tolerance: false,
+  });
   const saveDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveOrderData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveOrderData(name, text);
+  };
 
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
       <div
-        className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
+        className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}
+        style={{ cursor: 'default' }}
+      >
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -29,7 +31,7 @@ const Index = ({ saveOrderData, orderData }) => {
               className={`${styles.options} accordion_DropDown`}
               name="unitOfQuantity"
               onChange={(e) => {
-                saveOrderData(e.target.name, e.target.value)
+                saveOrderData(e.target.name, e.target.value);
               }}
             >
               <option>Select</option>
@@ -58,7 +60,14 @@ const Index = ({ saveOrderData, orderData }) => {
               <option value="Lakh">Lakh</option>
             </select>
           </div>
-          <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
+          <span
+            data-toggle="collapse"
+            data-target="#orderSummary"
+            aria-expanded="true"
+            aria-controls="orderSummary"
+          >
+            +
+          </span>
         </div>
       </div>
       <div
@@ -79,7 +88,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   inline
                   label="Import"
                   onChange={(e) => {
-                    saveOrderData('transactionType', 'Import')
+                    saveOrderData('transactionType', 'Import');
                   }}
                   name="group1"
                   type={type}
@@ -90,7 +99,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   inline
                   label="Domestic"
                   onChange={(e) => {
-                    saveOrderData('transactionType', 'Domestic')
+                    saveOrderData('transactionType', 'Domestic');
                   }}
                   name="group1"
                   type={type}
@@ -109,7 +118,7 @@ const Index = ({ saveOrderData, orderData }) => {
                     type="text"
                     name="commodity"
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   />
                   <Form.Label
@@ -130,30 +139,29 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                      e.target.type = 'number'
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                      e.target.type = 'text'
+                      (e.target.type = 'text');
                   }}
-
                   // value={addPrefixOrSuffix(
                   //   orderData.quantity ? orderData.quantity : 0,
                   //   orderData.unitOfQuantity,
                   //   '',
                   // )}
                   value={
-                    isFieldInFocus.quantity ?
-                      orderData.quantity :
-                      Number(orderData.quantity).toLocaleString('en-In') + ` ${orderData.unitOfQuantity}`}
+                    isFieldInFocus.quantity
+                      ? orderData.quantity
+                      : Number(orderData.quantity).toLocaleString('en-In') +
+                        ` ${orderData.unitOfQuantity}`
+                  }
                   name="quantity"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    saveOrderData(e.target.name, e.target.value);
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -166,25 +174,26 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                      e.target.type = 'number'
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                      e.target.type = 'text'
+                      (e.target.type = 'text');
                   }}
-
-                  value={isFieldInFocus.orderValue ?
-                    orderData.orderValue :
-                    Number(orderData.orderValue).toLocaleString('en-In') + ` ${orderData.unitOfValue == 'Crores'
-                      ? 'Cr'
-                      : orderData.unitOfValue == 'Million'
-                        ? 'Mn'
-                        : orderData.unitOfValue}`
+                  value={
+                    isFieldInFocus.orderValue
+                      ? orderData.orderValue
+                      : Number(orderData.orderValue).toLocaleString('en-In') +
+                        ` ${
+                          orderData.unitOfValue == 'Crores'
+                            ? 'Cr'
+                            : orderData.unitOfValue == 'Million'
+                            ? 'Mn'
+                            : orderData.unitOfValue
+                        }`
                   }
                   // value={addPrefixOrSuffix(
                   //   orderData.orderValue ? orderData.orderValue : 0,
@@ -205,7 +214,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   //         : orderData.unitOfValue}`}
                   name="orderValue"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    saveOrderData(e.target.name, e.target.value);
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -220,7 +229,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   type="text"
                   name="grade"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    saveOrderData(e.target.name, e.target.value);
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -235,7 +244,7 @@ const Index = ({ saveOrderData, orderData }) => {
                     name="countryOfOrigin"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
@@ -261,28 +270,29 @@ const Index = ({ saveOrderData, orderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      e.target.type = 'number'
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      e.target.type = 'text'
+                      (e.target.type = 'text');
                   }}
                   type="text"
                   name="tolerance"
-                  value={isFieldInFocus.tolerance ?
-                    orderData.tolerance :
-                    '± ' + Number(orderData.tolerance)?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                    }) + ' %'
+                  value={
+                    isFieldInFocus.tolerance
+                      ? orderData.tolerance
+                      : '± ' +
+                        Number(orderData.tolerance)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        }) +
+                        ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    saveOrderData(e.target.name, e.target.value);
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -299,7 +309,7 @@ const Index = ({ saveOrderData, orderData }) => {
                     type="text"
                     name="supplierName"
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   />
                   <Form.Label
@@ -335,7 +345,7 @@ const Index = ({ saveOrderData, orderData }) => {
                     type="text"
                     name="manufacturerName"
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   />
                   <Form.Label
@@ -359,11 +369,13 @@ const Index = ({ saveOrderData, orderData }) => {
                     name="portOfDischarge"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
-                    <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                    <option value="Vishakapatnam, India">
+                      Visakhapatnam, India
+                    </option>
                     <option value="Mumbai, India">Mumbai, India</option>
                     <option value="Gujrat, India">Gujrat, India</option>
                   </select>
@@ -387,7 +399,7 @@ const Index = ({ saveOrderData, orderData }) => {
                     name="incoTerm"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
+                      saveOrderData(e.target.name, e.target.value);
                     }}
                   >
                     <option selected>Select an option</option>
@@ -441,12 +453,10 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   name="transactionPeriodDays"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    saveOrderData(e.target.name, e.target.value);
                   }}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -466,7 +476,7 @@ const Index = ({ saveOrderData, orderData }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

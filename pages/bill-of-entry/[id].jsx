@@ -1,58 +1,62 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './billofentry.module.scss'
-import BillOfEntry from '../../src/components/BillOfEntry'
-import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo'
-import Warehouse from '../../src/components/BillOfEntry/Warehouse'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import styles from './billofentry.module.scss';
+import BillOfEntry from '../../src/components/BillOfEntry';
+import DischargeCargo from '../../src/components/BillOfEntry/DischargeCargo';
+import Warehouse from '../../src/components/BillOfEntry/Warehouse';
+import { useDispatch } from 'react-redux';
 import {
   GetAllCustomClearance,
   UploadCustomDoc,
-} from '../../src/redux/CustomClearance&Warehousing/action'
-import { useSelector } from 'react-redux'
-import _get from 'lodash/get'
-import API from '../../src/utils/endpoints'
-import {toast} from 'react-toastify'
-import Router from 'next/router'
-import Cookies from 'js-cookie'
-import Axios from 'axios'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
+} from '../../src/redux/CustomClearance&Warehousing/action';
+import { useSelector } from 'react-redux';
+import _get from 'lodash/get';
+import API from '../../src/utils/endpoints';
+import { toast } from 'react-toastify';
+import Router from 'next/router';
+import Cookies from 'js-cookie';
+import Axios from 'axios';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
 function Index() {
-  const dispatch = useDispatch()
-  const [componentId, setComponentId] = useState(1)
+  const dispatch = useDispatch();
+  const [componentId, setComponentId] = useState(1);
 
-  const [darkMode, setDarkMode] = useState(false)
-  const [arrivalDate, setArrivalDate] = useState(null)
+  const [darkMode, setDarkMode] = useState(false);
+  const [arrivalDate, setArrivalDate] = useState(null);
 
   useEffect(() => {
-    let id = sessionStorage.getItem('customId')
-    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('customId');
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
+  }, [dispatch]);
   useEffect(() => {
-    dispatch(setPageName('custom'))
-    dispatch(setDynamicName(customData?.company?.companyName))
-  }, [customData])
-  const { allCustomClearance } = useSelector((state) => state.Custom)
+    dispatch(setPageName('custom'));
+    dispatch(setDynamicName(customData?.company?.companyName));
+  }, [customData]);
+  const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  let customData = _get(allCustomClearance, 'data[0]', {})
-  let OrderId = _get(customData, 'order._id', {})
-  let CompanyOrderId = _get(customData, 'order', {})
+  let customData = _get(allCustomClearance, 'data[0]', {});
+  let OrderId = _get(customData, 'order._id', {});
+  let CompanyOrderId = _get(customData, 'order', {});
   const uploadDoc = async (e) => {
-    console.log(e, 'response data')
-    let fd = new FormData()
-    fd.append('document', e.target.files[0])
+    console.log(e, 'response data');
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
-    console.log(customData, 'customData')
+    console.log(customData, 'customData');
 
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,
@@ -60,30 +64,31 @@ function Index() {
         {
           headers: headers,
         },
-      )
-      console.log(response.data.data, 'dischargeOfCargo2')
+      );
+      console.log(response.data.data, 'dischargeOfCargo2');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data
+        return response.data.data;
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
-        
         // dispatch(getCustomClearanceFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-           return null
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        return null;
       }
     } catch (error) {
-   let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-           return null
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return null;
     }
-  }
+  };
 
   useEffect(() => {
     dispatch(
@@ -92,8 +97,8 @@ function Index() {
         companyId: customData?.order?.orderId,
         orderTabs: 'Bill of Entry',
       }),
-    )
-  }, [customData])
+    );
+  }, [customData]);
 
   return (
     <>
@@ -107,14 +112,17 @@ function Index() {
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
               onClick={() => Router.push('/bill-of-entry')}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
             />
             <h3 className={`${styles.title} heading`}>
               <span
-                // className={`${styles.title} heading`}
-                // style={{ textTransform: 'capitalize' }}
+              // className={`${styles.title} heading`}
+              // style={{ textTransform: 'capitalize' }}
               >
-                {customData?.company?.companyName} - <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
+                {customData?.company?.companyName} -{' '}
+                <span style={{ textTransform: 'capitalize' }}>
+                  {CompanyOrderId?.orderId}
+                </span>
               </span>
             </h3>
           </div>
@@ -131,12 +139,12 @@ function Index() {
                 // aria-selected="true"
                 role="button"
                 onClick={() => {
-                  setComponentId(1)
+                  setComponentId(1);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Bill of Entry',
                     }),
-                  )
+                  );
                 }}
               >
                 Bill of Entry
@@ -154,12 +162,12 @@ function Index() {
                 // aria-controls="dischargeCargo"
                 // aria-selected="false"
                 onClick={() => {
-                  setComponentId(2)
+                  setComponentId(2);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Discharge of Cargo',
                     }),
-                  )
+                  );
                 }}
               >
                 Discharge of Cargo
@@ -177,12 +185,12 @@ function Index() {
                 // aria-controls="warehouse"
                 // aria-selected="false"
                 onClick={() => {
-                  setComponentId(3)
+                  setComponentId(3);
                   dispatch(
                     getBreadcrumbValues({
                       upperTabs: 'Warehouse Details',
                     }),
-                  )
+                  );
                 }}
               >
                 Warehouse Details
@@ -248,6 +256,6 @@ function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }
-export default Index
+export default Index;

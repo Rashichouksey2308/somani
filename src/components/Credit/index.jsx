@@ -1,18 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { toast } from 'react-toastify'
-import { UploadDocument } from 'redux/registerBuyer/action'
-import { checkNan, phoneValidation } from 'utils/helper'
-import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
-import { Form, Row, Col } from 'react-bootstrap'
-import AddressComponent from './addressComponent'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
-import _get from 'lodash/get'
-import MultiSelect from '../MutilSelect'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { UploadDocument } from 'redux/registerBuyer/action';
+import { checkNan, phoneValidation } from 'utils/helper';
+import styles from './index.module.scss';
+import DateCalender from '../DateCalender';
+import { Form, Row, Col } from 'react-bootstrap';
+import AddressComponent from './addressComponent';
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
+import _get from 'lodash/get';
+import MultiSelect from '../MutilSelect';
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -34,17 +34,16 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(personData, 'personData')
-  console.log(creditDetail?.existingProcurementOfCommodity, 'debtData')
-  const dispatch = useDispatch()
+  console.log(personData, 'personData');
+  console.log(creditDetail?.existingProcurementOfCommodity, 'debtData');
+  const dispatch = useDispatch();
 
+  const [saveTable, setSaveTable] = useState(false);
 
-  const [saveTable, setSaveTable] = useState(false)
+  const [saveContactTable, setContactTable] = useState(false);
 
-  const [saveContactTable, setContactTable] = useState(false)
-
-  const { gstDocument } = useSelector((state) => state.buyer)
-  console.log(gstDocument, "gstDocument")
+  const { gstDocument } = useSelector((state) => state.buyer);
+  console.log(gstDocument, 'gstDocument');
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -54,24 +53,23 @@ const index = ({
     dailyConsumptionOfCommodity: false,
     AvgMonthlyElectricityBill: false,
     commodityOfTotalTrade: false,
-    limit: false
-  })
-  const { updatingCreditCalculate } = useSelector((state) => state.review)
-  const [keyNameList, setKeyNameList] = useState([])
+    limit: false,
+  });
+  const { updatingCreditCalculate } = useSelector((state) => state.review);
+  const [keyNameList, setKeyNameList] = useState([]);
 
   useEffect(() => {
     if (personData?.length > 0) {
-      let temp = []
+      let temp = [];
       personData.forEach((val) => {
-        if (val.name !== "") {
-          temp.push(val.name)
+        if (val.name !== '') {
+          temp.push(val.name);
         }
-
-      })
-      setKeyNameList([...temp])
+      });
+      setKeyNameList([...temp]);
     }
-  }, [personData])
-  console.log(keyNameList, "keyNameList")
+  }, [personData]);
+  console.log(keyNameList, 'keyNameList');
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -91,25 +89,24 @@ const index = ({
     },
     pinCode: null,
     communication: false,
-
-  })
-  console.log(keyAddressData, "keyAddressData")
-  console.log(personData, 'personData')
+  });
+  console.log(keyAddressData, 'keyAddressData');
+  console.log(personData, 'personData');
   useEffect(() => {
-    const newInput = { ...keyAddressData }
-    newInput.GSTIN_document.name = gstDocument.name
-    newInput.GSTIN_document.path = gstDocument.path
-    newInput.GSTIN_document.date = gstDocument.date
-    setKeyAddressData(newInput)
-  }, [gstDocument])
-  console.log(keyAddressData, "keyAddressData")
+    const newInput = { ...keyAddressData };
+    newInput.GSTIN_document.name = gstDocument.name;
+    newInput.GSTIN_document.path = gstDocument.path;
+    newInput.GSTIN_document.date = gstDocument.date;
+    setKeyAddressData(newInput);
+  }, [gstDocument]);
+  console.log(keyAddressData, 'keyAddressData');
   const removeDoc = () => {
-    const newInput = { ...keyAddressData }
-    newInput.GSTIN_document.name = undefined
-    newInput.GSTIN_document.path = undefined
-    newInput.GSTIN_document.date = undefined
-    setKeyAddressData(newInput)
-  }
+    const newInput = { ...keyAddressData };
+    newInput.GSTIN_document.name = undefined;
+    newInput.GSTIN_document.path = undefined;
+    newInput.GSTIN_document.date = undefined;
+    setKeyAddressData(newInput);
+  };
   //const [deleteRow, setDeleteRow] = useState(true)
 
   // const [debt, setDebtData] = useState([])
@@ -124,55 +121,55 @@ const index = ({
         limit: null,
         action: false,
       },
-    ])
-  }
+    ]);
+  };
 
-  console.log(keyNameList, 'THIS IS DEBT')
+  console.log(keyNameList, 'THIS IS DEBT');
 
   const handleDebtChange = (name, value, index) => {
-    let tempArr = [...debtData]
+    let tempArr = [...debtData];
 
-    console.log(name, value, index, 'tempArr123')
+    console.log(name, value, index, 'tempArr123');
 
     tempArr.forEach((val, i) => {
       if (i == index) {
-        val[name] = value
+        val[name] = value;
       } else {
         if (name == 'primaryBank') {
-          val[name] = false
+          val[name] = false;
         }
       }
-    })
-    console.log(tempArr, 'tempArr')
-    setDebtData([...tempArr])
-  }
-  console.log(debtData, 'debtData8888')
+    });
+    console.log(tempArr, 'tempArr');
+    setDebtData([...tempArr]);
+  };
+  console.log(debtData, 'debtData8888');
 
   const onDebtSave = () => {
-    addDebtArr(debt)
-  }
+    addDebtArr(debt);
+  };
 
   const setActions = (index, val) => {
     setDebtData((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: val }
+          return { ...obj, actions: val };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const FilterUniqueBank = () => {
-    let filtered = _get(companyData, 'financial.openCharges', [])
+    let filtered = _get(companyData, 'financial.openCharges', []);
     const unique = [
       ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
-    ]
-    console.log(unique, 'unique')
-    return unique
-  }
+    ];
+    console.log(unique, 'unique');
+    return unique;
+  };
 
   const [keyPersonData, setKeyPersonData] = useState({
     contact: {
@@ -183,113 +180,112 @@ const index = ({
     designation: '',
     email: '',
     name: '',
-  })
-  console.log(personData, "personData1111")
+  });
+  console.log(personData, 'personData1111');
 
   useEffect(() => {
-
-    setKeyPersonData(personData)
-  }, [personData])
+    setKeyPersonData(personData);
+  }, [personData]);
 
   // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
 
   const handlePersonChange = (e, key) => {
-    const newInput = [...keyPersonData]
-    console.log("jjejjeje")
-    if (e.target.value == "addnew") {
-      console.log("jjejjeje")
-      newInput[key].addnew = true
-      newInput[key].name = ""
-      newInput[key].email = ""
-      console.log("jjejjeje", newInput)
-      setKeyPersonData([...newInput])
-      return
+    const newInput = [...keyPersonData];
+    console.log('jjejjeje');
+    if (e.target.value == 'addnew') {
+      console.log('jjejjeje');
+      newInput[key].addnew = true;
+      newInput[key].name = '';
+      newInput[key].email = '';
+      console.log('jjejjeje', newInput);
+      setKeyPersonData([...newInput]);
+      return;
     }
     if (e.target.name.split('.').length > 1) {
-      newInput[key]['contact']['number'] = e.target.value
+      newInput[key]['contact']['number'] = e.target.value;
     } else {
-      newInput[key][e.target.name] = e.target.value
+      newInput[key][e.target.name] = e.target.value;
     }
-    setKeyPersonData([...newInput])
-  }
-  console.log(keyPersonData, "keyPersonDatakeyPersonData")
+    setKeyPersonData([...newInput]);
+  };
+  console.log(keyPersonData, 'keyPersonDatakeyPersonData');
   const onKeyPersonSave = () => {
-    console.log(keyPersonData, "keyPersonData")
-    addPersonArr(keyPersonData)
+    console.log(keyPersonData, 'keyPersonData');
+    addPersonArr(keyPersonData);
     //console.log(keyPersonData, 'This is person data')
-  }
+  };
 
   const handleChange = (name, value) => {
-    const newInput = { ...keyAddressData }
-    newInput[name] = value
+    const newInput = { ...keyAddressData };
+    newInput[name] = value;
 
     // console.log(newInput)
-    setKeyAddressData(newInput)
-  }
+    setKeyAddressData(newInput);
+  };
 
   const mobileFunction = (e) => {
-    const newObj = { ...keyAddressData }
-    newObj.contact.number = e.target.value
-    setKeyAddressData(newObj)
-  }
+    const newObj = { ...keyAddressData };
+    newObj.contact.number = e.target.value;
+    setKeyAddressData(newObj);
+  };
 
   const personMobileFunction = (e) => {
-    const newObj = { ...keyPersonData }
-    newObj.contact.number = e.target.value
-    setKeyPersonData(newObj)
-  }
+    const newObj = { ...keyPersonData };
+    newObj.contact.number = e.target.value;
+    setKeyPersonData(newObj);
+  };
 
   const uploadDocument = (e) => {
-    const fd = new FormData()
-    fd.append('gstDocument', e.target.files[0])
-    dispatch(UploadDocument(fd))
-  }
+    const fd = new FormData();
+    fd.append('gstDocument', e.target.files[0]);
+    dispatch(UploadDocument(fd));
+  };
 
   const addressValidtion = (data) => {
-    console.log(data, 'addressValidtion')
+    console.log(data, 'addressValidtion');
     if (
       data.addressType === null ||
       data.addressType === '' ||
       data.addressType === undefined
     ) {
-      let toastMessage = 'Please Select addresss Type'
+      let toastMessage = 'Please Select addresss Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       data.pinCode === null ||
       data.pinCode === '' ||
       data.pinCode === undefined
     ) {
-      let toastMessage = 'Please add pin code'
+      let toastMessage = 'Please add pin code';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (data.state === null || data.state === '' || data.state === undefined) {
-      let toastMessage = 'Please add state'
+      let toastMessage = 'Please add state';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (data.city === null || data.city === '' || data.city === undefined) {
-      let toastMessage = 'Please add city'
+      let toastMessage = 'Please add city';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (data.email === null || data.email === '' || data.email === undefined) {
-      let toastMessage = 'Please add email'
+      let toastMessage = 'Please add email';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
-      return false
+      return false;
     }
     if (
       !String(data.email)
@@ -298,58 +294,58 @@ const index = ({
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         )
     ) {
-      let toastMessage = 'Please add valid email id'
+      let toastMessage = 'Please add valid email id';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (data.email === null || data.email === '' || data.email === undefined) {
-      let toastMessage = 'Please add email'
+      let toastMessage = 'Please add email';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
-      return false
+      return false;
     }
     if (
       data.contact.number === null ||
       data.contact.number === '' ||
       data.contact.number === undefined
     ) {
-      let toastMessage = 'Please add phone number'
+      let toastMessage = 'Please add phone number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
-      return false
+      return false;
     }
-    console.log(data.contact.number.length, 'data.contact.number.lengt')
+    console.log(data.contact.number.length, 'data.contact.number.lengt');
     if (data.contact.number.length < 10 || data.contact.number.length > 10) {
-      let toastMessage = 'Please add valid number'
+      let toastMessage = 'Please add valid number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
-      return false
+      return false;
     }
     if (
       data.completeAddress === null ||
       data.completeAddress === '' ||
       data.completeAddress === undefined
     ) {
-      let toastMessage = 'Please add address'
+      let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
-      return false
+      return false;
     }
-    return true
-  }
+    return true;
+  };
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
-      keyAddDataArr(keyAddressData)
+      keyAddDataArr(keyAddressData);
       setKeyAddressData({
         GSTIN: '',
         GSTIN_document: {
@@ -368,30 +364,29 @@ const index = ({
           number: null,
         },
         pinCode: null,
-        communication: false
-
-      })
+        communication: false,
+      });
     }
-  }
+  };
 
   const saveDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveProductData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveProductData(name, text);
+  };
 
   const saveSupplierDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveSupplierData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveSupplierData(name, text);
+  };
   const handleRemoveRow = (index) => {
-    setDebtData([...debtData.slice(0, index), ...debtData.slice(index + 1)])
-  }
+    setDebtData([...debtData.slice(0, index), ...debtData.slice(index + 1)]);
+  };
 
-  const [showAddress, setShowAddress] = useState(false)
-  const [Index, setIndex] = useState('0')
-  const [showEditAddress, setShowEditAddress] = useState(false)
+  const [showAddress, setShowAddress] = useState(false);
+  const [Index, setIndex] = useState('0');
+  const [showEditAddress, setShowEditAddress] = useState(false);
   const [editData, setEditData] = useState({
     GSTIN: '',
     GSTIN_document: '',
@@ -406,16 +401,15 @@ const index = ({
       number: '',
     },
     pinCode: '',
-    communication: false
-
-  })
-  console.log(editData, "editData")
+    communication: false,
+  });
+  console.log(editData, 'editData');
   const editAddress = (index) => {
-    setShowAddress(false)
-    setShowEditAddress(true)
-    setIndex(index)
-    console.log(keyAddData, "keyAddData")
-    let tempArr = keyAddData
+    setShowAddress(false);
+    setShowEditAddress(true);
+    setIndex(index);
+    console.log(keyAddData, 'keyAddData');
+    let tempArr = keyAddData;
     setEditData({
       GSTIN: tempArr[index].GSTIN,
       GSTIN_document: tempArr[index].GSTIN_document,
@@ -431,56 +425,53 @@ const index = ({
       },
       pinCode: tempArr[index].pinCode,
       communication: tempArr[index].communication || false,
-
-
-    })
-  }
+    });
+  };
   const changeData = (name, value) => {
-    const newInput = { ...editData }
-    newInput[name] = value
+    const newInput = { ...editData };
+    newInput[name] = value;
     // console.log(newInput)
-    setEditData(newInput)
-  }
-  console.log(keyAddressData, 'editData')
+    setEditData(newInput);
+  };
+  console.log(keyAddressData, 'editData');
   console.log(
     creditDetail,
     'creditDetail',
     creditDetail?.monthlyProductionCapacity,
-  )
+  );
 
-  const [infoCircle, setInfoCircle] = useState(false)
+  const [infoCircle, setInfoCircle] = useState(false);
   const handleInfo = (e) => {
-    setInfoCircle(!infoCircle)
-    console.log(infoCircle, 'this is info circle')
-  }
-  const [emails, setemails] = useState([])
+    setInfoCircle(!infoCircle);
+    console.log(infoCircle, 'this is info circle');
+  };
+  const [emails, setemails] = useState([]);
   useEffect(() => {
     if (creditDetail?.existingCHA.length > 0) {
-      setemails(creditDetail?.existingCHA)
+      setemails(creditDetail?.existingCHA);
     }
-  }, [creditDetail?.existingCHA])
+  }, [creditDetail?.existingCHA]);
 
-
-  const [exSupplier, setexSupplier] = useState([])
+  const [exSupplier, setexSupplier] = useState([]);
   useEffect(() => {
     if (creditDetail?.existingSuppliers.length > 0) {
-      setexSupplier(creditDetail?.existingSuppliers)
+      setexSupplier(creditDetail?.existingSuppliers);
     }
-  }, [creditDetail?.existingSuppliers])
+  }, [creditDetail?.existingSuppliers]);
 
-  console.log(emails, "emails")
+  console.log(emails, 'emails');
   const removeEmailParent = (index) => {
-    let temp = [...emails]
+    let temp = [...emails];
     temp.splice(index, 1);
-    setemails([...temp])
-  }
+    setemails([...temp]);
+  };
   const removeExSupplierParent = (index) => {
-    let temp = [...exSupplier]
+    let temp = [...exSupplier];
     temp.splice(index, 1);
-    console.log(temp,"temp")
-    setexSupplier([...temp])
-  }
-  console.log(exSupplier,"exSupplier")
+    console.log(temp, 'temp');
+    setexSupplier([...temp]);
+  };
+  console.log(exSupplier, 'exSupplier');
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -507,9 +498,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -519,22 +508,22 @@ const index = ({
                       ...isFieldInFocus,
                       monthlyCapacity: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       monthlyCapacity: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.monthlyCapacity
                       ? creditDetail?.monthlyProductionCapacity
                       : checkNan(
-                        Number(creditDetail?.monthlyProductionCapacity),
-                      )?.toLocaleString() +
-                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                          Number(creditDetail?.monthlyProductionCapacity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.monthlyProductionCapacity,
@@ -542,7 +531,7 @@ const index = ({
                   // )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -556,10 +545,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -569,21 +555,22 @@ const index = ({
                       ...isFieldInFocus,
                       capacityUtilization: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       capacityUtilization: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.capacityUtilization
                       ? creditDetail?.capacityUtilization
                       : checkNan(
-                        Number(creditDetail?.capacityUtilization), "no"
-                      ) + ' %'
+                          Number(creditDetail?.capacityUtilization),
+                          'no',
+                        ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
@@ -591,7 +578,7 @@ const index = ({
                   // )}
                   name="capacityUtilization"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -604,9 +591,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -616,22 +601,22 @@ const index = ({
                       ...isFieldInFocus,
                       avgStockinCommodity: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       avgStockinCommodity: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.avgStockinCommodity
                       ? creditDetail?.averageStockOfCommodity
                       : checkNan(
-                        Number(creditDetail?.averageStockOfCommodity),
-                      )?.toLocaleString() +
-                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                          Number(creditDetail?.averageStockOfCommodity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockOfCommodity,
@@ -639,7 +624,7 @@ const index = ({
                   // )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -653,9 +638,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -665,22 +648,22 @@ const index = ({
                       ...isFieldInFocus,
                       avgStockinTrasit: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       avgStockinTrasit: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.avgStockinTrasit
                       ? creditDetail?.averageStockInTransit
                       : checkNan(
-                        Number(creditDetail?.averageStockInTransit),
-                      )?.toLocaleString() +
-                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                          Number(creditDetail?.averageStockInTransit),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockInTransit,
@@ -688,7 +671,7 @@ const index = ({
                   // )}
                   name="averageStockInTransit"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -702,9 +685,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -714,22 +695,22 @@ const index = ({
                       ...isFieldInFocus,
                       availableStock: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       availableStock: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.availableStock
                       ? creditDetail?.availableStock
                       : checkNan(
-                        Number(creditDetail?.availableStock),
-                      )?.toLocaleString() +
-                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                          Number(creditDetail?.availableStock),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.availableStock,
@@ -737,7 +718,7 @@ const index = ({
                   // )}
                   name="availableStock"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -749,9 +730,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -761,22 +740,22 @@ const index = ({
                       ...isFieldInFocus,
                       dailyConsumptionOfCommodity: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       dailyConsumptionOfCommodity: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.dailyConsumptionOfCommodity
                       ? creditDetail?.dailyConsumptionOfCommodity
                       : checkNan(
-                        Number(creditDetail?.dailyConsumptionOfCommodity),
-                      )?.toLocaleString() +
-                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                          Number(creditDetail?.dailyConsumptionOfCommodity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.dailyConsumptionOfCommodity,
@@ -784,7 +763,7 @@ const index = ({
                   // )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -831,12 +810,10 @@ const index = ({
                     required
                     value={creditDetail?.existingProcurementOfCommodity}
                     onChange={(e) => {
-                      saveProductData(e.target.name, e.target.value)
+                      saveProductData(e.target.name, e.target.value);
                     }}
                   >
-                    <option  selected>
-                      Select an option
-                    </option>
+                    <option selected>Select an option</option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
                   </select>
@@ -857,26 +834,22 @@ const index = ({
                     placeholder="Existing Supplier(s)"
                     emails={exSupplier}
                     onChange={(_emails) => {
-                      console.log(_emails, "cxzczxczxczxc")
-                      let temp = [...exSupplier]
-                      temp.push(_emails[0])
+                      console.log(_emails, 'cxzczxczxczxc');
+                      let temp = [...exSupplier];
+                      temp.push(_emails[0]);
                       setexSupplier([...temp]);
                     }}
-                    getLabel={(
-                      email,
-                      index,
-                      removeEmail,
-                    ) => {
+                    getLabel={(email, index, removeEmail) => {
                       return (
                         <div data-tag key={index}>
                           {email}
-                          <span data-tag-handle onClick={() => {
-                            
-                             removeExSupplierParent(index)
-                             removeEmail(index)
-                           
-                          }
-                          }>
+                          <span
+                            data-tag-handle
+                            onClick={() => {
+                              removeExSupplierParent(index);
+                              removeEmail(index);
+                            }}
+                          >
                             ×
                           </span>
                         </div>
@@ -918,7 +891,7 @@ const index = ({
                     name="contributionCommoditySenstivity"
                     value={creditDetail?.contributionCommoditySenstivity}
                     onChange={(e) => {
-                      saveProductData(e.target.name, e.target.value)
+                      saveProductData(e.target.name, e.target.value);
                     }}
                   >
                     <option disabled value="">
@@ -954,14 +927,11 @@ const index = ({
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -971,22 +941,22 @@ const index = ({
                       ...isFieldInFocus,
                       AvgMonthlyElectricityBill: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       AvgMonthlyElectricityBill: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.AvgMonthlyElectricityBill
                       ? creditDetail?.AvgMonthlyElectricityBill
                       : 'INR ' +
-                      checkNan(
-                        Number(creditDetail?.AvgMonthlyElectricityBill),
-                      )?.toLocaleString()
+                        checkNan(
+                          Number(creditDetail?.AvgMonthlyElectricityBill),
+                        )?.toLocaleString()
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.AvgMonthlyElectricityBill,
@@ -996,7 +966,7 @@ const index = ({
                   // )}
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
-                    saveProductData(e.target.name, e.target.value)
+                    saveProductData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1010,25 +980,22 @@ const index = ({
                     placeholder="Existing CHA(s)"
                     emails={emails}
                     onChange={(_emails) => {
-                      console.log(_emails, "cxzczxczxczxc")
-                      let temp = [...emails]
-                      temp.push(_emails[0])
+                      console.log(_emails, 'cxzczxczxczxc');
+                      let temp = [...emails];
+                      temp.push(_emails[0]);
                       setemails([...temp]);
                     }}
-                    getLabel={(
-                      email,
-                      index,
-                      removeEmail,
-                    ) => {
+                    getLabel={(email, index, removeEmail) => {
                       return (
                         <div data-tag key={index}>
                           {email}
-                          <span data-tag-handle onClick={() => {
-                            
-                            removeEmailParent(index)
-                            removeEmail(index)
-                          }
-                          }>
+                          <span
+                            data-tag-handle
+                            onClick={() => {
+                              removeEmailParent(index);
+                              removeEmail(index);
+                            }}
+                          >
                             ×
                           </span>
                         </div>
@@ -1050,7 +1017,6 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
                   </label> */}
-
                 </div>
               </div>
             </div>
@@ -1059,7 +1025,7 @@ const index = ({
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
                   if (!updatingCreditCalculate) {
-                    handleProductSave(emails, exSupplier)
+                    handleProductSave(emails, exSupplier);
                   }
                 }}
               >
@@ -1101,7 +1067,7 @@ const index = ({
                     type="text"
                     value={supplierCred?.supplierName}
                     onChange={(e) => {
-                      saveSupplierData(e.target.name, e.target.value)
+                      saveSupplierData(e.target.name, e.target.value);
                     }}
                   ></input>
                   {/* <option>
@@ -1125,10 +1091,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
-                 
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1136,7 +1099,7 @@ const index = ({
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
+                    saveSupplierData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1149,18 +1112,15 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                 
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
+                    saveSupplierData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1173,10 +1133,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1184,7 +1141,7 @@ const index = ({
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
+                    saveSupplierData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1198,10 +1155,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="number"
-                   
-                    onWheel={(event) =>
-                      event.currentTarget.blur()
-                    }
+                    onWheel={(event) => event.currentTarget.blur()}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1209,7 +1163,7 @@ const index = ({
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
-                      saveSupplierData(e.target.name, e.target.value)
+                      saveSupplierData(e.target.name, e.target.value);
                     }}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -1222,19 +1176,16 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    onWheel={(event) =>
-                      event.currentTarget.blur()
-                    }
+                    onWheel={(event) => event.currentTarget.blur()}
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     type="number"
-                   
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
-                      saveSupplierData(e.target.name, e.target.value)
+                      saveSupplierData(e.target.name, e.target.value);
                     }}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -1250,7 +1201,7 @@ const index = ({
                     defaultDate={supplierCred?.oldestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
-                    startFrom={"noLimit"}
+                    startFrom={'noLimit'}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -1314,9 +1265,7 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
                     evt.preventDefault()
@@ -1326,23 +1275,22 @@ const index = ({
                       ...isFieldInFocus,
                       commodityOfTotalTrade: true,
                     }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({
                       ...isFieldInFocus,
                       commodityOfTotalTrade: false,
                     }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.commodityOfTotalTrade
                       ? supplierCred?.commodityOfTotalTrade
                       : checkNan(
-                        Number(
-                          supplierCred?.commodityOfTotalTrade
-                        ), "no"
-                      ) + ' %'
+                          Number(supplierCred?.commodityOfTotalTrade),
+                          'no',
+                        ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   supplierCred?.commodityOfTotalTrade,
@@ -1351,7 +1299,7 @@ const index = ({
                   // )}
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
+                    saveSupplierData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1380,7 +1328,7 @@ const index = ({
                   name="remarks"
                   defaultValue={supplierCred?.remarks}
                   onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
+                    saveSupplierData(e.target.name, e.target.value);
                   }}
                 />
                 <label className={`${styles.label_heading} label_heading`}>
@@ -1440,79 +1388,92 @@ const index = ({
                       <th></th>
                     </tr>
                   </thead>
-                  {keyPersonData?.length > 0 && keyPersonData?.map((person, index) => (
-                    <tbody className='border_color'>
-                      <>
-                        {!person.isEdit ? <>
-                          <tr><td>{person.name}</td>
-                            <td>{person.designation}</td>
-                            <td>{person.department}</td>
-                            <td>{person.contact.number}</td>
-                            <td>{person.email}</td>
-                            <td>
-                              <div className="d-flex">
-
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3`}
-                                  onClick={(e) => {
-                                    setEditRow(index)
-                                  }}
-                                />
-
-                                <img
-                                  onClick={() => deleteAddress(index)}
-                                  src="/static/delete 2.svg"
-                                  alt="delete"
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        </> :
-                          <tr key={index} className="table_credit shadow-none">
-                            <td>
-                              <div className="d-inline-flex align-items-center position-relative">
-                                {person.addnew ?
-
-                                  <>
-                                    <input
-                                      className="input"
-                                      value={person.name}
-                                      placeholder={"ADD NEW"}
-                                      name="name"
-                                      onChange={(e) => handlePersonChange(e, index)}
-                                      type="text"
-                                      readOnly={!person.isEdit}
-                                    />
-                                  </>
-                                  :
-                                  <>
-                                    {console.log(person.name, "person.name")}
-                                    <select
-                                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-
-                                      name="name"
-                                      onChange={(e) => handlePersonChange(e, index)}
-                                      disabled={!person.isEdit}
-                                      value={person.name}
-                                    >
-                                      <option selected>Select an Option</option>
-                                      {keyNameList.length > 0 &&
-                                        keyNameList.map((val) => {
-                                          return <option value={val}>{val}</option>
-                                        })}
-                                      <option value={`addnew`}>ADD NEW</option>
-                                    </select>
+                  {keyPersonData?.length > 0 &&
+                    keyPersonData?.map((person, index) => (
+                      <tbody className="border_color">
+                        <>
+                          {!person.isEdit ? (
+                            <>
+                              <tr>
+                                <td>{person.name}</td>
+                                <td>{person.designation}</td>
+                                <td>{person.department}</td>
+                                <td>{person.contact.number}</td>
+                                <td>{person.email}</td>
+                                <td>
+                                  <div className="d-flex">
                                     <img
-                                      className={`${styles.arrow2} img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3`}
+                                      onClick={(e) => {
+                                        setEditRow(index);
+                                      }}
                                     />
-                                  </>
-                                }
 
-                              </div>
-                              {/* <input
+                                    <img
+                                      onClick={() => deleteAddress(index)}
+                                      src="/static/delete 2.svg"
+                                      alt="delete"
+                                    />
+                                  </div>
+                                </td>
+                              </tr>
+                            </>
+                          ) : (
+                            <tr
+                              key={index}
+                              className="table_credit shadow-none"
+                            >
+                              <td>
+                                <div className="d-inline-flex align-items-center position-relative">
+                                  {person.addnew ? (
+                                    <>
+                                      <input
+                                        className="input"
+                                        value={person.name}
+                                        placeholder={'ADD NEW'}
+                                        name="name"
+                                        onChange={(e) =>
+                                          handlePersonChange(e, index)
+                                        }
+                                        type="text"
+                                        readOnly={!person.isEdit}
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      {console.log(person.name, 'person.name')}
+                                      <select
+                                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                        name="name"
+                                        onChange={(e) =>
+                                          handlePersonChange(e, index)
+                                        }
+                                        disabled={!person.isEdit}
+                                        value={person.name}
+                                      >
+                                        <option selected>
+                                          Select an Option
+                                        </option>
+                                        {keyNameList.length > 0 &&
+                                          keyNameList.map((val) => {
+                                            return (
+                                              <option value={val}>{val}</option>
+                                            );
+                                          })}
+                                        <option value={`addnew`}>
+                                          ADD NEW
+                                        </option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="arrow"
+                                      />
+                                    </>
+                                  )}
+                                </div>
+                                {/* <input
                             className="input font-weight-bold"
                             defaultValue={person.name}
                             name="name"
@@ -1520,20 +1481,21 @@ const index = ({
                             type="text"
                             readOnly={!saveContactTable}
                           /> */}
-                            </td>
-                            <td>
-                              <div className="d-flex">
-                                <input
-                                  className="input"
-
-                                  placeholder={"Designation"}
-                                  value={person.designation}
-                                  name="designation"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  type="text"
-                                  readOnly={!person.isEdit}
-                                />
-                                {/* <select
+                              </td>
+                              <td>
+                                <div className="d-flex">
+                                  <input
+                                    className="input"
+                                    placeholder={'Designation'}
+                                    value={person.designation}
+                                    name="designation"
+                                    onChange={(e) =>
+                                      handlePersonChange(e, index)
+                                    }
+                                    type="text"
+                                    readOnly={!person.isEdit}
+                                  />
+                                  {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
                               name="designation"
@@ -1550,8 +1512,8 @@ const index = ({
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             /> */}
-                              </div>
-                              {/* <input
+                                </div>
+                                {/* <input
                             className="input"
                             defaultValue={person.designation}
                             name="designation"
@@ -1559,20 +1521,21 @@ const index = ({
                             type="text"
                             readOnly={!saveContactTable}
                           /> */}
-                            </td>
-                            <td width="25%">
-                              <div className="d-flex">
-                                <input
-                                  className="input"
-
-                                  placeholder={"Department"}
-                                  value={person.department}
-                                  name="department"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  type="text"
-                                  readOnly={!person.isEdit}
-                                />
-                                {/* <select
+                              </td>
+                              <td width="25%">
+                                <div className="d-flex">
+                                  <input
+                                    className="input"
+                                    placeholder={'Department'}
+                                    value={person.department}
+                                    name="department"
+                                    onChange={(e) =>
+                                      handlePersonChange(e, index)
+                                    }
+                                    type="text"
+                                    readOnly={!person.isEdit}
+                                  />
+                                  {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
                               name="department"
@@ -1588,95 +1551,100 @@ const index = ({
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             /> */}
-                              </div>
-                            </td>
-                            <td>
-                              <input
-                                className="input"
-                                defaultValue={person.contact.number}
-                                placeholder={"Contact number"}
-                                name="contact.number"
-                                style={{ maxWidth: '170px' }}
-                                onChange={(e) => {
-                                  handlePersonChange(e, index)
-                                }}
-                                onBlur={(e) => {
-                                  if (phoneValidation(e.target.value)) {
-                                    handlePersonChange(e, index)
-                                  } else {
-                                    let toastMessage = 'Enter a valid Phone Number'
-                                    if (
-                                      !toast.isActive(toastMessage.toUpperCase())
-                                    ) {
-                                      toast.error(toastMessage, {
-                                        toastId: toastMessage,
-                                      })
+                                </div>
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  defaultValue={person.contact.number}
+                                  placeholder={'Contact number'}
+                                  name="contact.number"
+                                  style={{ maxWidth: '170px' }}
+                                  onChange={(e) => {
+                                    handlePersonChange(e, index);
+                                  }}
+                                  onBlur={(e) => {
+                                    if (phoneValidation(e.target.value)) {
+                                      handlePersonChange(e, index);
+                                    } else {
+                                      let toastMessage =
+                                        'Enter a valid Phone Number';
+                                      if (
+                                        !toast.isActive(
+                                          toastMessage.toUpperCase(),
+                                        )
+                                      ) {
+                                        toast.error(toastMessage, {
+                                          toastId: toastMessage,
+                                        });
+                                      }
                                     }
+                                  }}
+                                  type="number"
+                                  onWheel={(event) =>
+                                    event.currentTarget.blur()
                                   }
-                                }}
-                                type="number"
-                                onWheel={(event) =>
-                                  event.currentTarget.blur()
-                                }
-                                disabled={!person.isEdit}
-                              />
-                            </td>
-                            <td>
-                              <input
-                                className="input"
-                                defaultValue={person.email}
-                                placeholder={"Email"}
-                                name="email"
-                                onChange={(e) => handlePersonChange(e, index)}
-                                type="text"
-                                disabled={!person.isEdit}
-                              />
-                            </td>
-                            <td>
-                              <div className="d-flex">
-                                {!person.isEdit ? (
-                                  <img
-                                    src="/static/mode_edit.svg"
-                                    className={`${styles.edit_image} mr-3`}
-                                    onClick={(e) => {
-                                      setEditRow(index)
-                                    }}
-                                  />
-                                ) : (
-                                  <img
-                                    src="/static/save-3.svg"
-                                    className={`${styles.edit_image} mr-3`}
-                                    alt="save"
-                                    onClick={(e) => {
-                                      setEditRow(index)
-                                      //addPersonArr(keyPersonData)
-                                    }}
-                                  />
-                                )}
-                                <img
-                                  onClick={() => deleteAddress(index)}
-                                  src="/static/delete 2.svg"
-                                  alt="delete"
+                                  disabled={!person.isEdit}
                                 />
-                              </div>
-                            </td>
-                          </tr>}
-                      </>
-                    </tbody>
-                  ))}
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  defaultValue={person.email}
+                                  placeholder={'Email'}
+                                  name="email"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  disabled={!person.isEdit}
+                                />
+                              </td>
+                              <td>
+                                <div className="d-flex">
+                                  {!person.isEdit ? (
+                                    <img
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3`}
+                                      onClick={(e) => {
+                                        setEditRow(index);
+                                      }}
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/save-3.svg"
+                                      className={`${styles.edit_image} mr-3`}
+                                      alt="save"
+                                      onClick={(e) => {
+                                        setEditRow(index);
+                                        //addPersonArr(keyPersonData)
+                                      }}
+                                    />
+                                  )}
+                                  <img
+                                    onClick={() => deleteAddress(index)}
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </>
+                      </tbody>
+                    ))}
                 </table>
               </div>
             </div>
-            <div
-              className={`${styles.add_row} d-flex justify-content-end`}
-
-            >
-              <div className={`d-flex justify-content-end`}
+            <div className={`${styles.add_row} d-flex justify-content-end`}>
+              <div
+                className={`d-flex justify-content-end`}
                 onClick={(e) => {
-                  onKeyPersonSave(keyPersonData)
-                }}>  <span>+</span>
-                <div>Add More Rows</div></div>
-
+                  onKeyPersonSave(keyPersonData);
+                }}
+              >
+                {' '}
+                <span>+</span>
+                <div>Add More Rows</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1717,7 +1685,7 @@ const index = ({
                       communicationModeYes={address?.communication}
                     />
                   </>
-                )
+                );
               })}
             </div>
             {showAddress ? (
@@ -1732,7 +1700,7 @@ const index = ({
                   </h3>
                   <img
                     onClick={() => {
-                      setShowAddress(false)
+                      setShowAddress(false);
                     }}
                     style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
@@ -1760,8 +1728,10 @@ const index = ({
                             type={type}
                             checked={keyAddressData.communication == true}
                             onChange={(e) => {
-
-                              handleChange("communication", !keyAddressData.communication)
+                              handleChange(
+                                'communication',
+                                !keyAddressData.communication,
+                              );
                             }}
                             id={`inline-${type}-1`}
                           />
@@ -1773,8 +1743,7 @@ const index = ({
                             type={type}
                             checked={keyAddressData.communication == false}
                             onChange={(e) => {
-
-                              handleChange("communication", false)
+                              handleChange('communication', false);
                             }}
                             id={`inline-${type}-2`}
                           />
@@ -1792,7 +1761,7 @@ const index = ({
                           name="addressType"
                           value={keyAddressData.addressType}
                           onChange={(e) => {
-                            handleChange(e.target.name, e.target.value)
+                            handleChange(e.target.name, e.target.value);
                           }}
                         >
                           <option>Select an option</option>
@@ -1825,15 +1794,19 @@ const index = ({
                           className={`${styles.input_field} input form-control`}
                           required
                           type="number"
-                          onWheel={(event) =>
-                            event.currentTarget.blur()
-                          }
+                          onWheel={(event) => event.currentTarget.blur()}
                           name="pinCode"
-                         
-                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                          value={keyAddressData.pinCode == null ? "" : keyAddressData.pinCode}
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
+                          value={
+                            keyAddressData.pinCode == null
+                              ? ''
+                              : keyAddressData.pinCode
+                          }
                           onChange={(e) => {
-                            handleChange(e.target.name, e.target.value)
+                            handleChange(e.target.name, e.target.value);
                           }}
                         />
                         <label
@@ -1859,7 +1832,7 @@ const index = ({
                         name="state"
                         value={keyAddressData.state}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -1879,7 +1852,7 @@ const index = ({
                         name="city"
                         value={keyAddressData.city}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -1897,7 +1870,7 @@ const index = ({
                         name="email"
                         value={keyAddressData.email}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -1926,29 +1899,33 @@ const index = ({
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
                           type="number"
-                          onWheel={(event) =>
-                            event.currentTarget.blur()
-                          }
+                          onWheel={(event) => event.currentTarget.blur()}
                           name="contact.number"
-                          maxLength='10'
-                         
-                          onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
-                          value={keyAddressData.contact.number == null ? "" : keyAddressData.contact.number}
+                          maxLength="10"
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-', '.'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
+                          value={
+                            keyAddressData.contact.number == null
+                              ? ''
+                              : keyAddressData.contact.number
+                          }
                           onChange={(e) => {
-                            mobileFunction(e)
+                            mobileFunction(e);
                           }}
-                        // onBlur={(e) => {`  
-                        //   if (phoneValidation(e.target.value)) {
-                        //     mobileFunction(e)
-                        //   } else {
-                        //     let toastMessage = 'Enter a valid Phone Number'
-                        //     if (!toast.isActive(toastMessage.toUpperCase())) {
-                        //       toast.error(toastMessage, {
-                        //         toastId: toastMessage,
-                        //       })
-                        //     }
-                        //   }
-                        // }}
+                          // onBlur={(e) => {`
+                          //   if (phoneValidation(e.target.value)) {
+                          //     mobileFunction(e)
+                          //   } else {
+                          //     let toastMessage = 'Enter a valid Phone Number'
+                          //     if (!toast.isActive(toastMessage.toUpperCase())) {
+                          //       toast.error(toastMessage, {
+                          //         toastId: toastMessage,
+                          //       })
+                          //     }
+                          //   }
+                          // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -1970,7 +1947,7 @@ const index = ({
                         name="completeAddress"
                         value={keyAddressData.completeAddress}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -1987,7 +1964,7 @@ const index = ({
                         required
                         value={keyAddressData.branch}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2004,7 +1981,7 @@ const index = ({
                         name="GSTIN"
                         value={keyAddressData.GSTIN}
                         onChange={(e) => {
-                          handleChange(e.target.name, e.target.value)
+                          handleChange(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2018,8 +1995,10 @@ const index = ({
                       className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        {keyAddressData?.GSTIN_document?.name == undefined ?
-                          <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
+                        {keyAddressData?.GSTIN_document?.name == undefined ? (
+                          <button
+                            className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}
+                          >
                             {' '}
                             <input
                               type="file"
@@ -2027,7 +2006,7 @@ const index = ({
                               // name="myfile"
                               accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                               onChange={(e) => {
-                                uploadDocument(e)
+                                uploadDocument(e);
                               }}
                             />
                             <img
@@ -2037,22 +2016,21 @@ const index = ({
                             />
                             GST Doc
                           </button>
-                          :
-                          (
-                            <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                              <span className="text-color">
-                                {keyAddressData?.GSTIN_document?.name}
-                              </span>
-                              <img
-                                className={`${styles.close_image} image_arrow`}
-                                src="/static/close.svg"
-                                onClick={() => removeDoc(index)}
-                                alt="Close"
-                              />{' '}
-                            </div>
-                          )
-                        }
-
+                        ) : (
+                          <div
+                            className={`${styles.certificate} text1 d-flex justify-content-between`}
+                          >
+                            <span className="text-color">
+                              {keyAddressData?.GSTIN_document?.name}
+                            </span>
+                            <img
+                              className={`${styles.close_image} image_arrow`}
+                              src="/static/close.svg"
+                              onClick={() => removeDoc(index)}
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </div>
                       <button
                         className={`${styles.add_btn}`}
@@ -2075,7 +2053,7 @@ const index = ({
                   <h3 className={`${styles.heading} mb-0`}>Edit address</h3>
                   <img
                     onClick={() => {
-                      setShowEditAddress(false)
+                      setShowEditAddress(false);
                     }}
                     style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
@@ -2102,8 +2080,10 @@ const index = ({
                             type={type}
                             checked={editData.communication == true}
                             onChange={(e) => {
-
-                              changeData("communication", !editData.communication)
+                              changeData(
+                                'communication',
+                                !editData.communication,
+                              );
                             }}
                             id={`inline-${type}-1`}
                           />
@@ -2116,8 +2096,7 @@ const index = ({
                             id={`inline-${type}-2`}
                             checked={editData.communication == false}
                             onChange={(e) => {
-
-                              changeData("communication", false)
+                              changeData('communication', false);
                             }}
                           />
                         </div>
@@ -2132,7 +2111,7 @@ const index = ({
                           name="addressType"
                           defaultValue={editData.addressType}
                           onChange={(e) => {
-                            changeData(e.target.name, e.target.value)
+                            changeData(e.target.name, e.target.value);
                           }}
                         >
                           <option value="Factory">Factory</option>
@@ -2162,7 +2141,7 @@ const index = ({
                           name="pinCode"
                           defaultValue={editData.pinCode}
                           onChange={(e) => {
-                            changeData(e.target.name, e.target.value)
+                            changeData(e.target.name, e.target.value);
                           }}
                         />
                         <label
@@ -2186,7 +2165,7 @@ const index = ({
                         name="state"
                         defaultValue={editData.state}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2204,7 +2183,7 @@ const index = ({
                         name="city"
                         defaultValue={editData.city}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2222,7 +2201,7 @@ const index = ({
                         name="email"
                         defaultValue={editData.email}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2240,13 +2219,13 @@ const index = ({
                           defaultValue={editData.contact.number}
                           onBlur={(e) => {
                             if (phoneValidation(e.target.value)) {
-                              changeData(e.target.name, e.target.value)
+                              changeData(e.target.name, e.target.value);
                             } else {
-                              let toastMessage = 'Enter a valid Phone Number'
+                              let toastMessage = 'Enter a valid Phone Number';
                               if (!toast.isActive(toastMessage.toUpperCase())) {
                                 toast.error(toastMessage, {
                                   toastId: toastMessage,
-                                })
+                                });
                               }
                             }
                           }}
@@ -2271,7 +2250,7 @@ const index = ({
                         name="completeAddress"
                         defaultValue={editData.completeAddress}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2288,7 +2267,7 @@ const index = ({
                         required
                         defaultValue={editData.branch}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2305,7 +2284,7 @@ const index = ({
                         name="GSTIN"
                         defaultValue={editData.GSTIN}
                         onChange={(e) => {
-                          changeData(e.target.name, e.target.value)
+                          changeData(e.target.name, e.target.value);
                         }}
                       />
                       <label
@@ -2318,7 +2297,9 @@ const index = ({
                       className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
+                        <button
+                          className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}
+                        >
                           {' '}
                           <input
                             type="file"
@@ -2326,7 +2307,7 @@ const index = ({
                             // name="myfile"
                             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                             onChange={(e) => {
-                              uploadDocument(e)
+                              uploadDocument(e);
                             }}
                           />
                           <img
@@ -2340,8 +2321,8 @@ const index = ({
                       <button
                         className={`${styles.add_btn}`}
                         onClick={() => {
-                          updateKeyAddDataArr(editData, Index)
-                          setShowEditAddress(false)
+                          updateKeyAddDataArr(editData, Index);
+                          setShowEditAddress(false);
                         }}
                       >
                         Update
@@ -2349,14 +2330,12 @@ const index = ({
                     </div>
                   </div>
                 </div>
-
-
               </div>
             ) : null}
             <div
               className={`${styles.add_row} pr-3 d-flex justify-content-end`}
               onClick={() => {
-                setShowAddress(true)
+                setShowAddress(true);
               }}
             >
               <span>+</span>
@@ -2406,7 +2385,10 @@ const index = ({
                   </thead>
                   <tbody>
                     {debtData?.map((profile, index) => (
-                      <tr key={index} className="table_credit shadow-none bg-transparent">
+                      <tr
+                        key={index}
+                        className="table_credit shadow-none bg-transparent"
+                      >
                         <td>{index + 1}</td>
                         <td className="d-flex justify-content-center align-items-end">
                           <input
@@ -2440,11 +2422,11 @@ const index = ({
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option selected >Select</option>
-                            {FilterUniqueBank().map((item) => (<>
-
-                              <option value={item}>{item}</option>
-                            </>
+                            <option selected>Select</option>
+                            {FilterUniqueBank().map((item) => (
+                              <>
+                                <option value={item}>{item}</option>
+                              </>
                             ))}
                           </select>
                           {/* <input
@@ -2475,7 +2457,9 @@ const index = ({
                             className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
-                            <option selected disabled>Select</option>
+                            <option selected disabled>
+                              Select
+                            </option>
                             <option value="Cash Credit">Cash Credit</option>
                             <option value="Bank Guarantee">
                               Bank Guarantee
@@ -2499,20 +2483,25 @@ const index = ({
                                 ...isFieldInFocus,
                                 limit: true,
                               }),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
                                 limit: false,
                               }),
-                                (e.target.type = 'text')
+                                (e.target.type = 'text');
                             }}
-                            value={profile?.actions ?
-                              isFieldInFocus.limit
-                                ? profile?.limit :
-                                Number(profile?.limit)?.toLocaleString('en-In') :
-                              Number(profile?.limit)?.toLocaleString('en-In')
+                            value={
+                              profile?.actions
+                                ? isFieldInFocus.limit
+                                  ? profile?.limit
+                                  : Number(profile?.limit)?.toLocaleString(
+                                      'en-In',
+                                    )
+                                : Number(profile?.limit)?.toLocaleString(
+                                    'en-In',
+                                  )
                             }
                             className="input"
                             // type='number'
@@ -2525,8 +2514,8 @@ const index = ({
                                 index,
                               )
                             }
-                          // value={profile?.limit}
-                          // readOnly={!saveTable}
+                            // value={profile?.limit}
+                            // readOnly={!saveTable}
                           />
                         </td>
 
@@ -2544,7 +2533,7 @@ const index = ({
                             value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option selected >Select</option>
+                            <option selected>Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>
@@ -2558,7 +2547,7 @@ const index = ({
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3`}
                                 onClick={() => {
-                                  setActions(index, true)
+                                  setActions(index, true);
                                 }}
                               />
                             ) : (
@@ -2567,7 +2556,7 @@ const index = ({
                                 className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
-                                  setActions(index, false)
+                                  setActions(index, false);
                                 }}
                               />
                             )}
@@ -2575,7 +2564,7 @@ const index = ({
                               src="/static/delete 2.svg"
                               className={`${styles.delete_image}`}
                               onClick={() => {
-                                handleRemoveRow(index)
+                                handleRemoveRow(index);
                               }}
                               alt="delete"
                             />
@@ -2590,7 +2579,7 @@ const index = ({
             <div
               className={`${styles.add_row} d-flex justify-content-end`}
               onClick={(e) => {
-                addMoreDebtRows()
+                addMoreDebtRows();
               }}
             >
               <span>+</span>
@@ -2600,7 +2589,7 @@ const index = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

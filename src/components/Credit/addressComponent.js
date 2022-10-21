@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { ViewDocument } from 'redux/ViewDoc/action'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { ViewDocument } from 'redux/ViewDoc/action';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
 
 function AddressComponent({
   Title,
@@ -20,8 +20,8 @@ function AddressComponent({
   path,
   communicationModeYes,
 }) {
-  console.log(communicationModeYes, ' ')
-  const dispatch = useDispatch()
+  console.log(communicationModeYes, ' ');
+  const dispatch = useDispatch();
 
   return (
     <div className={`${styles.address_card} value background1 border_color`}>
@@ -52,8 +52,8 @@ function AddressComponent({
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
-                    console.log('index', index)
-                    editAddress(index)
+                    console.log('index', index);
+                    editAddress(index);
                   }}
                 />
               )}
@@ -61,7 +61,7 @@ function AddressComponent({
                 <img
                   onClick={() => {
                     // console.log('index', index)
-                    deleteComponent(index)
+                    deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
                   className="img-fluid"
@@ -108,7 +108,7 @@ function AddressComponent({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddressComponent
+export default AddressComponent;

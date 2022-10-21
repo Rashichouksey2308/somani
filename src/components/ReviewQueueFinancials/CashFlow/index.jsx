@@ -1,48 +1,51 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import styles from '../index.module.scss'
-import moment from 'moment'
-import _get from 'lodash/get'
-import { checkNan, convertValue } from '../../../utils/helper'
+import React, { useState } from 'react';
+import styles from '../index.module.scss';
+import moment from 'moment';
+import _get from 'lodash/get';
+import { checkNan, convertValue } from '../../../utils/helper';
 
 function Index({ cashData, rtrnChartIndiaction }) {
-  const [unit, setUnit] = useState(10000000)
+  const [unit, setUnit] = useState(10000000);
   // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
 
-  const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {})
+  const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {});
 
-  const previousYearData = _get(cashData, 'financial.cashFlowStatement[1]', {})
+  const previousYearData = _get(cashData, 'financial.cashFlowStatement[1]', {});
 
-  const lastYearData = _get(cashData, 'financial.cashFlowStatement[2]', {})
+  const lastYearData = _get(cashData, 'financial.cashFlowStatement[2]', {});
 
-  const latestBalanceData = _get(cashData, 'financial.balanceSheet[0]', {})
+  const latestBalanceData = _get(cashData, 'financial.balanceSheet[0]', {});
 
-  const previousBalanceData = _get(cashData, 'financial.balanceSheet[1]', {})
+  const previousBalanceData = _get(cashData, 'financial.balanceSheet[1]', {});
 
-  const lastYearBalanceData = _get(cashData, 'financial.balanceSheet[2]', {})
+  const lastYearBalanceData = _get(cashData, 'financial.balanceSheet[2]', {});
 
   const latestIncomeStatement = _get(
     cashData,
     'financial.incomeStatement[0]',
     {},
-  )
+  );
 
   const previousIncomeStatement = _get(
     cashData,
     'financial.incomeStatement[1]',
     {},
-  )
+  );
 
   const lastYearIncomeStatement = _get(
     cashData,
     'financial.incomeStatement[2]',
     {},
-  )
+  );
 
-  const yearArray = _get(cashData, 'financial.other.financialYears', ['', '', ''])
+  const yearArray = _get(cashData, 'financial.other.financialYears', [
+    '',
+    '',
+    '',
+  ]);
 
-
-  console.log(cashData, 'lastYearData')
+  console.log(cashData, 'lastYearData');
 
   return (
     <>
@@ -61,7 +64,11 @@ function Index({ cashData, rtrnChartIndiaction }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
+              <img
+                className={`${styles.arrow2} img-fluid`}
+                src="/static/inputDropDown.svg"
+                alt="arrow"
+              />
             </div>
             <span
               data-toggle="collapse"
@@ -93,20 +100,52 @@ function Index({ cashData, rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%"></th>
-                      <th className="text-center" width="12.5%" style={{ color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
-                        {latestYearData?.financialEndDate ? moment(latestYearData?.financialEndDate)
-                          .format('MMM-YY')
-                          .toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+                      <th
+                        className="text-center"
+                        width="12.5%"
+                        style={{
+                          color: `${
+                            latestYearData?.financialEndDate ? '#3687e8' : 'red'
+                          }`,
+                        }}
+                      >
+                        {latestYearData?.financialEndDate
+                          ? moment(latestYearData?.financialEndDate)
+                              .format('MMM-YY')
+                              .toUpperCase()
+                          : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%" style={{ color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
-                        {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
-                          .format('MMM-YY')
-                          .toUpperCase() : 'MAR-' + yearArray[1].slice(5, 7)}
+                      <th
+                        className="text-center"
+                        width="12.5%"
+                        style={{
+                          color: `${
+                            previousYearData?.financialEndDate
+                              ? '#3687e8'
+                              : 'red'
+                          }`,
+                        }}
+                      >
+                        {previousYearData?.financialEndDate
+                          ? moment(previousYearData?.financialEndDate)
+                              .format('MMM-YY')
+                              .toUpperCase()
+                          : 'MAR-' + yearArray[1].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%" style={{ color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
-                        {lastYearData?.financialEndDate ? moment(lastYearData?.financialEndDate)
-                          .format('MMM-YY')
-                          .toUpperCase() : 'MAR-' + yearArray[2].slice(5, 7)}
+                      <th
+                        className="text-center"
+                        width="12.5%"
+                        style={{
+                          color: `${
+                            lastYearData?.financialEndDate ? '#3687e8' : 'red'
+                          }`,
+                        }}
+                      >
+                        {lastYearData?.financialEndDate
+                          ? moment(lastYearData?.financialEndDate)
+                              .format('MMM-YY')
+                              .toUpperCase()
+                          : 'MAR-' + yearArray[2].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
@@ -127,7 +166,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -142,7 +181,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -156,7 +195,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -185,7 +224,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -200,7 +239,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -214,7 +253,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -243,7 +282,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -258,7 +297,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -272,7 +311,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -302,7 +341,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -319,7 +358,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -335,7 +374,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -358,13 +397,13 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {/* {convertValue(((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - */}
                         {convertValue(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -372,13 +411,13 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {convertValue(
                           previousBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          previousYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -386,29 +425,29 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {convertValue(
                           lastYearBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           previousBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          previousYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           lastYearBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
@@ -420,13 +459,13 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -436,13 +475,13 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {convertValue(
                           previousBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          previousYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
@@ -452,29 +491,29 @@ function Index({ cashData, rtrnChartIndiaction }) {
                         {convertValue(
                           lastYearBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            lastYearIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
+                          maximumFractionDigits: 2,
                         })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
-                          latestYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          latestIncomeStatement?.expenses?.deprcnAmort,
+                            latestYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            latestIncomeStatement?.expenses?.deprcnAmort,
                           previousBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          previousYearData?.previous
-                            ?.propertyPlantAndEquipment +
-                          previousIncomeStatement?.expenses?.deprcnAmort,
+                            previousYearData?.previous
+                              ?.propertyPlantAndEquipment +
+                            previousIncomeStatement?.expenses?.deprcnAmort,
                           lastYearBalanceData?.assets
                             ?.propertyPlantAndEquipment -
-                          lastYearData?.previous?.propertyPlantAndEquipment +
-                          lastYearIncomeStatement?.expenses?.deprcnAmort,
+                            lastYearData?.previous?.propertyPlantAndEquipment +
+                            lastYearIncomeStatement?.expenses?.deprcnAmort,
                         )}
                       </td>
                     </tr>
@@ -486,7 +525,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

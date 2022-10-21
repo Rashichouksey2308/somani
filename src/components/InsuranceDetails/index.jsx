@@ -1,6 +1,6 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import React from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
 
 const Index = ({ headerName }) => {
   return (
@@ -102,10 +102,11 @@ const Index = ({ headerName }) => {
                     className={`${styles.input_field} input form-control`}
                     required
                     type="number"
-                    onWheel={(event) =>
-                      event.currentTarget.blur()
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
                     }
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Period of Insurance (In days)
@@ -138,7 +139,7 @@ const Index = ({ headerName }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

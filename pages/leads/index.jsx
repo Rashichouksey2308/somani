@@ -1,78 +1,78 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   GetAllBuyer,
   GetBuyer,
   GetOrders,
-} from '../../src/redux/registerBuyer/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import Filter from '../../src/components/Filter'
+} from '../../src/redux/registerBuyer/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import Filter from '../../src/components/Filter';
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(0)
-  const dispatch = useDispatch()
+  const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
 
-  const { allBuyerList } = useSelector((state) => state.buyer)
-  const { searchedLeads } = useSelector((state) => state.order)
-
-  useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}`))
-  }, [dispatch, currentPage])
+  const { allBuyerList } = useSelector((state) => state.buyer);
+  const { searchedLeads } = useSelector((state) => state.order);
 
   useEffect(() => {
-    dispatch(setPageName('leads'))
-    dispatch(setDynamicName(null))
-  })
+    dispatch(GetAllBuyer(`?page=${currentPage}`));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('leads'));
+    dispatch(setDynamicName(null));
+  });
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Leads')
-      sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', 1)
+      sessionStorage.setItem('loadedPage', 'Leads');
+      sessionStorage.setItem('loadedSubPage', null);
+      sessionStorage.setItem('openList', 1);
     }
-  }, [])
+  }, []);
 
   const handleRoute = (buyer) => {
-    console.log('buyer13324', buyer.company._id)
-    sessionStorage.setItem('orderId', buyer._id)
-    sessionStorage.setItem('companyID', buyer.company._id)
-    dispatch(GetOrders(`?company=${buyer.company._id}`))
+    console.log('buyer13324', buyer.company._id);
+    sessionStorage.setItem('orderId', buyer._id);
+    sessionStorage.setItem('companyID', buyer.company._id);
+    dispatch(GetOrders(`?company=${buyer.company._id}`));
     setTimeout(() => {
-      Router.push('/order-list')
-    }, 500)
-  }
+      Router.push('/order-list');
+    }, 500);
+  };
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetAllBuyer(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllBuyer(`?company=${id}`));
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
     if (sorting == -1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
-      setSorting(1)
+      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
+      setSorting(1);
     } else if (sorting == 1) {
-      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
-      setSorting(-1)
+      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`));
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <>
@@ -243,9 +243,9 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return
+                      return;
                     } else {
-                      setCurrentPage((prevState) => prevState - 1)
+                      setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
                   href="#"
@@ -264,7 +264,7 @@ function Index() {
                       currentPage + 1 <
                       Math.ceil(allBuyerList?.data?.totalCount / 10)
                     ) {
-                      setCurrentPage((prevState) => prevState + 1)
+                      setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
@@ -318,8 +318,8 @@ function Index() {
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
-                              console.log('this is buyer')
-                              handleRoute(buyer)
+                              console.log('this is buyer');
+                              handleRoute(buyer);
                             }}
                           >
                             {buyer.company.companyName}
@@ -362,7 +362,7 @@ function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

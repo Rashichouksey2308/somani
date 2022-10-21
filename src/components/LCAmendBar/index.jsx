@@ -1,21 +1,22 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
 
-function index({ barName, openbar,download }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+function index({ barName, openbar, download }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
-    <div className={`${styles.root} ${
-      !sidebar ? styles.no_sidebar : null
-    }
-    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
-      <div className={styles.reject}
-      onClick={()=>{
-        if(download){
-          download()
-        }
-      }}
+    <div
+      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
+    >
+      <div
+        className={styles.reject}
+        onClick={() => {
+          if (download) {
+            download();
+          }
+        }}
       >
         <span>{barName}</span>
         <img
@@ -36,13 +37,13 @@ function index({ barName, openbar,download }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          openbar()
+          openbar();
         }}
       >
         <span>Share</span>
       </div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

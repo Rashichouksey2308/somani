@@ -22,8 +22,8 @@
     justify-content: space-between;
     margin: 0 0 27px 10px;
     @include respond(lg-desktop) {
-        min-height: 40px;
-        margin-bottom: 20px;
+      min-height: 40px;
+      margin-bottom: 20px;
     }
     @include respond(sm-desktop) {
       margin-top: 15px;
@@ -55,10 +55,10 @@
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-            text-transform: uppercase;
+          text-transform: uppercase;
         }
         &:first-line {
-            text-transform: capitalize;
+          text-transform: capitalize;
         }
         @include respond(lg-desktop) {
           font-size: 24px;
@@ -203,7 +203,7 @@
       font-weight: normal;
       line-height: 20px;
       @include respond(lg-desktop) {
-          font-size: 35px;
+        font-size: 35px;
       }
       @include respond(sm-desktop) {
         font-size: 32px;
@@ -291,10 +291,10 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
-              font-size: 14px;
-              line-height: 15px;
-              transform: translateY(-22px);
+            top: 15px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
           }
           @include respond(phone) {
             font-size: 12px;

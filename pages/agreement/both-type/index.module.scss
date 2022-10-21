@@ -44,10 +44,10 @@
       padding-left: 18px;
       text-transform: lowercase;
       &:first-letter {
-          text-transform: uppercase;
+        text-transform: uppercase;
       }
       &:first-line {
-          text-transform: capitalize;
+        text-transform: capitalize;
       }
       @include respond(lg-desktop) {
         font-size: 24px;
@@ -364,9 +364,9 @@
             -webkit-box-shadow: 0 0 0 30px #f8f8f8 inset !important;
           }
           @include respond(lg-desktop) {
-              height: 45px;
-              font-size: 15px;
-              line-height: 1.3;
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
           }
         }
 
@@ -382,7 +382,7 @@
             left: 78px;
             transform: translate(-61px, -30px);
             @include respond(lg-desktop) {
-                transform: translate(-61px, -22px);
+              transform: translate(-61px, -22px);
             }
           }
           .formControl {

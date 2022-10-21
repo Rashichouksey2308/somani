@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { Router } from 'next/router'
-import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action'
-import _get from 'lodash/get'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { Router } from 'next/router';
+import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
+import _get from 'lodash/get';
 
 function Index({
   tableName,
@@ -14,32 +14,37 @@ function Index({
   handleRoute,
   handleEditRoute,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const { allCustomClearance } = useSelector((state) => state.Custom)
+  const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  console.log(allCustomClearance, 'INSURANCE RESPONSE')
+  console.log(allCustomClearance, 'INSURANCE RESPONSE');
 
   useEffect(() => {
-    dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
-  
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-   
-    if(sorting == -1){
-    dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-      setSorting(-1)
+    if (sorting == -1) {
+      dispatch(
+        GetAllCustomClearance(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GetAllCustomClearance(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
@@ -57,9 +62,9 @@ function Index({
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return
+                return;
               } else {
-                setCurrentPage((prevState) => prevState - 1)
+                setCurrentPage((prevState) => prevState - 1);
               }
             }}
             href="#"
@@ -78,7 +83,7 @@ function Index({
                 currentPage + 1 <
                 Math.ceil(allCustomClearance?.totalCount / 7)
               ) {
-                setCurrentPage((prevState) => prevState + 1)
+                setCurrentPage((prevState) => prevState + 1);
               }
             }}
             href="#"
@@ -108,7 +113,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
-                    onClick={()=>handleSort()}
+                    onClick={() => handleSort()}
                   />{' '}
                 </th>
                 <th>BUYER NAME</th>
@@ -145,16 +150,26 @@ function Index({
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        handleRoute(insured)
+                        handleRoute(insured);
                       }}
                     >
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>
-                    <td>{_get(insured,'order.vessel.vessels[0].vesselInformation[0].name','')}</td>
+                    <td>
+                      {_get(
+                        insured,
+                        'order.vessel.vessels[0].vesselInformation[0].name',
+                        '',
+                      )}
+                    </td>
                     <td></td>
                     <td>
-                    {(_get(insured, 'billOfEntry.billOfEntry[0].boeDate', ''))?.slice(0,10)}
+                      {_get(
+                        insured,
+                        'billOfEntry.billOfEntry[0].boeDate',
+                        '',
+                      )?.slice(0, 10)}
                     </td>
                     <td>
                       <span
@@ -332,7 +347,7 @@ function Index({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

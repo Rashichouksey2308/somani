@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const defaultObj = {
   user: {
@@ -11,13 +11,13 @@ const defaultObj = {
   fetchingUserPermissions: false,
   fetchingUserPermissionsStatus: null,
   userPermissions: [],
-}
+};
 
 const initialState = {
   userData: { ...defaultObj.user },
   user: {},
   token: null,
-  isuserLoggedin : false,
+  isuserLoggedin: false,
   loggingInUser: false,
   loggingUserOut: false,
   loggingUserMessage: null,
@@ -31,7 +31,7 @@ const initialState = {
     read: false,
     write: false,
   },
-}
+};
 
 function AuthReducer(state = initialState, action) {
   switch (action.type) {
@@ -41,15 +41,15 @@ function AuthReducer(state = initialState, action) {
         token: null,
         loggingInUser: true,
         loggingUserMessage: null,
-      }
+      };
     case types.LOGIN_USER_SUCCESS: {
       return {
         ...state,
         token: action.payload.token,
         loggingInUser: false,
         loggingUserMessage: null,
-        isuserLoggedin : true,
-      }
+        isuserLoggedin: true,
+      };
     }
 
     case types.LOGIN_USER_FAILED: {
@@ -59,7 +59,7 @@ function AuthReducer(state = initialState, action) {
         token: null,
         loggingInUser: false,
         loggingUserMessage: action.payload.message,
-      }
+      };
     }
 
     case types.FETCH_USER_PERMISSIONS:
@@ -68,7 +68,7 @@ function AuthReducer(state = initialState, action) {
         fetchingUserPermissions: true,
         fetchingUserPermissionsStatus: null,
         userPermissions: [],
-      }
+      };
 
     case types.FETCH_USER_PERMISSIONS_SUCCESS:
       return {
@@ -77,7 +77,7 @@ function AuthReducer(state = initialState, action) {
         fetchingUserPermissionsStatus: null,
         userPermissions: action.payload,
         userAccessLevel: action.user.accessLevel,
-      }
+      };
 
     case types.FETCH_USER_PERMISSIONS_FAILED:
       return {
@@ -85,51 +85,51 @@ function AuthReducer(state = initialState, action) {
         fetchingUserPermissions: false,
         fetchingUserPermissionsStatus: action.payload,
         userPermissions: [],
-      }
+      };
 
     case types.FETCH_CURRENT_USER_PROFILE:
       return {
         ...state,
         userData: { ...defaultObj.user },
-      }
+      };
 
     case types.FETCH_CURRENT_USER_PROFILE_SUCCESS:
       return {
         ...state,
         userData: action.payload,
-      }
+      };
 
     case types.FETCH_CURRENT_USER_PROFILE_FAILED:
       return {
         ...state,
         userData: { ...defaultObj.user },
-      }
+      };
 
     case types.AUTHENTICATE_USER:
       return {
         ...state,
         token: action.payload,
-      }
+      };
 
     case types.LOGOUT_USER:
       return {
         ...state,
-        loggingoutUser : true,
+        loggingoutUser: true,
         ...initialState,
-      }
+      };
 
     case types.FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         userId: action.payload,
-      }
+      };
     case types.HANDLE_PAGE_LOADING:
       return {
         ...state,
         ...action.payload,
-      }
+      };
     default:
-      return state
+      return state;
   }
 }
 

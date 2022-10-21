@@ -1,75 +1,75 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Row, Col, Container, Card } from 'react-bootstrap'
-import LCAmendBar from '../LCAmendBar'
-import TermsheetPopUp from '../TermsheetPopUp'
-import { Form } from 'react-bootstrap'
-import Router from 'next/router'
-import Modal from 'react-bootstrap/Modal'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
-import moment from 'moment'
-import { addPrefixOrSuffix, checkNan } from 'utils/helper'
-import _get from 'lodash/get'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Row, Col, Container, Card } from 'react-bootstrap';
+import LCAmendBar from '../LCAmendBar';
+import TermsheetPopUp from '../TermsheetPopUp';
+import { Form } from 'react-bootstrap';
+import Router from 'next/router';
+import Modal from 'react-bootstrap/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetLcModule } from 'redux/lcModule/action';
+import moment from 'moment';
+import { addPrefixOrSuffix, checkNan } from 'utils/helper';
+import _get from 'lodash/get';
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  let d = new Date()
+  let d = new Date();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcPreviewId')
-    dispatch(GetLcModule(`?lcModuleId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('lcPreviewId');
+    dispatch(GetLcModule(`?lcModuleId=${id}`));
+  }, [dispatch]);
 
-  const { lcModule } = useSelector((state) => state.lc)
+  const { lcModule } = useSelector((state) => state.lc);
 
   //console.log(lcModule.data[0].documentRequired, 'LC MODULE')
 
-  const lcModuleData = _get(lcModule, 'data[0]', {})
+  const lcModuleData = _get(lcModule, 'data[0]', {});
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const [what, setWhat] = useState('email')
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const [what, setWhat] = useState('email');
   const handlePopup = () => {
-    setShow(true)
-  }
+    setShow(true);
+  };
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ])
+  ]);
   const [number, setNumber] = useState([
     {
       number: '',
     },
-  ])
+  ]);
   const addMoreRows = () => {
     setEmailAdd([
       ...emailAdd,
       {
         emailID: '',
       },
-    ])
-  }
+    ]);
+  };
   const addWhatRows = () => {
     setNumber([
       ...number,
       {
         number: '',
       },
-    ])
-  }
+    ]);
+  };
   const handleDeleteEmail = (index) => {
-    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)])
-  }
+    setEmailAdd([...emailAdd.slice(0, index), ...emailAdd.slice(index + 1)]);
+  };
   const handleDeleteNumber = (index) => {
-    setNumber([...number.slice(0, index), ...number.slice(index + 1)])
-  }
+    setNumber([...number.slice(0, index), ...number.slice(index + 1)]);
+  };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -206,1222 +206,1351 @@ function Index() {
                       border="0"
                     >
                       <tbody>
-                       {lcModuleData && lcModuleData?.lcApplication?.formOfDocumentaryCredit ? <tr>
-                          <td
-                            width="40%"
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.formOfDocumentaryCredit ? (
+                          <tr>
+                            <td
+                              width="40%"
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                40A
-                              </span>
-                              FORM OF DOCUMENTARY CREDIT
-                            </p>
-                          </td>
-                          <td
-                            width="60%"
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  40A
+                                </span>
+                                FORM OF DOCUMENTARY CREDIT
+                              </p>
+                            </td>
+                            <td
+                              width="60%"
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>: ''}
-                       {lcModuleData && lcModuleData?.lcApplication?.applicableRules ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                40E
-                              </span>
-                              APPLICABLE RULES
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.applicableRules ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                        {lcModuleData && lcModuleData?.lcApplication?.dateOfExpiry ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                31D
-                              </span>
-                              DATE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  40E
+                                </span>
+                                APPLICABLE RULES
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {moment(
-                                lcModuleData?.lcApplication?.dateOfExpiry
-                              ).format('DD-MM-YYYY')}
-                            </p>
-                          </td>
-                        </tr>:''}
-                        {lcModuleData && lcModuleData?.lcApplication?.placeOfExpiry ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                31D
-                              </span>
-                              PLACE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.dateOfExpiry ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                        {lcModuleData && lcModuleData?.lcApplication?.lcIssuingBank ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                51D
-                              </span>
-                              LC ISSUING BANK
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  31D
+                                </span>
+                                DATE OF EXPIRY
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.applicant ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                50
-                              </span>
-                              APPLICANT
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {moment(
+                                  lcModuleData?.lcApplication?.dateOfExpiry,
+                                ).format('DD-MM-YYYY')}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.placeOfExpiry ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr> : '' }
-                       {lcModuleData && lcModuleData?.lcApplication?.beneficiary ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                59
-                              </span>
-                              BENEFICIARY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  31D
+                                </span>
+                                PLACE OF EXPIRY
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr> :''}
-                       {lcModuleData && lcModuleData?.lcApplication?.currecyCodeAndAmountValue ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                32B
-                              </span>
-                              CURRENCY CODE &amp; AMOUNT
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.lcIssuingBank ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {addPrefixOrSuffix(
-                                lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                                  ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                                  : 0,
-                                'USD',
-                                '',
-                              )}
-                            </p>
-                          </td>
-                        </tr> :''}
-                        {lcModuleData && lcModuleData?.lcApplication?.tolerancePercentage ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                39A
-                              </span>
-                              TOLERANCE (+/-) PERCENTAGE
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  51D
+                                </span>
+                                LC ISSUING BANK
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {addPrefixOrSuffix(
-                                lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString(
-                                  'en-IN',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                ),
-                                '%',
-                                '',
-                              )}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       { lcModuleData && lcModuleData?.lcApplication?.creditAvailablewith ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                41A
-                              </span>
-                              CREDIT AVAILABLE WITH
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.applicant ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr> :''}
-                      {lcModuleData && lcModuleData?.lcApplication?.creditAvailableBy ?  <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                41B
-                              </span>
-                              CREDIT AVAILABLE BY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  50
+                                </span>
+                                APPLICANT
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
-                            </p>
-                          </td>
-                        </tr> :''}
-                        {lcModuleData && lcModuleData?.lcApplication?.atSight ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                42C
-                              </span>
-                               DRAFT AT
-                              <br />
-                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()=="AT SIGHT"?null:`NO. OF DAYS`}
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.applicant?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.beneficiary ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
-                              <br />
-                              {lcModuleData?.lcApplication?.numberOfDays}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       { lcModuleData && lcModuleData?.lcApplication?.drawee ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                42A
-                              </span>
-                              DRAWEE
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  59
+                                </span>
+                                BENEFICIARY
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:'' }
-                        {lcModuleData && lcModuleData?.lcApplication?.deferredPayment ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
-                                }}
-                              >
-                                42P
-                              </span>
-                              DEFERRED PAYMENT
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       { lcModuleData && lcModuleData?.lcApplication?.partialShipment ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                43P
-                              </span>
-                              PARTIAL SHIPMENT
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {' '}
-                              {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.transhipments ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                43T
-                              </span>
-                              TRANSHIPMENTS
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.shipmentForm ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                44A
-                              </span>
-                              SHIPMENT FROM
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {' '}
-                              {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr> :''}
-                      </tbody>
-                      <tbody>
-                        {lcModuleData && lcModuleData?.lcApplication?.portOfLoading ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                44E
-                              </span>
-                              PORT OF LOADING
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {' '}
-                              {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.portOfDischarge ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
-                                }}
-                              >
-                                44F
-                              </span>
-                              PORT OF DISCHARGE
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.latestDateOfShipment ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
-                                style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
                                 {' '}
-                                44C
-                              </span>
-                              LATEST DATE OF SHIPMENT
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication
+                          ?.currecyCodeAndAmountValue ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {moment(
-                                lcModuleData?.lcApplication?.latestDateOfShipment?.split(
-                                  'T',
-                                )[0],
-                              ).format('DD-MM-YYYY')}
-                            </p>
-                          </td>
-                        </tr> :''} 
-                       {lcModuleData && lcModuleData?.lcApplication?.DescriptionOfGoods ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                45A
-                              </span>
-                              DESCRIPTION OF THE GOODS
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  32B
+                                </span>
+                                CURRENCY CODE &amp; AMOUNT
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:'' } 
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {addPrefixOrSuffix(
+                                  lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                    ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                    : 0,
+                                  'USD',
+                                  '',
+                                )}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.tolerancePercentage ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  39A
+                                </span>
+                                TOLERANCE (+/-) PERCENTAGE
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {addPrefixOrSuffix(
+                                  lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString(
+                                    'en-IN',
+                                    {
+                                      maximumFractionDigits: 2,
+                                      minimumFractionDigits: 2,
+                                    },
+                                  ),
+                                  '%',
+                                  '',
+                                )}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.creditAvailablewith ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  41A
+                                </span>
+                                CREDIT AVAILABLE WITH
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.creditAvailableBy ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  41B
+                                </span>
+                                CREDIT AVAILABLE BY
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}{' '}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.atSight ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  42C
+                                </span>
+                                DRAFT AT
+                                <br />
+                                {lcModuleData?.lcApplication?.atSight?.toUpperCase() ==
+                                'AT SIGHT'
+                                  ? null
+                                  : `NO. OF DAYS`}
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}
+                                <br />
+                                {lcModuleData?.lcApplication?.numberOfDays}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData && lcModuleData?.lcApplication?.drawee ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  42A
+                                </span>
+                                DRAWEE
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.drawee?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.deferredPayment ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  42P
+                                </span>
+                                DEFERRED PAYMENT
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.partialShipment ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  43P
+                                </span>
+                                PARTIAL SHIPMENT
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.transhipments ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  43T
+                                </span>
+                                TRANSHIPMENTS
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {lcModuleData?.lcApplication?.transhipments?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.shipmentForm ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  44A
+                                </span>
+                                SHIPMENT FROM
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                      </tbody>
+                      <tbody>
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.portOfLoading ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  44E
+                                </span>
+                                PORT OF LOADING
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.portOfDischarge ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  44F
+                                </span>
+                                PORT OF DISCHARGE
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.latestDateOfShipment ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  {' '}
+                                  44C
+                                </span>
+                                LATEST DATE OF SHIPMENT
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {moment(
+                                  lcModuleData?.lcApplication?.latestDateOfShipment?.split(
+                                    'T',
+                                  )[0],
+                                ).format('DD-MM-YYYY')}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.DescriptionOfGoods ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  45A
+                                </span>
+                                DESCRIPTION OF THE GOODS
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
                         <tr height="100">
                           <td colSpan={2}></td>
                         </tr>
@@ -1484,7 +1613,7 @@ function Index() {
                                     fontWeight: '500',
                                     padding: '16px 15px 16px 24px',
                                     marginBottom: '0',
-                                    textTransform: 'uppercase'
+                                    textTransform: 'uppercase',
                                   }}
                                 >
                                   {doc}
@@ -1574,7 +1703,7 @@ function Index() {
                                       fontWeight: '500',
                                       padding: '16px 15px 16px 24px',
                                       marginBottom: '0',
-                                      textTransform: 'uppercase'
+                                      textTransform: 'uppercase',
                                     }}
                                   >
                                     {comment}
@@ -1635,512 +1764,569 @@ function Index() {
                             </p>
                           </td>
                         </tr> */}
-                       {lcModuleData && lcModuleData?.lcApplication?.presentaionPeriod ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.presentaionPeriod ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                48
-                              </span>
-                              PRESENTATION PERIOD
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  48
+                                </span>
+                                PRESENTATION PERIOD
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.confirmationInstructions ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                49
-                              </span>
-                              CONFIRMATION INSTRUCTIONS
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {' '}
+                                {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication
+                          ?.confirmationInstructions ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.reimbursingBank ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                53A
-                              </span>
-                              REIMBURSING BANK
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  49
+                                </span>
+                                CONFIRMATION INSTRUCTIONS
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.adviceThroughBank ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                57
-                              </span>
-                              ADVISE THROUGH BANK
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {' '}
+                                {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.reimbursingBank ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       { lcModuleData && lcModuleData?.lcApplication?.secondAdvisingBank ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                57A
-                              </span>
-                              SECOND ADVISING BANK, IF APPLICABLE
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  53A
+                                </span>
+                                REIMBURSING BANK
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.requestedConfirmationParty ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                58A
-                              </span>
-                              REQUESTED CONFIRMATION PARTY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {' '}
+                                {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.adviceThroughBank ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       {lcModuleData && lcModuleData?.lcApplication?.charges ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                71B
-                              </span>
-                              CHARGES
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  57
+                                </span>
+                                ADVISE THROUGH BANK
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.charges?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                      { lcModuleData && lcModuleData?.lcApplication?.instructionToBank ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
+                                  fontSize: '20px',
                                   color: '#111111',
+                                  lineHeight: '24px',
                                   fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
                                 }}
                               >
-                                78
-                              </span>
-                              INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING
-                              BANK
-                            </p>
-                          </td>
-                          <td
-                            align="left"
-                            style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
+                                {' '}
+                                {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.secondAdvisingBank ? (
+                          <tr>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
-                       { lcModuleData && lcModuleData?.lcApplication?.senderToReceiverInformation ? <tr>
-                          <td
-                            align="left"
-                            style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                            }}
-                          >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              <span
+                              <p
                                 style={{
-                                  display: 'inline-block',
-                                  float: 'left',
-                                  height: '30px',
-                                  width: '66px',
-                                  color: '#111111',
-                                  fontWeight: '500',
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
                                 }}
                               >
-                                72
-                              </span>
-                              SENDER TO RECEIVER INFORMATION
-                            </p>
-                          </td>
-                          <td align="left">
-                            <p
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  57A
+                                </span>
+                                SECOND ADVISING BANK, IF APPLICABLE
+                              </p>
+                            </td>
+                            <td
+                              align="left"
                               style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                                textTransform: 'uppercase'
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
                               }}
                             >
-                              {' '}
-                              {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>:''}
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication
+                          ?.requestedConfirmationParty ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  58A
+                                </span>
+                                REQUESTED CONFIRMATION PARTY
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.charges ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  71B
+                                </span>
+                                CHARGES
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.charges?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication?.instructionToBank ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  78
+                                </span>
+                                INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING
+                                BANK
+                              </p>
+                            </td>
+                            <td
+                              align="left"
+                              style={{
+                                borderBottom:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
+                        {lcModuleData &&
+                        lcModuleData?.lcApplication
+                          ?.senderToReceiverInformation ? (
+                          <tr>
+                            <td
+                              align="left"
+                              style={{
+                                borderRight:
+                                  '2px solid rgba(202, 214, 230, 0.3)',
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: 'rgba(17, 17, 17, 0.7)',
+                                  lineHeight: '24px',
+                                  fontWeight: 'normal',
+                                  padding: '16px 15px 16px 35px',
+                                  marginBottom: '0',
+                                }}
+                              >
+                                <span
+                                  style={{
+                                    display: 'inline-block',
+                                    float: 'left',
+                                    height: '30px',
+                                    width: '66px',
+                                    color: '#111111',
+                                    fontWeight: '500',
+                                  }}
+                                >
+                                  72
+                                </span>
+                                SENDER TO RECEIVER INFORMATION
+                              </p>
+                            </td>
+                            <td align="left">
+                              <p
+                                style={{
+                                  fontSize: '20px',
+                                  color: '#111111',
+                                  lineHeight: '24px',
+                                  fontWeight: '500',
+                                  padding: '16px 15px 16px 24px',
+                                  marginBottom: '0',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {' '}
+                                {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}
+                              </p>
+                            </td>
+                          </tr>
+                        ) : (
+                          ''
+                        )}
                       </tbody>
                     </table>
                   </td>
@@ -2152,13 +2338,13 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('sample.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -2418,8 +2604,10 @@ function Index() {
                             <span>
                               DRAFT AT
                               <br />
-                              {lcModuleData?.lcApplication?.atSight?.toUpperCase()=="AT SIGHT"?null:`NO. OF DAYS`}
-                            
+                              {lcModuleData?.lcApplication?.atSight?.toUpperCase() ==
+                              'AT SIGHT'
+                                ? null
+                                : `NO. OF DAYS`}
                             </span>
                           </td>
                           <td className="term_para">
@@ -2941,7 +3129,7 @@ function Index() {
                           aria-controls="emailAddress"
                           aria-selected="true"
                           onClick={() => {
-                            setWhat('email')
+                            setWhat('email');
                           }}
                         >
                           <img
@@ -2963,7 +3151,7 @@ function Index() {
                           aria-controls="whatsApp"
                           aria-selected="false"
                           onClick={() => {
-                            setWhat('what')
+                            setWhat('what');
                           }}
                         >
                           <img
@@ -3022,7 +3210,7 @@ function Index() {
                               role="button"
                               className="ml-3"
                               onClick={() => {
-                                handleDeleteEmail(index)
+                                handleDeleteEmail(index);
                               }}
                             />
                           </div>
@@ -3030,7 +3218,7 @@ function Index() {
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
-                            addMoreRows()
+                            addMoreRows();
                           }}
                         >
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -3104,12 +3292,12 @@ function Index() {
                                     role="button"
                                     className="ml-3"
                                     onClick={() => {
-                                      handleDeleteNumber(index)
+                                      handleDeleteNumber(index);
                                     }}
                                   />
                                 </div>
                               </>
-                            )
+                            );
                           })}
                         {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -3119,9 +3307,9 @@ function Index() {
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
                             if (what == 'what') {
-                              addWhatRows()
+                              addWhatRows();
                             } else {
-                              addMoreRows()
+                              addMoreRows();
                             }
                           }}
                         >
@@ -3226,7 +3414,7 @@ function Index() {
         barName="Application for LC"
       />
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

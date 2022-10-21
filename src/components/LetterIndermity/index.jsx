@@ -1,28 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 // import { GetLcModule } from 'redux/lcModule/action'
 // import Filter from '../Filter'
-import _get from 'lodash/get'
-import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
-import Image from 'next/image'
+import _get from 'lodash/get';
+import SavePreviewBar from '../LetterIndermity/SavePreviewBar';
+import Image from 'next/image';
 import {
   UpdateTransitDetails,
   GetTransitDetails,
-} from '../../redux/TransitDetails/action'
-import { toast } from 'react-toastify'
-import moment from 'moment'
+} from '../../redux/TransitDetails/action';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 // import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
   console.log(
     '🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails',
     TransitDetails,
-  )
-  const dispatch = useDispatch()
-  let transId = _get(TransitDetails, `data[0]`, '')
+  );
+  const dispatch = useDispatch();
+  let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
     {
       blnumber: 'BL-1',
@@ -36,8 +36,8 @@ function Index({ TransitDetails }) {
           .blDate,
       ).format('DD MMMM YYYY'),
     },
-  ])
-  console.log(bolArray, 'bolArray')
+  ]);
+  console.log(bolArray, 'bolArray');
   const [loi, setLOI] = useState({
     loiIssueDate: new Date(),
     blSurrenderDate: null,
@@ -47,17 +47,17 @@ function Index({ TransitDetails }) {
       name: '',
       designation: '',
     },
-  })
+  });
   const changeDesignation = (value) => {
-    let temp = { ...loi }
-    temp.authorizedSignatory.designation = value
-    setLOI({ ...loi })
-  }
+    let temp = { ...loi };
+    temp.authorizedSignatory.designation = value;
+    setLOI({ ...loi });
+  };
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].LOI.billOfLanding', []).length > 0) {
-      setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []))
+      setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []));
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   const onAddClick = () => {
     setBillsofLanding([
@@ -74,11 +74,11 @@ function Index({ TransitDetails }) {
             .blDate,
         ).format('DD MMMM YYYY'),
       },
-    ])
-  }
-  console.log(billsofLanding, 'billsofLanding')
+    ]);
+  };
+  console.log(billsofLanding, 'billsofLanding');
   useEffect(() => {
-    let existingData = _get(TransitDetails, `data[0].LOI`, {})
+    let existingData = _get(TransitDetails, `data[0].LOI`, {});
     if (existingData?.authorizedSignatory) {
       setLOI({
         loiIssueDate: new Date(),
@@ -89,26 +89,26 @@ function Index({ TransitDetails }) {
           name: existingData.authorizedSignatory.name,
           designation: existingData.authorizedSignatory.designation,
         },
-      })
+      });
     }
-  }, [TransitDetails])
-  const [bolArray, setBolArray] = useState([])
-  console.log(billsofLanding, 'bolArray')
+  }, [TransitDetails]);
+  const [bolArray, setBolArray] = useState([]);
+  console.log(billsofLanding, 'bolArray');
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
-      setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+      setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
-  console.log(loi, 'LOI')
+  console.log(loi, 'LOI');
 
   const SetAuthorisedSignatoryHanlder = (e) => {
-    console.log(e.target.value.toLowerCase(), 'w')
+    console.log(e.target.value.toLowerCase(), 'w');
     if (e.target.value == '') {
-      setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } })
+      setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
       if (e.target.value.toLowerCase() === 'bhawana jain') {
-        console.log(e.target.value.toLowerCase(), 'Bhawana Jain')
+        console.log(e.target.value.toLowerCase(), 'Bhawana Jain');
 
         setLOI({
           ...loi,
@@ -116,20 +116,20 @@ function Index({ TransitDetails }) {
             name: 'Bhawana Jain',
             designation: 'Vice President Finance & Accounts',
           },
-        })
+        });
       }
       if (e.target.value.toLowerCase() === 'vipin kumar') {
-        console.log('Vipin Kumar')
+        console.log('Vipin Kumar');
         setLOI({
           ...loi,
           authorizedSignatory: {
             name: 'Vipin Kumar',
             designation: 'Manager Accounts',
           },
-        })
+        });
       }
       if (e.target.value.toLowerCase() === 'devesh jain') {
-        console.log('Devesh Jain')
+        console.log('Devesh Jain');
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -137,11 +137,11 @@ function Index({ TransitDetails }) {
               name: 'Devesh Jain',
               designation: 'Director',
             },
-          }
-        })
+          };
+        });
       }
       if (e.target.value.toLowerCase() === 'fatima yannoulis') {
-        console.log('Fatima Yannoulis')
+        console.log('Fatima Yannoulis');
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -149,8 +149,8 @@ function Index({ TransitDetails }) {
               name: 'Fatima Yannoulis',
               designation: 'Chief Financial Officer',
             },
-          }
-        })
+          };
+        });
       }
     }
 
@@ -172,93 +172,99 @@ function Index({ TransitDetails }) {
     // }
     // console.log(e.target.value, tempArray.authorizedSignatory, "billsofLanding")
     // setLOI(tempArray)
-  }
+  };
 
   const BolDropDown = (e, index) => {
-    console.log(e.target.value, 'onclclc')
-    let temp = [...billsofLanding]
+    console.log(e.target.value, 'onclclc');
+    let temp = [...billsofLanding];
 
-    let text = e.target.value
-    let thenum = text.match(/\d+/)[0]
+    let text = e.target.value;
+    let thenum = text.match(/\d+/)[0];
 
     if (Number(thenum) <= 0) {
-      thenum = 0
+      thenum = 0;
     } else {
-      thenum = Number(Number(thenum) - 1)
+      thenum = Number(Number(thenum) - 1);
     }
-    console.log(thenum, 'indexindex')
-    temp[index].blnumber = e.target.value
+    console.log(thenum, 'indexindex');
+    temp[index].blnumber = e.target.value;
 
     temp[index].date = moment(
       _get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[thenum]
         .blDate,
-    ).format('DD MMMM YYYY')
+    ).format('DD MMMM YYYY');
     temp[index].loadingPort = _get(
       TransitDetails,
       'data[0].order.portOfDischarge',
       '',
-    ).toUpperCase()
-    setBillsofLanding([...temp])
-  }
+    ).toUpperCase();
+    setBillsofLanding([...temp]);
+  };
 
-  console.log(billsofLanding, 'asasasasas')
+  console.log(billsofLanding, 'asasasasas');
   const OnAddHandler = () => {
-    let tempArray = billsofLanding
+    let tempArray = billsofLanding;
     tempArray.push({
       blnumber: '',
       loadingPort: '',
       date: '',
-    })
-    setBillsofLanding(tempArray)
-  }
+    });
+    setBillsofLanding(tempArray);
+  };
   const onDeleteClick = (index) => {
     setBillsofLanding([
       ...billsofLanding.slice(0, index),
       ...billsofLanding.slice(index + 1),
-    ])
-  }
-  console.log(loi, 'billsofLanding')
+    ]);
+  };
+  console.log(loi, 'billsofLanding');
 
   const isOptionAvailable = (elem, index) => {
-    let returned = false
+    let returned = false;
     const filtered = billsofLanding.filter((item) => {
-      return item.blnumber === elem
-    })
+      return item.blnumber === elem;
+    });
     if (filtered.length > 0) {
-      returned = true
+      returned = true;
     }
-    return returned
-  }
+    return returned;
+  };
 
   const saveData = () => {
     if (loi.authorizedSignatory.name === '') {
-      let toastMessage = 'PLEase select authorized signatory'
+      let toastMessage = 'PLEase select authorized signatory';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
 
-    sessionStorage.setItem('transitPId', transId._id)
+    sessionStorage.setItem('transitPId', transId._id);
     // const billOfLanding = [...bolList]
-    const LOI = { ...loi }
-    LOI.billOfLanding = billsofLanding
-    console.log(LOI, 'LOI111')
-    let fd = new FormData()
-    fd.append('loi', JSON.stringify(LOI))
-    fd.append('transitId', transId._id)
-    let task = 'submit'
-    dispatch(UpdateTransitDetails({ fd, task }))
+    const LOI = { ...loi };
+    LOI.billOfLanding = billsofLanding;
+    console.log(LOI, 'LOI111');
+    let fd = new FormData();
+    fd.append('loi', JSON.stringify(LOI));
+    fd.append('transitId', transId._id);
+    let task = 'submit';
+    dispatch(UpdateTransitDetails({ fd, task }));
     //console.log(fd, bol, 'filteredVessel')
 
-    Router.push('/loi-preview')
-  }
+    Router.push('/loi-preview');
+  };
 
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
         <div className={`${styles.heading} d-flex justify-content-end`}>
-          <p><span className={`${styles.title} `}>INDO GERMAN</span><br/><span>INTERNATIONAL (P) LTD.</span><br/>CIN No.: U74899DL1 994PTC063676</p>
+          <p>
+            <span className={`${styles.title} `}>INDO GERMAN</span>
+            <br />
+            <span>INTERNATIONAL (P) LTD.</span>
+            <br />
+            CIN No.: U74899DL1 994PTC063676
+          </p>
         </div>
         <div className={`${styles.aboutLetter}`}>
           <p>
@@ -280,7 +286,7 @@ function Index({ TransitDetails }) {
               ALI, DUBAI, U.A.E
             </div>
           </div>
-          <div className='w-25 text-right'>
+          <div className="w-25 text-right">
             <span>DATE:</span>{' '}
             {moment(
               loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/'),
@@ -379,15 +385,17 @@ function Index({ TransitDetails }) {
                     // >
                     //   <span className={styles.add_sign}>-</span>Delete
                     // </button>
-                    <div className={`${styles.delete_image} ml-3`}       
-                    onClick={() => onDeleteClick(index1)}>
-                    <Image
-                      src="/static/delete.svg"
-                      width="40px"
-                      height="40px"
-                      alt="Bin"
-                    />
-                  </div>
+                    <div
+                      className={`${styles.delete_image} ml-3`}
+                      onClick={() => onDeleteClick(index1)}
+                    >
+                      <Image
+                        src="/static/delete.svg"
+                        width="40px"
+                        height="40px"
+                        alt="Bin"
+                      />
+                    </div>
                   ) : null}
                 </div>
               </>
@@ -405,19 +413,19 @@ function Index({ TransitDetails }) {
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
             <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            bill of Lading has not arrived and we, EMERGENT INDUSTRIAL
+            bill of Lading has not arrived and we, EMERGENT INDUSTRIAL SOLUTIONS
+            LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD
+            AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA , hereby
+            request you to deliver the said cargo to EMERGENT INDUSTRIAL
             SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
             OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016,
-            INDIA , hereby request you to deliver the said cargo to EMERGENT
+            INDIA or to such party as you believe to be or to represent EMERGENT
             INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH
-            - 530016, INDIA or to such party as you believe to be or to
-            represent EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
-            FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
-            VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to be acting on
-            behalf of EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
-            FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
-            VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at{' '}
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
+            PRADESH - 530016, INDIA or to be acting on behalf of EMERGENT
+            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
+            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
+            PRADESH - 530016, INDIA at{' '}
             <span className={styles.bold}>
               VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
@@ -426,29 +434,66 @@ function Index({ TransitDetails }) {
 
           <div className={`${styles.list}`}>
             <p>
-            In consideration of your accepting our request and/or complying with, or taking any steps to comply with, or attempting to comply with our above request, we hereby agree as follows :{' '}
+              In consideration of your accepting our request and/or complying
+              with, or taking any steps to comply with, or attempting to comply
+              with our above request, we hereby agree as follows :{' '}
             </p>
             <ol>
               <li>
-              To indemnify you, your servants, agents and any third party affiliated or associated with Torvald Klaveness and to hold all of you harmless in respect of any liability, loss, damage or expense of whatsoever nature which you may sustain by reason of delivering the cargo in accordance with our request.{' '}
+                To indemnify you, your servants, agents and any third party
+                affiliated or associated with Torvald Klaveness and to hold all
+                of you harmless in respect of any liability, loss, damage or
+                expense of whatsoever nature which you may sustain by reason of
+                delivering the cargo in accordance with our request.{' '}
               </li>
               <li>
-              In the event of any proceedings being commenced against you or any other person or third party mentioned under No. 1 above in connection with the delivery of the cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.{' '}
+                In the event of any proceedings being commenced against you or
+                any other person or third party mentioned under No. 1 above in
+                connection with the delivery of the cargo as aforesaid, to
+                provide you or them on demand with sufficient funds to defend
+                the same.{' '}
               </li>
               <li>
-              If, in connection with the delivery of the cargo as aforesaid, the ship, or any other ship or property in the same or affiliated/associated ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the vessel (whether by virtue of a caveat being entered on the ship's registry or otherwise howsoever), to provide on demand such bail or other security as may be required to prevent such arrest or detention or to secure the release of such ship or property or to remove such interference and to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or detention or such interference, whether or not such arrest or detention or threatened arrest or detention or such interference  may be justified.{' '}
+                If, in connection with the delivery of the cargo as aforesaid,
+                the ship, or any other ship or property in the same or
+                affiliated/associated ownership, management or control, should
+                be arrested or detained or should the arrest or detention
+                thereof be threatened, or should there be any interference in
+                the use or trading of the vessel (whether by virtue of a caveat
+                being entered on the ship's registry or otherwise howsoever), to
+                provide on demand such bail or other security as may be required
+                to prevent such arrest or detention or to secure the release of
+                such ship or property or to remove such interference and to
+                indemnify you in respect of any liability, loss, damage or
+                expense caused by such arrest or detention or threatened arrest
+                or detention or such interference, whether or not such arrest or
+                detention or threatened arrest or detention or such interference
+                may be justified.{' '}
               </li>
               <li>
-              If the place at which we have asked you to make delivery is a bulk liquid or gas terminal or facility, or another ship, lighter or barge, then delivery to such terminal, facility, ship, lighter or barge shall be deemed to be delivery to the party to whom we have requested you to make such delivery.{' '}
+                If the place at which we have asked you to make delivery is a
+                bulk liquid or gas terminal or facility, or another ship,
+                lighter or barge, then delivery to such terminal, facility,
+                ship, lighter or barge shall be deemed to be delivery to the
+                party to whom we have requested you to make such delivery.{' '}
               </li>
               <li>
-              As soon as all original bills of lading for the above cargo shall have come into our possession, to deliver the same to you, or otherwise to cause all original bills of lading to be delivered to you, whereupon our liability hereunder shall cease.{' '}
+                As soon as all original bills of lading for the above cargo
+                shall have come into our possession, to deliver the same to you,
+                or otherwise to cause all original bills of lading to be
+                delivered to you, whereupon our liability hereunder shall cease.{' '}
               </li>
               <li>
-              The liability of each and every person under this indemnity shall be joint and several and shall not be conditional upon your proceeding first against any person, whether or not such person is party to or liable under this indemnity.{' '}
+                The liability of each and every person under this indemnity
+                shall be joint and several and shall not be conditional upon
+                your proceeding first against any person, whether or not such
+                person is party to or liable under this indemnity.{' '}
               </li>
               <li>
-              This indemnity shall be governed by and construed in accordance with English law and each and every person liable under this indemnity shall at your request submit to the Jurisdiction of the High Court of Justice of England.{' '}
+                This indemnity shall be governed by and construed in accordance
+                with English law and each and every person liable under this
+                indemnity shall at your request submit to the Jurisdiction of
+                the High Court of Justice of England.{' '}
               </li>
             </ol>
           </div>
@@ -495,18 +540,42 @@ function Index({ TransitDetails }) {
                 className="mt-2 pl-3 input"
                 value={loi.authorizedSignatory.designation}
                 onChange={(e) => {
-                  changeDesignation(e.target.value)
+                  changeDesignation(e.target.value);
                 }}
               ></input>
             </div>
           </div>
         </div>
         <div className={`${styles.footer} mt-5`}>
-          <p className='border_color'>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
+          <p className="border_color">
+            7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)
+          </p>
           <div className={`${styles.inner} d-flex justify-content-between`}>
-            <div><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</div>
-            <div>Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413<br/>Fax : (91) (1 1) 2378-2806<br/>E-mail : indogerman@somanigroup.com</div>            
-            <div><strong>Joint Venture of</strong><br/>Somani Group<br/>New Delhi<br/>lndia</div>
+            <div>
+              <strong>Joint Venture of</strong>
+              <br />
+              Thyssehkrupp Mannex GMBH
+              <br />
+              Essen
+              <br />
+              Germany
+            </div>
+            <div>
+              Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413
+              <br />
+              Fax : (91) (1 1) 2378-2806
+              <br />
+              E-mail : indogerman@somanigroup.com
+            </div>
+            <div>
+              <strong>Joint Venture of</strong>
+              <br />
+              Somani Group
+              <br />
+              New Delhi
+              <br />
+              lndia
+            </div>
           </div>
         </div>
       </div>
@@ -518,6 +587,6 @@ function Index({ TransitDetails }) {
         rightBtnClick={saveData}
       />
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

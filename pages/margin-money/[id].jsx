@@ -2,82 +2,85 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import RevisedMargin from '../../src/components/RevisedMargin'
-import { Form } from 'react-bootstrap'
-import { toast } from 'react-toastify'
-import _get from 'lodash/get'
-import UploadOther from '../../src/components/UploadOther'
-import DownloadBar from '../../src/components/DownloadBar'
-import Router from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import RevisedMargin from '../../src/components/RevisedMargin';
+import { Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import _get from 'lodash/get';
+import UploadOther from '../../src/components/UploadOther';
+import DownloadBar from '../../src/components/DownloadBar';
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   UpdateMarginMoney,
   GetMarginMoney,
   RevisedMarginMoney,
-} from '../../src/redux/marginMoney/action'
+} from '../../src/redux/marginMoney/action';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../src/redux/userData/action'
+} from '../../src/redux/userData/action';
 import {
   addPrefixOrSuffix,
   checkNan,
   convertValue,
   gSTINValidation,
-} from '../../src/utils/helper'
-import { GetAllOrders } from '../../src/redux/registerBuyer/action'
+} from '../../src/utils/helper';
+import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 // import { Row, Col } from 'react-bootstrap'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
-import moment from 'moment'
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import moment from 'moment';
 
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [darkMode, setDarkMode] = useState(false)
-  const [isFieldInFocus, setIsFieldInFocus] = useState({ conversion: false, noOfPdcs: false })
+  const [darkMode, setDarkMode] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    conversion: false,
+    noOfPdcs: false,
+  });
 
-  const { margin } = useSelector((state) => state.marginMoney)
+  const { margin } = useSelector((state) => state.marginMoney);
   // get gst list from below use effect and fetch data from selector
-  const { orderList } = useSelector((state) => state.buyer)
+  const { orderList } = useSelector((state) => state.buyer);
 
-  const marginData = _get(margin, 'data.data[0]', '')
+  const marginData = _get(margin, 'data.data[0]', '');
 
-  let id = sessionStorage.getItem('marginId')
+  let id = sessionStorage.getItem('marginId');
 
-  const [unit, setUnit] = useState({ value: 'Crores' })
-  const [coversionUnit, setCoversionUnit] = useState(10000000)
+  const [unit, setUnit] = useState({ value: 'Crores' });
+  const [coversionUnit, setCoversionUnit] = useState(10000000);
 
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
     false,
-  )
+  );
 
   useEffect(() => {
-    let id = sessionStorage.getItem('marginId')
+    let id = sessionStorage.getItem('marginId');
 
-    dispatch(GetMarginMoney({ orderId: id }))
-    dispatch(GetAllOrders({ orderId: id }))
-    dispatch(setPageName('margin-money'))
-    dispatch(setDynamicName(marginData?.company?.companyName))
-    dispatch(setDynamicOrder(marginData?.order?.orderId))
-  }, [dispatch, marginData?.company?.companyName])
+    dispatch(GetMarginMoney({ orderId: id }));
+    dispatch(GetAllOrders({ orderId: id }));
+    dispatch(setPageName('margin-money'));
+    dispatch(setDynamicName(marginData?.company?.companyName));
+    dispatch(setDynamicOrder(marginData?.order?.orderId));
+  }, [dispatch, marginData?.company?.companyName]);
 
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      setDarkMode(true)
+      setDarkMode(true);
     } else {
-      setDarkMode(false)
+      setDarkMode(false);
     }
-  }, [])
+  }, []);
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
@@ -94,17 +97,17 @@ function Index() {
     tolerance: marginData?.order?.tolerance || '',
     marginMoney:
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
-  })
+  });
 
   // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
   const saveForCalculation = (name, value) => {
-    const newInput = { ...forCalculation }
-    newInput[name] = value
+    const newInput = { ...forCalculation };
+    newInput[name] = value;
     // console.log(newInput)
-    setForCalculation(newInput)
-    getData2()
-    getRevisedData2()
-  }
+    setForCalculation(newInput);
+    getData2();
+    getRevisedData2();
+  };
 
   const [finalCal, setFinalCal] = useState({
     orderValue: '',
@@ -119,11 +122,11 @@ function Index() {
     marginMoney: '',
     totalSPDC: '',
     amountPerSPDC: '',
-  })
+  });
 
   useEffect(() => {
-    getData()
-  }, [marginData])
+    getData();
+  }, [marginData]);
 
   const getData = () => {
     setForCalculation({
@@ -141,48 +144,48 @@ function Index() {
       tolerance: marginData?.order?.tolerance,
       marginMoney:
         marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-    })
+    });
     let orderValue = parseFloat(
       Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-    ).toFixed(2) //J
-    let orderValueCurrency = 'USD'
+    ).toFixed(2); //J
+    let orderValueCurrency = 'USD';
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculation.conversionRate),
-    ).toFixed(2) //K
+    ).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
-    ).toFixed(2) //L
+        365,
+    ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2) //M
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2); //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2) //N
+    ).toFixed(2); //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-    ).toFixed(2) //O
+    ).toFixed(2); //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2) //P
+    ).toFixed(2); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculation.quantity),
-    ).toFixed(2) //Q
+    ).toFixed(2); //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
-    ).toFixed(2) //R
+        Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2); //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2) //S
+    ).toFixed(2); //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
-    ).toFixed(2) //T
+    ).toFixed(2); //T
 
     // console.log(orderValue, 'orderValue')
     setFinalCal({
@@ -198,54 +201,54 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    })
-  }
+    });
+  };
   useEffect(() => {
-    getData2()
-  }, [forCalculation])
+    getData2();
+  }, [forCalculation]);
 
   const getData2 = () => {
     let orderValue = parseFloat(
       Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-    ).toFixed(2) //J
-    let orderValueCurrency = 'USD'
+    ).toFixed(2); //J
+    let orderValueCurrency = 'USD';
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculation.conversionRate),
-    ).toFixed(2) //K
+    ).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 0) *
         90) /
-      365,
-    ).toFixed(2) //L
+        365,
+    ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2) //M
+        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2); //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2) //N
+    ).toFixed(2); //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-    ).toFixed(2) //O
+    ).toFixed(2); //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2) //P
+    ).toFixed(2); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculation.quantity),
-    ).toFixed(2) //Q
+    ).toFixed(2); //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculation.marginMoney) / 100),
-    ).toFixed(2) //R
+        Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2); //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2) //S
+    ).toFixed(2); //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
-    ).toFixed(2) //T
+    ).toFixed(2); //T
 
     // console.log(orderValue, 'orderValue')
     setFinalCal({
@@ -261,14 +264,14 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    })
-  }
+    });
+  };
 
   const routeChange = () => {
-    Router.push('/margin-preview')
-  }
+    Router.push('/margin-preview');
+  };
 
-  const [invoiceData, setInvoiceData] = useState({})
+  const [invoiceData, setInvoiceData] = useState({});
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -280,7 +283,12 @@ function Index() {
         consigneeName: marginData?.invoiceDetail?.consigneeName || '',
         consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
         consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-        importerName: marginData?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
+        importerName:
+          marginData?.invoiceDetail?.importerName ||
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '',
         branchOffice: marginData?.invoiceDetail?.branchOffice || '',
         companyAddress: marginData?.invoiceDetail?.companyAddress || '',
         importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
@@ -289,34 +297,34 @@ function Index() {
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
-      })
+      });
     }
-  }, [marginData])
+  }, [marginData]);
 
   const saveInvoiceData = (name, value) => {
     // console.log(value, 'invoice data value', name)
-    const newInput = { ...invoiceData }
+    const newInput = { ...invoiceData };
 
-    newInput[name] = value
+    newInput[name] = value;
 
     // console.log(newInput, 'nnto', name, value)
 
     if (invoiceData?.isConsigneeSameAsBuyer == true) {
       if (name == 'buyerName') {
-        let a = 'consigneeName'
-        newInput[a] = value
+        let a = 'consigneeName';
+        newInput[a] = value;
       }
       if (name == 'buyerGSTIN') {
-        let a = 'consigneeGSTIN'
-        newInput[a] = value
+        let a = 'consigneeGSTIN';
+        newInput[a] = value;
       }
       if (name == 'buyerAddress') {
-        let a = 'consigneeAddress'
-        newInput[a] = value
+        let a = 'consigneeAddress';
+        newInput[a] = value;
       }
     }
-    setInvoiceData({ ...newInput })
-  }
+    setInvoiceData({ ...newInput });
+  };
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -324,7 +332,7 @@ function Index() {
     state: 'DELHI',
     address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
     GSTIN: '07AAACS8253L1Z0',
-  }
+  };
 
   let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
@@ -333,62 +341,62 @@ function Index() {
     address:
       'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
     GSTIN: '24AAACI3028D1Z8',
-  }
+  };
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
     state: '',
     address: '',
-  })
+  });
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      setChangeImporterData({ ...emergent })
-      const newInput = { ...invoiceData }
-      newInput['importerName'] = emergent.companyName
-      newInput['branchOffice'] = emergent.branch
-      newInput['importerGSTIN'] = emergent.GSTIN
-      newInput['companyAddress'] = emergent.address
+      setChangeImporterData({ ...emergent });
+      const newInput = { ...invoiceData };
+      newInput['importerName'] = emergent.companyName;
+      newInput['branchOffice'] = emergent.branch;
+      newInput['importerGSTIN'] = emergent.GSTIN;
+      newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceData({ ...newInput })
+      setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      setChangeImporterData({ ...indoGerman })
-      const newInput = { ...invoiceData }
-      newInput['importerName'] = indoGerman.companyName
-      newInput['branchOffice'] = indoGerman.branch
-      newInput['importerGSTIN'] = indoGerman.GSTIN
-      newInput['companyAddress'] = indoGerman.address
+      setChangeImporterData({ ...indoGerman });
+      const newInput = { ...invoiceData };
+      newInput['importerName'] = indoGerman.companyName;
+      newInput['branchOffice'] = indoGerman.branch;
+      newInput['importerGSTIN'] = indoGerman.GSTIN;
+      newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceData({ ...newInput })
+      setInvoiceData({ ...newInput });
     }
-  }
+  };
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
-      changeImporterData.branch = e.target.value
-      const newInput = { ...invoiceData }
-      newInput['branchOffice'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceData({ ...newInput })
+      changeImporterData.branch = e.target.value;
+      const newInput = { ...invoiceData };
+      newInput['branchOffice'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceData({ ...newInput });
     }
     if (e.target.name == 'companyAddress') {
-      const newInput = { ...invoiceData }
-      changeImporterData.address = e.target.value
-      newInput['companyAddress'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceData({ ...newInput })
+      const newInput = { ...invoiceData };
+      changeImporterData.address = e.target.value;
+      newInput['companyAddress'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceData({ ...newInput });
     }
     if (e.target.name == 'importerGSTIN') {
-      const newInput = { ...invoiceData }
-      changeImporterData.GSTIN = e.target.value
-      newInput['importerGSTIN'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceData({ ...newInput })
+      const newInput = { ...invoiceData };
+      changeImporterData.GSTIN = e.target.value;
+      newInput['importerGSTIN'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceData({ ...newInput });
     }
-  }
+  };
 
   const setSame = (val) => {
     if (val == true) {
@@ -397,60 +405,60 @@ function Index() {
         consigneeName: invoiceData.buyerName,
         consigneeGSTIN: invoiceData.buyerGSTIN,
         consigneeAddress: invoiceData.buyerAddress,
-      })
+      });
     } else {
       setInvoiceData({
         ...invoiceData,
         consigneeName: '',
         consigneeGSTIN: '',
         consigneeAddress: '',
-      })
+      });
     }
-  }
+  };
   const validate = () => {
     if (
       invoiceData.buyerName === null ||
       invoiceData.buyerName === undefined ||
       invoiceData.buyerName === ''
     ) {
-      let toastMessage = 'Please add buyer name'
+      let toastMessage = 'Please add buyer name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.buyerGSTIN === null ||
       invoiceData.buyerGSTIN === undefined ||
       invoiceData.buyerGSTIN === ''
     ) {
-      let toastMessage = 'Please add buyer gstin'
+      let toastMessage = 'Please add buyer gstin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.buyerAddress === null ||
       invoiceData.buyerAddress === undefined ||
       invoiceData.buyerAddress === ''
     ) {
-      let toastMessage = 'Please add buyer address'
+      let toastMessage = 'Please add buyer address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.consigneeName === null ||
       invoiceData.consigneeName === undefined ||
       invoiceData.consigneeName === ''
     ) {
-      let toastMessage = 'Please add consignee Name'
+      let toastMessage = 'Please add consignee Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.consigneeGSTIN === null ||
@@ -458,135 +466,135 @@ function Index() {
       invoiceData.consigneeGSTIN === '' ||
       !gSTINValidation(invoiceData.consigneeGSTIN)
     ) {
-      let toastMessage = 'Please add A VALID consignee gstin'
+      let toastMessage = 'Please add A VALID consignee gstin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.consigneeAddress === null ||
       invoiceData.consigneeAddress === undefined ||
       invoiceData.consigneeAddress === ''
     ) {
-      let toastMessage = 'Please add consignee address'
+      let toastMessage = 'Please add consignee address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.importerName === null ||
       invoiceData.importerName === undefined ||
       invoiceData.importerName === ''
     ) {
-      let toastMessage = 'Please add importer name'
+      let toastMessage = 'Please add importer name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.branchOffice === null ||
       invoiceData.branchOffice === undefined ||
       invoiceData.branchOffice === ''
     ) {
-      let toastMessage = 'Please add branch Office'
+      let toastMessage = 'Please add branch Office';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.companyAddress === null ||
       invoiceData.companyAddress === undefined ||
       invoiceData.companyAddress === ''
     ) {
-      let toastMessage = 'Please add company Address'
+      let toastMessage = 'Please add company Address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.importerGSTIN === null ||
       invoiceData.importerGSTIN === undefined ||
       invoiceData.importerGSTIN === ''
     ) {
-      let toastMessage = 'Please add importer GSTIN'
+      let toastMessage = 'Please add importer GSTIN';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.bankName === null ||
       invoiceData.bankName === undefined ||
       invoiceData.bankName === ''
     ) {
-      let toastMessage = 'Please add bank Name'
+      let toastMessage = 'Please add bank Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.branch === null ||
       invoiceData.branch === undefined ||
       invoiceData.branch === ''
     ) {
-      let toastMessage = 'Please add branch'
+      let toastMessage = 'Please add branch';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.branch === null ||
       invoiceData.branch === undefined ||
       invoiceData.branch === ''
     ) {
-      let toastMessage = 'Please add branch'
+      let toastMessage = 'Please add branch';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.branchAddress === null ||
       invoiceData.branchAddress === undefined ||
       invoiceData.branchAddress === ''
     ) {
-      let toastMessage = 'Please add branch Address'
+      let toastMessage = 'Please add branch Address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.IFSCcode === null ||
       invoiceData.IFSCcode === undefined ||
       invoiceData.IFSCcode === ''
     ) {
-      let toastMessage = 'Please add  IFSC code'
+      let toastMessage = 'Please add  IFSC code';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       invoiceData.accountNo === null ||
       invoiceData.accountNo === undefined ||
       invoiceData.accountNo === ''
     ) {
-      let toastMessage = 'Please add  account No'
+      let toastMessage = 'Please add  account No';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return false
+      return false;
     }
-    return true
-  }
+    return true;
+  };
   const handleUpdate = async () => {
     if (validate()) {
       let obj = {
@@ -616,7 +624,7 @@ function Index() {
           perUnitPrice: forCalculation.perUnitPrice,
           orderValue: finalCal.orderValue,
         },
-      }
+      };
       // if (
       //   marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
       //   marginData?.order?.quantity !== forCalculation.quantity
@@ -631,9 +639,9 @@ function Index() {
       //   }
       // }
 
-      dispatch(UpdateMarginMoney(obj))
+      dispatch(UpdateMarginMoney(obj));
     }
-  }
+  };
 
   // RevisedMargin Money New Calculation
 
@@ -652,17 +660,17 @@ function Index() {
     tolerance: marginData?.order?.tolerance || '',
     marginMoney:
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
-  })
+  });
 
   // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
   const saveforCalculationRevised = (name, value) => {
-    const newInput = { ...forCalculationRevised }
-    newInput[name] = value
+    const newInput = { ...forCalculationRevised };
+    newInput[name] = value;
     // console.log(newInput)
-    setforCalculationRevised(newInput)
-    getDataRevised()
-    getRevisedData2()
-  }
+    setforCalculationRevised(newInput);
+    getDataRevised();
+    getRevisedData2();
+  };
 
   const [finalCalRevised, setfinalCalRevised] = useState({
     orderValue: '',
@@ -677,11 +685,11 @@ function Index() {
     marginMoney: '',
     totalSPDC: '',
     amountPerSPDC: '',
-  })
+  });
 
   useEffect(() => {
-    getDataRevised2()
-  }, [marginData])
+    getDataRevised2();
+  }, [marginData]);
 
   const getDataRevised2 = () => {
     setforCalculationRevised({
@@ -699,49 +707,49 @@ function Index() {
       tolerance: marginData?.order?.tolerance,
       marginMoney:
         marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-    })
+    });
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-      Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2) //J
-    let orderValueCurrency = 'USD'
+        Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2); //J
+    let orderValueCurrency = 'USD';
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculationRevised.conversionRate),
-    ).toFixed(2) //K
+    ).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-      365,
-    ).toFixed(2) //L
+        365,
+    ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2) //M
+        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2); //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2) //N
+    ).toFixed(2); //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
-    ).toFixed(2) //O
+    ).toFixed(2); //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2) //P
+    ).toFixed(2); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2) //Q
+    ).toFixed(2); //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2) //R
+        Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2); //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2) //S
+    ).toFixed(2); //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
-    ).toFixed(2) //T
+    ).toFixed(2); //T
 
     // console.log(orderValue, 'orderValue')
     setfinalCalRevised({
@@ -757,55 +765,55 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    })
-  }
+    });
+  };
   useEffect(() => {
-    getDataRevised()
-  }, [forCalculationRevised])
+    getDataRevised();
+  }, [forCalculationRevised]);
 
   const getDataRevised = () => {
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-      Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2) //J
-    let orderValueCurrency = 'USD'
+        Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2); //J
+    let orderValueCurrency = 'USD';
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculationRevised.conversionRate),
-    ).toFixed(2) //K
+    ).toFixed(2); //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-      365,
-    ).toFixed(2) //L
+        365,
+    ).toFixed(2); //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2) //M
+        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2); //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2) //N
+    ).toFixed(2); //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
-    ).toFixed(2) //O
+    ).toFixed(2); //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2) //P
+    ).toFixed(2); //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2) //Q
+    ).toFixed(2); //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-      Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2) //R
+        Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2); //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2) //S
+    ).toFixed(2); //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
-    ).toFixed(2) //T
+    ).toFixed(2); //T
 
     // console.log(orderValue, 'orderValue')
     setfinalCalRevised({
@@ -821,8 +829,8 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    })
-  }
+    });
+  };
 
   const [revisedCalc, setRevisedCalc] = useState({
     additionalAmountPerPDC:
@@ -835,7 +843,7 @@ function Index() {
       marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
     marginMoneyPayable:
       marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
-  })
+  });
 
   const [calcRevised, setCalcRevised] = useState({
     additionalAmountPerPDC: '',
@@ -844,9 +852,9 @@ function Index() {
     revisedMarginMoney: '',
     marginMoneyReceived: '',
     marginMoneyPayable: '',
-  })
+  });
 
-  console.log(calcRevised, 'CALC REVISED')
+  console.log(calcRevised, 'CALC REVISED');
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -862,7 +870,11 @@ function Index() {
     consigneeAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
     importerName:
-      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
+      marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
+      marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+        ?.toUpperCase()
+        ?.replace(/ *\([^)]*\) */g, '') ||
+      '',
     branchOffice:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
     companyAddress:
@@ -877,13 +889,19 @@ function Index() {
       marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
-  })
-  console.log(marginData?.invoiceDetail?.importerName, "ssdsdfsdf", marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, ""))
+  });
+  console.log(
+    marginData?.invoiceDetail?.importerName,
+    'ssdsdfsdf',
+    marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+      ?.toUpperCase()
+      ?.replace(/ *\([^)]*\) */g, ''),
+  );
   useEffect(() => {
-    getRevisedData()
+    getRevisedData();
 
     setInvoiceDataRevised({
-      buyerName: marginData?.company?.companyName || "",
+      buyerName: marginData?.company?.companyName || '',
       buyerGSTIN:
         marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
       buyerAddress:
@@ -897,7 +915,11 @@ function Index() {
       consigneeAddress:
         marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
       importerName:
-        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank?.toUpperCase()?.replace(/ *\([^)]*\) */g, "") || '',
+        marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
+        marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+          ?.toUpperCase()
+          ?.replace(/ *\([^)]*\) */g, '') ||
+        '',
       branchOffice:
         marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
       companyAddress:
@@ -910,8 +932,8 @@ function Index() {
         marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
       IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
       accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
-    })
-  }, [marginData])
+    });
+  }, [marginData]);
 
   const getRevisedData = () => {
     setRevisedCalc({
@@ -926,22 +948,22 @@ function Index() {
         marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
       marginMoneyPayable:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
-    })
+    });
 
     // T calculation
     let additionalAmountPerPDC = parseFloat(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
-      Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2)
+        Number(forCalculationRevised.additionalPDC),
+    ).toFixed(2);
     // u calculation
     let revisedNetOrderValueNew = parseFloat(
       marginData?.revisedMarginMoney?.totalOrderValue -
-      marginData?.calculation?.totalOrderValue,
-    ).toFixed(2)
+        marginData?.calculation?.totalOrderValue,
+    ).toFixed(2);
 
-    let marginMoneyRevised = marginData?.calculation?.marginMoney
-    let revisedMarginMoneyNew = marginData?.calculation?.marginMoney
+    let marginMoneyRevised = marginData?.calculation?.marginMoney;
+    let revisedMarginMoneyNew = marginData?.calculation?.marginMoney;
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -950,37 +972,37 @@ function Index() {
       revisedMarginMoney: revisedMarginMoneyNew,
       marginMoneyReceived: '',
       marginMoneyPayable: '',
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    getRevisedData2()
-  }, [revisedCalc])
+    getRevisedData2();
+  }, [revisedCalc]);
   // ? revisedCalc.additionalAmountPerPDC
   //           : 0,
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = parseFloat(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
-      Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2)
+        Number(forCalculationRevised.additionalPDC),
+    ).toFixed(2);
 
-    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC');
     let revisedNetOrderValueNew = parseFloat(
       Number(
         marginData?.revisedMarginMoney?.totalOrderValue
           ? marginData?.revisedMarginMoney?.totalOrderValue
           : 0,
       ) - Number(marginData?.calculation?.totalOrderValue),
-    ).toFixed(2)
+    ).toFixed(2);
     let marginMoneyRevised = Number(
       marginData?.calculation?.marginMoney,
-    ).toFixed(2)
+    ).toFixed(2);
     let revisedMarginMoneyNew = Number(
       marginData?.calculation?.marginMoney
         ? marginData?.calculation?.marginMoney
         : 0,
-    )
+    );
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -989,16 +1011,16 @@ function Index() {
       revisedMarginMoney: revisedMarginMoneyNew,
       marginMoneyReceived: '',
       marginMoneyPayable: '',
-    })
-  }
+    });
+  };
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
-    const newInput = { ...invoiceDataRevised }
-    newInput[name] = value
+    const newInput = { ...invoiceDataRevised };
+    newInput[name] = value;
     // console.log(newInput, 'nnto', name, value)
 
-    setInvoiceDataRevised({ ...newInput })
-  }
+    setInvoiceDataRevised({ ...newInput });
+  };
 
   const setSameRevised = (val) => {
     if (val == true) {
@@ -1007,16 +1029,16 @@ function Index() {
         consigneeName: invoiceDataRevised.buyerName,
         consigneeGSTIN: invoiceDataRevised.buyerGSTIN,
         consigneeAddress: invoiceDataRevised.buyerAddress,
-      })
+      });
     } else {
       setInvoiceDataRevised({
         ...invoiceDataRevised,
         consigneeName: '',
         consigneeGSTIN: '',
         consigneeAddress: '',
-      })
+      });
     }
-  }
+  };
 
   const handleUpdateRevisedMarginMoney = () => {
     let obj = {
@@ -1049,32 +1071,32 @@ function Index() {
         perUnitPrice: forCalculationRevised.perUnitPrice,
         orderValue: finalCalRevised.orderValue,
       },
-    }
+    };
 
-    dispatch(RevisedMarginMoney(obj))
-  }
+    dispatch(RevisedMarginMoney(obj));
+  };
 
   const saveOrderData = (name, value) => {
-    const newInput = { ...unit }
-    newInput[name] = value
+    const newInput = { ...unit };
+    newInput[name] = value;
 
     // console.log(newInput)
-    setUnit(newInput)
-  }
+    setUnit(newInput);
+  };
 
   const coversionUnitHandler = (val) => {
-    let unit = 10000000
+    let unit = 10000000;
     if (val === 'Lakh') {
-      unit = 100000
+      unit = 100000;
     }
     if (val === 'Million') {
-      unit = 1000000
+      unit = 1000000;
     }
     if (val === 'Crores') {
-      unit = 10000000
+      unit = 10000000;
     }
-    setCoversionUnit(unit)
-  }
+    setCoversionUnit(unit);
+  };
 
   const exportPDF = () => {
     //  let margins = [
@@ -1542,12 +1564,12 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                'en-In',
-                                {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                },
-                              )
+                                  'en-In',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                )
                               : 0,
                             '%',
                             '',
@@ -1599,7 +1621,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -2568,17 +2590,17 @@ function Index() {
           </td>
         </tr>
       </table>
-    )
+    );
     // const doc = new jsPDF('p', 'pt', [1000, 1000])
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
-        doc.save('sample.pdf')
+        doc.save('sample.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
-    })
-  }
+    });
+  };
 
   const exportPDFReviced = () => {
     //  let margins = [
@@ -3184,12 +3206,12 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                'en-In',
-                                {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                },
-                              )
+                                  'en-In',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  },
+                                )
                               : 0,
                             '%',
                             '',
@@ -3267,7 +3289,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3290,7 +3312,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                ?.marginMoney
+                                  ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -4654,19 +4676,19 @@ function Index() {
           </td>
         </tr>
       </table>
-    )
+    );
     // const doc = new jsPDF('p', 'pt', 'a4')
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1500]);
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
-        doc.save('sample.pdf')
+        doc.save('sample.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
-    })
-  }
+    });
+  };
 
-  const [active, setActive] = useState('Margin Money')
+  const [active, setActive] = useState('Margin Money');
 
   return (
     <>
@@ -4812,10 +4834,10 @@ function Index() {
                               name="unitOfQuantity"
                               onChange={(e) => {
                                 saveOrderData(e.target.name, e.target.value),
-                                  coversionUnitHandler(e.target.value)
+                                  coversionUnitHandler(e.target.value);
                               }}
                             >
-                              <option disabled >Select</option>
+                              <option disabled>Select</option>
                               <option selected value="Crores">
                                 Crores
                               </option>
@@ -4876,7 +4898,8 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
                                     marginData?.order?.quantity?.toLocaleString(
-                                      'en-In', { maximumFractionDigits: 2 }
+                                      'en-In',
+                                      { maximumFractionDigits: 2 },
                                     ),
                                     '',
                                   )}{' '}
@@ -4905,7 +4928,9 @@ function Index() {
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+                                  )?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                  })}
                                 </div>
                               </div>
                             </div>
@@ -4919,7 +4944,6 @@ function Index() {
                               </div>
                               <input
                                 type="number"
-
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -4931,24 +4955,30 @@ function Index() {
                                     e.target.name,
                                     e.target.value,
                                   )
-                                } onWheel={(event) =>
-                                  event.currentTarget.blur()
                                 }
+                                onWheel={(event) => event.currentTarget.blur()}
                                 onFocus={(e) => {
-                                  setIsFieldInFocus({ ...isFieldInFocus, conversion: true }),
-                                    (e.target.type = 'number')
+                                  setIsFieldInFocus({
+                                    ...isFieldInFocus,
+                                    conversion: true,
+                                  }),
+                                    (e.target.type = 'number');
                                 }}
                                 onBlur={(e) => {
-                                  setIsFieldInFocus({ ...isFieldInFocus, conversion: false }),
-
-                                    (e.target.type = 'text')
+                                  setIsFieldInFocus({
+                                    ...isFieldInFocus,
+                                    conversion: false,
+                                  }),
+                                    (e.target.type = 'text');
                                 }}
                                 value={
                                   isFieldInFocus.conversion
                                     ? forCalculation?.conversionRate
                                     : checkNan(
-                                      Number(forCalculation?.conversionRate),
-                                    )?.toLocaleString('en-In', { maximumFractionDigits: 2 })
+                                        Number(forCalculation?.conversionRate),
+                                      )?.toLocaleString('en-In', {
+                                        maximumFractionDigits: 2,
+                                      })
                                 }
                                 // value={forCalculation?.conversionRate}
                                 className={`${styles.input_field} input form-control`}
@@ -5145,24 +5175,27 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
-                                onWheel={(event) =>
-                                  event.currentTarget.blur()
-                                }
+                                onWheel={(event) => event.currentTarget.blur()}
                                 onFocus={(e) => {
-                                  setIsFieldInFocus({ ...isFieldInFocus, noOfPdcs: true }),
-                                    (e.target.type = 'number')
+                                  setIsFieldInFocus({
+                                    ...isFieldInFocus,
+                                    noOfPdcs: true,
+                                  }),
+                                    (e.target.type = 'number');
                                 }}
                                 onBlur={(e) => {
-                                  setIsFieldInFocus({ ...isFieldInFocus, noOfPdcs: false }),
-
-                                    (e.target.type = 'text')
+                                  setIsFieldInFocus({
+                                    ...isFieldInFocus,
+                                    noOfPdcs: false,
+                                  }),
+                                    (e.target.type = 'text');
                                 }}
                                 value={
                                   isFieldInFocus.noOfPdcs
                                     ? forCalculation?.numberOfPDC
                                     : checkNan(
-                                      Number(forCalculation?.numberOfPDC),
-                                    )?.toLocaleString('en-In')
+                                        Number(forCalculation?.numberOfPDC),
+                                      )?.toLocaleString('en-In')
                                 }
                                 onChange={(e) =>
                                   saveForCalculation(
@@ -5760,12 +5793,12 @@ function Index() {
                                         setInvoiceData({
                                           ...invoiceData,
                                           isConsigneeSameAsBuyer: true,
-                                        })
+                                        });
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   true,
                                         // )
-                                        setSame(true)
+                                        setSame(true);
                                       }}
                                       name="group1"
                                       type={type}
@@ -5783,8 +5816,8 @@ function Index() {
                                         setInvoiceData({
                                           ...invoiceData,
                                           isConsigneeSameAsBuyer: false,
-                                        })
-                                        setSame(false)
+                                        });
+                                        setSame(false);
                                       }}
                                       name="group1"
                                       type={type}
@@ -6211,6 +6244,6 @@ function Index() {
         handleApprove={routeChange}
       /> */}
     </>
-  )
+  );
 }
-export default Index
+export default Index;

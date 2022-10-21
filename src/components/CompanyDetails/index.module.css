@@ -1,6 +1,6 @@
 .main {
   padding: 35px 35px 10px;
-  border-bottom: 3px solid #D9DDE8;
+  border-bottom: 3px solid #d9dde8;
 }
 
 .main .heading {
@@ -59,40 +59,40 @@
   position: absolute;
   pointer-events: none;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   background: #ffffff;
   -webkit-transform: translateY(-31px);
-          transform: translateY(-31px);
+  transform: translateY(-31px);
   -webkit-transition: 0.3s all ease-in-out;
   transition: 0.3s all ease-in-out;
 }
 
 .main .input_container .each_input .input_field {
   height: 60px;
-  background-color: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
   border-radius: 4px;
   color: #111111;
   font-size: 20px;
   font-weight: 500;
   outline: none;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   position: relative;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .main .input_container .each_input .input_field:invalid + label {
   background: none;
   -webkit-transform: translateY(0);
-          transform: translateY(0);
+  transform: translateY(0);
 }
 
 .main .input_container .each_input .input_field:focus + label {
   background: #ffffff;
   -webkit-transform: translateY(-31px);
-          transform: translateY(-31px);
+  transform: translateY(-31px);
 }
 
 .main .input_container .each_input .slidecontainer {
@@ -108,14 +108,20 @@
   /* Full-width */
   opacity: 0.7;
   /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s;
+  -webkit-transition: 0.2s;
   /* 0.2 seconds transition on hover */
-  -webkit-transition: opacity .2s;
-  transition: opacity .2s;
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
   outline: none;
-  background: -webkit-gradient(linear, left top, right top, color-stop(55%, #3579F6), color-stop(40%, #C3C3C31F));
-  background: linear-gradient(90deg, #3579F6 55%, #C3C3C31F 40%);
-  border: 1px solid #0000001F;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(55%, #3579f6),
+    color-stop(40%, #c3c3c31f)
+  );
+  background: linear-gradient(90deg, #3579f6 55%, #c3c3c31f 40%);
+  border: 1px solid #0000001f;
   border-radius: 4px;
   height: 13px;
 }
@@ -125,8 +131,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   font-size: 16px;
   letter-spacing: 0.15px;
   color: #666666;
@@ -134,15 +140,19 @@
   width: 100%;
 }
 
-.main .input_container .each_input .slidecontainer .slider::-webkit-slider-thumb {
+.main
+  .input_container
+  .each_input
+  .slidecontainer
+  .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 29px;
   height: 16px;
   background: transparent;
-  -webkit-box-shadow: 0px 3px 6px #697AB429;
-          box-shadow: 0px 3px 6px #697AB429;
-  border: 3px solid #3579F6;
+  -webkit-box-shadow: 0px 3px 6px #697ab429;
+  box-shadow: 0px 3px 6px #697ab429;
+  border: 3px solid #3579f6;
   border-radius: 4px;
   position: relative;
   margin-top: -19px;
@@ -155,28 +165,28 @@
 }
 
 .main .input_container .each_input .phone_card .code_phone {
-  border: 1px solid #0000001F;
+  border: 1px solid #0000001f;
   border-radius: 4px;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   font-size: 19px;
   letter-spacing: 0.18px;
-  color: #3687E8;
+  color: #3687e8;
   text-transform: capitalize;
 }
 
 .main .input_container .each_input .range_field {
-  background-color: #3687E8;
+  background-color: #3687e8;
   border-radius: 4px;
 }
 
 .main .input_container .phone .label_heading {
   left: 90px;
   -webkit-transform: translate(-61px, -31px);
-          transform: translate(-61px, -31px);
+  transform: translate(-61px, -31px);
 }
 
 .main .input_container .phone .input_field:focus + label {
   -webkit-transform: translate(-61px, -31px);
-          transform: translate(-61px, -31px);
+  transform: translate(-61px, -31px);
 }
 /*# sourceMappingURL=index.module.css.map */

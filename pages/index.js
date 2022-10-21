@@ -1,27 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
-import RepoSearch from 'features/repoSearch/RepoSearch'
-import { useRouter } from 'next/router'
-import { createStore } from 'store'
-import { getReposAsync } from 'features/repoSearch/repoSearchSlice'
-import DoughnutChart from '../src/components/DoughnutChart'
-import Leads from '../src/components/Leads'
-import styles from './index.module.scss'
-import Commodities from '../src/components/Commodities'
-import Exposure from '../src/components/Exposure'
-import Countries from '../src/components/Countries'
-import 'bootstrap/dist/css/bootstrap.css'
-import Footer from '../src/components/Footer'
-import { Container, Row, Col, Card } from 'react-bootstrap'
-import TermsheetPopUp from '../src/components/TermsheetPopUp'
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { setPageName } from '../src/redux/userData/action'
-import Popup from '../src/components/Popups/BillPopup/index'
-import { getAnalystData } from '../src/redux/analytics/actions'
+import RepoSearch from 'features/repoSearch/RepoSearch';
+import { useRouter } from 'next/router';
+import { createStore } from 'store';
+import { getReposAsync } from 'features/repoSearch/repoSearchSlice';
+import DoughnutChart from '../src/components/DoughnutChart';
+import Leads from '../src/components/Leads';
+import styles from './index.module.scss';
+import Commodities from '../src/components/Commodities';
+import Exposure from '../src/components/Exposure';
+import Countries from '../src/components/Countries';
+import 'bootstrap/dist/css/bootstrap.css';
+import Footer from '../src/components/Footer';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import TermsheetPopUp from '../src/components/TermsheetPopUp';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPageName } from '../src/redux/userData/action';
+import Popup from '../src/components/Popups/BillPopup/index';
+import { getAnalystData } from '../src/redux/analytics/actions';
 const IndexPage = () => {
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const darkMode = useSelector((state) => state.user.isDark)
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.user.isDark);
   const {
     orderSummary,
     leadSummary,
@@ -31,22 +31,22 @@ const IndexPage = () => {
     exposureSummary,
     totalOrigin,
     totalCustomer,
-  } = useSelector((state) => state.analytics)
-  console.log(customerSummary, 'leadSummary')
+  } = useSelector((state) => state.analytics);
+  console.log(customerSummary, 'leadSummary');
   useEffect(() => {
-    dispatch(setPageName('dashboard'))
-  })
+    dispatch(setPageName('dashboard'));
+  });
   useEffect(() => {
-    dispatch(getAnalystData())
-  }, [])
+    dispatch(getAnalystData());
+  }, []);
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Dashboard')
-      sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', ``)
+      sessionStorage.setItem('loadedPage', 'Dashboard');
+      sessionStorage.setItem('loadedSubPage', null);
+      sessionStorage.setItem('openList', ``);
     }
-  }, [])
-  console.log('BUILD TEST *******************')
+  }, []);
+  console.log('BUILD TEST *******************');
   return (
     <>
       <Popup />
@@ -230,18 +230,18 @@ const IndexPage = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export async function getStaticProps() {
-  const store = createStore()
-  await store.dispatch(getReposAsync('python'))
+  const store = createStore();
+  await store.dispatch(getReposAsync('python'));
 
   return {
     props: {
       state: store.getState(),
     },
-  }
+  };
 }
 
-export default IndexPage
+export default IndexPage;
