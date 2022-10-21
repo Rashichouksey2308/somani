@@ -693,6 +693,16 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
+                    {/* {_get(TransitDetails, 'data[0].order.orderCurrency', '')} {' '}
+
+                    {convertValue(_get(
+                      TransitDetails,
+                      'data[0].order.marginMoney.calculation.orderValue',
+                      '',
+                    ), _get(TransitDetails, 'data[0].order.orderCurrency', '') !== 'USD' ? 1000000 : 10000000)
+                      ?.toLocaleString(_get(TransitDetails, 'data[0].order.orderCurrency', '') === 'INR' ? 'en-IN' : undefined,
+                        { maximumFractionDigits: 2 })} */}
+
                     {convertValue(_get(
                       TransitDetails,
                       'data[0].order.marginMoney.calculation.orderValue',
@@ -749,7 +759,7 @@ export default function Index({
                         onBolAdd()
                       }}
                       className={`${styles.add_btn} mr-0`}
-                      style={{paddingBottom:'10px'}}
+                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -758,10 +768,10 @@ export default function Index({
                     <button
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} border-danger text-danger`}
-                      >
-                        <img src="/static/delete.svg"
+                    >
+                      <img src="/static/delete.svg"
                         className='ml-1 mt-n1'
-                         width={13} alt="delete" />{' '}
+                        width={13} alt="delete" />{' '}
                       Delete
                     </button>
                   ) : null}
