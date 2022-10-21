@@ -330,10 +330,9 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
 
-    if (Number(last) === NaN || last === null || (!last && last !== 0) || last === undefined || Number(previous) === NaN || previous === null || previous === undefined || Number(latest) === NaN || latest === null || latest === undefined) {
+    if (Number(last) === NaN || last === null || (!last && last !== 0) || last === undefined || Number(previous) === NaN || previous === null || (!previous && previous !== 0)|| previous === undefined || Number(latest) === NaN || latest === null || (!latest && latest !== 0) || latest === undefined) {
       return (<img src="/static/noTrend.svg" alt="Loss" className="img-fluid" />)
     } else {
-      console.log(last, previous, latest, 'trends')
       if (last === previous && previous < latest) {
 
         return (
@@ -395,6 +394,7 @@ function Index() {
       }
 
       if (last == previous && previous == latest) {
+        console.log(last, previous, latest, 'trends')
 
         return (
           <img

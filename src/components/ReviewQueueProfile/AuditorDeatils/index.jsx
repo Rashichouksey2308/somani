@@ -423,10 +423,8 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${
-                                  director?.dscExpiryDate !== null
-                                    ? dscStatus(director?.dscExpiryDate) ===
-                                      'Expired'
+                                className={`${director?.dinStatus !== null
+                                    ? !dscStatus(director?.dinStatus)?.toLowerCase()?.includes('approved') 
                                       ? styles.danger
                                       : styles.success
                                     : styles.black
