@@ -566,25 +566,7 @@ setEditAddress(
                 />
               </div>
             </Form.Group>
-            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-    
-                <input
-                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  // value={cmaState.gstin}
-                  // onChange={(e) => {
-                  //   handleInput(e.target.name, e.target.value)
-                  // }}
-                  //  name="gstin"
-                />
-               
-                <Form.Label
-                  className={`${styles.label_heading} ${styles.select}  label_heading`}
-                >
-                  Designated Storage Area<strong className="text-danger">*</strong>
-                </Form.Label>
-               
-        
-            </Form.Group>
+          
              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
