@@ -1,88 +1,85 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-import moment from 'moment'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import moment from 'moment';
 function Index(props) {
-  const [addressList, setAddressList] = useState([])
-  const [value, setValue] = useState('')
-  const [isAssignment, setIsAssignment] = useState('')
+  const [addressList, setAddressList] = useState([]);
+  const [value, setValue] = useState('');
+  const [isAssignment, setIsAssignment] = useState('');
 
   const changeEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, isEdit: !obj.isEdit }
+          return { ...obj, isEdit: !obj.isEdit };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('add'), '.getItem')
+      console.log(sessionStorage.getItem('add'), '.getItem');
       if (sessionStorage.getItem('add')) {
-        let savedData = JSON.parse(sessionStorage.getItem('add'))
-        let temp = []
+        let savedData = JSON.parse(sessionStorage.getItem('add'));
+        let temp = [];
 
-        setAddressList(savedData)
-          savedData.forEach((val) => {
-        
-          if(val.name=="Assignment Letter"){
-            setIsAssignment("Assignment Letter")
+        setAddressList(savedData);
+        savedData.forEach((val) => {
+          if (val.name == 'Assignment Letter') {
+            setIsAssignment('Assignment Letter');
           }
-        })
-
+        });
       } else {
-        let temp = []
+        let temp = [];
         props.data?.comments.forEach((val) => {
           temp.push({
             name: val.agreementName,
             comment: val.comment,
             dateOfExecution: val?.dateOfExecution,
-            dateOfContract:val.dateOfContract||null,
-            monthOfLoadingCargo:val.monthOfLoadingCargo||"",
+            dateOfContract: val.dateOfContract || null,
+            monthOfLoadingCargo: val.monthOfLoadingCargo || '',
 
             isEdit: false,
-          })
-          if(val.agreementName=="Assignment Letter"){
-            setIsAssignment("Assignment Letter")
+          });
+          if (val.agreementName == 'Assignment Letter') {
+            setIsAssignment('Assignment Letter');
           }
-        })
-        setAddressList(temp)
-        
+        });
+        setAddressList(temp);
       }
     }
-  }, [props])
-  console.log(addressList, 'addressList')
+  }, [props]);
+  console.log(addressList, 'addressList');
   useEffect(() => {
     if (props.saveData == true && props.active == 'Additional Comments') {
       let data = {
         addressList: addressList,
-      }
-      props.sendData('Additional Comments', data)
+      };
+      props.sendData('Additional Comments', data);
     }
     if (props.submitData == true && props.active == 'Additional Comments') {
       let data = {
         addressList: addressList,
-      }
+      };
 
-      props.updateData('Additional Comments', data)
+      props.updateData('Additional Comments', data);
     }
 
     // setSupplierState({...supplierState,multiParty:props.multiPart})
-  }, [props.saveData, props.submitData])
+  }, [props.saveData, props.submitData]);
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ])
-  }
+    ]);
+  };
 
   const addMoreRows = () => {
     setAddressList([
@@ -91,78 +88,80 @@ function Index(props) {
         name: 'Sales Agreement',
         comment: '',
         dateOfExecution: null,
-        dateOfContract:null,
-        monthOfLoadingCargo:"",
+        dateOfContract: null,
+        monthOfLoadingCargo: '',
 
         actions: 'false',
       },
-    ])
-  }
+    ]);
+  };
   const handleRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const handleChangeInput = (name, value, index) => {
-    console.log(name, 'name')
+    console.log(name, 'name');
 
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name]: value }
+          return { ...obj, [name]: value };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const onEditRemove = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' }
+          return { ...obj, actions: 'true' };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const onEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' }
+          return { ...obj, actions: 'false' };
         }
         // 👇️ otherwise return object as is
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
-  const getFiled = ()=>{
-    let isPresent=false
-    addressList.forEach((val,index)=>{
-      console.log(val.agreementName,"val.agreementName")
-      if(val.name=="Assignment Letter"){
-        isPresent=true
+      return newState;
+    });
+  };
+  const getFiled = () => {
+    let isPresent = false;
+    addressList.forEach((val, index) => {
+      console.log(val.agreementName, 'val.agreementName');
+      if (val.name == 'Assignment Letter') {
+        isPresent = true;
       }
-    })
-    console.log(isPresent,"isPresent")
-    if(isPresent){
-      return (<>
-      <td></td>
-      <td></td>
-      </>)
-    }else{
-      return(<></>)
+    });
+    console.log(isPresent, 'isPresent');
+    if (isPresent) {
+      return (
+        <>
+          <td></td>
+          <td></td>
+        </>
+      );
+    } else {
+      return <></>;
     }
-  }
+  };
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -189,7 +188,8 @@ function Index(props) {
                     {isAssignment === 'Assignment Letter' ? (
                       <>
                         <th width="20%" className="border-0 generic_th">
-                          Month of loading of Cargo<strong className="text-danger">*</strong>
+                          Month of loading of Cargo
+                          <strong className="text-danger">*</strong>
                         </th>
                         <th width="15%" className="border-0 generic_th">
                           Date of Contract between Shipper and Buyer
@@ -240,7 +240,7 @@ function Index(props) {
                                         e.target.value,
                                         index,
                                       ),
-                                        setIsAssignment(e.target.value)
+                                        setIsAssignment(e.target.value);
                                     }}
                                   >
                                     <option>Select an option</option>
@@ -280,7 +280,7 @@ function Index(props) {
                                         e.target.name,
                                         e.target.value,
                                         index,
-                                      )
+                                      );
                                     }}
                                   />
                                 </td>
@@ -289,7 +289,7 @@ function Index(props) {
                                     <DateCalender
                                       name="dateOfExecution"
                                       saveDate={(val, name, index) => {
-                                        handleChangeInput(name, val, index)
+                                        handleChangeInput(name, val, index);
                                       }}
                                       defaultDate={
                                         val.dateOfExecution == null
@@ -307,7 +307,7 @@ function Index(props) {
                                   </div>
                                 </td>
 
-                                {val.name === "Assignment Letter"? (
+                                {val.name === 'Assignment Letter' ? (
                                   <>
                                     <td>
                                       <div className="d-flex">
@@ -316,12 +316,12 @@ function Index(props) {
                                           name="monthOfLoadingCargo"
                                           value={val.monthOfLoadingCargo}
                                           onChange={(e) => {
-                                          handleChangeInput(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              )
-                                            }}
+                                            handleChangeInput(
+                                              e.target.name,
+                                              e.target.value,
+                                              index,
+                                            );
+                                          }}
                                         >
                                           <option value="">
                                             Select an option
@@ -363,12 +363,14 @@ function Index(props) {
                                         <DateCalender
                                           name="dateOfContract"
                                           saveDate={(val, name, index) => {
-                                            handleChangeInput(name, val, index)
+                                            handleChangeInput(name, val, index);
                                           }}
                                           defaultDate={
                                             val.dateOfContract == null
                                               ? null
-                                              : moment(val.dateOfContract).toDate()
+                                              : moment(
+                                                  val.dateOfContract,
+                                                ).toDate()
                                           }
                                           // // small={true}
                                           index={index}
@@ -381,11 +383,9 @@ function Index(props) {
                                       </div>
                                     </td>
                                   </>
-                                ) : 
-                                <>
-                                  {getFiled()}
-                                </>
-                               }
+                                ) : (
+                                  <>{getFiled()}</>
+                                )}
                                 <td className={`d-flex`}>
                                   <img
                                     className={`${styles.image} mr-3`}
@@ -401,14 +401,14 @@ function Index(props) {
                               </tr>
                             )}
                           </>
-                        )
+                        );
                       })}
                   </tbody>
                 </table>
                 <div
                   className={`${styles.addMoreRows}`}
                   onClick={(e) => {
-                    addMoreRows()
+                    addMoreRows();
                   }}
                 >
                   <span>+</span> Add more rows
@@ -420,7 +420,7 @@ function Index(props) {
         <div></div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

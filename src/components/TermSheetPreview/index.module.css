@@ -16,11 +16,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .root_container .head_container .head_container .head_header .arrow {
@@ -47,13 +47,13 @@
 .root_container .head_container .term_container {
   padding: 18px 36px 18px 36px;
   height: 126px;
-  background: #D8EAFF 0% 0% no-repeat padding-box;
-  border: 1px solid #D2D7E5;
+  background: #d8eaff 0% 0% no-repeat padding-box;
+  border: 1px solid #d2d7e5;
   border-radius: 6px;
 }
 
 .root_container .head_container .term_container span {
-  color: #3687E8;
+  color: #3687e8;
   font-size: 34px;
   line-height: 41px;
   font-weight: bold;
@@ -75,7 +75,7 @@
 }
 
 .root_container .head_container .content .row_head {
-  background: #FAFAFB 0% 0% no-repeat padding-box;
+  background: #fafafb 0% 0% no-repeat padding-box;
 }
 
 .root_container .head_container .content .row_head .content_header {
@@ -94,11 +94,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .root_container .head_container .content .row_head .content_header_other {
@@ -114,7 +114,7 @@
   font-size: 22px;
   line-height: 27px;
   font-weight: bold;
-  color: #3687E8;
+  color: #3687e8;
   padding-left: 36px;
 }
 
@@ -124,11 +124,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .root_container .head_container .sub_content_other {
@@ -190,11 +190,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
 }
 
 .root_container .head_container .checkMarks .left {
@@ -209,7 +209,7 @@
   color: #111111;
   padding: 20px 0 20px 30px;
   height: 67px;
-  background-color: #FAFAFB;
+  background-color: #fafafb;
 }
 
 .root_container .head_container .checkMarks .left .checkContent {
@@ -240,7 +240,7 @@
   color: #111111;
   padding: 20px 0 20px 30px;
   height: 67px;
-  background-color: #FAFAFB;
+  background-color: #fafafb;
 }
 
 .root_container .head_container .checkMarks .right .checkContent {
@@ -265,7 +265,7 @@
   color: #111111;
   padding: 20px 0 20px 30px;
   height: 67px;
-  background-color: #FAFAFB;
+  background-color: #fafafb;
 }
 
 .root_container .head_container .right {
@@ -312,10 +312,10 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 /*# sourceMappingURL=index.module.css.map */

@@ -1,74 +1,73 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Row, Col, Form } from 'react-bootstrap'
-import PaginateBar from '../../../src/components/Paginatebar'
-import _get from 'lodash/get'
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from '../../../src/redux/insurance/action'
-import moment from 'moment'
-import { CovertvaluefromtoCR } from '../../../src/utils/helper'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Row, Col, Form } from 'react-bootstrap';
+import PaginateBar from '../../../src/components/Paginatebar';
+import _get from 'lodash/get';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from '../../../src/redux/insurance/action';
+import moment from 'moment';
+import { CovertvaluefromtoCR } from '../../../src/utils/helper';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../../src/redux/userData/action'
-import Router from 'next/router'
-import Modal from 'react-bootstrap/Modal'
+} from '../../../src/redux/userData/action';
+import Router from 'next/router';
+import Modal from 'react-bootstrap/Modal';
 
 function Index() {
-  const dispatch = useDispatch()
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const handlePopup = () => {
-    setShow(true)
-  }
+    setShow(true);
+  };
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('letterId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
 
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
-  dispatch(setPageName('insurance Request Letter'))
+  dispatch(setPageName('insurance Request Letter'));
   dispatch(
     setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
-  )
-  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+  );
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
-  console.log(insuranceData, 'INSURANCE DATA LETTER')
+  console.log(insuranceData, 'INSURANCE DATA LETTER');
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ])
+  ]);
   const [insuranceAdd, setinsuranceAdd] = useState([
     {
       insurance: '',
     },
-  ])
-  console.log(insuranceAdd, emailAdd, "emailAdd")
+  ]);
+  console.log(insuranceAdd, emailAdd, 'emailAdd');
   const addMoreRows = (val) => {
-    console.log(val, "vak")
-    if (val == "email") {
+    console.log(val, 'vak');
+    if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
         {
           emailID: '',
         },
-      ])
+      ]);
     } else {
       setinsuranceAdd([
         ...insuranceAdd,
         {
           insurance: '',
         },
-      ])
+      ]);
     }
-
-  }
+  };
   return (
     <>
       <div className="container-fluid p-0">
@@ -78,7 +77,6 @@ function Index() {
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/insurance/form')}>
               <img
-
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow"
@@ -234,9 +232,11 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                    BL Weight{' '}
+                    {insuranceData?.order?.quantity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
-                    })} MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
+                    })}{' '}
+                    MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -395,7 +395,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} , <br></br>   {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+                    {insuranceData?.company?.companyName} , <br></br>{' '}
+                    {
+                      insuranceData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.registeredAddress
+                    }
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -484,7 +488,7 @@ function Index() {
                 role="tabpanel"
                 aria-labelledby="share-LC-draft"
               >
-                  <h3 className='share_h3'>Share as</h3>
+                <h3 className="share_h3">Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
                   <div
                     className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
@@ -496,7 +500,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      Requestletter.pdf<span className='size_number'>128kb</span>
+                      Requestletter.pdf
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -515,7 +520,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      Requestletter.doc<span className='size_number'>128kb</span>
+                      Requestletter.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -539,7 +545,6 @@ function Index() {
                       role="tab"
                       aria-controls="insuranceCompany"
                       aria-selected="true"
-
                     >
                       <img
                         src="/static/groups.svg"
@@ -559,7 +564,6 @@ function Index() {
                       role="tab"
                       aria-controls="emailAddress"
                       aria-selected="false"
-
                     >
                       <img
                         src="/static/email-icon.png"
@@ -600,7 +604,6 @@ function Index() {
                           alt="Search"
                         />
                       </div>
-
                     </div>
                     {insuranceAdd.map((val, index) => {
                       return (
@@ -630,17 +633,15 @@ function Index() {
                           </div>
                           <hr></hr>
                         </>
-                      )
+                      );
                     })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows("insurance")
+                        addMoreRows('insurance');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
-
-                      >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
                       add another
@@ -668,7 +669,6 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-
                       {emailAdd.map((val, index) => {
                         return (
                           <>
@@ -696,11 +696,8 @@ function Index() {
                               />
                             </div>
                           </>
-
-
-                        )
+                        );
                       })}
-
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -709,13 +706,11 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this)
-                        addMoreRows("email")
+                        console.log(this);
+                        addMoreRows('email');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
-
-                      >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
                       add another
@@ -757,7 +752,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      LC Document.pdf<span className='size_number'>128kb</span>
+                      LC Document.pdf<span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -776,7 +771,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      word document.doc<span className='size_number'>128kb</span>
+                      word document.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -808,7 +804,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

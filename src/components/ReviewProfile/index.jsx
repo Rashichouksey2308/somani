@@ -1,41 +1,54 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import moment from 'moment'
-import { convertValue, CovertvaluefromtoCR } from '../../utils/helper'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { DropdownButton, Dropdown, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
+import { convertValue, CovertvaluefromtoCR } from '../../utils/helper';
 
-import DateCalender from '../DateCalender'
-function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFields, fields, setPayloadData }) {
-
+import DateCalender from '../DateCalender';
+function Index({
+  handleChange,
+  reviewedProfile,
+  isAddedRow,
+  payloadData,
+  setFields,
+  fields,
+  setPayloadData,
+}) {
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
     'Import',
     'Domestic',
-  ])
-  console.log(fields, "payloadData")
-  const commodityDropdown = ['Iron', 'Crude', 'Steel', "Coal"]
-  const countryOfOriginDropdown = ['India', 'Australia', "Sri Lanka", "Qatar", "Dubai"]
+  ]);
+  console.log(fields, 'payloadData');
+  const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
+  const countryOfOriginDropdown = [
+    'India',
+    'Australia',
+    'Sri Lanka',
+    'Qatar',
+    'Dubai',
+  ];
   const portOfDischargeDropdown = [
     'Mumbai, India',
     'Gujrat, India',
     'Vishakapatnam, India',
-  ]
+  ];
   useEffect(() => {
     if (reviewedProfile) {
       if (reviewedProfile?.transactionType?.originalValue == 'Domestic') {
-        settransactionTypeDropdown(['Import'])
+        settransactionTypeDropdown(['Import']);
       } else if (reviewedProfile?.transactionType?.originalValue == 'Import') {
-        settransactionTypeDropdown(['Domestic'])
+        settransactionTypeDropdown(['Domestic']);
       } else {
-        settransactionTypeDropdown(['Import', 'Domestic'])
+        settransactionTypeDropdown(['Import', 'Domestic']);
       }
     }
-  }, [reviewedProfile])
-  const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
+  }, [reviewedProfile]);
+  const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail'];
 
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   const DropDown = (values, name, disabled) => {
     return (
       <div className="d-inline-flex align-items-center position-relative">
@@ -44,15 +57,15 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
           name={name}
           className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
           onChange={(e) => {
-            handleChange(e.target.name, e.target.value)
+            handleChange(e.target.name, e.target.value);
           }}
           value={payloadData[name] ?? ''}
           disabled={disabled}
         >
           {' '}
-          <option value='' >Select an option</option>
+          <option value="">Select an option</option>
           {values.map((options) => {
-            return <option>{options}</option>
+            return <option>{options}</option>;
           })}{' '}
         </Form.Select>
         <img
@@ -61,32 +74,28 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
           alt="Search"
         />
       </div>
-    )
-  }
+    );
+  };
 
   const clearData = () => {
-    document.getElementById('ReviewProfileForm').reset()
-  }
+    document.getElementById('ReviewProfileForm').reset();
+  };
 
-
-  console.log(payloadData, 'payloadData')
-
+  console.log(payloadData, 'payloadData');
 
   const handleCheckBox = (index, name) => {
+    let tempArr = [...fields];
+    tempArr[index].isEdit = !tempArr[index].isEdit;
+    setFields([...tempArr]);
 
-    let tempArr = [...fields]
-    tempArr[index].isEdit = !tempArr[index].isEdit
-    setFields([...tempArr])
-
-
-    let tempObj = payloadData
-    delete tempObj[name]
+    let tempObj = payloadData;
+    delete tempObj[name];
     if (tempArr[index]) {
-      setPayloadData(tempObj)
+      setPayloadData(tempObj);
     }
-  }
-  console.log(fields, 'fields')
-  console.log(reviewedProfile, 'this is reviewed')
+  };
+  console.log(fields, 'fields');
+  console.log(reviewedProfile, 'this is reviewed');
 
   return (
     <div className={`${styles.leads} border card`}>
@@ -244,26 +253,29 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                       <Form.Control
                         type="text"
                         onFocus={(e) => {
-                          setIsFieldInFocus(true),
-                            e.target.type = 'number'
+                          setIsFieldInFocus(true), (e.target.type = 'number');
                         }}
                         onBlur={(e) => {
-                          setIsFieldInFocus(false),
-                            e.target.type = 'text'
+                          setIsFieldInFocus(false), (e.target.type = 'text');
                         }}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
                         name="turnOver"
                         id="textDate"
-                        value={isFieldInFocus ?
-                          payloadData?.turnOver :
-                          Number(payloadData?.turnOver ? payloadData?.turnOver : 0)?.toLocaleString("en-IN") + ` Cr`}
+                        value={
+                          isFieldInFocus
+                            ? payloadData?.turnOver
+                            : Number(
+                                payloadData?.turnOver
+                                  ? payloadData?.turnOver
+                                  : 0,
+                              )?.toLocaleString('en-IN') + ` Cr`
+                        }
                         className={`${styles.input} input`}
                         onChange={(e) =>
-                          handleChange(
-                            e.target.name,
-                            Number(e.target.value),
-                          )
+                          handleChange(e.target.name, Number(e.target.value))
                         }
                         disabled={fields[2]?.isEdit}
                       />
@@ -298,7 +310,11 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                   </td>
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse &&
-                      DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}
+                      DropDown(
+                        commodityDropdown,
+                        'commodity',
+                        fields[3].isEdit,
+                      )}
                   </td>
                 </tr>
 
@@ -336,12 +352,12 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                     {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
                         type="number"
-                        onWheel={(event) =>
-                          event.currentTarget.blur()
-                        }
+                        onWheel={(event) => event.currentTarget.blur()}
                         name="orderValue"
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
                         id="textDate"
                         className={`${styles.input} input`}
                         onBlur={(e) =>
@@ -427,7 +443,9 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Expected Date Of Shipment</td>
                   <td>
-                    {moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).format('DD-MM-YYYY')}
+                    {moment(
+                      reviewedProfile?.ExpectedDateOfShipment?.originalValue,
+                    ).format('DD-MM-YYYY')}
                   </td>
                   <td>
                     <div className={styles.tick}>
@@ -445,7 +463,9 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(7, 'ExpectedDateOfShipment')}
+                        onChange={(e) =>
+                          handleCheckBox(7, 'ExpectedDateOfShipment')
+                        }
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -469,17 +489,15 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                           reset={fields[7]?.isEdit}
                           name="ExpectedDateOfShipment"
                           saveDate={(name, value) => {
-                            handleChange(value, name)
+                            handleChange(value, name);
                           }}
                           disabled={fields[7]?.isEdit}
                           labelName=""
-                          maxDate={moment(
-                            new Date()
-                          )
-                            .add(3, 'months')
-                            .toDate()}
+                          maxDate={moment(new Date()).add(3, 'months').toDate()}
                           lastDate={moment(
-                            reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
+                            reviewedProfile?.ExpectedDateOfShipment
+                              ?.originalValue,
+                          ).toDate()}
                           small={true}
                         />
                         <img
@@ -514,7 +532,9 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                         <input
-                          onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
+                          onChange={(e) =>
+                            handleCheckBox(8, 'ExpectedDateOfShipment')
+                          }
                           className={styles.checkBox}
                           type="checkbox"
                         />
@@ -523,17 +543,17 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment
                         ?.apiResponse && (
-                          <Form.Control
-                            type="date"
-                            name="ExpectedDateOfShipment"
-                            id="textDate"
-                            className={`${styles.input}`}
-                            onBlur={(e) =>
-                              handleChange(e.target.name, e.target.value)
-                            }
-                            disabled={fields[8]?.isEdit}
-                          />
-                        )}
+                        <Form.Control
+                          type="date"
+                          name="ExpectedDateOfShipment"
+                          id="textDate"
+                          className={`${styles.input}`}
+                          onBlur={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                          disabled={fields[8]?.isEdit}
+                        />
+                      )}
                     </td>
                   </tr>
                 ) : (
@@ -554,9 +574,9 @@ function Index({ handleChange, reviewedProfile, isAddedRow, payloadData, setFiel
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;
 
 // const tableRow = (props) => {
 //   return (

@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-import { Card } from 'react-bootstrap'
-import { UploadDocument } from '../UploadDocument'
-import Router from 'next/router'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import { Card } from 'react-bootstrap';
+import { UploadDocument } from '../UploadDocument';
+import Router from 'next/router';
+import Image from 'next/image';
 
 function Index() {
   const [addRow, setAddRow] = useState([
@@ -15,10 +15,10 @@ function Index() {
       compName: '',
       branchName: '',
     },
-  ])
+  ]);
   const handleDelete = (index) => {
-    setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)])
-  }
+    setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)]);
+  };
   const onAddRow = () => {
     setAddRow([
       ...addRow,
@@ -26,8 +26,8 @@ function Index() {
         compName: '',
         branchName: '',
       },
-    ])
-  }
+    ]);
+  };
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -231,14 +231,14 @@ function Index() {
                               className={`${styles.add_image} `}
                               alt="Add button"
                               onClick={(e) => {
-                                onAddRow()
+                                onAddRow();
                               }}
                             />
                             {/* ) } */}
                           </div>
                         </div>
                       </>
-                    )
+                    );
                   })}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -589,6 +589,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

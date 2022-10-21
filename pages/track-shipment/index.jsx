@@ -1,71 +1,72 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
-import DownloadBar from '../../src/components/DownloadBar'
-import Filter from '../../src/components/Filter'
-import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import DownloadBar from '../../src/components/DownloadBar';
+import Filter from '../../src/components/Filter';
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action';
 
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
 
 function Index() {
-   const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
-    sessionStorage.setItem('loadedSubPage',`Track Shipments`)
-    sessionStorage.setItem('openList',3)
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Track Shipments`);
+      sessionStorage.setItem('openList', 3);
     }
-},[])
- const [currentPage, setCurrentPage] = useState(0)
- const [table,setTable] = useState([])
+  }, []);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [table, setTable] = useState([]);
   useEffect(() => {
-    dispatch(setPageName('track'))
- 
-  },[])
-    useEffect(() => {
-   dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
-  }, [currentPage])
-    const { allVessel, Vessel } = useSelector((state) => state.vessel)
-    console.log(allVessel,Vessel,"Vessel")
- useEffect(() => {
-  
-  if(allVessel?.data?.length > 0){
-    let temp=[]
-    allVessel.data.forEach((vessel,index)=>{
-      if(vessel?.vessels[0]?.shipmentType=="Bulk"){
-
-        temp.push({
-         orderID:vessel.order.orderId,
-         name:vessel.company.companyName,
-         imoNumber:vessel.vessels[0].IMONumber,
-         vesselName:vessel.vessels[0].vesselInformation[0].name,
-         containerNumber:vessel?.vessels[0]?.shippingInformation?.numberOfContainers
-        })
-      }
-      if(vessel?.vessels[0]?.shipmentType=="Liner"){
-    vessel.vessels[0].vesselInformation.forEach((v,index)=>{
-      console.log(v,"IMONumber")
-       temp.push({
-         orderID:vessel.order.orderId,
-         name:vessel.company.companyName,
-         imoNumber:v?.IMONumber||"",
-         vesselName:v?.name||"",
-         containerNumber:vessel?.vessels[0]?.shippingInformation?.numberOfContainers
-        })
-      })
-       
-      }
-      
-    })
-    setTable([...temp])
-    console.log(allVessel.data,"allVessel.data.data")
-  }
- },[allVessel])
- const getSn=(index)=>{
-  return index+1
- }
- console.log(table,"table")
+    dispatch(setPageName('track'));
+  }, []);
+  useEffect(() => {
+    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`));
+  }, [currentPage]);
+  const { allVessel, Vessel } = useSelector((state) => state.vessel);
+  console.log(allVessel, Vessel, 'Vessel');
+  useEffect(() => {
+    if (allVessel?.data?.length > 0) {
+      let temp = [];
+      allVessel.data.forEach((vessel, index) => {
+        if (vessel?.vessels[0]?.shipmentType == 'Bulk') {
+          temp.push({
+            orderID: vessel.order.orderId,
+            name: vessel.company.companyName,
+            imoNumber: vessel.vessels[0].IMONumber,
+            vesselName: vessel.vessels[0].vesselInformation[0].name,
+            containerNumber:
+              vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+          });
+        }
+        if (vessel?.vessels[0]?.shipmentType == 'Liner') {
+          vessel.vessels[0].vesselInformation.forEach((v, index) => {
+            console.log(v, 'IMONumber');
+            temp.push({
+              orderID: vessel.order.orderId,
+              name: vessel.company.companyName,
+              imoNumber: v?.IMONumber || '',
+              vesselName: v?.name || '',
+              containerNumber:
+                vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+            });
+          });
+        }
+      });
+      setTable([...temp]);
+      console.log(allVessel.data, 'allVessel.data.data');
+    }
+  }, [allVessel]);
+  const getSn = (index) => {
+    return index + 1;
+  };
+  console.log(table, 'table');
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -118,11 +119,11 @@ if(window){
                 {Math.ceil(allVessel?.totalCount / 7)}
               </div>
               <a
-               onClick={() => {
+                onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -136,9 +137,9 @@ if(window){
                 />
               </a>
               <a
-               onClick={() => {
+                onClick={() => {
                   if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -172,23 +173,26 @@ if(window){
                   </tr>
                 </thead>
                 <tbody>
-                  {table.length>0 && table.map((val,index)=>{
-                   return( 
-                   <tr className="table_row">
-                    <td>
-                      <strong>{getSn(index)}</strong>
-                    </td>
-                    <td>{val?.orderID}</td>
-                    <td>{val.name}</td>
-                    <td>{val.imoNumber}</td>
-                    <td>{val.vesselName}</td>
-                    <td>{val.containerNumber}</td>
-                    <td>
-                      <button className={`${styles.trackBtn}`}>Track</button>
-                    </td>
-                  </tr>)
-                  })}
-                
+                  {table.length > 0 &&
+                    table.map((val, index) => {
+                      return (
+                        <tr className="table_row">
+                          <td>
+                            <strong>{getSn(index)}</strong>
+                          </td>
+                          <td>{val?.orderID}</td>
+                          <td>{val.name}</td>
+                          <td>{val.imoNumber}</td>
+                          <td>{val.vesselName}</td>
+                          <td>{val.containerNumber}</td>
+                          <td>
+                            <button className={`${styles.trackBtn}`}>
+                              Track
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -197,6 +201,6 @@ if(window){
       </div>
       <DownloadBar downLoadButtonName="Download List" />
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

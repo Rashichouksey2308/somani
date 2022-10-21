@@ -4,9 +4,9 @@
   width: 1521px;
   //height: 500px;
   top: 14%;
- // margin-bottom: 150px;
+  // margin-bottom: 150px;
   //left: 19.5%;
- // margin-top: 25px;
+  // margin-top: 25px;
   margin: 25px 0 150px 0;
   padding: 2rem;
   .head {
@@ -265,10 +265,10 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
-              font-size: 14px;
-              line-height: 15px;
-              transform: translateY(-22px);
+            top: 15px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
           }
         }
         .formControl {
@@ -306,9 +306,9 @@
             -webkit-box-shadow: 0 0 0 30px #f8f8f8 inset !important;
           }
           @include respond(lg-desktop) {
-              height: 45px;
-              font-size: 15px;
-              line-height: 1.3;
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
           }
         }
         img {
@@ -349,8 +349,8 @@
               outline: none;
               border-radius: 8px 0 0 8px;
               @include respond(lg-desktop) {
-                  font-size: 15px;
-                  line-height: 1.3;
+                font-size: 15px;
+                line-height: 1.3;
               }
             }
           }

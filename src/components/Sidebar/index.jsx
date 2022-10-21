@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import dash from '../../../public/static/dashboard-icon.svg'
-import accord from '../../../public/static/next-logo.png'
-import Router from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import dash from '../../../public/static/dashboard-icon.svg';
+import accord from '../../../public/static/next-logo.png';
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Index() {
   let tempArr = [
@@ -147,58 +147,58 @@ function Index() {
       image: '/static/Masters.svg',
       route: '/add-supplier',
     },
-  ]
-  const [className, setClassName] = useState('')
-  const [category, setcategory] = useState('Dashboard')
-  const [subCategory, setsubCategory] = useState(null)
-  const [index12, setIndex] = useState('')
-  const side = useSelector((state) => state.breadcrumb)
-  console.log(side, 'subsideBarMain')
+  ];
+  const [className, setClassName] = useState('');
+  const [category, setcategory] = useState('Dashboard');
+  const [subCategory, setsubCategory] = useState(null);
+  const [index12, setIndex] = useState('');
+  const side = useSelector((state) => state.breadcrumb);
+  console.log(side, 'subsideBarMain');
   useEffect(() => {
-    console.log('aaasqqaq')
+    console.log('aaasqqaq');
     if (window) {
       sessionStorage.setItem(
         'sideBarMain',
         sessionStorage.getItem('loadedPage')
           ? sessionStorage.getItem('loadedPage')
           : 'Dashboard',
-      )
+      );
       sessionStorage.setItem(
         'subsideBarMain',
         sessionStorage.getItem('loadedSubPage')
           ? sessionStorage.getItem('loadedSubPage')
           : null,
-      )
-      setcategory(sessionStorage.getItem('sideBarMain'))
-      setsubCategory(sessionStorage.getItem('subsideBarMain'))
+      );
+      setcategory(sessionStorage.getItem('sideBarMain'));
+      setsubCategory(sessionStorage.getItem('subsideBarMain'));
       if (sessionStorage.getItem('openList')) {
-        setIndex(sessionStorage.getItem('openList'))
-        setClassName(`${styles.openlist}`)
+        setIndex(sessionStorage.getItem('openList'));
+        setClassName(`${styles.openlist}`);
       } else {
-        setIndex(``)
-        setClassName(``)
+        setIndex(``);
+        setClassName(``);
       }
     }
-  }, [])
+  }, []);
   useEffect(() => {
     if (window) {
       console.log(
         'changed',
         sessionStorage.getItem('sideBarMain'),
         sessionStorage.getItem('subsideBarMain'),
-      )
+      );
 
-      setcategory(sessionStorage.getItem('sideBarMain'))
-      setsubCategory(sessionStorage.getItem('subsideBarMain'))
+      setcategory(sessionStorage.getItem('sideBarMain'));
+      setsubCategory(sessionStorage.getItem('subsideBarMain'));
       if (sessionStorage.getItem('openList')) {
-        setIndex(sessionStorage.getItem('openList'))
-        setClassName(`${styles.openlist}`)
+        setIndex(sessionStorage.getItem('openList'));
+        setClassName(`${styles.openlist}`);
       } else {
-        setIndex(``)
-        setClassName(``)
+        setIndex(``);
+        setClassName(``);
       }
     }
-  }, [Router.asPath])
+  }, [Router.asPath]);
 
   // useEffect(() => {
   //     const onHashChangeStart = (url) => {
@@ -212,33 +212,33 @@ function Index() {
   //     };
   // }, [Router.events]);
 
-  console.log(subCategory, 'opne')
+  console.log(subCategory, 'opne');
   const handleOpen = (val, index, from) => {
-    console.log(val, 'val233')
+    console.log(val, 'val233');
     if (from == 'main') {
-      sessionStorage.setItem('sideBarMain', val)
-      sessionStorage.setItem('subsideBarMain', null)
-      setsubCategory(sessionStorage.getItem('subsideBarMain'))
-      setcategory(sessionStorage.getItem('sideBarMain'))
-      setClassName(`${styles.openlist} `)
-      setcategory(val)
-      setIndex(index)
-      sessionStorage.setItem('loadedPage', val)
-      sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', index)
-      return index
+      sessionStorage.setItem('sideBarMain', val);
+      sessionStorage.setItem('subsideBarMain', null);
+      setsubCategory(sessionStorage.getItem('subsideBarMain'));
+      setcategory(sessionStorage.getItem('sideBarMain'));
+      setClassName(`${styles.openlist} `);
+      setcategory(val);
+      setIndex(index);
+      sessionStorage.setItem('loadedPage', val);
+      sessionStorage.setItem('loadedSubPage', null);
+      sessionStorage.setItem('openList', index);
+      return index;
     } else {
-      sessionStorage.setItem('subsideBarMain', val)
-      setsubCategory(sessionStorage.getItem('subsideBarMain'))
+      sessionStorage.setItem('subsideBarMain', val);
+      setsubCategory(sessionStorage.getItem('subsideBarMain'));
     }
-  }
+  };
 
-  console.log(category, subCategory, 'sub')
+  console.log(category, subCategory, 'sub');
 
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const openList = useSelector((state) => state.sidebar.openList)
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const openList = useSelector((state) => state.sidebar.openList);
 
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   //   console.log(isMobile,"isMobile123")
   //   console.log("sidebar",)
   // console.log(tempArr,"yem")
@@ -256,15 +256,15 @@ function Index() {
                 ? category == val.main
                   ? `${styles.selected}`
                   : null
-                : null
+                : null;
             return (
               <>
                 <div key={index} className={styles.wrapper}>
                   <div
                     className={`${styles.header} ${className1}`}
                     onClick={(e) => {
-                      handleOpen(val.main, index, 'main')
-                      Router.push(val.route)
+                      handleOpen(val.main, index, 'main');
+                      Router.push(val.route);
                     }}
                   >
                     <div>
@@ -290,7 +290,7 @@ function Index() {
                           const className12 =
                             index12 == index || subCategory == other.main
                               ? `${styles.openlist} sidebar-selected`
-                              : null
+                              : null;
                           return (
                             <>
                               <div
@@ -303,8 +303,8 @@ function Index() {
                                     : null
                                 }`}
                                 onClick={() => {
-                                  handleOpen(other.name, index2, '')
-                                  Router.push(other.route)
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
                                 }}
                               >
                                 <div>
@@ -323,13 +323,13 @@ function Index() {
                                 </div>
                               </div>
                             </>
-                          )
+                          );
                         })
                       : null}
                   </div>
                 </div>
               </>
-            )
+            );
           })}
         </div>
       ) : (
@@ -344,7 +344,7 @@ function Index() {
                 ? category == val.main
                   ? `${styles.selected}`
                   : null
-                : null
+                : null;
             return (
               <>
                 <div
@@ -356,9 +356,9 @@ function Index() {
                   <div
                     className={`${styles.header} ${className1}`}
                     onClick={(e) => {
-                      handleOpen(val.main, index, 'main')
-                      console.log('router', val.route)
-                      Router.push(val.route)
+                      handleOpen(val.main, index, 'main');
+                      console.log('router', val.route);
+                      Router.push(val.route);
                     }}
                   >
                     <div>
@@ -390,7 +390,7 @@ function Index() {
                           const className12 =
                             index12 == index
                               ? `${styles.openlist} sidebar-selected`
-                              : null
+                              : null;
                           return (
                             <>
                               <div
@@ -403,8 +403,8 @@ function Index() {
                                     : null
                                 }`}
                                 onClick={() => {
-                                  handleOpen(other.name, index2, '')
-                                  Router.push(other.route)
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
                                 }}
                               >
                                 <div>
@@ -423,18 +423,18 @@ function Index() {
                                 </div>
                               </div>
                             </>
-                          )
+                          );
                         })
                       : null}
                   </div>
                 </div>
               </>
-            )
+            );
           })}
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

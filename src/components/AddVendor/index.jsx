@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-import { Card } from 'react-bootstrap'
-import { UploadDocument } from '../UploadDocument'
-import Router from 'next/router'
-import Image from 'next/image'
-import UploadOther from '../UploadOther'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import { Card } from 'react-bootstrap';
+import { UploadDocument } from '../UploadDocument';
+import Router from 'next/router';
+import Image from 'next/image';
+import UploadOther from '../UploadOther';
 
 function Index() {
   return (
@@ -469,11 +469,11 @@ function Index() {
             </div>
           </div>
         </div>
-         <div className='mt-4'>
-        <UploadOther/>
+        <div className="mt-4">
+          <UploadOther />
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

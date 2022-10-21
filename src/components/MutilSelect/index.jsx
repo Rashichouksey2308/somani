@@ -6,28 +6,25 @@ function Index(props) {
     emails: [],
     inputValue: '',
     noClass: false,
-    className: ""
-  })
+    className: '',
+  });
   useEffect(() => {
-    console.log(props.emails, "props.emails")
+    console.log(props.emails, 'props.emails');
     if (props?.emails?.length > 0) {
-      setState({ ...state, emails: props.emails })
+      setState({ ...state, emails: props.emails });
     }
-  }, [props.emails])
-  console.log(state.emails, "zcdvxcv")
+  }, [props.emails]);
+  console.log(state.emails, 'zcdvxcv');
   const emailInputRef = useRef(0);
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
   };
   const findEmailAddress = (value, isEnter) => {
-
-
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
 
     const addEmails = (email) => {
-
       const emails1 = state.emails;
       for (let i = 0, l = emails1.length; i < l; i++) {
         if (emails1[i] === email) {
@@ -40,7 +37,7 @@ function Index(props) {
 
     if (value !== '') {
       if (re.test(value)) {
-        let splitData = value.split(re).filter(n => {
+        let splitData = value.split(re).filter((n) => {
           return n !== '' && n !== undefined && n !== null;
         });
 
@@ -52,7 +49,6 @@ function Index(props) {
             addEmails('' + arr.shift());
           } else {
             if (arr.length === 1) {
-
               inputValue = '' + arr.shift();
             } else {
               arr.shift();
@@ -72,8 +68,7 @@ function Index(props) {
       }
     }
 
-
-    setState({ ...state, email: validEmails })
+    setState({ ...state, email: validEmails });
     setState({ ...state, inputValue: inputValue });
     if (validEmails.length && props.onChange) {
       props.onChange(validEmails);
@@ -84,61 +79,55 @@ function Index(props) {
     if (isDisabled) {
       return;
     }
-    console.log(index, "ondex")
-    let temp = { ...state }
+    console.log(index, 'ondex');
+    let temp = { ...state };
     temp.emails.splice(index, 1);
     setState({ ...temp });
     // if (props.onChange) {
     //       props.onChange(temp.emails);
     // }
-  }
+  };
   const handleOnKeydown = (e) => {
-    console.log(e.which, "e.which")
+    console.log(e.which, 'e.which');
     switch (e.which) {
       case 13:
 
-      case 9:
-        {
-          e.preventDefault();
-          break;
+      case 9: {
+        e.preventDefault();
+        break;
+      }
+      case 8: {
+        if (!e.currentTarget.value) {
+          // removeEmail(state.emails.length - 1, false);
         }
-      case 8:
-        {
-          if (!e.currentTarget.value) {
-            // removeEmail(state.emails.length - 1, false);
-          }
 
-          break;
-        }
-      case 32:
-        {
-          e.preventDefault();
-          break;
-        }
+        break;
+      }
+      case 32: {
+        e.preventDefault();
+        break;
+      }
       default:
     }
   };
 
   const handleOnKeyup = (e) => {
-    console.log(e.which, "e.which")
+    console.log(e.which, 'e.which');
     switch (e.which) {
       case 13:
 
-      case 9:
-        {
-          findEmailAddress(e.currentTarget.value, true);
-          break;
-        }
-      case 32:
-        {
-          e.preventDefault();
-          break;
-        }
+      case 9: {
+        findEmailAddress(e.currentTarget.value, true);
+        break;
+      }
+      case 32: {
+        e.preventDefault();
+        break;
+      }
       default:
     }
   };
-  const handleOnChange = (e) =>
-    onChangeInputValue(e.currentTarget.value);
+  const handleOnChange = (e) => onChangeInputValue(e.currentTarget.value);
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
@@ -153,8 +142,11 @@ function Index(props) {
 
   return (
     <div
-      className={`${state.className} react_multi_email input ${state.noClass ? '' : `${styles.react_multi_email}`} ${state.focused ? 'focused' : ''
-        } ${state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''}`}
+      className={`${state.className} react_multi_email input ${
+        state.noClass ? '' : `${styles.react_multi_email}`
+      } ${state.focused ? 'focused' : ''} ${
+        state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''
+      }`}
       // style={style}
       onClick={() => {
         if (emailInputRef.current) {
@@ -162,17 +154,17 @@ function Index(props) {
         }
       }}
     >
-      {props.placeholder ? <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span> : null}
-      {state?.emails?.length > 0 && state?.emails?.map((email, index) => {
-
-        return (
-          <>
-            {props.getLabel(email, index, removeEmail)}
-          </>
-        )
-      }
-
-      )}
+      {props.placeholder ? (
+        <span
+          className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}
+        >
+          {props.placeholder}
+        </span>
+      ) : null}
+      {state?.emails?.length > 0 &&
+        state?.emails?.map((email, index) => {
+          return <>{props.getLabel(email, index, removeEmail)}</>;
+        })}
       <input
         ref={emailInputRef}
         type="text"
@@ -186,10 +178,7 @@ function Index(props) {
         className={`${styles.input_field}`}
       />
     </div>
-  )
+  );
 }
 
-export default Index
-
-
-
+export default Index;

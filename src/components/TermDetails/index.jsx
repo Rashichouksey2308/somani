@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import { useEffect } from 'react'
-import styles from './index.module.scss'
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import styles from './index.module.scss';
 import {
   addPrefixOrSuffix,
   addPrefixSymbol,
   removePrefixOrSuffix,
-} from '../../utils/helper'
+} from '../../utils/helper';
 
 const Index = ({
   termsheet,
@@ -19,8 +19,8 @@ const Index = ({
   newLcVal,
   changePayment,
 }) => {
-  const [IsBlSelected, setIsBlSelected] = useState(false)
-  const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
+  const [IsBlSelected, setIsBlSelected] = useState(false);
+  const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -33,44 +33,41 @@ const Index = ({
     lcOpeningChargesPercentage: false,
     usanceInterestPercetage: false,
     overDueInterestPerMonth: false,
-  })
-
+  });
 
   const updateThirdPartyInspection = (e) => {
     if (e.target.value == false) {
-      setThirdPartyInspection(false)
-      onChangeTransactionDetails(e)
+      setThirdPartyInspection(false);
+      onChangeTransactionDetails(e);
     } else if (e.target.value == true) {
-      setThirdPartyInspection(true)
-      onChangeTransactionDetails(e)
+      setThirdPartyInspection(true);
+      onChangeTransactionDetails(e);
     }
-  }
+  };
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
-      console.log('herer12')
+      console.log('herer12');
 
-      setIsBlSelected('DaysfromBLDate')
-      changePayment('DaysfromBLDate')
+      setIsBlSelected('DaysfromBLDate');
+      changePayment('DaysfromBLDate');
       // onChangePaymentDueDate({
       //   target: { value: '', id: 'daysFromVesselDischargeDate' },
       // })
     } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected('DaysfromVesselDischargeDate')
-      changePayment('DaysfromVesselDischargeDate')
+      setIsBlSelected('DaysfromVesselDischargeDate');
+      changePayment('DaysfromVesselDischargeDate');
       // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
     } else {
-      setIsBlSelected(value)
-      changePayment('val')
+      setIsBlSelected(value);
+      changePayment('val');
     }
-  }
-
-
+  };
 
   console.log(
     termsheetDetails?.transactionDetails?.incoTerms,
     'dkfgdfhjgdjfhgdkjfgdkjg',
-  )
+  );
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -153,9 +150,7 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
-                  value={
-                    termsheetDetails?.commodityDetails?.orderCurrency 
-                  }
+                  value={termsheetDetails?.commodityDetails?.orderCurrency}
                   id="orderCurrency"
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={onChangeCommodityDetails}
@@ -166,8 +161,12 @@ const Index = ({
                   </option>
                   <option value="USD">USD</option>
                   <option value="INR">INR</option>
-                  <option disabled value="Euro">Euro</option>
-                  <option disabled value="BRITISHPOUND">POUND</option>
+                  <option disabled value="Euro">
+                    Euro
+                  </option>
+                  <option disabled value="BRITISHPOUND">
+                    POUND
+                  </option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>
@@ -187,24 +186,22 @@ const Index = ({
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 //  value={termsheetDetails?.commodityDetails?.quantity}
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.quantity
                     ? termsheetDetails?.commodityDetails?.quantity
                     : Number(
-                      termsheetDetails?.commodityDetails?.quantity,
-                    ).toLocaleString('en-In') +
-                    ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
+                        termsheetDetails?.commodityDetails?.quantity,
+                      ).toLocaleString('en-In') +
+                      ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.quantity,
@@ -212,7 +209,7 @@ const Index = ({
                 //   '',
                 // )}
                 onChange={(e) => {
-                  onChangeCommodityDetails(e)
+                  onChangeCommodityDetails(e);
                 }}
                 type="text"
                 required
@@ -231,27 +228,25 @@ const Index = ({
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, unitPrice: true }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, unitPrice: false }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.unitPrice
                     ? termsheetDetails?.commodityDetails?.perUnitPrice
                     : ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` +
-                    Number(
-                      termsheetDetails?.commodityDetails?.perUnitPrice,
-                    )?.toLocaleString('en-In', {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    })
+                      Number(
+                        termsheetDetails?.commodityDetails?.perUnitPrice,
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
@@ -269,7 +264,6 @@ const Index = ({
                 //   onChangeCommodityDetails(e)
                 // }}
                 onChange={onChangeCommodityDetails}
-
                 type="text"
                 required
               />
@@ -281,32 +275,30 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div
                 className={`${styles.suffixWrapper} d-flex text-muted`}
-              // customSuffix="%"
+                // customSuffix="%"
               >
                 <input
                   id="tolerance"
-                  onWheel={(event) =>
-                    event.currentTarget.blur()
-                  }
+                  onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number')
+                      (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text')
+                      (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.tolerance
                       ? termsheetDetails?.commodityDetails?.tolerance
                       : '±' +
-                      Number(
-                        termsheetDetails?.commodityDetails?.tolerance,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      }) +
-                      ` %`
+                        Number(
+                          termsheetDetails?.commodityDetails?.tolerance,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) +
+                        ` %`
                   }
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
@@ -350,7 +342,6 @@ const Index = ({
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
-
                 // onFocus={(e) => {
                 //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: true }),
                 //     e.target.type = 'number'
@@ -365,8 +356,7 @@ const Index = ({
                 //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
                 // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                className={`${styles.value} input form-control`
-                }
+                className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
               />
@@ -383,23 +373,21 @@ const Index = ({
                 id="marginMoney"
                 className={`${styles.value} ${styles.marginPercent} input form-control`}
                 type="text"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, marginMoney: true }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({ ...isFieldInFocus, marginMoney: false }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.marginMoney
                     ? termsheetDetails?.transactionDetails?.marginMoney
                     : Number(
-                      termsheetDetails?.transactionDetails?.marginMoney,
-                    ).toLocaleString() + ` %`
+                        termsheetDetails?.transactionDetails?.marginMoney,
+                      ).toLocaleString() + ` %`
                 }
                 // defaultValue={termsheetDetails?.transactionDetails?.marginMoney}
                 // value={addPrefixOrSuffix(
@@ -579,7 +567,7 @@ const Index = ({
                     Select an option
                   </option>
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                    'Yes' ? (
+                  'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -666,8 +654,8 @@ const Index = ({
                   id="thirdPartyInspectionReq"
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={(e) => {
-                    updateThirdPartyInspection(e)
-                    onChangeTransactionDetails(e)
+                    updateThirdPartyInspection(e);
+                    onChangeTransactionDetails(e);
                   }}
                   value={
                     termsheetDetails.transactionDetails?.thirdPartyInspectionReq
@@ -692,7 +680,8 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-              'true' || termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
+              'true' ||
+            termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
               true ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
@@ -779,7 +768,7 @@ const Index = ({
                   onChange={(e) => {
                     {
                       payementchangeFunc(e.target.value),
-                        onChangePaymentDueDate(e)
+                        onChangePaymentDueDate(e);
                     }
                   }}
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
@@ -816,17 +805,15 @@ const Index = ({
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 type="number"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
                 disabled={
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />
@@ -839,9 +826,7 @@ const Index = ({
                 id="daysFromVesselDischargeDate"
                 className={`${styles.value} input form-control`}
                 type="number"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
@@ -853,8 +838,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />
@@ -877,29 +862,27 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     tradeMarginPercentage: true,
                   }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     tradeMarginPercentage: false,
                   }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.tradeMarginPercentage
                     ? termsheetDetails.commercials?.tradeMarginPercentage
                     : Number(
-                      termsheetDetails.commercials?.tradeMarginPercentage,
-                    ).toLocaleString() + ` %`
+                        termsheetDetails.commercials?.tradeMarginPercentage,
+                      ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails.commercials?.tradeMarginPercentage?.toString(),
@@ -940,22 +923,20 @@ const Index = ({
                 //   'USD',
                 //   'front',
                 // )}
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     lcOpeningCharges: true,
                   }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     lcOpeningCharges: false,
                   }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 // value={
                 //   isFieldInFocus.lcOpeningCharges ?
@@ -966,8 +947,8 @@ const Index = ({
                   isFieldInFocus.lcOpeningCharges
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
                     : Number(
-                      termsheetDetails?.commercials?.lcOpeningChargesUnit,
-                    ).toLocaleString('en-In')
+                        termsheetDetails?.commercials?.lcOpeningChargesUnit,
+                      ).toLocaleString('en-In')
                 }
                 onChange={onChangeCommercialTerms}
                 required
@@ -984,30 +965,28 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     lcOpeningChargesPercentage: true,
                   }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     lcOpeningChargesPercentage: false,
                   }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage
                     ? termsheetDetails?.commercials?.lcOpeningChargesPercentage
                     : Number(
-                      termsheetDetails?.commercials
-                        ?.lcOpeningChargesPercentage,
-                    ).toLocaleString('en-In') + ` %`
+                        termsheetDetails?.commercials
+                          ?.lcOpeningChargesPercentage,
+                      ).toLocaleString('en-In') + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),
@@ -1033,29 +1012,27 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     usanceInterestPercetage: true,
                   }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     usanceInterestPercetage: false,
                   }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.usanceInterestPercetage
                     ? termsheetDetails?.commercials?.usanceInterestPercetage
                     : Number(
-                      termsheetDetails?.commercials?.usanceInterestPercetage,
-                    ).toLocaleString() + ` %`
+                        termsheetDetails?.commercials?.usanceInterestPercetage,
+                      ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.usanceInterestPercetage?.toString(),
@@ -1081,29 +1058,27 @@ const Index = ({
                 type="text"
                 min="0"
                 max="100"
-                onWheel={(event) =>
-                  event.currentTarget.blur()
-                }
+                onWheel={(event) => event.currentTarget.blur()}
                 onFocus={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     overDueInterestPerMonth: true,
                   }),
-                    (e.target.type = 'number')
+                    (e.target.type = 'number');
                 }}
                 onBlur={(e) => {
                   setIsFieldInFocus({
                     ...isFieldInFocus,
                     overDueInterestPerMonth: false,
                   }),
-                    (e.target.type = 'text')
+                    (e.target.type = 'text');
                 }}
                 value={
                   isFieldInFocus.overDueInterestPerMonth
                     ? termsheetDetails?.commercials?.overDueInterestPerMonth
                     : Number(
-                      termsheetDetails?.commercials?.overDueInterestPerMonth,
-                    ).toLocaleString() + ` %`
+                        termsheetDetails?.commercials?.overDueInterestPerMonth,
+                      ).toLocaleString() + ` %`
                 }
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.overDueInterestPerMonth?.toString(),
@@ -1222,6 +1197,6 @@ const Index = ({
         </div>
       </div>
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

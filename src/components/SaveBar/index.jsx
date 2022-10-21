@@ -1,52 +1,58 @@
-import Router from 'next/router'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import styles from './index.module.scss'
+import Router from 'next/router';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styles from './index.module.scss';
 
-function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="Save" }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+function Index({
+  handleSave,
+  rightBtn,
+  rightBtnClick,
+  handleRoute,
+  buttonText = 'Save',
+}) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
 
-  console.log(rightBtnClick, 'handleSave')
+  console.log(rightBtnClick, 'handleSave');
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
-    <div className={`${styles.root} ${
-      !sidebar ? styles.no_sidebar : null
-    }
-    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
-    {  buttonText=="null"?null:
+    <div
+      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
+    >
+      {buttonText == 'null' ? null : (
         <div
-        onClick={() => {
-          if (handleSave) {
-            console.log('thsu')
-            handleSave()
-          }
-        }}
-        className={`${styles.reject} ml-3`}
-      >
-        <span>{buttonText}</span>
-      </div>}
-    {rightBtn=="null"?null:
-      <div
-        className={`${styles.approve} ml-3`}
-        onClick={() => {
-          console.log('INspection Submitted')
-          if (rightBtnClick) {
-            console.log('INspection Submitted2')
-            rightBtnClick()
-            
+          onClick={() => {
+            if (handleSave) {
+              console.log('thsu');
+              handleSave();
+            }
+          }}
+          className={`${styles.reject} ml-3`}
+        >
+          <span>{buttonText}</span>
+        </div>
+      )}
+      {rightBtn == 'null' ? null : (
+        <div
+          className={`${styles.approve} ml-3`}
+          onClick={() => {
+            console.log('INspection Submitted');
+            if (rightBtnClick) {
+              console.log('INspection Submitted2');
+              rightBtnClick();
 
-            // handleRoute()
-          }
+              // handleRoute()
+            }
 
-          // handleSave()
-        }}
-      >
-        <span>{rightBtn}</span>
-      </div>
-    }
+            // handleSave()
+          }}
+        >
+          <span>{rightBtn}</span>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

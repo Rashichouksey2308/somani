@@ -1,61 +1,61 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import UploadDocument from '../../../../src/components/UploadDocument'
-import DateCalender from '../../../../src/components/DateCalender'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import UploadDocument from '../../../../src/components/UploadDocument';
+import DateCalender from '../../../../src/components/DateCalender';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   GettingAllInsurance,
   UpdateInsurance,
-} from '../../../../src/redux/insurance/action'
+} from '../../../../src/redux/insurance/action';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../../../src/redux/userData/action'
-import _get from 'lodash/get'
-import Router from 'next/router'
-import { toast } from 'react-toastify'
+} from '../../../../src/redux/userData/action';
+import _get from 'lodash/get';
+import Router from 'next/router';
+import { toast } from 'react-toastify';
 import {
   addPrefixOrSuffix,
   gSTINValidation,
   removePrefixOrSuffix,
-} from '../../../../src/utils/helper'
-import { settingSidebar } from '../../../../src/redux/breadcrumb/action'
+} from '../../../../src/utils/helper';
+import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
-import moment from 'moment/moment'
+import moment from 'moment/moment';
 
 const Index = () => {
-  const [insuranceType, setInsuranceType] = useState('')
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [insuranceType, setInsuranceType] = useState('');
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    let id = sessionStorage.getItem('quotationId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
-
-  const { insuranceResponse } = useSelector((state) => state.insurance)
-  const [insuranceData, setInsuranceData] = useState()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPageName('insurance Request Letter'))
+    let id = sessionStorage.getItem('quotationId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
+
+  const { insuranceResponse } = useSelector((state) => state.insurance);
+  const [insuranceData, setInsuranceData] = useState();
+
+  useEffect(() => {
+    dispatch(setPageName('insurance Request Letter'));
     dispatch(
       setDynamicName(
         _get(insuranceResponse, 'data[0].company.companyName', 'Company Name'),
       ),
-    )
+    );
     dispatch(
       setDynamicOrder(
         _get(insuranceResponse, 'data[0].order.orderId', 'Order Id'),
       ),
-    )
-    setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
-  }, [insuranceResponse])
+    );
+    setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
+  }, [insuranceResponse]);
 
-  console.log(insuranceResponse, 'insuranceResponse')
+  console.log(insuranceResponse, 'insuranceResponse');
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -69,7 +69,7 @@ const Index = () => {
     insuranceFromType: '',
     lossPayee: '',
     premiumAmount: '',
-  })
+  });
 
   const [storageData, setStorageData] = useState({
     policyNumber: '',
@@ -83,9 +83,9 @@ const Index = () => {
     insuranceFromType: '',
     lossPayee: '',
     premiumAmount: '',
-  })
+  });
 
-  console.log(marineData, 'Premium', storageData)
+  console.log(marineData, 'Premium', storageData);
 
   useEffect(() => {
     setMarineData({
@@ -108,7 +108,7 @@ const Index = () => {
           insuranceData?.quotationRequest?.lossPayee,
         ) || '',
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
-    })
+    });
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
       nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
@@ -123,101 +123,101 @@ const Index = () => {
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
       lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
-    })
+    });
     setInsuranceDocument({
       storagePolicyDocument: insuranceData?.storagePolicyDocument || null,
       marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
-    })
-  }, [insuranceResponse, insuranceData])
-  console.log(marineData, 'marineData')
+    });
+  }, [insuranceResponse, insuranceData]);
+  console.log(marineData, 'marineData');
 
-  let dateM1 = new Date(marineData?.insuranceFrom)
-  let dateM2 = new Date(marineData?.insuranceTo)
+  let dateM1 = new Date(marineData?.insuranceFrom);
+  let dateM2 = new Date(marineData?.insuranceTo);
 
   function getDifferenceInDaysMarine() {
-    let date1 = moment(dateM1, 'DD.MM.YYYY')
-    let date2 = moment(dateM2, 'DD.MM.YYYY')
-    return date2.diff(date1, 'days')
+    let date1 = moment(dateM1, 'DD.MM.YYYY');
+    let date2 = moment(dateM2, 'DD.MM.YYYY');
+    return date2.diff(date1, 'days');
   }
 
-  let dateS1 = new Date(storageData?.insuranceFrom)
-  let dateS2 = new Date(storageData?.insuranceTo)
+  let dateS1 = new Date(storageData?.insuranceFrom);
+  let dateS2 = new Date(storageData?.insuranceTo);
 
   function getDifferenceInDaysStorage() {
-    let date3 = moment(dateS1, 'DD.MM.YYYY')
-    let date4 = moment(dateS2, 'DD.MM.YYYY')
-    return date4.diff(date3, 'days')
+    let date3 = moment(dateS1, 'DD.MM.YYYY');
+    let date4 = moment(dateS2, 'DD.MM.YYYY');
+    return date4.diff(date3, 'days');
   }
 
   const saveMarineData = (name, value) => {
-    let newInput = { ...marineData }
-    newInput[name] = value
+    let newInput = { ...marineData };
+    newInput[name] = value;
     // if(insuranceDocument){
     //   setStorageData(newInput)
     // }
-    setMarineData(newInput)
-  }
-  console.log(marineData, 'setMarineData')
+    setMarineData(newInput);
+  };
+  console.log(marineData, 'setMarineData');
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveMarineData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveMarineData(name, text);
+  };
 
   const saveStorageDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveStorageData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveStorageData(name, text);
+  };
 
   const saveStorageData = (name, value) => {
-    let newInput = { ...storageData }
-    newInput[name] = value
-    setStorageData(newInput)
-  }
+    let newInput = { ...storageData };
+    newInput[name] = value;
+    setStorageData(newInput);
+  };
 
   const [insuranceDocument, setInsuranceDocument] = useState({
     storagePolicyDocument: null,
     marinePolicyDocument: null,
-  })
+  });
 
   const handleClose = () => {
-    setInsuranceDocument({ ...insuranceDocument, marinePolicyDocument: null })
-  }
+    setInsuranceDocument({ ...insuranceDocument, marinePolicyDocument: null });
+  };
 
   const handleCloseS = () => {
-    setInsuranceDocument({ ...insuranceDocument, storagePolicyDocument: null })
-  }
+    setInsuranceDocument({ ...insuranceDocument, storagePolicyDocument: null });
+  };
 
   const uploadDocument2 = (e) => {
-    const newUploadDoc = { ...insuranceDocument }
-    newUploadDoc.storagePolicyDocument = e.target.files[0]
+    const newUploadDoc = { ...insuranceDocument };
+    newUploadDoc.storagePolicyDocument = e.target.files[0];
     // console.log(newUploadDoc, 'new upload doc')
-    setInsuranceDocument(newUploadDoc)
-  }
+    setInsuranceDocument(newUploadDoc);
+  };
   const uploadDocument1 = (e) => {
-    const newUploadDoc1 = { ...insuranceDocument }
-    newUploadDoc1.marinePolicyDocument = e.target.files[0]
+    const newUploadDoc1 = { ...insuranceDocument };
+    newUploadDoc1.marinePolicyDocument = e.target.files[0];
 
-    setInsuranceDocument(newUploadDoc1)
-  }
+    setInsuranceDocument(newUploadDoc1);
+  };
 
-  const [isInsurerSameData, setIsInsurerSameData] = useState(false)
+  const [isInsurerSameData, setIsInsurerSameData] = useState(false);
 
   const handleIsInsuranceSame = () => {
-    setIsInsurerSameData(!isInsurerSameData)
-  }
+    setIsInsurerSameData(!isInsurerSameData);
+  };
   useEffect(() => {
     if (isInsurerSameData) {
-      setStorageData({ ...marineData })
+      setStorageData({ ...marineData });
     }
     if (isInsurerSameData == false) {
       console.log(
         insuranceData,
         'insuranceData?.storageInsurance?.policyNumber',
-      )
+      );
       setStorageData({
         policyNumber: insuranceData?.storageInsurance?.policyNumber || '',
         nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || '',
@@ -231,13 +231,13 @@ const Index = () => {
         insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
         lossPayee: insuranceData?.storageInsurance?.lossPayee || '',
         premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
-      })
+      });
     }
-  }, [isInsurerSameData])
+  }, [isInsurerSameData]);
 
   const validate = () => {
-    let toastMessage = ''
-    console.log(marineData, 'marineData')
+    let toastMessage = '';
+    console.log(marineData, 'marineData');
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
@@ -245,10 +245,10 @@ const Index = () => {
           marineData.gstOfInsurer == undefined ||
           !gSTINValidation(marineData.gstOfInsurer))
       ) {
-        toastMessage = 'PLEASE ADD A VALID GSTIN OF INSURER'
+        toastMessage = 'PLEASE ADD A VALID GSTIN OF INSURER';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -257,39 +257,39 @@ const Index = () => {
           marineData.gstOfInsured == undefined ||
           !gSTINValidation(marineData.gstOfInsured))
       ) {
-        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED'
+        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
         marineData.insuranceFrom == '' ||
         marineData.insuranceFrom == undefined
       ) {
-        toastMessage = 'PLEASE SELECT INSURANCE FROM'
+        toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
 
       if (marineData.insuranceTo == '' || marineData.insuranceTo == undefined) {
-        toastMessage = 'PLEASE SELECT INSURANCE TO'
+        toastMessage = 'PLEASE SELECT INSURANCE TO';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (insuranceDocument.marinePolicyDocument == null) {
-        toastMessage = 'Documents are Mandatory'
+        toastMessage = 'Documents are Mandatory';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
 
-      return true
+      return true;
     }
     if (insuranceData?.quotationRequest?.insuranceType == 'Storage Insurance') {
       if (
@@ -298,10 +298,10 @@ const Index = () => {
           storageData.gstOfInsurer == undefined ||
           !gSTINValidation(storageData.gstOfInsurer))
       ) {
-        toastMessage = ' PLEASE ADD VALID GSTIN OF INSURER FOR STORAGE'
+        toastMessage = ' PLEASE ADD VALID GSTIN OF INSURER FOR STORAGE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -310,41 +310,41 @@ const Index = () => {
           storageData.gstOfInsured == undefined ||
           !gSTINValidation(storageData.gstOfInsured))
       ) {
-        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED'
+        toastMessage = ' PLEASE ADD A VALID GSTIN OF INSURED';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
         storageData.insuranceFrom == '' ||
         storageData.insuranceFrom == undefined
       ) {
-        toastMessage = 'PLEASE SELECT INSURANCE FROM'
+        toastMessage = 'PLEASE SELECT INSURANCE FROM';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
         storageData.insuranceTo == '' ||
         storageData.insuranceTo == undefined
       ) {
-        toastMessage = 'PLEASE SELECT INSURANCE TO'
+        toastMessage = 'PLEASE SELECT INSURANCE TO';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
 
       if (insuranceDocument.storagePolicyDocument == null) {
-        toastMessage = 'Documents are Mandatory'
+        toastMessage = 'Documents are Mandatory';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
-      return true
+      return true;
     }
     if (
       insuranceData?.quotationRequest?.insuranceType ==
@@ -355,10 +355,11 @@ const Index = () => {
         storageData.gstOfInsurer == undefined ||
         !gSTINValidation(storageData?.gstOfInsurer)
       ) {
-        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage =
+          'VALID GSTIN OF INSURER IS MANDATORY IN STORAGE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -366,10 +367,11 @@ const Index = () => {
         storageData.gstOfInsured == undefined ||
         !gSTINValidation(storageData?.gstOfInsured)
       ) {
-        toastMessage = 'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE'
+        toastMessage =
+          'VALID GSTIN OF INSURED IS MANDATORY IN STORAGE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -378,10 +380,11 @@ const Index = () => {
         marineData.gstOfInsurer == undefined ||
         !gSTINValidation(marineData?.gstOfInsurer)
       ) {
-        toastMessage = 'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE'
+        toastMessage =
+          'VALID GSTIN OF INSURER IS MANDATORY IN MARINE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -390,54 +393,55 @@ const Index = () => {
         marineData.gstOfInsured == undefined ||
         !gSTINValidation(marineData?.gstOfInsured)
       ) {
-        toastMessage = ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE'
+        toastMessage =
+          ' VALID GSTIN OF INSURED IS MANDATORY IN MARINE INSURANCE';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
         insuranceDocument.marinePolicyDocument == null ||
         insuranceDocument.storagePolicyDocument == null
       ) {
-        toastMessage = 'BOTH DOCUMENTS ARE MANDATORY'
+        toastMessage = 'BOTH DOCUMENTS ARE MANDATORY';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
-      return true
+      return true;
     }
-  }
+  };
 
-  console.log(insuranceData, 'insuranceData')
+  console.log(insuranceData, 'insuranceData');
 
   const handleInsuranceUpdate = async () => {
-    if (!validate()) return
+    if (!validate()) return;
 
-    let marineObj = { ...marineData }
-    marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
+    let marineObj = { ...marineData };
+    marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount);
 
-    let storageObj = { ...storageData }
-    storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
+    let storageObj = { ...storageData };
+    storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount);
 
-    let fd = new FormData()
-    fd.append('marineInsurance', JSON.stringify(marineObj))
-    fd.append('storageInsurance', JSON.stringify(storageObj))
-    fd.append('insuranceId', insuranceData?._id)
+    let fd = new FormData();
+    fd.append('marineInsurance', JSON.stringify(marineObj));
+    fd.append('storageInsurance', JSON.stringify(storageObj));
+    fd.append('insuranceId', insuranceData?._id);
     fd.append(
       'insuranceType',
       JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-    )
-    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
+    );
+    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
+    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument);
 
-    let code = await dispatch(UpdateInsurance(fd))
+    let code = await dispatch(UpdateInsurance(fd));
     if (code == 200) {
       sessionStorage.setItem(
         'inspectionId',
         _get(insuranceResponse, 'data[0].order.inspection', ''),
-      )
+      );
       dispatch(
         settingSidebar(
           'Loading, Transit & Unloadinge',
@@ -445,18 +449,18 @@ const Index = () => {
           'Inspection',
           '3',
         ),
-      )
-      Router.push(`/third-party`)
+      );
+      Router.push(`/third-party`);
     }
-  }
+  };
 
   const handleRoute = () => {
-    Router.push('/insurance')
-  }
+    Router.push('/insurance');
+  };
 
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
-       <div className={`${styles.head_container} align-items-center`}>
+      <div className={`${styles.head_container} align-items-center`}>
         <div className={`${styles.head_header}  align-items-center`}>
           <img
             style={{ cursor: 'pointer' }}
@@ -488,7 +492,7 @@ const Index = () => {
                     label="Marine Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Marine Insurance'
+                      'Marine Insurance'
                         ? 'checked'
                         : ''
                     }
@@ -504,14 +508,14 @@ const Index = () => {
                     label="Storage Insurance"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Storage Insurance'
+                      'Storage Insurance'
                         ? 'checked'
                         : ''
                     }
                     name="group1"
                     value="Storage"
                     onChange={(e) => {
-                      setInsuranceType('Storage Insurance')
+                      setInsuranceType('Storage Insurance');
                     }}
                     type={type}
                     id={`inline-${type}-2`}
@@ -523,14 +527,14 @@ const Index = () => {
                     value="Both"
                     checked={
                       insuranceData?.quotationRequest?.insuranceType ==
-                        'Marine & Storage Insurance'
+                      'Marine & Storage Insurance'
                         ? 'checked'
                         : ''
                     }
                     name="group1"
                     type={type}
                     onChange={(e) => {
-                      setInsuranceType('Both')
+                      setInsuranceType('Both');
                     }}
                     id={`inline-${type}-2`}
                   />
@@ -540,7 +544,7 @@ const Index = () => {
           </div>
         </div>
         {insuranceData?.quotationRequest?.insuranceType ==
-          'Marine Insurance' ? (
+        'Marine Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
@@ -811,10 +815,11 @@ const Index = () => {
                             type="text"
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
                             className={`${styles.input_field} input form-control`}
                             required
@@ -822,20 +827,21 @@ const Index = () => {
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${marineData?.insuranceFromType === 'Domestic'
-                                  ? 'INR'
-                                  : marineData?.insuranceFromType ===
-                                    'International'
-                                    ? 'USD'
-                                    : ''
-                                } ` +
-                                Number(
-                                  marineData?.premiumAmount,
-                                )?.toLocaleString(
-                                  marineData?.insuranceFromType === 'Domestic'
-                                    ? 'en-In'
-                                    : undefined,
-                                )
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    marineData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
@@ -923,27 +929,45 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                {insuranceDocument?.marinePolicyDocument ? (insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.xls') || insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : (insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.doc') || insuranceDocument?.marinePolicyDocument?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                                  : null
-                                }
+                                {insuranceDocument?.marinePolicyDocument ? (
+                                  insuranceDocument?.marinePolicyDocument?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xls') ||
+                                  insuranceDocument?.marinePolicyDocument?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xlsx') ? (
+                                    <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : insuranceDocument?.marinePolicyDocument?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.doc') ||
+                                    insuranceDocument?.marinePolicyDocument?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.docx') ? (
+                                    <img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  )
+                                ) : null}
                               </td>
                               <td className={styles.doc_row}>
-                                {insuranceDocument?.marinePolicyDocument && insuranceDocument?.marinePolicyDocument
-                                  ? moment(insuranceDocument?.marinePolicyDocument?.date).format(
-                                    'DD-MM-YYYY,h:mm A',
-                                  )
+                                {insuranceDocument?.marinePolicyDocument &&
+                                insuranceDocument?.marinePolicyDocument
+                                  ? moment(
+                                      insuranceDocument?.marinePolicyDocument
+                                        ?.date,
+                                    ).format('DD-MM-YYYY,h:mm A')
                                   : ''}
                               </td>
                               <td>
@@ -961,7 +985,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                  insuranceDocument.marinePolicyDocument ==
+                                insuranceDocument.marinePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1294,26 +1318,28 @@ const Index = () => {
                             required
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${storageData?.insuranceFromType ===
-                                  'Domestic'
-                                  ? 'INR'
-                                  : storageData?.insuranceFromType ===
-                                    'International'
-                                    ? 'USD'
-                                    : ''
-                                } ` +
-                                Number(
-                                  storageData?.premiumAmount,
-                                )?.toLocaleString()
+                                : `${
+                                    storageData?.insuranceFromType ===
+                                    'Domestic'
+                                      ? 'INR'
+                                      : storageData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    storageData?.premiumAmount,
+                                  )?.toLocaleString()
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
@@ -1401,37 +1427,58 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                {console.log(insuranceDocument?.storagePolicyDocument, 'insuranceDocument?.storagePolicyDocument')}
-                                {insuranceDocument?.storagePolicyDocument ?
-                                  (insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.xls') || insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                    src="/static/excel.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  /> : (insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.doc') || insuranceDocument?.storagePolicyDocument?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                    src="/static/doc.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  /> : <img
-                                    src="/static/pdf.svg"
-                                    className="img-fluid"
-                                    alt="Pdf"
-                                  />
-                                  : null
-                                }
+                                {console.log(
+                                  insuranceDocument?.storagePolicyDocument,
+                                  'insuranceDocument?.storagePolicyDocument',
+                                )}
+                                {insuranceDocument?.storagePolicyDocument ? (
+                                  insuranceDocument?.storagePolicyDocument?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xls') ||
+                                  insuranceDocument?.storagePolicyDocument?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xlsx') ? (
+                                    <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : insuranceDocument?.storagePolicyDocument?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.doc') ||
+                                    insuranceDocument?.storagePolicyDocument?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.docx') ? (
+                                    <img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  )
+                                ) : null}
                               </td>
                               <td className={styles.doc_row}>
-                                {insuranceDocument?.storagePolicyDocument ?
-                                  insuranceDocument?.storagePolicyDocument?.date
-                                    ? moment(insuranceDocument?.storagePolicyDocument?.date).format(
-                                      'DD-MM-YYYY,h:mm A',
-                                    )
+                                {insuranceDocument?.storagePolicyDocument
+                                  ? insuranceDocument?.storagePolicyDocument
+                                      ?.date
+                                    ? moment(
+                                        insuranceDocument?.storagePolicyDocument
+                                          ?.date,
+                                      ).format('DD-MM-YYYY,h:mm A')
                                     : moment(new Date()).format(
-                                      'DD-MM-YYYY,h:mm A',
-                                    ) : ''}
+                                        'DD-MM-YYYY,h:mm A',
+                                      )
+                                  : ''}
                               </td>
                               <td>
                                 {insuranceDocument &&
-                                  insuranceDocument?.storagePolicyDocument ==
+                                insuranceDocument?.storagePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1762,30 +1809,32 @@ const Index = () => {
                             type="text"
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             onWheel={(event) => event.currentTarget.blur()}
                             value={
                               isFieldInFocus
                                 ? marineData?.premiumAmount
-                                : `${marineData?.insuranceFromType === 'Domestic'
-                                  ? 'INR'
-                                  : marineData?.insuranceFromType ===
-                                    'International'
-                                    ? 'USD'
-                                    : ''
-                                } ` +
-                                Number(
-                                  marineData?.premiumAmount,
-                                )?.toLocaleString(
-                                  marineData?.insuranceFromType === 'Domestic'
-                                    ? 'en-In'
-                                    : undefined,
-                                )
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    marineData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
@@ -2077,30 +2126,32 @@ const Index = () => {
                             required
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
                             name="premiumAmount"
                             onWheel={(event) => event.currentTarget.blur()}
                             value={
                               isFieldInFocus
                                 ? storageData?.premiumAmount
-                                : `${marineData?.insuranceFromType === 'Domestic'
-                                  ? 'INR'
-                                  : marineData?.insuranceFromType ===
-                                    'International'
-                                    ? 'USD'
-                                    : ''
-                                } ` +
-                                Number(
-                                  storageData?.premiumAmount,
-                                )?.toLocaleString(
-                                  marineData?.insuranceFromType === 'Domestic'
-                                    ? 'en-In'
-                                    : undefined,
-                                )
+                                : `${
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'INR'
+                                      : marineData?.insuranceFromType ===
+                                        'International'
+                                      ? 'USD'
+                                      : ''
+                                  } ` +
+                                  Number(
+                                    storageData?.premiumAmount,
+                                  )?.toLocaleString(
+                                    marineData?.insuranceFromType === 'Domestic'
+                                      ? 'en-In'
+                                      : undefined,
+                                  )
                             }
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
@@ -2208,7 +2259,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                  insuranceDocument.marinePolicyDocument ==
+                                insuranceDocument.marinePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2276,7 +2327,7 @@ const Index = () => {
                                   </button>
                                 </div> */}
                                 {insuranceDocument &&
-                                  insuranceDocument?.storagePolicyDocument ==
+                                insuranceDocument?.storagePolicyDocument ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2339,6 +2390,6 @@ const Index = () => {
         </div>
       </div>
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

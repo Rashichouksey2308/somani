@@ -1,42 +1,42 @@
 // import Cookies from 'js-cookie'
-import Axios from 'axios'
-import Router from 'next/router'
-import API from '../../utils/endpoints'
-import * as types from './actionType'
-import { toast } from 'react-toastify'
+import Axios from 'axios';
+import Router from 'next/router';
+import API from '../../utils/endpoints';
+import * as types from './actionType';
+import { toast } from 'react-toastify';
 // import history from '../../history'
-import Cookies from 'js-cookie'
-import { setAuthenticationCookie } from '../../utils/authentication'
+import Cookies from 'js-cookie';
+import { setAuthenticationCookie } from '../../utils/authentication';
 
 const errorMessage = {
   status: 400,
   message: 'Something went wrong',
-}
+};
 
 function loggingUser() {
   return {
     type: types.LOGIN_USER,
-  }
+  };
 }
 
 function loggingUserSuccess(payload) {
   return {
     type: types.LOGIN_USER_SUCCESS,
     payload,
-  }
+  };
 }
 
 function loggingUserFailed(payload) {
   return {
     type: types.LOGIN_USER_FAILED,
     payload,
-  }
+  };
 }
 
 function fetchingUserPermissions() {
   return {
     type: types.FETCH_USER_PERMISSIONS,
-  }
+  };
 }
 
 function fetchingUserPermissionsSuccess(payload, user) {
@@ -44,41 +44,41 @@ function fetchingUserPermissionsSuccess(payload, user) {
     type: types.FETCH_USER_PERMISSIONS_SUCCESS,
     payload,
     user,
-  }
+  };
 }
 
 function fetchingUserPermissionsFailed(payload) {
   return {
     type: types.FETCH_USER_PERMISSIONS_FAILED,
     payload,
-  }
+  };
 }
 
 function fetchingCurrentUserProfile() {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE,
-  }
+  };
 }
 
 function fetchingCurrentUserProfileSuccess(payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_SUCCESS,
     payload,
-  }
+  };
 }
 
 function fetchingCurrentUserProfileFailed(payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_FAILED,
     payload,
-  }
+  };
 }
 
 export function authenticateUser(payload) {
   return {
     type: types.AUTHENTICATE_USER,
     payload,
-  }
+  };
 }
 //****** Verify Token   ********//
 
@@ -86,39 +86,39 @@ export function validatingToken() {
   return {
     type: types.VERIFY_TOKEN,
     payload: Cookies.get('guid'),
-  }
+  };
 }
 
 export function validatingTokenSuccess(payload) {
   return {
     type: types.VERIFY_TOKEN_SUCCESS,
     payload: payload,
-  }
+  };
 }
 
 export function validatingTokenFailed(payload) {
   return {
     type: types.VERIFY_TOKEN_FAILED,
-  }
+  };
 }
 
 //****** Generate Token   ********//
 
 export function generatingToken() {
-  return { type: types.GENERATE_TOKEN }
+  return { type: types.GENERATE_TOKEN };
 }
 
 export function generatingTokenSuccess(payload) {
   return {
     type: types.GENERATE_TOKEN_SUCCESS,
     payload: payload,
-  }
+  };
 }
 
 export function generatingTokenFailed(payload) {
   return {
     type: types.GENERATE_TOKEN_FAILED,
-  }
+  };
 }
 
 //****** logging out user  ********//
@@ -138,13 +138,13 @@ export function generatingTokenFailed(payload) {
 function loggingoutUser() {
   return {
     type: types.LOGOUT_USER,
-  }
+  };
 }
 
 //****** Reset Password   ********//
 
 export function resetPassword() {
-  return { type: types.RESET_PASSWORD }
+  return { type: types.RESET_PASSWORD };
 }
 
 export function resetPasswordSuccess() {
@@ -155,8 +155,8 @@ export function resetPasswordSuccess() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.RESET_PASSWORD_SUCCESS }
+  });
+  return { type: types.RESET_PASSWORD_SUCCESS };
 }
 
 export function resetPasswordFailed() {
@@ -167,29 +167,29 @@ export function resetPasswordFailed() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.RESET_PASSWORD_FAILED }
+  });
+  return { type: types.RESET_PASSWORD_FAILED };
 }
 
 export function handlePageLoading(payload) {
   return {
     type: types.HANDLE_PAGE_LOADING,
     payload,
-  }
+  };
 }
 
 //****** Forgot Password   ********//
 
 export function forgotpassword() {
-  return { type: types.FORGOT_PASSWORD }
+  return { type: types.FORGOT_PASSWORD };
 }
 
 export function forgotPasswordSuccess(payload) {
-  history.push('/OTP-verification')
+  history.push('/OTP-verification');
   return {
     type: types.FORGOT_PASSWORD_SUCCESS,
     payload,
-  }
+  };
 }
 
 export function forgotPasswordFailed() {
@@ -200,20 +200,20 @@ export function forgotPasswordFailed() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.FORGOT_PASSWORD_FAILED }
+  });
+  return { type: types.FORGOT_PASSWORD_FAILED };
 }
 
 //****** OTP VARIFICATION   ********//
 
 export function otpverification() {
-  return { type: types.OTP_VARIFICATION }
+  return { type: types.OTP_VARIFICATION };
 }
 
 export function otpverificationSuccess() {
-  history.push('/set-new-password')
-  window.location.reload()
-  return { type: types.OTP_VARIFICATION_SUCCESS }
+  history.push('/set-new-password');
+  window.location.reload();
+  return { type: types.OTP_VARIFICATION_SUCCESS };
 }
 
 export function otpverificationFailed() {
@@ -224,18 +224,18 @@ export function otpverificationFailed() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.OTP_VARIFICATION_FAILED }
+  });
+  return { type: types.OTP_VARIFICATION_FAILED };
 }
 
 //****** SET NEW PASSWORD   ********//
 
 export function setnewPassword() {
-  return { type: types.SET_NEW_PASSWORD }
+  return { type: types.SET_NEW_PASSWORD };
 }
 
 export function setnewPasswordSuccess() {
-  history.push('/login')
+  history.push('/login');
   toast('Password Successfully Changed', {
     position: 'bottom-center',
     autoClose: 1200,
@@ -243,8 +243,8 @@ export function setnewPasswordSuccess() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.SET_NEW_PASSWORD_SUCCESS }
+  });
+  return { type: types.SET_NEW_PASSWORD_SUCCESS };
 }
 
 export function setnewPasswordFailed() {
@@ -255,76 +255,76 @@ export function setnewPasswordFailed() {
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
-  })
-  return { type: types.SET_NEW_PASSWORD_FAILED }
+  });
+  return { type: types.SET_NEW_PASSWORD_FAILED };
 }
 
 //****** LOGIN  ********//
 
 export const loginUser = (payload) => async (dispatch, getState, api) => {
-  dispatch(loggingUser())
+  dispatch(loggingUser());
   try {
-    let headers = {authorization:'',Cache: 'no-cache' ,}
+    let headers = { authorization: '', Cache: 'no-cache' };
     // let response = await api.post(API.login, payload);
-    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload,{
+    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
       headers: headers,
-    })
-    console.log(response, 'response')
+    });
+    console.log(response, 'response');
     if (response.data.code === 200) {
-      dispatch(loggingUserSuccess(response.data))
+      dispatch(loggingUserSuccess(response.data));
 
       // localStorage.setItem(response.data.token)
       // Router.push("/")
       // Cookies.set('refreshtoken', response.data.data.refreshToken)
       // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
-      setAuthenticationCookie(response.data.data)
+      setAuthenticationCookie(response.data.data);
     } else {
-      dispatch(loggingUserFailed(response.data))
+      dispatch(loggingUserFailed(response.data));
       // Cookies.remove('token')
-      let toastMessage = 'Please check your credentials and Try Again!'
+      let toastMessage = 'Please check your credentials and Try Again!';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
   } catch (error) {
-    console.log('API FAILED')
-    dispatch(loggingUserFailed(errorMessage))
+    console.log('API FAILED');
+    dispatch(loggingUserFailed(errorMessage));
   }
-}
+};
 
 export const fetchUserPermissions = () => async (dispatch, getState, api) => {
-  dispatch(fetchingUserPermissions())
+  dispatch(fetchingUserPermissions());
   try {
-    let response = await api.get(API.getUserPermissions)
+    let response = await api.get(API.getUserPermissions);
     if (response.data.code === 200) {
       dispatch(
         fetchingUserPermissionsSuccess(
           response.data.data.pageGroups,
           response.data.data,
         ),
-      )
+      );
     } else {
-      dispatch(fetchingUserPermissionsFailed(response.data))
+      dispatch(fetchingUserPermissionsFailed(response.data));
     }
   } catch (error) {
-    dispatch(fetchingUserPermissionsFailed(errorMessage))
+    dispatch(fetchingUserPermissionsFailed(errorMessage));
   }
-}
+};
 
 export const fetchCurrentUserProfile =
   () => async (dispatch, getState, api) => {
-    dispatch(fetchingCurrentUserProfile())
+    dispatch(fetchingCurrentUserProfile());
     try {
-      let response = await api.get(API.getUserProfile)
+      let response = await api.get(API.getUserProfile);
       if (response.data.code === 200) {
-        dispatch(fetchingCurrentUserProfileSuccess(response.data.data))
+        dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
       } else {
-        dispatch(fetchingCurrentUserProfileFailed(response.data))
+        dispatch(fetchingCurrentUserProfileFailed(response.data));
       }
     } catch (error) {
-      dispatch(fetchingCurrentUserProfileFailed(errorMessage))
+      dispatch(fetchingCurrentUserProfileFailed(errorMessage));
     }
-  }
+  };
 
 //********  Verify User Token Validity  ********//
 // export const validateToken = () => async (dispatch, getState, api) => {
@@ -356,103 +356,107 @@ export const fetchCurrentUserProfile =
 // }
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  let cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  let headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
   try {
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: headers,
-    })
+    });
     if (response.data.code === 200) {
-      console.log(response.data.code, 'dfgfdg')
+      console.log(response.data.code, 'dfgfdg');
 
       // dispatch(getVesselSuccess(response.data.data))
-      return response.data.data
+      return response.data.data;
     } else {
       if (response.data.code === 401) {
-        dispatch(generateToken())
+        dispatch(generateToken());
       }
-      dispatch(validatingTokenFailed(response.data.data))
+      dispatch(validatingTokenFailed(response.data.data));
 
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
   } catch (error) {
-    dispatch(validatingTokenFailed())
-    dispatch(generateToken())
-    let toastMessage = 'cound not Process YOur Request '
+    dispatch(validatingTokenFailed());
+    dispatch(generateToken());
+    let toastMessage = 'cound not Process YOur Request ';
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
   }
-}
+};
 
 //****** Generate Token  ********//
 
 export const generateToken = () => async (dispatch, getState, api) => {
   try {
-    let cookie = await Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let cookie = await Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken] = decodedString.split('#')
+    let [userId, refreshToken] = decodedString.split('#');
 
     let response = await api.post(API.generateNewToken, {
       refreshToken: existingRefreshToken,
       userId: guid,
-    })
+    });
 
     if (response.data.code === 200) {
       let {
         data: { data: jwtAccessToken },
-      } = response
-      await Cookies.remove('SOMANI')
+      } = response;
+      await Cookies.remove('SOMANI');
 
       await setAuthenticationCookie({
         jwtAccessToken,
         refreshToken,
         user: { userId },
-      })
-      dispatch(generatingTokenSuccess(response.data.data))
+      });
+      dispatch(generatingTokenSuccess(response.data.data));
     }
-    dispatch(logoutUser())
-    dispatch(generatingTokenFailed(response.data))
+    dispatch(logoutUser());
+    dispatch(generatingTokenFailed(response.data));
   } catch (error) {
-    dispatch(generatingTokenFailed(error))
-    dispatch(logoutUser())
+    dispatch(generatingTokenFailed(error));
+    dispatch(logoutUser());
   }
-}
+};
 
 //****** Logout User   ********//
 
 export const logoutUser = () => async (dispatch, getState, api) => {
   // let  cookie =  Cookies.get('SOMANI')
-  let cookie = Cookies.get('SOMANI')
-  console.log(cookie, 'cookie')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  console.log(decodedString, 'decodedString')
+  let cookie = Cookies.get('SOMANI');
+  console.log(cookie, 'cookie');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  console.log(decodedString, 'decodedString');
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   try {
     Axios.get(`${API.authbaseUrl}${API.logout}`, {
       headers: {
         authorization: jwtAccessToken,
       },
-    }).then((response) => console.log(response, 'logout Response'))
-    Cookies.remove('SOMANI')
+    }).then((response) => console.log(response, 'logout Response'));
+    Cookies.remove('SOMANI');
 
-    dispatch(loggingoutUser())
+    dispatch(loggingoutUser());
     setTimeout(() => {
-      Router.push('/')
-      window.location.reload()
-    }, 1000)
+      Router.push('/');
+      window.location.reload();
+    }, 1000);
   } catch (error) {
-    console.log(error, 'LOGOUT API FAILED')
+    console.log(error, 'LOGOUT API FAILED');
   }
-}
+};
 
 //****** Reset Password   ********//
 
@@ -462,19 +466,19 @@ export function resetpassword(state) {
       prevPassword: state.recent_password,
       password: state.new_password,
       cPassword: state.confirm_password,
-    }
-    dispatch(resetPassword())
+    };
+    dispatch(resetPassword());
     try {
-      let response = await api.post(API.changePassword, payload)
+      let response = await api.post(API.changePassword, payload);
       if (response.data.code === 200) {
-        dispatch(resetPasswordSuccess(response.data))
+        dispatch(resetPasswordSuccess(response.data));
       } else {
-        dispatch(resetPasswordFailed(response.data))
+        dispatch(resetPasswordFailed(response.data));
       }
     } catch (error) {
-      dispatch(resetPasswordFailed())
+      dispatch(resetPasswordFailed());
     }
-  }
+  };
 }
 
 //****** Forgot Password   ********//
@@ -483,19 +487,19 @@ export function forgotPassword(state) {
   return async (dispatch, getState, api) => {
     let payload = {
       username: state.mobileNo,
-    }
-    dispatch(forgotpassword())
+    };
+    dispatch(forgotpassword());
     try {
-      let response = await api.post(API.forgotPassword, payload)
+      let response = await api.post(API.forgotPassword, payload);
       if (response.data.code === 200) {
-        dispatch(forgotPasswordSuccess(response.data.data))
+        dispatch(forgotPasswordSuccess(response.data.data));
       } else {
-        dispatch(forgotPasswordFailed(response.data))
+        dispatch(forgotPasswordFailed(response.data));
       }
     } catch (error) {
-      dispatch(forgotPasswordFailed(errorMessage))
+      dispatch(forgotPasswordFailed(errorMessage));
     }
-  }
+  };
 }
 
 //****** OTP VARIFICATION   ********//
@@ -505,44 +509,44 @@ export function optVerification(state) {
     let payload = {
       otp: state.otp_number,
       userid: getState().Auth.userId,
-    }
-    dispatch(otpverification())
+    };
+    dispatch(otpverification());
     try {
-      let response = await api.post(API.varifyOTP, payload)
+      let response = await api.post(API.varifyOTP, payload);
       if (response.data.code === 200) {
-        await Cookies.set('token', response.data.jwtAccessToken)
-        dispatch(otpverificationSuccess(response.data))
+        await Cookies.set('token', response.data.jwtAccessToken);
+        dispatch(otpverificationSuccess(response.data));
       } else {
-        dispatch(otpverificationFailed(response.data))
+        dispatch(otpverificationFailed(response.data));
       }
     } catch (error) {
-      dispatch(otpverificationFailed(errorMessage))
+      dispatch(otpverificationFailed(errorMessage));
     }
-  }
+  };
 }
 
 //****** SET NEW PASSWORD   ********//
 
 export function setNewPassword(state) {
   return async (dispatch, getState, api) => {
-    let authorization = Cookies.get('token')
-    let headers = { Authorization: authorization, Cache: 'no-cache' }
+    let authorization = Cookies.get('token');
+    let headers = { Authorization: authorization, Cache: 'no-cache' };
     let payload = {
       password: state.newPassword,
       confirmPassword: state.confirmPassword,
-    }
-    dispatch(setnewPassword())
+    };
+    dispatch(setnewPassword());
     try {
       let response = await api.post(API.setNewPassword, payload, {
         headers: headers,
-      })
+      });
       if (response.data.code === 200) {
-        dispatch(setnewPasswordSuccess(response.data))
+        dispatch(setnewPasswordSuccess(response.data));
       } else {
-        dispatch(setnewPasswordFailed(response.data))
+        dispatch(setnewPasswordFailed(response.data));
       }
     } catch (error) {
-      dispatch(setnewPasswordFailed(errorMessage))
+      dispatch(setnewPasswordFailed(errorMessage));
     }
-  }
+  };
 }

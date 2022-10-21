@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
 // import { settingDocument } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 const Index = ({
   saveDocument,
@@ -19,9 +19,9 @@ const Index = ({
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
-  ])
+  ]);
 
-  const [name, setName] = useState(null)
+  const [name, setName] = useState(null);
 
   // const onAddDoc = (index) => {
   //   setList([
@@ -34,7 +34,7 @@ const Index = ({
   //   ])
   // }
 
-  const [secondDocName, setSecondDocName] = useState(null)
+  const [secondDocName, setSecondDocName] = useState(null);
 
   return (
     <div className={`${styles.main} border_color`}>
@@ -50,36 +50,31 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
                   >
-                    <div className={`${styles.label_heading} label_heading`}>Type Of Document</div>
+                    <div className={`${styles.label_heading} label_heading`}>
+                      Type Of Document
+                    </div>
                     <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         name="1"
                         onChange={(e) => {
-                          addTypeOfDoc(e.target.value, index)
+                          addTypeOfDoc(e.target.value, index);
                         }}
                       >
-                         
-                       <option>Select an option</option>
-                          <option value="CertificateofIncorporation">
-                            Certificate of Incorporation
-                          </option>
-                          <option value="IECCertificate">
-                            IEC Certificate
-                          </option>
-                          <option value="BusinessRegistrationCertificate ">
-                            Business Registration Certificate{' '}
-                          </option>
-                          <option value="PANCard">PAN Card</option>
-                          <option value="GSTCertificate">
-                            GST Certificate
-                          </option>
-                          <option value="BankReferenceLetter">
-                            Bank Reference Letter
-                          </option>
-                          <option value="FinancialYear ">
-                            Financial Year{' '}
-                          </option>
+                        <option>Select an option</option>
+                        <option value="CertificateofIncorporation">
+                          Certificate of Incorporation
+                        </option>
+                        <option value="IECCertificate">IEC Certificate</option>
+                        <option value="BusinessRegistrationCertificate ">
+                          Business Registration Certificate{' '}
+                        </option>
+                        <option value="PANCard">PAN Card</option>
+                        <option value="GSTCertificate">GST Certificate</option>
+                        <option value="BankReferenceLetter">
+                          Bank Reference Letter
+                        </option>
+                        <option value="FinancialYear ">Financial Year </option>
                       </select>
                       <img
                         className={`${styles.arrow} image_arrow img-fluid`}
@@ -92,7 +87,9 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
                   >
-                    <div className={`${styles.label_heading} label_heading`}>Attach Document</div>
+                    <div className={`${styles.label_heading} label_heading`}>
+                      Attach Document
+                    </div>
                     {val.attachDoc == '' ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
@@ -100,22 +97,21 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            console.log("Addddoc")
-                            addDoc(e.target.files[0], index)
+                            console.log('Addddoc');
+                            addDoc(e.target.files[0], index);
                             // uploadDocument2(e)
                           }}
-            
-                          style={{width: "106px", height: "55px"}}
+                          style={{ width: '106px', height: '55px' }}
                         />
                         <button className={`${styles.button_upload} btn`}>
                           Upload
                         </button>
                       </div>
                     ) : (
-                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                        <span className="text-color">
-                          {val.attachDoc.name}
-                        </span>
+                      <div
+                        className={`${styles.certificate} text1 d-flex justify-content-between`}
+                      >
+                        <span className="text-color">{val.attachDoc.name}</span>
                         <img
                           className={`${styles.close_image} image_arrow`}
                           src="/static/close.svg"
@@ -129,7 +125,9 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
                   >
-                    <div className={`${styles.label_heading} label_heading`}>Action</div>
+                    <div className={`${styles.label_heading} label_heading`}>
+                      Action
+                    </div>
                     <div
                       onClick={() => setSecondDocName(null)}
                       className={styles.image_card}
@@ -139,14 +137,14 @@ const Index = ({
                         src="/static/delete.svg"
                         alt="Delete"
                         onClick={() => {
-                          deleteData(index)
+                          deleteData(index);
                         }}
                       />
                     </div>
                   </div>
                   <hr className={`${styles.hr_line} border_color`}></hr>
                 </>
-              )
+              );
             })}
 
           {/* {list &&
@@ -294,20 +292,24 @@ const Index = ({
         <hr className={styles.hr_line}></hr> */}
 
           <div className={`${styles.add_document} col-md-12`}>
-            
             <p
               className={`${styles.add_para} d-flex align-items-center`}
               onClick={(e) => {
-                onAddDoc()
+                onAddDoc();
               }}
             >
-              <img className={`${styles.add_image}`} src="/static/add.svg" alt="Add" />Add More Documents
+              <img
+                className={`${styles.add_image}`}
+                src="/static/add.svg"
+                alt="Add"
+              />
+              Add More Documents
             </p>
           </div>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

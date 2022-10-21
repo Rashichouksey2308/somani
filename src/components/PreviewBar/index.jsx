@@ -1,16 +1,16 @@
-import Router from 'next/router'
-import React from 'react'
-import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import Router from 'next/router';
+import React from 'react';
+import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
 
 function index({ leftButtonClick, onSave }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
-    <div className={`${styles.root} ${
-      !sidebar ? styles.no_sidebar : null
-    }
-    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
+    <div
+      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
+    >
       <div
         id="nextbutton"
         onClick={() => onSave()}
@@ -27,7 +27,7 @@ function index({ leftButtonClick, onSave }) {
         <span>Preview</span>
       </div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

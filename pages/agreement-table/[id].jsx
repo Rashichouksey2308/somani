@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
-import { GetOrders } from '../../src/redux/registerBuyer/action'
-import Filter from '../../src/components/Filter'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
+import { GetOrders } from '../../src/redux/registerBuyer/action';
+import Filter from '../../src/components/Filter';
 
 function Index() {
   const handleRoute = () => {
-    Router.push('/agreement')
-  }
+    Router.push('/agreement');
+  };
 
   return (
     <div className="container-fluid p-0">
@@ -164,6 +164,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

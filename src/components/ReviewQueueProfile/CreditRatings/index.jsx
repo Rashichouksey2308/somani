@@ -1,44 +1,44 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from '../profile.module.scss'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import styles from '../profile.module.scss';
+import moment from 'moment';
 function Index({ creditRating }) {
-  const [dates, setDates] = useState([])
-  const [filteredCredit, setFilteredCredit] = useState([])
+  const [dates, setDates] = useState([]);
+  const [filteredCredit, setFilteredCredit] = useState([]);
 
   useEffect(() => {
-    let array1 = []
-    let finalarray = []
+    let array1 = [];
+    let finalarray = [];
     creditRating?.forEach((item) => {
-      let year = item.dateOfIssuance?.slice(0, 4)
-      array1.push(year)
-    })
-    finalarray = [...new Set(array1)]
-    let tempdates = finalarray.sort((a, b) => b - a).slice(0, 3)
-    setDates(tempdates)
-  }, [creditRating])
-  console.log(dates, 'jdhgkghfgadsklj')
+      let year = item.dateOfIssuance?.slice(0, 4);
+      array1.push(year);
+    });
+    finalarray = [...new Set(array1)];
+    let tempdates = finalarray.sort((a, b) => b - a).slice(0, 3);
+    setDates(tempdates);
+  }, [creditRating]);
+  console.log(dates, 'jdhgkghfgadsklj');
 
   useEffect(() => {
-    const filteredArray = []
+    const filteredArray = [];
     creditRating?.forEach((element) => {
       if (
         element?.dateOfIssuance?.slice(0, 4) === dates[0] ||
         element.dateOfIssuance?.slice(0, 4) === dates[1] ||
         element.dateOfIssuance?.slice(0, 4) === dates[2]
       ) {
-        filteredArray.push(element)
+        filteredArray.push(element);
       }
       console.log(
         element?.dateOfIssuance?.slice(0, 4),
         dates[0],
         'filteredArray',
-      )
-    })
+      );
+    });
 
-    console.log(filteredArray, 'filteredArray')
-    setFilteredCredit(filteredArray)
-  }, [dates])
+    console.log(filteredArray, 'filteredArray');
+    setFilteredCredit(filteredArray);
+  }, [dates]);
 
   // console.log(creditRating, "creditRating")
   return (
@@ -175,7 +175,7 @@ function Index({ creditRating }) {
                                 <td className="text-center">-</td>
                               )}
                             </tr>
-                          )
+                          );
                         })}
                     </tbody>
                   </table>
@@ -186,7 +186,7 @@ function Index({ creditRating }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

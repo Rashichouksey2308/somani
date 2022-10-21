@@ -1,20 +1,20 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import { useState, useEffect } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import _get from 'lodash/get'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import _get from 'lodash/get';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   UpdateTransitDetails,
   GetTransitDetails,
-} from '../../redux/TransitDetails/action'
-import UploadOther from '../UploadOther'
-import { toast } from 'react-toastify'
-import moment from 'moment'
-import { addPrefixOrSuffix } from 'utils/helper'
+} from '../../redux/TransitDetails/action';
+import UploadOther from '../UploadOther';
+import { toast } from 'react-toastify';
+import moment from 'moment';
+import { addPrefixOrSuffix } from 'utils/helper';
 
 export default function Index({
   isShipmentTypeBULK,
@@ -23,13 +23,13 @@ export default function Index({
   orderid,
   docUploadFunction,
 }) {
-  let transId = _get(TransitDetails, `data[0]`, '')
+  let transId = _get(TransitDetails, `data[0]`, '');
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-    'Bulk'
-  const [editInput, setEditInput] = useState(true)
-  const [startBlDate, setBlDate] = useState(null)
-  const [lastDate, setlastDate] = useState(new Date())
+    'Bulk';
+  const [editInput, setEditInput] = useState(true);
+  const [startBlDate, setBlDate] = useState(null);
+  const [lastDate, setlastDate] = useState(new Date());
   const [cimsDetails, setCimsDetails] = useState([
     {
       vesselName: '',
@@ -41,17 +41,16 @@ export default function Index({
       coalImportRegistrationDoc: null,
       cimsPaymentReceiptDoc: null,
     },
-  ])
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
-
+  ]);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   useEffect(() => {
-    let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', [])
+    let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
     if (data.length > 0) {
       // data[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
-      setCimsDetails(data)
+      setCimsDetails(data);
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   // useEffect(() => {
   //   let temp = [...cimsDetails]
@@ -59,11 +58,10 @@ export default function Index({
   //   setCimsDetails([...temp])
   // }, [TransitDetails])
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const onChangeVessel = (e, index) => {
-    let VesselName = e.target.value
-    let filteredVessel = {}
+    let VesselName = e.target.value;
+    let filteredVessel = {};
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     // if (
@@ -98,70 +96,61 @@ export default function Index({
     //   })
     // }
 
-
-    _get(TransitDetails, `data[0].BL.billOfLanding`, []).slice().forEach(
-      (bl, index) => {
+    _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+      .slice()
+      .forEach((bl, index) => {
         if (bl.vesselName === VesselName) {
-          filteredVessel = bl
+          filteredVessel = bl;
         }
-      },
-    )
+      });
 
-    let newArray = cimsDetails.slice()
-    newArray[index].vesselName = _get(
-      filteredVessel,
-      'vesselName',
-      '',
-    )
-    newArray[index].quantity = _get(
-      filteredVessel,
-      'blQuantity',
-      '',
-    )
-    console.log(filteredVessel, 'filteredVessel')
-    setCimsDetails(newArray.slice())
-  }
+    let newArray = cimsDetails.slice();
+    newArray[index].vesselName = _get(filteredVessel, 'vesselName', '');
+    newArray[index].quantity = _get(filteredVessel, 'blQuantity', '');
+    console.log(filteredVessel, 'filteredVessel');
+    setCimsDetails(newArray.slice());
+  };
 
   const onChangeCims = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
             [name]: value,
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
-  console.log(cimsDetails, '2222222')
+        return obj;
+      });
+      return newState;
+    });
+  };
+  console.log(cimsDetails, '2222222');
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1')
+    console.log(startDate, name, 'Event1');
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
             [name]: startDate,
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
+  };
   const onAddHandler = () => {
     setCimsDetails([
       ...cimsDetails,
@@ -179,29 +168,30 @@ export default function Index({
         document1: null,
         document2: null,
       },
-    ])
-    setIsFieldInFocus(prevState => [...prevState, { blQuantity: false, cimsCharges: false }])
-  }
-
-
+    ]);
+    setIsFieldInFocus((prevState) => [
+      ...prevState,
+      { blQuantity: false, cimsCharges: false },
+    ]);
+  };
 
   const handleCloseDoc = (e, index) => {
-    let tempArr = [...cimsDetails]
-    console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e)
+    let tempArr = [...cimsDetails];
+    console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e);
 
-    tempArr[index][e] = null
-    setCimsDetails(tempArr)
-  }
+    tempArr[index][e] = null;
+    setCimsDetails(tempArr);
+  };
   const onDeleteClick = (index) => {
     setCimsDetails([
       ...cimsDetails.slice(0, index),
       ...cimsDetails.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const uploadDoc = async (e, index) => {
-    let id = e.target.id
-    let doc = await docUploadFunction(e)
-    console.log(doc, id, 'khjfdfgkegfk')
+    let id = e.target.id;
+    let doc = await docUploadFunction(e);
+    console.log(doc, id, 'khjfdfgkegfk');
 
     setCimsDetails((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -209,51 +199,51 @@ export default function Index({
           return {
             ...obj,
             [id]: doc,
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
-  console.log(cimsDetails, 'khjfdfgkegfk')
+        return obj;
+      });
+      return newState;
+    });
+  };
+  console.log(cimsDetails, 'khjfdfgkegfk');
   const validation = () => {
-    let isOk = true
-    let toastMessage = ''
+    let isOk = true;
+    let toastMessage = '';
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', cimsDetails.length)
+      console.log(i, 'INSIDE FOR LOOP', cimsDetails.length);
       if (
         cimsDetails[i]?.vesselName == '' ||
         cimsDetails[i]?.vesselName == undefined
       ) {
-        toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `
+        toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       if (
         cimsDetails[i]?.quantity == '' ||
         cimsDetails[i]?.quantity == undefined
       ) {
-        toastMessage = `Please  FILL quantity of CIMS NO   - ${i + 1}  `
+        toastMessage = `Please  FILL quantity of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       if (
         cimsDetails[i]?.circNumber == '' ||
         cimsDetails[i]?.circNumber == undefined
       ) {
-        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `
+        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       // if (
@@ -271,67 +261,69 @@ export default function Index({
         cimsDetails[i]?.cimsCharges == '' ||
         cimsDetails[i]?.cimsCharges == undefined
       ) {
-        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `
+        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       if (
         cimsDetails[i]?.paymentBy == '' ||
         cimsDetails[i]?.paymentBy == undefined
       ) {
-        toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i + 1}  `
+        toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       if (
         cimsDetails[i]?.coalImportRegistrationDoc == null ||
         cimsDetails[i]?.coalImportRegistrationDoc == undefined
       ) {
-        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${i + 1} `
+        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${
+          i + 1
+        } `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
     }
-    return isOk
-  }
+    return isOk;
+  };
 
   const handleSubmit = () => {
     // const billOfLanding = [...bolList]
     if (validation()) {
-      const cims = { cimsDetails: cimsDetails }
-      let idtrans = transId._id
+      const cims = { cimsDetails: cimsDetails };
+      let idtrans = transId._id;
 
-      let fd = new FormData()
-      fd.append('cims', JSON.stringify(cims))
-      fd.append('transitId', transId._id)
+      let fd = new FormData();
+      fd.append('cims', JSON.stringify(cims));
+      fd.append('transitId', transId._id);
 
-      let task = 'submit'
-      console.log({ fd, task, idtrans }, 'transitUpdatePayload')
-      dispatch(UpdateTransitDetails({ fd, task, idtrans }))
+      let task = 'submit';
+      console.log({ fd, task, idtrans }, 'transitUpdatePayload');
+      dispatch(UpdateTransitDetails({ fd, task, idtrans }));
     }
-  }
+  };
 
   const handleSave = () => {
     // const billOfLanding = [...bolList]
 
-    const cims = { cimsDetails: cimsDetails }
+    const cims = { cimsDetails: cimsDetails };
 
-    let fd = new FormData()
-    fd.append('cims', JSON.stringify(cims))
-    fd.append('transitId', transId._id)
+    let fd = new FormData();
+    fd.append('cims', JSON.stringify(cims));
+    fd.append('transitId', transId._id);
 
-    let task = 'save'
-    dispatch(UpdateTransitDetails({ fd, task }))
-  }
+    let task = 'save';
+    dispatch(UpdateTransitDetails({ fd, task }));
+  };
 
   // console.log(cimsDetails, 'khjfdfgkegfk')
 
@@ -381,16 +373,15 @@ export default function Index({
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {_get(TransitDetails, `data[0].BL.billOfLanding`, [])
-                            .map((bl, index) => (
-                              <option
-                                value={bl.vesselName}
-                                key={index}
-                              >
-                                {bl.vesselName}
-                              </option>
-                            ))
-                          }
+                          {_get(
+                            TransitDetails,
+                            `data[0].BL.billOfLanding`,
+                            [],
+                          ).map((bl, index) => (
+                            <option value={bl.vesselName} key={index}>
+                              {bl.vesselName}
+                            </option>
+                          ))}
                         </select>
                       }
                       <label
@@ -416,23 +407,21 @@ export default function Index({
                       //     : _get(TransitDetails, 'data[0].order.quantity', '')
                       // }
                       onFocus={(e) => {
-                        setIsFieldInFocus(true), (e.target.type = 'number')
+                        setIsFieldInFocus(true), (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
-                        setIsFieldInFocus(false), (e.target.type = 'text')
+                        setIsFieldInFocus(false), (e.target.type = 'text');
                       }}
                       // _get(TransitDetails, 'data[0].order.quantity', 0)
                       value={
                         isFieldInFocus[index]?.blQuantity
                           ? list.quantity
-                          : Number(list.quantity)?.toLocaleString(
-                            'en-IN',
-                          ) +
-                          ` ${_get(
-                            TransitDetails,
-                            'data[0].order.unitOfQuantity',
-                            '',
-                          )}`
+                          : Number(list.quantity)?.toLocaleString('en-IN') +
+                            ` ${_get(
+                              TransitDetails,
+                              'data[0].order.unitOfQuantity',
+                              '',
+                            )}`
                       }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
@@ -472,14 +461,18 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
+                        value={
+                          list?.circDate
+                            ? moment(list?.circDate).format('DD-MM-YYYY')
+                            : ''
+                        }
                         // defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
                         onChange={(startBlDate) => {
-                          setBlDate(startBlDate)
-                          saveDate(startBlDate, 'circDate', index)
+                          setBlDate(startBlDate);
+                          saveDate(startBlDate, 'circDate', index);
                         }}
                         minDate={lastDate}
                       />
@@ -536,7 +529,9 @@ export default function Index({
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option disabled defaultChecked >Select an option</option>
+                        <option disabled defaultChecked>
+                          Select an option
+                        </option>
                         <option
                           value={_get(
                             TransitDetails,
@@ -610,33 +605,57 @@ export default function Index({
                           <strong className="text-danger ml-0">*</strong>
                         </td>
                         <td>
-                        {cimsDetails[index]?.coalImportRegistrationDoc ? (cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.xls') || cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : (cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.doc') || cimsDetails[index]?.coalImportRegistrationDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                                  : null
-                                }
+                          {cimsDetails[index]?.coalImportRegistrationDoc ? (
+                            cimsDetails[
+                              index
+                            ]?.coalImportRegistrationDoc?.originalName
+                              ?.toLowerCase()
+                              .endsWith('.xls') ||
+                            cimsDetails[
+                              index
+                            ]?.coalImportRegistrationDoc?.originalName
+                              ?.toLowerCase()
+                              .endsWith('.xlsx') ? (
+                              <img
+                                src="/static/excel.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            ) : cimsDetails[
+                                index
+                              ]?.coalImportRegistrationDoc?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.doc') ||
+                              cimsDetails[
+                                index
+                              ]?.coalImportRegistrationDoc?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.docx') ? (
+                              <img
+                                src="/static/doc.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            ) : (
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            )
+                          ) : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
                             ? ''
                             : moment(
-                              list?.coalImportRegistrationDoc?.Date,
-                            ).format(' DD-MM-YYYY , h:mm a')}
+                                list?.coalImportRegistrationDoc?.Date,
+                              ).format(' DD-MM-YYYY , h:mm a')}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                              cimsDetails[index]?.coalImportRegistrationDoc ==
+                            cimsDetails[index]?.coalImportRegistrationDoc ==
                               null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
@@ -685,34 +704,58 @@ export default function Index({
                           CIMS Payment Receipt
                         </td>
                         <td>
-                        {cimsDetails[index]?.cimsPaymentReceiptDoc ? (cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') || cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : (cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.doc') || cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                                  : null
-                                }
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc ? (
+                            cimsDetails[
+                              index
+                            ]?.cimsPaymentReceiptDoc?.originalName
+                              ?.toLowerCase()
+                              .endsWith('.xls') ||
+                            cimsDetails[
+                              index
+                            ]?.cimsPaymentReceiptDoc?.originalName
+                              ?.toLowerCase()
+                              .endsWith('.xlsx') ? (
+                              <img
+                                src="/static/excel.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            ) : cimsDetails[
+                                index
+                              ]?.cimsPaymentReceiptDoc?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.doc') ||
+                              cimsDetails[
+                                index
+                              ]?.cimsPaymentReceiptDoc?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.docx') ? (
+                              <img
+                                src="/static/doc.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            ) : (
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            )
+                          ) : null}
                         </td>
                         <td className={styles.doc_row}>
                           {' '}
                           {cimsDetails[index]?.cimsPaymentReceiptDoc == null
                             ? ''
                             : moment(list?.cimsPaymentReceiptDoc?.Date).format(
-                              ' DD-MM-YYYY , h:mm a',
-                            )}
+                                ' DD-MM-YYYY , h:mm a',
+                              )}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                              cimsDetails[index]?.cimsPaymentReceiptDoc ==
+                            cimsDetails[index]?.cimsPaymentReceiptDoc ==
                               null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
@@ -773,5 +816,5 @@ export default function Index({
         />
       </div>
     </>
-  )
+  );
 }

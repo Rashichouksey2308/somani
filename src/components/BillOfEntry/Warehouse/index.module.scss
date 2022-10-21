@@ -24,7 +24,7 @@
       border-radius: 6px;
       margin-bottom: 26px;
       @include respond(lg-desktop) {
-          margin-bottom: 20px;
+        margin-bottom: 20px;
       }
       .add_btn {
         color: #3687e8;
@@ -58,7 +58,7 @@
         padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
         @include respond(lg-desktop) {
-            min-height: 60px;
+          min-height: 60px;
         }
         .heading {
           color: #3687e8;
@@ -68,16 +68,16 @@
           line-height: 27px;
           margin: 0;
           @include respond(lg-desktop) {
-              font-size: 20px; 
-              line-height: 1.3;
+            font-size: 20px;
+            line-height: 1.3;
           }
           @include respond(sm-desktop) {
-              font-size: 18px; 
-              margin: 20px 0;
+            font-size: 18px;
+            margin: 20px 0;
           }
           @include respond(phone) {
-              font-size: 16px;
-              margin: 13px 0;
+            font-size: 16px;
+            margin: 13px 0;
           }
         }
         span {
@@ -87,7 +87,7 @@
           line-height: 20px;
           margin-top: -7px;
           @include respond(lg-desktop) {
-              font-size: 35px;
+            font-size: 35px;
           }
         }
 
@@ -101,8 +101,8 @@
           background-color: transparent;
           border: none;
           @include respond(lg-desktop) {
-              font-size: 15px;
-              line-height: 1.3;
+            font-size: 15px;
+            line-height: 1.3;
           }
         }
         .dropDown_label {
@@ -111,8 +111,8 @@
           font-size: 16px;
           line-height: 17px;
           @include respond(lg-desktop) {
-              font-size: 14px;
-              line-height: 15px;
+            font-size: 14px;
+            line-height: 15px;
           }
         }
       }
@@ -186,9 +186,9 @@
                   }
                 }
                 @include respond(lg-desktop) {
-                    height: 50px;
-                    font-size: 14px;
-                    line-height: 1.2;
+                  height: 50px;
+                  font-size: 14px;
+                  line-height: 1.2;
                 }
                 @include respond(sm-desktop) {
                   font-size: 13px;
@@ -210,9 +210,9 @@
                   vertical-align: middle;
                   white-space: nowrap;
                   @include respond(lg-desktop) {
-                      font-size: 15px;
-                      line-height: 1.3;
-                      padding: 17px 10px;
+                    font-size: 15px;
+                    line-height: 1.3;
+                    padding: 17px 10px;
                   }
                   @include respond(phone) {
                     font-size: 14px;
@@ -288,8 +288,8 @@
         margin-bottom: 15px;
         color: #00000080;
         @include respond(lg-desktop) {
-            font-size: 14px;
-            line-height: 15px;
+          font-size: 14px;
+          line-height: 15px;
         }
       }
       .value {
@@ -401,12 +401,12 @@
               padding: 0px 15px;
             }
           }
-        }        
+        }
         .certificate {
           font-size: 20px;
           letter-spacing: 0.19px;
           //color: #111111;
-          background-color: #C3C3C31F;
+          background-color: #c3c3c31f;
           border-radius: 4px;
           padding: 8px;
           margin: 7px 0;
@@ -450,10 +450,10 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 14px;
-              font-size: 14px;
-              line-height: 15px;
-              transform: translateY(-22px);
+            top: 14px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
           }
           @include respond(phone) {
             font-size: 16px;
@@ -489,9 +489,9 @@
             }
           }
           @include respond(lg-desktop) {
-              height: 45px;
-              font-size: 15px;
-              line-height: 1.3;
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 16px;
@@ -597,7 +597,7 @@
       font-weight: normal;
       line-height: 20px;
       @include respond(lg-desktop) {
-          font-size: 35px;
+        font-size: 35px;
       }
     }
   }
@@ -701,8 +701,8 @@
         left: 30px;
         top: -8px;
         @include respond(lg-desktop) {
-            font-size: 14px;
-            line-height: 15px;
+          font-size: 14px;
+          line-height: 15px;
         }
         @include respond(sm-desktop) {
           margin-top: 5px !important;
@@ -856,9 +856,9 @@
               }
             }
             @include respond(lg-desktop) {
-                height: 50px;
-                font-size: 14px;
-                line-height: 1.2;
+              height: 50px;
+              font-size: 14px;
+              line-height: 1.2;
             }
             @include respond(sm-desktop) {
               font-size: 13px;
@@ -893,9 +893,9 @@
                 }
               }
               @include respond(lg-desktop) {
-                  font-size: 15px;
-                  line-height: 1.3;
-                  padding: 17px 10px;
+                font-size: 15px;
+                line-height: 1.3;
+                padding: 17px 10px;
               }
               @include respond(phone) {
                 font-size: 14px;

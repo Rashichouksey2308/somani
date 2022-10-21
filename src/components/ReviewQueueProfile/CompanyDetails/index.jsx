@@ -1,30 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from '../profile.module.scss'
-import CommonSave from '../../CommonSave'
-import { useDispatch } from 'react-redux'
-import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
-import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper'
-import _get from 'lodash/get'
+import React, { useState, useEffect } from 'react';
+import styles from '../profile.module.scss';
+import CommonSave from '../../CommonSave';
+import { useDispatch } from 'react-redux';
+import { UpdateCompanyDetails } from '../../../redux/companyDetail/action';
+import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper';
+import _get from 'lodash/get';
 
 function Index({ order, companyDetail }) {
-  console.log(companyDetail, 'companyDetail')
+  console.log(companyDetail, 'companyDetail');
 
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
     sourceChanel: '',
-
-  })
+  });
   useEffect(() => {
-    let newCompanyData = {}
+    let newCompanyData = {};
     newCompanyData = {
       referalName: order?.referalName ?? '',
       referedBy: order?.referedBy ?? '',
       sourceChanel: order?.sourceChanel ?? '',
-
-    }
-    setUpdateCompany(newCompanyData)
+    };
+    setUpdateCompany(newCompanyData);
 
     // if (order?.referalName) {
     //   setUpdateCompany({ ...updateCompany, referalName: order.referalName })
@@ -35,31 +33,32 @@ function Index({ order, companyDetail }) {
     // if (order?.sourceChanel) {
     //   setUpdateCompany({ ...updateCompany, sourceChanel: order.sourceChanel })
     // }
-  }, [order])
+  }, [order]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const onChangeHandler = (e) => {
-    const Key = e.target.id
-    const value = e.target.value
-    console.log(Key, ':', value)
-    setUpdateCompany((prev) => ({ ...prev, [Key]: value }))
-  }
+    const Key = e.target.id;
+    const value = e.target.value;
+    console.log(Key, ':', value);
+    setUpdateCompany((prev) => ({ ...prev, [Key]: value }));
+  };
 
   const saveHandler = () => {
     const payload = {
       ...updateCompany,
       _id: companyDetail?.company,
-    }
+    };
     // console.log(updateCompany, "updateCompany")
-    dispatch(UpdateCompanyDetails(payload))
-  }
-  console.log(order, 'order', companyDetail)
-
+    dispatch(UpdateCompanyDetails(payload));
+  };
+  console.log(order, 'order', companyDetail);
 
   return (
     <>
-      <div className={`${styles.card} vessel_card border_color border-bottom card`}>
+      <div
+        className={`${styles.card} vessel_card border_color border-bottom card`}
+      >
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
           data-toggle="collapse"
@@ -98,11 +97,14 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.pans[0]', '')}{' '}
-                  {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !== '' && <img
-                    src="/static/approved.svg"
-                    alt="Approved"
-                    className="img-fluid mt-n1"
-                  />}
+                  {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !==
+                    '' && (
+                    <img
+                      src="/static/approved.svg"
+                      alt="Approved"
+                      className="img-fluid mt-n1"
+                    />
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -111,11 +113,13 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.IEC}{' '}
-                  {companyDetail?.profile?.companyDetail?.IEC?.length == 10 && <img
-                    src="/static/approved.svg"
-                    alt="approved"
-                    className="img-fluid mb-1"
-                  />}
+                  {companyDetail?.profile?.companyDetail?.IEC?.length == 10 && (
+                    <img
+                      src="/static/approved.svg"
+                      alt="approved"
+                      className="img-fluid mb-1"
+                    />
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -123,7 +127,6 @@ function Index({ order, companyDetail }) {
                   Type of Business
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-
                   {_get(
                     companyDetail,
                     'profile.companyDetail.typeOfBusiness',
@@ -160,19 +163,20 @@ function Index({ order, companyDetail }) {
                   Active Compliant
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.activeCompliance
+                      ?.toLowerCase()
+                      ?.trim() == 'activecompliant'
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
-                  {
-                    companyDetail?.activeCompliance == null
-                      ? ""
-                      :
-                      companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
-                        ? 'Yes'
-                        : 'No'
-                  }
+                  {companyDetail?.activeCompliance == null
+                    ? ''
+                    : companyDetail?.activeCompliance?.toLowerCase()?.trim() ==
+                      'activecompliant'
+                    ? 'Yes'
+                    : 'No'}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -189,11 +193,13 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.emailDomain}{' '}
-                  {companyDetail?.profile?.companyDetail?.emailDomain && <img
-                    src="/static/approved.svg"
-                    alt="approved"
-                    className="img-fluid"
-                  />}
+                  {companyDetail?.profile?.companyDetail?.emailDomain && (
+                    <img
+                      src="/static/approved.svg"
+                      alt="approved"
+                      className="img-fluid"
+                    />
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -229,10 +235,11 @@ function Index({ order, companyDetail }) {
                   Last Balance Sheet
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.lastBalanceSheet
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.lastBalanceSheet
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
                   {companyDetail?.profile?.companyDetail?.lastBalanceSheet}
                 </div>
@@ -242,7 +249,9 @@ function Index({ order, companyDetail }) {
                   Employee Count
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount ? companyDetail?.financial?.other?.employeeCount : companyDetail?.profile.companyDetail.employeeCount  }
+                  {companyDetail?.financial?.other?.employeeCount
+                    ? companyDetail?.financial?.other?.employeeCount
+                    : companyDetail?.profile.companyDetail.employeeCount}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -250,7 +259,9 @@ function Index({ order, companyDetail }) {
                   Existing Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {checkNan(CovertvaluefromtoCR(order?.creditLimit?.totalLimit))}
+                  {checkNan(
+                    CovertvaluefromtoCR(order?.creditLimit?.totalLimit),
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -258,8 +269,9 @@ function Index({ order, companyDetail }) {
                   Utilized Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-
-                  {checkNan(CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit))}
+                  {checkNan(
+                    CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit),
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -401,7 +413,7 @@ function Index({ order, companyDetail }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

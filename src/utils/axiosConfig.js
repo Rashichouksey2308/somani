@@ -1,13 +1,13 @@
 import axios from 'axios';
-import API from './endpoints'
+import API from './endpoints';
 
-const baseURL = `${API.baseUrl}`
+const baseURL = `${API.baseUrl}`;
 
 const app = axios.create({
-    baseURL,
-    withCredentials: true,
-    Cache: 'no-cache'
-})
+  baseURL,
+  withCredentials: true,
+  Cache: 'no-cache',
+});
 
 /* 
   The below is required if you want your API to return 
@@ -22,8 +22,8 @@ const app = axios.create({
 
 */
 app.interceptors.response.use(
-  response => (response), 
-  error => (Promise.reject(error.response.data.err))
-)
+  (response) => response,
+  (error) => Promise.reject(error.response.data.err),
+);
 
 export default app;

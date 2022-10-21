@@ -1,42 +1,40 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setPageName ,setDynamicName} from '../../../src/redux/userData/action'
-import _get from "lodash/get"
-
+import {
+  setPageName,
+  setDynamicName,
+} from '../../../src/redux/userData/action';
+import _get from 'lodash/get';
 
 function Index() {
-  const [order,setOrder]=useState([])
-  const [currentPage, setCurrentPage] = useState(0)
-  const dispatch = useDispatch()
+  const [order, setOrder] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
 
+  console.log(order.order, 'singleorder');
 
-  console.log(order.order,'singleorder')
-
- useEffect(() => {
-   if(window){
-      let data= JSON.parse(sessionStorage.getItem("genericSelected"))
-      setOrder(data)
+  useEffect(() => {
+    if (window) {
+      let data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      setOrder(data);
       dispatch(setPageName('generic'));
       dispatch(setDynamicName(data.company.companyName));
     }
- },[])
- 
-  
-//  useEffect(() => {
-    
-    
-//   },[dispatch, singleOrder])
+  }, []);
+
+  //  useEffect(() => {
+
+  //   },[dispatch, singleOrder])
 
   const handleRoute = () => {
-    Router.push('/generic')
-    
-  }
+    Router.push('/generic');
+  };
 
   return (
     <>
@@ -45,19 +43,20 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-            
-             <div className={styles.head_header}>
-                    <img className={`${styles.arrow} img-fluid`}
-                        src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-                    <h1 className={`${styles.heading} heading`}>{order?.company?.companyName}</h1>
-                </div>
-        
-
-            
+            <div className={styles.head_header}>
+              <img
+                className={`${styles.arrow} img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {order?.company?.companyName}
+              </h1>
+            </div>
           </div>
 
           {/*status Box*/}
-          
+
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
             <div
@@ -67,13 +66,16 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(order.order?.length / 10)}</span>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(order.order?.length / 10)}
+                </span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return
+                      return;
                     } else {
-                      setCurrentPage((prevState) => prevState - 1)
+                      setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
                   href="#"
@@ -88,8 +90,11 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 10)) {
-                      setCurrentPage((prevState) => prevState + 1)
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(singleOrder?.totalCount / 10)
+                    ) {
+                      setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
@@ -127,7 +132,7 @@ function Index() {
                     </tr>
                   </thead>
                   <tbody>
-                    {order?.order?.length>0 &&
+                    {order?.order?.length > 0 &&
                       order?.order.map((buyer, index) => (
                         <tr
                           key={index}
@@ -137,8 +142,7 @@ function Index() {
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
-                              
-                              handleRoute(buyer)
+                              handleRoute(buyer);
                             }}
                           >
                             {buyer.commodity}
@@ -177,7 +181,7 @@ function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

@@ -1,86 +1,93 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetOrders } from '../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import _get from 'lodash/get'
-import { GetCreditLimit } from '../../src/redux/companyDetail/action'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetOrders } from '../../src/redux/registerBuyer/action';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import _get from 'lodash/get';
+import { GetCreditLimit } from '../../src/redux/companyDetail/action';
+import moment from 'moment';
 import {
   GetAllBuyer,
   GetAllOrders,
   GetBuyer,
-} from '../../src/redux/registerBuyer/action'
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action'
+} from '../../src/redux/registerBuyer/action';
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
 
 function Index() {
-  const [currentPage, setCurrentPage] = useState(0)
-  const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
 
-  const { singleOrder } = useSelector((state) => state.buyer)
-  console.log(singleOrder, 'singleorder')
-
-  useEffect(() => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID')
-
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`))
-  }, [dispatch, currentPage])
+  const { singleOrder } = useSelector((state) => state.buyer);
+  console.log(singleOrder, 'singleorder');
 
   useEffect(() => {
-    dispatch(setPageName('leads'))
+    let companyIDnewOrder = sessionStorage.getItem('companyID');
+
+    dispatch(
+      GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`),
+    );
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('leads'));
     dispatch(
       setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')),
-    )
-  }, [dispatch, singleOrder])
+    );
+  }, [dispatch, singleOrder]);
 
-  let compId = _get(singleOrder, 'data[0].company._id', '')
+  let compId = _get(singleOrder, 'data[0].company._id', '');
 
   const handleRouteNewOrder = () => {
     sessionStorage.setItem(
       'companyID',
       _get(singleOrder, 'data[0].company._id', ''),
-    )
-    dispatch(GetOrders(`?company=${compId}`))
-    dispatch(GetCreditLimit({ companyId: compId }))
+    );
+    dispatch(GetOrders(`?company=${compId}`));
+    dispatch(GetCreditLimit({ companyId: compId }));
     setTimeout(() => {
-      Router.push('/new-order')
-    }, 1000)
-  }
+      Router.push('/new-order');
+    }, 1000);
+  };
 
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderID', buyer._id)
-    sessionStorage.setItem('company', buyer.company._id)
+    sessionStorage.setItem('orderID', buyer._id);
+    sessionStorage.setItem('company', buyer.company._id);
 
- 
-    sessionStorage.setItem('company', buyer.company._id)
+    sessionStorage.setItem('company', buyer.company._id);
     if (buyer.queue === 'CreditQueue') {
-  
-      dispatch(GetCompanyDetails({ company: buyer.company._id }))
-      Router.push('/review')
+      dispatch(GetCompanyDetails({ company: buyer.company._id }));
+      Router.push('/review');
     }
     if (buyer.queue === 'ReviewQueue') {
-      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-      Router.push('/review/id')
+      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }));
+      Router.push('/review/id');
     }
-  }
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID')
-    if(sorting == -1){
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`))
-      setSorting(-1)
+    let companyIDnewOrder = sessionStorage.getItem('companyID');
+    if (sorting == -1) {
+      dispatch(
+        GetOrders(
+          `?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GetOrders(
+          `?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <>
@@ -90,7 +97,8 @@ function Index() {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
-              <img onClick={() => Router.push('/leads')}
+              <img
+                onClick={() => Router.push('/leads')}
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow"
@@ -105,7 +113,9 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
               onClick={() => handleRouteNewOrder()}
             >
-              <span className={`ml-2 mb-1 p-1`} style={{fontSize:'30px'}}>+</span>
+              <span className={`ml-2 mb-1 p-1`} style={{ fontSize: '30px' }}>
+                +
+              </span>
               <span className={`mr-3 ml-1 `}>New Order</span>
             </button>
           </div>
@@ -114,7 +124,9 @@ function Index() {
           <div
             className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
+            <div
+              className={`${styles.all} ${styles.boxInner} all border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -129,7 +141,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+            <div
+              className={`${styles.approved} ${styles.boxInner} approved border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -144,7 +158,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+            <div
+              className={`${styles.review} ${styles.boxInner} review border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -159,7 +175,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
+            <div
+              className={`${styles.rejected} ${styles.boxInner} rejected border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -174,7 +192,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+            <div
+              className={`${styles.saved} ${styles.boxInner} saved border_color`}
+            >
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={`${styles.iconBox} iconBox`}>
                   <img
@@ -199,39 +219,46 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.totalCount / 7)}</span>
-            <a
-              onClick={() => {
-                if (currentPage === 0) {
-                  return
-                } else {
-                  setCurrentPage((prevState) => prevState - 1)
-                }
-              }}
-              href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
-              {' '}
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="img-fluid"
-              />
-            </a>
-            <a
-               onClick={() => {
-                if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 7)) {
-                  setCurrentPage((prevState) => prevState + 1)
-                }
-
-              }}
-              href="#"
-              className={`${styles.arrow} ${styles.rightArrow} arrow`}
-            >
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="img-fluid"
-              />
-            </a>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(singleOrder?.totalCount / 7)}
+                </span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return;
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1);
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                >
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(singleOrder?.totalCount / 7)
+                    ) {
+                      setCurrentPage((prevState) => prevState + 1);
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                >
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
@@ -249,7 +276,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
-                          onClick={()=>handleSort()}
+                          onClick={() => handleSort()}
                         />
                       </th>
                       <th>COMMODITY</th>
@@ -267,13 +294,13 @@ function Index() {
                         >
                           <td>
                             {buyer?.orderId
-                              ? buyer?.orderId : buyer?.applicationId
-                              }
+                              ? buyer?.orderId
+                              : buyer?.applicationId}
                           </td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
-                              handleRoute(buyer)
+                              handleRoute(buyer);
                             }}
                           >
                             {buyer?.commodity}
@@ -316,7 +343,7 @@ function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
