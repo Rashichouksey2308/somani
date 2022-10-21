@@ -312,28 +312,18 @@ function Index() {
     }
   }, [companyData])
 
-  // const [manualDocModule, setManualDocModule] = useState(true)
-  // const [filteredDoc, setFilteredDoc] = useState([])
-  const [gstData, setGstData] = useState({})
-  // console.log(gstData, "CREDIT CALCULATE")
 
-  // const { documentsFetched } = useSelector((state) => state.review)
-  //console.log(documentsFetched, 'documentsFetched')
+  const [gstData, setGstData] = useState({})
+
 
   const { orderList } = useSelector((state) => state.buyer)
 
-  console.log(orderList, 'this is order list')
+
 
   const { companyData, gettingCompanyDetail } = useSelector(
     (state) => state.companyDetails,
   )
-  console.log(companyData, 'this is company data')
-  console.log(gettingCompanyDetail, 'gettingCompanyDetail')
-  // useEffect(()=> {
-  //   const filtered = documentsFetched?.document.filter((doc)=> !doc.deleted )
-  //   setFilteredDoc(prev => [...prev, filtered ])
 
-  // },[documentsFetched])
 
 
   const rtrnChartIndiaction = (latest, previous, last) => {
@@ -489,8 +479,8 @@ function Index() {
     )
   }, [orderList, dispatch])
 
-  console.log(orderList, 'termsheetOrder')
-  // useEffect(() => {
+
+
 
   const id = sessionStorage.getItem('orderID')
 
@@ -564,14 +554,17 @@ function Index() {
       portOfLoading: orderList?.shipmentDetail?.portOfLoading,
     })
   }, [orderList])
-  console.log(shipment, 'shipmentshipment')
+
   const saveOrderData = (name, value) => {
-    console.log(value, 'value888')
+
     const newInput = { ...orderDetails }
+
     newInput[name] = value
     // console.log(newInput)
     setOrderDetails(newInput)
   }
+
+
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
@@ -581,7 +574,7 @@ function Index() {
       : (newInput[name] = value)
     setShipment(newInput)
   }
-  console.log(shipment, 'saveShipmentData')
+ 
   const orderValidation = () => {
     if (
       orderDetails?.transactionType?.trim() === '' ||
@@ -712,13 +705,21 @@ function Index() {
       }
       return false
     }
-    if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
-      let toastMessage = 'the hsn code can not be Empty'
+    if ( orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined ) {
+      let toastMessage = 'HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
+    // if(orderDetails?.hsnCode?.length > 10){
+    //   console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
+    //   let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return false
+    // }
     if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
       let toastMessage = 'add shipment Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -786,19 +787,13 @@ function Index() {
       }
       return false
     }
-
-    // if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
-    //   let toastMessage = 'the manufacturer Name can not be Empty'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return false
-    // }
     return true
   }
-  console.log(orderDetails, 'orderDetails', shipment)
+
   const onOrderSave = () => {
-    if (orderValidation()) {
+    
+    if (!orderValidation()) return 
+
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
       orderToSend.orderValue =
@@ -820,7 +815,7 @@ function Index() {
         }
         dispatch(UpdateOrderShipment(obj))
       }
-    }
+    
   }
 
   const [product, setProduct] = useState()

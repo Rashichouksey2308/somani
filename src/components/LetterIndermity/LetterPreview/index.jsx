@@ -36,7 +36,7 @@ function Index() {
 
   const exportPDF = () => {
 
-    const doc = new jsPDF('p', 'pt', [800, 1100])
+    const doc = new jsPDF('p', 'pt', [800, 1150])
     doc.html(ReactDOMServer.renderToString(
       <table width='800px' cellPadding='0' cellSpacing='0' border='0'>
         <tr>
@@ -47,10 +47,8 @@ function Index() {
                   <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
                     <tbody>
                       <tr>
-                        <td colSpan={2} align='center' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'38px 35px 16px'}}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2} align='center' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'0 35px 30px'}}>CIN : L80902DL1983PLC209722</td>
+                        <td align='left'style={{padding:'38px 35px 15px'}}></td>
+                        <td align='left' width="40%" style={{fontSize:'30px', color:'#111111', lineHeight:'25px', fontWeight:'bold', padding:'38px 35px 15px'}}>INDO GERMAN<br/><span style={{fontSize:'18px', color:'#111111', lineHeight:'18px', fontWeight:'normal'}}>INTERNATIONAL (P) LTD.</span><br/><span style={{fontSize:'12px', color:'#111111', lineHeight:'12px', fontWeight:'normal'}}>CIN No.: U74899DL1 994PTC063676</span></td>
                       </tr>
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'30px 35px 60px', textAlign:'justify'}}>STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.</td>
@@ -83,8 +81,33 @@ function Index() {
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', padding:'0 35px 30px', textAlign:'justify'}}>In consideration of your accepting our request and/or complying with, or taking any steps to comply with, or attempting to comply with our above request, we hereby agree as follows :<br/><br/>
                         1. To indemnify you, your servants, agents and any third party affiliated or associated with Torvald Klaveness and to hold all of you harmless in respect of any liability, loss, damage or expense of whatsoever nature which you may sustain by reason of delivering the cargo in accordance with our request.<br/><br/>
-                        2. In the event of any proceedings being commenced against you or any other person or third party mentioned under No. 1 above in connection with the delivery of the cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.<br/><br/>
-                        3. If, in connection with the delivery of the cargo as aforesaid, the ship, or any other ship or property in the same or affiliated/associated ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the vessel (whether by virtue of a caveat being entered on the ship's registry or otherwise howsoever), to provide on demand such bail or other security as may be required to prevent such arrest or detention or to secure the release of such ship or property or to remove such interference and to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or detention or such interference, whether or not such arrest or detention or threatened arrest or detention or such interference may be justified.<br/><br/>
+                        2. In the event of any proceedings being commenced against you or any other person or third party mentioned under No. 1 above in connection with the delivery of the cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} valign="top" style={{padding:'0 35px 30px'}}>
+                        <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                          <tr>
+                            <td align='center' colSpan={3} style={{fontSize:'16px', color:'#111111', lineHeight:'20px', fontWeight:'normal', borderBottom:'2px solid #111111', paddingBottom:'10px'}}>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</td>
+                            <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}>Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413<br/>Fax : (91) (1 1) 2378-2806<br/>E-mail : indogerman@somanigroup.com</td>            
+                            <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}><strong>Joint Venture of</strong><br/>Somani Group<br/>New Delhi<br/>lndia</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                        <tr>
+                          <td align='left'style={{padding:'38px 35px 15px'}}></td>
+                          <td align='left' width="40%" style={{fontSize:'30px', color:'#111111', lineHeight:'25px', fontWeight:'bold', padding:'38px 35px 15px'}}>INDO GERMAN<br/><span style={{fontSize:'18px', color:'#111111', lineHeight:'18px', fontWeight:'normal'}}>INTERNATIONAL (P) LTD.</span><br/><span style={{fontSize:'12px', color:'#111111', lineHeight:'12px', fontWeight:'normal'}}>CIN No.: U74899DL1 994PTC063676</span></td>
+                        </tr>
+                      </table>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', padding:'38px 35px 30px', textAlign:'justify'}}>3. If, in connection with the delivery of the cargo as aforesaid, the ship, or any other ship or property in the same or affiliated/associated ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the vessel (whether by virtue of a caveat being entered on the ship's registry or otherwise howsoever), to provide on demand such bail or other security as may be required to prevent such arrest or detention or to secure the release of such ship or property or to remove such interference and to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or detention or such interference, whether or not such arrest or detention or threatened arrest or detention or such interference may be justified.<br/><br/>
                         4. If the place at which we have asked you to make delivery is a bulk liquid or gas terminal or facility, or another ship, lighter or barge, then delivery to such terminal, facility, ship, lighter or barge shall be deemed to be delivery to the party to whom we have requested you to make such delivery.<br/><br/>
                         5. As soon as all original bills of lading for the above cargo shall have come into our possession, to deliver the same to you, or otherwise to cause all original bills of lading to be delivered to you, whereupon our liability hereunder shall cease.<br/><br/>
                         6. The liability of each and every person under this indemnity shall be joint and several and shall not be conditional upon your proceeding first against any person, whether or not such person is party to or liable under this indemnity.<br/><br/>
@@ -97,9 +120,24 @@ function Index() {
                         <span style={{fontWeight:'normal'}}>The Requestor</span></td>
                       </tr>
                       <tr>
-                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/><br/>
-                        <span style={{fontWeight:'normal'}}>Name: </span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}<br/><br/>
+                        <td colSpan={2} align='left' style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/>
+                        <span style={{fontWeight:'normal'}}>Name: </span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}<br/>
                         <span style={{fontWeight:'normal'}}>Designation:</span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} valign="top" style={{padding:'0 35px 15px'}}>
+                          <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                          <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                            <tr>
+                              <td align='center' colSpan={3} style={{fontSize:'16px', color:'#111111', lineHeight:'20px', fontWeight:'normal', borderBottom:'2px solid #111111', paddingBottom:'10px'}}>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</td>
+                            </tr>
+                            <tr>
+                              <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</td>
+                              <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}>Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413<br/>Fax : (91) (1 1) 2378-2806<br/>E-mail : indogerman@somanigroup.com</td>            
+                              <td style={{fontSize:'12px', color:'#111111', lineHeight:'18px', fontWeight:'normal', paddingTop:'10px'}}><strong>Joint Venture of</strong><br/>Somani Group<br/>New Delhi<br/>lndia</td>
+                            </tr>
+                          </table>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -128,9 +166,8 @@ autoPaging: "text",
     <div className='container-fluid p-0'>      
       <div className={`${styles.root} card border-0`}>
         <div className={`${styles.content_container}`}>
-          <div className={`${styles.heading} `}>
-            <p>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
-            <p>CIN : L80902DL1983PLC209722</p>
+          <div className={`${styles.heading} d-flex justify-content-end`}>
+            <p><span className={`${styles.title} `}>INDO GERMAN</span><br/><span>INTERNATIONAL (P) LTD.</span><br/>CIN No.: U74899DL1 994PTC063676</p>
           </div>
           <div className={`${styles.aboutLetter}`}>
           <p>
@@ -145,7 +182,7 @@ autoPaging: "text",
             <div className={`d-flex`}>
               <span>To:</span>
               {'  '}
-              <div className={`ml-3 ${styles.noadd}`}>
+              <div className={`ml-3 ${styles.noadd} align-left`}>
                 {' '}
                 INDO INTERNATIONAL TRADING FZCO JAFZA VIEW-18, LOB-180504, JEBEL
                 ALI, DUBAI, U.A.E
@@ -298,6 +335,14 @@ autoPaging: "text",
                 Designation:{' '}
                 <span className={styles.bold}>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</span>
               </p>
+            </div>
+          </div>
+          <div className={`${styles.footer}`}>
+            <p className='border_color'>7A., 'SAGAR', 6 Tilak Marg, New Dethi-11OOO1 (INDIA)</p>
+            <div className={`${styles.inner} d-flex justify-content-between`}>
+              <div><strong>Joint Venture of</strong><br/>Thyssehkrupp Mannex GMBH<br/>Essen<br/>Germany</div>
+              <div>Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413<br/>Fax : (91) (1 1) 2378-2806<br/>E-mail : indogerman@somanigroup.com</div>            
+              <div><strong>Joint Venture of</strong><br/>Somani Group<br/>New Delhi<br/>lndia</div>
             </div>
           </div>
         </div>
