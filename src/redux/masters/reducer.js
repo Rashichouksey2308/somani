@@ -5,6 +5,7 @@ const initialState = {
   getPortsMasterData: [],
   getCommoditiesMasterData: [],
   getDocumentsMasterData: [],
+  getCurrencyMasterData: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -73,6 +74,22 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getDocumentsMasterData: [],
+      };
+    case types.GET_CURRENCY_MASTERS:
+      return {
+        ...state,
+        getCurrencyMasterData: [],
+      };
+
+    case types.GET_CURRENCY_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getCurrencyMasterData: action.payload,
+      };
+    case types.GET_CURRENCY_MASTERS_FAILURE:
+      return {
+        ...state,
+        getCurrencyMasterData: [],
       };
 
     default:
