@@ -847,13 +847,18 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                     Type of Business
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.company?.typeOfBusiness}
+                    {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(
+                      ', ',
+                    )}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Industry</span>
                   <span className={`${styles.value} value`}>
-                    {camData?.company?.typeOfBusiness}
+                    {
+                      camData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.industry
+                    }
                   </span>
                 </Col>
               </Row>
@@ -1844,7 +1849,7 @@ const chargeDetails = (
                             </div>
 
                             <span className={` ${styles.name} ml-3  `}>
-                              {charge?.nameOfChargeHolder1}
+                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
                             </span>
                           </td>
                           <td>

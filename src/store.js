@@ -29,6 +29,7 @@ import BreadcrumbReducer from 'redux/breadcrumb/reducer';
 import AnalyticsReducer from 'redux/analytics/reducer';
 import LoadReducer from 'redux/Loaders/reducer';
 import ShareDocumentReducer from 'redux/shareDoc/reducer';
+import MastersReducer from 'redux/masters/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = [];
@@ -70,6 +71,7 @@ export const createStore = (preloadedState) => {
       analytics: AnalyticsReducer,
       Load: LoadReducer,
       shareDoc: ShareDocumentReducer,
+      MastersData: MastersReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

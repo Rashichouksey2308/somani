@@ -68,6 +68,7 @@ const Index = () => {
   }, [buyerList, dispatch]);
 
   const handleApprove = async () => {
+    
     if (!buyerList?.commodity?.apiResponse) {
       if (!payloadData.hasOwnProperty('commodity')) {
         let toastMessage = 'Please select commodity';

@@ -124,4 +124,18 @@ export default {
 
   //supplier
   updateSupplier: '/supplier',
+
+  //ALL MASTER URL's
+  masterBaseUrl:
+    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/',
+  countriesMaster: 'country.json',
+  portsMaster: 'ports.json',
+  commoditiesMaster: 'commodity.json',
+  documentsMaster: 'document.json',
+  currencyMaster: 'currency.json',
+  internalCompaniesMaster: 'internalCompanies.json',
+  vendorsMaster: 'vendors.json',
+  banksMaster: 'banks/master.json',
+  bankBranchesMaster: 'banks/branches/',
+  pincodesMaster: 'locations/pincodes/',
 };
