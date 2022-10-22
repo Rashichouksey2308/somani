@@ -13,12 +13,19 @@ import {
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
-import { getCountries } from '../../src/redux/masters/action';
+// import { getPorts } from '../../src/redux/masters/action';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getPorts());
+  // }, []);
+
+  // const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  // console.log(getPortsMasterData, 'MASTER');
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 

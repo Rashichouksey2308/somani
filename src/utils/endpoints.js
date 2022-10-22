@@ -124,6 +124,10 @@ export default {
 
   //supplier
   updateSupplier: '/supplier',
+
+  //ALL MASTER URL's
   countriesMaster:
-    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/country.json',
+    'http://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/country.json',
+  portsMaster:
+    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/ports.json',
 };

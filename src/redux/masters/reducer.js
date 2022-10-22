@@ -2,6 +2,7 @@ import * as types from './actionType';
 
 const initialState = {
   getCountriesMasterData: [],
+  getPortsMasterData: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -13,7 +14,6 @@ function MastersReducer(state = initialState, action) {
       };
 
     case types.GET_COUNTRIES_MASTERS_SUCCESS:
-      console.log(action.payload, 'PAYLOADDATA');
       return {
         ...state,
         getCountriesMasterData: action.payload,
@@ -22,6 +22,22 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getCountriesMasterData: [],
+      };
+    case types.GET_PORTS_MASTERS:
+      return {
+        ...state,
+        getPortsMasterData: [],
+      };
+
+    case types.GET_PORTS_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getPortsMasterData: action.payload,
+      };
+    case types.GET_PORTS_MASTERS_FAILURE:
+      return {
+        ...state,
+        getPortsMasterData: [],
       };
 
     default:
