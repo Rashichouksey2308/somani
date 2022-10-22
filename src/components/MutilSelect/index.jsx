@@ -18,8 +18,10 @@ function Index(props) {
   const emailInputRef = useRef(0);
   const onChangeInputValue = (value) => {
     findEmailAddress(value);
+    console.log(value,"e.currentTarget.value")
   };
   const findEmailAddress = (value, isEnter) => {
+    console.log("herher",value,isEnter)
     let inputValue = '';
     const re = /[ ,;]/g;
     let validEmails = [];
@@ -36,32 +38,21 @@ function Index(props) {
     };
 
     if (value !== '') {
-      if (re.test(value)) {
+      if (false) {
         let splitData = value.split(re).filter((n) => {
           return n !== '' && n !== undefined && n !== null;
         });
-
+        console.log(splitData,"splitData")
         const setArr = new Set(splitData);
         let arr = [...setArr];
 
         do {
-          if (true) {
-            addEmails('' + arr.shift());
-          } else {
-            if (arr.length === 1) {
-              inputValue = '' + arr.shift();
-            } else {
-              arr.shift();
-            }
-          }
+          addEmails('' + arr.shift());
+         
         } while (arr.length);
       } else {
         if (isEnter) {
-          if (true) {
-            addEmails(value);
-          } else {
-            inputValue = value;
-          }
+           addEmails(value);
         } else {
           inputValue = value;
         }
@@ -88,40 +79,46 @@ function Index(props) {
     // }
   };
   const handleOnKeydown = (e) => {
-    console.log(e.which, 'e.which');
-    switch (e.which) {
-      case 13:
 
-      case 9: {
-        e.preventDefault();
-        break;
-      }
-      case 8: {
-        if (!e.currentTarget.value) {
-          // removeEmail(state.emails.length - 1, false);
-        }
+  
+    // switch (e.keyCode) {
+    //   case 13:
 
-        break;
-      }
-      case 32: {
-        e.preventDefault();
-        break;
-      }
-      default:
-    }
+    //   case 9: {
+    //     e.preventDefault();
+    //     break;
+    //   }
+    //   case 8: {
+    //     if (!e.currentTarget.value) {
+    //       // removeEmail(state.emails.length - 1, false);
+    //     }
+
+    //     break;
+    //   }
+    //   case 32: {
+    //       if (!e.currentTarget.value) {
+    //       // removeEmail(state.emails.length - 1, false);
+    //     }
+    //     break;
+    //   }
+    //   default:
+    // }
   };
 
   const handleOnKeyup = (e) => {
-    console.log(e.which, 'e.which');
-    switch (e.which) {
-      case 13:
-
+    console.log(e.keyCode, 'e.which');
+    switch (e.keyCode) {
+      case 13: 
+               findEmailAddress(e.currentTarget.value, true)
       case 9: {
         findEmailAddress(e.currentTarget.value, true);
         break;
       }
       case 32: {
-        e.preventDefault();
+        
+        //  findEmailAddress(e.currentTarget.value);
+         e.preventDefault();
+        
         break;
       }
       default:
@@ -131,7 +128,7 @@ function Index(props) {
 
   const handleOnBlur = (e) => {
     setState({ ...state, focused: false });
-    findEmailAddress(e.currentTarget.value, true);
+    // findEmailAddress(e.currentTarget.value, true);
   };
 
   const handleOnFocus = () =>

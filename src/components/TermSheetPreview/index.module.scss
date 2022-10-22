@@ -79,11 +79,18 @@
     // background: #D8EAFF;
     // border: 1px solid #D2D7E5;
     border-radius: 6px;
+    @include respond(lg-desktop) {
+      height: 100px;
+    }
     span {
       // color: #3687E8;
       font-size: 34px;
       line-height: 41px;
       font-weight: bold;
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.3;
+      }
     }
     div {
       flex-direction: column;
@@ -127,6 +134,11 @@
         font-weight: bold;
         color: #3687e8;
         border-right: 2px solid #e5e5e5;
+        @include respond(lg-desktop) {
+          height: 60px;
+          font-size: 20px;
+          line-height: 1.3;
+        }
         @include respond(phone) {
           font-size: 15px;
           padding-left: 20px;
@@ -145,6 +157,11 @@
         font-weight: bold;
         color: #3687e8;
         padding-left: 36px;
+        @include respond(lg-desktop) {
+          height: 60px;
+          font-size: 20px;
+          line-height: 1.3;
+        }
         @include respond(phone) {
           font-size: 15px;
           white-space: nowrap;
@@ -163,6 +180,10 @@
       line-height: 24px;
       list-style: none;
       padding: 25px 0px 25px 37px;
+      @include respond(lg-desktop) {
+        font-size: 16px;
+        line-height: 1.3;
+      }
       @include respond(phone) {
         font-size: 15px;
         padding-left: 12px;
@@ -174,7 +195,11 @@
         font-size: 20px;
         line-height: 24px;
         list-style: none;
-        padding-left: 12px;
+        padding-left: 22px;
+        @include respond(lg-desktop) {
+          font-size: 16px;
+          line-height: 1.3;
+        }
         @include respond(phone) {
           font-size: 15px;
         }
@@ -195,6 +220,11 @@
           line-height: 24px;
           min-height: 39px;
           display: block;
+          @include respond(lg-desktop) {
+            font-size: 16px;
+            line-height: 1.3;
+            min-height: auto;
+          }
         }
         @include respond(phone) {
           font-size: 15px;
@@ -283,8 +313,19 @@
     letter-spacing: 0.19px;
     padding-left: 20px !important;
     padding-right: 20px !important;
+    @include respond(lg-desktop) {
+      font-size: 16px;
+      line-height: 1.3;
+    }
     @include respond(phone) {
       font-size: 15px;
+    }
+  }
+  & + div {
+    span {
+      @include respond(lg-desktop) {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -323,6 +364,10 @@
       background-color: #fafafb;
       padding: 15px 15px 15px 35px;
       margin-bottom: 25px;
+      @include respond(lg-desktop) {
+        font-size: 20px;
+        line-height: 1.3;
+      }
     }
     .checkbox_container {
       padding: 15px 35px;
@@ -330,6 +375,10 @@
         font-size: 20px;
         letter-spacing: 0.19px;
         line-height: 25px;
+        @include respond(lg-desktop) {
+          font-size: 16px;
+          line-height: 1.3;
+        }
         @include respond(phone) {
           font-size: $font_size_mobile_text;
         }
@@ -340,6 +389,11 @@
         min-width: 20px;
         margin-top: -5px;
         margin-right: 25px;
+        @include respond(lg-desktop) {
+          width: 16px;
+          height: 16px;
+          min-width: 16px;
+        }
       }
     }
   }

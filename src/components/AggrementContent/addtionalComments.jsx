@@ -10,6 +10,7 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
 
+  console.log(addressList,'addressList')
   const changeEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -207,12 +208,15 @@ function Index(props) {
                       addressList?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true'  ?
+                            (
                               <tr key={index}>
-                                <td>{val.name}</td>
-                                <td>{val.comment}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{val?.name}</td>
+                                <td>{val?.comment}</td>
+                                <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td>
+                                <td>{val?.monthOfLoadingCargo}</td>
+
+                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : '' }</td>
 
                                 <td className={`d-flex`}>
                                   <img
@@ -227,7 +231,7 @@ function Index(props) {
                                   ></img>
                                 </td>
                               </tr>
-                            ) : (
+                            )  : (
                               <tr key={index}>
                                 <td>
                                   <select
