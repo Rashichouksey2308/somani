@@ -104,6 +104,9 @@
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
+                    @include respond(lg-desktop) {
+                        width: 60%;
+                    }
                     span {
                         letter-spacing: 0px;
                         color: #B5D7DD;

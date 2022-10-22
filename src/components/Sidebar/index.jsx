@@ -29,7 +29,7 @@ function Index() {
           route: '/credit-queue',
         },
         {
-          name: 'Termsheet',
+          name: 'Transaction Summary',
           image: '/static/term-sheets.svg',
           route: '/termsheet',
         },

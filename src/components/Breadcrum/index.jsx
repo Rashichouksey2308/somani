@@ -219,13 +219,13 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
-        router.route = '/Leads' + '/Termsheet' + `/${id?.toLowerCase()} `
+        router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `
         console.log('router123', router.route)
       } else {
-        router.route = '/Leads' + '/Termsheet'
+        router.route = '/Leads' + '/Transaction Summary'
       }
     }
     if ('termsheet-preview' == pageName) {
