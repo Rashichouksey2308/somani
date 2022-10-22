@@ -1,23 +1,23 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import DateCalender from '../../src/components/DateCalender'
-import InspectionDocument from '../../src/components/InspectionDocument'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import SaveBar from '../../src/components/SaveBar'
-import { UpdateSupplier } from '../../src/redux/supplier/action'
-import Image from 'next/image'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import DateCalender from '../../src/components/DateCalender';
+import InspectionDocument from '../../src/components/InspectionDocument';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import SaveBar from '../../src/components/SaveBar';
+import { UpdateSupplier } from '../../src/redux/supplier/action';
+import Image from 'next/image';
 
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [saveShareTable, setSaveTable] = useState(false)
-  const [saveContactTable, setContactTable] = useState(false)
-  const [saveDirectorTable, setDirectorTable] = useState(false)
-  const [saveCommodityTable, setCommodityTable] = useState(false)
+  const [saveShareTable, setSaveTable] = useState(false);
+  const [saveContactTable, setContactTable] = useState(false);
+  const [saveDirectorTable, setDirectorTable] = useState(false);
+  const [saveCommodityTable, setCommodityTable] = useState(false);
   const [formData, setFormData] = useState({
     supplierName: '',
     constitution: '',
@@ -25,7 +25,7 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-  })
+  });
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -33,59 +33,59 @@ function Index() {
     phoneNumber: '',
     alternatePhoneNumber: '',
     emailId: '',
-  })
+  });
 
   const [person, setPerson] = useState({
     name: '',
     designation: '',
     contact: '',
     emailId: '',
-  })
+  });
 
   const [detail, setDetail] = useState({
     shareHoldersName: '',
     designation: '',
     contact: '',
     ownershipPercentage: '',
-  })
+  });
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
     authoriztyToSign: '',
-  })
+  });
   const [business, setBusiness] = useState({
     businessSummary: '',
-  })
+  });
   const [commodity, setCommidity] = useState({
     hsnCode: '',
     commodity: '',
-  })
+  });
 
   const [info, setInfo] = useState({
     remarks: '',
-  })
+  });
 
   const handleDelete = (index) => {
-    setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)])
-  }
+    setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)]);
+  };
   const handleDeleteContact = (index) => {
     setListContact([
       ...listContact.slice(0, index),
       ...listContact.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const handleDeleteDirector = (index) => {
     setListDirector([
       ...listDirector.slice(0, index),
       ...listDirector.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const handleCommodity = (index) => {
     setListCommodity([
       ...listCommodity.slice(0, index),
       ...listCommodity.slice(index + 1),
-    ])
-  }
+    ]);
+  };
 
   const [listCommodity, setListCommodity] = useState([
     {
@@ -94,7 +94,7 @@ function Index() {
       contactNo: '',
       emailID: '',
     },
-  ])
+  ]);
 
   const [apiData, setApiData] = useState({
     supplierName: '',
@@ -106,7 +106,7 @@ function Index() {
     bussinessSummary: [],
     commoditiesTraded: [],
     additionalInformation: [],
-  })
+  });
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -114,8 +114,8 @@ function Index() {
         hsnCode: '',
         commodity: '',
       },
-    ])
-  }
+    ]);
+  };
   const [listContact, setListContact] = useState([
     {
       name: '',
@@ -123,7 +123,7 @@ function Index() {
       contactNo: '',
       emailID: '',
     },
-  ])
+  ]);
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -133,8 +133,8 @@ function Index() {
         contactNo: '',
         emailID: '',
       },
-    ])
-  }
+    ]);
+  };
   const [listShare, setListShare] = useState([
     {
       name: '',
@@ -142,7 +142,7 @@ function Index() {
       contactNo: '',
       emailID: '',
     },
-  ])
+  ]);
   const onAddShare = () => {
     setListShare([
       ...listShare,
@@ -152,8 +152,8 @@ function Index() {
         contactNo: '',
         emailID: '',
       },
-    ])
-  }
+    ]);
+  };
   const [listDirector, setListDirector] = useState([
     {
       name: '',
@@ -161,7 +161,7 @@ function Index() {
       contactNo: '',
       emailID: '',
     },
-  ])
+  ]);
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -171,94 +171,94 @@ function Index() {
         contactNo: '',
         emailID: '',
       },
-    ])
-  }
+    ]);
+  };
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveQuotationData(name, text)
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveQuotationData(name, text);
     // setStartDate(value, name)
-  }
+  };
 
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
 
-    formData.incorporationDate = value
+    formData.incorporationDate = value;
     setFormData({
       ...formData,
-    })
-  }
+    });
+  };
 
   const onChangeHandler = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler1 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setAddress({
       ...address,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler2 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setPerson({
       ...person,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler3 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setDetail({
       ...detail,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler4 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setSignatory({
       ...signatory,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler5 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setBusiness({
       ...business,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler6 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setCommidity({
       ...commodity,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const onChangeHandler7 = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setInfo({
       ...info,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const addData = (item) => {
     // apiData.supplierName.push(formData)
     if (item === 'address') {
-      apiData.keyAddress.push(address)
+      apiData.keyAddress.push(address);
       setAddress({
         contactPerson: '',
         pinCode: '',
@@ -266,51 +266,51 @@ function Index() {
         phoneNumber: '',
         alternatePhoneNumber: '',
         emailId: '',
-      })
+      });
     } else if (item === 'person') {
-      apiData.contactPerson.push(person)
+      apiData.contactPerson.push(person);
       setPerson({
         name: '',
         designation: '',
         contact: '',
         emailId: '',
-      })
+      });
     } else if (item === 'detail') {
-      apiData.shareHoldersDetails.push(detail)
+      apiData.shareHoldersDetails.push(detail);
 
       setDetail({
         shareHoldersName: '',
         designation: '',
         contact: '',
         ownershipPercentage: '',
-      })
+      });
     } else if (item === 'signatory') {
-      apiData.directorsAndAuthorizedSignatory.push(signatory)
+      apiData.directorsAndAuthorizedSignatory.push(signatory);
 
       setSignatory({
         name: '',
         nationality: '',
         authoriztyToSign: '',
-      })
+      });
     } else if (item === 'business') {
-      apiData.bussinessSummary.push(business)
+      apiData.bussinessSummary.push(business);
 
       setSignatory({
         businessSummary: '',
-      })
+      });
     } else if (item === 'commodity') {
-      apiData.commoditiesTraded.push(commodity)
+      apiData.commoditiesTraded.push(commodity);
 
       setCommidity({
         hsnCode: '',
         commodity: '',
-      })
+      });
     } else if (item === 'info') {
-      apiData.additionalInformation.push(info)
+      apiData.additionalInformation.push(info);
 
       setInfo({
         remarks: '',
-      })
+      });
     }
 
     // apiData.shareHoldersDetails.push(detail)
@@ -318,28 +318,28 @@ function Index() {
     // apiData.bussinessSummary.push(business)
     // apiData.commoditiesTraded.push(commodity)
     // apiData.additionalInformation.push(info)
-  }
+  };
   // {
   //   console.log('apidata', apiData)
   // }
 
   const handleSave = () => {
-    apiData.supplierName = formData
-    apiData.contactPerson.push(person)
-    apiData.keyAddress.push(address)
-    apiData.shareHoldersDetails.push(detail)
-    apiData.directorsAndAuthorizedSignatory.push(signatory)
-    apiData.bussinessSummary.push(business)
-    apiData.commoditiesTraded.push(commodity)
-    apiData.additionalInformation.push(info)
-    dispatch(UpdateSupplier(apiData))
+    apiData.supplierName = formData;
+    apiData.contactPerson.push(person);
+    apiData.keyAddress.push(address);
+    apiData.shareHoldersDetails.push(detail);
+    apiData.directorsAndAuthorizedSignatory.push(signatory);
+    apiData.bussinessSummary.push(business);
+    apiData.commoditiesTraded.push(commodity);
+    apiData.additionalInformation.push(info);
+    dispatch(UpdateSupplier(apiData));
     // console.log('apidata', apiData)
-  }
+  };
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
-    dispatch(setPageName('inception2'))
-  })
+    dispatch(setPageName('inception2'));
+  });
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -652,9 +652,12 @@ function Index() {
                     <div
                       className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
                     >
-                      <h3 className={`${styles.heading}`}
-                      style={{textTransform:"none"}}>Add a new address</h3>
-                     
+                      <h3
+                        className={`${styles.heading}`}
+                        style={{ textTransform: 'none' }}
+                      >
+                        Add a new address
+                      </h3>
                     </div>
                     <div
                       className={`${styles.dashboard_form} card-body border_color`}
@@ -941,7 +944,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setContactTable(true)
+                                          setContactTable(true);
                                         }}
                                       />
                                     </>
@@ -952,7 +955,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setContactTable(false)
+                                          setContactTable(false);
                                         }}
                                       />
                                     </>
@@ -975,7 +978,7 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddContact()
+                    onAddContact();
                   }}
                 >
                   <span>+</span>
@@ -1073,7 +1076,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            setSaveTable(true)
+                                            setSaveTable(true);
                                           }}
                                         />
                                       </>
@@ -1084,7 +1087,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="save"
                                           onClick={(e) => {
-                                            setSaveTable(false)
+                                            setSaveTable(false);
                                           }}
                                         />
                                       </>
@@ -1098,7 +1101,7 @@ function Index() {
                                   </div>
                                 </td>
                               </tr>
-                            )
+                            );
                           })}
                       </tbody>
                     </table>
@@ -1107,7 +1110,7 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddShare()
+                    onAddShare();
                   }}
                 >
                   <span>+</span>
@@ -1206,7 +1209,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setDirectorTable(true)
+                                          setDirectorTable(true);
                                         }}
                                       />
                                     </>
@@ -1217,7 +1220,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setDirectorTable(false)
+                                          setDirectorTable(false);
                                         }}
                                       />
                                     </>
@@ -1239,7 +1242,7 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddDirector()
+                    onAddDirector();
                   }}
                 >
                   <span>+</span>
@@ -1387,7 +1390,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setCommodityTable(true)
+                                          setCommodityTable(true);
                                         }}
                                       />
                                     </>
@@ -1398,7 +1401,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setCommodityTable(false)
+                                          setCommodityTable(false);
                                         }}
                                       />
                                     </>
@@ -1421,7 +1424,7 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddCommodity()
+                    onAddCommodity();
                   }}
                 >
                   <span>+</span>
@@ -1507,6 +1510,6 @@ function Index() {
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} />
       </div>
     </>
-  )
+  );
 }
-export default Index
+export default Index;

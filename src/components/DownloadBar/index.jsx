@@ -1,8 +1,8 @@
 // import  Router  from 'next/router'
-import React from 'react'
-import styles from './index.module.scss'
-import Image from 'next/image'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import Image from 'next/image';
+import { useSelector } from 'react-redux';
 
 function index({
   handleApprove,
@@ -15,31 +15,28 @@ function index({
   handleUpdate,
   isDropdown,
 }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
-    <div className={`${styles.root} ${!sidebar ? styles.no_sidebar : null
-      }
-    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
-
-      {isDropdown ?
-        <div
-          className={`${styles.form_group}`}
-          style={{ top: '5px' }}
-        >
+    <div
+      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
+    >
+      {isDropdown ? (
+        <div className={`${styles.form_group}`} style={{ top: '5px' }}>
           <div className="d-flex">
             <select
-              
               onChange={(e) => handleReject(e.target.value)}
               className={`${styles.input_field} form-control`}
             >
-              <option selected value='' disabled >GST Report </option>
-              <option value='pdf'>GST Report in Pdf</option>
-              <option value='excel'>GST Report in Excel</option>
+              <option selected value="" disabled>
+                GST Report{' '}
+              </option>
+              <option value="pdf">GST Report in Pdf</option>
+              <option value="excel">GST Report in Excel</option>
             </select>
             <div className={`${styles.download_icon} my-auto`}>
               <Image
-
                 src="/static/file_download.svg"
                 alt="Picture of the author"
                 width={14}
@@ -51,16 +48,15 @@ function index({
           src="/static/inputDropDown.svg"
           alt="Search"
         /> */}
-
           </div>
         </div>
-        :
+      ) : (
         <div className="d-flex justify-content-between align-items-center w-100">
           <div
             className={`${styles.reject} `}
             onClick={() => {
               if (handleReject) {
-                handleReject()
+                handleReject();
               }
             }}
           >
@@ -73,15 +69,14 @@ function index({
             />
           </div>
         </div>
-
-      }
+      )}
       <div className="d-flex justify-content-between align-items-center">
         {isPrevious ? (
           <div
             className={`${styles.reject} ml-3`}
             onClick={() => {
               if (handleUpdate) {
-                handleUpdate()
+                handleUpdate();
               }
             }}
           >
@@ -93,7 +88,7 @@ function index({
             className={`${styles.approve} ml-3`}
             onClick={() => {
               if (handleApprove) {
-                handleApprove()
+                handleApprove();
               }
             }}
           >
@@ -102,7 +97,7 @@ function index({
         ) : null}
       </div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

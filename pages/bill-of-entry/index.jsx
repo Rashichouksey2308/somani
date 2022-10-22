@@ -1,61 +1,60 @@
 /* eslint-disable @next/next/no-img-element */
-import React ,{useEffect, useState}from 'react'
-import styles from './index.module.scss'
-import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
-import _get from 'lodash/get'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
-
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllCustomClearance } from '../../src/redux/CustomClearance&Warehousing/action';
+import _get from 'lodash/get';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
 
 function Index() {
+  const [serachterm, setSearchTerm] = useState('');
 
-  const [serachterm, setSearchTerm] = useState('')
-
-  const { searchedLeads } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order);
 
   useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Custom Clearance & WareHouse")
-    sessionStorage.setItem('loadedSubPage',null)
-    sessionStorage.setItem('openList',4)
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Custom Clearance & WareHouse');
+      sessionStorage.setItem('loadedSubPage', null);
+      sessionStorage.setItem('openList', 4);
     }
-},[])
+  }, []);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const routeChange = (insured) => {
-    sessionStorage.setItem('customId', insured._id)
-    dispatch(GetAllCustomClearance(`?customClearanceId=${insured._id}`))
-    Router.push('/bill-of-entry/id')
-  }
-   useEffect(() => {
-    dispatch(setPageName('custom'))
-    dispatch(setDynamicName(null))
-  })
+    sessionStorage.setItem('customId', insured._id);
+    dispatch(GetAllCustomClearance(`?customClearanceId=${insured._id}`));
+    Router.push('/bill-of-entry/id');
+  };
+  useEffect(() => {
+    dispatch(setPageName('custom'));
+    dispatch(setDynamicName(null));
+  });
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetAllCustomClearance(`?company=${id}`))
-  }
-
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllCustomClearance(`?company=${id}`));
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
-        <div className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}>
+        <div
+          className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}
+        >
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
               {/* <img
@@ -99,7 +98,7 @@ if(window){
                   </ul>
                 </div>
               )}
-          </div>
+            </div>
             <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
@@ -128,7 +127,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+          <div
+            className={`${styles.approved} ${styles.boxInner} approved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -143,7 +144,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+          <div
+            className={`${styles.review} ${styles.boxInner} review border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -158,7 +161,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+          <div
+            className={`${styles.saved} ${styles.boxInner} saved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -180,10 +185,9 @@ if(window){
           dateHeading="BOE DATE"
           isStatus={true}
           handleRoute={routeChange}
-          
         />
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

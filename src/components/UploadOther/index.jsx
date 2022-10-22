@@ -1,95 +1,98 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import { useState, useEffect } from 'react'
+import React from 'react';
+import { Form } from 'react-bootstrap';
+import styles from './index.module.scss';
+import { useState, useEffect } from 'react';
 import {
   GetDocuments,
   AddingDocument,
   DeleteDocument,
   changeModuleDocument,
-} from '../../../src/redux/creditQueueUpdate/action'
-import { useDispatch, useSelector } from 'react-redux'
-import { ViewDocument } from 'redux/ViewDoc/action'
-import moment from 'moment'
-import TermsheetPopUp from '../TermsheetPopUp'
-import { toast } from 'react-toastify'
+} from '../../../src/redux/creditQueueUpdate/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { ViewDocument } from 'redux/ViewDoc/action';
+import moment from 'moment';
+import TermsheetPopUp from '../TermsheetPopUp';
+import { toast } from 'react-toastify';
 
 const Index = ({ orderid, module, isDocumentName }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { documentsFetched } = useSelector((state) => state.review)
+  const { documentsFetched } = useSelector((state) => state.review);
 
-  const [editInput, setEditInput] = useState(true)
+  const [editInput, setEditInput] = useState(true);
 
-  const [manualDocModule, setManualDocModule] = useState(true)
+  const [manualDocModule, setManualDocModule] = useState(true);
 
   const [newDoc, setNewDoc] = useState({
     document: null,
     order: orderid,
     name: '',
     module: module,
-  })
+  });
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const openbar = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
 
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
-  const [moduleSelected, setModuleSelected] = useState(module)
+  const [moduleSelected, setModuleSelected] = useState(module);
 
-  const [filteredDoc, setFilteredDoc] = useState([])
+  const [filteredDoc, setFilteredDoc] = useState([]);
 
-  const [currentDoc, setCurrentDoc] = useState(null)
+  const [currentDoc, setCurrentDoc] = useState(null);
 
   useEffect(() => {
-    sessionStorage.setItem('docFetchID', orderid)
+    sessionStorage.setItem('docFetchID', orderid);
     const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase()
-    })
+      return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase();
+    });
 
-    setFilteredDoc(tempArray)
-    dispatch(GetDocuments(`?order=${orderid}`))
-  }, [dispatch, orderid, moduleSelected])
+    setFilteredDoc(tempArray);
+    dispatch(GetDocuments(`?order=${orderid}`));
+  }, [dispatch, orderid, moduleSelected]);
 
   useEffect(() => {
-    const tempArray = documentsFetched?.documents?.slice().filter((doc) => {
-      return doc.module === moduleSelected
-    }).map(obj => ({ ...obj, moving: false }))
+    const tempArray = documentsFetched?.documents
+      ?.slice()
+      .filter((doc) => {
+        return doc.module === moduleSelected;
+      })
+      .map((obj) => ({ ...obj, moving: false }));
 
     // console.log(tempArray, 'dltDoc2')
-    setFilteredDoc(tempArray)
-  }, [orderid, documentsFetched])
+    setFilteredDoc(tempArray);
+  }, [orderid, documentsFetched]);
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
+  };
   const DocDlt = (index) => {
-    let tempArray = filteredDoc
-    tempArray.splice(index, 1)
-    console.log(tempArray, index, 'dltDoc')
-    setFilteredDoc(tempArray)
-  }
+    let tempArray = filteredDoc;
+    tempArray.splice(index, 1);
+    console.log(tempArray, index, 'dltDoc');
+    setFilteredDoc(tempArray);
+  };
   // console.log(filteredDoc, 'dltDoc1')
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
-      setManualDocModule(false)
+      setManualDocModule(false);
     } else {
-      document.getElementById('otherDocName').value = ''
-      setManualDocModule(true)
-      setNewDoc({ ...newDoc, name: e.target.value })
+      document.getElementById('otherDocName').value = '';
+      setManualDocModule(true);
+      setNewDoc({ ...newDoc, name: e.target.value });
     }
-  }
+  };
 
   const handleCloseDoc = () => {
     setNewDoc({
@@ -97,66 +100,65 @@ const Index = ({ orderid, module, isDocumentName }) => {
       order: orderid,
       name: '',
       module: module,
-    })
-  }
-  const [openDropdown, setDropdown] = useState(false)
+    });
+  };
+  const [openDropdown, setDropdown] = useState(false);
   const uploadDocument2 = (e) => {
-    const newUploadDoc1 = { ...newDoc }
-    newUploadDoc1.document = e.target.files[0]
-    setNewDoc(newUploadDoc1)
-  }
+    const newUploadDoc1 = { ...newDoc };
+    newUploadDoc1.document = e.target.files[0];
+    setNewDoc(newUploadDoc1);
+  };
 
   const uploadDocumentHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newDoc.document === null) {
-      let toastMessage = 'please select A Document'
+      let toastMessage = 'please select A Document';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     } else if (newDoc.name === '') {
-      let toastMessage = 'please provide a valid document name'
+      let toastMessage = 'please provide a valid document name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     } else {
-      const fd = new FormData()
-      fd.append('document', newDoc.document)
-      fd.append('module', newDoc.module)
-      fd.append('order', orderid)
+      const fd = new FormData();
+      fd.append('document', newDoc.document);
+      fd.append('module', newDoc.module);
+      fd.append('order', orderid);
       // fd.append('type', newDoc.type))
-      fd.append('name', newDoc.name)
+      fd.append('name', newDoc.name);
 
-      dispatch(AddingDocument(fd))
+      dispatch(AddingDocument(fd));
       setNewDoc({
         document: null,
         order: orderid,
         name: '',
         module: module,
-      })
+      });
     }
-  }
-  const [filterValue, setFilterValue] = useState('')
+  };
+  const [filterValue, setFilterValue] = useState('');
 
   const filterDocBySearch = (val) => {
-    if (!val.length >= 3) return
+    if (!val.length >= 3) return;
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       if (doc.name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
-        return doc
+        return doc;
       }
-    })
-    setFilteredDoc(tempArray)
-  }
+    });
+    setFilteredDoc(tempArray);
+  };
   const handleDocModuleChange = (index) => {
-    let tempArray = [...filteredDoc]
-    tempArray[index].moving = true
-    setFilteredDoc(tempArray)
-  }
+    let tempArray = [...filteredDoc];
+    tempArray[index].moving = true;
+    setFilteredDoc(tempArray);
+  };
 
   const handleShareDoc = (doc) => {
-    openbar()
-    console.log(doc, 'handleShareDoc')
-  }
-
+    openbar();
+    console.log(doc, 'handleShareDoc');
+  };
 
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
@@ -472,7 +474,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 className={`${styles.searchBar} border_color input form-control`}
                 placeholder="Search"
                 onChange={(e) => {
-                  filterDocBySearch(e.target.value)
+                  filterDocBySearch(e.target.value);
                 }}
               ></input>
             </div>
@@ -529,7 +531,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   {documentsFetched &&
                     filteredDoc?.map((document, index) => {
                       if (document.deleted) {
-                        return null
+                        return null;
                       } else {
                         return (
                           <tr key={index} className="uploadRowTable">
@@ -537,23 +539,35 @@ const Index = ({ orderid, module, isDocumentName }) => {
                               {document.name}
                             </td>
                             <td>
-
-                              {(document.originalName.toLowerCase().endsWith('.xls') || document.originalName.toLowerCase().endsWith('.xlsx')) ? <img
-                                src="/static/excel.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              /> : (document.originalName.toLowerCase().endsWith('.doc') || document.originalName.toLowerCase().endsWith('.docx')) ? < img
-                                src="/static/doc.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              /> : <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-
-                              }
-
+                              {document.originalName
+                                .toLowerCase()
+                                .endsWith('.xls') ||
+                              document.originalName
+                                .toLowerCase()
+                                .endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : document.originalName
+                                  .toLowerCase()
+                                  .endsWith('.doc') ||
+                                document.originalName
+                                  .toLowerCase()
+                                  .endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )}
                             </td>
                             <td className={styles.doc_row}>
                               {moment(document.date).format(
@@ -573,13 +587,13 @@ const Index = ({ orderid, module, isDocumentName }) => {
                             <td colSpan="2">
                               <img
                                 onClick={(e) => {
-                                  DocDlt(index)
+                                  DocDlt(index);
                                   dispatch(
                                     DeleteDocument({
                                       orderDocumentId: documentsFetched._id,
                                       name: document.name,
                                     }),
-                                  )
+                                  );
                                 }}
                                 src="/static/delete.svg"
                                 className={`${styles.delete_image} mr-3`}
@@ -590,73 +604,107 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 className={`${styles.delete_image} p-0 border-0 bg-transparent mr-3`}
                                 alt="Share"
                                 onClick={(document) => {
-                                  handleShareDoc(document)
-
+                                  handleShareDoc(document);
                                 }}
                               />
 
-                              {!document.moving ?
-                                (
-                                  <img
-                                    src="/static/drive_file.svg"
-                                    className={`${styles.edit_image} mr-3`}
-                                    alt="Share"
-                                    onClick={() => {
-                                      handleDocModuleChange(index)
-                                    }}
-                                  />
-                                )
-                                :
-                                (
-                                  <div className='d-inline-block' style={{ marginRight: '25px' }}>
-                                    <div className="d-flex align-items-center">
-                                      <select
-                                        value={moduleSelected}
-                                        onChange={(e) => {
-                                          DocDlt(index)
-                                          dispatch(
-                                            changeModuleDocument({
-                                              orderDocumentId: documentsFetched._id,
-                                              name: document.name,
-                                              module: e.target.value
-                                            }),
-                                          )
-
+                              {!document.moving ? (
+                                <img
+                                  src="/static/drive_file.svg"
+                                  className={`${styles.edit_image} mr-3`}
+                                  alt="Share"
+                                  onClick={() => {
+                                    handleDocModuleChange(index);
+                                  }}
+                                />
+                              ) : (
+                                <div
+                                  className="d-inline-block"
+                                  style={{ marginRight: '25px' }}
+                                >
+                                  <div className="d-flex align-items-center">
+                                    <select
+                                      value={moduleSelected}
+                                      onChange={(e) => {
+                                        DocDlt(index);
+                                        dispatch(
+                                          changeModuleDocument({
+                                            orderDocumentId:
+                                              documentsFetched._id,
+                                            name: document.name,
+                                            module: e.target.value,
+                                          }),
+                                        );
+                                      }}
+                                      className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
+                                      style={{
+                                        width: '150px',
+                                        paddingRight: '30px',
+                                      }}
+                                    >
+                                      <option
+                                        disabled={
+                                          moduleSelected ===
+                                          'LeadOnboarding&OrderApproval'
                                         }
+                                        value="LeadOnboarding&OrderApproval"
+                                      >
+                                        Lead Onboarding &amp; Order Approval
+                                      </option>
+                                      <option
+                                        disabled={
+                                          moduleSelected ===
+                                          'Agreements&Insurance&LC&Opening'
                                         }
-                                        className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
-                                        style={{ width: '150px', paddingRight: '30px' }}    >
-
-                                        <option disabled={moduleSelected === 'LeadOnboarding&OrderApproval'} value="LeadOnboarding&OrderApproval">
-                                          Lead Onboarding &amp; Order Approval
-                                        </option>
-                                        <option disabled={moduleSelected === 'Agreements&Insurance&LC&Opening'} value="Agreements&Insurance&LC&Opening">
-                                          Agreements, Insurance &amp; LC Opening
-                                        </option>
-                                        <option disabled={moduleSelected === 'Loading-Transit-Unloading'} value="Loading-Transit-Unloading">
-                                          Loading-Transit-Unloading
-                                        </option>
-                                        <option disabled={moduleSelected === 'customClearanceAndWarehousing'} value="customClearanceAndWarehousing">
-                                          Custom Clearance And Warehousing
-                                        </option>
-                                        <option disabled={moduleSelected === 'PaymentsInvoicing&Delivery'} value="PaymentsInvoicing&Delivery">
-                                          Payments Invoicing & Delivery
-                                        </option>
-                                        <option disabled={moduleSelected === 'Others'} value="Others">Others</option>
-                                      </select>
-                                      <img
-                                        className={`${styles.arrow2} img-fluid`}
-                                        src="/static/inputDropDown.svg"
-                                        alt="Search"
-                                      />
-                                    </div>
+                                        value="Agreements&Insurance&LC&Opening"
+                                      >
+                                        Agreements, Insurance &amp; LC Opening
+                                      </option>
+                                      <option
+                                        disabled={
+                                          moduleSelected ===
+                                          'Loading-Transit-Unloading'
+                                        }
+                                        value="Loading-Transit-Unloading"
+                                      >
+                                        Loading-Transit-Unloading
+                                      </option>
+                                      <option
+                                        disabled={
+                                          moduleSelected ===
+                                          'customClearanceAndWarehousing'
+                                        }
+                                        value="customClearanceAndWarehousing"
+                                      >
+                                        Custom Clearance And Warehousing
+                                      </option>
+                                      <option
+                                        disabled={
+                                          moduleSelected ===
+                                          'PaymentsInvoicing&Delivery'
+                                        }
+                                        value="PaymentsInvoicing&Delivery"
+                                      >
+                                        Payments Invoicing & Delivery
+                                      </option>
+                                      <option
+                                        disabled={moduleSelected === 'Others'}
+                                        value="Others"
+                                      >
+                                        Others
+                                      </option>
+                                    </select>
+                                    <img
+                                      className={`${styles.arrow2} img-fluid`}
+                                      src="/static/inputDropDown.svg"
+                                      alt="Search"
+                                    />
                                   </div>
-                                )
-
-                              }
+                                </div>
+                              )}
                             </td>
                           </tr>
-                        )
+                        );
                       }
                     })}
                 </tbody>
@@ -667,7 +715,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       </div>
       {open ? <TermsheetPopUp close={close} open={open} istermsheet /> : null}
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

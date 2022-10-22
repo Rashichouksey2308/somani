@@ -1,12 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   GetAllDelivery,
   GetDelivery,
-} from '../../redux/release&DeliveryOrder/action'
-import Router from 'next/router'
+} from '../../redux/release&DeliveryOrder/action';
+import Router from 'next/router';
 
 function Index({
   tableName,
@@ -15,37 +15,39 @@ function Index({
   dateHeading,
   handleEditRoute,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
-  const { allReleaseOrder } = useSelector((state) => state.Release)
+  const [currentPage, setCurrentPage] = useState(0);
+  const { allReleaseOrder } = useSelector((state) => state.Release);
 
   useEffect(() => {
-    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
   const handleRoute = (sheet) => {
-    sessionStorage.setItem('ROrderID', sheet._id)
-   
-    sessionStorage.setItem('company', sheet.company._id)
-    dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
-    
-    Router.push('/payment/id')
-  }
+    sessionStorage.setItem('ROrderID', sheet._id);
 
-  const [sorting, setSorting] = useState(1)
+    sessionStorage.setItem('company', sheet.company._id);
+    dispatch(GetDelivery(`?deliveryId=${sheet._id}`));
+
+    Router.push('/payment/id');
+  };
+
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-   
-    if(sorting == -1){
-    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-      setSorting(-1)
+    if (sorting == -1) {
+      dispatch(
+        GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
@@ -63,9 +65,9 @@ function Index({
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return
+                return;
               } else {
-                setCurrentPage((prevState) => prevState - 1)
+                setCurrentPage((prevState) => prevState - 1);
               }
             }}
             href="#"
@@ -84,7 +86,7 @@ function Index({
                 currentPage + 1 <
                 Math.ceil(allReleaseOrder?.totalCount / 7)
               ) {
-                setCurrentPage((prevState) => prevState + 1)
+                setCurrentPage((prevState) => prevState + 1);
               }
             }}
             href="#"
@@ -114,7 +116,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
-                    onClick={()=>handleSort()}
+                    onClick={() => handleSort()}
                   />{' '}
                 </th>
                 <th>BUYER NAME</th>
@@ -150,7 +152,7 @@ function Index({
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        handleRoute(insured)
+                        handleRoute(insured);
                       }}
                     >
                       {insured?.company?.companyName}
@@ -342,7 +344,7 @@ function Index({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

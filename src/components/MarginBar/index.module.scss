@@ -44,8 +44,8 @@
     justify-content: center;
     margin-right: 1rem;
     @include respond(lg-desktop) {
-        width: 200px;
-        height: 38px;
+      width: 200px;
+      height: 38px;
     }
     img {
       margin-left: 0.5rem;
@@ -139,8 +139,8 @@
     justify-content: center;
     margin-left: 1rem;
     @include respond(lg-desktop) {
-        width: 200px;
-        height: 38px;
+      width: 200px;
+      height: 38px;
     }
     span {
       @include respond(phone) {
@@ -153,7 +153,7 @@
   }
 }
 .no_sidebar {
-  margin-left: 102px !important;  
+  margin-left: 102px !important;
 }
 .no_sidebar_mobile {
   margin-left: 0px !important;

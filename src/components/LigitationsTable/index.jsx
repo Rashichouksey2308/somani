@@ -1,38 +1,38 @@
-import React,{useState,useEffect} from 'react'
-import styles from './index.module.scss'
-import { Row, Col } from 'react-bootstrap'
-import _get from 'lodash/get'
-import { useDispatch } from 'react-redux'
-import { GetCaseDetails } from '../../redux/companyDetail/action'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Row, Col } from 'react-bootstrap';
+import _get from 'lodash/get';
+import { useDispatch } from 'react-redux';
+import { GetCaseDetails } from '../../redux/companyDetail/action';
 
 function index({ data, Heading, val, totalData }) {
-  const dispatch = useDispatch()
-  const [count,setCount]=useState({
-    pending:0,disposed:0
-  })
+  const dispatch = useDispatch();
+  const [count, setCount] = useState({
+    pending: 0,
+    disposed: 0,
+  });
   useEffect(() => {
-    if(totalData?.cases?.length>0){
-      let pending=0;
-      let disposed=0;
-      totalData.cases.forEach((val,idex)=>{
-        console.log(val?.caseStatus,"val?.caseStatus")
-        if(val?.caseStatus?.trim()?.toLowerCase()=="disposed"){
-
-          disposed=disposed+1
+    if (totalData?.cases?.length > 0) {
+      let pending = 0;
+      let disposed = 0;
+      totalData.cases.forEach((val, idex) => {
+        console.log(val?.caseStatus, 'val?.caseStatus');
+        if (val?.caseStatus?.trim()?.toLowerCase() == 'disposed') {
+          disposed = disposed + 1;
         }
-        if(val?.caseStatus?.trim()?.toLowerCase()=="pending"){
-          pending=pending+1
+        if (val?.caseStatus?.trim()?.toLowerCase() == 'pending') {
+          pending = pending + 1;
         }
-      })
-      setCount({pending:pending,disposed:disposed})
+      });
+      setCount({ pending: pending, disposed: disposed });
     }
-  },[totalData])
+  }, [totalData]);
   const casePreviewHandler = (cinNo) => {
-    dispatch(GetCaseDetails({ cin: cinNo }))
-  }
-  const totalNumberOfCases = data?.length
+    dispatch(GetCaseDetails({ cin: cinNo }));
+  };
+  const totalNumberOfCases = data?.length;
   //const pendingCases = data.filter((e)=> e.)
-  console.log(totalData, 'totalNumberOfCases')
+  console.log(totalData, 'totalNumberOfCases');
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -50,7 +50,9 @@ function index({ data, Heading, val, totalData }) {
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
-                <span className={`${styles.lower} sub_heading`}>{count?.pending}</span>
+                <span className={`${styles.lower} sub_heading`}>
+                  {count?.pending}
+                </span>
               </div>
             </Col>
             <Col md={2} sm={2}>
@@ -58,7 +60,9 @@ function index({ data, Heading, val, totalData }) {
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
                 <span>Disposed case</span>
-                <span className={`${styles.lower} sub_heading`}>{count?.disposed}</span>
+                <span className={`${styles.lower} sub_heading`}>
+                  {count?.disposed}
+                </span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -66,14 +70,28 @@ function index({ data, Heading, val, totalData }) {
                 <span>Total cases</span>
                 <div className={styles.chart}>
                   <div className={styles.container}>
-                    <div className={styles.fill} style={{width:`${(count?.pending/Number(totalData?.cases?.length)*100)}%`}}></div>
-                    <span className={`sub_heading`}>{ totalData?.cases?.length}</span>
+                    <div
+                      className={styles.fill}
+                      style={{
+                        width: `${
+                          (count?.pending / Number(totalData?.cases?.length)) *
+                          100
+                        }%`,
+                      }}
+                    ></div>
+                    <span className={`sub_heading`}>
+                      {totalData?.cases?.length}
+                    </span>
                   </div>
                 </div>
               </div>
             </Col>
             <Col md={1} sm={1} className="text-center">
-              <img src="/static/arrow-right.svg" alt="arrow right" className={`${styles.image_arrow} img-fluid image_arrow`} />
+              <img
+                src="/static/arrow-right.svg"
+                alt="arrow right"
+                className={`${styles.image_arrow} img-fluid image_arrow`}
+              />
             </Col>
           </Row>
         </div>
@@ -103,23 +121,30 @@ function index({ data, Heading, val, totalData }) {
                 </tr>
               </thead>
               <tbody>
-                {data && data?.map((courtCase, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td className="">{courtCase?.cin}</td>
-                    <td className="">{courtCase?.caseNumber}</td>
-                    <td className="">{courtCase?.caseType}</td>
-                    <td className="">{courtCase?.section}</td>
-                    <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
-                    <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
-                    <td className="text-center">
-                      <img  src="./static/blue-eye.svg"
-                        className='img-fluid'
-                        alt="blue eye"
-                        onClick={() => casePreviewHandler(courtCase.cin)}
+                {data &&
+                  data?.map((courtCase, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td className="">{courtCase?.cin}</td>
+                      <td className="">{courtCase?.caseNumber}</td>
+                      <td className="">{courtCase?.caseType}</td>
+                      <td className="">{courtCase?.section}</td>
+                      <td className="">
+                        {_get(courtCase, 'petitioner[0]', '')}
+                      </td>
+                      <td className="">
+                        {_get(courtCase, 'respondent[0]', '')}
+                      </td>
+                      <td className="text-center">
+                        <img
+                          src="./static/blue-eye.svg"
+                          className="img-fluid"
+                          alt="blue eye"
+                          onClick={() => casePreviewHandler(courtCase.cin)}
                         />
-                    </td>
-                  </tr>))}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
 
@@ -130,7 +155,7 @@ function index({ data, Heading, val, totalData }) {
 
       <div></div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

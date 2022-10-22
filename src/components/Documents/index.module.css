@@ -1,6 +1,6 @@
 .main {
   padding: 35px 35px 10px;
-  border-bottom: 3px solid #D9DDE8;
+  border-bottom: 3px solid #d9dde8;
 }
 
 .main .heading {
@@ -63,7 +63,7 @@
 
 .main .input_container .add_document .add_para {
   font-size: 18px;
-  color: #3687E8;
+  color: #3687e8;
   font-weight: bold;
   line-height: 23px;
   margin: 0;
@@ -81,8 +81,8 @@
 
 .main .input_container .each_input .input_field {
   height: 60px;
-  background-color: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
   border-radius: 4px;
   color: #111111;
   text-align: left;
@@ -110,12 +110,12 @@
 .main .input_container .each_input .button_upload {
   width: 106px;
   height: 38px;
-  border: 3px solid #3687E8;
+  border: 3px solid #3687e8;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  color: #3687E8;
+  color: #3687e8;
   text-transform: capitalize;
 }
 
@@ -123,7 +123,7 @@
   font-size: 20px;
   letter-spacing: 0.19px;
   color: #111111;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
@@ -136,8 +136,8 @@
   margin: 10px 0;
   text-align: center;
   border-radius: 4px;
-  background-color: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
 }
 
 .main .input_container .each_input .phone_card {
@@ -148,11 +148,11 @@
 
 .main .input_container .each_input .phone_card .code_phone {
   font-size: 19px;
-  color: #3687E8;
+  color: #3687e8;
   border-radius: 4px;
   letter-spacing: 0.18px;
-  background-color: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background-color: #c3c3c31f;
+  border: 1px solid #0000001f;
 }
 
 .main .add_document {

@@ -1,84 +1,90 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
-import Filter from '../Filter'
-import _get from 'lodash/get'
-import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
-import moment from 'moment'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useSelector, useDispatch } from 'react-redux';
+import { GetLcModule } from 'redux/lcModule/action';
+import Filter from '../Filter';
+import _get from 'lodash/get';
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../redux/userData/action';
+import moment from 'moment';
 
 function Index() {
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [edit, setEdit] = useState(false);
 
-  const [edit, setEdit] = useState(false)
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  const { lcModule } = useSelector((state) => state.lc);
 
-  const { lcModule } = useSelector((state) => state.lc)
-
-  console.log(lcModule?.data, 'THIS IS LC MOD')
-
-  useEffect(() => {
-    let id = sessionStorage.getItem('lcCompanyId')
-    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`))
-
-
-  }, [dispatch, currentPage])
+  console.log(lcModule?.data, 'THIS IS LC MOD');
 
   useEffect(() => {
-    dispatch(setPageName('Lc'))
-    dispatch(setDynamicName(lcModule?.data?.company?.companyName))
+    let id = sessionStorage.getItem('lcCompanyId');
+    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`));
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    dispatch(setPageName('Lc'));
+    dispatch(setDynamicName(lcModule?.data?.company?.companyName));
     dispatch(
       setDynamicOrder(
         lcModule?.data?.order?.orderId
-          ? lcModule?.data?.order?.orderId : lcModule?.data?.order?.applicationId
+          ? lcModule?.data?.order?.orderId
+          : lcModule?.data?.order?.applicationId,
       ),
-    )
-  }, [lcModule])
+    );
+  }, [lcModule]);
 
   const handleRoute = (lc) => {
-    console.log(lc, "lc-module")
+    console.log(lc, 'lc-module');
     if (!lc.firstTimeUpdate) {
-      dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
-      sessionStorage.setItem('lcOrder', lc.order.lc)
-      Router.push('/letter-credit/lc-create')
+      dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
+      sessionStorage.setItem('lcOrder', lc.order.lc);
+      Router.push('/letter-credit/lc-create');
+    } else {
+      sessionStorage.setItem('lcPreviewId', lc.order.lc);
+      Router.push('/letter-table/letter-amend/id');
     }
-
-    else {
-      sessionStorage.setItem('lcPreviewId', lc.order.lc)
-      Router.push('/letter-table/letter-amend/id')
-    }
-
-  }
+  };
   const handleLcAmmendRoute = (lc) => {
-    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
-    sessionStorage.setItem('lcAmmend', lc.order.lc)
-    Router.push('/lc-module/lc-application')
-  }
+    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
+    sessionStorage.setItem('lcAmmend', lc.order.lc);
+    Router.push('/lc-module/lc-application');
+  };
 
   const handleAmmendRoute = (lc) => {
-    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
-    sessionStorage.setItem('lcAmmend', lc.order.lc)
-    Router.push('/letter-credit/id')
-  }
+    dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`));
+    sessionStorage.setItem('lcAmmend', lc.order.lc);
+    Router.push('/letter-credit/id');
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    let id = sessionStorage.getItem('lcCompanyId')
+    let id = sessionStorage.getItem('lcCompanyId');
     if (sorting == -1) {
-      dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`))
-      setSorting(1)
+      dispatch(
+        GetLcModule(
+          `?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(1);
     } else if (sorting == 1) {
-
-      dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`))
-      setSorting(-1)
+      dispatch(
+        GetLcModule(
+          `?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -90,7 +96,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/letter-table')}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
             />
             <h1 className={styles.heading}>Letter of Credit </h1>
           </div>
@@ -118,10 +124,15 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a>  */}
 
-          <button className={styles.createBtn}
-            onClick={() => { Router.push("/lc-module/lc-application") }}
-            style={{ position: "absolute", right: 25 }}>
-            Create</button>
+          <button
+            className={styles.createBtn}
+            onClick={() => {
+              Router.push('/lc-module/lc-application');
+            }}
+            style={{ position: 'absolute', right: 25 }}
+          >
+            Create
+          </button>
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
@@ -129,7 +140,10 @@ function Index() {
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
             <h3 className="heading_card">
-              {_get(lcModule, 'data[0].company.companyName', '')?.replace(/(^\w|\s\w)(\S*)/g, (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase())}
+              {_get(lcModule, 'data[0].company.companyName', '')?.replace(
+                /(^\w|\s\w)(\S*)/g,
+                (_, m1, m2) => m1.toUpperCase() + m2.toLowerCase(),
+              )}
             </h3>
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
@@ -141,9 +155,9 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -158,11 +172,8 @@ function Index() {
               </a>
               <a
                 onClick={() => {
-                  if (
-                    currentPage + 1 <
-                    Math.ceil(lcModule?.totalCount / 10)
-                  ) {
-                    setCurrentPage((prevState) => prevState + 1)
+                  if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 10)) {
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -210,7 +221,7 @@ function Index() {
                         <td
                           className={styles.buyerName}
                           onClick={() => {
-                            handleRoute(lc)
+                            handleRoute(lc);
                           }}
                         >
                           {lc?.order?.commodity}
@@ -235,7 +246,10 @@ function Index() {
                           </td>
                         ) : (
                           <>
-                            <td>Updated on: {moment(lc?.updatedAt).format("DD-MM-YYYY")}</td>
+                            <td>
+                              Updated on:{' '}
+                              {moment(lc?.updatedAt).format('DD-MM-YYYY')}
+                            </td>
                             <td>
                               <img
                                 src="/static/mode_edit.svg"
@@ -254,6 +268,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

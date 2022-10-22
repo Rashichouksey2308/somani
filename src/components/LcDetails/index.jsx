@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import InspectionDocument from '../InspectionDocument'
-import DateCalender from '../DateCalender'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import InspectionDocument from '../InspectionDocument';
+import DateCalender from '../DateCalender';
 
 export default function Index() {
-  const [editInput, setEditInput] = useState(true)
-  const [darkMode, setDarkMode] = useState(false)
+  const [editInput, setEditInput] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
+  };
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -320,8 +320,12 @@ export default function Index() {
                               id="docType"
                               onChange={(e) => handleDropdown(e)}
                             >
-                              <option>Lead Onboarding &amp; Order Approval</option>
-                              <option>Agreements, Insurance &amp; LC Opening</option>
+                              <option>
+                                Lead Onboarding &amp; Order Approval
+                              </option>
+                              <option>
+                                Agreements, Insurance &amp; LC Opening
+                              </option>
                               <option>Loading-Transit-Unloading</option>
                               <option>Custom Clearance And Warehousing</option>
                               <option value="Others">Others</option>
@@ -533,5 +537,5 @@ export default function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }

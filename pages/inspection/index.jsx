@@ -1,78 +1,84 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './inspection.module.scss'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
-import { GetAllInspection } from '../../src/redux/Inspections/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
-import _get from 'lodash/get'
+import React, { useEffect, useState } from 'react';
+import styles from './inspection.module.scss';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action';
+import { GetAllInspection } from '../../src/redux/Inspections/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import _get from 'lodash/get';
 
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
-    sessionStorage.setItem('loadedSubPage',`Inspection`)
-    sessionStorage.setItem('openList',3)
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Inspection`);
+      sessionStorage.setItem('openList', 3);
     }
-},[])
+  }, []);
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetAllInspection(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllInspection(`?company=${id}`));
+  };
 
   useEffect(() => {
-    dispatch(setPageName('inception2'))
-    dispatch(setDynamicName(null))
-    dispatch(setDynamicOrder(null))
-  })
+    dispatch(setPageName('inception2'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  });
 
   useEffect(() => {
-    dispatch(GetAllInspection(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllInspection(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-   
-    if(sorting == -1){
-    dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-      setSorting(-1)
+    if (sorting == -1) {
+      dispatch(
+        GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
-  const { allInspection } = useSelector((state) => state.Inspection)
+  const { allInspection } = useSelector((state) => state.Inspection);
 
-  const { searchedLeads } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order);
 
   // console.log(allInspection, 'THIS IS ALL INSPECTION')
 
   const handleRoute = (inspection) => {
-    sessionStorage.setItem('inspectionId', inspection?._id )
-    dispatch(GetAllInspection(`?inspectionId=${inspection?._id}`))
-    dispatch(setDynamicName(inspection?.company?.companyName))
-    Router.push('/third-party')
-  }
+    sessionStorage.setItem('inspectionId', inspection?._id);
+    dispatch(GetAllInspection(`?inspectionId=${inspection?._id}`));
+    dispatch(setDynamicName(inspection?.company?.companyName));
+    Router.push('/third-party');
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -147,7 +153,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+          <div
+            className={`${styles.approved} ${styles.boxInner} approved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -162,7 +170,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+          <div
+            className={`${styles.review} ${styles.boxInner} review border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -177,7 +187,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+          <div
+            className={`${styles.saved} ${styles.boxInner} saved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -208,9 +220,9 @@ if(window){
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -229,7 +241,7 @@ if(window){
                     currentPage + 1 <
                     Math.ceil(allInspection?.totalCount / 7)
                   ) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -259,7 +271,7 @@ if(window){
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
-                        onClick={()=>handleSort()}
+                        onClick={() => handleSort()}
                       />{' '}
                     </th>
                     <th>BUYER NAME</th>
@@ -285,18 +297,21 @@ if(window){
                         <td
                           className={styles.buyerName}
                           onClick={() => {
-                            handleRoute(inspection)
+                            handleRoute(inspection);
                           }}
                         >
                           {inspection?.company?.companyName}
                         </td>
                         <td>{inspection?.order?.commodity}</td>
 
-                        <td>  {_get(
-                      inspection,
-                       'order.vessel.vessels[0].vesselInformation[0].name',
-                      '',
-                    )}</td>
+                        <td>
+                          {' '}
+                          {_get(
+                            inspection,
+                            'order.vessel.vessels[0].vesselInformation[0].name',
+                            '',
+                          )}
+                        </td>
                         <td>22-02-2022</td>
                         <td>
                           <span
@@ -320,6 +335,6 @@ if(window){
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

@@ -1,17 +1,17 @@
-import React ,{ useEffect, useState }  from 'react'
-import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-import { useDispatch, useSelector } from 'react-redux'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import TableMain from '../../src/components/TableMain';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setPageName('loading'))
-    dispatch(setDynamicName(null))
-  })
+    dispatch(setPageName('loading'));
+    dispatch(setDynamicName(null));
+  });
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -70,7 +70,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+          <div
+            className={`${styles.approved} ${styles.boxInner} approved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -85,7 +87,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+          <div
+            className={`${styles.review} ${styles.boxInner} review border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -100,7 +104,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+          <div
+            className={`${styles.saved} ${styles.boxInner} saved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -124,6 +130,6 @@ function Index() {
         />
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

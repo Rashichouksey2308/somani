@@ -1,8 +1,7 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-
+import React from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
 
 const index = () => {
   return (
@@ -10,7 +9,6 @@ const index = () => {
       <div className={styles.head_container}>
         <div className={styles.head_header}>
           <img
-
             className={`${styles.arrow} img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
@@ -23,9 +21,7 @@ const index = () => {
       </div>
 
       <div className={`${styles.vessel_card} mt-3 border_color`}>
-        <div className={`${styles.heading} heading_card`}>
-
-        </div>
+        <div className={`${styles.heading} heading_card`}></div>
         <div className={styles.radio_form}>
           {['checkbox'].map((type) => (
             <div key={`inline-${type}`} className={styles.radio_group}>
@@ -218,11 +214,11 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
-                      onWheel={(event) =>
-                        event.currentTarget.blur()
+                      onWheel={(event) => event.currentTarget.blur()}
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
                       }
-                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -498,11 +494,11 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
-                      onWheel={(event) =>
-                        event.currentTarget.blur()
+                      onWheel={(event) => event.currentTarget.blur()}
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
                       }
-                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -773,6 +769,6 @@ const index = () => {
         </div>
       </div>
     </div>
-  )
-}
-export default index
+  );
+};
+export default index;

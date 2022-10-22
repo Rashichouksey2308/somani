@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from 'redux/insurance/action'
-import { Router } from 'next/router'
-import _get from 'lodash/get'
-import moment from 'moment/moment'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from 'redux/insurance/action';
+import { Router } from 'next/router';
+import _get from 'lodash/get';
+import moment from 'moment/moment';
 
 function Index({
   tableName,
@@ -16,33 +16,39 @@ function Index({
 
   handleEditRoute,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  let d = new Date()
+  let d = new Date();
 
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
   // console.log(insuranceResponse, 'INSURANCE RESPONSE')
 
   useEffect(() => {
-    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-   
-    if(sorting == -1){
-    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-      setSorting(-1)
+    if (sorting == -1) {
+      dispatch(
+        GettingAllInsurance(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GettingAllInsurance(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
@@ -60,9 +66,9 @@ function Index({
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return
+                return;
               } else {
-                setCurrentPage((prevState) => prevState - 1)
+                setCurrentPage((prevState) => prevState - 1);
               }
             }}
             href="#"
@@ -81,7 +87,7 @@ function Index({
                 currentPage + 1 <
                 Math.ceil(insuranceResponse?.totalCount / 7)
               ) {
-                setCurrentPage((prevState) => prevState + 1)
+                setCurrentPage((prevState) => prevState + 1);
               }
             }}
             href="#"
@@ -111,7 +117,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
-                    onClick={()=>handleSort()}
+                    onClick={() => handleSort()}
                   />{' '}
                 </th>
                 <th>
@@ -154,7 +160,7 @@ function Index({
                     <td
                       className={styles.buyerName}
                       onClick={() => {
-                        handleRoute(insured)
+                        handleRoute(insured);
                       }}
                     >
                       {insured?.company?.companyName}
@@ -163,41 +169,56 @@ function Index({
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {
-                        moment(insured?.quotationRequest?.expectedTimeOfDispatch).format("DD-MM-YYYY")
+                        moment(
+                          insured?.quotationRequest?.expectedTimeOfDispatch,
+                        ).format('DD-MM-YYYY')
                         // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
                         //   'T',
                         // )[0]
                       }
                     </td>
-                    {insured && (moment(insured?.marineInsurance?.insuranceTo).toDate() < d || moment(insured?.storageInsurance?.insuranceTo).toDate() < d) ? <td>
-                      <span
-                        className={`${styles.status} ${styles.rejected}`}
-                      ></span>{' '}
-                      Expired
-                    </td> :  <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>{' '}
-                      Active
-                    </td>}
+                    {insured &&
+                    (moment(insured?.marineInsurance?.insuranceTo).toDate() <
+                      d ||
+                      moment(insured?.storageInsurance?.insuranceTo).toDate() <
+                        d) ? (
+                      <td>
+                        <span
+                          className={`${styles.status} ${styles.rejected}`}
+                        ></span>{' '}
+                        Expired
+                      </td>
+                    ) : (
+                      <td>
+                        <span
+                          className={`${styles.status} ${styles.approved}`}
+                        ></span>{' '}
+                        Active
+                      </td>
+                    )}
                     <td>
-                      {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && <span onClick={() => handleEditRoute(insured)}>
-                        <img
-                          className={`${styles.edit_image} img-fluid mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit"
-                        />
-                      </span>}
+                      {_get(
+                        insured,
+                        'quotationRequest.quotationRequestSubmitted',
+                        false,
+                      ) && (
+                        <span onClick={() => handleEditRoute(insured)}>
+                          <img
+                            className={`${styles.edit_image} img-fluid mr-3`}
+                            src="/static/mode_edit.svg"
+                            alt="edit"
+                          />
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))}
-
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

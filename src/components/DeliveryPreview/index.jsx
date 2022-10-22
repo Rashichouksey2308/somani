@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Modal from 'react-bootstrap/Modal'
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
 
-import styles from './index.module.scss'
-import SaveBar from '../SaveBar'
+import styles from './index.module.scss';
+import SaveBar from '../SaveBar';
 
 function Index() {
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handlePopup = () => {
-    setShow(true)
-  }
-  const DeliveryNo = sessionStorage.getItem('dono')
+    setShow(true);
+  };
+  const DeliveryNo = sessionStorage.getItem('dono');
   return (
     <>
       <div className={`${styles.root} card container-fluid`}>
@@ -38,8 +38,7 @@ function Index() {
           >
             <div className={`${styles.date} `}>
               <p>
-                DO.NO:{' '}
-                <span className={`${styles.bold}`}>{DeliveryNo}</span>
+                DO.NO: <span className={`${styles.bold}`}>{DeliveryNo}</span>
               </p>
               <p>
                 DATE: <span className={`${styles.bold}`}>01.07.2021</span>
@@ -290,7 +289,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        addMoreRows();
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -358,7 +357,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        addMoreRows();
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -454,7 +453,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

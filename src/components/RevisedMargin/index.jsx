@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import _get from 'lodash/get'
-import DownloadBar from '../DownloadBar'
-import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper'
-import Router from 'next/router'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import _get from 'lodash/get';
+import DownloadBar from '../DownloadBar';
+import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper';
+import Router from 'next/router';
 const Index = ({
   finalCal,
   finalCalRevised,
@@ -17,16 +17,15 @@ const Index = ({
   handleUpdateRevisedMarginMoney,
   exportPDF,
   saveforCalculationRevised,
-  forCalculationRevised
+  forCalculationRevised,
 }) => {
-
-  console.log(marginData, 'marginData')
+  console.log(marginData, 'marginData');
 
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     perUnitPrice: false,
-    conversionRate: false
-  })
+    conversionRate: false,
+  });
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -34,7 +33,7 @@ const Index = ({
     state: 'DELHI',
     address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
     GSTIN: '07AAACS8253L1Z0',
-  }
+  };
 
   let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
@@ -43,80 +42,80 @@ const Index = ({
     address:
       'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
     GSTIN: '24AAACI3028D1Z8',
-  }
+  };
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
     state: '',
     address: '',
-  })
-  const [conversionRateUnit, setConversionRateUnit] = useState()
+  });
+  const [conversionRateUnit, setConversionRateUnit] = useState();
   // console.log(conversionRateUnit, 'conversionRateUnit')
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      setChangeImporterData({ ...emergent })
-      const newInput = { ...invoiceDataRevised }
-      newInput['importerName'] = emergent.companyName
-      newInput['branchOffice'] = emergent.branch
-      newInput['importerGSTIN'] = emergent.GSTIN
-      newInput['companyAddress'] = emergent.address
+      setChangeImporterData({ ...emergent });
+      const newInput = { ...invoiceDataRevised };
+      newInput['importerName'] = emergent.companyName;
+      newInput['branchOffice'] = emergent.branch;
+      newInput['importerGSTIN'] = emergent.GSTIN;
+      newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceDataRevised({ ...newInput })
+      setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      setChangeImporterData({ ...indoGerman })
-      const newInput = { ...invoiceDataRevised }
-      newInput['importerName'] = indoGerman.companyName
-      newInput['branchOffice'] = indoGerman.branch
-      newInput['importerGSTIN'] = indoGerman.GSTIN
-      newInput['companyAddress'] = indoGerman.address
+      setChangeImporterData({ ...indoGerman });
+      const newInput = { ...invoiceDataRevised };
+      newInput['importerName'] = indoGerman.companyName;
+      newInput['branchOffice'] = indoGerman.branch;
+      newInput['importerGSTIN'] = indoGerman.GSTIN;
+      newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceDataRevised({ ...newInput })
+      setInvoiceDataRevised({ ...newInput });
     }
-  }
-    const routeChange = () => {
-    Router.push('/revised-margin-preview')
-  }
+  };
+  const routeChange = () => {
+    Router.push('/revised-margin-preview');
+  };
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
-      changeImporterData.branch = e.target.value
-      const newInput = { ...invoiceDataRevised }
-      newInput['branchOffice'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      changeImporterData.branch = e.target.value;
+      const newInput = { ...invoiceDataRevised };
+      newInput['branchOffice'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
     if (e.target.name == 'companyAddress') {
-      const newInput = { ...invoiceDataRevised }
-      changeImporterData.address = e.target.value
-      newInput['companyAddress'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      const newInput = { ...invoiceDataRevised };
+      changeImporterData.address = e.target.value;
+      newInput['companyAddress'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
     if (e.target.name == 'importerGSTIN') {
-      const newInput ={...invoiceDataRevised}
-      changeImporterData.GSTIN = e.target.value
-      newInput['importerGSTIN'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      const newInput = { ...invoiceDataRevised };
+      changeImporterData.GSTIN = e.target.value;
+      newInput['importerGSTIN'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
-  }
+  };
   const coversionUnitHandler = (val) => {
-    let unit = 10000000
+    let unit = 10000000;
     if (val === 'Lakh') {
-      unit = 100000
+      unit = 100000;
     }
     if (val === 'Million') {
-      unit = 1000000
+      unit = 1000000;
     }
     if (val === 'Crores') {
-      unit = 10000000
+      unit = 10000000;
     }
-    setConversionRateUnit(unit)
-  }
+    setConversionRateUnit(unit);
+  };
   return (
     <>
       <div className={`${styles.card} vessel_card accordionMargin card`}>
@@ -125,9 +124,7 @@ const Index = ({
           style={{ cursor: 'default' }}
         >
           <div className={`${styles.commodity}`}>
-            <span className={`${styles.comm_head} sub_heading`}>
-              Commodity
-            </span>
+            <span className={`${styles.comm_head} sub_heading`}>Commodity</span>
             <span className={`${styles.comm_val} heading`}>
               {' '}
               {marginData?.order?.commodity}
@@ -181,27 +178,37 @@ const Index = ({
                     <span>A</span>
                   </div>
                   <input
-                      onFocus={(e) => {
-                        setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                          e.target.type = 'number'
-                      }}
-                      onBlur={(e) => {
-                        setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                          e.target.type = 'text'
-                      }}
-                      value={
-                        isFieldInFocus.quantity ?
-                          forCalculationRevised?.quantity :
-                          Number(forCalculationRevised?.quantity).toLocaleString('en-In') + ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`}
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                    name='quantity'
+                    onFocus={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                        (e.target.type = 'number');
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                        (e.target.type = 'text');
+                    }}
+                    value={
+                      isFieldInFocus.quantity
+                        ? forCalculationRevised?.quantity
+                        : Number(
+                            forCalculationRevised?.quantity,
+                          ).toLocaleString('en-In') +
+                          ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
+                    }
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    name="quantity"
                     id="quantity"
                     className={`${styles.input_field} input form-control`}
                     required
-                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      saveforCalculationRevised(e.target.name, e.target.value)
+                    }
                   />
                   <label
-                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    className={`${styles.label_heading} label_heading`}
+                    style={{ left: '70px' }}
                     id="textInput"
                   >
                     Quantity<strong className="text-danger">*</strong>
@@ -225,27 +232,43 @@ const Index = ({
                     <span>B</span>
                   </div>
                   <input
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                    name='perUnitPrice'
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    name="perUnitPrice"
                     id="perUnitPrice"
                     onFocus={(e) => {
-                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: true }),
-                        e.target.type = 'number'
+                      setIsFieldInFocus({
+                        ...isFieldInFocus,
+                        perUnitPrice: true,
+                      }),
+                        (e.target.type = 'number');
                     }}
                     onBlur={(e) => {
-                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: false }),
-                        e.target.type = 'text'
+                      setIsFieldInFocus({
+                        ...isFieldInFocus,
+                        perUnitPrice: false,
+                      }),
+                        (e.target.type = 'text');
                     }}
                     value={
-                      isFieldInFocus.perUnitPrice ?
-                        forCalculationRevised?.perUnitPrice :
-                        ` ${marginData?.order?.orderCurrency?.toUpperCase()} ` +   Number(forCalculationRevised?.perUnitPrice).toLocaleString('en-In')}
+                      isFieldInFocus.perUnitPrice
+                        ? forCalculationRevised?.perUnitPrice
+                        : ` ${marginData?.order?.orderCurrency?.toUpperCase()} ` +
+                          Number(
+                            forCalculationRevised?.perUnitPrice,
+                          ).toLocaleString('en-In')
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
-                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      saveforCalculationRevised(e.target.name, e.target.value)
+                    }
                   />
                   <label
-                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    className={`${styles.label_heading} label_heading`}
+                    style={{ left: '70px' }}
                     id="textInput"
                   >
                     Unit Price<strong className="text-danger">*</strong>
@@ -268,26 +291,42 @@ const Index = ({
                     <span>C</span>
                   </div>
                   <input
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                    name='conversionRate'
-                    id="conversionRate"onFocus={(e) => {
-                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: true }),
-                        e.target.type = 'number'
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
+                    name="conversionRate"
+                    id="conversionRate"
+                    onFocus={(e) => {
+                      setIsFieldInFocus({
+                        ...isFieldInFocus,
+                        conversionRate: true,
+                      }),
+                        (e.target.type = 'number');
                     }}
                     onBlur={(e) => {
-                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: false }),
-                        e.target.type = 'text'
+                      setIsFieldInFocus({
+                        ...isFieldInFocus,
+                        conversionRate: false,
+                      }),
+                        (e.target.type = 'text');
                     }}
                     value={
-                      isFieldInFocus.conversionRate ?
-                        forCalculationRevised?.conversionRate :
-                        Number(forCalculationRevised?.conversionRate).toLocaleString('en-In')}
+                      isFieldInFocus.conversionRate
+                        ? forCalculationRevised?.conversionRate
+                        : Number(
+                            forCalculationRevised?.conversionRate,
+                          ).toLocaleString('en-In')
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
-                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      saveforCalculationRevised(e.target.name, e.target.value)
+                    }
                   />
                   <label
-                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    className={`${styles.label_heading} label_heading`}
+                    style={{ left: '70px' }}
                     id="textInput"
                   >
                     Conversion Rate<strong className="text-danger">*</strong>
@@ -353,7 +392,8 @@ const Index = ({
                                   )
                                 }
                                 checked={
-                                  forCalculationRevised?.isUsanceInterestIncluded === true
+                                  forCalculationRevised?.isUsanceInterestIncluded ===
+                                  true
                                 }
                               />
                               <Form.Check
@@ -370,7 +410,8 @@ const Index = ({
                                   )
                                 }
                                 checked={
-                                  forCalculationRevised?.isUsanceInterestIncluded === false
+                                  forCalculationRevised?.isUsanceInterestIncluded ===
+                                  false
                                 }
                               />
                             </div>
@@ -423,9 +464,13 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       (+/-){' '}
-                      {addPrefixOrSuffix(marginData?.order?.tolerance?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      }), '%', '')}
+                      {addPrefixOrSuffix(
+                        marginData?.order?.tolerance?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        }),
+                        '%',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -494,10 +539,8 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <input
-                       type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                      type="number"
+                      onWheel={(event) => event.currentTarget.blur()}
                       name="additionalPDC"
                       onChange={(e) =>
                         saveforCalculationRevised(e.target.name, e.target.value)
@@ -531,7 +574,11 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {marginData?.order?.orderCurrency + ' '}
-                      {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0}
+                      {finalCalRevised?.orderValue
+                        ? Number(finalCalRevised?.orderValue)?.toLocaleString(
+                            'en-In',
+                          )
+                        : 0}
                     </div>
                   </div>
                 </div>
@@ -867,13 +914,16 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.additionalAmountPerPDC} */}₹{' '}
-                      { calcRevised.additionalAmountPerPDC === NaN || calcRevised?.additionalAmountPerPDC == 0 ? 0 : convertValue(
-                        checkNan(calcRevised.additionalAmountPerPDC),
-                        conversionRateUnit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      {calcRevised.additionalAmountPerPDC === NaN ||
+                      calcRevised?.additionalAmountPerPDC == 0
+                        ? 0
+                        : convertValue(
+                            checkNan(calcRevised.additionalAmountPerPDC),
+                            conversionRateUnit,
+                          ).toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </div>
                   </div>
                 </div>
@@ -989,7 +1039,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ 00.00
+                      ₹ 00.00
                     </div>
                   </div>
                 </div>
@@ -1154,8 +1204,8 @@ const Index = ({
                             saveInvoiceDataRevisedRevised(
                               'isConsigneeSameAsBuyer',
                               true,
-                            )
-                            setSameRevised(true)
+                            );
+                            setSameRevised(true);
                           }}
                           name="group1"
                           type={type}
@@ -1172,8 +1222,8 @@ const Index = ({
                             saveInvoiceDataRevisedRevised(
                               'isConsigneeSameAsBuyer',
                               false,
-                            )
-                            setSameRevised(false)
+                            );
+                            setSameRevised(false);
                           }}
                           name="group1"
                           type={type}
@@ -1311,7 +1361,7 @@ const Index = ({
                         changeImporterData?.branch
                           ? changeImporterData?.branch
                           : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.branchOffice
+                              ?.branchOffice
                       }
                       onChange={(e) => changeImporter(e)}
                     >
@@ -1343,7 +1393,7 @@ const Index = ({
                       changeImporterData?.address
                         ? changeImporterData?.address
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.companyAddress
+                            ?.companyAddress
                     }
                     name="companyAddress"
                     onChange={(e) => changeImporter(e)}
@@ -1368,7 +1418,7 @@ const Index = ({
                       changeImporterData?.GSTIN
                         ? changeImporterData?.GSTIN
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.importerGSTIN
+                            ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1536,16 +1586,16 @@ const Index = ({
           </div>
         </div>
       </div>
-              <DownloadBar
-                    downLoadButtonName={`Download`}
-                    handleReject={exportPDF}
-                    isPrevious={true}
-                    handleUpdate={handleUpdateRevisedMarginMoney}
-                    leftButtonName={`Save`}
-                    rightButtonName={`Preview`}
-                    handleApprove={routeChange}
-                    isApprove
-                  />
+      <DownloadBar
+        downLoadButtonName={`Download`}
+        handleReject={exportPDF}
+        isPrevious={true}
+        handleUpdate={handleUpdateRevisedMarginMoney}
+        leftButtonName={`Save`}
+        rightButtonName={`Preview`}
+        handleApprove={routeChange}
+        isApprove
+      />
       {/* <DownloadBar
         handleReject={exportPDF}
         downLoadButtonName={`Download`}
@@ -1555,7 +1605,7 @@ const Index = ({
         rightButtonName={`Preview`}
       /> */}
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

@@ -1,10 +1,10 @@
 .leads {
   width: 100%;
   border-radius: 6px;
-  background: #FFFFFF;
-  border: 1px solid #D2D7E5;
-  -webkit-box-shadow: 0 3px 6px #CAD0E2;
-          box-shadow: 0 3px 6px #CAD0E2;
+  background: #ffffff;
+  border: 1px solid #d2d7e5;
+  -webkit-box-shadow: 0 3px 6px #cad0e2;
+  box-shadow: 0 3px 6px #cad0e2;
   margin-bottom: 1rem;
 }
 
@@ -14,7 +14,7 @@
 
 .leads .tableFilter h3 {
   font-size: 22px;
-  color: #3687E8;
+  color: #3687e8;
   font-weight: bold;
   line-height: 27px;
   margin: 24px 0;
@@ -24,12 +24,12 @@
   width: 116px;
   height: 38px;
   border-radius: 5px;
-  border: 3px solid #3687E8;
+  border: 3px solid #3687e8;
 }
 
 .leads .tableFilter .pageList span {
   font-size: 18px;
-  color: #3687E8;
+  color: #3687e8;
   font-weight: 500;
   line-height: 23px;
 }
@@ -39,18 +39,18 @@
 }
 
 .leads .table thead {
-  background: #FAFAFB;
+  background: #fafafb;
 }
 
 .leads .table thead th {
   font-size: 15px;
-  color: #8492A6;
+  color: #8492a6;
   font-weight: bold;
   line-height: 18px;
   padding: 24px 15px;
   text-transform: uppercase;
-  border-top: 2px solid #F2F5F9;
-  border-bottom: 2px solid #F2F5F9;
+  border-top: 2px solid #f2f5f9;
+  border-bottom: 2px solid #f2f5f9;
 }
 
 .leads .table thead th:first-child {
@@ -63,7 +63,7 @@
   line-height: 24px;
   padding: 24px 15px;
   border-top: none;
-  border-bottom: 2px solid #F2F5F9;
+  border-bottom: 2px solid #f2f5f9;
 }
 
 .leads .table tbody td:first-child {
@@ -84,30 +84,30 @@
 }
 
 .leads .table tbody td .approved {
-  background: #26DD73;
+  background: #26dd73;
 }
 
 .leads .table tbody td .rejected {
-  background: #ED714C;
+  background: #ed714c;
 }
 
 .leads .table tbody td .review {
-  background: #FFCE00;
+  background: #ffce00;
 }
 
 .leads .table tbody td .dropDown {
   width: 180px !important;
   height: 37px !important;
-  border: 1px solid #0000001F !important;
+  border: 1px solid #0000001f !important;
   border-radius: 4px !important;
   color: black !important;
-  background: #C3C3C31F;
+  background: #c3c3c31f;
   padding: 0 15px;
 }
 
 .leads .table tbody td .checkBox {
   -webkit-transform: scale(1.5);
-          transform: scale(1.5);
+  transform: scale(1.5);
 }
 
 .leads .table tbody td .tick {
@@ -115,11 +115,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   width: 50%;
   height: 100%;
 }
@@ -134,11 +134,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
   -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
   padding: 20px 25px 20px 35px;
 }
 
@@ -152,9 +152,9 @@
 .leads .remarks textarea {
   width: 71%;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-radius: 4px;
-  background: #C3C3C31F;
-  border: 1px solid #0000001F;
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
 }
 /*# sourceMappingURL=index.module.css.map */

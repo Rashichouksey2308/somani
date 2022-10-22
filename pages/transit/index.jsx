@@ -1,78 +1,88 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action';
 import {
   GetAllTransitDetails,
   GetTransitDetails,
-} from '../../src/redux/TransitDetails/action'
-import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
+} from '../../src/redux/TransitDetails/action';
+import { useDispatch, useSelector } from 'react-redux';
+import _get from 'lodash/get';
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(0)
-  const { searchedLeads } = useSelector((state) => state.order)
+  const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const { searchedLeads } = useSelector((state) => state.order);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { allTransitDetails, TransitDetails } = useSelector(
     (state) => state.TransitDetails,
-  )
+  );
   //console.log(allTransitDetails,'allTransitDetails')
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
-      sessionStorage.setItem('loadedSubPage', `Transit Details`)
-      sessionStorage.setItem('openList', 3)
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Transit Details`);
+      sessionStorage.setItem('openList', 3);
     }
-  }, [])
+  }, []);
   useEffect(() => {
-    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
   useEffect(() => {
-    dispatch(setPageName('transit'))
-    dispatch(setDynamicName(null))
-  
-    dispatch(setDynamicOrder(null))
-  })
+    dispatch(setPageName('transit'));
+    dispatch(setDynamicName(null));
+
+    dispatch(setDynamicOrder(null));
+  });
 
   const handleRoute = (transaction) => {
-    let id = transaction._id
-    sessionStorage.setItem('ObjId', transaction.order._id)
-    sessionStorage.setItem('transId', id)
-    dispatch(GetTransitDetails(`?transitId=${id}`))
-    Router.push('/transit/id')
-  }
+    let id = transaction._id;
+    sessionStorage.setItem('ObjId', transaction.order._id);
+    sessionStorage.setItem('transId', id);
+    dispatch(GetTransitDetails(`?transitId=${id}`));
+    Router.push('/transit/id');
+  };
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetTransitDetails(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetTransitDetails(`?company=${id}`));
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
-    
-    if(sorting == -1){
-    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-    setSorting(1)
-    }else if(sorting == 1){
-      
-      dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
-      setSorting(-1)
+    if (sorting == -1) {
+      dispatch(
+        GetAllTransitDetails(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(1);
+    } else if (sorting == 1) {
+      dispatch(
+        GetAllTransitDetails(
+          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
+        ),
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -147,7 +157,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
+          <div
+            className={`${styles.approved} ${styles.boxInner} approved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -162,7 +174,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
+          <div
+            className={`${styles.review} ${styles.boxInner} review border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -177,7 +191,9 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
+          <div
+            className={`${styles.saved} ${styles.boxInner} saved border_color`}
+          >
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
                 <img
@@ -208,9 +224,9 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -229,7 +245,7 @@ function Index() {
                     currentPage + 1 <
                     Math.ceil(allTransitDetails?.totalCount / 7)
                   ) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -255,7 +271,11 @@ function Index() {
                   <tr className="table_row border_color">
                     <th>
                       ORDER ID{' '}
-                      <img src="/static/icons8-sort-24.svg" alt="Sort icon" onClick={()=>handleSort()} />{' '}
+                      <img
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                        onClick={() => handleSort()}
+                      />{' '}
                     </th>
                     <th>COMMODITY</th>
                     <th>BUYER NAME</th>
@@ -287,7 +307,11 @@ function Index() {
                             {_get(transaction, 'company.companyName', '')}
                           </td>
                           <td>
-                            {_get(transaction, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+                            {_get(
+                              transaction,
+                              'order.vessel.vessels[0].vesselInformation[0].name',
+                              '',
+                            )}
                           </td>
                           <td>
                             <span
@@ -304,7 +328,7 @@ function Index() {
                             />
                           </td>
                         </tr>
-                      )
+                      );
                     },
                   )}
                 </tbody>
@@ -314,6 +338,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

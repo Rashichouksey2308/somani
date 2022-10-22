@@ -20,10 +20,10 @@
     background: none;
     flex-direction: row;
     justify-content: space-between;
-  
+
     @include respond(lg-desktop) {
-        height: 40px;
-        margin-bottom: 20px;
+      height: 40px;
+      margin-bottom: 20px;
     }
     @include respond(phone) {
       align-items: center;
@@ -51,10 +51,10 @@
         padding-left: 18px;
         text-transform: lowercase;
         &:first-letter {
-            text-transform: uppercase;
+          text-transform: uppercase;
         }
         &:first-line {
-            text-transform: capitalize;
+          text-transform: capitalize;
         }
         @include respond(lg-desktop) {
           font-size: 24px;
@@ -76,16 +76,16 @@
       line-height: 16px;
       margin-top: 7px;
       @include respond(lg-desktop) {
-          font-size: 12px;
-          line-height: 1.2;
+        font-size: 12px;
+        line-height: 1.2;
       }
       span {
-          color: #283756;
-          font-weight: bold;
-          line-height: 17px;
-          @include respond(lg-desktop) {
-              line-height: 1.2;
-          }
+        color: #283756;
+        font-weight: bold;
+        line-height: 17px;
+        @include respond(lg-desktop) {
+          line-height: 1.2;
+        }
       }
     }
     .clear_btn {

@@ -1,26 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import index from 'components/Footer'
-import React, { useState, useEffect } from 'react'
-import styles from '../profile.module.scss'
-import moment from 'moment'
-import _get from 'lodash/get'
-import { isArray } from 'lodash'
+import index from 'components/Footer';
+import React, { useState, useEffect } from 'react';
+import styles from '../profile.module.scss';
+import moment from 'moment';
+import _get from 'lodash/get';
+import { isArray } from 'lodash';
 
 function Index({ directorData }) {
-  
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
 
-  const [otherAssociates, setOtherAssociates] = useState([])
+  const [otherAssociates, setOtherAssociates] = useState([]);
 
   useEffect(() => {
     if (directorData?.profile?.directorDetail?.length > 0) {
-      let temp = []
+      let temp = [];
       directorData?.profile?.directorDetail.forEach((val, index) => {
-        temp.push('Current')
-      })
-      setOtherAssociates(temp)
+        temp.push('Current');
+      });
+      setOtherAssociates(temp);
     }
-  }, [directorData])
+  }, [directorData]);
 
   useEffect(() => {
     if (
@@ -28,23 +27,23 @@ function Index({ directorData }) {
       localStorage.getItem('darkMode') == true
     ) {
       // console.log('this')
-      setDarkMode(true)
+      setDarkMode(true);
     } else {
       // console.log('this2')
-      setDarkMode(false)
+      setDarkMode(false);
     }
-  }, [])
+  }, []);
 
   const dscStatus = (from) => {
-    var dateFrom = moment(from, 'DD-MM-YYYY')
-    var dateTo = moment(new Date(), 'DD-MM-YYYY')
+    var dateFrom = moment(from, 'DD-MM-YYYY');
+    var dateTo = moment(new Date(), 'DD-MM-YYYY');
 
     if (moment(dateFrom).isBefore(dateTo, 'day')) {
-      return 'Expired'
+      return 'Expired';
     } else {
-      return 'Approved'
+      return 'Approved';
     }
-  }
+  };
 
   return (
     <>
@@ -325,8 +324,8 @@ function Index({ directorData }) {
                                     `otherAssociatedEntities${otherAssociates}`,
                                     [],
                                   ).map((associates, index) => {
-                                    const fromDate = associates?.fromDate
-                                    const toDate = associates?.toDate
+                                    const fromDate = associates?.fromDate;
+                                    const toDate = associates?.toDate;
 
                                     return (
                                       <tr key={index}>
@@ -352,7 +351,7 @@ function Index({ directorData }) {
                                             : ''}
                                         </td>
                                       </tr>
-                                    )
+                                    );
                                   })}
                               </tbody>
                             </table>
@@ -423,8 +422,11 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${director?.dinStatus !== null
-                                    ? !dscStatus(director?.dinStatus)?.toLowerCase()?.includes('approved') 
+                                className={`${
+                                  director?.dinStatus !== null
+                                    ? !dscStatus(director?.dinStatus)
+                                        ?.toLowerCase()
+                                        ?.includes('approved')
                                       ? styles.danger
                                       : styles.success
                                     : styles.black
@@ -594,13 +596,13 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                         console.log(
                                           otherAssociates == 'Current',
                                           '11111',
-                                        )
+                                        );
                                       }}
                                       value="Current"
                                       className="form-check-input"
@@ -622,10 +624,14 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        console.log(temp, 'temppp', temp[index])
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        console.log(
+                                          temp,
+                                          'temppp',
+                                          temp[index],
+                                        );
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Former"
                                       className="form-check-input"
@@ -647,9 +653,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Independent"
                                       className="form-check-input"
@@ -671,9 +677,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Additional"
                                       className="form-check-input"
@@ -694,9 +700,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Nominated"
                                       className="form-check-input"
@@ -773,9 +779,9 @@ function Index({ directorData }) {
                                             [],
                                           ).map((associates, index2) => {
                                             const fromDate =
-                                              associates?.fromDate
-                                            const toDate = associates?.toDate
-                                            console.log(associates, '1212')
+                                              associates?.fromDate;
+                                            const toDate = associates?.toDate;
+                                            console.log(associates, '1212');
                                             return (
                                               <tr key={index2}>
                                                 <td className="text-color">
@@ -804,7 +810,7 @@ function Index({ directorData }) {
                                                     : ''}
                                                 </td>
                                               </tr>
-                                            )
+                                            );
                                           })}
                                         </tbody>
                                       </table>
@@ -819,12 +825,12 @@ function Index({ directorData }) {
                     </div>
                   </div>
                 </div>
-              )
+              );
             },
           )}
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

@@ -1,112 +1,124 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import InspectionDocument from '../InspectionDocument'
-import SaveBar from '../SaveBar'
-import DateCalender from '../DateCalender'
-import { useDispatch } from 'react-redux'
-import { UpdateInspection } from 'redux/Inspections/action'
-import _get from 'lodash/get'
-import UploadOther from '../UploadOther'
-import { toast } from 'react-toastify'
-import moment from 'moment'
-import { useRouter } from 'next/router'
-import { settingSidebar } from 'redux/breadcrumb/action'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import InspectionDocument from '../InspectionDocument';
+import SaveBar from '../SaveBar';
+import DateCalender from '../DateCalender';
+import { useDispatch } from 'react-redux';
+import { UpdateInspection } from 'redux/Inspections/action';
+import _get from 'lodash/get';
+import UploadOther from '../UploadOther';
+import { toast } from 'react-toastify';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import { settingSidebar } from 'redux/breadcrumb/action';
 
 export default function Index({ inspectionData }) {
-  let dispatch = useDispatch()
-  const router = useRouter()
+  let dispatch = useDispatch();
+  const router = useRouter();
 
-  let orderid = _get(inspectionData, 'order._id', '')
-console.log(_get(inspectionData,"order.transit"),"transit")
-  let d = new Date()
+  let orderid = _get(inspectionData, 'order._id', '');
+  console.log(_get(inspectionData, 'order.transit'), 'transit');
+  let d = new Date();
 
   const [plotInspectionData, setPlotInspectionData] = useState({
     plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
     plotInspectionReport:
       inspectionData?.plotInspection?.plotInspectionReport || null,
-  })
+  });
 
   useEffect(() => {
     setPlotInspectionData({
       plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
       plotInspectionReport:
         inspectionData?.plotInspection?.plotInspectionReport,
-    })
-  }, [inspectionData])
+    });
+  }, [inspectionData]);
 
   // console.log(plotInspectionData, 'THIS IS PLOT')
 
   const savePlotInspectionData = (name, value) => {
-    let newInput = { ...plotInspectionData }
-    newInput[name] = value
-    setPlotInspectionData(newInput)
-  }
+    let newInput = { ...plotInspectionData };
+    newInput[name] = value;
+    setPlotInspectionData(newInput);
+  };
 
   const saveDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    savePlotInspectionData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    savePlotInspectionData(name, text);
+  };
 
   const uploadDocument1 = (e) => {
-    const newUploadDoc1 = { ...plotInspectionData }
-    newUploadDoc1.plotInspectionReport = e.target.files[0]
+    const newUploadDoc1 = { ...plotInspectionData };
+    newUploadDoc1.plotInspectionReport = e.target.files[0];
 
-    setPlotInspectionData(newUploadDoc1)
-  }
+    setPlotInspectionData(newUploadDoc1);
+  };
 
   const handleClose = () => {
     setPlotInspectionData((doc) => {
-      return { ...doc, plotInspectionReport: null }
-    })
-  }
+      return { ...doc, plotInspectionReport: null };
+    });
+  };
 
   const handleSubmit = async () => {
     // console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
-      let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY'
+      let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
     } else {
       let obj = {
         plotInspectionDate: plotInspectionData?.plotInspectionDate,
-      }
-      let fd = new FormData()
-      fd.append('plotInspection', JSON.stringify(obj))
-      fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
-      fd.append('inspectionId', inspectionData?._id)
-      let task = 'submit'
+      };
+      let fd = new FormData();
+      fd.append('plotInspection', JSON.stringify(obj));
+      fd.append(
+        'plotInspectionReport',
+        plotInspectionData.plotInspectionReport,
+      );
+      fd.append('inspectionId', inspectionData?._id);
+      let task = 'submit';
 
       // console.log('payload Third party2', 'Payload')
 
-     let code = await  dispatch(UpdateInspection({ fd, task }))
-     if(code==200){
-      sessionStorage.setItem('transId',_get(inspectionData,"order.transit",""))
-      dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Transit Details', 'Transit Details', '3'))
-      router.push(`/transit/id`)
-     }
-      
+      let code = await dispatch(UpdateInspection({ fd, task }));
+      if (code == 200) {
+        sessionStorage.setItem(
+          'transId',
+          _get(inspectionData, 'order.transit', ''),
+        );
+        dispatch(
+          settingSidebar(
+            'Loading, Transit & Unloadinge',
+            'Transit Details',
+            'Transit Details',
+            '3',
+          ),
+        );
+        router.push(`/transit/id`);
+      }
     }
-  }
+  };
 
   const handleSave = () => {
     let obj = {
       plotInspectionDate: plotInspectionData?.plotInspectionDate,
-    }
-    let fd = new FormData()
-    fd.append('plotInspection', JSON.stringify(obj))
-    fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
-    fd.append('inspectionId', inspectionData?._id)
+    };
+    let fd = new FormData();
+    fd.append('plotInspection', JSON.stringify(obj));
+    fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport);
+    fd.append('inspectionId', inspectionData?._id);
 
-    let task = 'save'
+    let task = 'save';
 
-    console.log('payload Third party2', 'Payload')
+    console.log('payload Third party2', 'Payload');
 
-    dispatch(UpdateInspection({ fd, task }))
-  }
+    dispatch(UpdateInspection({ fd, task }));
+  };
 
   return (
     <>
@@ -289,5 +301,5 @@ console.log(_get(inspectionData,"order.transit"),"transit")
         />
       </div>
     </>
-  )
+  );
 }

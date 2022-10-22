@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import styles from './index.module.scss'
-import { Card } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
-import moment from 'moment'
-import { ViewDocument } from 'redux/ViewDoc/action'
+import React, { useEffect } from 'react';
+import styles from './index.module.scss';
+import { Card } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment';
+import { ViewDocument } from 'redux/ViewDoc/action';
 // import {GetBuyer} from '../../redux/registerBuyer/action'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index() {
   // useEffect(() => {
@@ -14,11 +14,11 @@ function Index() {
   //   dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
   // }, [dispatch])
 
-  const { buyerList } = useSelector((state) => state.buyer)
+  const { buyerList } = useSelector((state) => state.buyer);
   console.log(
     moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
     'moment list',
-  )
+  );
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -82,16 +82,16 @@ function Index() {
                 val?.path,
               )}
             </>
-          )
+          );
         })}
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;
 const fields = (head, value, isButton, value2, value3) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -114,5 +114,5 @@ const fields = (head, value, isButton, value2, value3) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

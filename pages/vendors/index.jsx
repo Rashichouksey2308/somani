@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchLeads } from 'redux/buyerProfile/action'
-import DownloadMasterBar from '../../src/components/DownloadMasterBar'
-import Image from 'next/image'
-import Router  from 'next/router'
-
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchLeads } from 'redux/buyerProfile/action';
+import DownloadMasterBar from '../../src/components/DownloadMasterBar';
+import Image from 'next/image';
+import Router from 'next/router';
 
 const index = () => {
-  const dispatch = useDispatch()
-  const [serachterm, setSearchTerm] = useState('')
-  const { searchedLeads } = useSelector((state) => state.order)
+  const dispatch = useDispatch();
+  const [serachterm, setSearchTerm] = useState('');
+  const { searchedLeads } = useSelector((state) => state.order);
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetLcModule(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetLcModule(`?company=${id}`));
+  };
 
   return (
     <>
@@ -138,7 +137,7 @@ const index = () => {
                   <thead>
                     <tr>
                       <th className={`${styles.table_heading} table_heading`}>
-                        VENDOR TYPE {' '}
+                        VENDOR TYPE{' '}
                         <Image
                           width="9px"
                           height="14px"
@@ -154,7 +153,7 @@ const index = () => {
                         VENDOR NAME
                       </th>
                       <th className={`${styles.table_heading} table_heading`}>
-                        ACTIVATION DATE {' '}
+                        ACTIVATION DATE{' '}
                         <Image
                           width="9px"
                           height="14px"
@@ -167,7 +166,7 @@ const index = () => {
                         COUNTRY
                       </th>
                       <th className={`${styles.table_heading} table_heading`}>
-                        STATUS {' '}
+                        STATUS{' '}
                         <Image
                           width="9px"
                           height="14px"
@@ -380,9 +379,9 @@ const index = () => {
         </div>
       </div> */}
       </div>
-      <DownloadMasterBar  btnName='Download' />
+      <DownloadMasterBar btnName="Download" />
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

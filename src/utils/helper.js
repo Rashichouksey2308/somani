@@ -1,48 +1,48 @@
 export const panValidation = (e) => {
-  let panValue = e.toUpperCase()
-  let regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/
+  let panValue = e.toUpperCase();
+  let regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
 
   if (regpan.test(panValue)) {
-    return true
+    return true;
     // valid pan card number
   } else {
-    return false
+    return false;
     // invalid pan card number
   }
-}
+};
 
 export const emailValidation = (email) => {
   return String(email)
     .toLowerCase()
     .match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    )
-}
+    );
+};
 
 export const phoneValidation = (phone) => {
-  let regex = /^\d{10}$/
+  let regex = /^\d{10}$/;
   if (phone.match(regex)) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
-}
+};
 
 export const gSTINValidation = (gstin) => {
-  var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/
+  var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
   if (gstin.toUpperCase().match(regex)) {
-    console.log('trueGstinValidation',)
-    return true
+    console.log('trueGstinValidation');
+    return true;
   } else {
-    console.log('falseGstinValidation',)
-    return false
+    console.log('falseGstinValidation');
+    return false;
   }
-}
+};
 
 export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
-  let newValue = Number(value / conversionValue)
-  return newValue
-}
+  let newValue = Number(value / conversionValue);
+  return newValue;
+};
 
 // Number.prototype.toFixedNoRounding = function (n) {
 //   const reg = new RegExp('^-?\\d+(?:\\.\\d{0,' + n + '})?', 'g')
@@ -57,42 +57,42 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
 // }
 
 export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
-  let newValue = Number(value / coversionRate)
+  let newValue = Number(value / coversionRate);
   if (value === 0) {
     // console.log(, 'invalid value')
-    return 0
+    return 0;
   }
   if (!newValue) {
-    return ''
+    return '';
   } else {
-    return newValue
+    return newValue;
   }
-}
+};
 export const predictiveSearch = (text) => {
-  let regex = /[a-zA-Z0-9]{4}/
-  return regex.test(text)
-}
+  let regex = /[a-zA-Z0-9]{4}/;
+  return regex.test(text);
+};
 
 export const isInTheFuture = (date) => {
-  const today = new Date()
+  const today = new Date();
 
-  today.setHours(23, 59, 59, 998)
+  today.setHours(23, 59, 59, 998);
 
-  return date > today
-}
+  return date > today;
+};
 
 export const handleCurrencyOrder = (unitOfValue, value) => {
-  console.log(unitOfValue, value, 'orderData12')
+  console.log(unitOfValue, value, 'orderData12');
   if (unitOfValue === 'Crores') {
-    return Number(value) * 10000000
+    return Number(value) * 10000000;
   } else if (unitOfValue === 'Million') {
-    return Number(value) * 1000000
+    return Number(value) * 1000000;
   } else if (unitOfValue === 'Lakh') {
-    return Number(value) * 100000
+    return Number(value) * 100000;
   } else if (unitOfValue === 'BRITISH POUND') {
-    return Number(value) * 1000000
+    return Number(value) * 1000000;
   }
-}
+};
 
 export const addPrefixOrSuffix = (
   unitOfValue,
@@ -100,30 +100,30 @@ export const addPrefixOrSuffix = (
   where = 'null',
   showINR = 'false',
 ) => {
-  console.log(unitOfValue, type, 'type')
+  console.log(unitOfValue, type, 'type');
   if (where == 'front') {
     if (type != undefined) {
       if (unitOfValue == '') {
-        return ''
+        return '';
       }
 
-      let symbol = type
+      let symbol = type;
       if (type == 'INR' || 'RUPEE') {
-        symbol = 'INR'
-        console.log(symbol, 'symbol')
+        symbol = 'INR';
+        console.log(symbol, 'symbol');
       }
       if (type == 'USD') {
-        symbol = 'USD'
-        console.log(symbol, 'symbol')
+        symbol = 'USD';
+        console.log(symbol, 'symbol');
       }
 
       if (type == 'EURO') {
-        symbol = 'EURO'
+        symbol = 'EURO';
       }
       if (type == 'BRITISHPOUND') {
-        symbol = 'POUND'
+        symbol = 'POUND';
       }
-      let removedValue
+      let removedValue;
 
       removedValue = unitOfValue
         ?.toLocaleString()
@@ -143,19 +143,19 @@ export const addPrefixOrSuffix = (
         .replaceAll('U', '')
         .replaceAll('D', '')
         .replaceAll(',', '')
-        .replace(/ /g, '')
+        .replace(/ /g, '');
 
       let newValue =
-        symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN')
-      return newValue
+        symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN');
+      return newValue;
     } else {
-      return ''
+      return '';
     }
   } else {
-    console.log(unitOfValue, 'type', type)
+    console.log(unitOfValue, 'type', type);
     if (unitOfValue !== undefined) {
       if (unitOfValue == '') {
-        return ''
+        return '';
       }
 
       let removedValue = unitOfValue
@@ -179,20 +179,20 @@ export const addPrefixOrSuffix = (
         .replaceAll('S', '')
         .replaceAll('D', '')
         .replaceAll(',', '')
-        .replace(/ /g, '')
+        .replace(/ /g, '');
 
-      console.log(removedValue, 'removedValue')
+      console.log(removedValue, 'removedValue');
       let newValue = `${Number(removedValue)?.toLocaleString(
         'en-IN',
-      )}${` `}${type}`
-      return newValue
+      )}${` `}${type}`;
+      return newValue;
     } else {
-      return ''
+      return '';
     }
   }
-}
+};
 export const removePrefixOrSuffix = (unitOfValue) => {
-  console.log(unitOfValue, 'unitOfValueremove')
+  console.log(unitOfValue, 'unitOfValueremove');
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
       ?.toString()
@@ -236,57 +236,54 @@ export const removePrefixOrSuffix = (unitOfValue) => {
       .replaceAll('D', '')
       .replaceAll(',', '')
       .replace(/ /g, '')
-      .replace(/ /g, '')
-    console.log(newValue, 'newValueremove')
-    return Number(newValue)
+      .replace(/ /g, '');
+    console.log(newValue, 'newValueremove');
+    return Number(newValue);
   }
-}
+};
 export const checkNan = (unitOfValue, type = false, number = 2) => {
-  console.log(unitOfValue, 'nana')
+  console.log(unitOfValue, 'nana');
 
   if (isNaN(unitOfValue)) {
-    return ''
+    return '';
   } else {
     if (type == 'no') {
-      return Number(unitOfValue)?.toFixed(2)
+      return Number(unitOfValue)?.toFixed(2);
     }
     if (!type) {
       // return Number(Number(unitOfValue))?.toLocaleString('en-IN', {
 
       return Number(unitOfValue)?.toLocaleString('en-IN', {
         maximumFractionDigits: 2,
-      })
+      });
     } else {
       return unitOfValue?.toLocaleString('en-IN', {
         minimumFractionDigits: 2,
-      })
+      });
     }
   }
-}
+};
 
-
-export const addPrefixSymbol = (
-  type = ""
-) => {
+export const addPrefixSymbol = (type = '') => {
   if (type != undefined) {
-    let symbol = type
+    let symbol = type;
     if (type == 'INR' || 'RUPEE') {
-      symbol = 'INR'
-      console.log(symbol, 'symbol')
+      symbol = 'INR';
+      console.log(symbol, 'symbol');
     }
     if (type == 'USD') {
-      symbol = 'USD'
-      console.log(symbol, 'symbol')
+      symbol = 'USD';
+      console.log(symbol, 'symbol');
     }
 
     if (type == 'EURO') {
-      symbol = 'EURO'
+      symbol = 'EURO';
     }
     if (type == 'BRITISHPOUND') {
-      symbol = 'POUND'
+      symbol = 'POUND';
     }
-    return symbol
+    return symbol;
   } else {
-    return ''
+    return '';
   }
-} 
+};
