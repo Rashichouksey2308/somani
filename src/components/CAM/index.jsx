@@ -69,6 +69,7 @@ function Index({
   totalLimitDebt,
   CreditAgency,
   litigationStatus,
+  debtProfileColor,
 }) {
   const dispatch = useDispatch();
   console.log(companyData, 'companyData');
@@ -701,6 +702,7 @@ function Index({
         camData,
         totalLimitDebt,
         camConversionunit,
+        debtProfileColor
       )}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -1924,6 +1926,7 @@ const debtProfile = (
   camData,
   totalLimitDebt,
   camConversionunit,
+  debtProfileColor,
 ) => {
   return (
     <>
@@ -1994,30 +1997,14 @@ const debtProfile = (
                    `}
                             style={{
                               color: ` 
-                      ${
-                        debt.conduct == 'Good'
-                          ? '#43C34D'
-                          : debt.conduct == 'Satisfactory'
-                          ? '#FF9D00'
-                          : debt.conduct == 'Average'
-                          ? 'average'
-                          : '#EA3F3F'
-                      }`,
+                      ${debtProfileColor(debt.conduct)}`,
                             }}
                           >
                             {debt.limitType}
                           </span>
                           <div
                             style={{
-                              backgroundColor: `${
-                                debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
-                                  ? '#FF9D00'
-                                  : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : '#EA3F3F'
-                              }`,
+                              backgroundColor: `${debtProfileColor(debt.conduct)}`,
                               width: `${
                                 (Number(debt.limit) / totalLimitDebt() > 1
                                   ? 1

@@ -1845,6 +1845,19 @@ function Index() {
 
     return length;
   };
+  
+  const debtProfileColor = (conduct) => {
+    switch (conduct.toLowerCase()) {
+      case 'good':
+        return '#43C34D';
+      case 'satisfactory':
+        return '#FF9D00';
+      case 'average':
+        return '#EA3F3F';
+      default:
+        return '#EA3F3F';
+    }
+  };
   const toPrintPdf = (
     camData,
     RevenueDetails,
@@ -1854,6 +1867,7 @@ function Index() {
     skewnessChartPurchasesImg,
     shareHoldingChartImg,
     openBankChargeChartImg,
+    debtProfileColor,
   ) => {
     console.log(_get, 'get');
     function calcPc(n1, n2) {
@@ -1988,6 +2002,7 @@ function Index() {
       'financial.ratioAnalysis[1]',
       {},
     );
+
 
     return (
       <table
@@ -4834,15 +4849,7 @@ function Index() {
                               >
                                 <span
                                   style={{
-                                    background: `${
-                                      debt.conduct == 'Good'
-                                        ? '#43C34D'
-                                        : debt.conduct == 'Satisfactory'
-                                        ? '#FF9D00'
-                                        : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
-                                    }`,
+                                    background: `${debtProfileColor(debt.conduct)}`,
                                     width: `${
                                       (Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
@@ -4864,14 +4871,14 @@ function Index() {
                               align="right"
                               style={{
                                 fontSize: '17px',
-                                color: '#EA3F3F',
+                                color: `${debtProfileColor(debt.conduct)}`,
                                 lineHeight: '21px',
                                 fontWeight: 'bold',
                                 padding: '0 35px',
                                 marginTop: '10px',
                               }}
                             >
-                              Cash Deposit
+                              {debt.limitType}
                             </td>
                           </tr>
                         </>
@@ -9091,6 +9098,7 @@ function Index() {
           skewnessChartPurchasesImg,
           shareHoldingChartImg,
           openBankChargeChartImg,
+          debtProfileColor,
         ),
       ),
       {
@@ -10112,6 +10120,7 @@ function Index() {
                     totalLimitDebt={totalLimitDebt}
                     CreditAgency={CreditAgency}
                     litigationStatus={litigationStatus}
+                    debtProfileColor={debtProfileColor}
                   />
                 </div>
               </div>
