@@ -16,6 +16,8 @@ const Index = ({
   addDoc,
   removeDoc,
   addTypeOfDoc,
+  country,
+  port
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },

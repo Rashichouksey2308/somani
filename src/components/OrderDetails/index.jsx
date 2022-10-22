@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
 
-const Index = ({ saveOrderData, darkMode, orderDetails }) => {
+const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -191,11 +191,13 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
               >
                 <option>Select an option</option>
 
-                <option value="India">India</option>
-                <option value="Australia">Australia</option>
-                <option value="Sri Lanka">Sri Lanka</option>
-                <option value="Qatar">Qatar</option>
-                <option value="Dubai">Dubai</option>
+                {country.map((val,index)=>{
+                   return(
+                     <option value={`${val.Country}`}>
+                  {val.Country}
+                  </option>
+                   )
+                })}
               </select>
               <label
                 className={`${styles.label_heading} label_heading`}
@@ -223,9 +225,14 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 required
               >
                 <option>Select an option</option>
-                <option value="Vishakapatnam, India">
-                  Visakhapatnam, India
-                </option>
+                {port.map((val,index)=>{
+                   return(
+                     <option value={`${val.Port_Name},${val.Country}`}>
+                  {val.Port_Name},{val.Country}
+                  </option>
+                   )
+                })}
+              
                 <option value="Mumbai, India">Mumbai, India</option>
                 <option value="Gujrat, India">Gujrat, India</option>
               </select>
