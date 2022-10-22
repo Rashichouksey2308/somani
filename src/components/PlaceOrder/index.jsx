@@ -21,7 +21,7 @@ import { GetOrders } from '../../redux/registerBuyer/action';
 import { CovertvaluefromtoCR, checkNan } from '../../utils/helper';
 import moment from 'moment';
 import Router from 'next/router';
-
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../redux/masters/action';
 const Index = () => {
   const dispatch = useDispatch();
 
@@ -54,9 +54,17 @@ const Index = () => {
       // }
     }
   }, [newOrder]);
-
+    useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getDocuments())
+  }, []);
   let singleOrderId = _get(singleOrder, 'data[0].company._id', '');
-
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   const [orderData, setOrderData] = useState({
     transactionType: 'Import',
     commodity: '',
@@ -369,11 +377,18 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <NewOrder orderData={orderData} saveOrderData={saveOrderData} />
+        <NewOrder 
+        orderData={orderData} 
+        saveOrderData={saveOrderData} 
+        country={getCountriesMasterData}
+          port={getPortsMasterData}
+          commodity={getCommoditiesMasterData}
+        />
         <NewShipmentDetails
           shipment={shipment}
           saveShipmentData={saveShipmentData}
           expectedShipment={orderData?.ExpectedDateOfShipment}
+          port={getPortsMasterData}
         />
         <div className="mt-4">
           <CommonSave onSave={onOrderSave} />

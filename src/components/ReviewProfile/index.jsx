@@ -16,11 +16,16 @@ function Index({
   setFields,
   fields,
   setPayloadData,
+  country,
+  port,
+  commodity,
+
 }) {
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
     'Import',
     'Domestic',
   ]);
+  console.log(country,port,commodity,"sasdasdad")
   console.log(fields, 'payloadData');
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
   const countryOfOriginDropdown = [
@@ -49,7 +54,7 @@ function Index({
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail'];
 
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
-  const DropDown = (values, name, disabled) => {
+  const DropDown = (values, name, disabled,) => {
     return (
       <div className="d-inline-flex align-items-center position-relative">
         <Form.Select
@@ -66,6 +71,33 @@ function Index({
           <option value="">Select an option</option>
           {values.map((options) => {
             return <option>{options}</option>;
+          })}{' '}
+        </Form.Select>
+        <img
+          className={`${styles.arrow2} image_arrow img-fluid`}
+          src="/static/inputDropDown.svg"
+          alt="Search"
+        />
+      </div>
+    );
+  };
+  const DropDown2 = (values, name, disabled,toShow) => {
+    return (
+      <div className="d-inline-flex align-items-center position-relative">
+        <Form.Select
+          size="sm"
+          name={name}
+          className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+          onChange={(e) => {
+            handleChange(e.target.name, e.target.value);
+          }}
+          value={payloadData[name] ?? ''}
+          disabled={disabled}
+        >
+          {' '}
+          <option value="">Select an option</option>
+          {values.map((options) => {
+            return <option>{options[toShow]}</option>;
           })}{' '}
         </Form.Select>
         <img
@@ -310,10 +342,11 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse &&
-                      DropDown(
-                        commodityDropdown,
+                      DropDown2(
+                         commodity,
                         'commodity',
                         fields[3].isEdit,
+                        "Commodity"
                       )}
                   </td>
                 </tr>
@@ -399,10 +432,12 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse &&
-                      DropDown(
-                        countryOfOriginDropdown,
+                      DropDown2(
+                        country,
                         'countryOfOrigin',
                         fields[5].isEdit,
+                        "Country"
+
                       )}
                   </td>
                 </tr>
@@ -434,9 +469,10 @@ function Index({
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse &&
                       DropDown(
-                        portOfDischargeDropdown,
+                        port,
                         'portOfDischarge',
                         fields[6]?.isEdit,
+                        "Port_Name"
                       )}
                   </td>
                 </tr>

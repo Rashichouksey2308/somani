@@ -5,12 +5,14 @@ import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
 
-const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
+const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
   });
 
+  const [toShow,setToShow] = useState([])
+  const [toView,setToView] = useState(false)
   const saveDate = (value, name) => {
     // console.log(e.target.value, "this is date")
     console.log('savedata', value);
@@ -18,6 +20,25 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
     let text = d.toISOString();
     saveOrderData(name, text);
   };
+  const filterCommodity=(value)=>{
+    if(value==""){
+      setToShow([])
+      setToView(false)
+      return
+    }
+   let filterData = commodity.filter(o => {
+    return o.Commodity.toLowerCase().includes(value.toLowerCase())
+   });
+   console.log(filterData,"filterData")
+
+   setToShow(filterData)
+     setToView(true)
+
+  }
+  const handleData=(name,value)=>{
+    saveOrderData(name,value)
+      setToView(false)
+  }
   console.log(orderDetails, 'orderDetails');
   return (
     <div className={`${styles.main} border_color`}>
@@ -32,13 +53,34 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
                 type="text"
                 id="textInput"
                 name="commodity"
-                // defaultValue='Iron'
+                value={orderDetails.commodity}
                 onChange={(e) => {
+                  filterCommodity(e.target.value)
                   saveOrderData(e.target.name, e.target.value);
                 }}
                 className={`${styles.input_field} input form-control`}
                 required
               />
+              {toShow.length>0 && toView &&  (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map(
+                          (results, index) => (
+                            <li
+                              onClick={() => handleData("commodity",results.Commodity)}
+                              id={results._id}
+                              key={index}
+                              value={results.Commodity}
+                            >
+                              {results.Commodity}{' '}
+                            </li>
+                          ),
+                        )
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <label
                 className={`${styles.label_heading}  label_heading`}
                 id="textInput"
@@ -225,7 +267,11 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
                 required
               >
                 <option>Select an option</option>
-                {port.map((val,index)=>{
+                {port.filter((val,index)=>{
+                  if(val.Country.toLowerCase()=="india"){
+                    return val
+                  }
+                }).map((val,index)=>{
                    return(
                      <option value={`${val.Port_Name},${val.Country}`}>
                   {val.Port_Name},{val.Country}
@@ -233,8 +279,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port }) => {
                    )
                 })}
               
-                <option value="Mumbai, India">Mumbai, India</option>
-                <option value="Gujrat, India">Gujrat, India</option>
+               
               </select>
               <label
                 className={`${styles.label_heading} label_heading`}
