@@ -593,7 +593,7 @@
           border-radius: 4px;
           opacity: 1 !important;
           padding: 10px 9px 10px 9px;
-          @include respond(md-desktop) {
+          @include respond(lg-desktop) {
             height: 30px;
             padding: 7px;
           }
