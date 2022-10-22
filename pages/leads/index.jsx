@@ -13,7 +13,7 @@ import {
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
-// import { getPorts } from '../../src/redux/masters/action';
+// import { getDocuments } from '../../src/redux/masters/action'; 
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -21,11 +21,12 @@ function Index() {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   dispatch(getPorts());
+  //   dispatch(getDocuments());
   // }, []);
 
-  // const { getPortsMasterData } = useSelector((state) => state.MastersData);
-  // console.log(getPortsMasterData, 'MASTER');
+  // const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+  // console.log(getDocumentsMasterData, 'MASTER');
+
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 

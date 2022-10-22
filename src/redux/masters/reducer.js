@@ -3,6 +3,8 @@ import * as types from './actionType';
 const initialState = {
   getCountriesMasterData: [],
   getPortsMasterData: [],
+  getCommoditiesMasterData: [],
+  getDocumentsMasterData: [],
 };
 
 function MastersReducer(state = initialState, action) {
@@ -38,6 +40,39 @@ function MastersReducer(state = initialState, action) {
       return {
         ...state,
         getPortsMasterData: [],
+      };
+    case types.GET_COMMODITIES_MASTERS:
+      return {
+        ...state,
+        getCommoditiesMasterData: [],
+      };
+
+    case types.GET_COMMODITIES_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getCommoditiesMasterData: action.payload,
+      };
+    case types.GET_COMMODITIES_MASTERS_FAILURE:
+      return {
+        ...state,
+        getCommoditiesMasterData: [],
+      };
+
+    case types.GET_DOCUMENTS_MASTERS:
+      return {
+        ...state,
+        getDocumentsMasterData: [],
+      };
+
+    case types.GET_DOCUMENTS_MASTERS_SUCCESS:
+      return {
+        ...state,
+        getDocumentsMasterData: action.payload,
+      };
+    case types.GET_DOCUMENTS_MASTERS_FAILURE:
+      return {
+        ...state,
+        getDocumentsMasterData: [],
       };
 
     default:

@@ -130,4 +130,8 @@ export default {
     'http://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/country.json',
   portsMaster:
     'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/ports.json',
+  commoditiesMaster:
+    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/commodity.json',
+  documentsMaster:
+    'https://somani-uat-s3-public.s3.ap-south-1.amazonaws.com/assets/master-data/document.json',
 };
