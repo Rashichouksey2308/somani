@@ -19,13 +19,6 @@ function Index() {
   const [serachterm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCountries());
-  }, []);
-
-  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  console.log(getCountriesMasterData, 'MASTER');
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);
 
