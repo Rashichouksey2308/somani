@@ -1045,7 +1045,7 @@ export default function Index({
                                 <div className="d-flex align-items-center">
                                   <img
                                     src="/static/preview.svg"
-                                    className={`${styles.previewImg} img-fluid ml-n4`}
+                                    className={`${styles.previewImg} ml-n4`}
                                     alt="Preview"
                                   />
                                   {item.blNumber.length >= index2 ? (
@@ -1054,7 +1054,7 @@ export default function Index({
                                         onAddBlNumber(index, index2)
                                       }
                                       src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} img-fluid ml-5`}
+                                      className={`${styles.delete_image} ml-5`}
                                       alt="Add"
                                     />
                                   ) : null}
@@ -1064,7 +1064,7 @@ export default function Index({
                                         onRemoveBlNumber(index, index2)
                                       }
                                       src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-5`}
+                                      className={`${styles.delete_image} ml-5`}
                                       alt="delete"
                                     />
                                   ) : null}
@@ -1130,7 +1130,7 @@ export default function Index({
                                   <div className="col-md-6">
                                     <img
                                       src="/static/preview.svg"
-                                      className={`${styles.previewImg} img-fluid ml-n4`}
+                                      className={`${styles.previewImg} ml-n4`}
                                       alt="Preview"
                                     />
                                     {item.blNumber.length >= index2 ? (
@@ -1139,7 +1139,7 @@ export default function Index({
                                           onAddBlNumber(index, index2)
                                         }
                                         src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} img-fluid ml-5`}
+                                        className={`${styles.delete_image} ml-5`}
                                         alt="Add"
                                       />
                                     ) : null}
@@ -1149,7 +1149,7 @@ export default function Index({
                                           onRemoveBlNumber(index, index2)
                                         }
                                         src="/static/delete 2.svg"
-                                        className={`${styles.delete_image} img-fluid ml-5`}
+                                        className={`${styles.delete_image} ml-5`}
                                         alt="delete"
                                       />
                                     ) : null}

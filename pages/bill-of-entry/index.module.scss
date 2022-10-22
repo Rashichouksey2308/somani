@@ -42,7 +42,7 @@
 }
 .filter_outer {
   min-height: 48px;
-  margin: 0 0 27px 10px;
+  margin: 0 0 27px;
   @include respond(lg-desktop) {
     min-height: 40px;
     margin-bottom: 20px;
@@ -71,7 +71,8 @@
       font-weight: bold;
       line-height: 41px;
       margin: 0;
-      padding-left: 18px;
+      // padding-left: 18px;
+        padding-right: 10px;
       text-transform: lowercase;
       &:first-letter {
         text-transform: uppercase;
@@ -82,8 +83,6 @@
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
-        padding-left: 10px;
-        padding-right: 10px;
       }
       @include respond(sm-desktop) {
         font-size: 20px;

@@ -4815,7 +4815,7 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
-                                padding: '40px 6px 0 35px',
+                                padding: '30px 6px 6px 35px',
                               }}
                             >
                               {debt.bankName}
@@ -4827,7 +4827,7 @@ function Index() {
                                 color: '#8492A6',
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
-                                padding: '40px 35px 0 6px',
+                                padding: '30px 35px 6px 6px',
                               }}
                             >
                               {debt.limit?.toLocaleString('en-In', {
@@ -4836,7 +4836,7 @@ function Index() {
                             </td>
                           </tr>
                           <tr>
-                            <td colSpan={2} style={{ padding: '0 35px' }}>
+                            <td colSpan={2} style={{ padding: '0 35px 5px' }}>
                               <span
                                 style={{
                                   background: '#E4ECF7',
@@ -4874,7 +4874,7 @@ function Index() {
                                 color: `${debtProfileColor(debt.conduct)}`,
                                 lineHeight: '21px',
                                 fontWeight: 'bold',
-                                padding: '0 35px',
+                                padding: '5px 35px 0',
                                 marginTop: '10px',
                               }}
                             >
