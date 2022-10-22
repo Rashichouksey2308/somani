@@ -7578,9 +7578,9 @@ function Index() {
                           paddingLeft: '35px',
                         }}
                       >
-                        Inventory Period
+                        Interest Coverage
                       </td>
-                      <td
+                      {/* <td
                         style={{
                           fontSize: '20px',
                           color: '#111111',
@@ -7589,6 +7589,18 @@ function Index() {
                         }}
                       >
                         Interest Coverage
+                      </td> */}
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {latestYearData?.interestCoverage
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7598,19 +7610,9 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {previousYearData?.daysOfInventoryOutstanding?.toFixed(
-                          2,
-                        )}
+                        {previousYearData?.interestCoverage
+                                ?.toFixed(2)
+                                ?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
