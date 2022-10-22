@@ -285,7 +285,7 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('Termsheet.pdf');
+          doc.save('TransactionSummary.pdf')
         },
         // margin:margins,
         autoPaging: 'text',
@@ -354,7 +354,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
-            <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
+            <h1 className={`${styles.heading} heading`}>Transaction Summary Preview</h1>
           </div>
         </div>
 
@@ -392,7 +392,7 @@ function Index() {
               md={4}
               className={`d-flex justify-content-center align-items-center`}
             >
-              <span className="download-pdf-title">TERMSHEET</span>
+              <span className="download-pdf-title text-center">TRANSACTION SUMMARY</span>
             </Col>
             <Col
               md={4}
@@ -1549,7 +1549,7 @@ function Index() {
         exportPDF={exportPDF}
         openbar={openbar}
         rightButtonTitle="Send To Buyer"
-        leftButtonTitle="Termsheet"
+        leftButtonTitle="Transaction Summary"
       />
       {open ? (
         <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} />
@@ -1658,7 +1658,7 @@ const toPrintPdf = (
                       textTransform: 'uppercase',
                     }}
                   >
-                    TERMSHEET
+                    TRANSACTION SUMMARY
                   </h2>
                 </td>
                 <td valign="top" align="right" width="33%">

@@ -77,7 +77,7 @@ const Index = ({
         aria-expanded="true"
         aria-controls="termDetails"
       >
-        <h3 className={styles.heading}>Termsheet</h3>
+        <h3 className={styles.heading}>Transaction Summary</h3>
         <span>+</span>
       </div>
       <div
