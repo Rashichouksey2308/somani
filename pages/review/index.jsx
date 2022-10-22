@@ -781,6 +781,15 @@ function Index() {
       }
       return false;
     }
+    if (
+      approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue
+    ) {
+      let toastMessage = 'Order Value Cannot Be Greater Than Limit Value';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
     return true;
   };
 
@@ -2170,7 +2179,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.company?.typeOfBusiness}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(
+                    ', ',
+                  )}
                 </td>
                 <td
                   style={{
@@ -2191,8 +2202,10 @@ function Index() {
                     paddingBottom: '40px',
                   }}
                 >
-                  {' '}
-                  {camData?.company?.typeOfBusiness}
+                  {
+                    camData?.company?.detailedCompanyInfo?.profile
+                      ?.companyDetail?.industry
+                  }
                 </td>
               </tr>
               <tr bgColor="#F7F9FF">
