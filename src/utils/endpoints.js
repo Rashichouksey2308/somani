@@ -134,4 +134,8 @@ export default {
   documentsMaster: 'document.json',
   currencyMaster: 'currency.json',
   internalCompaniesMaster: 'internalCompanies.json',
+  vendorsMaster: 'vendors.json',
+  banksMaster: 'banks/master.json',
+  bankBranchesMaster: 'banks/branches/',
+  pincodesMaster: 'locations/pincodes/',
 };
