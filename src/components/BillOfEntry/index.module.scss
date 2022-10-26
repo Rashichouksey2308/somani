@@ -99,10 +99,15 @@
         @include respond(sm-desktop) {
           font-size: 14px;
         }
+        @include respond(phone) {
+          width: 70px;
+          height: 35px;
+          text-align: center;
+        }
         .add_sign {
-          font-size: 24px;
+          font-size: 26px;
           font-weight: bold;
-          line-height: 27px;
+          line-height: 1;
           margin-right: 5px;
           @include respond(lg-desktop) {
             font-size: 18px;

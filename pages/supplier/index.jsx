@@ -554,7 +554,7 @@ function Index() {
               </div>
             </div>
 
-            <div className={`${styles.main} mt-4 card border_color`}>
+            <div className={`${styles.main} vessel_card mt-4 card border_color`}>
               <div
                 className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -741,8 +741,8 @@ function Index() {
                               name="callingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
+                             
                             >
-                              <option>Select an option</option>
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>
@@ -775,7 +775,7 @@ function Index() {
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
                             >
-                              <option>Select an option</option>
+                              {' '}
                               <option>+91</option>
                               <option>+1</option>
                               <option>+92</option>
@@ -824,20 +824,21 @@ function Index() {
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <button
+                      <button
                       className={`${styles.add_btn}`}
                       onClick={() => addData('address')}
                     >
                       Add
                     </button>
+                    </div>
+                   
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={`${styles.main} mr-2 ml-2 mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card mr-2 ml-2 mt-4 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -988,7 +989,7 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1120,7 +1121,7 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1251,7 +1252,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1303,7 +1304,7 @@ function Index() {
                     name="businessSummary"
                     value={business?.businessSummary}
                   />
-                  <label className={`${styles.label_textarea} text`}>
+                  <label className={`${styles.label_textarea} label_heading text`}>
                     Business Summary
                   </label>
                   <img
@@ -1315,7 +1316,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color`}>
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1433,7 +1434,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} mt-4 mr-2 ml-2 card border_color `}>
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1452,7 +1453,7 @@ function Index() {
               aria-labelledby="additional"
               data-parent="#additional"
             >
-              <div className={`${styles.dashboard_form} mr-3`}>
+              <div className={`${styles.dashboard_form} vessel_card mr-3`}>
                 {/* <div className={`${styles.comment_para} d-flex `}>
                   <Form.Control
                     className={`${styles.comment}`}
@@ -1487,7 +1488,7 @@ function Index() {
                     className={`${styles.comment_field} form-control`}
                     onChange={onChangeHandler7}
                   />
-                  <label className={`${styles.label_textarea}  text`}>
+                  <label className={`${styles.label_textarea} label_heading text`}>
                     Remarks
                   </label>
 
