@@ -225,15 +225,41 @@ function Index() {
             </div>
             <div className="row">
               <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Remarks<strong className="text-danger ml-1">*</strong>
-                </label>
+                {/* <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Remarks<strong className="text-danger ml-1">*</strong>
+                    </label>
+                    <div className={styles.uploadBtnWrapper}>
+                      <input
+                        type="file"
+                        name="myfile"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                      />
+                      <button className={`${styles.button_upload} btn`}>
+                        Upload
+                      </button>
+                    </div>
+                  </div> */}
+                <div className="input-group mb-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <div className="input-group-append">
+                    <button className="btn btn-outline-secondary" type="button">
+                      Button
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -345,38 +371,39 @@ function Index() {
                     </label>
                   </div>
                   <div
-                className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <div className={`${styles.radio_form}`}>
-                  <div className={`${styles.sub_heading} label_heading`}>
-                  Authorised Signatory <strong className="text-danger">*</strong>
-                  </div>
-                  {['radio'].map((type, index) => (
-                    <div
-                      key={`inline-${index}`}
-                      className={`${styles.radio_group}`}
-                    >
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        defaultChecked
-                        label="Yes"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="No"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-2`}
-                      />
+                    className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.radio_form}`}>
+                      <div className={`${styles.sub_heading} label_heading`}>
+                        Authorised Signatory{' '}
+                        <strong className="text-danger">*</strong>
+                      </div>
+                      {['radio'].map((type, index) => (
+                        <div
+                          key={`inline-${index}`}
+                          className={`${styles.radio_group}`}
+                        >
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            defaultChecked
+                            label="Yes"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="No"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
                 </div>
               </div>
               <button
@@ -406,7 +433,7 @@ function Index() {
                       </p>
                     </div>
                   </div>
-               
+
                   <div>
                     <div className="d-flex">
                       <img
@@ -425,7 +452,9 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.sign_head}`}>Authorised Signatory: <span>Yes</span></div>
+                <div className={`${styles.sign_head}`}>
+                  Authorised Signatory: <span>Yes</span>
+                </div>
               </div>
               <div
                 className={`${styles.address_card} value background1`}
@@ -463,8 +492,9 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.sign_head}`}>Authorised Signatory: <span>Yes</span></div>
-
+                <div className={`${styles.sign_head}`}>
+                  Authorised Signatory: <span>Yes</span>
+                </div>
               </div>
             </div>
           </div>
