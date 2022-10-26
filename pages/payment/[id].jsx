@@ -385,6 +385,7 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
+    console.log(name, value, index, 'deliveryChange');
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -421,12 +422,20 @@ function Index() {
           setDoLimit(filteredArray[0]?.netQuantityReleased);
 
           let tempString = generateDoNumber(index);
-          val.Quantity = filteredArray[0]?.netQuantityReleased;
+          if (value !== 'Not Available') {
+            val.Quantity = filteredArray[0]?.netQuantityReleased;
+          } else {
+            tempArr[index].Quantity = 0
+          }
+
+
           val.deliveryOrderNo = tempString;
         }
         val[name] = value;
       }
     });
+
+
     setDeliveryOrder([...tempArr]);
   };
 
@@ -438,9 +447,8 @@ function Index() {
         deliveryOrder[i]?.Quantity == '' ||
         deliveryOrder[i]?.Quantity == null
       ) {
-        toastMessage = `please provide quantity for delivery  order   ${
-          i + 1
-        }  `;
+        toastMessage = `please provide quantity for delivery  order   ${i + 1
+          }  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -527,7 +535,7 @@ function Index() {
 
     setLifting([...temp]);
 
-    console.log(temp, 'temppp');
+
 
     //   setList(prevState => {
     //   const newState = prevState.map((obj, i) => {
