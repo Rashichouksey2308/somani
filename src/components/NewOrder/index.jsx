@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import { addPrefixOrSuffix } from 'utils/helper';
 
-const Index = ({ saveOrderData, orderData }) => {
+const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -16,7 +16,27 @@ const Index = ({ saveOrderData, orderData }) => {
     let text = d.toISOString();
     saveOrderData(name, text);
   };
+  const [toShow,setToShow] = useState([])
+  const [toView,setToView] = useState(false)
+   const filterCommodity=(value)=>{
+    if(value==""){
+      setToShow([])
+      setToView(false)
+      return
+    }
+   let filterData = commodity.filter(o => {
+    return o.Commodity.toLowerCase().includes(value.toLowerCase())
+   });
+   console.log(filterData,"filterData")
 
+   setToShow(filterData)
+     setToView(true)
+
+  }
+   const handleData=(name,value)=>{
+    saveOrderData(name,value)
+      setToView(false)
+  }
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
       <div
@@ -117,10 +137,32 @@ const Index = ({ saveOrderData, orderData }) => {
                     required
                     type="text"
                     name="commodity"
+                    value={orderData.commodity}
                     onChange={(e) => {
+                      filterCommodity(e.target.value)
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
+              {toShow.length>0 && toView &&  (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map(
+                          (results, index) => (
+                            <li
+                              onClick={() => handleData("commodity",results.Commodity)}
+                              id={results._id}
+                              key={index}
+                              value={results.Commodity}
+                            >
+                              {results.Commodity}{' '}
+                            </li>
+                          ),
+                        )
+                      : ''}
+                  </ul>
+                </div>
+              )}
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
@@ -248,10 +290,13 @@ const Index = ({ saveOrderData, orderData }) => {
                     }}
                   >
                     <option selected>Select an option</option>
-                    <option value="India">India</option>
-                    <option value="Dubai">Dubai</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Sri Lanka">Sri Lanka</option>
+                     {country.map((val,index)=>{
+                   return(
+                     <option value={`${val.Country}`}>
+                  {val.Country}
+                  </option>
+                   )
+                })}
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -373,11 +418,17 @@ const Index = ({ saveOrderData, orderData }) => {
                     }}
                   >
                     <option selected>Select an option</option>
-                    <option value="Vishakapatnam, India">
-                      Visakhapatnam, India
-                    </option>
-                    <option value="Mumbai, India">Mumbai, India</option>
-                    <option value="Gujrat, India">Gujrat, India</option>
+                    {port.filter((val,index)=>{
+                  if(val.Country.toLowerCase()=="india"){
+                    return val
+                  }
+                }).map((val,index)=>{
+                   return(
+                     <option value={`${val.Port_Name},${val.Country}`}>
+                  {val.Port_Name},{val.Country}
+                  </option>
+                   )
+                })}
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
