@@ -573,8 +573,8 @@ export default function Index({
                           onClick={(e) => {
                             addNewRow();
                           }}
-                          className={`${styles.add_btn} mr-0`}
-                          style={{ paddingBottom: '10px' }}
+                          className={`${styles.add_btn} text-center mr-0`}
+                          style={{ paddingBottom: '12px' }}
                         >
                           <span className={styles.add_sign}>+</span>Add
                         </button>
