@@ -34,7 +34,7 @@ import { GetAllOrders } from '../../src/redux/registerBuyer/action';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
 import moment from 'moment';
-
+import {getBanks,getBranches,getInternalCompanies} from '../../src/redux/masters/action'
 function Index() {
   const dispatch = useDispatch();
 
@@ -43,8 +43,21 @@ function Index() {
     conversion: false,
     noOfPdcs: false,
   });
+  const [bankDetails,setBankDetails]=useState({
+    address:"",
+    bank:"",
+    branch:"",
+    ifsc:""
 
-  const { margin } = useSelector((state) => state.marginMoney);
+  });
+  useEffect(() => {
+    dispatch(getBanks())
+    dispatch(getInternalCompanies())
+  },[])
+    const { getBanksMasterData } = useSelector((state) => state.MastersData);
+    const { getBranchesMasterData } = useSelector((state) => state.MastersData);
+    const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+    const { margin } = useSelector((state) => state.marginMoney);
   // get gst list from below use effect and fetch data from selector
   const { orderList } = useSelector((state) => state.buyer);
 
@@ -301,8 +314,15 @@ function Index() {
     }
   }, [marginData]);
 
+  const saveData=(name,value,name2,value2)=>{
+     const newInput = { ...invoiceData };
+     newInput.branchAddress = value;
+     newInput.IFSCcode = value2;
+     console.log(newInput,"newInputnewInput")
+   setInvoiceData({ ...newInput });
+  }
   const saveInvoiceData = (name, value) => {
-    // console.log(value, 'invoice data value', name)
+    console.log(value, 'invoice data value', name)
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
@@ -323,9 +343,11 @@ function Index() {
         newInput[a] = value;
       }
     }
+    console.log(newInput,"newInput")
     setInvoiceData({ ...newInput });
   };
-
+ 
+ console.log(invoiceData,"invoiceData")
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
@@ -5920,12 +5942,19 @@ function Index() {
                                   style={{ paddingRight: '40px' }}
                                 >
                                   <option>Select an option</option>
-                                  <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
+                                  {getInternalCompaniesMasterData.filter((val)=>{
+                                    if(val.Company_Name!==""){
+                                      return val
+                                    }
+                                  }).map((val,index)=>{
+                                    return <option value={`${val.Company_Name}`}>{val.Company_Name}</option>
+                                  })}
+                                  {/* <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
                                     INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                                   </option>
                                   <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
                                     EMERGENT INDUSTRIAL SOLUTIONS LIMITED
-                                  </option>
+                                  </option> */}
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -6034,17 +6063,31 @@ function Index() {
                                   required
                                   value={invoiceData?.bankName}
                                   onChange={(e) =>
-                                    saveInvoiceData(
+                                   {
+                                   
+                                     
+                                     saveInvoiceData(
                                       e.target.name,
                                       e.target.value,
                                     )
+                                    let filter=getBanksMasterData.filter((val,index)=>{
+                                      if(val.name==e.target.value){
+                                        return val
+                                      }
+                                    })
+                                    console.log(filter,"filter")
+                                    dispatch(getBranches(filter[0].code))
+                                   }
                                   }
                                 >
                                   <option>Select an option</option>
-                                  <option value="CANARA">
+                                  {getBanksMasterData.map((val,index)=>{
+                                   return <option value={`${val.name}`}>{val.name}</option>
+                                  })}
+                                  {/* <option value="CANARA">
                                     CANARA Bank Ltd
                                   </option>
-                                  <option value="ICICI">ICICI Bank Ltd</option>
+                                  <option value="ICICI">ICICI Bank Ltd</option> */}
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -6070,17 +6113,40 @@ function Index() {
                                   required
                                   value={invoiceData?.branch}
                                   onChange={(e) =>
-                                    saveInvoiceData(
+                                    {
+                                     
+                                      console.log(e.target.value,"branch")
+                                      saveInvoiceData(
                                       e.target.name,
-                                      e.target.value,
+                                       e.target.value,
                                     )
+                                    let filter=getBranchesMasterData.filter((val,index)=>{
+                                      if(val.BRANCH==e.target.value){
+                                        return val
+                                      }
+                                    })
+                                    console.log(filter,"ASdasdasd")
+                                    
+                                       saveData("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC)
+                                     
+                                       saveInvoiceData(
+                                       "branchAddress",
+                                       filter[0].ADDRESS,
+                                    )
+                                    
+                               
+                                    }
+                                   
                                   }
                                 >
                                   {/* <option>Select an option</option> */}
                                   <option selected>Select an option</option>
-                                  <option value="Connaught Place, DELHI">
+                                  {getBranchesMasterData.map((val,index)=>{
+                                  return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
+                                  })}
+                                  {/* <option value="Connaught Place, DELHI">
                                     Connaught Place, DELHI
-                                  </option>
+                                  </option> */}
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
