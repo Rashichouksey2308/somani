@@ -269,7 +269,7 @@ const Index = ({
                                 lcDraftDoc: null,
                               })
                             }
-                            className={`${styles.close_image} image_arrow mr-2`}
+                            className={`${styles.close_image} image_arrow mx-2`}
                             src="/static/close.svg"
                             alt="Close"
                           />{' '}
@@ -334,7 +334,7 @@ const Index = ({
                       >
                         <span>{newDoc?.document?.name}</span>
                         <img
-                          className={`${styles.close_image} image_arrow ml-2 mr-2`}
+                          className={`${styles.close_image} image_arrow mx-2`}
                           src="/static/close.svg"
                           onClick={(e) => handleCloseDoc()}
                           alt="Close"

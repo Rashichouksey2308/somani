@@ -631,6 +631,21 @@
     text-transform: capitalize;
     line-height: 27px;
   }
+  .status_heading {
+    letter-spacing: 0.53px;
+    color: #00000080;
+    font-size: 16px;
+    line-height: 17px;
+    font-weight: 500;
+
+    .active {
+      color: #43c34d;
+      font-size: 22px;
+      line-height: 27px;
+      font-weight: bold;
+      margin-left: 12px;
+    }
+  }
   span {
     font-size: 45px;
     color: #3687e8;
@@ -658,7 +673,7 @@ img {
 .img_arrow {
   transform: translateY(30%);
   top: 30%;
-  margin-left: -40px !important;
+  margin-left: -40px;
   pointer-events: none;
 
   input[type='date']::-webkit-inner-spin-button,

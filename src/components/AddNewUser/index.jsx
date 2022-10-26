@@ -83,7 +83,7 @@ function Index() {
               >
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type="number"
                   required
                   name="supplierName"
                 />
@@ -153,7 +153,12 @@ function Index() {
               >
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type="number"
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                   required
                   name="supplierName"
                 />
@@ -167,7 +172,12 @@ function Index() {
               >
                 <input
                   className={`${styles.input_field} border_color input form-control`}
-                  type="text"
+                  type="number"
+                  onWheel={(event) => event.currentTarget.blur()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   required
                   name="supplierName"
                 />
@@ -236,7 +246,12 @@ function Index() {
                     <option>+24</option>
                   </select>
                   <input
-                    type="tel"
+                    type="number"
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     id="textNumber"
                     name="phoneNumber"
                     className={`${styles.input_field}  input form-control border-left-0`}
@@ -383,7 +398,7 @@ function Index() {
                       <input
                         className={`${styles.input_field} border_color input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                       />
                       <label
