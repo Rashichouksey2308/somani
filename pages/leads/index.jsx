@@ -13,7 +13,7 @@ import {
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
 import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import Filter from '../../src/components/Filter';
-// import { getCurrency } from '../../src/redux/masters/action'; 
+// import { getPincodes } from '../../src/redux/masters/action';
 
 function Index() {
   const [serachterm, setSearchTerm] = useState('');
@@ -21,11 +21,11 @@ function Index() {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   dispatch(getCurrency());
+  //   dispatch(getPincodes('401'));
   // }, []);
 
-  // const { getCurrencyMasterData } = useSelector((state) => state.MastersData);
-  // console.log(getCurrencyMasterData, 'MASTER');
+  // const { getPincodesMasterData } = useSelector((state) => state.MastersData);
+  // console.log(getPincodesMasterData, 'MASTER');
 
   const { allBuyerList } = useSelector((state) => state.buyer);
   const { searchedLeads } = useSelector((state) => state.order);

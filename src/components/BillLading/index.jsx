@@ -1177,7 +1177,7 @@ export default function Index({
                                     }
                                   </span>
                                   <img
-                                    className={`${styles.close_image}  image_arrow`}
+                                    className={`${styles.close_image} ml-2 image_arrow`}
                                     src="/static/close.svg"
                                     onClick={(e) =>
                                       handleCloseContanierDoc('', index)
@@ -1340,7 +1340,7 @@ export default function Index({
                                       {bolList[index]?.blDoc?.originalName}
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1458,7 +1458,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image}  image_arrow`}
+                                          className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1573,7 +1573,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image} image_arrow`}
+                                          className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1751,7 +1751,7 @@ export default function Index({
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image} image_arrow`}
+                                      className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blSurrenderDoc', index)

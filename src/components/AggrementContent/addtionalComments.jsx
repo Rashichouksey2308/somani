@@ -186,7 +186,7 @@ function Index(props) {
                     <th width="15%" className="border-0 generic_th">
                       Date of Execution
                     </th>
-                    {isAssignment === 'Assignment Letter' ? (
+                   
                       <>
                         <th width="20%" className="border-0 generic_th">
                           Month of loading of Cargo
@@ -196,9 +196,7 @@ function Index(props) {
                           Date of Contract between Shipper and Buyer
                         </th>
                       </>
-                    ) : (
-                      ''
-                    )}
+                  
                     <th width="10%" className="border-0 generic_th">
                       Actions
                     </th>
@@ -388,7 +386,10 @@ function Index(props) {
                                     </td>
                                   </>
                                 ) : (
-                                  <>{getFiled()}</>
+                                  <>
+                                  <td></td>
+                                  <td></td>
+                                  </>
                                 )}
                                 <td className={`d-flex`}>
                                   <img

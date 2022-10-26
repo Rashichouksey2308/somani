@@ -30,20 +30,24 @@
           color: #111111;
           letter-spacing: 0.19px;
           padding-right: 50px;
-          @include respond(md-desktop) {
-            font-size: 18px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 16px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 14px;
           }
           label {
             padding-left: 15px;
+            @include respond(lg-desktop) {
+              padding-left: 10px;
+            }
           }
           input {
             transform: scale(1.5);
+            @include respond(lg-desktop) {
+              transform: scale(1.2);
+            }
           }
         }
       }
@@ -83,8 +87,12 @@
         width: 97px;
         height: 38px;
         white-space: nowrap;
-        @include respond(md-desktop) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          width: 90px;
+          height: 34px;
+          font-size: 15px;
+          line-height: 1;
+          padding-bottom: 0 !important;
         }
         @include respond(sm-desktop) {
           font-size: 14px;
@@ -99,11 +107,9 @@
           font-weight: bold;
           line-height: 1;
           margin-right: 5px;
-          @include respond(md-desktop) {
-            font-size: 22px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 20px;
+          @include respond(lg-desktop) {
+            font-size: 18px;
+            line-height: 0.7;
           }
         }
       }
@@ -152,14 +158,8 @@
           padding: 5px;
           background-color: transparent;
           border: none;
-
-          @include respond(md-desktop) {
-          }
-          @include respond(sm-desktop) {
-            font-size: 18px;
-          }
-          @include respond(phone) {
-            font-size: 17px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
           }
         }
         .dropDown_label {
@@ -283,6 +283,10 @@
                 font-weight: bold;
                 line-height: 25px;
                 font-size: 20px;
+                @include respond(lg-desktop) {
+                  font-size: 15px;
+                  line-height: 1.3;
+                }
               }
               .input_field {
                 background: #c3c3c31f;
@@ -301,11 +305,9 @@
                 font-size: 20px;
                 //text-transform: capitalize;
                 padding-left: 35px;
-                @include respond(md-desktop) {
-                  font-size: 18px;
-                }
-                @include respond(sm-desktop) {
-                  font-size: 16px;
+                @include respond(lg-desktop) {
+                  font-size: 15px;
+                  line-height: 1.3;
                 }
                 @include respond(phone) {
                   font-size: 14px;
@@ -316,11 +318,9 @@
                 line-height: 24px;
                 opacity: 0.7;
                 font-weight: 500;
-                @include respond(md-desktop) {
-                  font-size: 17px;
-                }
-                @include respond(sm-desktop) {
+                @include respond(lg-desktop) {
                   font-size: 15px;
+                  line-height: 1.3;
                 }
                 @include respond(phone) {
                   font-size: 12px;
@@ -334,6 +334,10 @@
         font-size: 20px;
         line-height: 25px;
         font-weight: bold;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
       .label {
         font-size: 16px;
@@ -354,16 +358,10 @@
         height: 60px;
         line-height: 25px;
         font-weight: 500;
-        @include respond(md-desktop) {
-          font-size: 18px;
-        }
-        @include respond(sm-desktop) {
-          font-size: 16px;
-          height: 55px;
-        }
-        @include respond(phone) {
-          font-size: 15px;
+        @include respond(lg-desktop) {
           height: 45px;
+          font-size: 15px;
+          line-height: 1.3;
         }
       }
       .upload_button {
@@ -384,6 +382,10 @@
         margin-top: 42px;
         position: relative;
         margin-bottom: 12px;
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 15px;
+        }
         .search_image {
           margin-left: -40px;
         }
@@ -424,8 +426,9 @@
           font-weight: bold;
           margin-left: 20px;
           white-space: nowrap;
-          @include respond(sm-desktop) {
+          @include respond(lg-desktop) {
             font-size: 12px;
+            line-height: 1.5;
           }
           @include respond(phone) {
             font-size: 10px;
@@ -1030,28 +1033,27 @@
     width: 100%;
   }
   .upload_btn {
-    text-align: center;
-    color: #3687e8;
+    width: 106px;
+    height: 38px;
     border: 3px solid #3687e8;
-    font-size: 18px;
-    line-height: 23px;
-    font-weight: bold;
     border-radius: 5px;
-    background: transparent;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #3687e8;
+    line-height: 23px;
     text-transform: capitalize;
-    padding: 8px 30px 8px 30px;
     @include respond(lg-desktop) {
-      font-size: 18px;
-      line-height: 1.3;
-      padding: 0 30px;
+      width: 90px;
+      height: 34px;
+      font-size: 15px;
+      line-height: 1;
     }
     @include respond(sm-desktop) {
       font-size: 14px;
-      padding: 0 25px;
     }
     @include respond(phone) {
       font-size: 12px;
-      padding: 0 15px;
     }
   }
 }
@@ -1127,29 +1129,27 @@
   // position: relative;
 }
 .upload_btn {
-  text-align: center;
-  color: #3687e8;
+  width: 106px;
+  height: 38px;
   border: 3px solid #3687e8;
-  font-size: 18px;
-  line-height: 23px;
-  font-weight: bold;
   border-radius: 5px;
-  background: transparent;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687e8;
+  line-height: 23px;
   text-transform: capitalize;
-  padding: 8px 30px;
-
-  @include respond(md-desktop) {
-    font-size: 16px;
+  @include respond(lg-desktop) {
+    width: 90px;
+    height: 34px;
+    font-size: 15px;
+    line-height: 1;
   }
-
   @include respond(sm-desktop) {
     font-size: 14px;
-    padding: 4px 25px;
   }
-
   @include respond(phone) {
     font-size: 12px;
-    padding: 0 15px;
   }
 }
 .certificate {
@@ -1160,6 +1160,10 @@
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -1176,5 +1180,8 @@
   img {
     width: auto !important;
     height: auto !important;
+    @include respond(lg-desktop) {
+      width: 11px !important;
+    }
   }
 }

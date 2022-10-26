@@ -18,7 +18,7 @@
 
 .filter {
   min-height: 48px;
-  margin: 0 0 27px 10px;
+  margin: 0 0 27px;
   @include respond(lg-desktop) {
     min-height: 40px;
     margin-bottom: 20px;
@@ -46,7 +46,7 @@
       font-weight: bold;
       line-height: 41px;
       margin: 0;
-      padding-left: 18px;
+      // padding-left: 18px;
       text-transform: lowercase;
       &:first-letter {
         text-transform: uppercase;
@@ -57,7 +57,7 @@
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
-        padding-left: 10px;
+        // padding-left: 10px;
       }
       @include respond(sm-desktop) {
         font-size: 20px;
@@ -602,7 +602,7 @@
           border-radius: 4px;
           //opacity: 1 !important;
           padding: 10px 9px 10px 9px;
-          @include respond(md-desktop) {
+          @include respond(lg-desktop) {
             height: 30px;
             padding: 7px;
           }

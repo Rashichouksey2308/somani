@@ -176,7 +176,7 @@ function Index({
                     </td>
                     <td onClick={() => handleEditRoute(insured)}>
                       <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
+                        className={`${styles.edit_image} mr-3`}
                         src="/static/mode_edit.svg"
                         alt="edit"
                       />
