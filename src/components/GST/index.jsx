@@ -1279,9 +1279,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     labelledBy="Select"
                     disableSearch="true"
                   
-                  />
-                  <button className={`${styles.submit_btn} ml-3`}>Submit</button>
-                  <button className={`${styles.submit_btn} ml-3`}>Consolidated</button> */}
+                  /> */}
+                  <button className={`${styles.submit_btn} ml-3`}>Submit GSTIN</button>
+                  <button className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button>
                   <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}

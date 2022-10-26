@@ -44,8 +44,9 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(shareDocumentFailed(response.data.data));
         let toastMessage = 'DOcument Shared Successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
+        return response.data
       } else {
         dispatch(shareDocumentFailed(response.data.data));
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
