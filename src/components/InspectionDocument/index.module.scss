@@ -882,13 +882,16 @@
   padding: 7px 5px;
   width: 40px;
   height: 40px;
-  @include respond(md-desktop) {
+  @include respond(lg-desktop) {
+    width: 30px;
     height: 30px;
   }
   @include respond(sm-desktop) {
+    width: 28px;
     height: 28px;
   }
   @include respond(phone) {
+    width: 25px;
     height: 25px;
   }
 }
