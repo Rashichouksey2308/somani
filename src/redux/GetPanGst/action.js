@@ -39,7 +39,7 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
   };
   try {
     Axios.post(
-      `${API.baseUrl}${API.getPanGst}`,
+      `${API.userbaseUrl}${API.getPanGst}`,
       { name: payload.query },
       {
         headers: headers,
