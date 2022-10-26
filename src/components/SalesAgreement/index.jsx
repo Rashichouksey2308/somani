@@ -2902,7 +2902,7 @@ function Index(props) {
                 className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
               >
                 <span className={`mr-4 label`}>Multiple Parties Involved</span>
-                <div className={`d-flex mr-4`}>
+                <div className={`d-flex mr-4 align-items-center`}>
                   <div className={`form-check  mr-4`}>
                     <input
                       className="form-check-input"

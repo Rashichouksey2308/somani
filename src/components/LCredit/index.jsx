@@ -891,7 +891,7 @@ function Index() {
           </div>
 
           {/* Document*/}
-          <div className="mt-4 mb-5">
+          <div className="">
             <InspectionDocument
               setLcDoc={setLcDoc}
               lcDoc={lcDoc}
