@@ -16,8 +16,7 @@ export default function Index(props) {
     sessionStorage.setItem('dono', val);
     Router.push('/delivery-preview');
   };
-  console.log(props.releaseOrderData,  'tempArr')
-
+  console.log(props.releaseOrderData, 'tempArr');
 
   return (
     <>
@@ -135,7 +134,9 @@ export default function Index(props) {
                             >
                               <div className="d-flex">
                                 <select
-                                value={props.releaseOrderData[index].orderNumber}
+                                  value={
+                                    props.releaseOrderData[index].orderNumber
+                                  }
                                   name="orderNumber"
                                   onChange={(e) =>
                                     props.deliverChange(
@@ -144,6 +145,7 @@ export default function Index(props) {
                                       index,
                                     )
                                   }
+                                  disabled={!val.isDelete}
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 >
                                   {_get(
@@ -152,14 +154,13 @@ export default function Index(props) {
                                     [],
                                   ).map((option, index) => (
                                     <option
-                                   
                                       value={option.orderNumber}
                                       key={index}
                                     >
                                       {option.orderNumber}
                                     </option>
                                   ))}
-                                  <option  value="Not Available">
+                                  <option value="Not Available">
                                     Not Available
                                   </option>
                                 </select>
