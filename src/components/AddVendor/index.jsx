@@ -470,7 +470,7 @@ function Index() {
           </div>
         </div>
         <div className="mt-4">
-          <UploadOther />
+          <UploadOther isDocumentName={true}/>
         </div>
       </div>
     </div>
