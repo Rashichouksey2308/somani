@@ -36,7 +36,7 @@ import { ViewDocument } from '../../src/redux/ViewDoc/action';
 import Loader from '../../src/components/Loader/index';
 import { GetAllOrders } from 'redux/registerBuyer/action';
 import { GetCompanyDetails } from 'redux/companyDetail/action';
-
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
@@ -237,7 +237,16 @@ function Index() {
       }
     }
   }, [dispatch, fetchingKarzaGst]);
-
+    useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getDocuments())
+  }, []);
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     if (companyData) {
       let statutory = [];
@@ -10044,11 +10053,15 @@ function Index() {
                     <Order
                       orderDetail={orderDetails}
                       saveOrderData={saveOrderData}
+                      commodity={getCommoditiesMasterData}
+                      country={getCountriesMasterData}
+                      port={getPortsMasterData}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
+                       port={getPortsMasterData}
                     />
                     <CommonSave onSave={onOrderSave} />
                   </div>
