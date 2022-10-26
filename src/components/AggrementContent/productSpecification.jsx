@@ -139,7 +139,7 @@ function Index(props) {
               value={value}
             />
             <img
-              className="img-fluid ml-4"
+              className="ml-4"
               src="/static/add-btn.svg"
               alt="add button"
               onClick={() => {

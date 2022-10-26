@@ -231,7 +231,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   <div className="d-flex">
                     <select
                       value={manualDocModule ? newDoc.name : 'others'}
-                      className={`${styles.value} ${styles.customSelect} input form-control`}
+                      className={`${styles.value} ${styles.customSelect} statusBox input form-control`}
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
@@ -400,7 +400,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     />
                   </div>
                 </Form.Group>
-                <Form.Group className={`${styles.form_group}`}>
+                <Form.Group className={`${styles.form_group} statusBox`}>
                   <input
                     id="otherDocName"
                     onChange={(e) =>
@@ -471,7 +471,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 alt="Search"
               ></img>
               <input
-                className={`${styles.searchBar} border_color input form-control`}
+                className={`${styles.searchBar} statusBox border_color input form-control`}
                 placeholder="Search"
                 onChange={(e) => {
                   filterDocBySearch(e.target.value);
