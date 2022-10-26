@@ -98,19 +98,19 @@ function Index(props) {
       if (props.sameAsCHA == false) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
-          name: savedData?.name || 'Integral Trading and Logistics',
+          name: savedData?.name || props.vendor?.field4,
           shortName: savedData?.shortName || '',
-          gstin: savedData?.gstin || '37AABFI9574L2ZP',
+          gstin: savedData?.gstin || props?.vendor?.field22,
           addresses: savedData?.addresses || [
             {
               addressType: 'Registered',
               fullAddress:
-                'Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden',
-              pinCode: '530020',
-              country: 'India',
-              gstin: '37AABFI9574L2ZP',
-              state: 'Andhra Pradesh ',
-              city: 'Visakhapatnam',
+                 props?.vendor?.field23,
+              pinCode: '',
+              country: '',
+              gstin: '',
+              state: ' ',
+              city: '',
             },
           ],
           authorisedSignatoryDetails:
@@ -142,17 +142,18 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
+       
         setAddressList(
           savedData?.addresses || [
             {
               addressType: 'Registered',
               fullAddress:
-                'Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden',
-              pinCode: '530020',
+                 props?.vendor?.field23,
+              pinCode: '',
               country: 'India',
-              gstin: '37AABFI9574L2ZP',
-              state: 'Andhra Pradesh ',
-              city: 'Visakhapatnam',
+              gstin: '',
+              state: '',
+              city: '',
             },
           ],
         );
@@ -161,9 +162,9 @@ function Index(props) {
         console.log('s');
         let savedData = JSON.parse(sessionStorage.getItem('Stevedore'));
         let supplier = {
-          name: savedData.name || '',
+          name: savedData.name ||  props.vendor?.field4,
           shortName: savedData.shortName || '',
-          gstin: savedData.gstin || '',
+          gstin: savedData.gstin || props?.vendor?.field22,
           addresses: savedData.addresses || [],
           authorisedSignatoryDetails:
             savedData.authorisedSignatoryDetails || [],
@@ -198,9 +199,9 @@ function Index(props) {
         setSeteveState(supplier);
       } else {
         let supplier = {
-          name: props.data?.name || '',
+          name: props.data?.name || props.vendor?.field4,
           shortName: props.data?.shortName || '',
-          gstin: props.data?.gstin || '',
+          gstin: props.data?.gstin || props?.vendor?.field22,
           addresses: props.data?.addresses || [],
           authorisedSignatoryDetails:
             props.data?.authorisedSignatoryDetails || [],
@@ -588,8 +589,8 @@ function Index(props) {
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
-                  <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
+                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
+                 
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}

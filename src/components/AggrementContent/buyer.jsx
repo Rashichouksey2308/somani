@@ -60,11 +60,11 @@ function Index(props) {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
         };
-        if (savedData.branchName == 'Delhi') {
-          setGstin('07AAACI3028D1Z4');
-        } else if (savedData.branchName == 'Andhra Pradesh') {
-          setGstin('37AAACI3028D2Z0');
-        }
+        // if (savedData.branchName == 'Delhi') {
+        //   setGstin('07AAACI3028D1Z4');
+        // } else if (savedData.branchName == 'Andhra Pradesh') {
+        //   setGstin('37AAACI3028D2Z0');
+        // }
         setAddressList(savedData.addresses);
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
@@ -100,11 +100,11 @@ function Index(props) {
             props?.data?.name || 'Indo German International Private Limited',
           branchName: props?.data?.branch,
         };
-        if (props?.data?.branch == 'Delhi') {
-          setGstin('07AAACI3028D1Z4');
-        } else if (props?.data?.branch == 'Andhra Pradesh') {
-          setGstin('37AAACI3028D2Z0');
-        }
+        // if (props?.data?.branch == 'Delhi') {
+        //   setGstin('07AAACI3028D1Z4');
+        // } else if (props?.data?.branch == 'Andhra Pradesh') {
+        //   setGstin('37AAACI3028D2Z0');
+        // }
         setAddressList(props?.data.addresses);
         setList(
           props?.data?.authorisedSignatoryDetails.length > 0
@@ -470,96 +470,179 @@ function Index(props) {
     });
     setAddressType('Registered');
   };
+  const [branchOptions,setBranchOptions]=useState([])
   useEffect(() => {
+
     if (buyerData?.name) {
+      let filter
+      console.log(buyerData?.name,"buyerData?.name")
       if (buyerData.name == 'Indo German International Private Limited') {
         setShotName('IGIPL');
-        setPan('AAACI3028D');
-        if (buyerData.branchName == 'Delhi') {
-          setGstin('07AAACI3028D1Z4');
+       
+         filter =props.internal.filter((val)=>{
+                      if(val.Company_Name=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+                        return val
+                      }
+                    })
+          let otherData=props.internal.filter((val)=>{
+                      if(val.Branch==buyerData.branchName && val.Company_Name=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+                        return val
+                      }
+                    })
+                    if(otherData.length > 0){
+                     setGstin(otherData[0].GSTIN);
+                     setPan(otherData[0].PAN);
+                     console.log(otherData[0],"otherData[0]")
+                 let add = otherData[0].Branch_Address.split(",")
+          let newAddress=[]
+          add.forEach((val,index)=>{
+            if(index<add.length-1){
+              newAddress.push(val)
+            }
+          })
+          let pincode =   add[add.length-1].split("-")
+          console.log(newAddress,"dfdfsdfdsf",pincode)
           setAddressList([
+           
             {
               addressType: 'Registered',
-              fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
-              pinCode: '110001',
-              country: 'India',
-              gstin: '',
-              state: 'DELHI',
-              city: 'NEW DELHI',
-            },
-          ]);
-        } else if (buyerData.branchName == 'Vizag') {
-          setGstin('37AAACI3028D2Z0');
-          setAddressList([
-            {
-              addressType: 'Registered',
-              fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
-              pinCode: '110001',
-              country: 'India',
-              gstin: '',
-              state: 'DELHI',
-              city: 'NEW DELHI',
-            },
-            {
-              addressType: 'Branch',
               fullAddress:
-                'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem',
-              pinCode: '530016',
+                newAddress.join(),
+              pinCode: pincode[1],
               country: 'India',
               gstin: '',
-              state: 'Andhra Pradesh',
-              city: 'Visakhapatnam',
+              state:  pincode[0],
+              city: add[4],
             },
           ]);
-        } else {
-          setGstin('');
-        }
+                    }
+                    console.log(otherData,"otherData")
+    
+        // if (buyerData.branchName == 'Delhi') {
+        //   setGstin('07AAACI3028D1Z4');
+        //   setAddressList([
+        //     {
+        //       addressType: 'Registered',
+        //       fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
+        //       pinCode: '110001',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: 'DELHI',
+        //       city: 'NEW DELHI',
+        //     },
+        //   ]);
+        // } else if (buyerData.branchName == 'Vizag') {
+        //   setGstin('37AAACI3028D2Z0');
+
+        //   setAddressList([
+        //     {
+        //       addressType: 'Registered',
+        //       fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
+        //       pinCode: '110001',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: 'DELHI',
+        //       city: 'NEW DELHI',
+        //     },
+        //     {
+        //       addressType: 'Branch',
+        //       fullAddress:
+        //         'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem',
+        //       pinCode: '530016',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: 'Andhra Pradesh',
+        //       city: 'Visakhapatnam',
+        //     },
+        //   ]);
+        // } else {
+        //   setGstin('');
+        // }
       }
       if (buyerData.name == 'Emergent Industrial Solution limited') {
         setShotName('EISL');
-        setPan('AAACS8253L');
-        if (buyerData.branchName == 'Delhi') {
-          setGstin('07AAACS8253L1Z0');
+      
+           filter =props.internal.filter((val)=>{
+                      if(val.Company_Name=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+                        return val
+                      }
+                    })
+                       let otherData=props.internal.filter((val)=>{
+                      if(val.Branch==buyerData.branchName && val.Company_Name=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+                        return val
+                      }
+                    })
+                    if(otherData.length > 0){
+                     setGstin(otherData[0].GSTIN);
+                     setPan(otherData[0].PAN);
+                             let add = otherData[0].Branch_Address.split(",")
+          let newAddress=[]
+          add.forEach((val,index)=>{
+            if(index<add.length-3){
+              newAddress.push(val)
+            }
+          })
+          let pincode =   add[add.length-1].split("-")
+          console.log(add,"dfdfsdfdsf",pincode)
           setAddressList([
+           
             {
               addressType: 'Registered',
-              fullAddress: '8B, SAGAR, 6 TILAK MARG',
-              pinCode: '110001',
-              country: 'India',
-              gstin: '',
-              state: 'DELHI',
-              city: 'NEW DELHI',
-            },
-          ]);
-        } else if (buyerData.branchName == 'Vizag') {
-          setGstin('37AAACS8253L1ZX');
-          setAddressList([
-            {
-              addressType: 'Registered',
-              fullAddress: '8B, SAGAR, 6 TILAK MARG',
-              pinCode: '110001',
-              country: 'India',
-              gstin: '',
-              state: 'DELHI',
-              city: 'NEW DELHI',
-            },
-            {
-              addressType: 'Branch',
               fullAddress:
-                '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM',
-              pinCode: '530016',
+                newAddress.join(),
+              pinCode: pincode[1],
               country: 'India',
               gstin: '',
-              state: ' ANDHRA PRADESH',
-              city: 'VISAKHAPATNAM',
+              state:  pincode[0],
+              city: add[4],
             },
           ]);
-        } else {
-          setGstin('');
-        }
+                    }
+        // if (buyerData.branchName == 'Delhi') {
+        //   setGstin('07AAACS8253L1Z0');
+        //   setAddressList([
+        //     {
+        //       addressType: 'Registered',
+        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
+        //       pinCode: '110001',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: 'DELHI',
+        //       city: 'NEW DELHI',
+        //     },
+        //   ]);
+        // } else if (buyerData.branchName == 'Vizag') {
+        //   setGstin('37AAACS8253L1ZX');
+        //   setAddressList([
+        //     {
+        //       addressType: 'Registered',
+        //       fullAddress: '8B, SAGAR, 6 TILAK MARG',
+        //       pinCode: '110001',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: 'DELHI',
+        //       city: 'NEW DELHI',
+        //     },
+        //     {
+        //       addressType: 'Branch',
+        //       fullAddress:
+        //         '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM',
+        //       pinCode: '530016',
+        //       country: 'India',
+        //       gstin: '',
+        //       state: ' ANDHRA PRADESH',
+        //       city: 'VISAKHAPATNAM',
+        //     },
+        //   ]);
+        // } else {
+        //   setGstin('');
+        // }
       }
+      
+                    
+        setBranchOptions([...filter])
     }
-  }, [buyerData.name, buyerData.branchName]);
+  }, [buyerData.name, buyerData.branchName,props.internal]);
   console.log(addressList, 'addressList');
   return (
     <>
@@ -611,13 +694,22 @@ function Index(props) {
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
+                    let filter =props.internal.filter((val)=>{
+                      if(val.Company_Name==e.target.value){
+                        return val
+                      }
+                    })
+                    setBranchOptions([...filter])
                     handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
 
-                  <option value="Delhi">Delhi</option>
-                  <option value="Vizag">Vizag</option>
+                  {
+                    branchOptions.map((val,index)=>{
+                      return <option value={`${val.Branch}`}>{val.Branch}</option>
+                    })
+                  }
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>

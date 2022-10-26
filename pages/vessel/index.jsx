@@ -26,7 +26,7 @@ import {
 import { removePrefixOrSuffix } from 'utils/helper';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -40,6 +40,15 @@ export default function Home() {
   useEffect(() => {
     fetchInitialData();
   }, []);
+   useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    
+  }, []);
+ 
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+ 
   const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId');
     const data = await dispatch(GetVessel(`?vesselId=${id}`));
@@ -986,6 +995,8 @@ export default function Home() {
         isFieldInFocus={isFieldInFocus}
         setOnFocus={setOnFocus}
         setOnBlur={setOnBlur}
+        country={getCountriesMasterData}
+        port={getPortsMasterData}
       />
       <div className="mt-5">
         <VesselSaveBar

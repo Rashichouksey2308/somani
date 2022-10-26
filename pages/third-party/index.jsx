@@ -16,12 +16,18 @@ import _get from 'lodash/get';
 import { GetAllInspection } from '../../src/redux/Inspections/action';
 import Router from 'next/router';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
+import { getVendors } from '../../src/redux/masters/action';
 function Index() {
   const dispatch = useDispatch();
 
   const [darkMode, setDarkMode] = useState(false);
   const [lastModified, setlastModified] = useState('');
 
+     useEffect(() => {
+    dispatch(getVendors())
+   
+  }, []);
+   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     let id = sessionStorage.getItem('inspectionId');
     dispatch(GetAllInspection(`?inspectionId=${id}`));
@@ -149,6 +155,7 @@ function Index() {
                     <Appointment
                       inspectionData={inspectionData}
                       setDate={setDate}
+                      vendor={getVendorsMasterData[5]}
                     />
                   </div>
                 </div>
