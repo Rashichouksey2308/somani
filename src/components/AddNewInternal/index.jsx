@@ -40,10 +40,8 @@ function Index() {
               User Status <span className={styles.active}>Active</span>
             </div>
           </div>
-         
+
           <div className={`${styles.dashboard_form} vessel_card card-body`}>
-         
-          
             <div className={`${styles.radio_form} mb-4`}>
               <div className={`${styles.sub_heading} label_heading`}>
                 User Type <strong className="text-danger">*</strong>
@@ -144,29 +142,25 @@ function Index() {
                   </div>
                 </div>
               </div>
-    <div className='d-flex' style={{marginTop:'-100px'}}>
-                <div className=''>
+              <div className="d-flex" style={{ marginTop: '-100px' }}>
+                <div className="">
                   <Image
                     width="266px"
                     height="287px"
                     src="/static/profile-image.png"
                     alt="Profile Image"
-                    
                   />
-                  <div style={{marginLeft:'200px', marginTop:'-270px'}}>
-                   <Image
-                    width="41px"
-                    height="41px"
-                    src="/static/edit-white-background.png"
-                    alt="Edit"
-                    
-                  />
+                  <div style={{ marginLeft: '200px', marginTop: '-270px' }}>
+                    <Image
+                      width="41px"
+                      height="41px"
+                      src="/static/edit-white-background.png"
+                      alt="Edit"
+                    />
                   </div>
-                  </div>
-
                 </div>
-
-           </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -358,7 +352,7 @@ function Index() {
                 >
                   <input
                     className={`${styles.input_field} border_color input form-control`}
-                    type="text"
+                    type="email"
                     required
                     name="supplierName"
                   />
@@ -431,7 +425,12 @@ function Index() {
                 >
                   <input
                     className={`${styles.input_field} border_color input form-control`}
-                    type="text"
+                    type="number"
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     required
                     name="supplierName"
                   />
