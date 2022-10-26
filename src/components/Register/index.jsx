@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import { handleCurrencyOrder } from 'utils/helper';
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper';
 import { debounce } from 'lodash';
-
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../redux/masters/action';
 function Index() {
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -29,8 +29,18 @@ function Index() {
       setDarkMode(false);
     }
   }, []);
+    useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getDocuments())
+  }, []);
   const { createdBuyerResponse } = useSelector((state) => state.buyer);
-
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+  console.log(getCountriesMasterData,"getCountriesMasterData")
   // useEffect(() => {
   //   if (createdBuyerResponse) {
   //     Router.push('/order-list')
@@ -463,6 +473,9 @@ function Index() {
           darkMode={darkMode}
           saveOrderData={saveOrderData}
           orderDetails={orderDetails}
+          country={getCountriesMasterData}
+          port={getPortsMasterData}
+          commodity={getCommoditiesMasterData}
         />
         <Documents
           darkMode={darkMode}
@@ -475,6 +488,8 @@ function Index() {
           addDoc={addDoc}
           removeDoc={removeDoc}
           addTypeOfDoc={addTypeOfDoc}
+          documentApi={getDocumentsMasterData}
+         
         />
         <Terms
           chanegTermsCheck={chanegTermsCheck}

@@ -23,7 +23,7 @@ import {
   setDynamicOrder,
 } from '../../redux/userData/action';
 import Loader from '../Loader/index';
-
+import { getPorts,getCountries,getCommodities,getCurrency } from '../../redux/masters/action';
 const Index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -48,7 +48,16 @@ const Index = () => {
 
   // console.log(newLcVal, 'THIS IS NEW LC VAL')
   console.log(termsheet, 'sheetData');
-
+    useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getCurrency())
+  }, []);
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getCurrencyMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     {
       dispatch(setPageName('termsheet'));
@@ -299,6 +308,13 @@ const Index = () => {
     setTermsheetDetails((prev) => ({
       ...prev,
       commodityDetails: { ...prev.commodityDetails, [Key]: value },
+    }));
+  };
+   const onChangeCommodityDetails2 = (name,value) => {
+   
+    setTermsheetDetails((prev) => ({
+      ...prev,
+      commodityDetails: { ...prev.commodityDetails, [name]: value },
     }));
   };
 
@@ -1374,11 +1390,16 @@ const Index = () => {
                   onChangeCommodityDetails={onChangeCommodityDetails}
                   onChangeCommercialTerms={onChangeCommercialTerms}
                   onChangePaymentDueDate={onChangePaymentDueDate}
+                  onChangeCommodityDetails2={onChangeCommodityDetails2}
                   termsheetDetails={termsheetDetails}
                   handleSave={handleSave}
                   termsheet={termsheet}
                   newLcVal={newLcVal}
                   changePayment={changePayment}
+                  commodity={getCommoditiesMasterData}
+                  port={getPortsMasterData}
+                  country={getCountriesMasterData}
+                  currency={getCurrencyMasterData}
                 />
                 <AdditionalComment
                   setAdditionalComments={setAdditionalComments}

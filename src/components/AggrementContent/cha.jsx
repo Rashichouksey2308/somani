@@ -62,9 +62,9 @@ function Index(props) {
       if (sessionStorage.getItem('Cha')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
-          name: savedData.name || 'Integral Trading and Logistics',
+          name: savedData.name ||  props?.vendor?.field4,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || '37AABFI9574L2ZP',
+          gstin: savedData.gstin || props?.vendor?.field22,
           addresses: savedData.addresses,
           authorisedSignatoryDetails: savedData.authorisedSignatoryDetails,
         };
@@ -98,9 +98,9 @@ function Index(props) {
         setOptions([...optionArray]);
       } else {
         let supplier = {
-          name: props.data?.name || 'Integral Trading and Logistics',
+          name: props.data?.name ||  props?.vendor?.field4,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || '37AABFI9574L2ZP',
+          gstin: props.data?.gstin || props?.vendor?.field22,
           addresses: props.data?.addresses,
           authorisedSignatoryDetails: props.data?.authorisedSignatoryDetails,
         };
@@ -135,18 +135,28 @@ function Index(props) {
           }
         });
         setOptions([...optionArray]);
-        setAddressList([
-          ...addressList,
-          {
-            addressType: 'Registered',
-            fullAddress: 'Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden',
-            pinCode: '530020',
-            country: 'India',
-            gstin: '37AABFI9574L2ZP',
-            state: 'Andhra Pradesh ',
-            city: 'Visakhapatnam',
-          },
-        ]);
+        let add = props?.vendor?.field23.split(",")
+          let newAddress=[]
+          add.forEach((val,index)=>{
+            if(index<add.length-1){
+              newAddress.push(val)
+            }
+          })
+          let pincode =   add[add.length-1].split("-")
+          console.log(add,"dfdfsdfdsf",pincode)
+          setAddressList([
+            ...addressList,
+            {
+              addressType: 'Registered',
+              fullAddress:
+                newAddress.join(),
+              pinCode: pincode[1],
+              country: 'India',
+              gstin: '',
+              state:  pincode[0],
+              city: add[4],
+            },
+          ]);
       }
     }
   }, [props.data]);
@@ -533,7 +543,7 @@ function Index(props) {
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
+                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}

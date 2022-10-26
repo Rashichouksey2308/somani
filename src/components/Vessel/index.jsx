@@ -54,6 +54,8 @@ function Index({
   isFieldInFocus,
   setOnFocus,
   setOnBlur,
+  country,
+  port
 }) {
   console.log(partShipmentAllowed, 'partShipmentAllowed');
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
@@ -346,11 +348,14 @@ function Index({
                               {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
                               </option> */}
-                              <option value="India">India</option>
+                              {country.map((val,index)=>{
+                                return <option value={val.Country}>{val.Country}</option>
+                              })}
+                              {/* <option value="India">India</option>
                               <option value="Australia">Australia</option>
                               <option value="Sri Lanka">Sri Lanka</option>
                               <option value="Qatar">Qatar</option>
-                              <option value="Dubai">Dubai</option>
+                              <option value="Dubai">Dubai</option> */}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -381,12 +386,17 @@ function Index({
                               {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
                               </option> */}
-                              <option value="Westshore Terminals,Canada">
-                                Westshore Terminals,Canada
-                              </option>
-                              <option value="Abbot Point,Australia">
-                                Abbot Point,Australia
-                              </option>
+                                 {port.filter((val,index)=>{
+                                  if(val.Country.toLowerCase()!=="india"){
+                                    return val
+                                  }
+                                }).map((val,index)=>{
+                                  return(
+                                    <option value={`${val.Port_Name},${val.Country}`}>
+                                  {val.Port_Name},{val.Country}
+                                  </option>
+                                  )
+                                })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -417,15 +427,17 @@ function Index({
                               {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
                               </option> */}
-                              <option value="Vishakapatnam, India">
-                                Visakhapatnam, India
-                              </option>
-                              <option value="Mumbai, India">
-                                Mumbai, India
-                              </option>
-                              <option value="Gujrat, India">
-                                Gujrat, India
-                              </option>
+                               {port.filter((val,index)=>{
+                                  if(val.Country.toLowerCase()=="india"){
+                                    return val
+                                  }
+                                }).map((val,index)=>{
+                                  return(
+                                    <option value={`${val.Port_Name},${val.Country}`}>
+                                  {val.Port_Name},{val.Country}
+                                  </option>
+                                  )
+                                })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
