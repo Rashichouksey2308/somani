@@ -29,6 +29,9 @@
       display: flex;
       align-items: center;
       margin: 0 0 0 10px;
+      @include respond(lg-desktop) {
+        height: 40px;
+      }
       .arrow {
         width: 13px;
         height: 21px;
@@ -399,8 +402,11 @@
             background: transparent;
             padding: 8px 30px;
             @include respond(lg-desktop) {
-              height: 38px;
-              padding: 0 30px;
+              width: 90px;
+              height: 34px;
+              font-size: 15px;
+              line-height: 1;
+              padding: 0;
             }
           }
           .edit_image {
@@ -409,15 +415,18 @@
             border: 1px solid #0000001f;
             border-radius: 4px;
             padding: 10px 9px 10px 9px;
-            @include respond(md-desktop) {
+            @include respond(lg-desktop) {
+              width: 30px;
               height: 30px;
               padding: 7px;
             }
             @include respond(sm-desktop) {
+              width: 28px;
               height: 28px;
               padding: 6px;
             }
             @include respond(phone) {
+              width: 25px;
               height: 25px;
               padding: 5px;
             }
