@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Image from 'next/image'
-import Purchase from '../../src/components/Purchase'
-
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Image from 'next/image';
+import Purchase from '../../src/components/Purchase';
 
 function Index() {
   return (
@@ -15,20 +14,19 @@ function Index() {
           <div
             className={`${styles.tab_header_inner} d-flex align-items-center`}
           >
-            <Image width={13} height={21}
+            <Image
+              width={13}
+              height={21}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="image_arrow"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>
-                Ramakrishna Traders
-              </span>
+              <span>Ramakrishna Traders</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li
-              className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}>
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -40,8 +38,7 @@ function Index() {
                 Purchase
               </a>
             </li>
-            <li
-              className={`${styles.navItem} nav-item`}>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -52,9 +49,8 @@ function Index() {
               >
                 Sales
               </a>
-            </li> 
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -65,9 +61,8 @@ function Index() {
               >
                 Payment
               </a>
-            </li>  
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -78,9 +73,8 @@ function Index() {
               >
                 Receipt
               </a>
-            </li>  
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -91,9 +85,8 @@ function Index() {
               >
                 Refund
               </a>
-            </li>  
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -104,9 +97,8 @@ function Index() {
               >
                 GL Transfer
               </a>
-            </li>  
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -117,9 +109,8 @@ function Index() {
               >
                 Interoffice Transfers
               </a>
-            </li>  
-            <li
-              className={`${styles.navItem} nav-item`}>
+            </li>
+            <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -130,7 +121,7 @@ function Index() {
               >
                 SOA
               </a>
-            </li>        
+            </li>
           </ul>
         </div>
 
@@ -144,17 +135,15 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                   <Purchase/>
+                    <Purchase />
                   </div>
                 </div>
-
-              
               </div>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
-export default Index
+export default Index;

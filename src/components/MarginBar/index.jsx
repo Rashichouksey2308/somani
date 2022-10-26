@@ -1,15 +1,15 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
 
 function index({ openbar, leftButtonTitle, rightButtonTitle, exportPDF }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
-    <div className={`${styles.root} ${
-      !sidebar ? styles.no_sidebar : null
-    }
-    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
+    <div
+      className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
+    >
       <div className={styles.reject} onClick={exportPDF}>
         <span>{leftButtonTitle}</span>
         <img
@@ -30,16 +30,15 @@ function index({ openbar, leftButtonTitle, rightButtonTitle, exportPDF }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          if(openbar){
-            openbar()
+          if (openbar) {
+            openbar();
           }
-          
         }}
       >
         <span>{rightButtonTitle}</span>
       </div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

@@ -40,10 +40,10 @@
     transform: translateY(-50%);
   }
   @include respond(lg-desktop) {
-      top: 14px;
-      font-size: 14px;
-      line-height: 15px;
-      transform: translateY(-22px);
+    top: 14px;
+    font-size: 14px;
+    line-height: 15px;
+    transform: translateY(-22px);
   }
 }
 .line {
@@ -77,12 +77,12 @@
     }
   }
   @include respond(lg-desktop) {
-      height: 45px;
-      font-size: 15px;
-      line-height: 1.3;
+    height: 45px;
+    font-size: 15px;
+    line-height: 1.3;
   }
 }
-.input_small{
-    width: 180px !important;
-    height: 37px !important;
+.input_small {
+  width: 180px !important;
+  height: 37px !important;
 }

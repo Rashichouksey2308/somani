@@ -1,27 +1,27 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col, Modal } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import { useState } from 'react'
-import DateCalender from '../DateCalender'
-import _get from 'lodash/get'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col, Modal } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import { useState } from 'react';
+import DateCalender from '../DateCalender';
+import _get from 'lodash/get';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   UpdateTransitDetails,
   GetTransitDetails,
-} from '../../redux/TransitDetails/action'
-import { useEffect } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import UploadOther from '../UploadOther'
+} from '../../redux/TransitDetails/action';
+import { useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import UploadOther from '../UploadOther';
 import {
   CovertvaluefromtoCR,
   addPrefixOrSuffix,
   removePrefixOrSuffix,
   convertValue,
-} from '../../utils/helper'
-import moment from 'moment'
-import { toast } from 'react-toastify'
+} from '../../utils/helper';
+import moment from 'moment';
+import { toast } from 'react-toastify';
 
 export default function Index({
   isShipmentTypeBULK,
@@ -30,7 +30,7 @@ export default function Index({
   docUploadFunction,
   fetchInitialData,
 }) {
-  let transId = _get(TransitDetails, 'data[0]', '')
+  let transId = _get(TransitDetails, 'data[0]', '');
   const initialStateForLiner = {
     vesselName: '',
     imoNumber: '',
@@ -52,7 +52,7 @@ export default function Index({
       blSurrenderDate: '',
       containerDoc: null,
     },
-  }
+  };
   const initialStateForBulk = {
     vesselName: '',
     imoNumber: '',
@@ -68,15 +68,15 @@ export default function Index({
     blSurrenderDoc: null,
     containerNumberListDoc: null,
     packingListDoc: null,
-  }
-  const dispatch = useDispatch()
-  console.log(bolList, 'bolList')
+  };
+  const dispatch = useDispatch();
+  console.log(bolList, 'bolList');
   // let shipmentTypeBulk =
   //   _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
   //     'Bulk'
   //     ? true
   //     : false
-  const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false)
+  const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false);
   useEffect(() => {
     setshipmentTypeBulk(
       _get(
@@ -86,22 +86,22 @@ export default function Index({
       ) === 'Bulk'
         ? true
         : false,
-    )
-  }, [TransitDetails])
+    );
+  }, [TransitDetails]);
 
-  const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
+  const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, []);
 
   const initalState = shipmentTypeBulk
     ? initialStateForBulk
-    : initialStateForLiner
+    : initialStateForLiner;
   // console.log(existingBlData,'existingBlData')
 
-  const [show, setShow] = useState(false)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [show, setShow] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => setShow(false);
 
-  const handleShow = () => setShow(true)
+  const handleShow = () => setShow(true);
 
   // useEffect(() => {
   //   if (existingBlData.length > 0) {
@@ -109,84 +109,83 @@ export default function Index({
   //   }
   // }, [existingBlData])
 
-  const [editInput, setEditInput] = useState(true)
-  const [shipmentType, setShipmentType] = useState(true)
-  const [bolList, setBolList] = useState([initalState])
-  const [startBlDate, setBlDate] = useState(null)
-  const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null)
-  const [startblSurrenderDate, setblSurrenderDate] = useState(null)
+  const [editInput, setEditInput] = useState(true);
+  const [shipmentType, setShipmentType] = useState(true);
+  const [bolList, setBolList] = useState([initalState]);
+  const [startBlDate, setBlDate] = useState(null);
+  const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null);
+  const [startblSurrenderDate, setblSurrenderDate] = useState(null);
   const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] =
-    useState(null)
+    useState(null);
 
-  const [lastDate, setlastDate] = useState(new Date())
-
+  const [lastDate, setlastDate] = useState(new Date());
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
-      setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+      setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   const partShipmentAllowed = _get(
     TransitDetails,
     'data[0].order.vessel.partShipmentAllowed',
     false,
-  )
+  );
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
-      setBolList([...bolList, initialStateForBulk])
+      setBolList([...bolList, initialStateForBulk]);
     } else {
-      setBolList([...bolList, initialStateForLiner])
+      setBolList([...bolList, initialStateForLiner]);
     }
-    console.log('here')
-  }
-  console.log(bolList, 'bol')
+    console.log('here');
+  };
+  console.log(bolList, 'bol');
   const onDeleteClick = (index) => {
-    setBolList([...bolList.slice(0, index), ...bolList.slice(index + 1)])
-  }
+    setBolList([...bolList.slice(0, index), ...bolList.slice(index + 1)]);
+  };
   const uploadDoc = async (e, index) => {
-    let name = e.target.name
-    let id = e.target.id
-    let docs = await docUploadFunction(e)
-    console.log(name, 'name')
-    let newInput = [...bolList]
+    let name = e.target.name;
+    let id = e.target.id;
+    let docs = await docUploadFunction(e);
+    console.log(name, 'name');
+    let newInput = [...bolList];
     newInput.forEach((val, i) => {
       if (i == index) {
-        val[name] = docs
+        val[name] = docs;
       }
-    })
+    });
     // newInput[index].[name] = docs
 
     // console.log(newInput, 'response data123')
-    setBolList(newInput)
-  }
-  console.log(bolList, 'bollist')
+    setBolList(newInput);
+  };
+  console.log(bolList, 'bollist');
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
+  };
 
   const handleCloseDoc = (e, index) => {
-    let tempArr = [...bolList]
+    let tempArr = [...bolList];
 
-    tempArr[index][e] = null
-    console.log(tempArr, 'temp arr', e)
-    setBolList(tempArr)
-  }
+    tempArr[index][e] = null;
+    console.log(tempArr, 'temp arr', e);
+    setBolList(tempArr);
+  };
   const handleCloseContanierDoc = (e, index) => {
-    let tempArr = [...bolList]
-    tempArr[index].containerDetails.containerDoc = null
-    setBolList(tempArr)
-  }
+    let tempArr = [...bolList];
+    tempArr[index].containerDetails.containerDoc = null;
+    setBolList(tempArr);
+  };
 
   const onChangeVessel = (e, index) => {
-    let VesselName = e.target.value
-    let filteredVessel = {}
+    let VesselName = e.target.value;
+    let filteredVessel = {};
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (
@@ -199,75 +198,75 @@ export default function Index({
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
         (vessel, index) => {
           if (vessel.vesselInformation[0].name === VesselName) {
-            filteredVessel = vessel
+            filteredVessel = vessel;
           }
         },
-      )
+      );
     } else {
       filteredVessel = _get(
         TransitDetails,
         `data[0].order.vessel.vessels[0]`,
         {},
-      )
+      );
       let tempArray = _get(
         TransitDetails,
         `data[0].order.vessel.vessels[0].vesselInformation`,
         [],
-      )
+      );
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
-          filteredVessel.vesselInformation = [vessel]
+          filteredVessel.vesselInformation = [vessel];
         }
-      })
+      });
     }
-    console.log(filteredVessel, 'filteredVessel')
-    let newArray = [...bolList]
+    console.log(filteredVessel, 'filteredVessel');
+    let newArray = [...bolList];
     newArray[index].vesselName = _get(
       filteredVessel,
       'vesselInformation[0].name',
       '',
-    )
+    );
     newArray[index].imoNumber = _get(
       filteredVessel,
       'vesselInformation[0].IMONumber',
       '',
-    )
+    );
     newArray[index].etaAtDischargePortFrom = _get(
       filteredVessel,
       'transitDetails.EDTatLoadPort',
       null,
-    )
+    );
     newArray[index].etaAtDischargePortTo = _get(
       filteredVessel,
       'transitDetails.ETAatDischargePort',
       null,
-    )
+    );
     if (!shipmentTypeBulk) {
       newArray[index].containerDetails.numberOfContainers = _get(
         filteredVessel,
         'shippingInformation.numberOfContainers',
         '',
-      )
+      );
     }
 
-    setBolList(newArray)
-  }
+    setBolList(newArray);
+  };
   const checkRemainingBalance = () => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0)
+    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     bolList.forEach((item) => {
-      balance = balance - item.blQuantity
-    })
-    return balance
-  }
+      balance = balance - item.blQuantity;
+    });
+    return balance;
+  };
 
   const onChangeBol = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
     if (name === 'blQuantity') {
       if (checkRemainingBalance() < value) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`
+        let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
       }
     }
@@ -277,17 +276,17 @@ export default function Index({
           return {
             ...obj,
             [name]: value,
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   const onChangeContainerDetailsHandler = (e, index) => {
-    const name = e.target.id
-    const value = e.target.value
+    const name = e.target.id;
+    const value = e.target.value;
     setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -297,16 +296,16 @@ export default function Index({
               ...obj.containerDetails,
               [name]: value,
             },
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
   const onChangeContainerDetailsDocHandler = async (e, index) => {
-    const name = e.target.id
-    const value = await docUploadFunction(e)
+    const name = e.target.id;
+    const value = await docUploadFunction(e);
     if (value) {
       setBolList((prevState) => {
         const newState = prevState.map((obj, i) => {
@@ -317,30 +316,30 @@ export default function Index({
                 ...obj.containerDetails,
                 [name]: value,
               },
-            }
+            };
           }
-          return obj
-        })
-        return newState
-      })
+          return obj;
+        });
+        return newState;
+      });
     }
-  }
+  };
 
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1')
+    console.log(startDate, name, 'Event1');
     setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
             [name]: startDate,
-          }
+          };
         }
-        return obj
-      })
-      return newState
-    })
-  }
+        return obj;
+      });
+      return newState;
+    });
+  };
 
   // const checkAvail = (vessel) => {
   //   console.log(vessel)
@@ -348,8 +347,8 @@ export default function Index({
   // }
 
   const validation = () => {
-    let isOk = true
-    let toastMessage = ''
+    let isOk = true;
+    let toastMessage = '';
 
     if (
       _get(
@@ -359,124 +358,130 @@ export default function Index({
       ) === 'Liner'
     ) {
       if (checkRemainingBalance() < 0) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`
+        let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          return
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          return;
         }
       }
       for (let i = 0; i <= bolList.length - 1; i++) {
-        console.log(i, 'INSIDE FOR LOOP', bolList.length)
+        console.log(i, 'INSIDE FOR LOOP', bolList.length);
         if (
           bolList[i]?.vesselName == '' ||
           bolList[i]?.vesselName == undefined
         ) {
-          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
+          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blNumber == '' || bolList[i]?.blNumber == undefined) {
-          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blDate == '' || bolList[i]?.blDate == undefined) {
-          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.blQuantity == '' ||
           bolList[i]?.blQuantity == undefined
         ) {
-          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.etaAtDischargePortFrom == '' ||
           bolList[i]?.etaAtDischargePortFrom == undefined
         ) {
-          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.etaAtDischargePortTo == '' ||
           bolList[i]?.etaAtDischargePortTo == undefined
         ) {
-          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.containerDetails?.numberOfContainers == '' ||
           bolList[i]?.containerDetails?.numberOfContainers == undefined
         ) {
-          toastMessage = `Please mention number of containers in Bill of lading ${i}  `
+          toastMessage = `Please mention number of containers in Bill of lading ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.containerDetails?.freeDetentionPeriod == '' ||
           bolList[i]?.containerDetails?.freeDetentionPeriod == undefined
         ) {
-          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
-          toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
-        if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
-          toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+        if (
+          bolList[i]?.containerNumberListDoc == null ||
+          bolList[i]?.containerNumberListDoc == undefined
+        ) {
+          toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
-        if (bolList[i]?.packingListDoc == null || bolList[i]?.packingListDoc == undefined) {
-          toastMessage = `Packing List Doc IS MANDATORY IN BILL OF LADING ${i}  `
+        if (
+          bolList[i]?.packingListDoc == null ||
+          bolList[i]?.packingListDoc == undefined
+        ) {
+          toastMessage = `Packing List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
       }
 
-      return isOk
+      return isOk;
     } else if (
       _get(
         TransitDetails,
@@ -485,112 +490,112 @@ export default function Index({
       ) === 'Bulk'
     ) {
       if (checkRemainingBalance() < 0) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`
+        let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          return
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          return;
         }
       }
       for (let i = 0; i <= bolList.length - 1; i++) {
-        console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList)
+        console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList);
 
         if (
           bolList[i]?.vesselName == '' ||
           bolList[i]?.vesselName == undefined
         ) {
-          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
+          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blNumber == '' || bolList[i]?.blNumber == undefined) {
-          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blDate == '' || bolList[i]?.blDate == undefined) {
-          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.blQuantity == '' ||
           bolList[i]?.blQuantity == undefined
         ) {
-          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.etaAtDischargePortFrom == '' ||
           bolList[i]?.etaAtDischargePortFrom == undefined
         ) {
-          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (
           bolList[i]?.etaAtDischargePortTo == '' ||
           bolList[i]?.etaAtDischargePortTo == undefined
         ) {
-          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
-          toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
+          toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
           }
         }
       }
 
-      return isOk
+      return isOk;
     }
-  }
+  };
 
   const saveData = async () => {
-    if (!validation()) return
+    if (!validation()) return;
     // const billOfLanding = [...bolList]
-    let bol = { billOfLanding: bolList }
+    let bol = { billOfLanding: bolList };
     // console.log(bol, 'bol', bolList.billOfLanding)
     bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(
       bolList[0].blQuantity,
-    )
-    let fd = new FormData()
-    fd.append('bl', JSON.stringify(bol))
-    fd.append('transitId', transId._id)
+    );
+    let fd = new FormData();
+    fd.append('bl', JSON.stringify(bol));
+    fd.append('transitId', transId._id);
 
-    let task = 'submit'
-    let responseData = await dispatch(UpdateTransitDetails({ fd, task }))
+    let task = 'submit';
+    let responseData = await dispatch(UpdateTransitDetails({ fd, task }));
     if (responseData) {
-      fetchInitialData()
+      fetchInitialData();
     }
-    console.log(responseData, 'responseData')
-    console.log(fd, bol, 'filteredVessel')
-  }
+    console.log(responseData, 'responseData');
+    console.log(fd, bol, 'filteredVessel');
+  };
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
-  console.log(TransitDetails, 'TransitDetails')
+  console.log(TransitDetails, 'TransitDetails');
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -693,13 +698,26 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
+                    {/* {_get(TransitDetails, 'data[0].order.orderCurrency', '')} {' '}
+
                     {convertValue(_get(
                       TransitDetails,
                       'data[0].order.marginMoney.calculation.orderValue',
                       '',
-                    ))?.toLocaleString('en-IN', { maximumFractionDigits: 2 })}{' '}
+                    ), _get(TransitDetails, 'data[0].order.orderCurrency', '') !== 'USD' ? 1000000 : 10000000)
+                      ?.toLocaleString(_get(TransitDetails, 'data[0].order.orderCurrency', '') === 'INR' ? 'en-IN' : undefined,
+                        { maximumFractionDigits: 2 })} */}
+                    {convertValue(
+                      _get(
+                        TransitDetails,
+                        'data[0].order.marginMoney.calculation.orderValueInINR',
+                        '',
+                      ),
+                    )?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -746,10 +764,10 @@ export default function Index({
                   {!partShipmentAllowed && (
                     <button
                       onClick={() => {
-                        onBolAdd()
+                        onBolAdd();
                       }}
                       className={`${styles.add_btn} mr-0`}
-                      style={{paddingBottom:'10px'}}
+                      style={{ paddingBottom: '10px' }}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
@@ -758,10 +776,13 @@ export default function Index({
                     <button
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} border-danger text-danger`}
-                      >
-                        <img src="/static/delete.svg"
-                        className='ml-1 mt-n1'
-                         width={13} alt="delete" />{' '}
+                    >
+                      <img
+                        src="/static/delete.svg"
+                        className="ml-1 mt-n1"
+                        width={13}
+                        alt="delete"
+                      />{' '}
                       Delete
                     </button>
                   ) : null}
@@ -783,26 +804,26 @@ export default function Index({
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option
-                                    value={vessel?.vesselInformation?.name}
-                                    key={index}
-                                  >
-                                    {vessel?.vesselInformation[0]?.name}
-                                  </option>
-                                ))
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option
+                                      value={vessel?.vesselInformation?.name}
+                                      key={index}
+                                    >
+                                      {vessel?.vesselInformation[0]?.name}
+                                    </option>
+                                  ))
                                 : _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels[0].vesselInformation',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>
-                                    {vessel?.name}
-                                  </option>
-                                ))}
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels[0].vesselInformation',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -875,8 +896,8 @@ export default function Index({
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
-                                setBlDate(startBlDate)
-                                saveDate(startBlDate, 'blDate', index)
+                                setBlDate(startBlDate);
+                                saveDate(startBlDate, 'blDate', index);
                               }}
                               minDate={lastDate}
                             />
@@ -901,30 +922,29 @@ export default function Index({
                           <input
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             value={
                               isFieldInFocus
                                 ? bol?.blQuantity
                                 : Number(bol?.blQuantity)?.toLocaleString(
-                                  'en-IN',
-                                ) +
-                                ` ${_get(
-                                  TransitDetails,
-                                  'data[0].order.unitOfQuantity',
-                                  '',
-                                )}`
+                                    'en-IN',
+                                  ) +
+                                  ` ${_get(
+                                    TransitDetails,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  )}`
                             }
                           />
                           <label
@@ -959,12 +979,12 @@ export default function Index({
                               onChange={(startetaAtDischargePortFrom) => {
                                 setetaAtDischargePortFrom(
                                   startetaAtDischargePortFrom,
-                                )
+                                );
                                 saveDate(
                                   startetaAtDischargePortFrom,
                                   'etaAtDischargePortFrom',
                                   index,
-                                )
+                                );
                               }}
                               minDate={lastDate}
                             />
@@ -999,12 +1019,12 @@ export default function Index({
                               onChange={(startetaAtDischargePortTo) => {
                                 setetaAtDischargePortTo(
                                   startetaAtDischargePortTo,
-                                )
+                                );
                                 saveDate(
                                   startetaAtDischargePortTo,
                                   'etaAtDischargePortTo',
                                   index,
-                                )
+                                );
                               }}
                               minDate={lastDate}
                             />
@@ -1049,9 +1069,7 @@ export default function Index({
                                 required
                                 id="numberOfContainers"
                                 type="number"
-                                onWheel={(event) =>
-                                  event.currentTarget.blur()
-                                }
+                                onWheel={(event) => event.currentTarget.blur()}
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -1079,9 +1097,7 @@ export default function Index({
                                 required
                                 id="freeDetentionPeriod"
                                 type="number"
-                                onWheel={(event) =>
-                                  event.currentTarget.blur()
-                                }
+                                onWheel={(event) => event.currentTarget.blur()}
                                 onKeyDown={(evt) =>
                                   ['e', 'E', '+', '-'].includes(evt.key) &&
                                   evt.preventDefault()
@@ -1106,19 +1122,34 @@ export default function Index({
                                       <input
                                         name={`containerDoc`}
                                         id="containerDoc"
-
                                         onChange={(e) => {
-                                          if (e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') || e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')) {
-                                            onChangeContainerDetailsDocHandler(e, index,)
+                                          if (
+                                            e.target.files[0].name
+                                              .toLocaleLowerCase()
+                                              .endsWith('.xls') ||
+                                            e.target.files[0].name
+                                              .toLocaleLowerCase()
+                                              .endsWith('.xlsx')
+                                          ) {
+                                            onChangeContainerDetailsDocHandler(
+                                              e,
+                                              index,
+                                            );
                                           } else {
-                                            let toastMessage = 'only XLS files are allowed'
-                                            if (!toast.isActive(toastMessage.toUpperCase())) {
-                                              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                                            let toastMessage =
+                                              'only XLS files are allowed';
+                                            if (
+                                              !toast.isActive(
+                                                toastMessage.toUpperCase(),
+                                              )
+                                            ) {
+                                              toast.error(
+                                                toastMessage.toUpperCase(),
+                                                { toastId: toastMessage },
+                                              );
                                             }
                                           }
-                                        }
-                                        }
-
+                                        }}
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         type="file"
                                       />
@@ -1232,28 +1263,44 @@ export default function Index({
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blDoc ? (bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : (bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                                  : null
-                                }
+                                {bolList[index]?.blDoc ? (
+                                  bolList[index]?.blDoc?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xls') ||
+                                  bolList[index]?.blDoc?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xlsx') ? (
+                                    <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : bolList[index]?.blDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.doc') ||
+                                    bolList[index]?.blDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.docx') ? (
+                                    <img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  )
+                                ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
                                   ? ''
                                   : moment(bolList[index]?.blDoc.date).format(
-                                    'DD-MM-YYYY , h:mm a ',
-                                  )}
+                                      'DD-MM-YYYY , h:mm a ',
+                                    )}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1314,28 +1361,54 @@ export default function Index({
                                     </strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.containerNumberListDoc ? (bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    /> : (bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.containerNumberListDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    /> : <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                      : null
-                                    }
+                                    {bolList[index]?.containerNumberListDoc ? (
+                                      bolList[
+                                        index
+                                      ]?.containerNumberListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.xls') ||
+                                      bolList[
+                                        index
+                                      ]?.containerNumberListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.xlsx') ? (
+                                        <img
+                                          src="/static/excel.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      ) : bolList[
+                                          index
+                                        ]?.containerNumberListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.doc') ||
+                                        bolList[
+                                          index
+                                        ]?.containerNumberListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.docx') ? (
+                                        <img
+                                          src="/static/doc.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      ) : (
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      )
+                                    ) : null}
                                   </td>
                                   <td className={styles.doc_row}>
-                                    {bolList[index]?.containerNumberListDoc == null
+                                    {bolList[index]?.containerNumberListDoc ==
+                                    null
                                       ? ''
-                                      : moment(bolList[index]?.containerNumberListDoc.date).format(
-                                        'DD-MM-YYYY , h:mm a ',
-                                      )}
+                                      : moment(
+                                          bolList[index]?.containerNumberListDoc
+                                            .date,
+                                        ).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1352,7 +1425,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.containerNumberListDoc ==
+                                    bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1407,28 +1480,52 @@ export default function Index({
                                     </strong>
                                   </td>
                                   <td>
-                                    {bolList[index]?.packingListDoc ? (bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    /> : (bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    /> : <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                      : null
-                                    }
+                                    {bolList[index]?.packingListDoc ? (
+                                      bolList[
+                                        index
+                                      ]?.packingListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.xls') ||
+                                      bolList[
+                                        index
+                                      ]?.packingListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.xlsx') ? (
+                                        <img
+                                          src="/static/excel.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      ) : bolList[
+                                          index
+                                        ]?.packingListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.doc') ||
+                                        bolList[
+                                          index
+                                        ]?.packingListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.docx') ? (
+                                        <img
+                                          src="/static/doc.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      ) : (
+                                        <img
+                                          src="/static/pdf.svg"
+                                          className="img-fluid"
+                                          alt="Pdf"
+                                        />
+                                      )
+                                    ) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
                                       ? ''
-                                      : moment(bolList[index]?.packingListDoc.date).format(
-                                        'DD-MM-YYYY , h:mm a ',
-                                      )}
+                                      : moment(
+                                          bolList[index]?.packingListDoc.date,
+                                        ).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1445,7 +1542,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.packingListDoc == null ? (
+                                    bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1516,12 +1613,12 @@ export default function Index({
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
-                                setblSurrenderDate(startblSurrenderDate)
+                                setblSurrenderDate(startblSurrenderDate);
                                 saveDate(
                                   startblSurrenderDate,
                                   'blSurrenderDate',
                                   index,
-                                )
+                                );
                               }}
                               minDate={lastDate}
                             />
@@ -1584,32 +1681,50 @@ export default function Index({
                                 <strong className="text-danger ml-0">*</strong>
                               </td>
                               <td>
-                                {bolList[index]?.blSurrenderDoc ? (bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') || bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx')) ? <img
-                                  src="/static/excel.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : (bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') || bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx')) ? < img
-                                  src="/static/doc.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                /> : <img
-                                  src="/static/pdf.svg"
-                                  className="img-fluid"
-                                  alt="Pdf"
-                                />
-                                  : null
-                                }
+                                {bolList[index]?.blSurrenderDoc ? (
+                                  bolList[index]?.blSurrenderDoc?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xls') ||
+                                  bolList[index]?.blSurrenderDoc?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xlsx') ? (
+                                    <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : bolList[
+                                      index
+                                    ]?.blSurrenderDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.doc') ||
+                                    bolList[index]?.blSurrenderDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.docx') ? (
+                                    <img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  )
+                                ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
                                   : moment(
-                                    bolList[index]?.blSurrenderDoc?.Date,
-                                  ).format(' DD-MM-YYYY , h:mm a')}
+                                      bolList[index]?.blSurrenderDoc?.Date,
+                                    ).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
-                                  bolList[index]?.blSurrenderDoc == null ? (
+                                bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1654,7 +1769,7 @@ export default function Index({
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
 
           <div className="0">
@@ -1708,5 +1823,5 @@ export default function Index({
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }

@@ -1,55 +1,55 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import Navbar from './NavBar'
-import Sidebar from './Sidebar'
-import Breadcrum from './Breadcrum'
-import Footer from './Footer'
-import styles from './index.module.scss'
-import TermSheetPreview from '../components/TermSheetPreview'
-import Login from '../components/Login'
-import { useSelector, useDispatch } from 'react-redux'
-import Cookies from 'js-cookie'
-import Loader from '../components/Loader'
-import { validateToken } from '../redux/authentication/actions'
-import { ErrorBoundary } from '../components/ErrorBoundary'
+import React, { useState, useEffect } from 'react';
+import Navbar from './NavBar';
+import Sidebar from './Sidebar';
+import Breadcrum from './Breadcrum';
+import Footer from './Footer';
+import styles from './index.module.scss';
+import TermSheetPreview from '../components/TermSheetPreview';
+import Login from '../components/Login';
+import { useSelector, useDispatch } from 'react-redux';
+import Cookies from 'js-cookie';
+import Loader from '../components/Loader';
+import { validateToken } from '../redux/authentication/actions';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 // import 'react-pro-sidebar/dist/css/styles.css';
-import router from 'next/router'
+import router from 'next/router';
 function Layout({ children }) {
-  const [isQuery, setQuery] = useState(null)
-  const [isLogin, setIsLogin] = useState(false)
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+  const [isQuery, setQuery] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   // console.log(isMobile, 'isMObile')
 
-  const dispatch = useDispatch()
-  const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
+  const dispatch = useDispatch();
+  const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin);
 
   useEffect(() => {
-    const isuserlogged = Cookies.get('SOMANI')
+    const isuserlogged = Cookies.get('SOMANI');
     //dispatch(validateToken())
 
-    setIsLogin(isuserlogged)
+    setIsLogin(isuserlogged);
 
     if (isLogin) {
       // console.log('login is true verifying token')
-      dispatch(validateToken())
+      dispatch(validateToken());
     }
-  }, [isuserLoggedin, isLogin])
+  }, [isuserLoggedin, isLogin]);
 
   useEffect(() => {
-    const doMagic = () => {}
+    const doMagic = () => {};
 
-    router.events.on('routeChangeStart', doMagic) // add listener
+    router.events.on('routeChangeStart', doMagic); // add listener
     router.events.on('routeChangeComplete', (url, { shallow }) => {
-      console.log('route change', router.asPath)
-      setQuery(router.asPath)
-    })
+      console.log('route change', router.asPath);
+      setQuery(router.asPath);
+    });
     return () => {
-      router.events.off('routeChangeStart', doMagic) // remove listener
-    }
-  }, [])
-  console.log(isQuery, 'isQuery')
+      router.events.off('routeChangeStart', doMagic); // remove listener
+    };
+  }, []);
+  console.log(isQuery, 'isQuery');
   return (
     <>
       {isLogin ? (
@@ -102,7 +102,7 @@ function Layout({ children }) {
         <Login />
       )}
     </>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

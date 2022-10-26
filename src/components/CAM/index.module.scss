@@ -1,8 +1,8 @@
-@import "../styles/Core/config";
+@import '../styles/Core/config';
 .card {
   margin-bottom: 26px;
   @include respond(lg-desktop) {
-      margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 }
 .cardHeader {
@@ -11,7 +11,7 @@
   border-bottom: none;
   padding: 0 35px !important;
   @include respond(lg-desktop) {
-      min-height: 60px;
+    min-height: 60px;
   }
   h2 {
     font-size: 22px;
@@ -19,16 +19,16 @@
     font-weight: bold;
     line-height: 27px;
     @include respond(lg-desktop) {
-        font-size: 20px; 
-        line-height: 1.3;
+      font-size: 20px;
+      line-height: 1.3;
     }
     @include respond(sm-desktop) {
-        font-size: 18px; 
-        margin: 20px 0;
+      font-size: 18px;
+      margin: 20px 0;
     }
     @include respond(phone) {
-        font-size: 16px;
-        margin: 13px 0;
+      font-size: 16px;
+      margin: 13px 0;
     }
   }
 
@@ -40,7 +40,7 @@
     margin-top: -7px;
     cursor: pointer;
     @include respond(lg-desktop) {
-        font-size: 35px;
+      font-size: 35px;
     }
   }
 }
@@ -194,8 +194,8 @@
             opacity: 1;
             height: 100%;
             @include respond(lg-desktop) {
-                font-size: 14px;
-                line-height: 15px;
+              font-size: 14px;
+              line-height: 15px;
             }
           }
         }
@@ -783,7 +783,7 @@
         //color: #111111;
         @include respond(lg-desktop) {
           font-size: 18px;
-          line-height: 1.3
+          line-height: 1.3;
         }
       }
     }
@@ -1008,8 +1008,8 @@
   line-height: 23px;
   margin-bottom: 0;
   @include respond(lg-desktop) {
-      font-size: 15px !important;
-      line-height: 1.3;
+    font-size: 15px !important;
+    line-height: 1.3;
   }
 }
 
@@ -1026,8 +1026,8 @@
   min-width: 102px;
   margin-right: 50px;
   @include respond(lg-desktop) {
-      font-size: 15px;
-      line-height: 1.3;
+    font-size: 15px;
+    line-height: 1.3;
   }
 }
 .name {
@@ -1045,78 +1045,78 @@
 }
 
 .table_scroll_outer {
-    width: 100%;
-    display: table;
-    table-layout: fixed;
-    .table_scroll_inner {
-        display: table-cell;
-        overflow-x: auto;
-        .sectionTable {
-          //    border-top: 2px solid red !important;
-          border: none;
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+  .table_scroll_inner {
+    display: table-cell;
+    overflow-x: auto;
+    .sectionTable {
+      //    border-top: 2px solid red !important;
+      border: none;
 
-          tr {
-            height: 67px;
-            border: none !important;
-            @include respond(lg-desktop) {
-              height: 50px;
-            }
-            th {
-              text-align: center;
-              vertical-align: middle;
-              font-size: 15px;
-              line-height: 19px;
-              font-weight: bold;
-              border: none !important;
-              color: #8492a6;
-              background: #fafafb;
-              &:first-child {
-                width: 15%;
-                padding-left: 35px;
-                text-align: left;
-              }
-              @include respond(lg-desktop) {
-                font-size: 14px;
-                line-height: 1.2;
-              }
-            }
-
-            td {
-              vertical-align: baseline;
-              text-align: center;
-              border: none !important;
-              @include respond(lg-desktop) {
-                font-size: 14px;
-                line-height: 1.2;
-              }
-              input {
-                width: 19px;
-                height: 14px;
-              }
-              .text {
-                width: 135px;
-                height: 50px;
-                border-radius: 4px;
-                padding-left: 10px;
-                outline: none;
-                @include respond(lg-desktop) {
-                  height: 34px;
-                  font-size: 15px;
-                  line-height: 1.3;
-                }
-              }
-
-              select {
-                width: 11rem;
-              }
-              &:first-child {
-                padding-left: 35px;
-                text-align: left;
-              }
-            }
+      tr {
+        height: 67px;
+        border: none !important;
+        @include respond(lg-desktop) {
+          height: 50px;
+        }
+        th {
+          text-align: center;
+          vertical-align: middle;
+          font-size: 15px;
+          line-height: 19px;
+          font-weight: bold;
+          border: none !important;
+          color: #8492a6;
+          background: #fafafb;
+          &:first-child {
+            width: 15%;
+            padding-left: 35px;
+            text-align: left;
+          }
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
           }
         }
+
+        td {
+          vertical-align: baseline;
+          text-align: center;
+          border: none !important;
+          @include respond(lg-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
+          input {
+            width: 19px;
+            height: 14px;
+          }
+          .text {
+            width: 135px;
+            height: 50px;
+            border-radius: 4px;
+            padding-left: 10px;
+            outline: none;
+            @include respond(lg-desktop) {
+              height: 34px;
+              font-size: 15px;
+              line-height: 1.3;
+            }
+          }
+
+          select {
+            width: 11rem;
+          }
+          &:first-child {
+            padding-left: 35px;
+            text-align: left;
+          }
+        }
+      }
     }
+  }
 }
 .subHeadContainer {
   margin-left: 25rem;
@@ -1129,8 +1129,8 @@
     margin-left: 80px;
     margin-top: 0;
     @include respond(lg-desktop) {
-        font-size: 15px;
-        line-height: 1.3;
+      font-size: 15px;
+      line-height: 1.3;
     }
   }
 
@@ -1140,9 +1140,9 @@
     line-height: 23px;
     font-weight: 500;
     @include respond(lg-desktop) {
-        font-size: 15px;
-        line-height: 1.3;
-        margin-top: 4px;
+      font-size: 15px;
+      line-height: 1.3;
+      margin-top: 4px;
     }
   }
 }
@@ -1186,7 +1186,7 @@
           left: 50%;
           width: 50px;
           height: 38px;
-          content: "";
+          content: '';
           z-index: -1;
           position: absolute;
           //background: #ffffff;
@@ -1387,16 +1387,16 @@
   }
 }
 img {
-    &.arrow2 {
-      width: 13px !important;
-      pointer-events: none;
-      position: absolute;
-      right: 60px;
-      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
-        brightness(103%) contrast(82%);
-    }
+  &.arrow2 {
+    width: 13px !important;
+    pointer-events: none;
+    position: absolute;
+    right: 60px;
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+      brightness(103%) contrast(82%);
+  }
 }
 .customSelect {
-    appearance: none;
-    // position: relative;
+  appearance: none;
+  // position: relative;
 }

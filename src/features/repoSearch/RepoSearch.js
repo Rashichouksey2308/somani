@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import {
   selectRepoSearch,
   getReposAsync,
-} from 'features/repoSearch/repoSearchSlice'
+} from 'features/repoSearch/repoSearchSlice';
 
-import { useAppDispatch, useAppSelector } from 'store'
+import { useAppDispatch, useAppSelector } from 'store';
 
-const languages = ['javascript', 'python', 'ruby']
+const languages = ['javascript', 'python', 'ruby'];
 
 const RepoSearch = () => {
-  const dispatch = useAppDispatch()
-  const store = useAppSelector(selectRepoSearch)
+  const dispatch = useAppDispatch();
+  const store = useAppSelector(selectRepoSearch);
 
   return (
     <Container>
@@ -25,28 +25,28 @@ const RepoSearch = () => {
       <h3>Switch language</h3>
       <Languages>
         {languages.map((lang) => {
-          const getRepos = () => dispatch(getReposAsync(lang))
+          const getRepos = () => dispatch(getReposAsync(lang));
           return (
             <Option key={lang} onClick={getRepos}>
               {lang}
             </Option>
-          )
+          );
         })}
       </Languages>
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   width: 300px;
   padding: 1em;
   margin: 1em auto;
   position: relative;
-`
+`;
 
 const Languages = styled.div`
   display: flex;
-`
+`;
 
 const Option = styled.div`
   cursor: pointer;
@@ -56,7 +56,7 @@ const Option = styled.div`
   padding: 12px;
   border: 4px;
   text-align: center;
-`
+`;
 
 const Overlay = styled.div`
   position: absolute;
@@ -70,6 +70,6 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 4em;
-`
+`;
 
-export default RepoSearch
+export default RepoSearch;

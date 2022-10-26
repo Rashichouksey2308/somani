@@ -1,78 +1,78 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Row, Col, Form } from 'react-bootstrap'
-import PaginateBar from '../../../src/components/Paginatebar'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
-import _get from 'lodash/get'
-import Modal from 'react-bootstrap/Modal'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Row, Col, Form } from 'react-bootstrap';
+import PaginateBar from '../../../src/components/Paginatebar';
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import _get from 'lodash/get';
+import Modal from 'react-bootstrap/Modal';
 
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from '../../../src/redux/insurance/action'
-import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from '../../../src/redux/insurance/action';
+import moment from 'moment';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../../src/redux/userData/action'
-import Router from 'next/router'
-import { convertValue } from '../../../src/utils/helper'
+} from '../../../src/redux/userData/action';
+import Router from 'next/router';
+import { convertValue } from '../../../src/utils/helper';
 
 function Index() {
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('letterId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
 
-
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handlePopup = () => {
-    setShow(true)
-  }
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+    setShow(true);
+  };
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ])
+  ]);
   const [insuranceAdd, setinsuranceAdd] = useState([
     {
       insurance: '',
     },
-  ])
-  console.log(insuranceAdd, emailAdd, 'emailAdd')
+  ]);
+  console.log(insuranceAdd, emailAdd, 'emailAdd');
   const addMoreRows = (val) => {
-    console.log(val, 'vak')
+    console.log(val, 'vak');
     if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
         {
           emailID: '',
         },
-      ])
+      ]);
     } else {
       setinsuranceAdd([
         ...insuranceAdd,
         {
           insurance: '',
         },
-      ])
+      ]);
     }
-  }
-  dispatch(setPageName('insurance Request Letter'))
-  dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
-  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+  };
+  dispatch(setPageName('insurance Request Letter'));
+  dispatch(
+    setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+  );
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850])
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -128,7 +128,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -155,7 +155,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -168,9 +168,7 @@ function Index() {
                             >
                               Date:{' '}
                             </span>
-                            {moment(new Date()).format(
-                              'DD.MM.yyyy',
-                            )}
+                            {moment(new Date()).format('DD.MM.yyyy')}
                           </p>
                         </td>
                       </tr>
@@ -798,10 +796,12 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                              insuranceData?.quotationRequest?.laycanFrom,
+                            ).format('DD MMM')}{' '}
                             -{' '}
                             {moment(
-                              insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                              insuranceData?.quotationRequest?.laycanTo,
+                            ).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -842,7 +842,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfDispatch,
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -883,7 +886,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfArrival,
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -1094,13 +1100,13 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('sample.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    )
-  }
+    );
+  };
   return (
     <>
       <div className="container-fluid p-0">
@@ -1110,9 +1116,9 @@ function Index() {
           <div className={`${styles.head_header} align-items-center`}>
             <div
               onClick={(e) => {
-                Router.push('/insurance/form')
+                Router.push('/insurance/form');
               }}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
             >
               <img
                 className={`${styles.back_arrow} img-fluid image_arrow mr-2`}
@@ -1141,9 +1147,7 @@ function Index() {
                   {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
                     'DD.MM.yyyy',
                   )} */}
-                  {moment(new Date()).format(
-                    'DD.MM.yyyy',
-                  )}
+                  {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -1372,11 +1376,13 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom).format(
+                      'DD MMM',
+                    )}{' '}
                     -{' '}
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanTo).format(
+                      'DD MMM, YYYY',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1389,7 +1395,9 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch,
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1402,7 +1410,9 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfArrival,
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1415,7 +1425,8 @@ function Index() {
                     Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading,
+                    Unloading, Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1428,7 +1439,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} , <br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+                    {insuranceData?.company?.companyName} , <br></br>{' '}
+                    {
+                      insuranceData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.registeredAddress
+                    }
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1663,12 +1678,12 @@ function Index() {
                           </div>
                           <hr></hr>
                         </>
-                      )
+                      );
                     })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows('insurance')
+                        addMoreRows('insurance');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1726,7 +1741,7 @@ function Index() {
                               />
                             </div>
                           </>
-                        )
+                        );
                       })}
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
@@ -1736,8 +1751,8 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this)
-                        addMoreRows('email')
+                        console.log(this);
+                        addMoreRows('email');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1834,7 +1849,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.scss';
-import Login from "../../src/components/Login";
-import {loginUser} from "../../src/redux/authentication/actions"
-
+import Login from '../../src/components/Login';
+import { loginUser } from '../../src/redux/authentication/actions';
 
 function index() {
- 
-    // if(token){
-    //   return <Redirect to ="/" />
-    // }
+  // if(token){
+  //   return <Redirect to ="/" />
+  // }
 
   return (
-<div></div>
+    <div></div>
     // <Login loginDetails={loginDetails} submitData={submitData} />
     // <div className={styles.login}>
     //   <div className="row no-gutters">
@@ -119,6 +117,6 @@ function index() {
     //     </div>
     //   </div>
     // </div>
-  )
+  );
 }
-export default index
+export default index;

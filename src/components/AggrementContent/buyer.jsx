@@ -1,30 +1,30 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
 let buyer = {
   name: 'Indo German International Private Limited',
 
   branchName: '',
-}
+};
 function Index(props) {
-  const [buyerData, setBuyerData] = useState(buyer)
+  const [buyerData, setBuyerData] = useState(buyer);
   useEffect(() => {
     setBuyerData({
       ...buyerData,
       name: 'Indo German International Private Limited',
-    })
-  }, [props.order])
-  console.log(buyerData, 'buyerData')
-  const [gstin, setGstin] = useState('')
-  const [list, setList] = useState([])
-  const [shortName, setShotName] = useState('IGI')
-  const [addressList, setAddressList] = useState([])
-  const [docList, setDocList] = useState([])
-  const [doc, setdoc] = useState({ attachDoc: '' })
-  const [pan, setPan] = useState('AAACI3028D')
-    const [removedOption,setRemovedOption]=useState(null)
+    });
+  }, [props.order]);
+  console.log(buyerData, 'buyerData');
+  const [gstin, setGstin] = useState('');
+  const [list, setList] = useState([]);
+  const [shortName, setShotName] = useState('IGI');
+  const [addressList, setAddressList] = useState([]);
+  const [docList, setDocList] = useState([]);
+  const [doc, setdoc] = useState({ attachDoc: '' });
+  const [pan, setPan] = useState('AAACI3028D');
+  const [removedOption, setRemovedOption] = useState(null);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -33,7 +33,7 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  })
+  });
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -42,85 +42,101 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  })
+  });
   const [options, setOptions] = useState([
     'Bhawana Jain',
     'Vipin Kumar',
     'Devesh Jain',
     'Fatima Yannoulis',
-  ])
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']
-  const [addressType, setAddressType] = useState('Registered')
-  const [addressEditType, setAddressEditType] = useState('Registered')
+  ]);
+  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
+  const [addressType, setAddressType] = useState('Registered');
+  const [addressEditType, setAddressEditType] = useState('Registered');
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Buyer')) {
-        let savedData = JSON.parse(sessionStorage.getItem('Buyer'))
+        let savedData = JSON.parse(sessionStorage.getItem('Buyer'));
         let buyer = {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
-        }
+        };
         if (savedData.branchName == 'Delhi') {
-          setGstin('07AAACI3028D1Z4')
+          setGstin('07AAACI3028D1Z4');
         } else if (savedData.branchName == 'Andhra Pradesh') {
-          setGstin('37AAACI3028D2Z0')
+          setGstin('37AAACI3028D2Z0');
         }
-        setAddressList(savedData.addresses)
-        setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
-      name:"",designation:"",email:"",phone:"",
-      actions:"false",addnew:"false" }])
+        setAddressList(savedData.addresses);
+        setList(
+          savedData.authorisedSignatoryDetails?.length > 0
+            ? savedData.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
 
-        setBuyerData(buyer)
-        let tempArr = savedData?.authorisedSignatoryDetails
-          let optionArray=[...options]
-          tempArr.forEach((val,index)=>{
-          val.actions = "true"
-           if(tempArr?.length>0){
-            
-          let index = optionArray.indexOf(val.name);
-          if (index > -1) { 
+        setBuyerData(buyer);
+        let tempArr = savedData?.authorisedSignatoryDetails;
+        let optionArray = [...options];
+        tempArr.forEach((val, index) => {
+          val.actions = 'true';
+          if (tempArr?.length > 0) {
+            let index = optionArray.indexOf(val.name);
+            if (index > -1) {
               optionArray.splice(index, 1);
+            }
           }
-         
-          }
-
-          })
-          setOptions([...optionArray])
+        });
+        setOptions([...optionArray]);
       } else {
         let buyer = {
           name:
             props?.data?.name || 'Indo German International Private Limited',
           branchName: props?.data?.branch,
-        }
+        };
         if (props?.data?.branch == 'Delhi') {
-          setGstin('07AAACI3028D1Z4')
+          setGstin('07AAACI3028D1Z4');
         } else if (props?.data?.branch == 'Andhra Pradesh') {
-          setGstin('37AAACI3028D2Z0')
+          setGstin('37AAACI3028D2Z0');
         }
-        setAddressList(props?.data.addresses)
-        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails:  [{
-      name:"",designation:"",email:"",phone:"",
-      actions:"false",addnew:"false" }])
+        setAddressList(props?.data.addresses);
+        setList(
+          props?.data?.authorisedSignatoryDetails.length > 0
+            ? props?.data?.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
 
-        setBuyerData(buyer)
-        let tempArr = props.data?.authorisedSignatoryDetails
-         let optionArray=[...options]
-          tempArr.forEach((val,index)=>{
-          val.actions = "true"
-           if(tempArr?.length>0){
-            
-          let index = optionArray.indexOf(val.name);
-          if (index > -1) { 
+        setBuyerData(buyer);
+        let tempArr = props.data?.authorisedSignatoryDetails;
+        let optionArray = [...options];
+        tempArr.forEach((val, index) => {
+          val.actions = 'true';
+          if (tempArr?.length > 0) {
+            let index = optionArray.indexOf(val.name);
+            if (index > -1) {
               optionArray.splice(index, 1);
+            }
           }
-         
-          }
-
-          })
-          setOptions([...optionArray])
+        });
+        setOptions([...optionArray]);
       }
     }
-  }, [props])
+  }, [props]);
   let masterList = [
     {
       name: 'Bhawana Jain',
@@ -146,7 +162,7 @@ function Index(props) {
       email: 'fatima@indointertrade.ch',
       phoneNo: '',
     },
-  ]
+  ];
   useEffect(() => {
     if (props.saveData == true && props.active == 'Buyer') {
       let data = {
@@ -154,8 +170,8 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
-      }
-      props.sendData('Buyer', data)
+      };
+      props.sendData('Buyer', data);
     }
     if (props.submitData == true && props.active == 'Buyer') {
       let data = {
@@ -163,57 +179,55 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
-      }
+      };
 
-      props.updateData('Buyer', data)
+      props.updateData('Buyer', data);
     }
-  }, [props.saveData, props.submitData])
+  }, [props.saveData, props.submitData]);
 
   const onEdit = (index) => {
-    let tempArr = list
+    let tempArr = list;
     // tempArr[index].actions.edit="false"
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name)
-          return { ...obj, actions: 'false' }
+          setRemovedOption(obj.name);
+          return { ...obj, actions: 'false' };
         }
 
         // 👇️ otherwise return object as is
-        return obj
-      })
-
-      return newState
-    })
-  }
- const onEditRemove=(index,value)=>{
-    console.log(value,"value")
-
-      setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-
-      if (i == index) {
-      return {...obj, actions: 'true'};
-      }
-
-
-      return obj;
+        return obj;
       });
 
       return newState;
+    });
+  };
+  const onEditRemove = (index, value) => {
+    console.log(value, 'value');
+
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return { ...obj, actions: 'true' };
+        }
+
+        return obj;
       });
-      let temp=[...options]
-      var indexOption = temp.indexOf(value.name);
-      console.log(value.name,"value.name")
-      setRemovedOption(value.name)
-      if (indexOption !== -1) {
+
+      return newState;
+    });
+    let temp = [...options];
+    var indexOption = temp.indexOf(value.name);
+    console.log(value.name, 'value.name');
+    setRemovedOption(value.name);
+    if (indexOption !== -1) {
       temp.splice(indexOption, 1);
-      }
-      
-      setOptions([...temp])
-  }
+    }
+
+    setOptions([...temp]);
+  };
   const addMoreRows = () => {
     setList([
       ...list,
@@ -225,30 +239,34 @@ function Index(props) {
         actions: 'false',
         addnew: 'false',
       },
-    ])
-    setRemovedOption(null)
-  }
-const handleRemove = (index,val) => {
-docList.forEach((val,i)=>{
-    if(index==val.index){
-    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    ]);
+    setRemovedOption(null);
+  };
+  const handleRemove = (index, val) => {
+    docList.forEach((val, i) => {
+      if (index == val.index) {
+        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
+      }
+    });
+    setList([...list.slice(0, index), ...list.slice(index + 1)]);
+
+    if (
+      val.name == 'Bhawana Jain' ||
+      val.name == 'Vipin Kumar' ||
+      val.name == 'Devesh Jain' ||
+      val.name == 'Fatima Yannoulis'
+    ) {
+      let temp = [...options];
+      temp.push(val.name);
+      setOptions([...temp]);
     }
-  })
-setList([...list.slice(0, index), ...list.slice(index + 1)])
-
-
-if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="Fatima Yannoulis"  ){
-  let temp=[...options]
-  temp.push(val.name)
-  setOptions([...temp])
-}
-}
+  };
   const handleInput = (name, value, key) => {
-    const newInput = { ...buyerData }
+    const newInput = { ...buyerData };
 
-    newInput[name] = value
-    setBuyerData(newInput)
-  }
+    newInput[name] = value;
+    setBuyerData(newInput);
+  };
   const handleChangeInput = (name, value, index) => {
     let arrayToSave = {
       name: '',
@@ -257,7 +275,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
       phoneNo: '',
       actions: 'false',
       addnew: 'false',
-    }
+    };
     if (value == 'addnew') {
       arrayToSave = {
         name: '',
@@ -267,62 +285,62 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
         actions: 'false',
         addnew: 'true',
         document: 'new',
-      }
-      setDocList([...docList, { attachDoc: '', index: index }])
+      };
+      setDocList([...docList, { attachDoc: '', index: index }]);
     } else {
       masterList.forEach((val, index) => {
         if (val.name == value) {
-          arrayToSave.name = val.name
-          arrayToSave.designation = val.designation
-          arrayToSave.email = val.email
-          arrayToSave.phoneNo = val.phoneNo
+          arrayToSave.name = val.name;
+          arrayToSave.designation = val.designation;
+          arrayToSave.email = val.email;
+          arrayToSave.phoneNo = val.phoneNo;
         }
-      })
+      });
     }
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return arrayToSave
+          return arrayToSave;
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name2]: value }
+          return { ...obj, [name2]: value };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const removeDoc = (index) => {
-    console.log('removeDOc')
+    console.log('removeDOc');
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' }
+          return { ...obj, attachDoc: '' };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   //address
   const handleAddressInput = () => {
     if (props.addressValidation(addressType, newAddress)) {
-      setAddressList((current) => [...current, newAddress])
+      setAddressList((current) => [...current, newAddress]);
 
       setNewAddress({
         addressType: 'Registered',
@@ -332,27 +350,27 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
         gstin: '',
         state: '',
         city: '',
-      })
-      setAddressType('Registered')
+      });
+      setAddressType('Registered');
     }
-  }
+  };
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const setAddress = (name, value) => {
-    const newInput = { ...newAddress }
-    newInput[name] = value
-    setNewAddress(newInput)
-  }
-  const [isEdit, setIsEdit] = useState(false)
-  const [toEditIndex, setToEditIndex] = useState(0)
+    const newInput = { ...newAddress };
+    newInput[name] = value;
+    setNewAddress(newInput);
+  };
+  const [isEdit, setIsEdit] = useState(false);
+  const [toEditIndex, setToEditIndex] = useState(0);
   const handleEditAddressInput = (index) => {
-    setIsEdit(true)
-    setToEditIndex(index)
-    let tempArr = addressList
+    setIsEdit(true);
+    setToEditIndex(index);
+    let tempArr = addressList;
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -364,18 +382,18 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
           gstin: val.gstin,
           state: val.state,
           city: val.city,
-        })
+        });
       }
-    })
-  }
+    });
+  };
   const editNewAddress = (name, value) => {
-    setIsEdit(true)
-    const newInput = { ...EditAddress }
-    newInput[name] = value
-    setEditAddress(newInput)
-  }
+    setIsEdit(true);
+    const newInput = { ...EditAddress };
+    newInput[name] = value;
+    setEditAddress(newInput);
+  };
   const cancelEditAddress = () => {
-    setIsEdit(false)
+    setIsEdit(false);
     setEditAddress({
       addressType: '',
       fullAddress: '',
@@ -384,51 +402,51 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
       gstin: '',
       state: '',
       city: '',
-    })
-  }
+    });
+  };
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: e }
+          return { ...obj, attachDoc: e };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
+      return newState;
+    });
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document')
+          console.log(obj.document, 'obj.document');
           if ((obj.document = 'new')) {
-            return { ...obj, document: e }
+            return { ...obj, document: e };
           }
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex)
+      console.log(EditAddress, 'EditAddress', toEditIndex);
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here')
-            return EditAddress
+            console.log('here');
+            return EditAddress;
           }
           // 👇️ otherwise return object as is
-          return obj
-        })
+          return obj;
+        });
 
-        return newState
-      })
-      setIsEdit(false)
+        return newState;
+      });
+      setIsEdit(false);
       setEditAddress({
         addressType: '',
         fullAddress: '',
@@ -437,9 +455,9 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
         gstin: '',
         state: '',
         city: '',
-      })
+      });
     }
-  }
+  };
   const cancelAddress = () => {
     setNewAddress({
       addressType: 'Registered',
@@ -449,16 +467,16 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
       gstin: '',
       state: '',
       city: '',
-    })
-    setAddressType('Registered')
-  }
+    });
+    setAddressType('Registered');
+  };
   useEffect(() => {
     if (buyerData?.name) {
       if (buyerData.name == 'Indo German International Private Limited') {
-        setShotName('IGIPL')
-        setPan('AAACI3028D')
+        setShotName('IGIPL');
+        setPan('AAACI3028D');
         if (buyerData.branchName == 'Delhi') {
-          setGstin('07AAACI3028D1Z4')
+          setGstin('07AAACI3028D1Z4');
           setAddressList([
             {
               addressType: 'Registered',
@@ -469,9 +487,9 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
               state: 'DELHI',
               city: 'NEW DELHI',
             },
-          ])
+          ]);
         } else if (buyerData.branchName == 'Vizag') {
-          setGstin('37AAACI3028D2Z0')
+          setGstin('37AAACI3028D2Z0');
           setAddressList([
             {
               addressType: 'Registered',
@@ -492,16 +510,16 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
               state: 'Andhra Pradesh',
               city: 'Visakhapatnam',
             },
-          ])
+          ]);
         } else {
-          setGstin('')
+          setGstin('');
         }
       }
       if (buyerData.name == 'Emergent Industrial Solution limited') {
-        setShotName('EISL')
-        setPan('AAACS8253L')
+        setShotName('EISL');
+        setPan('AAACS8253L');
         if (buyerData.branchName == 'Delhi') {
-          setGstin('07AAACS8253L1Z0')
+          setGstin('07AAACS8253L1Z0');
           setAddressList([
             {
               addressType: 'Registered',
@@ -512,9 +530,9 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
               state: 'DELHI',
               city: 'NEW DELHI',
             },
-          ])
+          ]);
         } else if (buyerData.branchName == 'Vizag') {
-          setGstin('37AAACS8253L1ZX')
+          setGstin('37AAACS8253L1ZX');
           setAddressList([
             {
               addressType: 'Registered',
@@ -535,14 +553,14 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
               state: ' ANDHRA PRADESH',
               city: 'VISAKHAPATNAM',
             },
-          ])
+          ]);
         } else {
-          setGstin('')
+          setGstin('');
         }
       }
     }
-  }, [buyerData.name, buyerData.branchName])
-  console.log(addressList, 'addressList')
+  }, [buyerData.name, buyerData.branchName]);
+  console.log(addressList, 'addressList');
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -557,7 +575,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                   name="name"
                   value={buyerData.name}
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value)
+                    handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
@@ -593,7 +611,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value)
+                    handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
@@ -646,7 +664,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     <div
                       className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                       onClick={() => {
-                        handleEditAddressInput(index)
+                        handleEditAddressInput(index);
                       }}
                     >
                       <img
@@ -658,7 +676,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     <div
                       className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                       onClick={() => {
-                        onAddressRemove(index)
+                        onAddressRemove(index);
                       }}
                     >
                       <img
@@ -669,7 +687,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -683,279 +701,307 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
             saveNewAddress,
             setAddressEditType,
           )}
-         {isEdit==false &&
-         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
-          <div className={`${styles.newAddressHead} border_color`}>
-            <span>Add a new address</span>
-          </div>
-          <div className="card-body p-0">
-            <div className={`${styles.newAddressContent} row`}>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    name="addressType"
-                    value={addressType}
-                    onChange={(e) => {
-                      setAddressType(e.target.value)
-                      setAddress(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option disabled>Select an option</option>
-                    <option value="Registered">Registered Office</option>
-                    <option value="Branch">Branch </option>
-                  </select>
-                  <Form.Label
-                    className={`${styles.label_heading} ${styles.select}  label_heading`}
-                  >
-                    Address Type<strong className="text-danger">*</strong>
-                  </Form.Label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
-                </div>
-              </Form.Group>
-              {addressType == 'Registered' || addressType == 'Supplier' ? (
-                <>
-                  <Form.Group
-                    className={`${styles.form_group}  col-md-12 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="fullAddress"
-                      value={newAddress.fullAddress}
+        {isEdit == false && (
+          <div
+            className={`${styles.newAddressContainer} card m-0 border_color`}
+          >
+            <div className={`${styles.newAddressHead} border_color`}>
+              <span>Add a new address</span>
+            </div>
+            <div className="card-body p-0">
+              <div className={`${styles.newAddressContent} row`}>
+                <Form.Group
+                  className={`${styles.form_group} col-md-4 col-sm-6`}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      name="addressType"
+                      value={addressType}
                       onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
+                        setAddressType(e.target.value);
+                        setAddress(e.target.name, e.target.value);
                       }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
                     >
-                      Address<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                       type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
-                      name="pinCode"
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                      value={newAddress.pinCode}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
+                      <option disabled>Select an option</option>
+                      <option value="Registered">Registered Office</option>
+                      <option value="Branch">Branch </option>
+                    </select>
                     <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                      className={`${styles.label_heading} ${styles.select}  label_heading`}
                     >
-                      Pin Code<strong className="text-danger">*</strong>
+                      Address Type<strong className="text-danger">*</strong>
                     </Form.Label>
                     <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
                       alt="Search"
                     />
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      value={newAddress.country}
-                      name="country"
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                      onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                  </div>
+                </Form.Group>
+                {addressType == 'Registered' || addressType == 'Supplier' ? (
+                  <>
+                    <Form.Group
+                      className={`${styles.form_group}  col-md-12 col-sm-6`}
                     >
-                      Country<strong className="text-danger">*</strong>
-                    </Form.Label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
-                  </Form.Group>
-                </>
-              ) : (
-                <>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-4 col-sm-6`}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        name="gstin"
-                        value={newAddress.gstin}
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value)
+                          setAddress(e.target.name, e.target.value);
                         }}
-                      >
-                        <option>Select an option</option>
-                        <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                      </select>
+                      />
                       <Form.Label
-                        className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        className={`${styles.label_heading} label_heading`}
                       >
-                        GSTIN<strong className="text-danger">*</strong>
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
+                    >
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Pin Code<strong className="text-danger">*</strong>
                       </Form.Label>
                       <img
-                        className={`${styles.arrow} image_arrow img-fluid`}
-                        src="/static/inputDropDown.svg"
+                        className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
                         alt="Search"
                       />
-                    </div>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                       type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
-                      name="pinCode"
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                      value={newAddress.pinCode}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
                     >
-                      Pin Code<strong className="text-danger">*</strong>
-                    </Form.Label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="country"
-                      value={newAddress.country}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                      onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        value={newAddress.country}
+                        name="country"
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          [
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
+                            '7',
+                            '8',
+                            '9',
+                            '0',
+                          ].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img
+                        className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
+                        alt="Search"
+                      />
+                    </Form.Group>
+                  </>
+                ) : (
+                  <>
+                    <Form.Group
+                      className={`${styles.form_group} col-md-4 col-sm-6`}
                     >
-                      Country<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="state"
-                      value={newAddress.state}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="gstin"
+                          value={newAddress.gstin}
+                          onChange={(e) => {
+                            setAddress(e.target.name, e.target.value);
+                          }}
+                        >
+                          <option>Select an option</option>
+                          <option value="27AAATW4183C2ZG">
+                            27AAATW4183C2ZG
+                          </option>
+                        </select>
+                        <Form.Label
+                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                        >
+                          GSTIN<strong className="text-danger">*</strong>
+                        </Form.Label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}
                     >
-                      State<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-4 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="city"
-                      value={newAddress.city}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="number"
+                        onWheel={(event) => event.currentTarget.blur()}
+                        name="pinCode"
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                        value={newAddress.pinCode}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Pin Code<strong className="text-danger">*</strong>
+                      </Form.Label>
+                      <img
+                        className={`${styles.search_image} img-fluid`}
+                        src="/static/search-grey.svg"
+                        alt="Search"
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} col-md-4 col-sm-6`}
                     >
-                      City<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                  <Form.Group
-                    className={`${styles.form_group} col-md-12 col-sm-6`}
-                  >
-                    <Form.Control
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="fullAddress"
-                      value={newAddress.fullAddress}
-                      onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
-                      }}
-                    />
-                    <Form.Label
-                      className={`${styles.label_heading} label_heading`}
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="country"
+                        value={newAddress.country}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                        onKeyDown={(evt) =>
+                          [
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
+                            '7',
+                            '8',
+                            '9',
+                            '0',
+                          ].includes(evt.key) && evt.preventDefault()
+                        }
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Country<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} col-md-4 col-sm-6`}
                     >
-                      Address<strong className="text-danger">*</strong>
-                    </Form.Label>
-                  </Form.Group>
-                </>
-              )}
-            </div>
-            <div className="d-flex">
-              <div
-                className={`${styles.add} d-flex justify-content-center align-items-center`}
-                onClick={() => {
-                  handleAddressInput()
-                }}
-              >
-                <span>Add</span>
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="state"
+                        value={newAddress.state}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        State<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} col-md-4 col-sm-6`}
+                    >
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="city"
+                        value={newAddress.city}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        City<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                    <Form.Group
+                      className={`${styles.form_group} col-md-12 col-sm-6`}
+                    >
+                      <Form.Control
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                        name="fullAddress"
+                        value={newAddress.fullAddress}
+                        onChange={(e) => {
+                          setAddress(e.target.name, e.target.value);
+                        }}
+                      />
+                      <Form.Label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Address<strong className="text-danger">*</strong>
+                      </Form.Label>
+                    </Form.Group>
+                  </>
+                )}
               </div>
-              <div
-                className={`${styles.cancel} d-flex justify-content-center align-items-center`}
-                onClick={() => {
-                  cancelAddress()
-                }}
-              >
-                <span>Cancel</span>
+              <div className="d-flex">
+                <div
+                  className={`${styles.add} d-flex justify-content-center align-items-center`}
+                  onClick={() => {
+                    handleAddressInput();
+                  }}
+                >
+                  <span>Add</span>
+                </div>
+                <div
+                  className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                  onClick={() => {
+                    cancelAddress();
+                  }}
+                >
+                  <span>Cancel</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-         }
+        )}
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -992,173 +1038,224 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                   {list.length>0 && list.map((val,index)=>{
-                      return(
-                        <>
-                        {val.actions=="true"?
-                        <tr key={index} className='table_row'>
-                          <td>{val.name}</td>
-                          <td>{val.designation}</td>
-                          <td>{val.email}</td>
-                          <td>{val.phoneNo}</td>
-                          <td className={`d-flex`}>
-                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
-                          </td>
-
-                        </tr>
-                        :<tr key={index} className='table_row'>
-                          <td>
-                        {val.addnew=="false"?
-                         <>
-                           <select 
-                            value={val.name}
-                            className={`${styles.customSelect} input`}
-                            
-                            onChange={(e)=>{
-                              setRemovedOption(e.target.value)
-                              handleChangeInput(e.target.name,e.target.value,index)
-                             
-                            }}>
-                              <option>Select an option</option>
-                              {removedOption!=null?
-                              <option value={removedOption}>{removedOption}</option>
-                              :null}
-                              {options.map((val,i)=>{
-                                return(<option value={val}>{val}</option>)
-                              })}
-                              
-                              <option value={"addnew"}>{"Add New"}</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow2} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                         </>  : 
+                    {list.length > 0 &&
+                      list.map((val, index) => {
+                        return (
                           <>
-                          {
-                              val.name=="Vipin Kumar" 
-                            || val.name=="Bhawana Jain"
-                            || val.name=="Devesh Jain"
-                            || val.name=="Fatima Yannoulis"
-                            ?
-                            <>
-                             <select 
-                            value={val.name}
-                            className={`${styles.customSelect} input`}
-                            
-                            onChange={(e)=>{
-                              handleChangeInput(e.target.name,e.target.value,index)
-                             
-                            }}>
-                              <option>Select an option</option>
-                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
-                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
-                              <option value={"Devesh Jain"}>Devesh Jain</option>
-                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
-                             
-                              {/* {options.map((val,i)=>{
+                            {val.actions == 'true' ? (
+                              <tr key={index} className="table_row">
+                                <td>{val.name}</td>
+                                <td>{val.designation}</td>
+                                <td>{val.email}</td>
+                                <td>{val.phoneNo}</td>
+                                <td className={`d-flex`}>
+                                  <img
+                                    className={`${styles.image} mr-3`}
+                                    onClick={() => onEdit(index)}
+                                    src="/static/mode_edit.svg"
+                                    alt="edit"
+                                  />
+                                  <img
+                                    onClick={() => handleRemove(index, val)}
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                  />
+                                </td>
+                              </tr>
+                            ) : (
+                              <tr key={index} className="table_row">
+                                <td>
+                                  {val.addnew == 'false' ? (
+                                    <>
+                                      <select
+                                        value={val.name}
+                                        className={`${styles.customSelect} input`}
+                                        onChange={(e) => {
+                                          setRemovedOption(e.target.value);
+                                          handleChangeInput(
+                                            e.target.name,
+                                            e.target.value,
+                                            index,
+                                          );
+                                        }}
+                                      >
+                                        <option>Select an option</option>
+                                        {removedOption != null ? (
+                                          <option value={removedOption}>
+                                            {removedOption}
+                                          </option>
+                                        ) : null}
+                                        {options.map((val, i) => {
+                                          return (
+                                            <option value={val}>{val}</option>
+                                          );
+                                        })}
+
+                                        <option value={'addnew'}>
+                                          {'Add New'}
+                                        </option>
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      {val.name == 'Vipin Kumar' ||
+                                      val.name == 'Bhawana Jain' ||
+                                      val.name == 'Devesh Jain' ||
+                                      val.name == 'Fatima Yannoulis' ? (
+                                        <>
+                                          <select
+                                            value={val.name}
+                                            className={`${styles.customSelect} input`}
+                                            onChange={(e) => {
+                                              handleChangeInput(
+                                                e.target.name,
+                                                e.target.value,
+                                                index,
+                                              );
+                                            }}
+                                          >
+                                            <option>Select an option</option>
+                                            <option value={'Vipin Kumar'}>
+                                              Vipin Kumar
+                                            </option>
+                                            <option value={'Bhawana Jain'}>
+                                              Bhawana Jain
+                                            </option>
+                                            <option value={'Devesh Jain'}>
+                                              Devesh Jain
+                                            </option>
+                                            <option value={'Fatima Yannoulis'}>
+                                              Fatima Yannoulis
+                                            </option>
+
+                                            {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
-                              
-                              <option value={"addnew"}>{"Add New"}</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow2} image_arrow img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                            </>
-                            :
-                          <>
-                          <input type="text" 
-                            className='input'
-                            placeholder={"Add new"}
-                            name= "name"
-                            value={val.name}
-                            onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                            }}
-                          />
-                        </>
-                          }
-                          </>
-                       
-                           }
-                            
-                          </td>
-                          <td>
-                            <input type="text"
-                              className='input'
-                              value={val.designation}
-                              name="designation"
-                              // readOnly={val.addnew!="true"?true:false}
-                              onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                              }}
-                            />
-                          
-                          </td>
-                          <td>
-                            <input type="text" 
-                            value={val.email}
-                              name= "email"
-                                                        
-                              className='input'
-                              onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                              }}
-                            />
-                          </td>
-                          <td>
-                            <input  value={val.phoneNo}
-                              className='input'
-                              name= "phoneNo"
-                              type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
-                             onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
-                              onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                              }}
-                            />
-                          </td>
-                          <td className={`d-flex`}>
-                            <div
-                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
-                              onClick={()=>{
-                              onEditRemove(index,val)
-                              }}
-                            >
-                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
-                            </div>
-                            <div
-                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
-                              onClick={()=>{
-                              handleRemove(index,val)
-                              }}
-                            >
-                              <img src="/static/delete 2.svg" />
-                            </div>
-                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                          </td>
 
-                        </tr>}
-                        </>
-                      )
-                    })}
+                                            <option value={'addnew'}>
+                                              {'Add New'}
+                                            </option>
+                                          </select>
+                                          <img
+                                            className={`${styles.arrow2} image_arrow img-fluid`}
+                                            src="/static/inputDropDown.svg"
+                                            alt="Search"
+                                          />
+                                        </>
+                                      ) : (
+                                        <>
+                                          <input
+                                            type="text"
+                                            className="input"
+                                            placeholder={'Add new'}
+                                            name="name"
+                                            value={val.name}
+                                            onChange={(e) => {
+                                              handleChangeInput2(
+                                                e.target.name,
+                                                e.target.value,
+                                                index,
+                                              );
+                                            }}
+                                          />
+                                        </>
+                                      )}
+                                    </>
+                                  )}
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    className="input"
+                                    value={val.designation}
+                                    name="designation"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={val.email}
+                                    name="email"
+                                    className="input"
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={val.phoneNo}
+                                    className="input"
+                                    name="phoneNo"
+                                    type="number"
+                                    onWheel={(event) =>
+                                      event.currentTarget.blur()
+                                    }
+                                    onKeyDown={(evt) =>
+                                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                                      evt.preventDefault()
+                                    }
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
+                                  />
+                                </td>
+                                <td className={`d-flex`}>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                                    onClick={() => {
+                                      onEditRemove(index, val);
+                                    }}
+                                  >
+                                    <img
+                                      className={`${styles.image} mr-3`}
+                                      src="/static/save-3.svg"
+                                      alt="save"
+                                    />
+                                  </div>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                                    onClick={() => {
+                                      handleRemove(index, val);
+                                    }}
+                                  >
+                                    <img src="/static/delete 2.svg" />
+                                  </div>
+                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
                   </tbody>
                 </table>
                 <div
                   className={`${styles.addMoreRows}`}
                   onClick={(e) => {
-                    addMoreRows()
+                    addMoreRows();
                   }}
                 >
                   <span>+</span> Add more rows
@@ -1169,10 +1266,10 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
 const editData = (
   addressEditType,
   EditAddress,
@@ -1195,8 +1292,8 @@ const editData = (
               name="addressType"
               value={EditAddress.addressType}
               onChange={(e) => {
-                setAddressEditType(e.target.value)
-                editNewAddress(e.target.name, e.target.value)
+                setAddressEditType(e.target.value);
+                editNewAddress(e.target.name, e.target.value);
               }}
             >
               <option>Select an option</option>
@@ -1225,7 +1322,7 @@ const editData = (
                 name="fullAddress"
                 value={EditAddress.fullAddress}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1238,17 +1335,15 @@ const editData = (
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                 type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                type="number"
+                onWheel={(event) => event.currentTarget.blur()}
                 name="pinCode"
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1270,9 +1365,13 @@ const editData = (
                 value={EditAddress.country}
                 name="country"
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
-                onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
+                onKeyDown={(evt) =>
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
+                    evt.key,
+                  ) && evt.preventDefault()
+                }
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Country<strong className="text-danger">*</strong>
@@ -1293,7 +1392,7 @@ const editData = (
                   name="gstin"
                   value={EditAddress.gstin}
                   onChange={(e) => {
-                    editNewAddress(e.target.name, e.target.value)
+                    editNewAddress(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
@@ -1317,17 +1416,15 @@ const editData = (
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                 type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
+                type="number"
+                onWheel={(event) => event.currentTarget.blur()}
                 name="pinCode"
                 value={EditAddress.pinCode}
                 onKeyDown={(evt) =>
                   ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
                 }
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1347,9 +1444,13 @@ const editData = (
                 name="country"
                 value={EditAddress.country}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
-                onKeyDown={(evt) => ["1", "2","3", "4","5","6","7","8","9","0"].includes(evt.key) && evt.preventDefault()}
+                onKeyDown={(evt) =>
+                  ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
+                    evt.key,
+                  ) && evt.preventDefault()
+                }
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Short Name
@@ -1363,7 +1464,7 @@ const editData = (
                 name="state"
                 value={EditAddress.state}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1378,9 +1479,8 @@ const editData = (
                 name="city"
                 value={EditAddress.city}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
-                
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 City<strong className="text-danger">*</strong>
@@ -1394,7 +1494,7 @@ const editData = (
                 name="fullAddress"
                 value={EditAddress.fullAddress}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value)
+                  editNewAddress(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1408,7 +1508,7 @@ const editData = (
         <div
           className={`${styles.add} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            saveNewAddress()
+            saveNewAddress();
           }}
         >
           <span>Update</span>
@@ -1416,12 +1516,12 @@ const editData = (
         <div
           className={`${styles.cancel} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            cancelEditAddress()
+            cancelEditAddress();
           }}
         >
           <span>Cancel</span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

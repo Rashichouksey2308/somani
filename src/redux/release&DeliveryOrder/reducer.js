@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   gettingAllReleaseOrder: false,
@@ -7,7 +7,7 @@ const initialState = {
   ReleaseOrderData: null,
   updatingReleaseOrder: false,
   updateReleaseOrderResponse: false,
-}
+};
 
 function ReleaseOrderReducer(state = initialState, action) {
   switch (action.type) {
@@ -15,56 +15,56 @@ function ReleaseOrderReducer(state = initialState, action) {
       return {
         ...state,
         gettingAllReleaseOrder: true,
-      }
+      };
     case types.GET_ALL_DELIVERY_SUCCESS:
       return {
         ...state,
         gettingAllReleaseOrder: false,
         allReleaseOrder: action.payload,
-      }
+      };
     case types.GET_ALL_DELIVERY_FAILED:
       return {
         ...state,
         gettingAllReleaseOrder: false,
-      }
+      };
     case types.GET_DELIVERY:
       return {
         ...state,
         gettingAllReleaseOrder: true,
-      }
+      };
     case types.GET_DELIVERY_SUCCESS:
       return {
         ...state,
         gettingAllReleaseOrder: false,
         ReleaseOrderData: action.payload,
-      }
+      };
     case types.GET_DELIVERY_FAILED:
       return {
         ...state,
         gettingReleaseOrder: false,
-      }
+      };
     case types.UPDATE_DELIVERY:
       return {
         ...state,
         updatingReleaseOrder: true,
-        updateReleaseOrderResponse: null
-      }
+        updateReleaseOrderResponse: null,
+      };
     case types.UPDATE_DELIVERY_SUCCESS:
       return {
         ...state,
         updatingReleaseOrder: false,
-        updateReleaseOrderResponse: action.payload
-      }
+        updateReleaseOrderResponse: action.payload,
+      };
     case types.UPDATE_DELIVERY_FAILED:
       return {
         ...state,
         updatingReleaseOrder: false,
-        updateReleaseOrderResponse: null
-      }
+        updateReleaseOrderResponse: null,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default ReleaseOrderReducer
+export default ReleaseOrderReducer;

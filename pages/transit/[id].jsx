@@ -1,53 +1,52 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
-import styles from './transit.module.scss'
-import BillLanding from '../../src/components/BillLading'
-import CIMS from '../../src/components/CIMS'
-import IGM from '../../src/components/IGM'
-import _get from 'lodash/get'
+import React, { useState, useEffect } from 'react';
+import styles from './transit.module.scss';
+import BillLanding from '../../src/components/BillLading';
+import CIMS from '../../src/components/CIMS';
+import IGM from '../../src/components/IGM';
+import _get from 'lodash/get';
 import {
   UpdateTransitDetails,
   GetTransitDetails,
-} from '../../src/redux/TransitDetails/action'
-import { useDispatch, useSelector } from 'react-redux'
-import LetterIndermity from '../../src/components/LetterIndermity'
-import Cookies from 'js-cookie'
-import Router from 'next/router'
+} from '../../src/redux/TransitDetails/action';
+import { useDispatch, useSelector } from 'react-redux';
+import LetterIndermity from '../../src/components/LetterIndermity';
+import Cookies from 'js-cookie';
+import Router from 'next/router';
 
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../src/redux/userData/action'
+} from '../../src/redux/userData/action';
 
 //api
-import Axios from 'axios'
-import API from '../../src/utils/endpoints'
-import { toast } from 'react-toastify'
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
+import Axios from 'axios';
+import API from '../../src/utils/endpoints';
+import { toast } from 'react-toastify';
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
 function Index() {
-  const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
-  const [TransitDetails, setTransitDetails] = useState({})
-  console.log(TransitDetails, 'TransitDetails')
- 
+  const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const [TransitDetails, setTransitDetails] = useState({});
+  console.log(TransitDetails, 'TransitDetails');
 
-  const dispatch = useDispatch()
-  const { breadCrumbData } = useSelector((state) => state.Breadcrumb)
+  const dispatch = useDispatch();
+  const { breadCrumbData } = useSelector((state) => state.Breadcrumb);
   // const { TransitDetail } = useSelector((state) => state.TransitDetails)
-// console.log(TransitDetail,';TransitDetail')
+  // console.log(TransitDetail,';TransitDetail')
   // console.log(breadCrumbData?.upperTabs,'breadCrumbData1')
-  const vesselData = _get(TransitDetails, 'data[0].order.vessel', {})
-  console.log(TransitDetails, 'TransitDetails')
+  const vesselData = _get(TransitDetails, 'data[0].order.vessel', {});
+  console.log(TransitDetails, 'TransitDetails');
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
     .trim()
-    .toLowerCase()
+    .toLowerCase();
 
-  let objID = sessionStorage.getItem('ObjId')
-  let transID = sessionStorage.getItem('transId')
+  let objID = sessionStorage.getItem('ObjId');
+  let transID = sessionStorage.getItem('transId');
 
   // useEffect(() => {
   //   let Value = vesselData.partShipmentAllowed
@@ -55,47 +54,50 @@ function Index() {
   // }, [vesselData])
 
   useEffect(() => {
-    dispatch(GetTransitDetails(`?transitId=${transID}`))
-  }, [dispatch])
+    dispatch(GetTransitDetails(`?transitId=${transID}`));
+  }, [dispatch]);
   useEffect(() => {
-    dispatch(setPageName('transit'))
+    dispatch(setPageName('transit'));
     dispatch(
       setDynamicName(_get(TransitDetails, 'data[0].company.companyName')),
-    )
-    dispatch(setDynamicOrder(_get(TransitDetails, 'data[0].order.orderId')))
-  }, [TransitDetails])
-  
+    );
+    dispatch(setDynamicOrder(_get(TransitDetails, 'data[0].order.orderId')));
+  }, [TransitDetails]);
+
   useEffect(() => {
     if (transID) {
-      fetchInitialData()
+      fetchInitialData();
     }
-    console.log(transID, 'dsfgk,dhgf')
-  }, [transID])
-
+    console.log(transID, 'dsfgk,dhgf');
+  }, [transID]);
 
   // useEffect(()=>{
   //   setTransitDetails(TransitDetail)
   // },[TransitDetail])
 
   const fetchInitialData = async () => {
-    const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
-    setTransitDetails(data)
-  }
+    const data = await dispatch(GetTransitDetails(`?transitId=${transID}`));
+    setTransitDetails(data);
+  };
 
   const handleBreadcrumbClick = (value) => {
-    dispatch(getBreadcrumbValues({ upperTabs: value }))
-  }
+    dispatch(getBreadcrumbValues({ upperTabs: value }));
+  };
   const uploadDoc = async (e) => {
-    console.log(e, 'response data')
-    let fd = new FormData()
-    fd.append('document', e.target.files[0])
+    console.log(e, 'response data');
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,
@@ -103,12 +105,12 @@ function Index() {
         {
           headers: headers,
         },
-      )
-      console.log(response.data.data, 'response data123')
+      );
+      console.log(response.data.data, 'response data123');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data
+        return response.data.data;
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
@@ -125,11 +127,11 @@ function Index() {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
-  }
+  };
   // for setting default breadcrumb tab value //
   useEffect(() => {
-    dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Lading' }))
-  }, [])
+    dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Lading' }));
+  }, []);
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
@@ -142,7 +144,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/transit')}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
               <span>
@@ -272,6 +274,6 @@ function Index() {
         </div>
       </div>
     </>
-  )
+  );
 }
-export default Index
+export default Index;

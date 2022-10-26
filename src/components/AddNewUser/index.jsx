@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-import { Card } from 'react-bootstrap'
-import { UploadDocument } from '../UploadDocument'
-import Router from 'next/router'
-import Image from 'next/image'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import { Card } from 'react-bootstrap';
+import { UploadDocument } from '../UploadDocument';
+import Router from 'next/router';
+import Image from 'next/image';
 
 function Index() {
   return (
@@ -240,14 +240,12 @@ function Index() {
                     id="textNumber"
                     name="phoneNumber"
                     className={`${styles.input_field}  input form-control border-left-0`}
-                    
                   />
                   <label
                     className={`${styles.label_heading} label_heading`}
                     id="textNumber"
                   >
                     Whatsapp Number (Optional)
-                  
                   </label>
                 </div>
               </div>
@@ -609,6 +607,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

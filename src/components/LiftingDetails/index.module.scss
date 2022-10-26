@@ -109,7 +109,7 @@
           @include respond(sm-desktop) {
             font-size: 18px;
           }
-    
+
           @include respond(phone) {
             font-size: 15px;
           }
@@ -120,7 +120,7 @@
           font-weight: normal;
           line-height: 20px;
           @include respond(lg-desktop) {
-              font-size: 35px;
+            font-size: 35px;
           }
           @include respond(sm-desktop) {
             font-size: 32px;
@@ -384,10 +384,10 @@
             transform: translateY(-50%);
           }
           @include respond(lg-desktop) {
-              top: 15px;
-              font-size: 14px;
-              line-height: 15px;
-              transform: translateY(-22px);
+            top: 15px;
+            font-size: 14px;
+            line-height: 15px;
+            transform: translateY(-22px);
           }
         }
         .line {
@@ -404,8 +404,8 @@
           padding: 5px 0px 5px 15px;
           width: 299px;
           @include respond(lg-desktop) {
-              font-size: 15px;
-              line-height: 1.3;
+            font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 14px;
@@ -453,9 +453,9 @@
             }
           }
           @include respond(lg-desktop) {
-              height: 45px;
-              font-size: 15px;
-              line-height: 1.3;
+            height: 45px;
+            font-size: 15px;
+            line-height: 1.3;
           }
         }
       }
@@ -614,7 +614,7 @@
       font-weight: normal;
       line-height: 20px;
       @include respond(lg-desktop) {
-          font-size: 35px;
+        font-size: 35px;
       }
     }
   }
@@ -806,9 +806,9 @@
               }
             }
             @include respond(lg-desktop) {
-                height: 50px;
-                font-size: 14px;
-                line-height: 1.2;
+              height: 50px;
+              font-size: 14px;
+              line-height: 1.2;
             }
             @include respond(sm-desktop) {
               font-size: 13px;
@@ -838,9 +838,9 @@
                 }
               }
               @include respond(lg-desktop) {
-                  font-size: 15px;
-                  line-height: 1.3;
-                  padding: 17px 10px;
+                font-size: 15px;
+                line-height: 1.3;
+                padding: 17px 10px;
               }
               @include respond(phone) {
                 font-size: 14px;
@@ -1027,9 +1027,9 @@
             }
           }
           @include respond(lg-desktop) {
-              height: 50px;
-              font-size: 14px;
-              line-height: 1.2;
+            height: 50px;
+            font-size: 14px;
+            line-height: 1.2;
           }
           @include respond(sm-desktop) {
             font-size: 13px;
@@ -1059,9 +1059,9 @@
               }
             }
             @include respond(lg-desktop) {
-                font-size: 15px;
-                line-height: 1.3;
-                padding: 17px 10px;
+              font-size: 15px;
+              line-height: 1.3;
+              padding: 17px 10px;
             }
             @include respond(phone) {
               font-size: 14px;
@@ -1238,8 +1238,8 @@
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
- // color: #111111;
-  background-color: #C3C3C31F;
+  // color: #111111;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;

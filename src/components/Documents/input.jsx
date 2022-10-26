@@ -1,5 +1,5 @@
-import React from 'react'
-import styles from './index.module.scss'
+import React from 'react';
+import styles from './index.module.scss';
 
 const index = () => {
   return (
@@ -28,7 +28,7 @@ const index = () => {
               id="bgVideoUpload"
               accept="video/mp4, .mkv"
               onChange={(e) => {
-                handleMultimediaChange(e)
+                handleMultimediaChange(e);
               }}
             />
           </div>
@@ -53,7 +53,7 @@ const index = () => {
               id="bgVideoUpload"
               accept="video/mp4, .mkv"
               onChange={(e) => {
-                handleMultimediaChange(e)
+                handleMultimediaChange(e);
               }}
             />
           </div>
@@ -65,7 +65,7 @@ const index = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

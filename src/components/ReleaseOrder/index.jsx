@@ -1,83 +1,87 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col, Modal } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import UploadOther from '../UploadOther'
-import DateCalender from '../DateCalender'
-import { useDispatch, useSelector } from 'react-redux'
-import { UpdateDelivery } from '../../redux/release&DeliveryOrder/action'
-import _get from 'lodash/get'
-import { toast } from 'react-toastify'
-import API from '../../utils/endpoints'
-import Cookies from 'js-cookie'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
-import Axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col, Modal } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import UploadOther from '../UploadOther';
+import DateCalender from '../DateCalender';
+import { useDispatch, useSelector } from 'react-redux';
+import { UpdateDelivery } from '../../redux/release&DeliveryOrder/action';
+import _get from 'lodash/get';
+import { toast } from 'react-toastify';
+import API from '../../utils/endpoints';
+import Cookies from 'js-cookie';
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
+import Axios from 'axios';
 
 export default function Index({
   ReleaseOrderData,
   releaseDetail,
   setReleaseDetail,
 }) {
-  const dispatch = useDispatch()
-  const [show, setShow] = useState(false)
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-  const [orderid, setorderId] = useState('')
-  console.log(ReleaseOrderData, 'ReleaseOrderData123')
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [orderid, setorderId] = useState('');
+  console.log(ReleaseOrderData, 'ReleaseOrderData123');
   // let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
   useEffect(() => {
-    setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''))
-  }, [ReleaseOrderData])
+    setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''));
+  }, [ReleaseOrderData]);
   let InvoiceQuantity = _get(
     ReleaseOrderData,
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
     0,
-  )
+  );
 
-  const [editInput, setEditInput] = useState(true)
-  const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [editInput, setEditInput] = useState(true);
+  const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
-  console.log(releaseDetail, 'releaseDetail')
-  console.log(releaseDetail.length - 1, '111')
+  console.log(releaseDetail, 'releaseDetail');
+  console.log(releaseDetail.length - 1, '111');
   useEffect(() => {
     if (releaseDetail) {
-      let index = releaseDetail.length - 1
-      setReleaseOrderButtonIndex(index)
+      let index = releaseDetail.length - 1;
+      setReleaseOrderButtonIndex(index);
     }
-  }, [releaseDetail])
+  }, [releaseDetail]);
 
   const closeDoc = (index) => {
-    let tempArr = [...releaseDetail]
-    tempArr[index].document = null
-    setReleaseDetail(tempArr)
-  }
+    let tempArr = [...releaseDetail];
+    tempArr[index].document = null;
+    setReleaseDetail(tempArr);
+  };
 
   const handlereleaseDetailChange = (name, value, index) => {
-    console.log(name, value, index, 'name,value,index2')
-    let tempArr = [...releaseDetail]
+    console.log(name, value, index, 'name,value,index2');
+    let tempArr = [...releaseDetail];
     tempArr.forEach((val, i) => {
       if (i == index) {
-        val[name] = value
+        val[name] = value;
       }
-    })
+    });
     // console.log(tempArr,"tempArr")
 
-    setReleaseDetail([...tempArr])
-  }
-console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
+    setReleaseDetail([...tempArr]);
+  };
+  console.log(Number(netBalanceQuantity), 'Number(netBalanceQuantity)');
   const uploadDoc = async (e) => {
-    console.log(e, 'response data')
-    let fd = new FormData()
-    fd.append('document', e.target.files[0])
+    console.log(e, 'response data');
+    let fd = new FormData();
+    fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.uploadDoc}`,
@@ -85,12 +89,12 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
         {
           headers: headers,
         },
-      )
-      console.log(response.data.data, 'response data123')
+      );
+      console.log(response.data.data, 'response data123');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
-        console.log(response.data.data, 'name,value,index3')
-        return response.data.data
+        console.log(response.data.data, 'name,value,index3');
+        return response.data.data;
 
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -108,17 +112,17 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
-  }
+  };
 
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
-    let tempArr = [...releaseDetail]
-    tempArr.pop(index)
-    setReleaseDetail(tempArr)
-  }
+    let tempArr = [...releaseDetail];
+    tempArr.pop(index);
+    setReleaseDetail(tempArr);
+  };
 
   // console.log(releaseDetail, 'temparr')
-  const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0)
+  const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0);
   const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
       ...releaseDetail,
@@ -129,26 +133,25 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
         unitOfMeasure: '',
         document: null,
       },
-    ])
-    setReleaseOrderButtonIndex(index)
-  }
+    ]);
+    setReleaseOrderButtonIndex(index);
+  };
   const saveDate = (value, name, index) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    handlereleaseDetailChange(name, text, index)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    handlereleaseDetailChange(name, text, index);
+  };
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
-  console.log(netBalanceQuantity,"netBalanceQuantity")
+  };
+
   const netQuantityChange = (e, index) => {
- 
     if (
       Number(
         _get(
@@ -164,95 +167,92 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
       // }
 
       const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+        'net quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
-  
+
     if (Number(e.target.value) < 0) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
       // }
 
-      const toastMessage = 'Net Quantity Realesed cannot be Negative'
+      const toastMessage = 'Net Quantity Realesed cannot be Negative';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
-    handlereleaseDetailChange(e.target.id, e.target.value, index)
+    handlereleaseDetailChange(e.target.id, e.target.value, index);
     // getData()
-  }
-  console.log(netBalanceQuantity, 'val2')
+  };
+  console.log(netBalanceQuantity, 'val2');
   const getData = () => {
-    let value = InvoiceQuantity
+    let value = InvoiceQuantity;
     releaseDetail.forEach((item) => {
-      value = value - item.netQuantityReleased
-    })
+      value = value - item.netQuantityReleased;
+    });
     // console.log(value, "val")
-    setNetBalanceQuantity(value)
-  }
+    setNetBalanceQuantity(value);
+  };
   // console.log(releaseDetail, "val123")
   useEffect(() => {
-    getData()
-  }, [releaseDetail])
+    getData();
+  }, [releaseDetail]);
 
   const orderNo = (index) => {
-    let orderNo = index + 1
-    return orderNo
-  }
+    let orderNo = index + 1;
+    return orderNo;
+  };
 
   const uplaodDoc = async (e, index) => {
     // console.log(e.target.id, index, 'UploadDocRealeseORder')
-    let name = e.target.id
-    let doc = await uploadDoc(e)
-    console.log(e.target.id, doc, index, 'UploadDocRealeseORder')
-    handlereleaseDetailChange(name, doc, index)
-  }
+    let name = e.target.id;
+    let doc = await uploadDoc(e);
+    console.log(e.target.id, doc, index, 'UploadDocRealeseORder');
+    handlereleaseDetailChange(name, doc, index);
+  };
 
   const handleCloseO = () => {
     setDocuments((doc) => {
-      return { ...doc, certificateOfOrigin: null }
-    })
-  }
+      return { ...doc, certificateOfOrigin: null };
+    });
+  };
   const onSaveHAndler = async () => {
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
-    }
-    let task = 'save'
+    };
+    let task = 'save';
     // console.log(payload)
-       if(netBalanceQuantity>=0){
-     await dispatch(UpdateDelivery({ payload, task }))
-    }else{
+    if (netBalanceQuantity >= 0) {
+      await dispatch(UpdateDelivery({ payload, task }));
+    } else {
       const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-   
-   
-    
-  }
+  };
 
   const validation = () => {
-    let isOk = true
-    let toastMessage = ''
+    let isOk = true;
+    let toastMessage = '';
     for (let i = 0; i <= releaseDetail.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', releaseDetail.length)
+      console.log(i, 'INSIDE FOR LOOP', releaseDetail.length);
       if (
         releaseDetail[i]?.releaseOrderDate == '' ||
         releaseDetail[i]?.releaseOrderDate == null
       ) {
-        toastMessage = `please input a date for release order   ${i + 1}  `
+        toastMessage = `please input a date for release order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
       if (
@@ -261,38 +261,36 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
       ) {
         toastMessage = `please provide a value for net quantity release in release order no ${
           i + 1
-        }  `
+        }  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
         }
       }
     }
-    return isOk
-    console.log(isOk, 'isOktrue')
-  }
+    return isOk;
+    console.log(isOk, 'isOktrue');
+  };
 
   const onSubmitHanler = async () => {
-    if (!validation()) return
+    if (!validation()) return;
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
-    }
-    let task = 'submit'
+    };
+    let task = 'submit';
 
     // console.log(payload)
-    if(netBalanceQuantity>=0){
-      await dispatch(UpdateDelivery({ payload, task }))
-    }else{
-      const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+    if (netBalanceQuantity >= 0) {
+      await dispatch(UpdateDelivery({ payload, task }));
+    } else {
+      const toastMessage = `Net Quantity Realesed cannot be Greater than Invoice Quantity`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-   
-  }
+  };
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
   return (
@@ -430,19 +428,18 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
                             // onWheel={(e) => e.target.blur()}
                             onFocus={(e) => {
                               setIsFieldInFocus(true),
-                                (e.target.type = 'number')
+                                (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false), (e.target.type = 'text')
+                              setIsFieldInFocus(false),
+                                (e.target.type = 'text');
                             }}
-                            onWheel={(event) =>
-                              event.currentTarget.blur()
-                            }
+                            onWheel={(event) => event.currentTarget.blur()}
                             type="text"
                             onChange={(e) => {
-                              e.target.value
+                              e.target.value;
                               // console.log( e.target.value,"333")
-                              netQuantityChange(e, index)
+                              netQuantityChange(e, index);
                             }}
                             id="netQuantityReleased"
                             value={
@@ -706,5 +703,5 @@ console.log(Number(netBalanceQuantity),"Number(netBalanceQuantity)")
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }

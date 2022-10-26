@@ -1,11 +1,13 @@
-import React from 'react'
-import LcModule from  '../../src/components/LcModule'
-import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react';
+import LcModule from '../../src/components/LcModule';
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action';
+import { useDispatch, useSelector } from 'react-redux';
 const Index = () => {
-  return (
-    <LcModule/>
-  )
-}
+  return <LcModule />;
+};
 
-export default Index
+export default Index;

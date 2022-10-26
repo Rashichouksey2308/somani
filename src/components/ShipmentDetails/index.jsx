@@ -1,39 +1,41 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
-import moment from 'moment'
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import styles from './index.module.scss';
+import DateCalender from '../DateCalender';
+import moment from 'moment';
 
-const index = ({ orderDetail, saveShipmentData,shipment }) => {
-  console.log(shipment,"ship[")
+const index = ({ orderDetail, saveShipmentData, shipment }) => {
+  console.log(shipment, 'ship[');
   // const {shipmentDetail}= orderDetail;
 
   // console.log(orderDetail, 'THIS IS ORDER DETAIL')
 
   const saveDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveShipmentData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveShipmentData(name, text);
+  };
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
-  })
+  });
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
-      .format('DD-MM-YYYY')
+      .format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date })
+      setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
-  }
-  console.log(dateStartFrom.laycan, 'dateStartFrom')
-  console.log(orderDetail?.shipmentDetail, 'ravindra')
+  };
+  console.log(dateStartFrom.laycan, 'dateStartFrom');
+  console.log(orderDetail?.shipmentDetail, 'ravindra');
   return (
-    <div className={`${styles.main} card vessel_card border_color border-bottom`}>
+    <div
+      className={`${styles.main} card vessel_card border_color border-bottom`}
+    >
       <div
         className={`${styles.head_container} d-flex border_color align-items-center head_container card-header justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -55,17 +57,19 @@ const index = ({ orderDetail, saveShipmentData,shipment }) => {
               <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
                 <div className="d-flex">
                   <select
-                  value={orderDetail?.shipmentDetail?.shipmentType}
+                    value={orderDetail?.shipmentDetail?.shipmentType}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="shipmentType"
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
+                      saveShipmentData(e.target.name, e.target.value);
                     }}
                   >
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option selected disabled>Select</option>
+                    <option selected disabled>
+                      Select
+                    </option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
@@ -161,7 +165,8 @@ const index = ({ orderDetail, saveShipmentData,shipment }) => {
                   <DateCalender
                     name="ETAofDischarge.fromDate"
                     defaultDate={
-                      orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate ?? ''
+                      orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate ??
+                      ''
                     }
                     setStartDateFrom={setStartDate}
                     saveDate={saveDate}
@@ -220,7 +225,7 @@ const index = ({ orderDetail, saveShipmentData,shipment }) => {
                     value={shipment?.portOfLoading}
                     name="portOfLoading"
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
+                      saveShipmentData(e.target.name, e.target.value);
                     }}
                   >
                     {/* <option value="volvo">
@@ -255,7 +260,7 @@ const index = ({ orderDetail, saveShipmentData,shipment }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

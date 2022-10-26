@@ -1,51 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
-import index from 'components/Footer'
-import React, { useState, useEffect } from 'react'
-import styles from '../profile.module.scss'
-import moment from 'moment'
-import _get from 'lodash/get'
-import { isArray } from 'lodash'
+import index from 'components/Footer';
+import React, { useState, useEffect } from 'react';
+import styles from '../profile.module.scss';
+import moment from 'moment';
+import _get from 'lodash/get';
+import { isArray } from 'lodash';
 
 function Index({ directorData }) {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
 
-  const [otherAssociates, setOtherAssociates] = useState([])
+  const [otherAssociates, setOtherAssociates] = useState([]);
+
   useEffect(() => {
     if (directorData?.profile?.directorDetail?.length > 0) {
-      let temp = []
+      let temp = [];
       directorData?.profile?.directorDetail.forEach((val, index) => {
-        temp.push('Current')
-      })
-      setOtherAssociates(temp)
+        temp.push('Current');
+      });
+      setOtherAssociates(temp);
     }
-  }, [directorData])
-  console.log(otherAssociates, 'otherAssociates')
+  }, [directorData]);
+
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
       // console.log('this')
-      setDarkMode(true)
+      setDarkMode(true);
     } else {
       // console.log('this2')
-      setDarkMode(false)
+      setDarkMode(false);
     }
-  }, [])
-  console.log(directorData, 'len')
+  }, []);
 
   const dscStatus = (from) => {
-    var dateFrom = moment(from, 'DD-MM-YYYY')
-    var dateTo = moment(new Date(), 'DD-MM-YYYY')
+    var dateFrom = moment(from, 'DD-MM-YYYY');
+    var dateTo = moment(new Date(), 'DD-MM-YYYY');
 
     if (moment(dateFrom).isBefore(dateTo, 'day')) {
-      return 'Expired'
+      return 'Expired';
     } else {
-      return 'Approved'
+      return 'Approved';
     }
-  }
-
-  console.log(_get(directorData, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`, []), "otherAssociatedEntitiesCurrent", otherAssociates, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
+  };
 
   return (
     <>
@@ -61,7 +59,7 @@ function Index({ directorData }) {
           <span>+</span>
         </div>
         {directorData?.profile?.directorDetail?.length == 0 ||
-          directorData?.profile?.directorDetail == undefined ? (
+        directorData?.profile?.directorDetail == undefined ? (
           <div
             key={index}
             id={`directorDetails`}
@@ -110,10 +108,11 @@ function Index({ directorData }) {
                       </div>
                       <div className={`${styles.downArrow} `}>
                         <img
-                          src={`${darkMode
+                          src={`${
+                            darkMode
                               ? `/static/white-arrow.svg`
                               : `/static/arrow-right.svg`
-                            }`}
+                          }`}
                           alt="arrow right"
                           className="img-fluid image_arrow"
                         />
@@ -325,8 +324,8 @@ function Index({ directorData }) {
                                     `otherAssociatedEntities${otherAssociates}`,
                                     [],
                                   ).map((associates, index) => {
-                                    const fromDate = associates?.fromDate
-                                    const toDate = associates?.toDate
+                                    const fromDate = associates?.fromDate;
+                                    const toDate = associates?.toDate;
 
                                     return (
                                       <tr key={index}>
@@ -336,23 +335,23 @@ function Index({ directorData }) {
                                           {' '}
                                           {fromDate
                                             ? moment(
-                                              fromDate?.slice(0, 10),
-                                              'YYYY-MM-DD',
-                                              true,
-                                            ).format('DD-MM-YYYY')
+                                                fromDate?.slice(0, 10),
+                                                'YYYY-MM-DD',
+                                                true,
+                                              ).format('DD-MM-YYYY')
                                             : ''}
                                         </td>
                                         <td>
                                           {toDate
                                             ? moment(
-                                              toDate?.slice(0, 10),
-                                              'YYYY-MM-DD',
-                                              true,
-                                            ).format('DD-MM-YYYY')
+                                                toDate?.slice(0, 10),
+                                                'YYYY-MM-DD',
+                                                true,
+                                              ).format('DD-MM-YYYY')
                                             : ''}
                                         </td>
                                       </tr>
-                                    )
+                                    );
                                   })}
                               </tbody>
                             </table>
@@ -423,12 +422,15 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${director?.dscExpiryDate !== null
-                                    ? dscStatus(director?.dscExpiryDate) === 'Expired'
+                                className={`${
+                                  director?.dinStatus !== null
+                                    ? !dscStatus(director?.dinStatus)
+                                        ?.toLowerCase()
+                                        ?.includes('approved')
                                       ? styles.danger
                                       : styles.success
                                     : styles.black
-                                  }`}
+                                }`}
                               >
                                 {director?.din}
                               </span>
@@ -457,7 +459,11 @@ function Index({ directorData }) {
                             </div>
 
                             <div className={`${styles.downArrow} `}>
-                              <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow"/>
+                              <img
+                                src="/static/arrow-right.svg"
+                                alt="arrow right"
+                                className="img-fluid image_arrow"
+                              />
                             </div>
                           </div>
                         </div>
@@ -537,7 +543,7 @@ function Index({ directorData }) {
                                   <label className={`accordion_Text`}>
                                     Fathers Name
                                   </label>
-                                  {director?.fatherName} 
+                                  {director?.fatherName}
                                   <img
                                     src="/static/approved.svg"
                                     alt="Approved"
@@ -590,13 +596,13 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                         console.log(
                                           otherAssociates == 'Current',
                                           '11111',
-                                        )
+                                        );
                                       }}
                                       value="Current"
                                       className="form-check-input"
@@ -618,10 +624,14 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        console.log(temp, 'temppp', temp[index])
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        console.log(
+                                          temp,
+                                          'temppp',
+                                          temp[index],
+                                        );
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Former"
                                       className="form-check-input"
@@ -643,9 +653,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Independent"
                                       className="form-check-input"
@@ -667,9 +677,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Additional"
                                       className="form-check-input"
@@ -690,9 +700,9 @@ function Index({ directorData }) {
                                   <div className="form-check ">
                                     <input
                                       onChange={(e) => {
-                                        let temp = [...otherAssociates]
-                                        temp[index] = e.target.value
-                                        setOtherAssociates([...temp])
+                                        let temp = [...otherAssociates];
+                                        temp[index] = e.target.value;
+                                        setOtherAssociates([...temp]);
                                       }}
                                       value="Nominated"
                                       className="form-check-input"
@@ -724,10 +734,10 @@ function Index({ directorData }) {
                                     ),
                                   )
                                     ? _get(
-                                      director,
-                                      `otherAssociatedEntities${otherAssociates[index]}`,
-                                      [],
-                                    ).length
+                                        director,
+                                        `otherAssociatedEntities${otherAssociates[index]}`,
+                                        [],
+                                      ).length
                                     : ''}
                                   )
                                 </span>
@@ -755,50 +765,53 @@ function Index({ directorData }) {
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          {console.log(_get(
-                                            director,
-                                            `otherAssociatedEntities${otherAssociates[index]}`,
-                                            [],
-                                          ), "1212222")}
-                                          {
+                                          {console.log(
                                             _get(
                                               director,
                                               `otherAssociatedEntities${otherAssociates[index]}`,
                                               [],
-                                            ).map((associates, index2) => {
-                                              const fromDate = associates?.fromDate
-                                              const toDate = associates?.toDate
-                                              console.log(associates, "1212")
-                                              return (
-                                                <tr key={index2}>
-                                                  <td className="text-color">
-                                                    {associates?.entityId}
-                                                  </td>
-                                                  <td className="text-color">
-                                                    {associates?.entityName}
-                                                  </td>
-                                                  <td className="text-color">
-                                                    {' '}
-                                                    {fromDate
-                                                      ? moment(
+                                            ),
+                                            '1212222',
+                                          )}
+                                          {_get(
+                                            director,
+                                            `otherAssociatedEntities${otherAssociates[index]}`,
+                                            [],
+                                          ).map((associates, index2) => {
+                                            const fromDate =
+                                              associates?.fromDate;
+                                            const toDate = associates?.toDate;
+                                            console.log(associates, '1212');
+                                            return (
+                                              <tr key={index2}>
+                                                <td className="text-color">
+                                                  {associates?.entityId}
+                                                </td>
+                                                <td className="text-color">
+                                                  {associates?.entityName}
+                                                </td>
+                                                <td className="text-color">
+                                                  {' '}
+                                                  {fromDate
+                                                    ? moment(
                                                         fromDate?.slice(0, 10),
                                                         'YYYY-MM-DD',
                                                         true,
                                                       ).format('DD-MM-YYYY')
-                                                      : ''}
-                                                  </td>
-                                                  <td className="text-color">
-                                                    {toDate
-                                                      ? moment(
+                                                    : ''}
+                                                </td>
+                                                <td className="text-color">
+                                                  {toDate
+                                                    ? moment(
                                                         toDate?.slice(0, 10),
                                                         'YYYY-MM-DD',
                                                         true,
                                                       ).format('DD-MM-YYYY')
-                                                      : ''}
-                                                  </td>
-                                                </tr>
-                                              )
-                                            })}
+                                                    : ''}
+                                                </td>
+                                              </tr>
+                                            );
+                                          })}
                                         </tbody>
                                       </table>
                                     </div>
@@ -812,12 +825,12 @@ function Index({ directorData }) {
                     </div>
                   </div>
                 </div>
-              )
+              );
             },
           )}
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

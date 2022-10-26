@@ -1,24 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import DateCalender from '../DateCalender'
-import _get from 'lodash/get'
-import Router from 'next/router'
-import Modal from 'react-bootstrap/Modal'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import { Form, Row, Col } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import DateCalender from '../DateCalender';
+import _get from 'lodash/get';
+import Router from 'next/router';
+import Modal from 'react-bootstrap/Modal';
 
 export default function Index(props) {
-  const [show, setShow] = useState(false)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [show, setShow] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
-    sessionStorage.setItem('dono', val)
-    Router.push('/delivery-preview')
-  }
-  console.log(props, 'props')
-
-  const handleClose = () => {}
+    sessionStorage.setItem('dono', val);
+    Router.push('/delivery-preview');
+  };
 
   return (
     <>
@@ -180,16 +177,16 @@ export default function Index(props) {
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
-                                     onWheel={(event) =>
+                                    onWheel={(event) =>
                                       event.currentTarget.blur()
                                     }
                                     onFocus={(e) => {
                                       setIsFieldInFocus(true),
-                                        (e.target.type = 'number')
+                                        (e.target.type = 'number');
                                     }}
                                     onBlur={(e) => {
                                       setIsFieldInFocus(false),
-                                        (e.target.type = 'text')
+                                        (e.target.type = 'text');
                                     }}
                                     type="text"
                                     // value={val.Quantity}
@@ -211,7 +208,7 @@ export default function Index(props) {
                                         e.target.name,
                                         e.target.value,
                                         index,
-                                      )
+                                      );
                                     }}
                                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   />
@@ -278,11 +275,11 @@ export default function Index(props) {
                                     className={`${styles.form_group} col-lg-6`}
                                   >
                                     <img
-                                      src="/static/cancel-3.svg"
+                                      src="/static/save-3.svg"
                                       className={`${styles.shareImg} ml-3`}
-                                      alt="Cancel"
+                                      alt="Save"
                                       onClick={(e) => {
-                                        props.onEdit(index, false)
+                                        props.onEdit(index, false);
                                       }}
                                     />
                                     {props.releaseOrderData.length > 1 && (
@@ -291,7 +288,7 @@ export default function Index(props) {
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
-                                          props.deleteNewDelivery(index)
+                                          props.deleteNewDelivery(index);
                                         }}
                                       />
                                     )}
@@ -306,7 +303,7 @@ export default function Index(props) {
                                       className={`${styles.shareImg}`}
                                       alt="Edit"
                                       onClick={(e) => {
-                                        props.onEdit(index, true)
+                                        props.onEdit(index, true);
                                       }}
                                     />
 
@@ -325,27 +322,28 @@ export default function Index(props) {
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
-                                          props.deleteNewDelivery(index)
+                                          props.deleteNewDelivery(index);
                                         }}
                                       />
                                     )}
                                     {props.releaseOrderData.length - 1 ===
-                                      index && props.BalanceQuantity() > 0 && (
-                                      <img
-                                        onClick={(e) => {
-                                          props.addNewDelivery()
-                                        }}
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
-                                        alt="add"
-                                      />
-                                    )}
+                                      index &&
+                                      props.BalanceQuantity() > 0 && (
+                                        <img
+                                          onClick={(e) => {
+                                            props.addNewDelivery();
+                                          }}
+                                          src="/static/add-btn.svg"
+                                          className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
+                                          alt="add"
+                                        />
+                                      )}
                                   </div>
                                 )}
                               </div>
                             </div>
                           </>
-                        )
+                        );
                       })}
                     </div>
                   </div>
@@ -542,7 +540,7 @@ export default function Index(props) {
         </Modal.Body>
       </Modal> */}
     </>
-  )
+  );
 }
 
 {

@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from './index.module.scss'
-import Image from 'next/image'
-import { Modal } from 'react-bootstrap'
+import React from 'react';
+import styles from './index.module.scss';
+import Image from 'next/image';
+import { Modal } from 'react-bootstrap';
 
 function Index() {
   return (
@@ -103,6 +103,6 @@ function Index() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-export default Index
+export default Index;

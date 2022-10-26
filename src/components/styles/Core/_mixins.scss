@@ -1,4 +1,3 @@
-
 // MEDIA QUERIES WITH BREAKPOINTS
 @mixin respond($breakpoint) {
   @if $breakpoint == sm-phone {
@@ -95,6 +94,3 @@
     }
   }
 }
-
-
-

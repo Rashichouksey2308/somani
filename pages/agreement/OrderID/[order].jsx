@@ -1,83 +1,82 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Row, Col, Form } from 'react-bootstrap'
-import PaginateBar from '../../../src/components/Paginatebar'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
-import _get from 'lodash/get'
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from '../../../src/redux/insurance/action'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Row, Col, Form } from 'react-bootstrap';
+import PaginateBar from '../../../src/components/Paginatebar';
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import _get from 'lodash/get';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from '../../../src/redux/insurance/action';
+import moment from 'moment';
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
-} from '../../../src/redux/userData/action'
-import Router from 'next/router'
-import Modal from 'react-bootstrap/Modal'
-import { convertValue } from '../../../src/utils/helper'
+} from '../../../src/redux/userData/action';
+import Router from 'next/router';
+import Modal from 'react-bootstrap/Modal';
+import { convertValue } from '../../../src/utils/helper';
 
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('letterId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
 
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handlePopup = () => {
-    setShow(true)
-  }
-  const [modalviewShow, setModalViewShow] = useState("insurance")
+    setShow(true);
+  };
+  const [modalviewShow, setModalViewShow] = useState('insurance');
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ])
+  ]);
   const [insuranceAdd, setinsuranceAdd] = useState([
     {
       insurance: '',
     },
-  ])
-  console.log(insuranceAdd, emailAdd, "emailAdd")
+  ]);
+  console.log(insuranceAdd, emailAdd, 'emailAdd');
   const addMoreRows = (val) => {
-    console.log(val, "vak")
-    if (val == "email") {
+    console.log(val, 'vak');
+    if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
         {
           emailID: '',
         },
-      ])
+      ]);
     } else {
       setinsuranceAdd([
         ...insuranceAdd,
         {
           insurance: '',
         },
-      ])
+      ]);
     }
-
-  }
-  dispatch(setPageName('insurance Request Letter'))
+  };
+  dispatch(setPageName('insurance Request Letter'));
   dispatch(
     setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
-  )
-  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+  );
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
-  console.log(insuranceData, 'insuranceData')
+  console.log(insuranceData, 'insuranceData');
 
   const exportPDF = () => {
-    console.log("hwhhwhhw,aas")
-    const doc = new jsPDF('p', 'pt', [1500, 1850])
+    console.log('hwhhwhhw,aas');
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -133,7 +132,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -160,7 +159,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -399,10 +398,15 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", {
+                            INR{' '}
+                            {Number(
+                              convertValue(
+                                insuranceData?.quotationRequest?.sumInsured,
+                              ),
+                            )?.toLocaleString('en-IN', {
                               minimumFractionDigits: 2,
-                            })} Crores
-                            (Including 110%)
+                            })}{' '}
+                            Crores (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -529,7 +533,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
+                            BL Weight{' '}
+                            {insuranceData?.order?.quantity?.toLocaleString(
+                              'en-IN',
+                            )}{' '}
+                            MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
                           </p>
                         </td>
                       </tr>
@@ -661,11 +669,11 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.laycanFrom
+                              insuranceData?.quotationRequest?.laycanFrom,
                             ).format('DD MMM')}{' '}
                             -{' '}
                             {moment(
-                              insuranceData?.quotationRequest?.laycanTo
+                              insuranceData?.quotationRequest?.laycanTo,
                             ).format('DD MMM, YYYY')}
                           </p>
                         </td>
@@ -708,7 +716,8 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.expectedTimeOfDispatch
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfDispatch,
                             ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
@@ -751,7 +760,8 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.expectedTimeOfArrival
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfArrival,
                             ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
@@ -793,7 +803,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
+                            All Risks Including ICC-A, War, SRCC, Theft,
+                            Loading, Unloading, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -961,13 +972,13 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('sample.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    )
-  }
+    );
+  };
   return (
     <>
       <div className="container-fluid p-0">
@@ -975,8 +986,10 @@ function Index() {
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/insurance/form')}
-                 style={{cursor:'pointer'}}>
+            <div
+              onClick={() => Router.push('/insurance/form')}
+              style={{ cursor: 'pointer' }}
+            >
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
@@ -1082,8 +1095,13 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} Crores
-                    (Including 110%)
+                    INR{' '}
+                    {Number(
+                      convertValue(insuranceData?.quotationRequest?.sumInsured),
+                    )?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
+                    Crores (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1126,9 +1144,11 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                    BL Weight{' '}
+                    {insuranceData?.order?.quantity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
-                    })} MTs.(+/{insuranceData?.order?.tolerance ?? 0}%)
+                    })}{' '}
+                    MTs.(+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1175,13 +1195,13 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanFrom
-                    ).format('DD MMM')}{' '}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom).format(
+                      'DD MMM',
+                    )}{' '}
                     -{' '}
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanTo
-                    ).format('DD MMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanTo).format(
+                      'DD MMM, YYYY',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1195,7 +1215,7 @@ function Index() {
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfDispatch
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch,
                     ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
@@ -1210,7 +1230,7 @@ function Index() {
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfArrival
+                      insuranceData?.quotationRequest?.expectedTimeOfArrival,
                     ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
@@ -1224,7 +1244,8 @@ function Index() {
                     Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading,
+                    Unloading, Act of God etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1237,7 +1258,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} ,<br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+                    {insuranceData?.company?.companyName} ,<br></br>{' '}
+                    {
+                      insuranceData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.registeredAddress
+                    }
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1327,7 +1352,7 @@ function Index() {
                 role="tabpanel"
                 aria-labelledby="share-LC-draft"
               >
-                 <h3 className='share_h3'>Share as</h3>
+                <h3 className="share_h3">Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
                   <div
                     className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
@@ -1339,7 +1364,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      Requestletter.pdf<span className='size_number'>128kb</span>
+                      Requestletter.pdf
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1358,7 +1384,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      Requestletter.doc<span className='size_number'>128kb</span>
+                      Requestletter.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1382,7 +1409,6 @@ function Index() {
                       role="tab"
                       aria-controls="insuranceCompany"
                       aria-selected="true"
-
                     >
                       <img
                         src="/static/groups.svg"
@@ -1402,7 +1428,6 @@ function Index() {
                       role="tab"
                       aria-controls="emailAddress"
                       aria-selected="false"
-
                     >
                       <img
                         src="/static/email-icon.png"
@@ -1443,7 +1468,6 @@ function Index() {
                           alt="Search"
                         />
                       </div>
-
                     </div>
                     {insuranceAdd.map((val, index) => {
                       return (
@@ -1473,17 +1497,15 @@ function Index() {
                           </div>
                           <hr></hr>
                         </>
-                      )
+                      );
                     })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows("insurance")
+                        addMoreRows('insurance');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
-
-                      >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
                       add another
@@ -1511,7 +1533,6 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-
                       {emailAdd.map((val, index) => {
                         return (
                           <>
@@ -1539,11 +1560,8 @@ function Index() {
                               />
                             </div>
                           </>
-
-
-                        )
+                        );
                       })}
-
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -1552,13 +1570,11 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this)
-                        addMoreRows("email")
+                        console.log(this);
+                        addMoreRows('email');
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
-
-                      >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                         +
                       </span>{' '}
                       add another
@@ -1600,7 +1616,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      LC Document.pdf<span className='size_number'>128kb</span>
+                      LC Document.pdf<span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1619,7 +1635,8 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      word document.doc<span className='size_number'>128kb</span>
+                      word document.doc
+                      <span className="size_number">128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1651,7 +1668,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

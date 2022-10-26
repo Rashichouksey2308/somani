@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react'
-import styles from './index.module.scss'
-import Filter from '../../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchLeads } from 'redux/buyerProfile/action'
-import DownloadMasterBar from '../../../src/components/DownloadMasterBar'
-import Image from 'next/image'
-import Router from 'next/router'
+import React, { useState, useEffect } from 'react';
+import styles from './index.module.scss';
+import Filter from '../../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchLeads } from 'redux/buyerProfile/action';
+import DownloadMasterBar from '../../../src/components/DownloadMasterBar';
+import Image from 'next/image';
+import Router from 'next/router';
 
 const index = () => {
-  const dispatch = useDispatch()
-  const [serachterm, setSearchTerm] = useState('')
-  const { searchedLeads } = useSelector((state) => state.order)
+  const dispatch = useDispatch();
+  const [serachterm, setSearchTerm] = useState('');
+  const { searchedLeads } = useSelector((state) => state.order);
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetLcModule(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetLcModule(`?company=${id}`));
+  };
 
   return (
     <>
@@ -370,9 +370,9 @@ const index = () => {
         </div>
       </div>
 
-      <DownloadMasterBar btnName='Download' />
+      <DownloadMasterBar btnName="Download" />
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;
