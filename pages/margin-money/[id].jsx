@@ -285,6 +285,7 @@ function Index() {
   };
 
   const [invoiceData, setInvoiceData] = useState({});
+  const [branchOptions,setBranchOptions]=useState([])
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -312,14 +313,39 @@ function Index() {
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       });
     }
-  }, [marginData]);
+    if(getInternalCompaniesMasterData){
+ let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+        console.log(val.Company_Name, marginData?.invoiceDetail?.importerName,"ppopop")
+        if(val.Company_Name?.toLowerCase()== marginData?.invoiceDetail?.importerName?.toLowerCase()
+        || val.Company_Name?.toLowerCase()==  marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '').toLowerCase()
+        )
+        {
+          return val
+        }
+      })
+      console.log("useefff",filter)
+      setBranchOptions(filter)
+    }
+   
+  }, [marginData,getInternalCompaniesMasterData]);
 
-  const saveData=(name,value,name2,value2)=>{
+  const saveData=(name,value,name2,value2,value3)=>{
      const newInput = { ...invoiceData };
+       newInput.branch = value3;
      newInput.branchAddress = value;
      newInput.IFSCcode = value2;
      console.log(newInput,"newInputnewInput")
    setInvoiceData({ ...newInput });
+  }
+  const savedataRevised=(name,value,name2,value2,value3)=>{
+     const newInput = { ...invoiceDataRevised };
+       newInput.branch = value3;
+     newInput.branchAddress = value;
+     newInput.IFSCcode = value2;
+     console.log(newInput,"newInputnewInput")
+   setInvoiceDataRevised({ ...newInput });
   }
   const saveInvoiceData = (name, value) => {
     console.log(value, 'invoice data value', name)
@@ -373,30 +399,42 @@ function Index() {
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      setChangeImporterData({ ...emergent });
+      // setChangeImporterData({ ...emergent });
       const newInput = { ...invoiceData };
-      newInput['importerName'] = emergent.companyName;
-      newInput['branchOffice'] = emergent.branch;
-      newInput['importerGSTIN'] = emergent.GSTIN;
-      newInput['companyAddress'] = emergent.address;
+      newInput['importerName'] = "EMERGENT INDUSTRIAL SOLUTIONS LIMITED";
+      // newInput['branchOffice'] = emergent.branch;
+      // newInput['importerGSTIN'] = emergent.GSTIN;
+      // newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceData({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      setChangeImporterData({ ...indoGerman });
+      // setChangeImporterData({ ...indoGerman });
       const newInput = { ...invoiceData };
-      newInput['importerName'] = indoGerman.companyName;
-      newInput['branchOffice'] = indoGerman.branch;
-      newInput['importerGSTIN'] = indoGerman.GSTIN;
-      newInput['companyAddress'] = indoGerman.address;
+      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
+      // newInput['branchOffice'] = indoGerman.branch;
+      // newInput['importerGSTIN'] = indoGerman.GSTIN;
+      // newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceData({ ...newInput });
+    
+     
+      
     }
+     let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+      console.log(value,val.Company_Name,"ssssss")
+        if(val.Company_Name==value)
+        {
+          return val
+        }
+      })
+      setBranchOptions(filter)
   };
   const changeImporter = (e) => {
+    console.log(e.target.name,e.target.value,"Xxxcxc")
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value;
       const newInput = { ...invoiceData };
@@ -5941,20 +5979,20 @@ function Index() {
                                   }
                                   style={{ paddingRight: '40px' }}
                                 >
-                                  <option>Select an option</option>
+                                  {/* <option>Select an option</option>
                                   {getInternalCompaniesMasterData.filter((val)=>{
                                     if(val.Company_Name!==""){
                                       return val
                                     }
                                   }).map((val,index)=>{
                                     return <option value={`${val.Company_Name}`}>{val.Company_Name}</option>
-                                  })}
-                                  {/* <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
+                                  })} */}
+                                  <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
                                     INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                                   </option>
                                   <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
                                     EMERGENT INDUSTRIAL SOLUTIONS LIMITED
-                                  </option> */}
+                                  </option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -5983,11 +6021,41 @@ function Index() {
                                       ? changeImporterData?.branch
                                       : invoiceData?.branchOffice
                                   }
-                                  onChange={(e) => changeImporter(e)}
+                                  onChange={(e) =>{
+                                    //  changeImporter(e)
+                                      let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+                                         
+                                            if(val.Branch==e.target.value && val.Company_Name?.toLowerCase()==invoiceData?.importerName?.toLowerCase())
+                                            {
+                                              return val
+                                            }
+                                          })
+                                          console.log(filter,"filter")
+                                          if(filter.length>0){
+
+                                         
+                                        const newInput = { ...invoiceData };
+                                        changeImporterData.address = filter[0].Address;
+                                        newInput['companyAddress'] = filter[0].Address;
+                                        changeImporterData.GSTIN = filter[0].GSTIN;
+                                        newInput['importerGSTIN'] = filter[0].GSTIN;
+                                        changeImporterData.branch = e.target.value;
+                                   
+                                        newInput['branchOffice'] = e.target.value;
+                                     
+                                        setChangeImporterData({ ...changeImporterData });
+                                        setInvoiceData({ ...newInput });
+                                         }
+                                  }}
                                 >
                                   <option>Select an option</option>
-                                  <option value="SURAT">{'SURAT'}</option>
-                                  <option value="DELHI">DELHI</option>
+                                  {
+                                    branchOptions.map((val,index)=>{
+                                      return <option value={val.Branch}>{val.Branch}</option>
+                                    })
+                                  }
+                                  {/* <option value="SURAT">{'SURAT'}</option>
+                                  <option value="DELHI">DELHI</option> */}
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -6116,23 +6184,23 @@ function Index() {
                                     {
                                      
                                       console.log(e.target.value,"branch")
-                                      saveInvoiceData(
-                                      e.target.name,
-                                       e.target.value,
-                                    )
+                                    //   saveInvoiceData(
+                                    //    e.target.name,
+                                    //    e.target.value,
+                                    // )
                                     let filter=getBranchesMasterData.filter((val,index)=>{
                                       if(val.BRANCH==e.target.value){
                                         return val
                                       }
                                     })
-                                    console.log(filter,"ASdasdasd")
                                     
-                                       saveData("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC)
+                                    
+                                  saveData("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
                                      
-                                       saveInvoiceData(
-                                       "branchAddress",
-                                       filter[0].ADDRESS,
-                                    )
+                                    //    saveInvoiceData(
+                                    //    "branchAddress",
+                                    //    filter[0].ADDRESS,
+                                    // )
                                     
                                
                                     }
@@ -6275,6 +6343,10 @@ function Index() {
                         }
                         saveforCalculationRevised={saveforCalculationRevised}
                         exportPDF={exportPDFReviced}
+                        getBanksMasterData={getBanksMasterData}
+                        getBranchesMasterData={getBranchesMasterData}
+                        getInternalCompaniesMasterData={getInternalCompaniesMasterData}
+                        savedataRevised={savedataRevised}
                       />
                     </div>
                   </div>
