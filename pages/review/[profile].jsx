@@ -13,10 +13,21 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import { GetBuyer } from '../../src/redux/registerBuyer/action';
 import { toast } from 'react-toastify';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
 const Index = () => {
   const dispatch = useDispatch();
 
   const { buyerList } = useSelector((state) => state.buyer);
+     useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getDocuments())
+  }, []);
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   console.log(
     '🚀 ~ file: [profile].jsx ~ line 19 ~ Index ~ buyerList',
     buyerList,
@@ -216,6 +227,9 @@ const Index = () => {
             setFields={setFields}
             fields={fields}
             setPayloadData={setPayloadData}
+            country={getCountriesMasterData}
+            port={getPortsMasterData}
+            commodity={getCommoditiesMasterData}
           />
           <CompanyProfile />
           <OrderProfile />

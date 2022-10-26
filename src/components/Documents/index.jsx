@@ -16,11 +16,13 @@ const Index = ({
   addDoc,
   removeDoc,
   addTypeOfDoc,
+  documentApi,
+  
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
   ]);
-
+ console.log(documentApi,"documentApi")
   const [name, setName] = useState(null);
 
   // const onAddDoc = (index) => {
@@ -62,19 +64,18 @@ const Index = ({
                         }}
                       >
                         <option>Select an option</option>
-                        <option value="CertificateofIncorporation">
-                          Certificate of Incorporation
-                        </option>
-                        <option value="IECCertificate">IEC Certificate</option>
-                        <option value="BusinessRegistrationCertificate ">
-                          Business Registration Certificate{' '}
-                        </option>
-                        <option value="PANCard">PAN Card</option>
-                        <option value="GSTCertificate">GST Certificate</option>
-                        <option value="BankReferenceLetter">
-                          Bank Reference Letter
-                        </option>
-                        <option value="FinancialYear ">Financial Year </option>
+                        {documentApi?.filter((val,index)=>{
+                          if(val.Sub_Module=="Leads"){
+                            return val
+                          }
+                        })?.map((val,index)=>{
+                          return(
+                            <option value={`${val.Document_Name}`}>
+                             {val.Document_Name}
+                           </option>
+                          )
+                        })}
+                       
                       </select>
                       <img
                         className={`${styles.arrow} image_arrow img-fluid`}

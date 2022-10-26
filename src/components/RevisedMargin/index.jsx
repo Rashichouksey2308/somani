@@ -5,6 +5,8 @@ import _get from 'lodash/get';
 import DownloadBar from '../DownloadBar';
 import { addPrefixOrSuffix, checkNan, convertValue } from 'utils/helper';
 import Router from 'next/router';
+import {getBranches,} from '../../redux/masters/action'
+import { useSelector, useDispatch } from 'react-redux';
 const Index = ({
   finalCal,
   finalCalRevised,
@@ -18,9 +20,13 @@ const Index = ({
   exportPDF,
   saveforCalculationRevised,
   forCalculationRevised,
+  getInternalCompaniesMasterData,
+  getBranchesMasterData,
+  getBanksMasterData,
+  savedataRevised,
 }) => {
   console.log(marginData, 'marginData');
-
+ const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     perUnitPrice: false,
@@ -51,32 +57,59 @@ const Index = ({
   });
   const [conversionRateUnit, setConversionRateUnit] = useState();
   // console.log(conversionRateUnit, 'conversionRateUnit')
-
+  const [branchOptions,setBranchOptions]=useState([])
+ useEffect(() => {
+  if(invoiceDataRevised){
+    let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+        console.log(val.Company_Name, marginData?.invoiceDetail?.importerName,"ppopop")
+        if(val.Company_Name?.toLowerCase()== invoiceDataRevised.importerName?.toLowerCase()
+        
+           
+        )
+        {
+          return val
+        }
+      })
+      console.log("useefff",filter)
+      setBranchOptions(filter)
+  }
+ },[invoiceDataRevised,getInternalCompaniesMasterData])
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-      setChangeImporterData({ ...emergent });
+      // setChangeImporterData({ ...emergent });
       const newInput = { ...invoiceDataRevised };
-      newInput['importerName'] = emergent.companyName;
-      newInput['branchOffice'] = emergent.branch;
-      newInput['importerGSTIN'] = emergent.GSTIN;
-      newInput['companyAddress'] = emergent.address;
+      newInput['importerName'] = "EMERGENT INDUSTRIAL SOLUTIONS LIMITED";
+      // newInput['branchOffice'] = emergent.branch;
+      // newInput['importerGSTIN'] = emergent.GSTIN;
+      // newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
-      setChangeImporterData({ ...indoGerman });
+      // setChangeImporterData({ ...indoGerman });
       const newInput = { ...invoiceDataRevised };
-      newInput['importerName'] = indoGerman.companyName;
-      newInput['branchOffice'] = indoGerman.branch;
-      newInput['importerGSTIN'] = indoGerman.GSTIN;
-      newInput['companyAddress'] = indoGerman.address;
+      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
+      // newInput['branchOffice'] = indoGerman.branch;
+      // newInput['importerGSTIN'] = indoGerman.GSTIN;
+      // newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceDataRevised({ ...newInput });
+    
+     
+      
     }
-  };
+     let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+      console.log(value,val.Company_Name,"ssssss")
+        if(val.Company_Name==value)
+        {
+          return val
+        }
+      })
+      setBranchOptions(filter)
+  };;
   const routeChange = () => {
     Router.push('/revised-margin-preview');
   };
@@ -1138,7 +1171,7 @@ const Index = ({
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                      <option selected disabled>
+                      <option selected >
                         Select an option
                       </option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
@@ -1363,13 +1396,41 @@ const Index = ({
                           : marginData?.revisedMarginMoney?.invoiceDetail
                               ?.branchOffice
                       }
-                      onChange={(e) => changeImporter(e)}
+                      onChange={(e) =>{
+                                    //  changeImporter(e)
+                                      let filter= getInternalCompaniesMasterData.filter((val,index)=>{
+                                         
+                                            if(val.Branch==e.target.value && val.Company_Name?.toLowerCase()==invoiceDataRevised?.importerName?.toLowerCase())
+                                            {
+                                              return val
+                                            }
+                                          })
+                                          console.log(filter,"filter")
+                                          if(filter.length>0){
+
+                                         
+                                        const newInput = { ...invoiceDataRevised };
+                                        changeImporterData.address = filter[0].Address;
+                                        newInput['companyAddress'] = filter[0].Address;
+                                        changeImporterData.GSTIN = filter[0].GSTIN;
+                                        newInput['importerGSTIN'] = filter[0].GSTIN;
+                                        changeImporterData.branch = e.target.value;
+                                   
+                                        newInput['branchOffice'] = e.target.value;
+                                     
+                                        setChangeImporterData({ ...changeImporterData });
+                                        setInvoiceDataRevised({ ...newInput });
+                                         }
+                                  }}
                     >
-                      <option selected disabled>
+                      <option selected >
                         Select an option
                       </option>
-                      <option value="SURAT">{'SURAT'}</option>
-                      <option value="DELHI">DELHI</option>
+                      {
+                                    branchOptions.map((val,index)=>{
+                                      return <option value={val.Branch}>{val.Branch}</option>
+                                    })
+                                  }
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -1439,21 +1500,31 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={
+                      value={
                         marginData?.revisedMarginMoney?.invoiceDetail?.bankName
                       }
                       onChange={(e) =>
+                       {
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
                           e.target.value,
                         )
+                          let filter=getBanksMasterData.filter((val,index)=>{
+                                      if(val.name==e.target.value){
+                                        return val
+                                      }
+                                    })
+                                    console.log(filter,"filter")
+                                    dispatch(getBranches(filter[0].code))
+                       }
                       }
                     >
                       <option selected disabled>
                         Select an option
                       </option>
-                      <option value="HDFC">HDFC</option>
-                      <option value="SBI">SBI</option>
+                       {getBanksMasterData.map((val,index)=>{
+                                   return <option value={`${val.name}`}>{val.name}</option>
+                         })}
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -1479,17 +1550,28 @@ const Index = ({
                         marginData?.revisedMarginMoney?.invoiceDetail?.branch
                       }
                       onChange={(e) =>
-                        saveInvoiceDataRevisedRevised(
+                       {
+                         saveInvoiceDataRevisedRevised(
                           e.target.name,
                           e.target.value,
                         )
+                      let filter=getBranchesMasterData.filter((val,index)=>{
+                            if(val.BRANCH==e.target.value){
+                              return val
+                            }
+                          })
+                          
+                                    
+                         savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
+                       }
                       }
                     >
                       <option selected disabled>
                         Select an option
                       </option>
-                      <option value="DELHI, INDIA">DELHI, INDIA</option>
-                      <option value="VIZAG, INDIA">VIZAG, INDIA</option>
+                     {getBranchesMasterData.map((val,index)=>{
+                                  return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
+                                  })}
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -1516,9 +1598,11 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={
+                    value={
+                      invoiceDataRevised.branchAddress?
+                      invoiceDataRevised.branchAddress:
                       marginData?.revisedMarginMoney?.invoiceDetail
-                        ?.branchAddress
+                        ?.branchAddress 
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1542,7 +1626,8 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={
+                    value={
+                      invoiceDataRevised.IFSCcode?invoiceDataRevised.IFSCcode:
                       marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode
                     }
                     className={`${styles.input_field} input form-control`}

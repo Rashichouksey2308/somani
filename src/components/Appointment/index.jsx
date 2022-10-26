@@ -11,7 +11,7 @@ import { UpdateInspection } from 'redux/Inspections/action';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
-export default function Index({ inspectionData, setDate }) {
+export default function Index({ inspectionData, setDate,vendor }) {
   const dispatch = useDispatch();
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -24,34 +24,51 @@ export default function Index({ inspectionData, setDate }) {
     inspectionData?.thirdPartyAppointment?.dateOfAppointment,
     'inspectionData',
   );
+  console.log(vendor,"vendor")
   useEffect(() => {
+    let add=[]
+    let pincode=[]
+     let newAddress=[]
+    if(vendor){
+        // add = vendor?.field23.split(",")
+        //    newAddress=[]
+        //   add.forEach((val,index)=>{
+        //     if(index<add.length-1){
+        //       newAddress.push(val)
+        //     }
+        //   })
+        // pincode =   add[add.length-1].split("-")
+        //   console.log(add,"dfdfsdfdsf",pincode)
+    }
+     
+
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name || '',
+      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress:
-          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
         addressType:
           inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode,
-        country: inspectionData?.thirdPartyAppointment?.address?.country,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode|| "",
+        country: inspectionData?.thirdPartyAppointment?.address?.country ,
       },
     });
     setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name,
+      name: inspectionData?.thirdPartyAppointment?.name|| vendor?.field4,
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress:
-          inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress ||   vendor?.field23,
         addressType:
           inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode|| "",
         country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     });
-  }, [inspectionData]);
+  }, [inspectionData,vendor]);
   // console.log(appointmentData, 'appointmentData')
 
   // console.log(
