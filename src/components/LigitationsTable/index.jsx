@@ -27,8 +27,10 @@ function index({ data, Heading, val, totalData }) {
       setCount({ pending: pending, disposed: disposed });
     }
   }, [totalData]);
-  const casePreviewHandler = (cinNo) => {
-    dispatch(GetCaseDetails({ cin: cinNo }));
+  const casePreviewHandler = async (cinNo) => {
+    let data = await dispatch(GetCaseDetails({ cin: cinNo }));
+    console.log(data,'datadata')
+   
   };
   const totalNumberOfCases = data?.length;
   //const pendingCases = data.filter((e)=> e.)
@@ -73,10 +75,9 @@ function index({ data, Heading, val, totalData }) {
                     <div
                       className={styles.fill}
                       style={{
-                        width: `${
-                          (count?.pending / Number(totalData?.cases?.length)) *
+                        width: `${(count?.pending / Number(totalData?.cases?.length)) *
                           100
-                        }%`,
+                          }%`,
                       }}
                     ></div>
                     <span className={`sub_heading`}>
