@@ -752,7 +752,7 @@ function Index({
                       />
                       <div className="d-flex justify-content-between align-items-center">
                         <img
-                          className="ml-4"
+                          className={`${styles.add_btn} ml-4`}
                           src="/static/add-btn.svg"
                           alt="add button"
                           onClick={() => addDocArr()}
@@ -830,7 +830,7 @@ function Index({
                       />
                       <div className="d-flex justify-content-between align-items-center">
                         <img
-                          className="ml-4"
+                          className={`${styles.add_btn} ml-4`}
                           src="/static/add-btn.svg"
                           alt="add button"
                           onClick={() => addConditionArr()}

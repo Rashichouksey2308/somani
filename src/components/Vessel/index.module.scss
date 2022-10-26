@@ -15,6 +15,9 @@
     }
     .tab_header {
       height: 48px;
+      @include respond(lg-desktop) {
+        height: 40px;
+      }
       .title {
         font-size: 34px;
         font-weight: bold;
@@ -78,8 +81,11 @@
 .backgroundMain {
   margin: 18px 28px 28px;
   margin-bottom: 112px;
-  @include respond(sm-desktop) {
+  @include respond(lg-desktop) {
     margin: 10px 20px 20px;
+  }
+  @include respond(sm-desktop) {
+    margin: 8px 18px 18px;
   }
   @include respond(phone) {
     margin: 5px 15px 15px;
@@ -88,18 +94,25 @@
   .main {
     border-radius: 6px;
     margin-bottom: 26px;
+    @include respond(lg-desktop) {
+      margin-bottom: 20px;
+    }
     .head_container {
-      height: 80px;
-      padding: 25px 35px !important;
+      min-height: 80px;
+      padding: 0 35px !important;
       border-bottom: 2px solid #cad6e6;
+      @include respond(lg-desktop) {
+        min-height: 60px;
+      }
       .heading {
         font-size: 22px;
         color: #3687e8;
         font-weight: bold;
         line-height: 27px;
         margin: 0;
-        @include respond(md-desktop) {
+        @include respond(lg-desktop) {
           font-size: 20px;
+          line-height: 1.3;
         }
         @include respond(sm-desktop) {
           font-size: 18px;
@@ -132,15 +145,12 @@
         padding: 5px 20px 5px 10px;
         outline: none;
         min-width: 80px;
-        @include respond(md-desktop) {
-          font-size: 18px;
-        }
-        @include respond(sm-desktop) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
         }
         @include respond(phone) {
           font-size: 10px;
-          line-height: 18px;
         }
       }
       .dropDown_label {
@@ -150,8 +160,9 @@
         line-height: 17px;
         padding-right: 10px;
         margin-bottom: 0;
-        @include respond(md-desktop) {
+        @include respond(lg-desktop) {
           font-size: 14px;
+          line-height: 15px;
         }
         @include respond(sm-desktop) {
           font-size: 12px;
@@ -172,8 +183,9 @@
         margin: 0 15px 0 30px;
         width: 78px;
         height: 36px;
-        @include respond(md-desktop) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
         }
         @include respond(sm-desktop) {
           font-size: 14px;
@@ -526,9 +538,11 @@
         background-color: transparent;
         margin: 0 15px 0 30px;
         width: 78px;
-        height: 36px;
-        @include respond(md-desktop) {
-          font-size: 16px;
+        height: 36px;        
+        @include respond(lg-desktop) {
+          height: 34px;  
+          font-size: 15px;
+          line-height: 1.3;
         }
         @include respond(sm-desktop) {
           font-size: 14px;
@@ -548,16 +562,15 @@
       font-weight: bold;
       letter-spacing: 0px;
       //color: #111111;
-      @include respond(md-desktop) {
+      @include respond(lg-desktop) {
         font-size: 18px;
+        line-height: 1.3;
       }
       @include respond(sm-desktop) {
         font-size: 16px;
-        line-height: 20px;
       }
       @include respond(phone) {
         font-size: 14px;
-        line-height: 15px;
       }
     }
     .form_group {
@@ -583,8 +596,11 @@
         line-height: 25px;
         background-color: transparent;
         white-space: nowrap;
-        @include respond(md-desktop) {
+        @include respond(lg-desktop) {
+          width: 180px;
+          height: 38px;
           font-size: 18px;
+          line-height: 1.3;
         }
         @include respond(sm-desktop) {
           font-size: 16px;
@@ -604,8 +620,9 @@
         line-height: 24px;
         font-weight: bold;
         margin-left: 30px;
-        @include respond(sm-desktop) {
-          font-size: 14px;
+        @include respond(lg-desktop) {
+          font-size: 13px;
+          line-height: 1.3;
         }
         @include respond(phone) {
           font-size: 12px;
@@ -766,6 +783,10 @@ img {
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -776,6 +797,9 @@ img {
   img {
     width: auto !important;
     height: auto !important;
+    @include respond(lg-desktop) {
+      width: 11px !important;
+    }
   }
 }
 .uploadBtnWrapper {
