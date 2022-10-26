@@ -995,7 +995,7 @@ function Index({
                           </h3>
 
                           <div
-                            className={`${styles.form_group} d-flex justify-content-start`}
+                            className={`${styles.form_group} d-flex align-items-center justify-content-start`}
                           >
                             {' '}
                             {containerExcel === null ? (

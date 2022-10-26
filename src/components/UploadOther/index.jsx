@@ -429,13 +429,13 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     />
                   </div>
                 </Form.Group>
-                <Form.Group className={`${styles.form_group} statusBox`}>
+                <Form.Group className={`${styles.form_group}`}>
                   <input
                     id="otherDocName"
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
-                    className={`${styles.value} input form-control`}
+                    className={`${styles.value} statusBox input form-control`}
                     type="text"
                     disabled={manualDocModule}
                   />
