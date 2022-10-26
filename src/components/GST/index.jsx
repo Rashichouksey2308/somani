@@ -1271,15 +1271,18 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <span className={`${styles.light} accordion_Text`}>
                     GST :
                   </span>
-                  {/* <MultiSelect
+                  <MultiSelect
                     className={`${styles.gst_list} input`}
                     options={options}
                     value={selected}
                     onChange={setSelected}
                     labelledBy="Select"
+                    disableSearch="true"
                   
-                  /> */}
-                  <select
+                  />
+                  <button className={`${styles.submit_btn} ml-3`}>Submit</button>
+                  <button className={`${styles.submit_btn} ml-3`}>Consolidated</button>
+                  {/* <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
                     onChange={(e) => handleChangeGstin(e)}
@@ -1292,7 +1295,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         {gstin}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </span>
               </div>
               <div className={` ${styles.body}`}>

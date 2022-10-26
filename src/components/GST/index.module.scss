@@ -1273,3 +1273,21 @@ img {
     border: 3px solid #3687e8;
   }
 }
+.submit_btn {
+  text-align: center;
+  color: #3687e8;
+  text-transform: capitalize;
+  border: 3px solid #3687e8;
+  border-radius: 5px;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: bold;
+  background: transparent;
+  padding: 4px 15px;
+  @include respond(lg-desktop) {
+    height: 34px;
+    font-size: 15px;
+    line-height: 1;
+    // padding: 0;
+  }
+}
