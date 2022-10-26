@@ -81,33 +81,7 @@ function Index({
       </div>
     );
   };
-  const DropDown2 = (values, name, disabled,toShow) => {
-    return (
-      <div className="d-inline-flex align-items-center position-relative">
-        <Form.Select
-          size="sm"
-          name={name}
-          className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
-          onChange={(e) => {
-            handleChange(e.target.name, e.target.value);
-          }}
-          value={payloadData[name] ?? ''}
-          disabled={disabled}
-        >
-          {' '}
-          <option value="">Select an option</option>
-          {values.map((options) => {
-            return <option>{options[toShow]}</option>;
-          })}{' '}
-        </Form.Select>
-        <img
-          className={`${styles.arrow2} image_arrow img-fluid`}
-          src="/static/inputDropDown.svg"
-          alt="Search"
-        />
-      </div>
-    );
-  };
+
 
   const clearData = () => {
     document.getElementById('ReviewProfileForm').reset();
@@ -342,12 +316,35 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse &&
-                      DropDown2(
-                         commodity,
-                        'commodity',
-                        fields[3].isEdit,
-                        "Commodity"
-                      )}
+                   
+                    <>
+                        <div className="d-inline-flex align-items-center position-relative">
+                    <Form.Select
+                      size="sm"
+                      name={"commodity"}
+                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                      onChange={(e) => {
+                        handleChange(e.target.name, e.target.value);
+                      }}
+                      value={payloadData.commodity}
+                      disabled={ fields[3]?.isEdit}
+                    >
+                      {' '}
+                      <option value="">Select an option</option>
+                      {commodity.map((options) => {
+                        return <option  value={`${options.Commodity}`}>{options.Commodity}</option>;
+                      })}{' '}
+                    </Form.Select>
+                    <img
+                      className={`${styles.arrow2} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+        />
+      </div>
+                     </>
+                    
+                   
+                      }
                   </td>
                 </tr>
 
@@ -432,13 +429,39 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse &&
-                      DropDown2(
-                        country,
-                        'countryOfOrigin',
-                        fields[5].isEdit,
-                        "Country"
+                    <>
+                        <div className="d-inline-flex align-items-center position-relative">
+                    <Form.Select
+                      size="sm"
+                      name={"countryOfOrigin"}
+                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                      onChange={(e) => {
+                        handleChange(e.target.name, e.target.value);
+                      }}
+                      value={payloadData.country}
+                      disabled={fields[5].isEdit}
+                    >
+                      {' '}
+                      <option value="">Select an option</option>
+                      {country.map((options) => {
+                        return <option value={`${options.Country}`}>{options.Country}</option>;
+                      })}{' '}
+                    </Form.Select>
+                    <img
+                      className={`${styles.arrow2} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+        />
+      </div>
+                     </>
+                      // DropDown2(
+                      //   country,
+                      //   'countryOfOrigin',
+                      //   fields[5].isEdit,
+                      //   "Country"
 
-                      )}
+                      // )
+                      }
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -468,12 +491,43 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse &&
-                      DropDown(
-                        port,
-                        'portOfDischarge',
-                        fields[6]?.isEdit,
-                        "Port_Name"
-                      )}
+                     <>
+                        <div className="d-inline-flex align-items-center position-relative">
+                    <Form.Select
+                      size="sm"
+                      name={"portOfDischarge"}
+                      className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
+                      onChange={(e) => {
+                        handleChange(e.target.name, e.target.value);
+                      }}
+                      value={payloadData.port}
+                      disabled={fields[6]?.isEdit}
+                    >
+                      {' '}
+                      <option value="">Select an option</option>
+                      {port.filter((val,index)=>{
+                        if(val.Country.toLowerCase()=="india"){
+                          return val
+                        }
+                      }).map((options) => {
+                        return <option value={`${options.Port_Name},${options.Country}`}>{options.Port_Name},{options.Country}</option>;
+                      })}{' '}
+                    </Form.Select>
+                    <img
+                      className={`${styles.arrow2} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+        />
+      </div>
+                     </>
+                      // DropDown(
+                      //   port,
+                      //   'portOfDischarge',
+                      //   fields[6]?.isEdit,
+                      //   "Port_Name"
+                      // )
+                      
+                      }
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
