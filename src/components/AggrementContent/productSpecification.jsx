@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Form, Row, Col } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
+import { toast } from 'react-toastify';
+
 function Index(props) {
   const [excelData, setExcelData] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
@@ -11,6 +13,8 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [editField, setEditField] = useState(false);
   const [doc, setdoc] = useState({ attachDoc: '' });
+
+
   console.log(excelData, 'excelData', excelFile);
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
@@ -162,7 +166,33 @@ function Index(props) {
                   //   // uploadDocument2(e)
                   //   setdoc({ attachDoc: e.target.files[0].name })
                   // }}
-                  onChange={handleFile}
+                  // onChange={handleFile}
+
+                  onChange={(e)=> {
+                    if (
+                      e.target.files[0].name
+                        .toLocaleLowerCase()
+                        .endsWith('.xls') ||
+                      e.target.files[0].name
+                        .toLocaleLowerCase()
+                        .endsWith('.xlsx')
+                    ) {
+                      handleFile(e);
+                    } else {
+                      let toastMessage =
+                        'only XLS files are allowed';
+                      if (
+                        !toast.isActive(
+                          toastMessage.toUpperCase(),
+                        )
+                      ) {
+                        toast.error(
+                          toastMessage.toUpperCase(),
+                          { toastId: toastMessage },
+                        );
+                      }
+                    }
+                  }}
                 />
                 <button className={`${styles.button_upload2} btn`}>
                   Upload Specifications

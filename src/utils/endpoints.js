@@ -88,7 +88,9 @@ export default {
   //getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
-  getConsolidatedGst : '/lead/consolidate-gst',
+  getGst: 'karza/send-gst-link',
+  getConsolidatedGst: '/lead/consolidate-gst',
+
 
 
   // getGstKarza: 'karza/send-gst-link',

@@ -117,6 +117,27 @@ function VerifyingGstFailed() {
   };
 }
 
+function VerifyingConsolidatedGst() {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA,
+  };
+}
+
+function VerifyingConsolidatedGstSuccess(payload) {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA_SUCCESS,
+    payload,
+  };
+}
+function VerifyingConsolidatedGstFailed() {
+  return {
+    type: types.GET_CONSOLIDATED_GST_KARZA_FAILED,
+  };
+}
+
+
+
+
 export const UpdateCam =
   (payload, message) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
@@ -222,7 +243,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     dispatch(VerifyingGst());
 
     // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
-     Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
+    Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
@@ -239,6 +260,88 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(VerifyingGstFailed());
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+
+
+export const getGstData = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    dispatch(VerifyingGst());
+
+    Axios.post(`${API.corebaseUrl}${API.getGst}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(VerifyingGstSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(VerifyingGstFailed(response.data.data));
+        let toastMessage = response.data.message;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(VerifyingGstFailed());
+    let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const getConsolidatedGstData = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    let cookie = Cookies.get('SOMANI');
+
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    dispatch(VerifyingConsolidatedGst());
+
+    Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(VerifyingConsolidatedGstSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(VerifyingConsolidatedGstFailed(response.data.data));
+        let toastMessage = response.data.message;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(VerifyingConsolidatedGstFailed());
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

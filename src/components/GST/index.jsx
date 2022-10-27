@@ -23,7 +23,7 @@ import { toast } from 'react-toastify';
 
 // Redux
 import { useDispatch } from 'react-redux';
-import { VerifyGstKarza } from '../../redux/creditQueueUpdate/action';
+import { VerifyGstKarza, getConsolidatedGstData, getGstData } from '../../redux/creditQueueUpdate/action';
 
 ChartJS.register(
   LineController,
@@ -41,6 +41,7 @@ import {
   CovertvaluefromtoCR,
   convertValue,
   checkNan,
+  emailValidation,
 } from '../../utils/helper';
 import _get from 'lodash/get';
 // Chart.register(linear);
@@ -58,7 +59,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  console.log(companyData, 'companyData');
+  const consolidatedDataGstData = companyData?.gstConsolidated
+  console.log(consolidatedDataGstData, 'companyData');
+
 
   console.log(GstData, 'GSTDATA');
   const chartRef = useRef(null);
@@ -91,11 +94,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [credential, setCredential] = useState({
-    username: '',
-    password: '',
-    gstin: '',
-  });
+  const [credential, setCredential] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
 
   useEffect(() => {
@@ -104,9 +103,6 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       arrayGst.push({ label: item, value: item })
     })
     setGstOption(arrayGst)
-
-
-    console.log(GstData?.length, 'GstData?.length ');
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin });
       console.log('inside GSt UseEffetc');
@@ -120,27 +116,40 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       GstDataHandler({});
     }
   }, [GstData]);
-  // console.log(gstFilteredData, 'gstFilteredData')
+
 
   const handleGStinFetch = () => {
-    if (selected.length !== 1) {
-      let toastMessage = 'only 1 gstin can be submitted';
+    if (selected.length < 1) {
+      let toastMessage = 'please select atLeast 1 gstin';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     } else {
-      let payload = {
-        company: companyData?.company,
-        gstinList: []
-      }
-
-      selected.forEach((item) => {
-        payload.gstinList.push(item.value)
-      })
-
-      console.log(payload, 'gstinP[ayload')
-      // dispatch(VerifyGstKarza(payload));
+      handleShow();
     }
+  }
+
+  const doesGstExist = () => {
+    let data = false;
+    let gstinList = []
+    let gstNotFound = []
+
+    selected.forEach((item) => {
+      gstinList.push(item.value)
+    })
+    gstinList.forEach((gst) => {
+      if (GstData.some(e => e.gstin === gst)) {
+        data = true
+      } else {
+        data = false
+        let toastMessage = 'gstin cannot be consolidated . please fetch the selected gstin data first';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        return
+      }
+    })
+    return data
   }
 
 
@@ -150,7 +159,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } else {
+    } else if (doesGstExist()) {
       let payload = {
         company: companyData?.company,
         gstinList: []
@@ -161,41 +170,129 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       })
 
       console.log(payload, 'gstinP[ayload')
-      // dispatch(VerifyGstKarza(payload));
+      dispatch(getConsolidatedGstData(payload));
     }
   }
 
 
 
   const gstinVerifyHandler = (e) => {
-    const payload = {
-      company: companyData?.company,
-      gstin: credential.gstin,
-      username: credential.username,
-      password: credential.password,
-    };
-    //console.log(payload, 'payload')
+    if (!emailValidation(credential)) {
+      let toastMessage = 'please input a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    } else {
 
-    dispatch(VerifyGstKarza(payload));
-    handleClose();
+      let payload = {
+        company: companyData?.company,
+        gstinList: [],
+        email: credential
+      }
+
+      selected.forEach((item) => {
+        payload.gstinList.push(item.value)
+      })
+
+      console.log(payload, 'gstinP[ayload')
+      dispatch(getGstData(payload));
+
+    }
+
+
+    // const payload = {
+    //   company: companyData?.company,
+    //   gstin: credential.gstin,
+    //   username: credential.username,
+    //   password: credential.password,
+    // };
+    // console.log(payload, 'payload')
+
+    // // dispatch(VerifyGstKarza(payload));
+    // handleClose();
   };
 
-  const handleChangeGstin = (e) => {
-    const filteredgstin = GstData?.filter(
-      (GstinData) => GstinData.gstin === e.target.value,
-    );
-    // console.log(filteredgstin.length, 'filteredgstin')
-    if (filteredgstin?.length === 1) {
-      filteredgstin?.map((gstData) => {
-        const data = { ...gstData };
-        SetGstFilteredData(data);
-        GstDataHandler(data);
-        setCredential({ ...credential, gstin: data.gstin });
-      });
+  useEffect(() => {
+    if (selected.length < 1) {
+      console.log('handleChangeGstin 1')
+      return
+    } else if (selected.length === 1) {
+      console.log('handleChangeGstin 2')
+
+      const filteredgstin = GstData?.filter(
+        (GstinData) => GstinData.gstin === selected[0].value,
+      );
+      if (filteredgstin?.length === 1) {
+        console.log('handleChangeGstin 2.1')
+        filteredgstin?.map((gstData) => {
+          const data = { ...gstData };
+          SetGstFilteredData(data);
+          GstDataHandler(data);
+          setCredential({ ...credential, gstin: data.gstin });
+        });
+      }
     } else {
-      setCredential({ ...credential, gstin: e.target.value });
-      handleShow();
+      let consolidatedDataExist = false;
+      let selectedGstin = []
+      console.log(selectedGstin, selected, 'handleChangeGstin 3-1')
+
+      selected.forEach((item) => {
+        selectedGstin.push(item.value)
+      })
+      let consolidatedIndex = null
+      selectedGstin.forEach((gstin) => {
+        consolidatedDataGstData.forEach((gstin2,index) => {
+          console.log(gstin2.gstin, selectedGstin, 'handleChangeGstin 3')
+
+          
+          const areEqual = () => {
+            if (selectedGstin.length === gstin2.gstin.length) {
+              console.log('handleChangeGstin 3.1')
+              return selectedGstin.every((element) => {
+                if (gstin2.gstin.includes(element)) {
+                  console.log('handleChangeGstin 3.2')
+
+                  consolidatedIndex = index
+                  return true;
+                }
+                return false;
+              });
+            }
+            return false;
+
+          }
+          console.log(areEqual(),consolidatedIndex, 'handleChangeGstin 4')
+         
+
+        })
+      })
+      if (consolidatedIndex===0) {
+        SetGstFilteredData(consolidatedDataGstData[consolidatedIndex]);
+          GstDataHandler(consolidatedDataGstData[consolidatedIndex]);
+        console.log(consolidatedDataGstData[consolidatedIndex],'handleChangeGstin 4.1')
+      }
     }
+
+  }, [selected])
+
+  const handleChangeGstin = (e) => {
+
+
+    // const filteredgstin = GstData?.filter(
+    //   (GstinData) => GstinData.gstin === e.target.value,
+    // );
+    // // console.log(filteredgstin.length, 'filteredgstin')
+    // if (filteredgstin?.length === 1) {
+    //   filteredgstin?.map((gstData) => {
+    //     const data = { ...gstData };
+    //     SetGstFilteredData(data);
+    //     GstDataHandler(data);
+    //     setCredential({ ...credential, gstin: data.gstin });
+    //   });
+    // } else {
+    //   setCredential({ ...credential, gstin: e.target.value });
+    //   handleShow();
+    // }
   };
 
   function createGradient(ctx, area, color, color2) {
@@ -1324,18 +1421,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <span className={`${styles.light} accordion_Text`}>
                     GST :
                   </span>
-                  {/* <MultiSelect
+                  <MultiSelect
                     className={`${styles.gst_list} input`}
                     options={options}
                     value={selected}
-                    onChange={setSelected}
+                    onChange={(e) => {
+                      setSelected(e)
+                      handleChangeGstin(e)
+                    }}
                     labelledBy="Select"
                     disableSearch="true"
-
                   />
                   <button onClick={handleGStinFetch} className={`${styles.submit_btn} ml-3`}>Submit GSTIN</button>
-                  <button onClick={handleConsolidatedGStinFetch} className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button> */}
-                  <select
+                  <button onClick={handleConsolidatedGStinFetch} className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button>
+                  {/* <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
                     onChange={(e) => handleChangeGstin(e)}
@@ -1348,7 +1447,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         {gstin}
                       </option>
                     ))}
-                  </select>
+                  </select> */}
                 </span>
               </div>
               <div className={` ${styles.body}`}>
@@ -1876,7 +1975,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     name="email"
                     className={`${styles.formControl} ${styles.input} input form-control`}
                     onChange={(e) =>
-                      setCredential({ ...credential, username: e.target.value })
+                      setCredential(e.target.value)
                     }
                     required
                   />

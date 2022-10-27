@@ -32,7 +32,6 @@ function CreditReducer(state = initialState, action) {
         ...state,
         gettingDocuments: true,
       };
-
     case types.GET_DOCUMENT_SUCCESS:
       return {
         ...state,
