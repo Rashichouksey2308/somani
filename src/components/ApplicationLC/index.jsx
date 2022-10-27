@@ -69,7 +69,7 @@ function Index() {
     setNumber([...number.slice(0, index), ...number.slice(index + 1)]);
   };
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [1500, 2100]);
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -1551,9 +1551,6 @@ function Index() {
                         ) : (
                           ''
                         )}
-                        <tr height="100">
-                          <td colSpan={2}></td>
-                        </tr>
                         <tr height="67">
                           <th colSpan={2} bgColor="#FAFAFB" align="left">
                             <h3
@@ -2338,7 +2335,7 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf');
+          doc.save('ApplicationLC.pdf');
         },
         // margin:margins,
         autoPaging: 'text',

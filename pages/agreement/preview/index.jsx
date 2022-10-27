@@ -121,7 +121,7 @@ function index() {
     }
   }, []);
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [800, 1160]);
+    const doc = new jsPDF('p', 'pt', [800, 1200]);
     doc.html(ReactDOMServer.renderToString(toPdf(data)), {
       callback: function (doc) {
         doc.save('Sales Agreements.pdf');
@@ -172,9 +172,7 @@ const toPdf = (data) => {
             align="center"
             style={{ textDecoration: 'underline', color: '#000000' }}
           >
-            <strong>
-              <u>SALES CONTRACT</u>
-            </strong>
+            <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
