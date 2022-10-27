@@ -82,7 +82,7 @@ export default function Index({
     },
   ]);
 
-  console.log(customData,billOfEntryData,'billOfEntryFor')
+  console.log(dutyData,'billOfEntryFor')
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -206,8 +206,10 @@ export default function Index({
 
   const handleDeleteRow = (index2, index) => {
     const newInput = [...dutyData];
-    let a = newInput[index][index2];
-    a.slice(index2 + 1);
+    let a = newInput[index];
+    console.log(a,"sssssss",index2)
+    a.splice(index2 , 1);
+    console.log(a,"232323")
     setDutyData([...newInput]);
   };
 
@@ -226,6 +228,7 @@ export default function Index({
       action: false,
       value: false,
     });
+    console.log(newInput,"newInput")
     setDutyData([...newInput]);
   };
 

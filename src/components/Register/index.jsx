@@ -308,7 +308,7 @@ function Index() {
       }
       return;
     } else if (!orderDetails.ExpectedDateOfShipment) {
-      let toastMessage = 'Please Fill A Expected date of Shipment';
+      let toastMessage = 'Please Fill  Last date of Shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }

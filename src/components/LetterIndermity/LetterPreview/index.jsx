@@ -954,7 +954,7 @@ function Index() {
           download={exportPDF}
           rightBtn="Edit"
           isDownload={true}
-          rightBtnClick={() => Router.push('/transit/id')}
+          rightBtnClick={() => Router.push('/transit/id?loi')}
         />
       </div>
     </div>
