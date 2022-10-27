@@ -214,7 +214,7 @@ function Index() {
 
   console.log(subCategory, 'opne');
   const handleOpen = (val, index, from) => {
-    console.log(val, 'val233');
+    console.log(val, 'val233',from);
     if (from == 'main') {
       sessionStorage.setItem('sideBarMain', val);
       sessionStorage.setItem('subsideBarMain', null);
@@ -232,7 +232,7 @@ function Index() {
       setsubCategory(sessionStorage.getItem('subsideBarMain'));
     }
   };
-
+console.log(index12,className,"ASasas")
   console.log(category, subCategory, 'sub');
 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
@@ -283,6 +283,7 @@ function Index() {
                     className={`${styles.sub_wrapper} ${index12 == index ? className : null
                       }`}
                   >
+                   
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
 
@@ -385,6 +386,7 @@ function Index() {
                     className={`${styles.sub_wrapper} ${index12 == index ? className : null
                       }`}
                   >
+                     {console.log(index12==index,val?.Other,"Asasasasasa")}
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
                         const className12 =
