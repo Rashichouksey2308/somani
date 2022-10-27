@@ -29,6 +29,7 @@ function Index({
   editLcComments,
   editLcDocComments,
   name,
+  port
 }) {
   console.log(lcModuleData, 'lcCondition12234');
   const [editStren, setEditStren] = useState(false);
@@ -672,14 +673,21 @@ function Index({
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option selected disabled>
+                            <option selected >
                               Select an option
                             </option>
-                            <option value="Vishakapatnam, India">
-                              Visakhapatnam, India
+                             
+                              {port.filter((val,index)=>{
+                            if(val.Country.toLowerCase()=="india"){
+                              return val
+                            }
+                          }).map((val,index)=>{
+                            return(
+                              <option value={`${val.Port_Name},${val.Country}`}>
+                            {val.Port_Name},{val.Country}
                             </option>
-                            <option value="Mumbai, India">Mumbai, India</option>
-                            <option value="Gujrat, India">Gujrat, India</option>
+                            )
+                          })}
                           </select>
 
                           <label
@@ -752,7 +760,7 @@ function Index({
                       />
                       <div className="d-flex justify-content-between align-items-center">
                         <img
-                          className="img-fluid ml-4"
+                          className={`${styles.add_btn} ml-4`}
                           src="/static/add-btn.svg"
                           alt="add button"
                           onClick={() => addDocArr()}
@@ -830,7 +838,7 @@ function Index({
                       />
                       <div className="d-flex justify-content-between align-items-center">
                         <img
-                          className="img-fluid ml-4"
+                          className={`${styles.add_btn} ml-4`}
                           src="/static/add-btn.svg"
                           alt="add button"
                           onClick={() => addConditionArr()}

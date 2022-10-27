@@ -27,7 +27,7 @@ import Cookies from 'js-cookie';
 import Axios from 'axios';
 import _get from 'lodash/get';
 import { forEach } from 'lodash';
-
+import { getVendors,getBranches,getInternalCompanies } from '../../redux/masters/action';
 function Index(props) {
   const dispatch = useDispatch();
 
@@ -49,7 +49,17 @@ function Index(props) {
       props.setDate(localStorage.getItem('timeGenericUpdated'));
     }
   });
-  const changeActiveValue = (val, index) => {
+       useEffect(() => {
+     dispatch(getVendors())
+    
+    dispatch(getInternalCompanies())
+   
+  }, []);
+   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
+   const { getBanksMasterData } = useSelector((state) => state.MastersData);
+    const { getBranchesMasterData } = useSelector((state) => state.MastersData);
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
+    const changeActiveValue = (val, index) => {
     setActive(val);
     showContent();
     setSaveData(false);
@@ -72,7 +82,7 @@ function Index(props) {
     setSidebar(tempArr);
     setIsSideBarOpen(false);
     setSideStateToLocal(val);
-  };
+   };
 
   // useEffect(() => {
   //   changeActiveValue(active)
@@ -478,6 +488,7 @@ function Index(props) {
           order={props?.genericData}
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
+          internal={getInternalCompaniesMasterData}
         />
       );
     }
@@ -528,6 +539,7 @@ function Index(props) {
           data={props?.genericData?.CHA}
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
+          vendor={getVendorsMasterData[3]}
         />
       );
     }
@@ -543,6 +555,7 @@ function Index(props) {
           addressValidation={addressValidation}
           uploadDoc={uploadDoc}
           termsheet={props?.genericData?.order?.termsheet}
+          vendor={getVendorsMasterData[1]}
         />
       );
     }
@@ -602,6 +615,7 @@ function Index(props) {
           active={active}
           addressValidation={addressValidation}
           sameAsCHA={sameAsCHA}
+          vendor={getVendorsMasterData[4]}
         />
       );
     }
@@ -2888,7 +2902,7 @@ function Index(props) {
                 className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
               >
                 <span className={`mr-4 label`}>Multiple Parties Involved</span>
-                <div className={`d-flex mr-4`}>
+                <div className={`d-flex mr-4 align-items-center`}>
                   <div className={`form-check  mr-4`}>
                     <input
                       className="form-check-input"

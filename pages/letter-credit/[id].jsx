@@ -629,14 +629,14 @@ function Index() {
                           </label>
                           {fieldType == '' ? (
                             <img
-                              className="img-fluid ml-4"
+                              className={`${styles.add_btn} ml-4`}
                               src="/static/add-btn.svg"
                               alt="add button"
                               onClick={() => addToArr()}
                             />
                           ) : (
                             <img
-                              className="img-fluid"
+                              className={`${styles.add_btn}`}
                               style={{ marginLeft: '40px' }}
                               src="/static/add-btn.svg"
                               alt="add button"

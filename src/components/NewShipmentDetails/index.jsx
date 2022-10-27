@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
-const index = ({ saveShipmentData, shipment, expectedShipment }) => {
+const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   // const {shipmentDetail}= orderDetail;
 
   const [expShipment, setExpectedShipment] = useState(null);
@@ -194,6 +194,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
+                    startFrom={shipment.loadPort.toDate ? moment(shipment.loadPort.toDate).add(1, 'days').format('DD-MM-YYYY') : moment(new Date()).format('DD-MM-YYYY')}
                     maxDate={maxdate}
                   />
                   <img
@@ -229,7 +230,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment }) => {
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
                     startFrom={dateStartFrom.eta}
-                    maxDate={maxdate}
+                    maxDate={shipment.lastDateOfShipment ? moment(shipment.lastDateOfShipment).format('DD-MM-YYYY') : maxdate}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -264,12 +265,17 @@ const index = ({ saveShipmentData, shipment, expectedShipment }) => {
                     }}
                   >
                     <option value="">Select an option</option>
-                    <option value="Westshore Terminals,Canada">
-                      Westshore Terminals,Canada
-                    </option>
-                    <option value="Abbot Point,Australia">
-                      Abbot Point,Australia
-                    </option>
+                    {port.filter((val, index) => {
+                      if (val.Country.toLowerCase() !== "india") {
+                        return val
+                      }
+                    }).map((val, index) => {
+                      return (
+                        <option value={`${val.Port_Name},${val.Country}`}>
+                          {val.Port_Name},{val.Country}
+                        </option>
+                      )
+                    })}
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}

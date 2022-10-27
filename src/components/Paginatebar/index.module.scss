@@ -49,6 +49,10 @@
     }
     img {
       margin-left: 0.5rem;
+      @include respond(lg-desktop) {
+        width: 12px;
+        margin-left: 0.3rem;
+      }
       @include respond(phone) {
         width: 10px;
       }
@@ -93,19 +97,39 @@
         height: 19px;
       }
     }
-    .zoom {
-      width: 58px;
-      height: 36px;
-      @include respond(sm-desktop) {
-        font-size: 15px;
-        width: 30px;
-        height: 19px;
-      }
-      @include respond(phone) {
-        font-size: 12px;
-        width: 20px;
-        height: 19px;
-      }
+    .reject {
+        cursor: pointer;
+        width: 260px;
+        height: 48px;
+        border: 3px solid #3687E8;
+        border-radius: 5px;
+        color: #3687E8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        @include respond(lg-desktop) {
+            width: 200px;
+            height: 38px;
+        }
+        img {
+            margin-left: 0.5rem;
+            @include respond(lg-desktop) {
+                width: 13px;
+                margin-left: 0.3rem;
+            }
+            @include respond(phone) {
+                width: 10px;
+            }
+        }
+        span {
+            @include respond(phone) {
+                font-size: 12px;
+            }
+        }
+        @include respond(phone) {
+            font-size: 12px;
+        }
     }
     .button {
       width: 24px;

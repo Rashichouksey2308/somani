@@ -98,9 +98,9 @@ function Index(props) {
       if (sessionStorage.getItem('Cma')) {
         let savedData = JSON.parse(sessionStorage.getItem('Cma'));
         let cma = {
-          name: savedData.name || 'Dr. Amin Controllers Private Limited',
+          name: savedData.name || props?.vendor?.field4,
           shortName: savedData.shortName,
-          gstin: savedData.gstin || '27AAACA3912A2ZE',
+          gstin: savedData.gstin || props?.vendor?.field22,
           designatedStorageArea: savedData.designatedStorageArea,
 
           addresses: savedData.addresses,
@@ -138,9 +138,9 @@ function Index(props) {
         setOptions([...optionArray]);
       } else {
         let cma = {
-          name: props.data?.name || 'Dr. Amin Controllers Private Limited',
+          name: props.data?.name || props?.vendor?.field4,
           shortName: props.data?.shortName,
-          gstin: props.data?.gstin || '27AAACA3912A2ZE',
+          gstin: props.data?.gstin || props?.vendor?.field22,
           designatedStorageArea:
             props?.data?.designatedStorageArea ||
             props.termsheet.transactionDetails.portOfDischarge,
@@ -174,17 +174,27 @@ function Index(props) {
           }
         }
         if (a == false) {
+           console.log(props?.vendor?.field23,"props?.vendor?.field23")
+          let add = props?.vendor?.field23.split(",")
+          let newAddress=[]
+          add.forEach((val,index)=>{
+            if(index<4){
+              newAddress.push(val)
+            }
+          })
+          let pincode =   add[5].split("-")
+          console.log(add,"dfdfsdfdsf",pincode)
           setAddressList([
             ...addressList,
             {
               addressType: 'Registered',
               fullAddress:
-                'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3',
-              pinCode: '400 052',
+                newAddress.join(),
+              pinCode: pincode[1],
               country: 'India',
-              gstin: '27AAACA3912A2ZE',
-              state: 'Maharashtra ',
-              city: 'Khar (West) Mumba',
+              gstin: '',
+              state:  pincode[0],
+              city: add[4],
             },
           ]);
         }
@@ -205,7 +215,7 @@ function Index(props) {
         setOptions([...optionArray]);
       }
     }
-  }, []);
+  }, [props]);
   console.log(addressList, 'addressList');
   useEffect(() => {
     if (props.saveData == true && props.active == 'CMA') {
@@ -554,7 +564,7 @@ function Index(props) {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
+                  <option value={`${props.vendor.field22}`}>{props.vendor.field22}</option>
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}

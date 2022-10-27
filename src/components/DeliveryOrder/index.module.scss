@@ -393,8 +393,9 @@
             margin-bottom: 15px;
             color: #00000080;
             white-space: nowrap;
-            @include respond(sm-desktop) {
-              font-size: 15px;
+            @include respond(lg-desktop) {
+              font-size: 14px;
+              line-height: 15px;
             }
             @include respond(phone) {
               font-size: 13px;
@@ -406,11 +407,9 @@
             height: 60px;
             line-height: 25px;
             font-weight: 500;
-            @include respond(sm-desktop) {
-              font-size: 18px;
-            }
-            @include respond(phone) {
-              font-size: 16px;
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
             }
           }
 
@@ -709,6 +708,10 @@
         margin-bottom: 15px;
         color: #00000080;
         white-space: nowrap;
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 15px;
+        }
       }
 
       .value {
@@ -716,11 +719,9 @@
         height: 60px;
         line-height: 25px;
         font-weight: 500;
-        @include respond(sm-desktop) {
-          font-size: 18px;
-        }
-        @include respond(phone) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          font-size: 15px;
+          line-height: 1.3;
         }
       }
 
@@ -823,6 +824,10 @@
   width: 40px;
   height: 38px;
   cursor: pointer;
+  @include respond(lg-desktop) {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .add_image {
@@ -1178,6 +1183,10 @@
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+  }
+  @include respond(lg-desktop) {
+    width: 10px;
+    margin-left: -25px;
   }
 }
 

@@ -449,6 +449,18 @@
       border-radius: 3px;
     }
   }
+  .sign_head {
+    text-align: right;
+    letter-spacing: 0.19px;
+    color: #111111;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 25px;
+
+    span {
+      font-weight: normal;
+    }
+  }
   .address_values {
     padding-left: 18px;
 
@@ -465,7 +477,7 @@
       font-size: 20px;
       line-height: 25px;
       //color: #111111;
-      text-transform: capitalize;
+      //text-transform: capitalize;
 
       span {
         font-size: 20px;
@@ -473,6 +485,12 @@
         font-weight: bold;
         //color: #111111;
         text-transform: capitalize;
+      }
+      .phone_number {
+        text-decoration: underline;
+        letter-spacing: 0.19px;
+        color: #3687e8;
+        font-weight: 500;
       }
     }
     .view_btn {

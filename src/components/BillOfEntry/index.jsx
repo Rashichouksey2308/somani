@@ -52,7 +52,7 @@ export default function Index({
     {
       boeAssessment: '',
       pdBond: false,
-      billOfEntryFor: '',
+      billOfEntryFor: customData?.order?.termsheet?.transactionDetails?.billOfEntity,
       boeNumber: '',
       boeDate: '',
 
@@ -81,6 +81,8 @@ export default function Index({
       document3: null,
     },
   ]);
+
+  console.log(customData,billOfEntryData,'billOfEntryFor')
 
   const totalCustomDuty = (index) => {
     let number = 0;
@@ -410,6 +412,7 @@ export default function Index({
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
+      console.log('billOfEntryFor' , ' is this running?');
       let data = _get(customData, 'billOfEntry.billOfEntry', [{}]);
       let tempArray = [];
       let duty11 = [];
@@ -418,11 +421,7 @@ export default function Index({
         tempArray.push({
           boeAssessment: val?.boeAssessment,
           pdBond: val?.pdBond || false,
-          billOfEntryFor: _get(
-            customData,
-            'order.termsheet.transactionDetails.billOfEntity',
-            '',
-          ),
+          billOfEntryFor: val?.billOfEntryFor ? val?.billOfEntryFor  : customData.order.termsheet.transactionDetails.billOfEntity ,
           boeNumber: val?.boeNumber,
           boeDate: val?.boeDate,
 
@@ -452,7 +451,7 @@ export default function Index({
       setDutyData([...duty11]);
       setBillOfEntryData([...tempArray]);
     }
-  }, []);
+  }, [customData]);
 
   const getIndex = (index) => {
     return index + 1;
@@ -573,8 +572,8 @@ export default function Index({
                           onClick={(e) => {
                             addNewRow();
                           }}
-                          className={`${styles.add_btn} mr-0`}
-                          style={{ paddingBottom: '10px' }}
+                          className={`${styles.add_btn} text-center mr-0`}
+                          style={{ paddingBottom: '12px' }}
                         >
                           <span className={styles.add_sign}>+</span>Add
                         </button>

@@ -179,7 +179,7 @@ function Index({
                     </td>
                     <td onClick={() => handleRoute(insured)}>
                       <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
+                        className={`${styles.edit_image} mr-3`}
                         src="/static/mode_edit.svg"
                         alt="edit"
                       />
@@ -205,7 +205,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />
@@ -230,7 +230,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />
@@ -255,7 +255,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />
@@ -282,7 +282,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />
@@ -309,7 +309,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />
@@ -336,7 +336,7 @@ function Index({
                 </td>
                 <td>
                   <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
+                    className={`${styles.edit_image} mr-3`}
                     src="/static/mode_edit.svg"
                     alt="edit"
                   />

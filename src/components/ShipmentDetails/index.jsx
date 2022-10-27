@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import DateCalender from '../DateCalender';
 import moment from 'moment';
 
-const index = ({ orderDetail, saveShipmentData, shipment }) => {
+const index = ({ orderDetail, saveShipmentData, shipment,port }) => {
   console.log(shipment, 'ship[');
   // const {shipmentDetail}= orderDetail;
 
@@ -231,15 +231,20 @@ const index = ({ orderDetail, saveShipmentData, shipment }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option selected disabled>
+                    <option selected >
                       Select an option
                     </option>
-                    <option value="Westshore Terminals,Canada">
-                      Westshore Terminals,Canada
-                    </option>
-                    <option value="Abbot Point,Australia">
-                      Abbot Point,Australia
-                    </option>
+              {port.filter((val,index)=>{
+                  if(val.Country.toLowerCase()!=="india"){
+                    return val
+                  }
+                }).map((val,index)=>{
+                   return(
+                     <option value={`${val.Port_Name},${val.Country}`}>
+                  {val.Port_Name},{val.Country}
+                  </option>
+                   )
+                })}
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
                   <Form.Label

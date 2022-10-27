@@ -18,6 +18,11 @@ const Index = ({
   onChangeTransactionDetails,
   newLcVal,
   changePayment,
+  commodity,
+  onChangeCommodityDetails2,
+  port,
+  country,
+  currency
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false);
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false);
@@ -68,6 +73,27 @@ const Index = ({
     termsheetDetails?.transactionDetails?.incoTerms,
     'dkfgdfhjgdjfhgdkjfgdkjg',
   );
+  const [toShow,setToShow] = useState([])
+  const [toView,setToView] = useState(false)
+  const filterCommodity=(value)=>{
+    if(value==""){
+      setToShow([])
+      setToView(false)
+      return
+    }
+   let filterData = commodity.filter(o => {
+    return o.Commodity.toLowerCase().includes(value.toLowerCase())
+   });
+   console.log(filterData,"filterData")
+
+   setToShow(filterData)
+     setToView(true)
+
+  }
+    const handleData=(name,value)=>{
+      onChangeCommodityDetails2(name,value)
+      setToView(false)
+  }
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -77,7 +103,7 @@ const Index = ({
         aria-expanded="true"
         aria-controls="termDetails"
       >
-        <h3 className={styles.heading}>Termsheet</h3>
+        <h3 className={styles.heading}>Transaction Summary</h3>
         <span>+</span>
       </div>
       <div
@@ -97,11 +123,34 @@ const Index = ({
                 <input
                   id="commodity"
                   className={`${styles.value} input form-control`}
-                  defaultValue={termsheetDetails?.commodityDetails?.commodity}
-                  onChange={onChangeCommodityDetails}
+                  value={termsheetDetails?.commodityDetails?.commodity}
+                  onChange={(e)=>{
+                    filterCommodity(e.target.value)
+                    onChangeCommodityDetails(e)
+                  }}
                   type="text"
                   required
                 />
+              {toShow.length>0 && toView &&  (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map(
+                          (results, index) => (
+                            <li
+                              onClick={() => handleData("commodity",results.Commodity)}
+                              id={results._id}
+                              key={index}
+                              value={results.Commodity}
+                            >
+                              {results.Commodity}{' '}
+                            </li>
+                          ),
+                        )
+                      : ''}
+                  </ul>
+                </div>
+              )}
                 <label className={`${styles.label} label_heading`}>
                   Commodity<strong className="text-danger">*</strong>
                 </label>
@@ -159,14 +208,21 @@ const Index = ({
                   <option disabled selected>
                     Select
                   </option>
-                  <option value="USD">USD</option>
+                      {currency.map((val,index)=>{
+                   return(
+                     <option value={`${val.Currency}`}>
+                  {val.Currency}
+                  </option>
+                   )
+                })}
+                  {/* <option value="USD">USD</option>
                   <option value="INR">INR</option>
                   <option disabled value="Euro">
                     Euro
                   </option>
                   <option disabled value="BRITISHPOUND">
                     POUND
-                  </option>
+                  </option> */}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>
@@ -475,15 +531,20 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
-                  <option disabled selected>
+                  <option  selected>
                     Select an option
                   </option>
-                  <option value="Westshore Terminals,Canada">
-                    Westshore Terminals,Canada
+                  {port.filter((val,index)=>{
+                  if(val.Country.toLowerCase()!=="india"){
+                    return val
+                  }
+                }).map((val,index)=>{
+                   return(
+                     <option value={`${val.Port_Name},${val.Country}`}>
+                  {val.Port_Name},{val.Country}
                   </option>
-                  <option value="Abbot Point,Australia">
-                    Abbot Point,Australia
-                  </option>
+                   )
+                })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Loading<strong className="text-danger">*</strong>
@@ -504,14 +565,15 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option disabled selected>
-                    Select an option
+                 
+                    <option selected>Select an option</option>
+                    {country.map((val,index)=>{
+                   return(
+                     <option value={`${val.Country}`}>
+                  {val.Country}
                   </option>
-                  <option value="India">India</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Sri Lanka">Sri Lanka</option>
-                  <option value="Qatar">Qatar</option>
-                  <option value="Dubai">Dubai</option>
+                   )
+                })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
@@ -601,14 +663,20 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option disabled selected>
+                  <option  selected>
                     Select an option
                   </option>
-                  <option value="Vishakapatnam, India">
-                    Visakhapatnam, India
+                    {port.filter((val,index)=>{
+                  if(val.Country.toLowerCase()=="india"){
+                    return val
+                  }
+                }).map((val,index)=>{
+                   return(
+                     <option value={`${val.Port_Name},${val.Country}`}>
+                  {val.Port_Name},{val.Country}
                   </option>
-                  <option value="Mumbai, India">Mumbai, India</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
+                   )
+                })}
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>

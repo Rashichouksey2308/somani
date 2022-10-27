@@ -172,7 +172,7 @@
           border: 1px solid #0000001f;
           border-radius: 4px;
           padding: 10px 9px 10px 9px;
-          @include respond(md-desktop) {
+          @include respond(lg-desktop) {
             height: 30px;
             padding: 7px;
           }

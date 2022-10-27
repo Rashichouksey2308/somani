@@ -288,6 +288,21 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getCaseDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
+        console.log(response?.data.data.caseDetails.pdfDocumentsLink[0], 'litigationresponse')
+        if (response?.data.data.caseDetails.pdfDocumentsLink.length < 1) {
+          let toastMessage = 'document Not Available';
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+        } else {
+          console.log(response?.data.data.caseDetails.pdfDocumentsLink[0], 'litigationresponse')
+          window.open(
+            response?.data.data.caseDetails.pdfDocumentsLink[0],
+            '_blank',
+            'noopener,noreferrer',
+          )
+        }
+
       } else {
         dispatch(getCaseDetailsFailed(response.data.data));
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';

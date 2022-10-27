@@ -36,6 +36,9 @@ function Index() {
             className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
           >
             <h3 className={`${styles.heading}`}>Profile Details</h3>
+            <div className={styles.status_heading}>
+              User Status <span className={styles.active}>Active</span>
+            </div>
           </div>
 
           <div className={`${styles.dashboard_form} vessel_card card-body`}>
@@ -68,61 +71,94 @@ function Index() {
                 </div>
               ))}
             </div>
-            <div className="row">
-              {/* <div className='col-8'> */}
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Full Name
-                  <strong className="text-danger ml-1">*</strong>
-                </label>
-              </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Username
-                </label>
-              </div>
-
-              <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <input
-                  type="text"
-                  id="textInput"
-                  name="email"
-                  className={`${styles.input_field} border_color input form-control`}
-                />
-                <label
-                  className={`${styles.label_heading} label_heading`}
-                  id="textInput"
+            <div className="d-flex justify-space-between">
+              <div className="row w-75">
+                {/* <div className='col-8'> */}
+                <div
+                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
                 >
-                  Official Email ID
-                  <strong className="text-danger ml-1">*</strong>
-                </label>
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Full Name
+                    <strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Username
+                  </label>
+                </div>
+
+                <div className={`${styles.form_group} col-md-5 col-sm-6`}>
+                  <input
+                    type="text"
+                    id="textInput"
+                    name="email"
+                    className={`${styles.input_field} border_color input form-control`}
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`}
+                    id="textInput"
+                  >
+                    Official Email ID
+                    <strong className="text-danger ml-1">*</strong>
+                  </label>
+                </div>
+                <div
+                  className={`${styles.form_group} col-lg-5 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="password"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Password
+                    </label>
+                    <div
+                      className={`${styles.img_arrow} image_arrow`}
+                      style={{ marginLeft: '-50px' }}
+                    >
+                      <Image
+                        width="22px"
+                        height="16px"
+                        src="/static/password-image.png"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="password"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Password
-                </label>
+              <div className="d-flex" style={{ marginTop: '-100px' }}>
+                <div className="">
+                  <Image
+                    width="266px"
+                    height="287px"
+                    src="/static/profile-image.png"
+                    alt="Profile Image"
+                  />
+                  <div style={{ marginLeft: '200px', marginTop: '-270px' }}>
+                    <Image
+                      width="41px"
+                      height="41px"
+                      src="/static/edit-white-background.png"
+                      alt="Edit"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -316,7 +352,7 @@ function Index() {
                 >
                   <input
                     className={`${styles.input_field} border_color input form-control`}
-                    type="text"
+                    type="email"
                     required
                     name="supplierName"
                   />
@@ -389,7 +425,12 @@ function Index() {
                 >
                   <input
                     className={`${styles.input_field} border_color input form-control`}
-                    type="text"
+                    type="number"
+                    onWheel={(event) => event.currentTarget.blur()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     required
                     name="supplierName"
                   />

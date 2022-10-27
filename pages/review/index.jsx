@@ -25,6 +25,7 @@ import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHo
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils';
 import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails';
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings';
+<<<<<<< HEAD
 
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
 import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
@@ -36,7 +37,20 @@ import { ViewDocument } from '../../src/redux/ViewDoc/action';
 import Loader from '../../src/components/Loader/index';
 import { GetAllOrders } from 'redux/registerBuyer/action';
 import { GetCompanyDetails } from 'redux/companyDetail/action';
+=======
+>>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
 
+import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
+import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
+import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeStatement';
+import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges';
+import Peer from '../../src/components/ReviewQueueFinancials/Peer';
+import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
+import { ViewDocument } from '../../src/redux/ViewDoc/action';
+import Loader from '../../src/components/Loader/index';
+import { GetAllOrders } from 'redux/registerBuyer/action';
+import { GetCompanyDetails } from 'redux/companyDetail/action';
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../src/redux/masters/action';
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
@@ -237,7 +251,20 @@ function Index() {
       }
     }
   }, [dispatch, fetchingKarzaGst]);
+<<<<<<< HEAD
 
+=======
+    useEffect(() => {
+    dispatch(getCountries())
+    dispatch(getPorts());
+    dispatch(getCommodities())
+    dispatch(getDocuments())
+  }, []);
+  const { getPortsMasterData } = useSelector((state) => state.MastersData);
+  const { getCountriesMasterData } = useSelector((state) => state.MastersData);
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
+  const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
+>>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
   useEffect(() => {
     if (companyData) {
       let statutory = [];
@@ -781,6 +808,18 @@ function Index() {
       }
       return false;
     }
+<<<<<<< HEAD
+=======
+    if (
+      approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue
+    ) {
+      let toastMessage = 'Order Value Cannot Be Greater Than Limit Value';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+>>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
     return true;
   };
 
@@ -1845,6 +1884,22 @@ function Index() {
 
     return length;
   };
+<<<<<<< HEAD
+=======
+  
+  const debtProfileColor = (conduct) => {
+    switch (conduct.toLowerCase()) {
+      case 'good':
+        return '#43C34D';
+      case 'satisfactory':
+        return '#FF9D00';
+      case 'average':
+        return '#EA3F3F';
+      default:
+        return '#EA3F3F';
+    }
+  };
+>>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
   const toPrintPdf = (
     camData,
     RevenueDetails,
@@ -1854,6 +1909,7 @@ function Index() {
     skewnessChartPurchasesImg,
     shareHoldingChartImg,
     openBankChargeChartImg,
+    debtProfileColor,
   ) => {
     console.log(_get, 'get');
     function calcPc(n1, n2) {
@@ -1988,6 +2044,10 @@ function Index() {
       'financial.ratioAnalysis[1]',
       {},
     );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
 
     return (
       <table
@@ -2170,7 +2230,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.company?.typeOfBusiness}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(
+                    ', ',
+                  )}
                 </td>
                 <td
                   style={{
@@ -2191,8 +2253,10 @@ function Index() {
                     paddingBottom: '40px',
                   }}
                 >
-                  {' '}
-                  {camData?.company?.typeOfBusiness}
+                  {
+                    camData?.company?.detailedCompanyInfo?.profile
+                      ?.companyDetail?.industry
+                  }
                 </td>
               </tr>
               <tr bgColor="#F7F9FF">
@@ -4800,7 +4864,7 @@ function Index() {
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
                                 textTransform: 'uppercase',
-                                padding: '40px 6px 0 35px',
+                                padding: '30px 6px 6px 35px',
                               }}
                             >
                               {debt.bankName}
@@ -4812,7 +4876,7 @@ function Index() {
                                 color: '#8492A6',
                                 lineHeight: '18px',
                                 fontWeight: 'bold',
-                                padding: '40px 35px 0 6px',
+                                padding: '30px 35px 6px 6px',
                               }}
                             >
                               {debt.limit?.toLocaleString('en-In', {
@@ -4821,7 +4885,7 @@ function Index() {
                             </td>
                           </tr>
                           <tr>
-                            <td colSpan={2} style={{ padding: '0 35px' }}>
+                            <td colSpan={2} style={{ padding: '0 35px 5px' }}>
                               <span
                                 style={{
                                   background: '#E4ECF7',
@@ -4834,15 +4898,7 @@ function Index() {
                               >
                                 <span
                                   style={{
-                                    background: `${
-                                      debt.conduct == 'Good'
-                                        ? '#43C34D'
-                                        : debt.conduct == 'Satisfactory'
-                                        ? '#FF9D00'
-                                        : debt.conduct == 'Average'
-                                        ? 'average'
-                                        : '#EA3F3F'
-                                    }`,
+                                    background: `${debtProfileColor(debt.conduct)}`,
                                     width: `${
                                       (Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
@@ -4864,14 +4920,14 @@ function Index() {
                               align="right"
                               style={{
                                 fontSize: '17px',
-                                color: '#EA3F3F',
+                                color: `${debtProfileColor(debt.conduct)}`,
                                 lineHeight: '21px',
                                 fontWeight: 'bold',
-                                padding: '0 35px',
+                                padding: '5px 35px 0',
                                 marginTop: '10px',
                               }}
                             >
-                              Cash Deposit
+                              {debt.limitType}
                             </td>
                           </tr>
                         </>
@@ -7571,9 +7627,9 @@ function Index() {
                           paddingLeft: '35px',
                         }}
                       >
-                        Inventory Period
+                        Interest Coverage
                       </td>
-                      <td
+                      {/* <td
                         style={{
                           fontSize: '20px',
                           color: '#111111',
@@ -7582,6 +7638,18 @@ function Index() {
                         }}
                       >
                         Interest Coverage
+                      </td> */}
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {latestYearData?.interestCoverage
+                        ?.toFixed(2)
+                        ?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7591,19 +7659,9 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {latestYearData?.daysOfInventoryOutstanding?.toFixed(2)}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '25px',
-                          fontWeight: '500',
-                        }}
-                      >
-                        {previousYearData?.daysOfInventoryOutstanding?.toFixed(
-                          2,
-                        )}
+                        {previousYearData?.interestCoverage
+                                ?.toFixed(2)
+                                ?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -9091,6 +9149,7 @@ function Index() {
           skewnessChartPurchasesImg,
           shareHoldingChartImg,
           openBankChargeChartImg,
+          debtProfileColor,
         ),
       ),
       {
@@ -10021,11 +10080,15 @@ function Index() {
                     <Order
                       orderDetail={orderDetails}
                       saveOrderData={saveOrderData}
+                      commodity={getCommoditiesMasterData}
+                      country={getCountriesMasterData}
+                      port={getPortsMasterData}
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
                       saveShipmentData={saveShipmentData}
                       shipment={shipment}
+                       port={getPortsMasterData}
                     />
                     <CommonSave onSave={onOrderSave} />
                   </div>
@@ -10112,6 +10175,7 @@ function Index() {
                     totalLimitDebt={totalLimitDebt}
                     CreditAgency={CreditAgency}
                     litigationStatus={litigationStatus}
+                    debtProfileColor={debtProfileColor}
                   />
                 </div>
               </div>

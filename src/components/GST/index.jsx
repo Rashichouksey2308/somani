@@ -19,6 +19,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { toast } from 'react-toastify';
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -44,16 +45,20 @@ import {
 import _get from 'lodash/get';
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
-  const options = [
-    { label: 'Grapes', value: 'grapes' },
-    { label: 'Mango', value: 'mango' },
-    { label: 'Strawberry', value: 'strawberry' },
-  ];
+
+
+  const [gstOption, setGstOption] = useState([]);
+
+
+  const options = gstOption;
+
+
+
   const [selected, setSelected] = useState([]);
 
   const dispatch = useDispatch();
   const GstData = companyData?.GST;
-  console.log(GstData, 'GstDataGAT');
+  console.log(companyData, 'companyData');
 
   console.log(GstData, 'GSTDATA');
   const chartRef = useRef(null);
@@ -94,6 +99,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [passwordShow, setPasswordShow] = useState(false);
 
   useEffect(() => {
+    let arrayGst = []
+    orderList?.company?.gstList.forEach((item) => {
+      arrayGst.push({ label: item, value: item })
+    })
+    setGstOption(arrayGst)
+
+
     console.log(GstData?.length, 'GstData?.length ');
     if (GstData?.length > 0) {
       setCredential({ ...credential, gstin: GstData[0].gstin });
@@ -109,6 +121,51 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     }
   }, [GstData]);
   // console.log(gstFilteredData, 'gstFilteredData')
+
+  const handleGStinFetch = () => {
+    if (selected.length !== 1) {
+      let toastMessage = 'only 1 gstin can be submitted';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    } else {
+      let payload = {
+        company: companyData?.company,
+        gstinList: []
+      }
+
+      selected.forEach((item) => {
+        payload.gstinList.push(item.value)
+      })
+
+      console.log(payload, 'gstinP[ayload')
+      // dispatch(VerifyGstKarza(payload));
+    }
+  }
+
+
+  const handleConsolidatedGStinFetch = () => {
+    if (selected.length < 2) {
+      let toastMessage = 'please select atLeast 2 gstin';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    } else {
+      let payload = {
+        company: companyData?.company,
+        gstinList: []
+      }
+
+      selected.forEach((item) => {
+        payload.gstinList.push(item.value)
+      })
+
+      console.log(payload, 'gstinP[ayload')
+      // dispatch(VerifyGstKarza(payload));
+    }
+  }
+
+
 
   const gstinVerifyHandler = (e) => {
     const payload = {
@@ -1169,15 +1226,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       );
       console.log(endYear, startYear, 'startYear');
 
-      financialYear = `${
-        startYear !== ''
-          ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
-          : ''
-      } - ${
-        endYear !== ''
+      financialYear = `${startYear !== ''
+        ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
+        : ''
+        } - ${endYear !== ''
           ? moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
           : ''
-      } `;
+        } `;
 
       return financialYear;
     } else {
@@ -1185,15 +1240,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         '-',
       );
 
-      financialYear = `${
-        startYear !== ''
-          ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
-          : ''
-      } - ${
-        endYear !== ''
+      financialYear = `${startYear !== ''
+        ? moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
+        : ''
+        } - ${endYear !== ''
           ? moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()
           : ''
-      } `;
+        } `;
 
       return financialYear;
     }
@@ -1220,8 +1273,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     let text = `${moment(item[0], 'MMYYYY')
       .format('MMM YYYY')
       ?.toUpperCase()}-${moment(item[1], 'MMYYYY')
-      .format('MMM YYYY')
-      ?.toUpperCase()}`;
+        .format('MMM YYYY')
+        ?.toUpperCase()}`;
 
     if (chart) {
       text = `${moment(item[0], 'MMYYYY').format('MM-YYYY')} to ${moment(
@@ -1277,8 +1330,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     value={selected}
                     onChange={setSelected}
                     labelledBy="Select"
-                  
-                  /> */}
+                    disableSearch="true"
+
+                  />
+                  <button onClick={handleGStinFetch} className={`${styles.submit_btn} ml-3`}>Submit GSTIN</button>
+                  <button onClick={handleConsolidatedGStinFetch} className={`${styles.submit_btn} ml-3`}>Consolidated GSTIN </button> */}
                   <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}
@@ -3634,9 +3690,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         { maximumFractionDigits: 0 },
                       )
                         ? gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
-                            'en-In',
-                            { maximumFractionDigits: 0 },
-                          )
+                          'en-In',
+                          { maximumFractionDigits: 0 },
+                        )
                         : '-'}
                     </td>
                     <td className="border-left-0">

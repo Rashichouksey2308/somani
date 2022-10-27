@@ -10,6 +10,7 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
 
+  console.log(addressList,'addressList')
   const changeEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -185,7 +186,7 @@ function Index(props) {
                     <th width="15%" className="border-0 generic_th">
                       Date of Execution
                     </th>
-                    {isAssignment === 'Assignment Letter' ? (
+                   
                       <>
                         <th width="20%" className="border-0 generic_th">
                           Month of loading of Cargo
@@ -195,9 +196,7 @@ function Index(props) {
                           Date of Contract between Shipper and Buyer
                         </th>
                       </>
-                    ) : (
-                      ''
-                    )}
+                  
                     <th width="10%" className="border-0 generic_th">
                       Actions
                     </th>
@@ -207,12 +206,15 @@ function Index(props) {
                       addressList?.map((val, index) => {
                         return (
                           <>
-                            {val.actions == 'true' ? (
+                            {val.actions == 'true'  ?
+                            (
                               <tr key={index}>
-                                <td>{val.name}</td>
-                                <td>{val.comment}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{val?.name}</td>
+                                <td>{val?.comment}</td>
+                                <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td>
+                                <td>{val?.monthOfLoadingCargo}</td>
+
+                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : '' }</td>
 
                                 <td className={`d-flex`}>
                                   <img
@@ -227,7 +229,7 @@ function Index(props) {
                                   ></img>
                                 </td>
                               </tr>
-                            ) : (
+                            )  : (
                               <tr key={index}>
                                 <td>
                                   <select
@@ -384,7 +386,10 @@ function Index(props) {
                                     </td>
                                   </>
                                 ) : (
-                                  <>{getFiled()}</>
+                                  <>
+                                  <td></td>
+                                  <td></td>
+                                  </>
                                 )}
                                 <td className={`d-flex`}>
                                   <img

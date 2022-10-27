@@ -16,6 +16,7 @@ export default function Index(props) {
     sessionStorage.setItem('dono', val);
     Router.push('/delivery-preview');
   };
+  console.log(props.releaseOrderData, 'tempArr');
 
   return (
     <>
@@ -133,6 +134,9 @@ export default function Index(props) {
                             >
                               <div className="d-flex">
                                 <select
+                                  value={
+                                    props.releaseOrderData[index].orderNumber
+                                  }
                                   name="orderNumber"
                                   onChange={(e) =>
                                     props.deliverChange(
@@ -141,6 +145,7 @@ export default function Index(props) {
                                       index,
                                     )
                                   }
+                                  disabled={!val.isDelete}
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 >
                                   {_get(
