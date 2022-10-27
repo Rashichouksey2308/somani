@@ -9031,10 +9031,16 @@ function Index() {
               return riskFilter(val);
             });
     }
+    console.log(districtCourt,"districtCourt",highCourt)
     setSupreme([...supremeCourt]);
     setTribunal([...tribunalCourts]);
     setHigh([...highCourt]);
-    setDistrict([...districtCourt]);
+    if(Array.isArray(districtCourt)){
+      setDistrict([...districtCourt]);
+    }else{
+       setDistrict([]);
+    }
+    
     setTotalCourt(count);
   };
   console.log(High, 'highCourtDisplay');
