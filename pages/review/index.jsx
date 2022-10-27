@@ -25,20 +25,6 @@ import ShareHoldingPattern from '../../src/components/ReviewQueueProfile/ShareHo
 import AuditorDeatils from '../../src/components/ReviewQueueProfile/AuditorDeatils';
 import AuditorsDetail from '../../src/components/ReviewQueueProfile/AuditorsDetails';
 import CreditRatings from '../../src/components/ReviewQueueProfile/CreditRatings';
-<<<<<<< HEAD
-
-import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
-import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
-import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeStatement';
-import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges';
-import Peer from '../../src/components/ReviewQueueFinancials/Peer';
-import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
-import { ViewDocument } from '../../src/redux/ViewDoc/action';
-import Loader from '../../src/components/Loader/index';
-import { GetAllOrders } from 'redux/registerBuyer/action';
-import { GetCompanyDetails } from 'redux/companyDetail/action';
-=======
->>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
 
 import BalanceSheet from '../../src/components/ReviewQueueFinancials/BalanceSheet';
 import CashFlow from '../../src/components/ReviewQueueFinancials/CashFlow';
@@ -251,9 +237,6 @@ function Index() {
       }
     }
   }, [dispatch, fetchingKarzaGst]);
-<<<<<<< HEAD
-
-=======
     useEffect(() => {
     dispatch(getCountries())
     dispatch(getPorts());
@@ -264,7 +247,6 @@ function Index() {
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
->>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
   useEffect(() => {
     if (companyData) {
       let statutory = [];
@@ -808,8 +790,6 @@ function Index() {
       }
       return false;
     }
-<<<<<<< HEAD
-=======
     if (
       approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue
     ) {
@@ -819,7 +799,6 @@ function Index() {
       }
       return false;
     }
->>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
     return true;
   };
 
@@ -1884,8 +1863,6 @@ function Index() {
 
     return length;
   };
-<<<<<<< HEAD
-=======
   
   const debtProfileColor = (conduct) => {
     switch (conduct.toLowerCase()) {
@@ -1899,7 +1876,6 @@ function Index() {
         return '#EA3F3F';
     }
   };
->>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
   const toPrintPdf = (
     camData,
     RevenueDetails,
@@ -2044,10 +2020,6 @@ function Index() {
       'financial.ratioAnalysis[1]',
       {},
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> 924f9c3dd812d83211872e3dfa5b0bcc86fcb6ec
 
     return (
       <table
