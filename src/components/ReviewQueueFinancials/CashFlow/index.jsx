@@ -198,7 +198,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
@@ -256,7 +256,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
@@ -314,7 +314,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
@@ -377,7 +377,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
@@ -433,7 +433,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
                             latestYearData?.previous
@@ -499,7 +499,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestBalanceData?.assets?.propertyPlantAndEquipment -
                             latestYearData?.previous

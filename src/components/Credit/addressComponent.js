@@ -48,7 +48,7 @@ function AddressComponent({
             <div>
               {index !== 0 && (
                 <img
-                  className={`${styles.edit_image} img-fluid mr-3`}
+                  className={`${styles.edit_image} ml-2 mr-3`}
                   src="/static/mode_edit.svg"
                   alt="edit"
                   onClick={() => {
@@ -64,7 +64,7 @@ function AddressComponent({
                     deleteComponent(index);
                   }}
                   src="/static/delete 2.svg"
-                  className="img-fluid"
+                  className={`${styles.delete_image}`}
                   alt="delete"
                 />
               )}

@@ -159,7 +159,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations,
                           previousYearData?.revenue?.revenueFromOperations,
@@ -199,7 +199,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.otherIncome,
                           previousYearData?.revenue?.otherIncome,
@@ -247,7 +247,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.totalRev,
                           previousYearData?.revenue?.totalRev,
@@ -288,7 +288,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.purchaseStock,
                           previousYearData?.expenses?.purchaseStock,
@@ -328,7 +328,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.othExp,
                           previousYearData?.expenses?.othExp,
@@ -376,7 +376,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.totExp,
                           previousYearData?.expenses?.totExp,
@@ -443,7 +443,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
                             latestYearData?.expenses?.totExp +
@@ -492,7 +492,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.deprcnAmort,
                           previousYearData?.expenses?.deprcnAmort,
@@ -552,7 +552,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.revenue?.revenueFromOperations -
                             latestYearData?.expenses?.totExp +
@@ -598,7 +598,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.expenses?.finCost,
                           previousYearData?.expenses?.finCost,
@@ -640,7 +640,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.profLossBefTax,
                           previousYearData?.profLossBefTax,
@@ -680,7 +680,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.totalTaxExpense,
                           previousYearData?.totalTaxExpense,
@@ -722,7 +722,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                           maximumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.profitLoss,
                           previousYearData?.profitLoss,
@@ -762,7 +762,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         ).toFixed(2)}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           (
                             latestYearData?.totalTaxExpense /
