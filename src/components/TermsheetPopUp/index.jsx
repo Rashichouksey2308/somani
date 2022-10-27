@@ -59,12 +59,12 @@ function Index(props) {
               aria-describedby="passwordHelpBlock"
               className="mb-3"
               onChange={(e) => {
-                setEmail(e.target.value);
+                props.setEmail(e.target.value);
               }}
             />
             <div
               onClick={(e) => {
-                props.shareEmail(email);
+                props.shareEmail();
               }}
               className={`${styles.button} d-flex justify-content-center align-content-center`}
             >
