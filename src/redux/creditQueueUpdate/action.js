@@ -220,7 +220,9 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
       'Access-Control-Allow-Origin': '*',
     };
     dispatch(VerifyingGst());
-    Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+
+    // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
+     Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

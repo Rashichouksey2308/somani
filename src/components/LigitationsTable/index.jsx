@@ -16,7 +16,6 @@ function index({ data, Heading, val, totalData }) {
       let pending = 0;
       let disposed = 0;
       totalData.cases.forEach((val, idex) => {
-        console.log(val?.caseStatus, 'val?.caseStatus');
         if (val?.caseStatus?.trim()?.toLowerCase() == 'disposed') {
           disposed = disposed + 1;
         }
@@ -27,14 +26,11 @@ function index({ data, Heading, val, totalData }) {
       setCount({ pending: pending, disposed: disposed });
     }
   }, [totalData]);
-  const casePreviewHandler = async (cinNo) => {
-    let data = await dispatch(GetCaseDetails({ cin: cinNo }));
-    console.log(data,'datadata')
-   
+  const casePreviewHandler =  (cinNo) => {
+   dispatch(GetCaseDetails({ cin: cinNo }));
   };
   const totalNumberOfCases = data?.length;
   //const pendingCases = data.filter((e)=> e.)
-  console.log(totalData, 'totalNumberOfCases');
   return (
     <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
