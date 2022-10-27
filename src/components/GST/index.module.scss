@@ -130,7 +130,7 @@
         letter-spacing: 0px;
         // color: #111111 !important;
         @include respond(lg-desktop) {
-          font-size: 20px;
+          font-size: 18px;
           line-height: 1.3;
         }
         @include respond(sm-desktop) {
@@ -468,7 +468,7 @@
       padding: 0 35px !important;
       padding-right: 0px !important;
       @include respond(lg-desktop) {
-        font-size: 20px;
+        font-size: 18px;
         line-height: 1.3;
       }
       @include respond(md-desktop) {
@@ -488,6 +488,10 @@
       font-size: 15px;
       line-height: 23px;
       margin-left: 0.5rem;
+      @include respond(lg-desktop) {
+        font-size: 14px;
+        line-height: 1.3;
+      }
     }
     .small {
       font-size: 18px;
@@ -495,6 +499,10 @@
       font-weight: normal;
       padding: 0 !important;
       display: block;
+      @include respond(lg-desktop) {
+        font-size: 15px;
+        line-height: 1.3;
+      }
     }
   }
   .chart {
@@ -643,6 +651,10 @@
                 font-size: 22px;
                 line-height: 27px;
                 border-right: 1.5px solid #dae2ed;
+                @include respond(lg-desktop) {
+                  font-size: 18px;
+                  line-height: 1.3;
+                }
                 @include respond(md-desktop) {
                   padding-left: 15px;
                 }
@@ -652,6 +664,10 @@
                 line-height: 22px;
                 font-weight: normal;
                 padding-left: 10px;
+                @include respond(lg-desktop) {
+                  font-size: 15px;
+                  line-height: 1.3;
+                }
               }
               &:first-child {
                 padding-left: 35px;
@@ -754,7 +770,7 @@
                 line-height: 27px;
                 border-right: 1.5px solid #dae2ed;
                 @include respond(lg-desktop) {
-                  font-size: 20px;
+                  font-size: 18px;
                   line-height: 1.3;
                 }
                 @include respond(md-desktop) {
@@ -927,7 +943,7 @@
             line-height: 27px;
             border-right: 1.5px solid #dae2ed;
             @include respond(lg-desktop) {
-              font-size: 20px;
+              font-size: 18px;
               line-height: 1.3;
             }
             @include respond(md-desktop) {
@@ -1028,7 +1044,7 @@
             line-height: 27px;
             border-right: 1.5px solid #dae2ed;
             @include respond(lg-desktop) {
-              font-size: 20px;
+              font-size: 18px;
               line-height: 1.3;
             }
             @include respond(md-desktop) {
@@ -1125,7 +1141,7 @@
             line-height: 27px;
             border-right: 1.5px solid #dae2ed;
             @include respond(lg-desktop) {
-              font-size: 20px;
+              font-size: 18px;
               line-height: 1.3;
             }
             @include respond(md-desktop) {
@@ -1227,7 +1243,7 @@
 
   border-right: 1.5px solid #dae2ed;
   @include respond(lg-desktop) {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.3;
   }
   @include respond(md-desktop) {

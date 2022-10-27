@@ -191,7 +191,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.workingCapitalTurnover,
                           previousYearData?.workingCapitalTurnover,
@@ -231,7 +231,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                               2),
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestIncomeData?.revenue?.revenueFromOperations /
                             ((latestBalanceData?.assets
@@ -283,7 +283,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.daysWorkingCapital,
                           previousYearData?.daysWorkingCapital,
@@ -321,7 +321,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.daysOfSalesOutstanding,
                           previousYearData?.daysOfSalesOutstanding,
@@ -358,7 +358,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.daysOfInventoryOutstanding,
                           previousYearData?.daysOfInventoryOutstanding,
@@ -395,7 +395,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.daysOfPayablesOutstanding,
                           previousYearData?.daysOfPayablesOutstanding,
@@ -463,7 +463,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                             }) + '%'
                           : ''}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {/* {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
@@ -539,7 +539,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         }) ?? ''}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           ((latestIncomeData?.revenue?.revenueFromOperations -
                             latestIncomeData?.expenses?.totExp +
@@ -607,7 +607,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.returnOnAssets * 100,
                           previousYearData?.returnOnAssets * 100,
@@ -689,7 +689,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           minimumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.debtEquity,
                           previousYearData?.debtEquity,
@@ -720,7 +720,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           minimumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.debtToEbitda,
                           previousYearData?.debtToEbitda,
@@ -757,7 +757,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           },
                         )}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.interestCoverage,
                           previousYearData?.interestCoverage,
@@ -795,7 +795,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           minimumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.longTermDebtCoverage,
                           previousYearData?.longTermDebtCoverage,
@@ -836,7 +836,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           minimumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.currentRatio,
                           previousYearData?.currentRatio,
@@ -864,7 +864,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           minimumFractionDigits: 2,
                         })}
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.quickRatio,
                           previousYearData?.quickRatio,
@@ -912,7 +912,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.totalAssetsGrowth,
                           previousYearData?.totalAssetsGrowth,
@@ -952,7 +952,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.netWorthGrowth * 100,
                           previousYearData?.netWorthGrowth * 100,
@@ -992,7 +992,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         })}
                         %
                       </td>
-                      <td className="text-center">
+                      <td className={`${styles.trend} text-center`}>
                         {rtrnChartIndiaction(
                           latestYearData?.netSalesGrowth * 100,
                           previousYearData?.netSalesGrowth * 100,

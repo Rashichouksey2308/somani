@@ -254,7 +254,7 @@ const Index = ({
                     <img
                       src="/static/delete 2.svg"
                       role="button"
-                      className={`d-block mt-2`}
+                      className={`${styles.delete_image} d-block mt-2`}
                       alt="delete"
                       onClick={(e) => {
                         deleteData(index);
@@ -278,7 +278,7 @@ const Index = ({
               </label>
 
               <img
-                className="img-fluid ml-4"
+                className={`${styles.add_btn} ml-4`}
                 role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
@@ -324,7 +324,7 @@ const Index = ({
                     <img
                       src="/static/delete 2.svg"
                       role="button"
-                      className={`d-block mt-2`}
+                      className={`${styles.delete_image} d-block mt-2`}
                       alt="delete"
                       onClick={() => dltFinancialsCommentArr(index)}
                     />
@@ -346,7 +346,7 @@ const Index = ({
               </label>
 
               <img
-                className="img-fluid ml-4"
+                className={`${styles.add_btn} ml-4`}
                 role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
@@ -608,7 +608,7 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4"
+                  className={`${styles.add_btn} ml-4`}
                   role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
@@ -654,6 +654,7 @@ const Index = ({
                         src="/static/delete 2.svg"
                         role="button"
                         alt="delete"
+                        className={`${styles.delete_image}`}
                         onClick={() => dltStrengthsCommentArr(index)}
                       />
                     </div>
@@ -680,7 +681,7 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4"
+                  className={`${styles.add_btn} ml-4`}
                   role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
@@ -726,6 +727,7 @@ const Index = ({
                         src="/static/delete 2.svg"
                         role="button"
                         alt="delete"
+                        className={`${styles.delete_image}`}
                         onClick={(e) => {
                           dltWeaknessCommentArr(index);
                         }}
@@ -954,7 +956,7 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4"
+                  className={`${styles.add_btn} ml-4`}
                   role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
