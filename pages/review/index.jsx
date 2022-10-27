@@ -8904,8 +8904,8 @@ function Index() {
               return partyFilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
               return partyFilter(val);
             })
           : districtCourt?.filter((val) => {
@@ -8958,8 +8958,8 @@ function Index() {
               return civilfilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
               return civilfilter(val);
             })
           : districtCourt?.filter((val) => {
@@ -9023,8 +9023,8 @@ function Index() {
               return riskFilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
               return riskFilter(val);
             })
           : districtCourt?.filter((val) => {
