@@ -11,6 +11,7 @@ import Image from 'next/image';
 import UploadOther from '../UploadOther';
 
 function Index() {
+  const [vendorRadio ,setVendorRadio] = useState('')
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -41,15 +42,19 @@ function Index() {
                         defaultChecked
                         label="Domestic"
                         name="group1"
+                        onChange={() => setVendorRadio('domestic')}
                         type={type}
+                        value=""
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
                         className={styles.radio}
                         inline
                         label="International"
+                        onChange={() => setVendorRadio('international')}
                         name="group1"
                         type={type}
+                        value="international"
                         id={`inline-${type}-2`}
                       />
                     </div>
@@ -67,7 +72,7 @@ function Index() {
                     <option value="">CHA</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
-                    Vendor Type<strong className="text-danger ml-1">*</strong>
+                    Vendor Type <strong className="text-danger ml-1">*</strong>
                   </label>
                   <div className={`${styles.img_arrow} image_arrow`}>
                     <Image
@@ -79,6 +84,33 @@ function Index() {
                   </div>
                 </div>
               </div>
+              { vendorRadio === 'international' ? 
+              <div
+                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+              >
+                <div className="d-flex">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                  >
+                    <option value="">Germany</option>
+                    <option value="">India</option>
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Country <strong className="text-danger ml-1">*</strong>
+                  </label>
+                  <div className={`${styles.img_arrow} image_arrow`}>
+                    <Image
+                      width="13px"
+                      height="8px"
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+              </div>
+              : ' '
+}
+{ vendorRadio === 'domestic' ? 
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
@@ -92,6 +124,7 @@ function Index() {
                   PAN/Tax ID <strong className="text-danger">*</strong>
                 </label>
               </div>
+              : ' ' }
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
@@ -105,6 +138,21 @@ function Index() {
                   Company Name <strong className="text-danger">*</strong>
                 </label>
               </div>
+              { vendorRadio === 'international' ? 
+              <div
+                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+              >
+                <input
+                  className={`${styles.input_field} border_color input form-control`}
+                  type="text"
+                  required
+                  name="supplierName"
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                 TAX ID
+                </label>
+              </div>
+              : '' }
               <div
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
@@ -124,7 +172,7 @@ function Index() {
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Deactivation Date" />
+                  <DateCalender labelName="Deactivation Date" isRequired={true} />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -139,7 +187,7 @@ function Index() {
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Blacklisted Date" />
+                  <DateCalender labelName="Blacklisted Date" isRequired={true}/>
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -174,7 +222,7 @@ function Index() {
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Phone <strong className="text-danger">*</strong>
+                  Phone Number <strong className="text-danger">*</strong>
                 </label>
               </div>
 
@@ -191,82 +239,38 @@ function Index() {
                   Website
                 </label>
               </div>
-
-              {/* <div
-                className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-              >
-                <div className={`${styles.phone_card}`}>
-                  <select
-                    name="callingCode"
-                    id="Code"
-                    className={`${styles.code_phone} input border-right-0`}
-                  >
-                    <option>+91</option>
-                    <option>+1</option>
-                    <option>+92</option>
-                    <option>+95</option>
-                    <option>+24</option>
-                  </select>
-                  <input
-                    type="tel"
-                    id="textNumber"
-                    name="phoneNumber"
-                    className={`${styles.input_field} border_color input form-control border-left-0`}
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textNumber"
-                  >
-                    Phone Number
-                    <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-              </div> */}
-            </div>
-            <div className="row">
               <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
-                {/* <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      type="text"
-                      required
-                      name="supplierName"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Remarks<strong className="text-danger ml-1">*</strong>
-                    </label>
-                    <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        name="myfile"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                      />
-                      <button className={`${styles.button_upload} btn`}>
-                        Upload
-                      </button>
-                    </div>
-                  </div> */}
-                <div className="input-group mb-3">
+                <div className="input-group">
                   <input
                     type="text"
-                    className="form-control"
-                    placeholder="Recipient's username"
+                    className={`${styles.input_field} border_color input form-control`}
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
+                    required
                   />
-                  <div className="input-group-append">
-                    <button className="btn btn-outline-secondary" type="button">
-                      Button
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Remarks
+                  </label>
+                  <div className="input-group-append align-items-center">
+                    <button
+                      className={`${styles.button_upload} btn`}
+                   
+                    >
+                      Upload
                     </button>
                   </div>
                 </div>
               </div>
             </div>
+          
           </div>
 
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} card-body`}
+          style={{borderTop: '3px solid #D2D7E5'}}>
+            <div className={`${styles.card_heading} mt-3`}>Key Contact Person Details</div>
             <div
-              className={`${styles.address_card} mt-3 pb-5 value background1`}
+              className={`${styles.address_card} pb-5 value background1`}
+              style={{marginTop:'40px'}}
             >
               <div
                 className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
@@ -300,7 +304,7 @@ function Index() {
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Department <strong className="text-danger">*</strong>
+                        Department
                       </label>
                       <div className={`${styles.image_arrow} image_arrow`}>
                         <Image
@@ -499,9 +503,12 @@ function Index() {
             </div>
           </div>
 
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div className={`${styles.dashboard_form} card-body`}
+            style={{borderTop: '3px solid #D2D7E5'}}>
+            <div className={`${styles.card_heading} mt-3`}>Key Addresses</div>
             <div
-              className={`${styles.address_card} mt-3 pb-5 value background1`}
+              className={`${styles.address_card} pb-5 value background1`}
+              style={{marginTop:'40px'}}
             >
               <div
                 className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}

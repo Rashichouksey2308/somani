@@ -219,7 +219,7 @@
                 transform: translateY(-22px);
               }
             }
-           
+
             .phone_card {
               display: flex;
               flex-wrap: nowrap;
@@ -728,7 +728,12 @@ img {
 }
 .dashboard_form {
   padding: 25px 35px !important;
-
+  .card_heading {
+    //color: #111111;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 25px;
+  }
   div {
     // flex-wrap: wrap;
   }
@@ -787,7 +792,7 @@ img {
       overflow: hidden;
       position: relative;
       display: block;
-    
+
       input {
         top: 0;
         left: 0;
@@ -798,7 +803,7 @@ img {
         position: absolute;
       }
     }
-    
+
     .button_upload {
       width: 106px;
       height: 38px;
@@ -808,9 +813,10 @@ img {
       font-weight: bold;
       font-size: 18px;
       color: #3687e8;
+      margin-left: -130px;
       line-height: 23px;
       text-transform: capitalize;
-     // margin-left: -40px;
+      // margin-left: -40px;
       @include respond(lg-desktop) {
         width: 90px;
         height: 34px;

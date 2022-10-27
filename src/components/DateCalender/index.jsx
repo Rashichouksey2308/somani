@@ -6,6 +6,7 @@ import moment from 'moment';
 
 const Index = ({
   labelName,
+  isRequired,
   saveDate,
   name,
   defaultDate,
@@ -91,7 +92,9 @@ const Index = ({
         {labelName ? (
           <label className={`${styles.label_heading} label_heading`}>
             {labelName}
-            <strong className="text-danger">*</strong>
+
+            { !isRequired ? <strong className="text-danger">*</strong>  : ''
+}
           </label>
         ) : null}
       </div>
