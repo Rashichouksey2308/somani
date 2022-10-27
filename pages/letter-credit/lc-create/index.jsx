@@ -16,6 +16,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../../src/redux/userData/action';
+import { getPorts,getCountries,getCommodities,getDocuments } from '../../../src/redux/masters/action';
 function Index() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,7 +34,14 @@ function Index() {
     let id = sessionStorage.getItem('lcOrder');
     dispatch(GetLcModule(`?lcModuleId=${id}`));
   }, [dispatch]);
-
+   useEffect(() => {
+    // dispatch(getCountries())
+    dispatch(getPorts());
+    // dispatch(getCommodities())
+    // dispatch(getDocuments())
+    
+  }, []);
+   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const [lcData, setLcData] = useState();
   useEffect(() => {
     dispatch(setPageName('Lc'));
@@ -634,6 +642,7 @@ function Index() {
         currentComment2={currentComment2}
         editLcComments={editLcComments}
         editLcDocComments={editLcDocComments}
+        port={getPortsMasterData}
         name={_get(lcModule, 'data[0].company.companyName', '')}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
