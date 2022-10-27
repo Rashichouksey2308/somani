@@ -300,7 +300,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails,country,port,commodity })
                 dateFormat={'dd-MM-yyyy'}
                 name="ExpectedDateOfShipment"
                 saveDate={saveDate}
-                labelName="Expected Date Of Shipment"
+                labelName="Last date of Shipment"
               />
               <img
                 className={`${styles.calanderIcon} image_arrow img-fluid`}
