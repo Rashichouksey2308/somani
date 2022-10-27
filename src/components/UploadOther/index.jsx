@@ -260,7 +260,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   <div className="d-flex">
                     <select
                       value={manualDocModule ? newDoc.name : 'others'}
-                      className={`${styles.value} ${styles.customSelect} statusBox input form-control`}
+                      className={`${styles.value} ${styles.customSelect} input form-control`}
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
@@ -435,7 +435,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
-                    className={`${styles.value} statusBox input form-control`}
+                    className={`${styles.value} input form-control`}
                     type="text"
                     disabled={manualDocModule}
                   />

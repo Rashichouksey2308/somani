@@ -31,6 +31,7 @@ import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [componentId, setComponentId] = useState(1);
   const [TransitDetails, setTransitDetails] = useState({});
   console.log(TransitDetails, 'TransitDetails');
 
@@ -132,6 +133,16 @@ function Index() {
   useEffect(() => {
     dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Lading' }));
   }, []);
+
+  useEffect(() => {
+    //written to redirect to LOI tab from transit/id preview page
+    if (Router && Router.query) {
+      let data = Object.keys(Router.query);
+      if (data && data.length > 0 && data.includes('loi')) {
+        setComponentId(2);
+      }
+    }
+  }, [Router]);
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
@@ -157,64 +168,80 @@ function Index() {
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li
-              className={`${styles.navItem}  nav-item`}
-              onClick={() => handleBreadcrumbClick('Bill of Lading')}
-            >
+            <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link active`}
-                data-toggle="tab"
-                href="#billLanding"
-                role="tab"
-                aria-controls="billLanding"
-                aria-selected="true"
+                className={`${styles.navLink} navLink  nav-link ${
+                  componentId === 1 && 'active'
+                }`}
+                // data-toggle="tab"
+                // href="#billLanding"
+                // role="tab"
+                // aria-controls="billLanding"
+                // aria-selected="true"
+                role="button"
+                onClick={() => {
+                  setComponentId(1);
+                  handleBreadcrumbClick('Bill of Lading');
+                }}
               >
                 Bill of Lading
               </a>
             </li>
-            <li
-              className={`${styles.navItem} nav-item`}
-              onClick={() => handleBreadcrumbClick('LOI')}
-            >
+            <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#loi"
-                role="tab"
-                aria-controls="loi"
-                aria-selected="false"
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 2 && 'active'
+                } `}
+                // data-toggle="tab"
+                // href="#loi"
+                // role="tab"
+                // aria-controls="loi"
+                // aria-selected="false"
+                role="button"
+                onClick={() => {
+                  setComponentId(2);
+                  handleBreadcrumbClick('LOI');
+                }}
               >
                 LOI
               </a>
             </li>
             {commodity?.toLowerCase() === 'coal' && (
-              <li
-                className={`${styles.navItem} nav-item`}
-                onClick={() => handleBreadcrumbClick('CIMS')}
-              >
+              <li className={`${styles.navItem} nav-item`}>
                 <a
-                  className={`${styles.navLink} navLink nav-link `}
-                  data-toggle="tab"
-                  href="#cims"
-                  role="tab"
-                  aria-controls="cims"
-                  aria-selected="false"
+                  className={`${styles.navLink} navLink nav-link ${
+                    componentId === 3 && 'active'
+                  } `}
+                  // data-toggle="tab"
+                  // href="#cims"
+                  // role="tab"
+                  // aria-controls="cims"
+                  // aria-selected="false"
+                  role="button"
+                  onClick={() => {
+                    setComponentId(3);
+                    handleBreadcrumbClick('CIMS');
+                  }}
                 >
                   CIMS
                 </a>
               </li>
             )}
-            <li
-              className={`${styles.navItem} nav-item`}
-              onClick={() => handleBreadcrumbClick('IGM')}
-            >
+            <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#igm"
-                role="tab"
-                aria-controls="igm"
-                aria-selected="false"
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 4 && 'active'
+                } `}
+                // data-toggle="tab"
+                // href="#igm"
+                // role="tab"
+                // aria-controls="igm"
+                // aria-selected="false"
+                role="button"
+                onClick={() => {
+                  setComponentId(4);
+                  handleBreadcrumbClick('IGM');
+                }}
               >
                 IGM
               </a>
@@ -226,12 +253,13 @@ function Index() {
           <div className="row">
             <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
+                {/* <div
                   className="tab-pane show active fade"
                   id="billLanding"
                   role="tabpanel"
-                >
-                  <div className={`${styles.card}  accordion_body`}>
+                > */}
+                <div className={`${styles.card}  accordion_body`}>
+                  {componentId === 1 && (
                     <BillLanding
                       orderid={objID}
                       docUploadFunction={uploadDoc}
@@ -239,35 +267,42 @@ function Index() {
                       isShipmentTypeBULK={isShipmentTypeBULK}
                       fetchInitialData={fetchInitialData}
                     />
-                  </div>
+                  )}
                 </div>
-                <div className="tab-pane fade" id="loi" role="tabpanel">
-                  <div className={`${styles.card}  accordion_body`}>
+                {/* </div> */}
+                {/* <div className="tab-pane fade" id="loi" role="tabpanel"> */}
+                <div className={`${styles.card}  accordion_body`}>
+                  {componentId === 2 && (
                     <LetterIndermity TransitDetails={TransitDetails} />
-                  </div>
+                  )}
                 </div>
+                {/* </div> */}
                 {commodity.toLowerCase() === 'coal' && (
-                  <div className="tab-pane fade" id="cims" role="tabpanel">
-                    <div className={`${styles.card}  accordion_body`}>
+                  // <div className="tab-pane fade" id="cims" role="tabpanel">
+                  <div className={`${styles.card}  accordion_body`}>
+                    {componentId === 3 && (
                       <CIMS
                         orderid={objID}
                         docUploadFunction={uploadDoc}
                         TransitDetails={TransitDetails}
                         isShipmentTypeBULK={isShipmentTypeBULK}
                       />
-                    </div>
+                    )}
                   </div>
+                  // </div>
                 )}
-                <div className="tab-pane fade" id="igm" role="tabpanel">
-                  <div className={`${styles.card}  accordion_body`}>
+                {/* <div className="tab-pane fade" id="igm" role="tabpanel"> */}
+                <div className={`${styles.card}  accordion_body`}>
+                  {componentId === 4 && (
                     <IGM
                       docUploadFunction={uploadDoc}
                       TransitDetails={TransitDetails}
                       isShipmentTypeBULK={isShipmentTypeBULK}
                       orderId={objID}
                     />
-                  </div>
+                  )}
                 </div>
+                {/* </div> */}
               </div>
             </div>
           </div>
