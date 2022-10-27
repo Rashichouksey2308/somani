@@ -976,6 +976,35 @@ function Index() {
         <div className="mt-4">
           <UploadOther isDocumentName={true} />
         </div>
+
+        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+          <div className={`${styles.dashboard_form} card-body`}>
+            <div className="row">
+              <div className={`${styles.form_group} col-lg-9 col-sm-12 `}>
+                <input
+                  className={`${styles.input_field} border_color input form-control`}
+                  type="text"
+                  required
+                  name="supplierName"
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Remarks
+                </label>
+              </div>
+              <div className={`${styles.form_group} col-lg-3 col-sm-6 `}>
+                <div className={`${styles.approve} ml-3`}>
+                  <span>Send for Approval</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='d-flex justify-content-end mb-5'
+        style={{marginTop:'35px'}}>
+          <div className={`${styles.footer_heading} mr-5`}>Created By <span>Balakrishna SGF001</span></div>
+          <div className={`${styles.footer_heading}`}>Approved By <span>Ramakrishna SGF001</span></div>
+        </div>
       </div>
     </div>
   );
