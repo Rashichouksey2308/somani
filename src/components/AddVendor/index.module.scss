@@ -75,6 +75,7 @@
       .vessel_card {
         border-radius: 6px;
         margin: 0px 10px;
+
         h2 {
           font-size: 22px;
           color: #3687e8;
@@ -103,6 +104,7 @@
             border-radius: 9px;
             .vessel_card {
               padding: 0px 35px 0px 35px;
+
               .main {
                 margin-bottom: 26px;
                 border-radius: 6px !important;
@@ -219,6 +221,7 @@
                 transform: translateY(-22px);
               }
             }
+
             .phone_card {
               display: flex;
               flex-wrap: nowrap;
@@ -650,6 +653,13 @@
     text-transform: capitalize;
     line-height: 27px;
   }
+  .min_heading {
+    letter-spacing: 0.53px;
+    color: #00000080;
+    font-size: 16px;
+    line-height: 17px;
+    font-weight: 500;
+  }
   span {
     font-size: 45px;
     color: #3687e8;
@@ -727,7 +737,12 @@ img {
 }
 .dashboard_form {
   padding: 25px 35px !important;
-
+  .card_heading {
+    //color: #111111;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 25px;
+  }
   div {
     // flex-wrap: wrap;
   }
@@ -742,6 +757,29 @@ img {
 
     .search_image {
       margin-left: -40px;
+    }
+    .approve {
+      cursor: pointer;
+      width: 260px;
+      height: 48px;
+      text-align: center;
+      color: #ffffff;
+      background: #3687e8;
+      border-radius: 5px;
+      display: flex;
+      font-size: 20px;
+      line-height: 25px;
+      font-weight: bold;
+      align-items: center;
+      justify-content: center;
+      @include respond(lg-desktop) {
+        width: 200px;
+        height: 38px;
+      }
+      @include respond(md-desktop) {
+        width: 160px;
+        font-size: 12px;
+      }
     }
     .phone {
       .label_heading {
@@ -780,6 +818,42 @@ img {
           font-size: 15px;
           line-height: 1.3;
         }
+      }
+    }
+    .uploadBtnWrapper {
+      overflow: hidden;
+      position: relative;
+      display: block;
+
+      input {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
+      }
+    }
+
+    .button_upload {
+      width: 106px;
+      height: 38px;
+      border: 3px solid #3687e8;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #3687e8;
+      margin-left: -130px;
+      line-height: 23px;
+      text-transform: capitalize;
+      // margin-left: -40px;
+      @include respond(lg-desktop) {
+        width: 90px;
+        height: 34px;
+        font-size: 15px;
+        line-height: 1.3;
       }
     }
     .label_heading {
@@ -1142,5 +1216,18 @@ img {
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+  }
+}
+.footer_heading {
+  font-size: 14px;
+  line-height: 17px;
+  color: #283756;
+  font-weight: bold;
+
+  span {
+    text-align: right;
+   
+    color: #283756;
+    opacity: 0.6;
   }
 }
