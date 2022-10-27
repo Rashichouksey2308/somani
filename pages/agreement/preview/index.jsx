@@ -121,10 +121,10 @@ function index() {
     }
   }, []);
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [800, 1160]);
+    const doc = new jsPDF('p', 'pt', [800, 1200]);
     doc.html(ReactDOMServer.renderToString(toPdf(data)), {
       callback: function (doc) {
-        doc.save('Sales Agreements.pdf');
+        doc.save('SalesAgreements.pdf');
       },
       // margin:margins,
       autoPaging: 'text',
@@ -172,9 +172,7 @@ const toPdf = (data) => {
             align="center"
             style={{ textDecoration: 'underline', color: '#000000' }}
           >
-            <strong>
-              <u>SALES CONTRACT</u>
-            </strong>
+            <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
@@ -884,7 +882,7 @@ const toPdf = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr>
+            </tr> 
             <tr>
               <td
                 style={{
@@ -957,6 +955,7 @@ const toPdf = (data) => {
                     agreement will be to the account of the Buyer only. The
                     Seller shall in no way be responsible or liable for the
                     same.
+                    <br/><br/><br/><br/><br/><br/><br/>
                   </li>
                   <li
                     style={{
@@ -1193,8 +1192,30 @@ const toPdf = (data) => {
                 </p>
               </td>
             </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td
+          valign="top"
+          style={{
+            fontFamily: 'Times New Roman, Times, serif',
+            fontSize: '12px',
+            lineHeight: '18px',
+            color: '#000000',
+            padding: '100px 20px 40px',
+          }}
+        >
+          <table
+            width="100%"
+            cellPadding="10"
+            style={{ border: '1px solid #000000' }}
+            cellSpacing="0"
+            border="0"
+          >
             <tr>
               <td
+                width="5%"
                 style={{
                   borderBottom: '1px solid #000000',
                   borderRight: '1px solid #000000',
@@ -1203,6 +1224,7 @@ const toPdf = (data) => {
                 <p style={{ color: '#000000', marginBottom: '0' }}>20</p>
               </td>
               <td
+                width="25%"
                 style={{
                   borderBottom: '1px solid #000000',
                   borderRight: '1px solid #000000',
@@ -1213,6 +1235,7 @@ const toPdf = (data) => {
                 </p>
               </td>
               <td
+                width="70%"
                 style={{
                   borderBottom: '1px solid #000000',
                   textAlign: 'justify',
@@ -1406,7 +1429,7 @@ const toPdf = (data) => {
                     Award/Judgment/decree/Order is passed or otherwise a
                     settlement is reached, the Buyer shall be bound to accept
                     the same and bear the liability, costs, expenses arising
-                    there from.
+                    there from.<br/><br/><br/><br/><br/>
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
                     In the event, any judicial/ legal proceedings are initiated
@@ -1685,7 +1708,7 @@ const toPdf = (data) => {
             color: '#000000',
             padding: '20px',
           }}
-        >
+        ><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
           <table
             width="100%"

@@ -133,23 +133,33 @@ export default function Index(props) {
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Consignor Name</div>
+                  <div className={`${styles.label} text`}>Consignor Name</div> 
+                  {/* teermshhet */}
                   <span className={styles.value}>
                     {_get(
                       props.ReleaseOrderData,
-                      'data[0].company.companyName',
+                      'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
                       '',
                     )}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Consignee Name</div>
+                  <div className={`${styles.label} text`}>Consignee Name</div> 
+                  {/* //margin ,aoneu */}
                   <span className={styles.value}>
-                    {_get(
+                    { _get(
+                      props.ReleaseOrderData,
+                      'data[0].invoiceDetail.consigneeName',
+                      '',
+                     )
+                    
+                    || _get(
                       props.ReleaseOrderData,
                       'data[0].company.companyName',
                       '',
-                    )}
+                     )
+                    
+                    }
                   </span>
                 </div>
               </div>

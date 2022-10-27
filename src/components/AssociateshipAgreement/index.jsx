@@ -2409,7 +2409,7 @@ const associateShip = (data) => {
   console.log(data, 'data');
   return (
     <>
-      <div className="card-body">
+      <div className="card-body" style={{minHeight:'auto', flex:'none'}}>
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -3881,6 +3881,18 @@ const associateShip = (data) => {
               <strong>(Shipper)</strong>
             </p>
           </Col>
+        </div>
+      </div>
+      <div
+        className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}>
+        <div className={`${styles.approve} mr-3`}>
+          <span className='mb-0'>Preview</span>
+        </div>
+        <div className={styles.reject}>
+          <span className='mb-0'>Save</span>
+        </div>
+        <div className={styles.approve}>
+          <span className='mb-0'>Submit</span>
         </div>
       </div>
     </>

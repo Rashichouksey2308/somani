@@ -96,6 +96,7 @@ function Index(props) {
     if (window) {
       console.log(props.sameAsCHA, '.getItem');
       if (props.sameAsCHA == false) {
+        if(JSON.parse(sessionStorage.getItem('Cha'))){
         let savedData = JSON.parse(sessionStorage.getItem('Cha'));
         let supplier = {
           name: savedData?.name || props.vendor?.field4,
@@ -158,6 +159,44 @@ function Index(props) {
           ],
         );
         setSeteveState(supplier);
+        }else{
+           let supplier = {
+          name: props.data?.name || props.vendor?.field4,
+          shortName: props.data?.shortName || '',
+          gstin: props.data?.gstin || props?.vendor?.field22,
+          addresses: props.data?.addresses || [],
+          authorisedSignatoryDetails:
+            props.data?.authorisedSignatoryDetails || [],
+        };
+        setList(
+          props?.data?.authorisedSignatoryDetails.length > 0
+            ? props?.data?.authorisedSignatoryDetails
+            : [
+                {
+                  name: '',
+                  designation: '',
+                  email: '',
+                  phone: '',
+                  actions: 'false',
+                  addnew: 'false',
+                },
+              ],
+        );
+        setAddressList(props.data?.addresses || []);
+        setSeteveState(supplier);
+        let tempArr = props?.data?.authorisedSignatoryDetails;
+        let optionArray = [...options];
+        tempArr.forEach((val, index) => {
+          val.actions = 'true';
+          if (tempArr?.length > 0) {
+            let index = optionArray.indexOf(val.name);
+            if (index > -1) {
+              optionArray.splice(index, 1);
+            }
+          }
+        });
+        setOptions([...optionArray]);
+        }
       } else if (sessionStorage.getItem('Stevedore')) {
         console.log('s');
         let savedData = JSON.parse(sessionStorage.getItem('Stevedore'));
