@@ -174,17 +174,17 @@ const Index = () => {
   const validation = () => {
     console.log(quotationData.lossPayee, 'quotationData.lossPayee ');
     let toastMessage = '';
-    if (
-      quotationData.lossPayee == '' ||
-      quotationData.lossPayee == 'Select an option' ||
-      quotationData.lossPayee == undefined
-    ) {
-      toastMessage = 'Please Select loss Payee';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
-      }
-    }
+    // if (
+    //   quotationData.lossPayee == '' ||
+    //   quotationData.lossPayee == 'Select an option' ||
+    //   quotationData.lossPayee == undefined
+    // ) {
+    //   toastMessage = 'Please Select loss Payee';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //     return false;
+    //   }
+    // }
     if (
       quotationData.laycanFrom == '' ||
       quotationData.laycanFrom == undefined
@@ -572,12 +572,15 @@ const Index = () => {
                                 <option value="Zurcher Kantonal Bank,Zurich">
                                   Zurcher Kantonal Bank,Zurich
                                 </option>
+                                 <option value="NA">
+                                  NA
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
@@ -871,12 +874,15 @@ const Index = () => {
                                 <option value="Zurcher Kantonal Bank,Zurich">
                                   Zurcher Kantonal Bank,Zurich
                                 </option>
+                                 <option value="NA">
+                                  NA
+                                </option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
                                 Loss Payee
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}

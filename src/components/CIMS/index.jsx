@@ -43,6 +43,7 @@ export default function Index({
     },
   ]);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+  const [isFieldInFocusCMS, setIsFieldInFocusCMS] = useState(false);
 
   useEffect(() => {
     let data = _get(TransitDetails, 'data[0].CIMS.cimsDetails', []);
@@ -169,10 +170,10 @@ export default function Index({
         document2: null,
       },
     ]);
-    setIsFieldInFocus((prevState) => [
-      ...prevState,
-      { blQuantity: false, cimsCharges: false },
-    ]);
+    // setIsFieldInFocus((prevState) => [
+    //   ...prevState,
+    //   { blQuantity: false, cimsCharges: false },
+    // ]);
   };
 
   const handleCloseDoc = (e, index) => {
@@ -414,7 +415,7 @@ export default function Index({
                       }}
                       // _get(TransitDetails, 'data[0].order.quantity', 0)
                       value={
-                        isFieldInFocus[index]?.blQuantity
+                        isFieldInFocus
                           ? list.quantity
                           : Number(list.quantity)?.toLocaleString('en-IN') +
                             ` ${_get(
@@ -494,12 +495,20 @@ export default function Index({
                   >
                     <input
                       id="cimsCharges"
+                       onFocus={(e) => {
+                        setIsFieldInFocusCMS(true), (e.target.type = 'number');
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocusCMS(false), (e.target.type = 'text');
+                      }}
                       onChange={(e) => onChangeCims(e, index)}
-                      value={addPrefixOrSuffix(
-                        list.cimsCharges,
-                        'INR',
-                        'front',
-                      )}
+                         value={
+                        isFieldInFocusCMS
+                          ? list.cimsCharges
+                          :`INR `  + Number(list.cimsCharges)?.toLocaleString('en-IN') 
+                           
+                      }
+                    
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       onKeyDown={(evt) =>

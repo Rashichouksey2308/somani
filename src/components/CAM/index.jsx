@@ -702,7 +702,7 @@ function Index({
         camData,
         totalLimitDebt,
         camConversionunit,
-        debtProfileColor
+        debtProfileColor,
       )}
       {operationalDetails(camData)}
       {revenuDetails(gstData, camConversionunit)}
@@ -1849,7 +1849,9 @@ const chargeDetails = (
                             </div>
 
                             <span className={` ${styles.name} ml-3  `}>
-                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge.nameOfChargeHolder1}
+                              {charge?.nameOfChargeHolder
+                                ? charge?.nameOfChargeHolder
+                                : charge.nameOfChargeHolder1}
                             </span>
                           </td>
                           <td>
@@ -2009,7 +2011,9 @@ const debtProfile = (
                           </span>
                           <div
                             style={{
-                              backgroundColor: `${debtProfileColor(debt.conduct)}`,
+                              backgroundColor: `${debtProfileColor(
+                                debt.conduct,
+                              )}`,
                               width: `${
                                 (Number(debt.limit) / totalLimitDebt() > 1
                                   ? 1
@@ -3605,6 +3609,8 @@ const sectionTerms = (
   isFieldInFocus,
   setIsFieldInFocus,
 ) => {
+  const [limitValueChecked, setLimitValueChecked] = useState(false);
+  const [orderValueChecked, setOrderValueChecked] = useState(false);
   console.log(isFieldInFocus, 'setIsFieldInFocus');
   return (
     <>
@@ -3733,11 +3739,18 @@ const sectionTerms = (
                       <td>-</td>
                     )}
                     <td>
-                      <input type="checkbox"></input>
+                      <input
+                        type="checkbox"
+                        checked={limitValueChecked}
+                        onChange={() =>
+                          setLimitValueChecked(!limitValueChecked)
+                        }
+                      ></input>
                     </td>
                     <td>
                       <input
                         className={`${styles.text} input`}
+                        disabled={!limitValueChecked}
                         required={true}
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
@@ -3792,12 +3805,19 @@ const sectionTerms = (
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
                     <td>
-                      <input type="checkbox"></input>
+                      <input
+                        type="checkbox"
+                        checked={orderValueChecked}
+                        onChange={() =>
+                          setOrderValueChecked(!orderValueChecked)
+                        }
+                      ></input>
                     </td>
                     <td>
                       <input
                         className={`${styles.text} input`}
                         type="number"
+                        disabled={!orderValueChecked}
                         onWheel={(event) => event.currentTarget.blur()}
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
