@@ -197,7 +197,7 @@ function Index() {
     (state) => state.companyDetails,
   );
   const [selectedTab, setSelectedTab] = useState('Profile');
-
+ console.log(orderList,"orderList")
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -490,22 +490,22 @@ function Index() {
   const id = sessionStorage.getItem('orderID');
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: orderList?.transactionType,
-    commodity: orderList?.commodity,
-    quantity: orderList?.quantity,
-    unitOfQuantity: orderList?.unitOfQuantity,
-    orderValue: CovertvaluefromtoCR(orderList?.orderValue),
-    orderCurrency: orderList?.orderCurrency,
-    unitOfValue: orderList?.unitOfValue,
-    supplierName: orderList?.supplierName,
-    countryOfOrigin: orderList?.countryOfOrigin,
-    portOfDischarge: orderList?.portOfDischarge,
-    ExpectedDateOfShipment: orderList?.ExpectedDateOfShipment,
-    incoTerm: orderList?.incoTerm,
-    grade: orderList?.grade,
-    tolerance: orderList?.tolerance,
-    hsnCode: orderList?.hsnCode,
-    manufacturerName: orderList?.manufacturerName,
+    transactionType: "",
+    commodity: "",
+    quantity: "",
+    unitOfQuantity: "",
+    orderValue: "",
+    orderCurrency: "",
+    unitOfValue: "",
+    supplierName: "",
+    countryOfOrigin: "",
+    portOfDischarge:"",
+    ExpectedDateOfShipment: "",
+    incoTerm: "",
+    grade: "",
+    tolerance: "",
+    hsnCode: "",
+    manufacturerName:"",
   });
   useEffect(() => {
     let newObj = {
@@ -526,6 +526,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
+    console.log(newObj,"newObj")
     setOrderDetails({ ...newObj });
 
     setShipment({
