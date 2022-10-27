@@ -14,6 +14,8 @@ import { ViewDocument } from 'redux/ViewDoc/action';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import TermsheetPopUp from '../TermsheetPopUp';
+import { ShareDocument } from 'redux/shareDoc/action';
+import { emailValidation } from 'utils/helper';
 
 const Index = ({
   orderId,
@@ -48,6 +50,19 @@ const Index = ({
   const [moduleSelected, setModuleSelected] = useState(
     'LeadOnboarding&OrderApproval',
   );
+
+  const [sharedDoc, setSharedDoc] = useState({
+    company: "",
+    order: "",
+    path: "",
+    data: {
+      subject: "this is subject",
+      text: "this is text",
+      receiver: ""
+    }
+  })
+  console.log(sharedDoc, 'sharedDoc')
+
 
   useEffect(() => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -164,6 +179,24 @@ const Index = ({
     let tempArray = [...filteredDoc];
     tempArray[index].moving = true;
     setFilteredDoc(tempArray);
+  };
+
+  const handleShareDoc = async (doc) => {
+    if (emailValidation(sharedDoc.data.receiver)) {
+      let tempArr = { ...sharedDoc }
+      tempArr.company = documentsFetched.company
+      tempArr.order = orderId
+      let data = await dispatch(ShareDocument(tempArr))
+      if (data?.code == 200) {
+        close()
+      }
+      console.table(tempArr)
+    } else {
+      let toastMessage = 'please provide a valid email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+    }
   };
 
   return (
@@ -772,17 +805,17 @@ const Index = ({
                               {document.originalName
                                 .toLowerCase()
                                 .endsWith('.xls') ||
-                              document.originalName
-                                .toLowerCase()
-                                .endsWith('.xlsx') ? (
+                                document.originalName
+                                  .toLowerCase()
+                                  .endsWith('.xlsx') ? (
                                 <img
                                   src="/static/excel.svg"
                                   className="img-fluid"
                                   alt="Pdf"
                                 />
                               ) : document.originalName
-                                  .toLowerCase()
-                                  .endsWith('.doc') ||
+                                .toLowerCase()
+                                .endsWith('.doc') ||
                                 document.originalName
                                   .toLowerCase()
                                   .endsWith('.docx') ? (
@@ -831,6 +864,8 @@ const Index = ({
                                 alt="Share"
                                 onClick={() => {
                                   openbar();
+                                  setSharedDoc({ ...sharedDoc, path: document.path })
+
                                 }}
                               />
                               {!document.moving ? (
@@ -1036,7 +1071,7 @@ const Index = ({
           </div>
         </div>
       </div>
-      {open ? <TermsheetPopUp close={close} open={open} istermsheet /> : null}
+      {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null}
     </div>
   );
 };
