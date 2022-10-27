@@ -207,6 +207,9 @@ function Index(props) {
         <div
           className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
         >
+          <div className={`${styles.approve} mr-3`}>
+            <span>Preview</span>
+          </div>
           <div className={styles.reject}>
             <span>Save</span>
           </div>
