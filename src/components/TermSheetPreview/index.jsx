@@ -285,7 +285,7 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('TransactionSummary.pdf')
+          doc.save('TransactionSummary.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
@@ -354,7 +354,9 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
-            <h1 className={`${styles.heading} heading`}>Transaction Summary Preview</h1>
+            <h1 className={`${styles.heading} heading`}>
+              Transaction Summary Preview
+            </h1>
           </div>
         </div>
 
@@ -392,7 +394,9 @@ function Index() {
               md={4}
               className={`d-flex justify-content-center align-items-center`}
             >
-              <span className="download-pdf-title text-center">TRANSACTION SUMMARY</span>
+              <span className="download-pdf-title text-center">
+                TRANSACTION SUMMARY
+              </span>
             </Col>
             <Col
               md={4}
@@ -592,7 +596,9 @@ function Index() {
                     {' '}
                     {filteredValue('Storage of Goods')
                       ? filteredValue('Storage of Goods')
-                      : 'Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the Indo’s nominated party and all expenses/charges to be born and paid by the Buyer. '}
+                      : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
+                          .match(/\((.*)\)/)
+                          ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                   </li>
                 </ul>
               </Col>
@@ -2500,7 +2506,9 @@ const toPrintPdf = (
                           {' '}
                           {filteredValue('Storage of Goods')
                             ? filteredValue('Storage of Goods')
-                            : 'Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the Indo’s nominated party and all expenses/charges to be born and paid by the Buyer. '}
+                            : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
+                                .match(/\((.*)\)/)
+                                ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                         </p>
                       </td>
                     </tr>
