@@ -1277,8 +1277,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     value={selected}
                     onChange={setSelected}
                     labelledBy="Select"
+                    disableSearch="true"
                   
-                  /> */}
+                  />
+                  <button className={`${styles.submit_btn} ml-3`}>Submit</button>
+                  <button className={`${styles.submit_btn} ml-3`}>Consolidated</button> */}
                   <select
                     value={credential.gstin}
                     className={`${styles.gst_list} input`}

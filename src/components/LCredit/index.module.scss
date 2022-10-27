@@ -770,10 +770,14 @@
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+  height: 60px !important;
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+  }
+  @include respond(lg-desktop) {
+    height: 45px !important;
   }
 }
 .customSelect {
