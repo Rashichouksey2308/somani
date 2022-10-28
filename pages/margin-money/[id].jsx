@@ -297,7 +297,7 @@ function Index() {
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
-    console.log(newInput, 'newInputnewInput');
+  
     setInvoiceData({ ...newInput });
   };
   const savedataRevised = (name, value, name2, value2, value3) => {
@@ -305,11 +305,11 @@ function Index() {
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
-    console.log(newInput, 'newInputnewInput');
+    
     setInvoiceDataRevised({ ...newInput });
   };
   const saveInvoiceData = (name, value) => {
-    console.log(value, 'invoice data value', name);
+   
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
@@ -330,11 +330,11 @@ function Index() {
         newInput[a] = value;
       }
     }
-    console.log(newInput, 'newInput');
+
     setInvoiceData({ ...newInput });
   };
 
-  console.log(invoiceData, 'invoiceData');
+  
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
@@ -383,7 +383,7 @@ function Index() {
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
-      console.log(value, val.Company_Name, 'ssssss');
+
       if (val.Company_Name == value) {
         return val;
       }
@@ -391,7 +391,7 @@ function Index() {
     setBranchOptions(filter);
   };
   const changeImporter = (e) => {
-    console.log(e.target.name, e.target.value, 'Xxxcxc');
+   
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value;
       const newInput = { ...invoiceData };
@@ -854,7 +854,7 @@ function Index() {
     marginMoneyPayable: '',
   });
 
-  console.log(calcRevised, 'CALC REVISED')
+
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -938,7 +938,7 @@ function Index() {
         Number(forCalculationRevised.additionalPDC),
     ).toFixed(2);
 
-    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC');
+   
     let revisedNetOrderValueNew = Number(
       Number(
         finalCalRevised?.totalOrderValue
@@ -4673,11 +4673,7 @@ function Index() {
     }
     if (getInternalCompaniesMasterData) {
       let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        console.log(
-          val.Company_Name,
-          marginData?.invoiceDetail?.importerName,
-          'ppopop',
-        );
+        
         if (
           val.Company_Name?.toLowerCase() ==
             marginData?.invoiceDetail?.importerName?.toLowerCase() ||
@@ -4690,10 +4686,10 @@ function Index() {
           return val;
         }
       });
-      console.log('useefff', filter);
+      
       setBranchOptions(filter);
     }
-    console.log('workingDIVESH', marginData);
+    
   }, [marginData, getInternalCompaniesMasterData]);
 
   useEffect(() => {
@@ -5744,10 +5740,6 @@ function Index() {
                             <div
                               className={`${styles.each_input} col-md-4 col-sm-6`}
                             >
-                              {console.log(
-                                marginData?.company?.companyName,
-                                'bye10001',
-                              )}
 
                               <input
                                 type="text"
@@ -6037,7 +6029,7 @@ function Index() {
                                           }
                                         },
                                       );
-                                    console.log(filter, 'filter');
+                                    
                                     if (filter.length > 0) {
                                       const newInput = { ...invoiceData };
                                       changeImporterData.address =
@@ -6156,7 +6148,7 @@ function Index() {
                                         }
                                       },
                                     );
-                                    console.log(filter, 'filter');
+                                    
                                     dispatch(getBranches(filter[0].code));
                                   }}
                                 >
@@ -6197,11 +6189,7 @@ function Index() {
                                   required
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
-                                    console.log(e.target.value, 'branch');
-                                    //   saveInvoiceData(
-                                    //    e.target.name,
-                                    //    e.target.value,
-                                    // )
+                                  
                                     let filter = getBranchesMasterData.filter(
                                       (val, index) => {
                                         if (val.BRANCH == e.target.value) {
