@@ -448,7 +448,7 @@ export default function Index({
           document3: val?.document3 ?? null,
         });
 
-        duty11.push(val.duty);
+        duty11.push(JSON.parse(JSON.stringify(val.duty)));
       });
 
       setDutyData([...duty11]);
