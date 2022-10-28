@@ -1737,7 +1737,7 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(new Date()).format('DD-MM-YYYY')}
+                  {data.dateOfExecution}
                 </p>
               </td>
             </tr>

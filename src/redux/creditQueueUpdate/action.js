@@ -222,21 +222,24 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     dispatch(VerifyingGst());
 
     // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
-     Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(VerifyingGstSuccess(response.data.data));
-        dispatch(setNotLoading());
-      } else {
-        dispatch(VerifyingGstFailed(response.data.data));
-        let toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
+    let response = await Axios.post(
+      `${API.corebaseUrl}${API.getGstKarza}`,
+      payload,
+      {
+        headers: headers,
+      },
+    );
+    if (response.data.code === 200) {
+      dispatch(VerifyingGstSuccess(response.data.data));
+      dispatch(setNotLoading());
+    } else {
+      dispatch(VerifyingGstFailed(response.data.data));
+      let toastMessage = response.data.message;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    });
+      dispatch(setNotLoading());
+    }
   } catch (error) {
     dispatch(VerifyingGstFailed());
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
