@@ -5,6 +5,8 @@ import styles from './index.module.scss';
 import { Form, Row, Col } from 'react-bootstrap';
 import { add } from 'lodash';
 import { useSyncExternalStore } from 'react';
+import {getPincodes } from '../../redux/masters/action';
+import { useDispatch, useSelector } from 'react-redux';
 let supplier = {
   name: '',
   shortName: '',
@@ -22,6 +24,8 @@ let supplier = {
 };
 function Index(props) {
   console.log(props.data, '1234');
+  const dispatch = useDispatch();
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
   const [supplierState, setSupplierState] = useState(supplier);
   const [list, setList] = useState([]);
   const [addressList, setAddressList] = useState([]);
@@ -36,6 +40,8 @@ function Index(props) {
     state: '',
     city: '',
   });
+  const [toShow,setToShow] = useState([])
+  const [toView,setToView] = useState(false)
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -240,6 +246,16 @@ function Index(props) {
     }
   }, [props]);
   console.log(list, 'props23424234');
+  useEffect(() => {
+    if(getPincodesMasterData.length > 0) {
+      setToShow(getPincodesMasterData)
+      setToView(true)
+      
+    }else{
+       setToShow([])
+       setToView(false)
+    }
+  },[getPincodesMasterData])
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -450,6 +466,42 @@ function Index(props) {
       ...addressList.slice(index + 1),
     ]);
   };
+  const handleData=(name,value)=>{
+    const newInput = { ...newAddress };
+    newInput[name] = value.Pincode;
+   newInput.country = "India";
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setNewAddress(newInput);
+    setToView(false)
+  }
+  const handleDataEdit=(name,value)=>{
+    const newInput = { ...EditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = "India";
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setEditAddress(newInput);
+    setToView(false)
+  }
+  const handleDataMines=(name,value)=>{
+    const newInput = { ...newMultiAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = "India";
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setMultiAddress(newInput);
+    setToView(false)
+  }
+    const handleDataEditMines=(name,value)=>{
+    const newInput = { ...MultiEditAddress };
+    newInput[name] = value.Pincode;
+    newInput.country = "India";
+    newInput.city = value.City;
+    newInput.state = value.State;
+    setMultiEditAddress(newInput);
+    setToView(false)
+  }
   const setAddress = (name, value) => {
     const newInput = { ...newAddress };
     newInput[name] = value;
@@ -819,6 +871,12 @@ function Index(props) {
             cancelEditAddress,
             saveNewAddress,
             setAddressEditType,
+            getPincodes,
+            handleDataEdit,
+            dispatch,
+            toShow,
+            toView
+            
           )}
         {isEdit == false && (
           <div
@@ -893,9 +951,30 @@ function Index(props) {
 
                         value={newAddress.pinCode}
                         onChange={(e) => {
+                          dispatch(getPincodes(e.target.value))
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
+                      {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleData("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label
                         className={`${styles.label_heading} label_heading`}
                       >
@@ -986,9 +1065,30 @@ function Index(props) {
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
+                          dispatch(getPincodes(e.target.value))
                           setAddress(e.target.name, e.target.value);
                         }}
                       />
+                       {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleData("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                       <Form.Label
                         className={`${styles.label_heading} label_heading`}
                       >
@@ -1582,6 +1682,13 @@ function Index(props) {
                   cancelEditMultiAddress,
                   saveNewMultiAddress,
                   setMultiAddressType,
+                  getPincodes,
+                  handleDataEditMines,
+                  dispatch,
+                  toShow,
+                  toView
+                  
+                  
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
@@ -1661,9 +1768,30 @@ function Index(props) {
                               // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                               onChange={(e) => {
+                                dispatch(getPincodes(e.target.value))
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
+                            {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleDataMines("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                             <Form.Label
                               className={`${styles.label_heading} label_heading`}
                             >
@@ -1754,9 +1882,30 @@ function Index(props) {
                               // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                               onChange={(e) => {
+                                dispatch(getPincodes(e.target.value))
                                 setMultiAddress(e.target.name, e.target.value);
                               }}
                             />
+                            {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleDataMines("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
                             <Form.Label
                               className={`${styles.label_heading} label_heading`}
                             >
@@ -1900,6 +2049,11 @@ const editData = (
   cancelEditAddress,
   saveNewAddress,
   setAddressEditType,
+  getPincodes,
+  handleData,
+  dispatch,
+  toShow,
+  toView
 ) => {
   console.log(addressEditType, 'addressEditType');
   return (
@@ -1965,9 +2119,30 @@ const editData = (
                 // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
+                  dispatch(getPincodes(e.target.value))
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+               {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleData("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
@@ -2044,9 +2219,30 @@ const editData = (
                 //  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
+                   dispatch(getPincodes(e.target.value))
                   editNewAddress(e.target.name, e.target.value);
                 }}
               />
+               {toShow.length>0 && toView &&  (
+                        <div className={styles.searchResults}>
+                          <ul>
+                            {toShow
+                              ? toShow?.map(
+                                  (results, index) => (
+                                    <li
+                                      onClick={() => handleData("pinCode",results)}
+                                      id={results._id}
+                                      key={index}
+                                      value={results.Pincode}
+                                    >
+                                      {results.Pincode}{' '}
+                                    </li>
+                                  ),
+                                )
+                              : ''}
+                          </ul>
+                        </div>
+                      )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>

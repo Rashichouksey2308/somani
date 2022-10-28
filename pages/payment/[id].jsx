@@ -151,7 +151,7 @@ function Index() {
           rrlrNumber: '',
         });
       }
-      dat;
+     
     });
     setLifting([...tempArr]);
   };
