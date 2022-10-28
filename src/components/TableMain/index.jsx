@@ -49,7 +49,16 @@ function Index({
       setSorting(-1);
     }
   };
-
+const  getStatus = (value)=>{
+  if(value?.quotationRequest?.insuranceType=="Marine Insurance"){
+   return moment(value?.marineInsurance?.insuranceTo).isBefore(moment())
+  }else{
+    console.log(moment(),"xxxzxc")
+    return moment(value?.storageInsurance?.insuranceTo).isBefore(moment()) 
+  }
+    
+                      
+}
   return (
     <div className={`${styles.datatable} border datatable card`}>
       <div
@@ -169,20 +178,27 @@ function Index({
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {
+                        insured?.quotationRequest?.insuranceType=="Marine Insurance"?
                         moment(
                           insured?.marineInsurance?.insuranceTo,
-                        ).format('DD-MM-YYYY')||moment(
+                        ).format('DD-MM-YYYY'):
+                        insured?.quotationRequest?.insuranceType=="Storage Insurance"?
+                        moment(
+                          insured?.storageInsurance?.insuranceTo,
+                        ).format('DD-MM-YYYY'):
+                          moment(
                           insured?.storageInsurance?.insuranceTo,
                         ).format('DD-MM-YYYY')
+
                         // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
                         //   'T',
                         // )[0]
                       }
                     </td>
-                    {console.log(moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()),"ssdsds")}
+                    {console.log(insured?.quotationRequest?.insuranceType,"ssdsds")}
                     {
-                      moment(insured?.marineInsurance?.insuranceTo,"DD-MM-YYYY").isBefore(moment()) ||
-                      moment(insured?.storageInsurance?.insuranceTo,"DD-MM-YYYY").isBefore(moment()) ? (
+                      getStatus(insured)
+                     ? (
                       <td>
                         <span
                           className={`${styles.status} ${styles.rejected}`}
