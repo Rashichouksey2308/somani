@@ -69,11 +69,13 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
+  console.log(lcData, 'THIS IS LC DATA')
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
         lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-      applicableRules: lcModuleData?.lcApplication?.applicableRules,
+      applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
       lcIssuingBank:
@@ -118,50 +120,52 @@ function Index() {
 
     setClauseData({
       formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-      applicableRules: lcModuleData?.lcApplication?.applicableRules,
-      dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-      placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-      lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
-      applicant: lcModuleData?.lcApplication?.applicant,
-      beneficiary: lcModuleData?.lcApplication?.beneficiary,
-      currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-      currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-      creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-      creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-      atSight: lcModuleData?.lcApplication?.atSight,
-      numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
-      drawee: lcModuleData?.lcApplication?.drawee,
-      deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-      partialShipment: lcModuleData?.lcApplication?.partialShipment,
-      transhipments: lcModuleData?.lcApplication?.transhipments,
-      shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-      portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-      latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-      DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
-      confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
-      reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
-      adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
-      secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
-      requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
-      charges: lcModuleData?.lcApplication?.charges,
-      instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
-      senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
-      documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
-      dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
+      lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+    applicableRules: lcModuleData?.lcApplication?.applicabIndexleRules,
+    dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
+    placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
+    lcIssuingBank:
+      lcModuleData?.lcApplication?.lcIssuingBank ||
+      'First Class European Bank',
+    applicant: lcModuleData?.lcApplication?.applicant,
+    beneficiary: lcModuleData?.lcApplication?.beneficiary,
+    currecyCodeAndAmountValue:
+      lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+    currecyCodeAndAmountUnit:
+      lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+    tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+    creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
+    creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
+    atSight: lcModuleData?.lcApplication?.atSight,
+    numberOfDays: lcModuleData?.lcApplication?.numberOfDays,
+    drawee: lcModuleData?.lcApplication?.drawee,
+    deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
+    partialShipment: lcModuleData?.lcApplication?.partialShipment,
+    transhipments: lcModuleData?.lcApplication?.transhipments,
+    shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
+    portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+    portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+    latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
+    DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
+    presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+    confirmationInstructions:
+      lcModuleData?.lcApplication?.confirmationInstructions,
+    reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
+    adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
+    secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
+    requestedConfirmationParty:
+      lcModuleData?.lcApplication?.requestedConfirmationParty,
+    charges: lcModuleData?.lcApplication?.charges,
+    instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+    senderToReceiverInformation:
+      lcModuleData?.lcApplication?.senderToReceiverInformation,
+    documentaryCreditNumber:
+      lcModuleData?.lcApplication?.documentaryCreditNumber,
+    dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
     });
   }, [lcModuleData]);
 
-  console.log(lcData, 'LC DATA');
+
 
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData };
@@ -176,29 +180,6 @@ function Index() {
   };
 
   const [clauseData, setClauseData] = useState();
-  // {
-  //   formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-  //   applicableRules: lcModuleData?.lcApplication?.applicableRules,
-  //   dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-  //   placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-  //   applicant: lcModuleData?.lcApplication?.applicant,
-  //   beneficiary: lcModuleData?.lcApplication?.beneficiary,
-  //   currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-  //   currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-  //   tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-  //   creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-  //   creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-  //   atSight: lcModuleData?.lcApplication?.atSight,
-  //   drawee: lcModuleData?.lcApplication?.drawee,
-  //   deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-  //   partialShipment: lcModuleData?.lcApplication?.partialShipment,
-  //   transhipments: lcModuleData?.lcApplication?.transhipments,
-  //   shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-  //   portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-  //   portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-  //   latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-  //   DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-  // },
 
   console.log(clauseData, 'CLAUSE DATA');
 
@@ -340,9 +321,11 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage });
       }
     } else {
+      let sendLcData = { ...clauseData };
       setLcData(clauseData);
+      console.log(clauseData, 'CLAUSE DATA 2')
       let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(lcData));
+      fd.append('lcApplication', JSON.stringify(sendLcData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
       fd.append('document1', lcDoc.lcDraftDoc);
 

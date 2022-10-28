@@ -83,7 +83,7 @@ function Index() {
                         fontWeight: 'normal',
                         opacity: '0.7',
                       }}
-                    ></span>
+                    >{marginData?.order?.orderId}</span>
                   </span>
                   <br />
                   <span
@@ -112,7 +112,7 @@ function Index() {
                         opacity: '0.7',
                       }}
                     >
-                      {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
+                     {marginData?.company?.companyName}
                     </span>
                   </span>
                 </td>
@@ -151,7 +151,9 @@ function Index() {
                         opacity: '0.7',
                       }}
                     >
-                      22-02-2022
+                      {moment(marginData?.createdAt?.slice(0, 10)).format(
+                    'DD-MM-yy',
+                  )}
                     </span>
                   </span>
                 </td>
