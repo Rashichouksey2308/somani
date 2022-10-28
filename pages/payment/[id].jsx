@@ -148,12 +148,26 @@ function Index() {
           LRorRRDoc: {},
           eWayBillDoc: {},
           destination: '',
-          rrlrNumber: '',
+          rrlrNumber: '', 
         });
       }
      
     });
     setLifting([...tempArr]);
+  };
+  const deleteNewRow = (index, index2) => {
+    // setLifting ({
+    //   ...lifting,
+    //   detail: [
+    //     ...lifting.slice(0, index2),
+    //     ...lifting.slice(index2 + 1),
+    //   ]
+    // })
+   setLifting([
+       ...lifting.slice(0, index),
+      ...lifting.slice(index + 1),
+     ]);
+    console.log(lifting, 'this is deleted row')
   };
   const handleChange = (name, value, index, index2) => {
     console.log(index, index2, 'date');
@@ -707,6 +721,8 @@ function Index() {
                       handleLiftingSubmit={handleLiftingSubmit}
                       removeLiftinDoc={removeLiftinDoc}
                       ReleaseOrderData={ReleaseOrderData}
+                      deleteNewRow= {deleteNewRow}
+
                     />
                   </div>
                 </div>

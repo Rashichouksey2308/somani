@@ -85,7 +85,7 @@
         .add_sign {
           font-size: 24px;
           font-weight: bold;
-          line-height: 27px;
+          line-height: 1;
           margin-right: 5px;
           @include respond(md-desktop) {
             font-size: 22px;
@@ -172,7 +172,7 @@
             line-height: 23px;
             background-color: transparent;
             margin: 0 15px 0 30px;
-            width: 78px;
+            //width: 78px;
             height: 36px;
             @include respond(md-desktop) {
               font-size: 16px;
