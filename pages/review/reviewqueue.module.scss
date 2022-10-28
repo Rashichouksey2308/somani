@@ -681,6 +681,10 @@
             line-height: 18px;
             font-weight: bold;
             // margin-top: 0.5rem;
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
+            }
           }
           .val {
             flex-grow: 1;
@@ -893,8 +897,9 @@
   margin-left: 1rem;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
-  @include respond(md-desktop) {
-    margin-left: 0rem;
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
   }
   @include respond(sm-desktop) {
     margin-left: 0rem;

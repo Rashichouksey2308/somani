@@ -11,6 +11,7 @@ import Image from 'next/image';
 import UploadOther from '../UploadOther';
 
 function Index() {
+  const [vendorRadio, setVendorRadio] = useState('');
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -41,15 +42,19 @@ function Index() {
                         defaultChecked
                         label="Domestic"
                         name="group1"
+                        onChange={() => setVendorRadio('domestic')}
                         type={type}
+                        value=""
                         id={`inline-${type}-1`}
                       />
                       <Form.Check
                         className={styles.radio}
                         inline
                         label="International"
+                        onChange={() => setVendorRadio('international')}
                         name="group1"
                         type={type}
+                        value="international"
                         id={`inline-${type}-2`}
                       />
                     </div>
@@ -67,7 +72,7 @@ function Index() {
                     <option value="">CHA</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
-                    Vendor Type<strong className="text-danger ml-1">*</strong>
+                    Vendor Type <strong className="text-danger ml-1">*</strong>
                   </label>
                   <div className={`${styles.img_arrow} image_arrow`}>
                     <Image
@@ -79,19 +84,50 @@ function Index() {
                   </div>
                 </div>
               </div>
-              <div
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  PAN/Tax ID <strong className="text-danger">*</strong>
-                </label>
-              </div>
+              {vendorRadio === 'international' ? (
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <div className="d-flex">
+                    <select
+                      className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                    >
+                      <option value="">Germany</option>
+                      <option value="">India</option>
+                    </select>
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Country <strong className="text-danger ml-1">*</strong>
+                    </label>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image
+                        width="13px"
+                        height="8px"
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                ' '
+              )}
+              {vendorRadio === 'domestic' ? (
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    PAN/Tax ID <strong className="text-danger">*</strong>
+                  </label>
+                </div>
+              ) : (
+                ' '
+              )}
               <div
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
@@ -105,6 +141,23 @@ function Index() {
                   Company Name <strong className="text-danger">*</strong>
                 </label>
               </div>
+              {vendorRadio === 'international' ? (
+                <div
+                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                >
+                  <input
+                    className={`${styles.input_field} border_color input form-control`}
+                    type="text"
+                    required
+                    name="supplierName"
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    TAX ID
+                  </label>
+                </div>
+              ) : (
+                ''
+              )}
               <div
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
@@ -124,7 +177,10 @@ function Index() {
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Deactivation Date" />
+                  <DateCalender
+                    labelName="Deactivation Date"
+                    isRequired={true}
+                  />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -139,7 +195,10 @@ function Index() {
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Blacklisted Date" />
+                  <DateCalender
+                    labelName="Blacklisted Date"
+                    isRequired={true}
+                  />
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -174,7 +233,7 @@ function Index() {
                   name="supplierName"
                 />
                 <label className={`${styles.label_heading} label_heading`}>
-                  Phone <strong className="text-danger">*</strong>
+                  Phone Number <strong className="text-danger">*</strong>
                 </label>
               </div>
 
@@ -191,61 +250,47 @@ function Index() {
                   Website
                 </label>
               </div>
-
-              {/* <div
-                className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-              >
-                <div className={`${styles.phone_card}`}>
-                  <select
-                    name="callingCode"
-                    id="Code"
-                    className={`${styles.code_phone} input border-right-0`}
-                  >
-                    <option>+91</option>
-                    <option>+1</option>
-                    <option>+92</option>
-                    <option>+95</option>
-                    <option>+24</option>
-                  </select>
-                  <input
-                    type="tel"
-                    id="textNumber"
-                    name="phoneNumber"
-                    className={`${styles.input_field} border_color input form-control border-left-0`}
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textNumber"
-                  >
-                    Phone Number
-                    <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-              </div> */}
-            </div>
-            <div className="row">
               <div className={`${styles.form_group} col-lg-8 col-md-12 `}>
-                <input
-                  className={`${styles.input_field} border_color input form-control`}
-                  type="text"
-                  required
-                  name="supplierName"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Remarks<strong className="text-danger ml-1">*</strong>
-                </label>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className={`${styles.input_field} border_color input form-control`}
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    required
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Remarks
+                  </label>
+                  <div className="input-group-append align-items-center">
+                    <button className={`${styles.button_upload} btn`}>
+                      Upload
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div
+            className={`${styles.dashboard_form} card-body`}
+            style={{ borderTop: '3px solid #D2D7E5' }}
+          >
+            <div className={`${styles.card_heading} mt-3`}>
+              Key Contact Person Details
+            </div>
             <div
-              className={`${styles.address_card} mt-3 pb-5 value background1`}
+              className={`${styles.address_card} pb-5 value background1`}
+              style={{ marginTop: '40px' }}
             >
               <div
                 className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>Key Contact Person</h3>
+                <div className={styles.min_heading}>
+                  <strong className="text-danger">*</strong> Minimum 1 Contact
+                  Person Mandatory
+                </div>
               </div>
               <div
                 className={`${styles.dashboard_form} card-body border_color`}
@@ -274,7 +319,7 @@ function Index() {
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Department <strong className="text-danger">*</strong>
+                        Department
                       </label>
                       <div className={`${styles.image_arrow} image_arrow`}>
                         <Image
@@ -345,38 +390,39 @@ function Index() {
                     </label>
                   </div>
                   <div
-                className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}
-              >
-                <div className={`${styles.radio_form}`}>
-                  <div className={`${styles.sub_heading} label_heading`}>
-                  Authorised Signatory <strong className="text-danger">*</strong>
-                  </div>
-                  {['radio'].map((type, index) => (
-                    <div
-                      key={`inline-${index}`}
-                      className={`${styles.radio_group}`}
-                    >
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        defaultChecked
-                        label="Yes"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-1`}
-                      />
-                      <Form.Check
-                        className={styles.radio}
-                        inline
-                        label="No"
-                        name="group1"
-                        type={type}
-                        id={`inline-${type}-2`}
-                      />
+                    className={`${styles.form_group} mt-0 col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.radio_form}`}>
+                      <div className={`${styles.sub_heading} label_heading`}>
+                        Authorised Signatory{' '}
+                        <strong className="text-danger">*</strong>
+                      </div>
+                      {['radio'].map((type, index) => (
+                        <div
+                          key={`inline-${index}`}
+                          className={`${styles.radio_group}`}
+                        >
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            defaultChecked
+                            label="Yes"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="No"
+                            name="group1"
+                            type={type}
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
                 </div>
               </div>
               <button
@@ -406,7 +452,7 @@ function Index() {
                       </p>
                     </div>
                   </div>
-               
+
                   <div>
                     <div className="d-flex">
                       <img
@@ -425,7 +471,9 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.sign_head}`}>Authorised Signatory: <span>Yes</span></div>
+                <div className={`${styles.sign_head}`}>
+                  Authorised Signatory: <span>Yes</span>
+                </div>
               </div>
               <div
                 className={`${styles.address_card} value background1`}
@@ -463,15 +511,21 @@ function Index() {
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.sign_head}`}>Authorised Signatory: <span>Yes</span></div>
-
+                <div className={`${styles.sign_head}`}>
+                  Authorised Signatory: <span>Yes</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className={`${styles.dashboard_form} card-body`}>
+          <div
+            className={`${styles.dashboard_form} card-body`}
+            style={{ borderTop: '3px solid #D2D7E5' }}
+          >
+            <div className={`${styles.card_heading} mt-3`}>Key Addresses</div>
             <div
-              className={`${styles.address_card} mt-3 pb-5 value background1`}
+              className={`${styles.address_card} pb-5 value background1`}
+              style={{ marginTop: '40px' }}
             >
               <div
                 className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
@@ -507,70 +561,135 @@ function Index() {
                       </div>
                     </div>
                   </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      required
-                      type="number"
-                      onWheel={(event) => event.currentTarget.blur()}
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                      name="pinCode"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Pin Code
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      name="countryOfOrigin"
-                      required
-                      style={{ paddingRight: '35px' }}
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      State
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
-                        name="countryOfOrigin"
-                        required
-                      >
-                        <option value="India">Agra</option>
-                        <option value="Dubai">Dubai</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        City
-                      </label>
-                      <div className={`${styles.image_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
+                  {vendorRadio === 'international' ? (
+                    <>
+                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            name="countryOfOrigin"
+                            required
+                          >
+                            <option value="India">Agra</option>
+                            <option value="Dubai">Dubai</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Country <strong className="text-danger">*</strong>
+                          </label>
+                          <div className={`${styles.image_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className={`${styles.form_group} col-md-3 col-sm-4`}>
-                    <input
-                      className={`${styles.input_field} border_color input form-control`}
-                      required
-                      type="text"
-                      name="pinCode"
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      GSTIN
-                    </label>
-                  </div>
+                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
+                        <input
+                          className={`${styles.input_field} border_color input form-control`}
+                          name="countryOfOrigin"
+                          required
+                          style={{ paddingRight: '35px' }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          City <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
+                        <input
+                          className={`${styles.input_field} border_color input form-control`}
+                          name="countryOfOrigin"
+                          required
+                          style={{ paddingRight: '35px' }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Zip Code <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <input
+                          className={`${styles.input_field} border_color input form-control`}
+                          required
+                          type="number"
+                          onWheel={(event) => event.currentTarget.blur()}
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
+                          name="pinCode"
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Pin Code
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <input
+                          className={`${styles.input_field} border_color input form-control`}
+                          name="countryOfOrigin"
+                          required
+                          style={{ paddingRight: '35px' }}
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          State
+                        </label>
+                      </div>
+                      <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            name="countryOfOrigin"
+                            required
+                          >
+                            <option value="India">Agra</option>
+                            <option value="Dubai">Dubai</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            City
+                          </label>
+                          <div className={`${styles.image_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className={`${styles.form_group} col-md-3 col-sm-4`}>
+                        <input
+                          className={`${styles.input_field} border_color input form-control`}
+                          required
+                          type="text"
+                          name="pinCode"
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          GSTIN
+                        </label>
+                      </div>
+                    </>
+                  )}
+
                   <div className={`${styles.form_group} col-lg-9`}>
                     <input
                       className={`${styles.input_field} border_color input form-control`}
@@ -593,7 +712,12 @@ function Index() {
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
                     >
-                      Email
+                      Email{' '}
+                      {vendorRadio === 'international' ? (
+                        <strong className="text-danger">*</strong>
+                      ) : (
+                        ''
+                      )}
                     </label>
                   </div>
                 </div>
@@ -666,72 +790,220 @@ function Index() {
             aria-labelledby="bankDetails"
           >
             <div className={`${styles.dashboard_form} card-body`}>
-              <div className="row">
-                <div
-                  className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} border_color input form-control`}
-                    type="text"
-                    required
-                    name="supplierName"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    IFSC <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} border_color input form-control`}
-                    type="text"
-                    required
-                    name="supplierName"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Bank Name <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                <div className={`${styles.form_group} col-md-5 col-sm-6`}>
-                  <input
-                    type="text"
-                    id="textInput"
-                    name="email"
-                    required
-                    className={`${styles.input_field} border_color input form-control`}
-                  />
-                  <label
-                    className={`${styles.label_heading} label_heading`}
-                    id="textInput"
+              {vendorRadio === 'domestic' ? (
+                <div className="row">
+                  <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
-                    Bank Address <strong className="text-danger">*</strong>
-                  </label>
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      IFSC <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Bank Name <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+
+                  <div className={`${styles.form_group} col-md-5 col-sm-6`}>
+                    <input
+                      type="text"
+                      id="textInput"
+                      name="email"
+                      required
+                      className={`${styles.input_field} border_color input form-control`}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Bank Address <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      required
+                      type="number"
+                      onWheel={(event) => event.currentTarget.blur()}
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                      name="pinCode"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Account No.
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
                 </div>
-                <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                  <input
-                    className={`${styles.input_field} border_color input form-control`}
-                    required
-                    type="number"
-                    onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
-                    name="pinCode"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Account No.
-                    <strong className="text-danger">*</strong>
-                  </label>
+              ) : (
+                <div className="row">
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Bank Name <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Account No. <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+
+                  <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                    <input
+                      type="text"
+                      id="textInput"
+                      name="email"
+                      required
+                      className={`${styles.input_field} border_color input form-control`}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Swift Code <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div className={`${styles.form_group} col-md-5 col-sm-6`}>
+                    <input
+                      type="text"
+                      id="textInput"
+                      // name="email"
+                      required
+                      className={`${styles.input_field} border_color input form-control`}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Branch Address <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Correspondent Bank Name
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} border_color input form-control`}
+                      type="text"
+                      required
+                      name="supplierName"
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Account No.
+                    </label>
+                  </div>
+
+                  <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                    <input
+                      type="text"
+                      id="textInput"
+                      name="email"
+                      required
+                      className={`${styles.input_field} border_color input form-control`}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Swift Code
+                    </label>
+                  </div>
+                  <div className={`${styles.form_group} col-md-5 col-sm-6`}>
+                    <input
+                      type="text"
+                      id="textInput"
+                      // name="email"
+                      required
+                      className={`${styles.input_field} border_color input form-control`}
+                    />
+                    <label
+                      className={`${styles.label_heading} label_heading`}
+                      id="textInput"
+                    >
+                      Branch Address
+                    </label>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
         <div className="mt-4">
           <UploadOther isDocumentName={true} />
+        </div>
+
+        <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+          <div className={`${styles.dashboard_form} card-body`}>
+            <div className="row">
+              <div className={`${styles.form_group} col-lg-9 col-sm-12 `}>
+                <input
+                  className={`${styles.input_field} border_color input form-control`}
+                  type="text"
+                  required
+                  name="supplierName"
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Remarks
+                </label>
+              </div>
+              <div className={`${styles.form_group} col-lg-3 col-sm-6 `}>
+                <div className={`${styles.approve} ml-3`}>
+                  <span>Send for Approval</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='d-flex justify-content-end mb-5'
+        style={{marginTop:'35px'}}>
+          <div className={`${styles.footer_heading} mr-5`}>Created By <span>Balakrishna SGF001</span></div>
+          <div className={`${styles.footer_heading}`}>Approved By <span>Ramakrishna SGF001</span></div>
         </div>
       </div>
     </div>

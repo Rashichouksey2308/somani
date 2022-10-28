@@ -184,6 +184,9 @@ function Index(props) {
           aria-expanded="true"
           aria-controls="cashFlowStatement"
         >
+          <div className={`${styles.approve} mr-3`}>
+            <span>Preview</span>
+          </div>
           <div className={styles.reject}>
             <span>Save</span>
           </div>

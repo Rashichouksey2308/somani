@@ -1413,6 +1413,7 @@ const index = ({
                                     <img
                                       onClick={() => deleteAddress(index)}
                                       src="/static/delete 2.svg"
+                                      className={`${styles.delete_image}`}
                                       alt="delete"
                                     />
                                   </div>
@@ -1622,6 +1623,7 @@ const index = ({
                                   <img
                                     onClick={() => deleteAddress(index)}
                                     src="/static/delete 2.svg"
+                                    className={`${styles.delete_image}`}
                                     alt="delete"
                                   />
                                 </div>
@@ -1664,7 +1666,7 @@ const index = ({
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
           <div className={`${styles.dashboard_form} card-body`}>
             <div
-              className={`w-100 d-flex justify-content-between align-items-start`}
+              className={`${styles.address_box} d-flex justify-content-between align-items-start`}
             >
               {keyAddData.map((address, index) => {
                 return (
@@ -2010,7 +2012,7 @@ const index = ({
                               }}
                             />
                             <img
-                              className="img-fluid mr-2 mb-1"
+                              className="mr-2 mb-1"
                               src="/static/file_upload.svg"
                               alt="file upload"
                             />
@@ -2562,10 +2564,10 @@ const index = ({
                             )}
                             <img
                               src="/static/delete 2.svg"
-                              className={`${styles.delete_image}`}
                               onClick={() => {
                                 handleRemoveRow(index);
                               }}
+                              className={`${styles.delete_image}`}
                               alt="delete"
                             />
                           </div>

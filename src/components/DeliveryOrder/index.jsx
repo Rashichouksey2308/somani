@@ -278,6 +278,7 @@ export default function Index(props) {
                                 {val.isDelete ? (
                                   <div
                                     className={`${styles.form_group} col-lg-6`}
+                                    style={{ marginLeft: '-48px' }}
                                   >
                                     <img
                                       src="/static/save-3.svg"
@@ -287,6 +288,12 @@ export default function Index(props) {
                                         props.onEdit(index, false);
                                       }}
                                     />
+                                    <img
+                                      src="/static/cancel-3.svg"
+                                      className={`${styles.shareImg} ml-3`}
+                                      alt="Cancel"
+                                    />
+
                                     {props.releaseOrderData.length > 1 && (
                                       <img
                                         className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}

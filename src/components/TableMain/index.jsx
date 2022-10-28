@@ -24,7 +24,7 @@ function Index({
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  // console.log(insuranceResponse, 'INSURANCE RESPONSE')
+  // console.log(moment(insured?.marineInsurance?.insuranceTo).toDate().isBefore(moment()), 'INSURANCE RESPONSE')
 
   useEffect(() => {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`));
@@ -170,18 +170,19 @@ function Index({
                     <td>
                       {
                         moment(
-                          insured?.quotationRequest?.expectedTimeOfDispatch,
+                          insured?.marineInsurance?.insuranceTo,
+                        ).format('DD-MM-YYYY')||moment(
+                          insured?.storageInsurance?.insuranceTo,
                         ).format('DD-MM-YYYY')
                         // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
                         //   'T',
                         // )[0]
                       }
                     </td>
-                    {insured &&
-                    (moment(insured?.marineInsurance?.insuranceTo).toDate() <
-                      d ||
-                      moment(insured?.storageInsurance?.insuranceTo).toDate() <
-                        d) ? (
+                    {console.log(moment(insured?.marineInsurance?.insuranceTo).isBefore(moment()),"ssdsds")}
+                    {
+                      moment(insured?.marineInsurance?.insuranceTo,"DD-MM-YYYY").isBefore(moment()) ||
+                      moment(insured?.storageInsurance?.insuranceTo,"DD-MM-YYYY").isBefore(moment()) ? (
                       <td>
                         <span
                           className={`${styles.status} ${styles.rejected}`}

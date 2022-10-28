@@ -197,7 +197,7 @@ function Index() {
     (state) => state.companyDetails,
   );
   const [selectedTab, setSelectedTab] = useState('Profile');
-
+ console.log(orderList,"orderList")
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -490,22 +490,22 @@ function Index() {
   const id = sessionStorage.getItem('orderID');
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: orderList?.transactionType,
-    commodity: orderList?.commodity,
-    quantity: orderList?.quantity,
-    unitOfQuantity: orderList?.unitOfQuantity,
-    orderValue: CovertvaluefromtoCR(orderList?.orderValue),
-    orderCurrency: orderList?.orderCurrency,
-    unitOfValue: orderList?.unitOfValue,
-    supplierName: orderList?.supplierName,
-    countryOfOrigin: orderList?.countryOfOrigin,
-    portOfDischarge: orderList?.portOfDischarge,
-    ExpectedDateOfShipment: orderList?.ExpectedDateOfShipment,
-    incoTerm: orderList?.incoTerm,
-    grade: orderList?.grade,
-    tolerance: orderList?.tolerance,
-    hsnCode: orderList?.hsnCode,
-    manufacturerName: orderList?.manufacturerName,
+    transactionType: "",
+    commodity: "",
+    quantity: "",
+    unitOfQuantity: "",
+    orderValue: "",
+    orderCurrency: "",
+    unitOfValue: "",
+    supplierName: "",
+    countryOfOrigin: "",
+    portOfDischarge:"",
+    ExpectedDateOfShipment: "",
+    incoTerm: "",
+    grade: "",
+    tolerance: "",
+    hsnCode: "",
+    manufacturerName:"",
   });
   useEffect(() => {
     let newObj = {
@@ -526,6 +526,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
+    console.log(newObj,"newObj")
     setOrderDetails({ ...newObj });
 
     setShipment({
@@ -8902,8 +8903,8 @@ function Index() {
               return partyFilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourts?.cases?.filter((val) => {
               return partyFilter(val);
             })
           : districtCourt?.filter((val) => {
@@ -8956,8 +8957,8 @@ function Index() {
               return civilfilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
               return civilfilter(val);
             })
           : districtCourt?.filter((val) => {
@@ -9021,18 +9022,24 @@ function Index() {
               return riskFilter(val);
             });
       districtCourt =
-        tribunalCourts.length <= 0
-          ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        districtCourt.length <= 0
+          ? companyData?.compliance?.districtCourt?.cases?.filter((val) => {
               return riskFilter(val);
             })
           : districtCourt?.filter((val) => {
               return riskFilter(val);
             });
     }
+    console.log(districtCourt,"districtCourt",highCourt)
     setSupreme([...supremeCourt]);
     setTribunal([...tribunalCourts]);
     setHigh([...highCourt]);
-    setDistrict([...districtCourt]);
+    if(Array.isArray(districtCourt)){
+      setDistrict([...districtCourt]);
+    }else{
+       setDistrict([]);
+    }
+    
     setTotalCourt(count);
   };
   console.log(High, 'highCourtDisplay');

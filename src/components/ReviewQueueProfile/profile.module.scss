@@ -239,6 +239,10 @@
                   font-size: 16px;
                   color: #ff9d00;
                   display: block;
+                  @include respond(lg-desktop) {
+                    font-size: 14px;
+                    line-height: 1.2;
+                  }
                 }
               }
               &.negative {
@@ -247,6 +251,10 @@
                   font-size: 16px;
                   color: #ea3f3f;
                   display: block;
+                  @include respond(lg-desktop) {
+                    font-size: 14px;
+                    line-height: 1.2;
+                  }
                 }
               }
               &.positive {
@@ -286,6 +294,10 @@
       font-weight: bold;
       line-height: 25px;
       margin-bottom: 19px;
+      @include respond(lg-desktop) {
+        font-size: 18px;
+        line-height: 1.3;
+      }
     }
     .tableParent {
       // max-height: 300px;
@@ -534,6 +546,10 @@
         line-height: 25px;
         padding: 22px 35px 10px;
         margin: 0 !important;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
       .row {
         margin: 0 !important;
@@ -543,9 +559,18 @@
           max-width: 160px;
           input {
             transform: scale(1.5);
+            @include respond(lg-desktop) {
+              transform: scale(1.2);
+            }
           }
           label {
             margin-left: 10px;
+            margin-bottom: 0;
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
+              margin-left: 5px;
+            }
           }
         }
       }
@@ -558,6 +583,10 @@
         font-size: 20px;
         font-weight: 500;
         line-height: 25px;
+        @include respond(lg-desktop) {
+          font-size: 18px;
+          line-height: 1.3;
+        }
       }
       .table_scroll_outer {
         width: 100%;
@@ -791,9 +820,9 @@
     max-width: 260px;
     height: 48px;
     @include respond(lg-desktop) {
-      height: 38px;
-      max-width: 200px;
-      font-size: 18px;
+      height: 34px;
+      max-width: 180px;
+      font-size: 16px;
       line-height: 1.3;
     }
   }

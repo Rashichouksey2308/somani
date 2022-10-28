@@ -44,7 +44,7 @@
     justify-content: center;
     margin-right: 1rem;
     @include respond(lg-desktop) {
-      width: 200px;
+      min-width: 200px;
       height: 38px;
     }
     img {

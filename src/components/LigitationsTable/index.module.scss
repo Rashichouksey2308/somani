@@ -129,6 +129,7 @@
                 padding-left: 15px;
               }
               @include respond(lg-desktop) {
+                height: 50px;
                 font-size: 14px;
                 line-height: 1.2;
               }

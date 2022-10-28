@@ -271,13 +271,16 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
           });
         } else {
           dispatch({
-            type: types.GET_PINCODES_MASTERS_FAILURE,
-            payload: response.data,
+            type: types.GET_PINCODES_MASTERS_SUCCESS,
+            payload: [],
           });
         }
       },
     );
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: types.GET_PINCODES_MASTERS_SUCCESS,
+      payload: [],
+    });
   }
 };
