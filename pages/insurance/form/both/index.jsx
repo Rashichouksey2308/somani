@@ -26,6 +26,7 @@ import {
 import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
 import moment from 'moment/moment';
+import { getInternalCompanies } from '../../../../src/redux/masters/action';
 
 const Index = () => {
 
@@ -58,6 +59,15 @@ const Index = () => {
   }, [insuranceResponse]);
 
 
+
+  useEffect(() => {
+    dispatch(getInternalCompanies())
+  }, [dispatch])
+  
+  const {getInternalCompaniesMasterData} = useSelector(state=>state.MastersData)
+
+  const [option, setOption] = useState([])
+
   const [marineData, setMarineData] = useState({
     policyNumber: '',
     nameOfInsurer: '',
@@ -86,7 +96,7 @@ const Index = () => {
     premiumAmount: '',
   });
 
-  console.log(marineData, 'MARINE STORAGE', storageData)
+  console.log(marineData, 'MARINE STORAGE', storageData, 'OPTION', option)
 
 
   useEffect(() => {
@@ -149,6 +159,16 @@ const Index = () => {
     let date3 = moment(dateS1, 'DD.MM.YYYY');
     let date4 = moment(dateS2, 'DD.MM.YYYY');
     return date4.diff(date3, 'days');
+  }
+
+  const gettingCompanyList = (e) => {
+    
+      let filter = getInternalCompaniesMasterData?.filter((val, index)=> {
+        if (val.Company_Name.toLowerCase() == e.target.value.toLowerCase()) {
+      return val;
+    }
+  }) 
+  setOption(filter)
   }
 
   const saveMarineData = (name, value) => {
@@ -699,10 +719,11 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -734,10 +755,20 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveMarineData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1229,10 +1260,11 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1263,10 +1295,20 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1742,10 +1784,11 @@ const Index = () => {
                          
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1776,10 +1819,20 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveMarineData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                              {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -2081,10 +2134,11 @@ const Index = () => {
                         
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option ></option>
-                              <option >CHA</option>
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -2115,10 +2169,20 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                               {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
