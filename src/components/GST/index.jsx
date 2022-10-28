@@ -1938,24 +1938,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 Via Email
               </a>
             </li>
-            <li className={`${styles.nav_item} nav-item`}>
-              <a
-                className={`${styles.nav_link} nav-link`}
-                id="via-phone"
-                data-toggle="tab"
-                href="#viaPhone"
-                role="tab"
-                aria-controls="viaPhone"
-                aria-selected="false"
-              >
-                <img
-                  src="/static/phone-icon.png"
-                  className="img-fluid"
-                  alt="Via Email"
-                />
-                Via Phone No.
-              </a>
-            </li>
+          
           </ul>
           <form>
             <div
@@ -1983,39 +1966,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={`label_heading_login label_heading bg-transparent`}
                     htmlFor="email"
                   >
-                    Email or Username
+                    Email 
                   </label>
                 </div>
-                <div
-                  className={`${styles.labelFloat} ${styles.password} form-group`}
-                >
-                  <div className="input-group align-items-center" id="password">
-                    <input
-                      type={passwordShow ? 'text' : 'password'}
-                      name="password"
-                      className={`${styles.formControl} ${styles.input} input form-control`}
-                      onChange={(e) =>
-                        setCredential({
-                          ...credential,
-                          password: e.target.value,
-                        })
-                      }
-                      required
-                    />
-                    <label
-                      className={`label_heading_login label_heading bg-transparent`}
-                      htmlFor="password"
-                    >
-                      Password
-                    </label>
-                    <img
-                      onClick={() => setPasswordShow(!passwordShow)}
-                      src="/static/eye.svg"
-                      alt="Show Password"
-                      className="img-fluid"
-                    />
-                  </div>
-                </div>
+              
                 <div className="d-flex justify-content-between">
                   <button
                     onClick={handleClose}
@@ -2033,41 +1987,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </button>
                 </div>
               </div>
-              <div
-                className="tab-pane fade"
-                id="viaPhone"
-                role="tabpanel"
-                aria-labelledby="via-phone"
-              >
-                <div className={`${styles.labelFloat} form-group`}>
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    className={`${styles.formControl} ${styles.input} input form-control`}
-                    required
-                  />
-                  <label className={`label_heading_login`} htmlFor="phone">
-                    Phone Number
-                  </label>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <button
-                    onClick={handleClose}
-                    type="button"
-                    className={`${styles.close} ${styles.btn} btn`}
-                  >
-                    Close
-                  </button>
-                  <button
-                    onClick={handleClose}
-                    type="button"
-                    className={`${styles.submit} ${styles.btn} btn`}
-                  >
-                    Get OTP
-                  </button>
-                </div>
-              </div>
+          
             </div>
           </form>
         </Modal.Body>

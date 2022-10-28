@@ -291,6 +291,10 @@ export const getGstData = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(VerifyingGstSuccess(response.data.data));
         dispatch(setNotLoading());
+        let toastMessage = 'request sent successfully';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
       } else {
         dispatch(VerifyingGstFailed(response.data.data));
         let toastMessage = response.data.message;
