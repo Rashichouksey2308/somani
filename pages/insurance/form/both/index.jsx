@@ -26,6 +26,7 @@ import {
 import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
 import moment from 'moment/moment';
+import { getInternalCompanies } from '../../../../src/redux/masters/action';
 
 const Index = () => {
 
@@ -57,6 +58,13 @@ const Index = () => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
   }, [insuranceResponse]);
 
+
+
+  useEffect(() => {
+    dispatch(getInternalCompanies())
+  }, [dispatch])
+  
+  const {getInternalCompaniesMasterData} = useSelector(state=>state.MastersData)
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -151,6 +159,16 @@ const Index = () => {
     return date4.diff(date3, 'days');
   }
 
+  const gettingCompanyList = (e) => {
+    
+      let filter = getInternalCompaniesMasterData?.filter((val, index)=> {
+        if (val.Company_Name.toLowerCase() == e.target.value.toLowerCase()) {
+      return val;
+    }
+  }) 
+  setOption(filter)
+  }
+
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData };
     newInput[name] = value;
@@ -207,6 +225,8 @@ const Index = () => {
   };
 
   const [isInsurerSameData, setIsInsurerSameData] = useState(false);
+
+  const [option, setOption] = useState([])
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData);
@@ -701,8 +721,9 @@ const Index = () => {
                             <select
                             value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -736,8 +757,13 @@ const Index = () => {
                             <select
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1231,8 +1257,9 @@ const Index = () => {
                             <select
                             value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1265,8 +1292,13 @@ const Index = () => {
                             <select
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1742,10 +1774,11 @@ const Index = () => {
                          
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} onChange={(e)=>gettingCompanyList(e)}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1778,8 +1811,14 @@ const Index = () => {
                             <select
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              
+                              {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -2083,8 +2122,9 @@ const Index = () => {
                             <select
                             value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option ></option>
-                              <option >CHA</option>
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -2117,8 +2157,13 @@ const Index = () => {
                             <select
                               className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                               {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
