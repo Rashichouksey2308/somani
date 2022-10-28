@@ -66,6 +66,8 @@ const Index = () => {
   
   const {getInternalCompaniesMasterData} = useSelector(state=>state.MastersData)
 
+  const [option, setOption] = useState([])
+
   const [marineData, setMarineData] = useState({
     policyNumber: '',
     nameOfInsurer: '',
@@ -94,7 +96,7 @@ const Index = () => {
     premiumAmount: '',
   });
 
-  console.log(marineData, 'MARINE STORAGE', storageData)
+  console.log(marineData, 'MARINE STORAGE', storageData, 'OPTION', option)
 
 
   useEffect(() => {
@@ -225,8 +227,6 @@ const Index = () => {
   };
 
   const [isInsurerSameData, setIsInsurerSameData] = useState(false);
-
-  const [option, setOption] = useState([])
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData);
@@ -719,7 +719,7 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                                <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
@@ -1255,7 +1255,7 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                                <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
@@ -1774,7 +1774,7 @@ const Index = () => {
                          
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured} onChange={(e)=>gettingCompanyList(e)}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
@@ -2120,7 +2120,7 @@ const Index = () => {
                         
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
