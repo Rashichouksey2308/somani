@@ -1631,7 +1631,7 @@ export default function Index({
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              BL Surrendor Date
+                              BL Surrender Date
                             </label>
                           </div>
                         </div>
