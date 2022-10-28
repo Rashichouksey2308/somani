@@ -33,7 +33,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
 
     let tempData = {
       wareHouseDetails: {
-        quantity: data?.wareHouseDetails?.quantity || '',
+        quantity: data?.wareHouseDetails?.quantity || customData?.dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity,
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
       },
