@@ -222,7 +222,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     dispatch(VerifyingGst());
 
     // Axios.post(`${API.corebaseUrl}${API.getConsolidatedGst}`, payload, {
-    let response = awaitAxios.post(
+    let response = await Axios.post(
       `${API.corebaseUrl}${API.getGstKarza}`,
       payload,
       {
