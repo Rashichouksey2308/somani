@@ -137,7 +137,7 @@ function Index() {
 
   const [clauseObj, setClauseObj] = useState(initialState);
 
-  console.log(clauseObj, 'this is ccccc');
+ 
 
   const [clauseArr, setClauseArr] = useState([]);
   // console.log(clauseArr, 'new arr')
@@ -211,7 +211,7 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage });
       }
     } else {
-      console.log('this is ccccc');
+    
       if (
         clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
       ) {
