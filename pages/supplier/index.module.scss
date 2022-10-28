@@ -810,10 +810,14 @@ img {
   }
 }
 .plus_add {
-  margin-top: 10px;
+  margin-top: 12px;
   margin-left: -60px;
   width: 36px;
   height: 36px;
+  @include respond(lg-desktop) {
+    margin-top: 5px;
+  margin-left: -60px;
+  }
 }
 .comment_para {
   border: 1px solid #0000001f;
