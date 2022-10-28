@@ -25,7 +25,9 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
+    status:""
   });
+  console.log(formData,"formData")
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -35,19 +37,23 @@ function Index() {
     emailId: '',
   });
 
-  const [person, setPerson] = useState({
+  const [person, setPerson] = useState([{
     name: '',
     designation: '',
     contact: '',
     emailId: '',
-  });
+    action:false
+  }]);
+  console.log(person,"person")
 
-  const [detail, setDetail] = useState({
+  const [detail, setDetail] = useState([{
     shareHoldersName: '',
     designation: '',
     contact: '',
     ownershipPercentage: '',
-  });
+    action:false
+  }]);
+  console.log(detail,"detail")
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
@@ -65,13 +71,13 @@ function Index() {
     remarks: '',
   });
 
-  const handleDelete = (index) => {
-    setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)]);
+  const handleShareDelete = (index) => {
+    setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
-  const handleDeleteContact = (index) => {
-    setListContact([
-      ...listContact.slice(0, index),
-      ...listContact.slice(index + 1),
+  const handleDeletePersonContact = (index) => {
+    setPerson([
+      ...person.slice(0, index),
+      ...person.slice(index + 1),
     ]);
   };
   const handleDeleteDirector = (index) => {
@@ -124,14 +130,15 @@ function Index() {
       emailID: '',
     },
   ]);
-  const onAddContact = () => {
-    setListContact([
-      ...listContact,
+  const onAddPersonContact = () => {
+    setPerson([
+      ...person,
       {
         name: '',
         designation: '',
         contactNo: '',
         emailID: '',
+        action:false
       },
     ]);
   };
@@ -141,35 +148,40 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
+      action:false
     },
   ]);
   const onAddShare = () => {
-    setListShare([
-      ...listShare,
+    setDetail([
+      ...detail,
       {
-        name: '',
+        shareHoldersName: '',
         designation: '',
-        contactNo: '',
-        emailID: '',
+        contact: '',
+        ownershipPercentage: '',
+        action:false
       },
     ]);
   };
   const [listDirector, setListDirector] = useState([
     {
       name: '',
-      designation: '',
-      contactNo: '',
-      emailID: '',
+      nationality: '',
+      authorityToSign: '',
+     
+      action:false
     },
   ]);
+  console.log(listDirector,"listDirector")
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
       {
         name: '',
-        designation: '',
-        contactNo: '',
-        emailID: '',
+      nationality: '',
+      authorityToSign: '',
+     
+      action:false
       },
     ]);
   };
@@ -207,28 +219,34 @@ function Index() {
     });
   };
 
-  const onChangeHandler2 = (e) => {
-    const { name, value } = e.target;
-    setPerson({
-      ...person,
-      [name]: value,
-    });
+  const onChangeHandler2 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...person]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setListShare([...newInput])
+    
   };
-
-  const onChangeHandler3 = (e) => {
-    const { name, value } = e.target;
-    setDetail({
-      ...detail,
-      [name]: value,
-    });
+ console.log(person,"person")
+ const onChangeHandler3 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...detail]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setDetail([...newInput])
+    
   };
-
-  const onChangeHandler4 = (e) => {
-    const { name, value } = e.target;
-    setSignatory({
-      ...signatory,
-      [name]: value,
-    });
+console.log(listShare,"listShare")
+ const onChangeHandler4 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...listDirector]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setListDirector([...newInput])
+    
   };
 
   const onChangeHandler5 = (e) => {
@@ -541,7 +559,8 @@ function Index() {
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
-                        name="nationalIdentificationNumber"
+                        name="website"
+                        value={formData.website}
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -884,27 +903,31 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {listContact.length > 0 &&
-                          listContact.map((val, index) => (
+                        {person.length > 0 &&
+                          person.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 <input
                                   className="input font-weight-bold"
                                   name="name"
-                                  value={person?.name}
+                                  value={val?.name}
                                   type="text"
-                                  onChange={onChangeHandler2}
-                                  // readOnly={!saveContactTable}
+                                  onChange={(e)=>{
+                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
+                                   readOnly={!val.action}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="designation"
-                                  value={person?.designation}
+                                  value={val?.designation}
                                   type="text"
-                                  // readOnly={!saveContactTable}
-                                  onChange={onChangeHandler2}
+                                  readOnly={!val.action}
+                                 onChange={(e)=>{
+                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
 
@@ -912,40 +935,46 @@ function Index() {
                                 <input
                                   className="input"
                                   name="contact"
-                                  value={person?.contact}
+                                  value={val?.contact}
                                   type="number"
                                   onWheel={(event) =>
                                     event.currentTarget.blur()
                                   }
-                                  onChange={onChangeHandler2}
+                                 onChange={(e)=>{
+                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                   onKeyDown={(evt) =>
                                     ['e', 'E', '+', '-'].includes(evt.key) &&
                                     evt.preventDefault()
                                   }
-                                  // readOnly={!saveContactTable}
+                                   readOnly={!val.action}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="emailId"
-                                  value={person?.emailId}
+                                  value={val?.emailId}
                                   type="text"
-                                  // readOnly={!saveContactTable}
-                                  onChange={onChangeHandler2}
+                                  readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
-                              {console.log('data55', person)}
+                              {console.log('data55', val)}
                               <td className="text-right">
                                 <div>
-                                  {!saveContactTable ? (
+                                  {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setContactTable(true);
+                                          console.log("herer1")
+                                          onChangeHandler2("action",true,index)
+                                          // setContactTable(true);
                                         }}
                                       />
                                     </>
@@ -956,7 +985,9 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setContactTable(false);
+                                           console.log("herer2")
+                                           onChangeHandler2("action",false,index)
+                                          // setContactTable(false);
                                         }}
                                       />
                                     </>
@@ -966,7 +997,7 @@ function Index() {
                                     src="/static/delete 2.svg"
                                     className="img-fluid"
                                     alt="delete"
-                                    onClick={() => handleDeleteContact(index)}
+                                    onClick={() => handleDeletePersonContact(index)}
                                   />
                                 </div>
                               </td>
@@ -979,11 +1010,11 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddContact();
+                    onAddPersonContact();
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData1('person')}>Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1025,36 +1056,40 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {listShare.length > 0 &&
-                          listShare.map((val, index) => {
+                        {detail.length > 0 &&
+                          detail.map((val, index) => {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
                                   <input
                                     className="input font-weight-bold"
                                     name="shareHoldersName"
-                                    value={detail?.shareHoldersName}
+                                    value={val?.shareHoldersName}
                                     type="text"
-                                    onChange={onChangeHandler3}
-                                    // readOnly={!saveShareTable}
+                                    onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
                                 <td>
                                   <input
                                     className="input"
                                     name="designation"
-                                    value={detail?.designation}
+                                    value={val?.designation}
                                     type="text"
-                                    // readOnly={!saveShareTable}
-                                    onChange={onChangeHandler3}
+                                   onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
 
                                 <td>
                                   <input
                                     className="input"
-                                    name="contact"
-                                    value={detail?.contact}
+                                    name="ownershipPercentage"
+                                    value={val?.ownershipPercentage}
                                     type="number"
                                     onWheel={(event) =>
                                       event.currentTarget.blur()
@@ -1063,21 +1098,23 @@ function Index() {
                                       ['e', 'E', '+', '-'].includes(evt.key) &&
                                       evt.preventDefault()
                                     }
-                                    // readOnly={!saveShareTable}
-                                    onChange={onChangeHandler3}
+                                     onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
 
                                 <td className="text-right">
                                   <div>
-                                    {!saveShareTable ? (
+                                    {!val.action ? (
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            setSaveTable(true);
+                                           onChangeHandler3("action",true,index)
                                           }}
                                         />
                                       </>
@@ -1088,7 +1125,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="save"
                                           onClick={(e) => {
-                                            setSaveTable(false);
+                                            onChangeHandler3("action",false,index)
                                           }}
                                         />
                                       </>
@@ -1097,7 +1134,7 @@ function Index() {
                                       src="/static/delete 2.svg"
                                       className="img-fluid"
                                       alt="delete"
-                                      onClick={() => handleDelete(index)}
+                                      onClick={() => handleShareDelete(index)}
                                     />
                                   </div>
                                 </td>
@@ -1115,7 +1152,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData('detail')}>Add More Rows</div>
+                  <div >Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1176,8 +1213,10 @@ function Index() {
                                   name="name"
                                   value={signatory?.name}
                                   type="text"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               <td>
@@ -1186,32 +1225,36 @@ function Index() {
                                   name="nationality"
                                   value={signatory?.nationality}
                                   type="text"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               <td>
                                 <input
-                                  name="authoriztyToSign"
-                                  value={signatory?.authoriztyToSign}
+                                  name="authorityToSign"
+                                  value={signatory?.authorityToSign}
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
 
                               <td className="text-right">
                                 <div>
-                                  {!saveDirectorTable ? (
+                                  {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
-                                        onClick={(e) => {
-                                          setDirectorTable(true);
-                                        }}
+                                       onClick={(e) => {
+                                            onChangeHandler4("action",true,index)
+                                          }}
                                       />
                                     </>
                                   ) : (
@@ -1221,8 +1264,8 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setDirectorTable(false);
-                                        }}
+                                            onChangeHandler4("action",false,index)
+                                          }}
                                       />
                                     </>
                                   )}
@@ -1247,7 +1290,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData('signatory')}>Add More Rows</div>
+                  <div >Add More Rows</div>
                 </div>
               </div>
             </div>

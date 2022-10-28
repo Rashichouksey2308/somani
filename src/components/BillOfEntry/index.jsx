@@ -1581,12 +1581,13 @@ export default function Index({
                                 className="col-lg-3 col-md-4 col-sm-6 text-center"
                                 style={{ top: '40px' }}
                               >
+                                {console.log(bl,"blbl")}
                                 <img
                                   src="/static/preview.svg"
                                   className={`${styles.previewImg} img-fluid ml-n4`}
                                   alt="Preview"
                                   onClick={(e) => {
-                                    getDoc(bl?.blSurrenderDoc?.path);
+                                    getDoc(bl?.blDoc?.path);
                                   }}
                                 />
                               </div>
