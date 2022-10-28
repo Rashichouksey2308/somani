@@ -222,7 +222,7 @@ const Index = () => {
             <>
               <div
                 id="storageInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
