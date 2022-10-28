@@ -33,6 +33,7 @@ export default function Index(props) {
     let text = d.toISOString();
     props.handleChange(name, value, index, index2);
   };
+ 
   const uploadDoc = async (e, type, index1, index2) => {
     console.log(e, 'response data');
     let fd = new FormData();
@@ -133,7 +134,7 @@ export default function Index(props) {
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Consignor Name</div> 
+                  <div className={`${styles.label} text`}>Consignor Name</div>
                   {/* teermshhet */}
                   <span className={styles.value}>
                     {_get(
@@ -144,22 +145,19 @@ export default function Index(props) {
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Consignee Name</div> 
+                  <div className={`${styles.label} text`}>Consignee Name</div>
                   {/* //margin ,aoneu */}
                   <span className={styles.value}>
-                    { _get(
+                    {_get(
                       props.ReleaseOrderData,
                       'data[0].invoiceDetail.consigneeName',
                       '',
-                     )
-                    
-                    || _get(
-                      props.ReleaseOrderData,
-                      'data[0].company.companyName',
-                      '',
-                     )
-                    
-                    }
+                    ) ||
+                      _get(
+                        props.ReleaseOrderData,
+                        'data[0].company.companyName',
+                        '',
+                      )}
                   </span>
                 </div>
               </div>
@@ -208,15 +206,17 @@ export default function Index(props) {
                 </div>
               </div>
               {currentOrder !== '' && (
-                <button
-                  className={styles.add_btn}
-                  onClick={(e) => {
-                    setCurrentOrder('');
-                    props.addNewLifting(currentOrder);
-                  }}
-                >
-                  <span className={styles.add_sign}>+</span>Add
-                </button>
+                <>
+                  <button
+                    className={styles.add_btn}
+                    onClick={(e) => {
+                      setCurrentOrder('');
+                      props.addNewLifting(currentOrder);
+                    }}
+                  >
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
+                </>
               )}
             </div>
           </div>
@@ -288,14 +288,44 @@ export default function Index(props) {
                                   props.returnLiftingData(val.deliveryOrder)
                                     ?.balaceQuantity,
                                 ) >= 0 && (
-                                  <button
+                                  <>
+                                    {/* <button
                                     className={styles.add_btn}
-                                    onClick={(e) => {
-                                      props.addNewSubLifting(index);
-                                    }}
+                                   
                                   >
                                     Add
-                                  </button>
+                                  </button> */}
+                                    <div className={`d-flex `}>
+                                      <button
+                                        onClick={(e) => {
+                                          props.addNewSubLifting(index);
+                                        }}
+                                        className={`${styles.add_btn} text-center mr-0`}
+                                        style={{ paddingBottom: '12px' }}
+                                      >
+                                        <span className={styles.add_sign}>
+                                          +
+                                        </span>
+                                        Add
+                                      </button>
+                                     
+                                       { index2 > 0 ? ( 
+                                          <button
+                                             onClick={() => props.deleteNewRow(index, index2)}
+                                            className={`${styles.add_btn} border-danger text-danger`}
+                                          >
+                                            <img
+                                              src="/static/delete.svg"
+                                              className="ml-1 mt-n1"
+                                              width={13}
+                                              alt="delete"
+                                            />{' '}
+                                            Delete
+                                          </button>
+                                       ) : null
+                                      } 
+                                    </div>
+                                  </>
                                 )}
                               </div>
                               <div className="row">
