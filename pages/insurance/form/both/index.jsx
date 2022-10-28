@@ -28,6 +28,7 @@ import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 import moment from 'moment/moment';
 
 const Index = () => {
+
   const [insuranceType, setInsuranceType] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
@@ -56,7 +57,6 @@ const Index = () => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
   }, [insuranceResponse]);
 
-  console.log(insuranceResponse, 'insuranceResponse');
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -86,15 +86,16 @@ const Index = () => {
     premiumAmount: '',
   });
 
-  console.log(marineData, 'Premium', storageData);
+  console.log(marineData, 'MARINE STORAGE', storageData)
+
 
   useEffect(() => {
     setMarineData({
       policyNumber: insuranceData?.marineInsurance?.policyNumber || '',
       nameOfInsurer:
-        insuranceData?.marineInsurance?.nameOfInsurer || 'Policy Bazaar',
+        insuranceData?.marineInsurance?.nameOfInsurer ? insuranceData?.marineInsurance?.nameOfInsurer : '',
       gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || '',
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured || '',
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured ? insuranceData?.marineInsurance?.nameOfInsured : insuranceData?.order?.generic?.buyer?.name,
       gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured || '',
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
@@ -112,9 +113,9 @@ const Index = () => {
     });
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
-      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
+      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer ? insuranceData?.storageInsurance?.nameOfInsurer : '',
       gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
-      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
+      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured ? insuranceData?.storageInsurance?.nameOfInsured : insuranceData?.order?.generic?.buyer?.name ,
       gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
       insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
@@ -130,7 +131,7 @@ const Index = () => {
       marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
     });
   }, [insuranceResponse, insuranceData]);
-  console.log(marineData, 'marineData');
+
 
   let dateM1 = new Date(marineData?.insuranceFrom);
   let dateM2 = new Date(marineData?.insuranceTo);
@@ -158,7 +159,7 @@ const Index = () => {
     // }
     setMarineData(newInput);
   };
-  console.log(marineData, 'setMarineData');
+
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value);
@@ -210,15 +211,12 @@ const Index = () => {
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData);
   };
+
   useEffect(() => {
     if (isInsurerSameData) {
       setStorageData({ ...marineData });
     }
     if (isInsurerSameData == false) {
-      console.log(
-        insuranceData,
-        'insuranceData?.storageInsurance?.policyNumber',
-      );
       setStorageData({
         policyNumber: insuranceData?.storageInsurance?.policyNumber || '',
         nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || '',
@@ -238,7 +236,7 @@ const Index = () => {
 
   const validate = () => {
     let toastMessage = '';
-    console.log(marineData, 'marineData');
+  
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
@@ -415,7 +413,6 @@ const Index = () => {
     }
   };
 
-  console.log(insuranceData, 'insuranceData');
 
   const handleInsuranceUpdate = async () => {
     if (!validate()) return;
@@ -702,7 +699,7 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option value="">CMA</option>
                               <option value="">CHA</option>
@@ -1232,7 +1229,7 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option value="">CMA</option>
                               <option value="">CHA</option>
@@ -1493,10 +1490,7 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                {console.log(
-                                  insuranceDocument?.storagePolicyDocument,
-                                  'insuranceDocument?.storagePolicyDocument',
-                                )}
+                  
                                 {insuranceDocument?.storagePolicyDocument ? (
                                   insuranceDocument?.storagePolicyDocument?.originalName
                                     ?.toLowerCase()
@@ -1745,19 +1739,10 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          {/* <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="text"
-                            value={marineData?.nameOfInsured}
-                            name="nameOfInsured"
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
-                          /> */}
+                         
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option value="">CMA</option>
                               <option value="">CHA</option>
@@ -2093,22 +2078,13 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          {/* <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="text"
-                            value={marineData?.nameOfInsured}
-                            name="nameOfInsured"
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
-                          /> */}
+                        
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              <option value="">CMA</option>
-                              <option value="">CHA</option>
+                              <option ></option>
+                              <option >CHA</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
