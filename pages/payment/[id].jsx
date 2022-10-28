@@ -156,18 +156,11 @@ function Index() {
     setLifting([...tempArr]);
   };
   const deleteNewRow = (index, index2) => {
-    // setLifting ({
-    //   ...lifting,
-    //   detail: [
-    //     ...lifting.slice(0, index2),
-    //     ...lifting.slice(index2 + 1),
-    //   ]
-    // })
-   setLifting([
-       ...lifting.slice(0, index),
-      ...lifting.slice(index + 1),
-     ]);
-    console.log(lifting, 'this is deleted row')
+     let tempArr = [...lifting];
+     tempArr[index].detail.splice(index2, 1)
+     setLifting([...tempArr])
+  
+  
   };
   const handleChange = (name, value, index, index2) => {
     console.log(index, index2, 'date');
