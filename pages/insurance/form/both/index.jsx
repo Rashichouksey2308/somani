@@ -755,8 +755,13 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveMarineData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
+                              <option selected>Select</option>
                              {option?.map((val, index) => {
                                     return (
                                       <option key={index} value={val.GSTIN}>
@@ -1290,8 +1295,13 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
+                              <option selected>Select</option>
                              {option?.map((val, index) => {
                                     return (
                                       <option key={index} value={val.GSTIN}>
@@ -1809,9 +1819,13 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveMarineData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
-                              
+                              <option selected>Select</option>
                               {option?.map((val, index) => {
                                     return (
                                       <option key={index} value={val.GSTIN}>
@@ -2155,8 +2169,13 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                              className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
+                              <option selected>Select</option>
                                {option?.map((val, index) => {
                                     return (
                                       <option key={index} value={val.GSTIN}>
