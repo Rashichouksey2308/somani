@@ -10,6 +10,8 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
 import { UpdateSupplier } from '../../src/redux/supplier/action';
 import Image from 'next/image';
+import AddressComponent from '../../src/components/Credit/addressComponent';
+import { toast } from 'react-toastify';
 
 function Index() {
   const dispatch = useDispatch();
@@ -25,7 +27,9 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
+    status:""
   });
+  console.log(formData,"formData")
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -35,43 +39,46 @@ function Index() {
     emailId: '',
   });
 
-  const [person, setPerson] = useState({
+  const [person, setPerson] = useState([{
     name: '',
     designation: '',
     contact: '',
     emailId: '',
-  });
+    action:false
+  }]);
+  console.log(person,"person")
 
-  const [detail, setDetail] = useState({
+  const [detail, setDetail] = useState([{
     shareHoldersName: '',
     designation: '',
     contact: '',
     ownershipPercentage: '',
-  });
+    action:false
+  }]);
+  console.log(detail,"detail")
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
     authoriztyToSign: '',
   });
-  const [business, setBusiness] = useState({
-    businessSummary: '',
-  });
-  const [commodity, setCommidity] = useState({
+  const [business, setBusiness] = useState('');
+  const [businessArray, setBusinessArray] = useState([]);
+  const [commodity, setCommidity] = useState([{
     hsnCode: '',
     commodity: '',
-  });
+    action:false
+  }]);
 
-  const [info, setInfo] = useState({
-    remarks: '',
-  });
+  const [info, setInfo] = useState("");
+  const [infoArray, setInfoArray] = useState([]);
 
-  const handleDelete = (index) => {
-    setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)]);
+  const handleShareDelete = (index) => {
+    setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
   };
-  const handleDeleteContact = (index) => {
-    setListContact([
-      ...listContact.slice(0, index),
-      ...listContact.slice(index + 1),
+  const handleDeletePersonContact = (index) => {
+    setPerson([
+      ...person.slice(0, index),
+      ...person.slice(index + 1),
     ]);
   };
   const handleDeleteDirector = (index) => {
@@ -89,10 +96,9 @@ function Index() {
 
   const [listCommodity, setListCommodity] = useState([
     {
-      name: '',
-      designation: '',
-      contactNo: '',
-      emailID: '',
+      hsnCode: '',
+      commodity: '',
+      action:false
     },
   ]);
 
@@ -113,7 +119,9 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
+       action:false
       },
+      
     ]);
   };
   const [listContact, setListContact] = useState([
@@ -124,14 +132,15 @@ function Index() {
       emailID: '',
     },
   ]);
-  const onAddContact = () => {
-    setListContact([
-      ...listContact,
+  const onAddPersonContact = () => {
+    setPerson([
+      ...person,
       {
         name: '',
         designation: '',
         contactNo: '',
         emailID: '',
+        action:false
       },
     ]);
   };
@@ -141,35 +150,40 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
+      action:false
     },
   ]);
   const onAddShare = () => {
-    setListShare([
-      ...listShare,
+    setDetail([
+      ...detail,
       {
-        name: '',
+        shareHoldersName: '',
         designation: '',
-        contactNo: '',
-        emailID: '',
+        contact: '',
+        ownershipPercentage: '',
+        action:false
       },
     ]);
   };
   const [listDirector, setListDirector] = useState([
     {
       name: '',
-      designation: '',
-      contactNo: '',
-      emailID: '',
+      nationality: '',
+      authorityToSign: false,
+     
+      action:false
     },
   ]);
+  console.log(listDirector,"listDirector")
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
       {
         name: '',
-        designation: '',
-        contactNo: '',
-        emailID: '',
+      nationality: '',
+      authorityToSign: false,
+     
+      action:false
       },
     ]);
   };
@@ -207,52 +221,68 @@ function Index() {
     });
   };
 
-  const onChangeHandler2 = (e) => {
-    const { name, value } = e.target;
-    setPerson({
-      ...person,
-      [name]: value,
-    });
+  const onChangeHandler2 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...person]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setListShare([...newInput])
+    
   };
-
-  const onChangeHandler3 = (e) => {
-    const { name, value } = e.target;
-    setDetail({
-      ...detail,
-      [name]: value,
-    });
+ console.log(person,"person")
+ const onChangeHandler3 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...detail]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setDetail([...newInput])
+    
   };
-
-  const onChangeHandler4 = (e) => {
-    const { name, value } = e.target;
-    setSignatory({
-      ...signatory,
-      [name]: value,
-    });
+console.log(listShare,"listShare")
+ const onChangeHandler4 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...listDirector]
+    console.log(newInput[index],"newInput[index]")
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setListDirector([...newInput])
+    
   };
 
   const onChangeHandler5 = (e) => {
     const { name, value } = e.target;
-    setBusiness({
-      ...business,
-      [name]: value,
-    });
+    
+    setBusiness(value);
+  };
+   const addToBusinessArray = (e) => {
+    let temp=[...businessArray]
+    temp.push(business)
+    setBusinessArray([...temp])
+    setBusiness('');
   };
 
-  const onChangeHandler6 = (e) => {
-    const { name, value } = e.target;
-    setCommidity({
-      ...commodity,
-      [name]: value,
-    });
+   const onChangeHandler6 = (name,value,index) => {
+    console.log(name,value,index,"name,value,<index></index>")
+    let newInput=[...listCommodity]
+   
+    newInput[index][name]=value;
+    console.log(newInput,"newInput")
+    setListCommodity([...newInput])
+    
   };
+
 
   const onChangeHandler7 = (e) => {
     const { name, value } = e.target;
-    setInfo({
-      ...info,
-      [name]: value,
-    });
+    setInfo(value);
+  };
+  const onChangeHandler7Array = (e) => {
+    let temp=[...infoArray]
+    temp.push(info)
+    setInfoArray([...temp])
+    setInfo('');
   };
 
   const addData = (item) => {
@@ -340,6 +370,199 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('inception2'));
   });
+    const [keyAddData, setKeyAddData] = useState([
+    {
+      GSTIN: "",
+      GSTIN_document: "",
+      addressType: "",
+      branch: "",
+      city: "",
+      state: "",
+      email: "",
+      completeAddress:"",
+      contact: {
+        callingCode:"",
+        number: "",
+      },
+      pinCode: "",
+    },
+  ]);
+    const deleteComponent = (index) => {
+    setKeyAddData([
+      ...keyAddData.slice(0, index),
+      ...keyAddData.slice(index + 1),
+    ]);
+  };
+   const addressValidtion = (data) => {
+    console.log(data, 'addressValidtion');
+  
+    if (
+      data.pinCode === null ||
+      data.pinCode === '' ||
+      data.pinCode === undefined
+    ) {
+      let toastMessage = 'Please add pin code';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+   
+   
+    if (data.email === null || data.email === '' || data.email === undefined) {
+      let toastMessage = 'Please add email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    }
+    if (
+      !String(data.email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )
+    ) {
+      let toastMessage = 'Please add valid email id';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    if (data.email === null || data.email === '' || data.email === undefined) {
+      let toastMessage = 'Please add email';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    }
+    if (
+      data.contact.phoneNumber === null ||
+      data.contact.phoneNumber === '' ||
+      data.contact.phoneNumber === undefined
+    ) {
+      let toastMessage = 'Please add phone phoneNumber';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    }
+   
+    if (
+      data.address === null ||
+      data.address === '' ||
+      data.address === undefined
+    ) {
+      let toastMessage = 'Please add address';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    }
+      if (
+      data.country === null ||
+      data.country === '' ||
+      data.country === undefined
+    ) {
+      let toastMessage = 'Please add country';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    }
+    return true;
+  };
+  const [showAddress, setShowAddress] = useState(false);
+  const [showEditAddress, setShowEditAddress] = useState(false);
+  const [Index, setIndex] = useState('0');
+   const [editData, setEditData] = useState({
+    GSTIN: '',
+    GSTIN_document: '',
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    email: '',
+    completeAddress: '',
+    contact: {
+      callingCode: '',
+      number: '',
+    },
+    pinCode: '',
+    
+  });
+  const [keyAddressData, setKeyAddressData] = useState({
+        
+        email: '',
+        address: '',
+        country:"",
+        contact: {
+          callingCode: null,
+          phoneNumber: null,
+          alternatePhoneNumber: null,
+        },
+        pinCode: null,
+  });
+   const editAddress = (index) => {
+    setShowAddress(false);
+    setShowEditAddress(true);
+    setIndex(index);
+    console.log(keyAddData, 'keyAddData');
+    let tempArr = keyAddData;
+    setEditData({
+      
+    
+      
+      email: tempArr[index].email,
+      country: tempArr[index].country,
+      address: tempArr[index].address,
+      contact: {
+        callingCode: tempArr[index].contact.callingCode,
+        phoneNumber: tempArr[index].contact.phoneNumber,
+        alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
+      },
+      pinCode: tempArr[index].pinCode,
+    
+    });
+  };
+   const keyAddDataArr = (keyAddressData) => {
+    let newArr = [...keyAddData];
+    newArr.push(keyAddressData);
+    setKeyAddData(newArr);
+  };
+  const handleClick = () => {
+    if (addressValidtion(keyAddressData)) {
+      keyAddDataArr(keyAddressData);
+      setKeyAddressData({
+        
+       
+       
+        email: '',
+        address: '',
+        country:"",
+        contact: {
+          callingCode: null,
+          phoneNumber: null,
+          alternatePhoneNumber: null,
+        },
+        pinCode: null,
+       
+      });
+    }
+  };
+   const handleChange = (name, value) => {
+    console.log(name, value,"name, value")
+    const newInput = { ...keyAddressData };
+    newInput[name] = value;
+
+    // console.log(newInput)
+    setKeyAddressData(newInput);
+  };
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -541,7 +764,8 @@ function Index() {
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         required
-                        name="nationalIdentificationNumber"
+                        name="website"
+                        value={formData.website}
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -572,79 +796,28 @@ function Index() {
               >
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="d-flex justify-content-between">
-                    <div
-                      className={`${styles.address_card} value background1`}
-                      style={{ padding: '22px' }}
-                    >
-                      <div className="d-flex justify-content-between">
-                        <div>
-                          <label className={styles.label}>
-                            Registered Office Address
-                          </label>
-                          <div className={styles.address_values}>
-                            <p>N-11, 29 Tilak Marg, New Delhi</p>
-                            <p className="pt-3">
-                              <span>Email: </span>
-                              skapoor@gmail
-                            </p>
-                            <p>
-                              <span>Phone Number:</span>
-                              +91 987665443332
-                            </p>
-                          </div>
-                        </div>
-                        <div className="d-flex">
-                          <img
-                            className={`${styles.edit_image} img-fluid`}
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                          <div className={`${styles.delete_image} ml-3`}>
-                            <Image
-                              src="/static/delete.svg"
-                              width="40px"
-                              height="40px"
-                              alt="Bin"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.address_card} value background1`}
-                      style={{ padding: '22px' }}
-                    >
-                      <div className="d-flex justify-content-between">
-                        <div>
-                          <div className={styles.address_values}>
-                            <h5>Corporate Office Address</h5>
-                            <p>N-11, 29 Tilak Marg, New Delhi</p>
-                            <p className="pt-3">
-                              <span>Email: </span>skapoor@gmail.com
-                            </p>
-                            <p>
-                              <span>Phone Number:</span>+91 9876543210, +91
-                              9876543210
-                            </p>
-                          </div>
-                        </div>
-                        <div className="d-flex">
-                          <img
-                            className={`${styles.edit_image} img-fluid`}
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                          <div className={`${styles.delete_image} ml-3`}>
-                            <Image
-                              src="/static/delete.svg"
-                              width="40px"
-                              height="40px"
-                              alt="Bin"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  {keyAddData.map((address, index) => {
+                return (
+                  <>
+                    <AddressComponent
+                      index={index}
+                      Title={address?.addressType}
+                      address={address?.completeAddress}
+                      number={address?.contact?.number}
+                      callingCode={address?.contact?.callingCode}
+                      branch={address?.branch}
+                      gstIn={address?.GSTIN}
+                      email={address?.email}
+                      deleteComponent={deleteComponent}
+                      editAddress={editAddress}
+                      // orderDetail={orderDetail}
+                      path={''}
+                     
+                    />
+                  </>
+                );
+              })}
+                   
                   </div>
                   <div
                     className={`${styles.address_card} mt-3 pb-5 value background1`}
@@ -669,10 +842,12 @@ function Index() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
-                            required
-                            name="contactPerson"
-                            value={address?.contactPerson}
-                            onChange={onChangeHandler1}
+                            
+                            name="address"
+                            value={keyAddressData?.address}
+                            onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -690,8 +865,10 @@ function Index() {
                               required
                               type="text"
                               name="pinCode"
-                              value={address?.pinCode}
-                              onChange={onChangeHandler1}
+                              value={keyAddressData?.pinCode}
+                              onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -716,8 +893,10 @@ function Index() {
                               required
                               type="text"
                               name="country"
-                              value={address?.country}
-                              onChange={onChangeHandler1}
+                              value={keyAddressData?.country}
+                              onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -752,10 +931,12 @@ function Index() {
                             <input
                               type="tel"
                               id="textNumber"
-                              name="phoneNumber"
-                              value={address?.phoneNumber}
+                              name="contact.phoneNumber"
+                              value={keyAddressData?.phoneNumber}
                               className={`${styles.input_field}  input form-control border-left-0`}
-                              onChange={onChangeHandler1}
+                             onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -785,10 +966,12 @@ function Index() {
                             <input
                               type="tel"
                               id="textNumber"
-                              name="alternatePhoneNumber"
-                              value={address?.alternatePhoneNumber}
+                              name="contact.alternatePhoneNumber"
+                              value={keyAddressData?.alternatePhoneNumber}
                               className={`${styles.input_field} input form-control border-left-0`}
-                              onChange={onChangeHandler1}
+                              onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -807,8 +990,10 @@ function Index() {
                               required
                               type="text"
                               name="emailId"
-                              value={address?.emailId}
-                              onChange={onChangeHandler1}
+                              value={keyAddressData?.emailId}
+                              onChange={(e)=>{
+                              handleChange(e.target.value,e.target.name)
+                            }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -826,7 +1011,7 @@ function Index() {
                       </div>
                       <button
                       className={`${styles.add_btn}`}
-                      onClick={() => addData('address')}
+                      onClick={() => handleClick()}
                     >
                       Add
                     </button>
@@ -884,27 +1069,31 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {listContact.length > 0 &&
-                          listContact.map((val, index) => (
+                        {person.length > 0 &&
+                          person.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 <input
                                   className="input font-weight-bold"
                                   name="name"
-                                  value={person?.name}
+                                  value={val?.name}
                                   type="text"
-                                  onChange={onChangeHandler2}
-                                  // readOnly={!saveContactTable}
+                                  onChange={(e)=>{
+                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
+                                   readOnly={!val.action}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="designation"
-                                  value={person?.designation}
+                                  value={val?.designation}
                                   type="text"
-                                  // readOnly={!saveContactTable}
-                                  onChange={onChangeHandler2}
+                                  readOnly={!val.action}
+                                 onChange={(e)=>{
+                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
 
@@ -912,40 +1101,46 @@ function Index() {
                                 <input
                                   className="input"
                                   name="contact"
-                                  value={person?.contact}
+                                  value={val?.contact}
                                   type="number"
                                   onWheel={(event) =>
                                     event.currentTarget.blur()
                                   }
-                                  onChange={onChangeHandler2}
+                                 onChange={(e)=>{
+                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                   onKeyDown={(evt) =>
                                     ['e', 'E', '+', '-'].includes(evt.key) &&
                                     evt.preventDefault()
                                   }
-                                  // readOnly={!saveContactTable}
+                                   readOnly={!val.action}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="emailId"
-                                  value={person?.emailId}
+                                  value={val?.emailId}
                                   type="text"
-                                  // readOnly={!saveContactTable}
-                                  onChange={onChangeHandler2}
+                                  readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
-                              {console.log('data55', person)}
+                              {console.log('data55', val)}
                               <td className="text-right">
                                 <div>
-                                  {!saveContactTable ? (
+                                  {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setContactTable(true);
+                                          console.log("herer1")
+                                          onChangeHandler2("action",true,index)
+                                          // setContactTable(true);
                                         }}
                                       />
                                     </>
@@ -956,7 +1151,9 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setContactTable(false);
+                                           console.log("herer2")
+                                           onChangeHandler2("action",false,index)
+                                          // setContactTable(false);
                                         }}
                                       />
                                     </>
@@ -966,7 +1163,7 @@ function Index() {
                                     src="/static/delete 2.svg"
                                     className="img-fluid"
                                     alt="delete"
-                                    onClick={() => handleDeleteContact(index)}
+                                    onClick={() => handleDeletePersonContact(index)}
                                   />
                                 </div>
                               </td>
@@ -979,11 +1176,11 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddContact();
+                    onAddPersonContact();
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData1('person')}>Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1025,36 +1222,40 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {listShare.length > 0 &&
-                          listShare.map((val, index) => {
+                        {detail.length > 0 &&
+                          detail.map((val, index) => {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
                                   <input
                                     className="input font-weight-bold"
                                     name="shareHoldersName"
-                                    value={detail?.shareHoldersName}
+                                    value={val?.shareHoldersName}
                                     type="text"
-                                    onChange={onChangeHandler3}
-                                    // readOnly={!saveShareTable}
+                                    onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
                                 <td>
                                   <input
                                     className="input"
                                     name="designation"
-                                    value={detail?.designation}
+                                    value={val?.designation}
                                     type="text"
-                                    // readOnly={!saveShareTable}
-                                    onChange={onChangeHandler3}
+                                   onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
 
                                 <td>
                                   <input
                                     className="input"
-                                    name="contact"
-                                    value={detail?.contact}
+                                    name="ownershipPercentage"
+                                    value={val?.ownershipPercentage}
                                     type="number"
                                     onWheel={(event) =>
                                       event.currentTarget.blur()
@@ -1063,21 +1264,23 @@ function Index() {
                                       ['e', 'E', '+', '-'].includes(evt.key) &&
                                       evt.preventDefault()
                                     }
-                                    // readOnly={!saveShareTable}
-                                    onChange={onChangeHandler3}
+                                     onChange={(e)=>{
+                                   onChangeHandler3(e.target.name,e.target.value,index)
+                                  }}
+                                    readOnly={!val.action}
                                   />
                                 </td>
 
                                 <td className="text-right">
                                   <div>
-                                    {!saveShareTable ? (
+                                    {!val.action ? (
                                       <>
                                         <img
                                           src="/static/mode_edit.svg"
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            setSaveTable(true);
+                                           onChangeHandler3("action",true,index)
                                           }}
                                         />
                                       </>
@@ -1088,7 +1291,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="save"
                                           onClick={(e) => {
-                                            setSaveTable(false);
+                                            onChangeHandler3("action",false,index)
                                           }}
                                         />
                                       </>
@@ -1097,7 +1300,7 @@ function Index() {
                                       src="/static/delete 2.svg"
                                       className="img-fluid"
                                       alt="delete"
-                                      onClick={() => handleDelete(index)}
+                                      onClick={() => handleShareDelete(index)}
                                     />
                                   </div>
                                 </td>
@@ -1115,7 +1318,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData('detail')}>Add More Rows</div>
+                  <div >Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1174,44 +1377,50 @@ function Index() {
                                 <input
                                   className="input font-weight-bold"
                                   name="name"
-                                  value={signatory?.name}
+                                  value={val?.name}
                                   type="text"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="nationality"
-                                  value={signatory?.nationality}
+                                  value={val?.nationality}
                                   type="text"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               <td>
                                 <input
-                                  name="authoriztyToSign"
-                                  value={signatory?.authoriztyToSign}
+                                  name="authorityToSign"
+                                  checked={val?.authorityToSign}
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
-                                  // readOnly={!saveDirectorTable}
-                                  onChange={onChangeHandler4}
+                                  readOnly={!val.action}
+                                  onChange={(e)=>{
+                                   onChangeHandler4(e.target.name,!val?.authorityToSign,index)
+                                  }}
                                 />
                               </td>
 
                               <td className="text-right">
                                 <div>
-                                  {!saveDirectorTable ? (
+                                  {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
-                                        onClick={(e) => {
-                                          setDirectorTable(true);
-                                        }}
+                                       onClick={(e) => {
+                                            onChangeHandler4("action",true,index)
+                                          }}
                                       />
                                     </>
                                   ) : (
@@ -1221,8 +1430,8 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setDirectorTable(false);
-                                        }}
+                                            onChangeHandler4("action",false,index)
+                                          }}
                                       />
                                     </>
                                   )}
@@ -1247,7 +1456,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData('signatory')}>Add More Rows</div>
+                  <div >Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1270,31 +1479,9 @@ function Index() {
               data-parent="#businessSummary"
             >
               <div className={`${styles.dashboard_form} mr-3`}>
-                {/* <div className={`${styles.comment_para} d-flex `}>
-                  <Form.Control
-                    className={`${styles.comment}`}
-                    as="textarea"
-                    rows={3}
-                  />
+              
 
-                  <div className="ml-3">
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
-                      alt="edit"
-                      // onClick={(e) => {
-                      //   setEditProfile(!editProfile)
-                      // }}
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                </div> */}
-
-                <div className="d-flex mt-4 pb-4">
+                <div className="d-flex mt-4 pb-4 ml-4">
                   <input
                     as="textarea"
                     rows={3}
@@ -1302,17 +1489,23 @@ function Index() {
                     className={`${styles.comment_field} mr-n5 form-control`}
                     onChange={onChangeHandler5}
                     name="businessSummary"
-                    value={business?.businessSummary}
+                    value={business}
                   />
                   <label className={`${styles.label_textarea} label_heading text`}>
                     Business Summary
                   </label>
                   <img
+                  onClick={(e)=>{addToBusinessArray()}}
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
                   />
                 </div>
+                <ol>
+                {businessArray.map((val,index)=>{
+                  return <li>{val}</li>
+                })}
+                </ol>
               </div>
             </div>
           </div>
@@ -1364,34 +1557,38 @@ function Index() {
                                 <input
                                   className="input font-weight-bold"
                                   name="hsnCode"
-                                  value={commodity?.hsnCode}
+                                  value={val?.hsnCode}
                                   type="text"
-                                  // readOnly={!saveCommodityTable}
-                                  onChange={onChangeHandler6}
+                                  readOnly={!val.action}
+                                  onChange={(e)=>{
+                                    onChangeHandler6(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="commodity"
-                                  value={commodity?.commodity}
+                                  value={val?.commodity}
                                   type="text"
-                                  // readOnly={!saveCommodityTable}
-                                  onChange={onChangeHandler6}
+                                 readOnly={!val.action}
+                                  onChange={(e)=>{
+                                    onChangeHandler6(e.target.name,e.target.value,index)
+                                  }}
                                 />
                               </td>
                               {console.log('data99', commodity)}
 
                               <td className="text-right">
                                 <div>
-                                  {!saveCommodityTable ? (
+                                  {!val.action ? (
                                     <>
                                       <img
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          setCommodityTable(true);
+                                           onChangeHandler6("action",true,index)
                                         }}
                                       />
                                     </>
@@ -1402,7 +1599,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          setCommodityTable(false);
+                                           onChangeHandler6("action",false,index)
                                         }}
                                       />
                                     </>
@@ -1484,7 +1681,7 @@ function Index() {
                     rows={3}
                     placeholder=""
                     name="remarks"
-                    value={info?.remarks}
+                    value={info}
                     className={`${styles.comment_field} form-control`}
                     onChange={onChangeHandler7}
                   />
@@ -1496,8 +1693,14 @@ function Index() {
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
+                    onClick={(e)=>{
+                      onChangeHandler7Array()
+                    }}
                   />
                 </div>
+                  {infoArray.map((val,index)=>{
+                  return <li>{val}</li>
+                })}
               </div>
             </div>
           </div>
@@ -1505,6 +1708,7 @@ function Index() {
             <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
+              // uploadDocument1={uploadDocument1}
             />
           </div>
         </div>
