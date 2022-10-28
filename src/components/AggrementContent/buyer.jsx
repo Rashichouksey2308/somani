@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Form, Row, Col } from 'react-bootstrap';
+import _get from 'lodash/get';
 let buyer = {
   name: 'Indo German International Private Limited',
 
@@ -480,89 +481,67 @@ function Index(props) {
         setShotName('IGIPL');
        
          filter =props.internal.filter((val)=>{
-                      if(val.Company_Name=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+                      if(val.Company_Name =="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
                         return val
                       }
                     })
           let otherData=props.internal.filter((val)=>{
-                      if(val.Branch==buyerData.branchName && val.Company_Name=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+              console.log(val.Branch==buyerData.branchName,val.Branch,buyerData.branchName,"val.Company_Name")
+                      if(val.Branch==buyerData.branchName){
                         return val
                       }
                     })
-                    if(otherData.length > 0){
-                     setGstin(otherData[0].GSTIN);
-                     setPan(otherData[0].PAN);
-                     console.log(otherData[0],"otherData[0]")
-                 if(otherData[0]?.Branch_Address){
-
-                    
-                      let add = otherData[0]?.Branch_Address?.split(",")
-                        let newAddress=[]
-                        add.forEach((val,index)=>{
-                          if(index<add.length-1){
-                            newAddress.push(val)
-                          }
-                        })
-                   
-                        let pincode =   add[add.length-1].split("-")
-                        console.log(newAddress,"dfdfsdfdsf",pincode)
-                        setAddressList([
-                        
-                          {
-                            addressType: 'Registered',
-                            fullAddress:
-                              newAddress.join(),
-                            pinCode: pincode[1],
-                            country: 'India',
-                            gstin: '',
-                            state:  pincode[0],
-                            city: add[4],
-                          },
-                        ]);
-                        }
-                    }
                     console.log(otherData,"otherData")
-    
-        // if (buyerData.branchName == 'Delhi') {
-        //   setGstin('07AAACI3028D1Z4');
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //   ]);
-        // } else if (buyerData.branchName == 'Vizag') {
-        //   setGstin('37AAACI3028D2Z0');
+                    if(otherData.length > 0){
+                     setGstin(otherData[0]?.GSTIN);
+                     setPan(otherData[0]?.PAN);
+                     console.log(_get(otherData[0],"Branch_Address",""),"otherData[0]")
+                    if(_get(otherData[0],"Branch_Address","")!==""){
 
-        //   setAddressList([
-        //     {
-        //       addressType: 'Registered',
-        //       fullAddress: '7A , SAGAR APARTMENTS,6 TILAK MARG',
-        //       pinCode: '110001',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'DELHI',
-        //       city: 'NEW DELHI',
-        //     },
-        //     {
-        //       addressType: 'Branch',
-        //       fullAddress:
-        //         'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem',
-        //       pinCode: '530016',
-        //       country: 'India',
-        //       gstin: '',
-        //       state: 'Andhra Pradesh',
-        //       city: 'Visakhapatnam',
-        //     },
-        //   ]);
-        // } else {
-        //   setGstin('');
-        // }
+                        
+                          let add = otherData[0]?.Branch_Address?.split(",")
+                            let newAddress=[]
+                            add.forEach((val,index)=>{
+                              if(index<add.length-1){
+                                newAddress.push(val)
+                              }
+                            })
+                      
+                            let pincode =   add[add.length-1].split("-")
+                            console.log(newAddress,"dfdfsdfdsf",pincode)
+                            setAddressList([
+                            
+                              {
+                                addressType: 'Registered',
+                                fullAddress:
+                                  newAddress.join(),
+                                pinCode: pincode[1],
+                                country: 'India',
+                                gstin: '',
+                                state:  pincode[0],
+                                city: add[4],
+                              },
+                            ]);
+                            }   else{
+                           setAddressList([
+                            
+                              {
+                                addressType: '',
+                                fullAddress:
+                                  "",
+                                pinCode: "",
+                                country: '',
+                                gstin: '',
+                                state: "",
+                                city: "",
+                              },
+                            ]);
+                        }
+                         
+                        }
+                   
+    
+        
       }
       if (buyerData.name == 'Emergent Industrial Solution limited') {
         setShotName('EISL');
@@ -580,28 +559,47 @@ function Index(props) {
                     if(otherData.length > 0){
                      setGstin(otherData[0].GSTIN);
                      setPan(otherData[0].PAN);
-                             let add = otherData[0].Branch_Address.split(",")
-          let newAddress=[]
-          add.forEach((val,index)=>{
-            if(index<add.length-3){
-              newAddress.push(val)
-            }
-          })
-          let pincode =   add[add.length-1].split("-")
-          console.log(add,"dfdfsdfdsf",pincode)
-          setAddressList([
-           
-            {
-              addressType: 'Registered',
-              fullAddress:
-                newAddress.join(),
-              pinCode: pincode[1],
-              country: 'India',
-              gstin: '',
-              state:  pincode[0],
-              city: add[4],
-            },
-          ]);
+             if(_get(otherData[0],"Branch_Address","")!==""){
+
+                        
+                          let add = otherData[0]?.Branch_Address?.split(",")
+                            let newAddress=[]
+                            add.forEach((val,index)=>{
+                              if(index<add.length-1){
+                                newAddress.push(val)
+                              }
+                            })
+                      
+                            let pincode =   add[add.length-1].split("-")
+                            console.log(newAddress,"dfdfsdfdsf",pincode)
+                            setAddressList([
+                            
+                              {
+                                addressType: 'Registered',
+                                fullAddress:
+                                  newAddress.join(),
+                                pinCode: pincode[1],
+                                country: 'India',
+                                gstin: '',
+                                state:  pincode[0],
+                                city: add[4],
+                              },
+                            ]);
+                            }   else{
+                           setAddressList([
+                            
+                              {
+                                addressType: '',
+                                fullAddress:
+                                  "",
+                                pinCode: "",
+                                country: '',
+                                gstin: '',
+                                state: "",
+                                city: "",
+                              },
+                            ]);
+                        }
                     }
         // if (buyerData.branchName == 'Delhi') {
         //   setGstin('07AAACS8253L1Z0');
