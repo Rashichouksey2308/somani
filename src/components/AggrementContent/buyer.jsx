@@ -493,28 +493,33 @@ function Index(props) {
                      setGstin(otherData[0].GSTIN);
                      setPan(otherData[0].PAN);
                      console.log(otherData[0],"otherData[0]")
-                 let add = otherData[0].Branch_Address.split(",")
-          let newAddress=[]
-          add.forEach((val,index)=>{
-            if(index<add.length-1){
-              newAddress.push(val)
-            }
-          })
-          let pincode =   add[add.length-1].split("-")
-          console.log(newAddress,"dfdfsdfdsf",pincode)
-          setAddressList([
-           
-            {
-              addressType: 'Registered',
-              fullAddress:
-                newAddress.join(),
-              pinCode: pincode[1],
-              country: 'India',
-              gstin: '',
-              state:  pincode[0],
-              city: add[4],
-            },
-          ]);
+                 if(otherData[0]?.Branch_Address){
+
+                    
+                      let add = otherData[0]?.Branch_Address?.split(",")
+                        let newAddress=[]
+                        add.forEach((val,index)=>{
+                          if(index<add.length-1){
+                            newAddress.push(val)
+                          }
+                        })
+                   
+                        let pincode =   add[add.length-1].split("-")
+                        console.log(newAddress,"dfdfsdfdsf",pincode)
+                        setAddressList([
+                        
+                          {
+                            addressType: 'Registered',
+                            fullAddress:
+                              newAddress.join(),
+                            pinCode: pincode[1],
+                            country: 'India',
+                            gstin: '',
+                            state:  pincode[0],
+                            city: add[4],
+                          },
+                        ]);
+                        }
                     }
                     console.log(otherData,"otherData")
     
