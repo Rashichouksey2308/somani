@@ -21,7 +21,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch();
 
   const { documentsFetched } = useSelector((state) => state.review);
-
+console.log(documentsFetched,"documentsFetched")
   const [editInput, setEditInput] = useState(true);
 
   const [manualDocModule, setManualDocModule] = useState(true);
@@ -61,16 +61,31 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const [currentDoc, setCurrentDoc] = useState(null);
 
+   const fetchData = async()=>{
+    await  dispatch(GetDocuments(`?order=${orderid}`));
+  }
+  const changeModule= async (id,name,value)=>{
+      await   dispatch(
+              changeModuleDocument({
+                orderDocumentId:
+                id,
+                name: name,
+                module: value,
+              }),
+            );
+  }
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid);
+    fetchData()
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase();
     });
 
     setFilteredDoc(tempArray);
-    dispatch(GetDocuments(`?order=${orderid}`));
+   
   }, [dispatch, orderid, moduleSelected]);
 
+ 
   useEffect(() => {
     const tempArray = documentsFetched?.documents
       ?.slice()
@@ -656,16 +671,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                   <div className="d-flex align-items-center">
                                     <select
                                       value={moduleSelected}
-                                      onChange={(e) => {
-                                        DocDlt(index);
-                                        dispatch(
-                                          changeModuleDocument({
-                                            orderDocumentId:
-                                              documentsFetched._id,
-                                            name: document.name,
-                                            module: e.target.value,
-                                          }),
-                                        );
+                                      onChange={ async (e) => {
+                                         DocDlt(index);
+                                        await   changeModule(documentsFetched._id,document.name, e.target.value)
+                                      
+                                        await  fetchData()
+
                                       }}
                                       className={`${styles.dropDown} ${styles.customSelect} shadow-none input form-control`}
                                       style={{

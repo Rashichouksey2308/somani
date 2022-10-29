@@ -29,7 +29,7 @@ function Index() {
   //console.log(lcModule.data[0].documentRequired, 'LC MODULE')
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-
+console.log(lcModuleData,"lcModuleData")
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const [what, setWhat] = useState('email');
@@ -1648,7 +1648,67 @@ function Index() {
                             </h3>
                           </th>
                         </tr>
-                        {lcModuleData &&
+                      
+                        <tr></tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 15px 34px 24px', marginBottom:'0'}}>
+                              <table width="80%" cellPadding="10" cellSpacing="0" border="0" style={{border:'1px solid #CAD6E6'}}>
+                             
+                              <tbody>
+                                <tr style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>
+                                  {_get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ) &&
+                                                                    _get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ).length > 0 &&
+                                                                    Object.keys(_get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      )[0]).map(
+                                      (val, index) => (
+                                        <th key={index}>{val}</th>
+                                      ),
+                                    )}
+                                </tr>
+                                        {_get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ) &&
+                                                                  _get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ).length > 0 &&
+                                                                  _get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ).map((item, index) => (
+                                                        <tr  style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>
+                                                          {Object.values(item).map((value, id) => (
+                                                            <td key={id}>{value}</td>
+                                                          ))}
+                                                        </tr>
+                                  ))}
+                             </tbody>
+                           
+                             
+                              </table>
+                            </p>
+                          </td>
+                        </tr>
+                          {lcModuleData &&
                           lcModuleData?.additionalConditions?.map(
                             (comment, index) => (
                               <tr>
@@ -1681,7 +1741,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      {index + 1}
+                                      {index + 2}
                                     </span>
                                   </p>
                                 </td>
@@ -1709,58 +1769,6 @@ function Index() {
                               </tr>
                             ),
                           )}
-                        <tr></tr>
-                        {/* <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 15px 34px 24px', marginBottom:'0'}}>
-                              <table width="80%" cellPadding="10" cellSpacing="0" border="0" style={{border:'1px solid #CAD6E6'}}>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>ELEMENTS</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>TYPICAL</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>GUARANTEED</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>MN</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>43.0</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>SIO2</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>8.0 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>8.0 PCT</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>AL2O3</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>7.6 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>8.0 PCT</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>FE</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>P</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>4.5 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>K20</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>4.5 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
-                                </tr>
-                                <tr>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderRight:'1px solid #CAD6E6'}}>SIZE 5-75MM (AT LOADING)</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
-                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>4.5 PCT</td>
-                                </tr>
-                              </table>
-                            </p>
-                          </td>
-                        </tr> */}
                         {lcModuleData &&
                         lcModuleData?.lcApplication?.presentaionPeriod ? (
                           <tr>
@@ -2806,67 +2814,84 @@ function Index() {
                           </div>
                         </td>
                       </tr>
-                      {lcModuleData &&
+                      
+                     
+                      
+                      <tr className="table_row">
+                        <td width="40%">1</td>
+                        <td className="border-top-0">
+                          <div
+                        className={`${styles.datatable} mb-5 ml-5 datatable `}
+                      >
+                        <div className={styles.table_scroll_outer}>
+                          <div className={styles.table_scroll_inner}>
+                            <table
+                              className={`${styles.table} table`}
+                              cellPadding="0"
+                              cellSpacing="0"
+                              border="0"
+                            >
+                              <tbody>
+                                <tr className="table_row">
+                                  {_get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      ) &&
+                                    _get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      ).length > 0 &&
+                                    Object.keys(_get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      )[0]).map(
+                                      (val, index) => (
+                                        <th key={index}>{val}</th>
+                                      ),
+                                    )}
+                                </tr>
+                                {_get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      ) &&
+                                  _get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      ).length > 0 &&
+                                  _get(
+        lcModule,
+        'data[0].order.generic.productSpecifications.specificationTable',
+        [],
+      ).map((item, index) => (
+                                    <tr>
+                                      {Object.values(item).map((value, id) => (
+                                        <td key={id}>{value}</td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                        </td>
+                      </tr>
+                       {lcModuleData &&
                         lcModuleData?.additionalConditions?.map(
                           (comment, index) => (
                             <tr key={index} className="table_row">
                               <td className="border-top-0" width="40%">
-                                {(index += 1)}
+                                {(index += 2)}
                               </td>
                               <td className="border-top-0">{comment}</td>
                             </tr>
                           ),
                         )}
-                      <tr className="table_row">
-                        {/* <td width="40%">2</td> */}
-                        {/*<td className="border-top-0">
-                          <div
-                            className={`${styles.element_datatable} m-2 datatable `}
-                          >
-                            <div className={styles.table_scroll_outer}>
-                              <div className={styles.table_scroll_inner}>
-                                 <table
-                                  className={`${styles.table} table`}
-                                  cellPadding="0"
-                                  cellSpacing="0"
-                                  border="0"
-                                >
-                                  <thead>
-                                    <tr className="table_row">
-                                      <th>ELEMENTS</th>
-                                      <th>TYPICAL</th>
-                                      <th>GUARANTEED</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr className="table_row">
-                                      <td>MN</td>
-                                      <td>44.5 PCT</td>
-                                      <td>43.0</td>
-                                    </tr>
-                                    <tr className="table_row">
-                                      <td>SIO2</td>
-                                      <td>8.0 PCT</td>
-                                      <td>8.0 PCT</td>
-                                    </tr>
-                                    <tr className="table_row">
-                                      <td>AL2O3</td>
-                                      <td>7.6 PCT</td>
-                                      <td>8.0 PCT</td>
-                                    </tr>
-
-                                    <tr className="table_row">
-                                      <td>FE</td>
-                                      <td>44.5 PCT</td>
-                                      <td>43.0</td>
-                                    </tr>
-                                  </tbody>
-                                </table> 
-                              </div>
-                            </div>
-                          </div>
-                        </td>*/}
-                      </tr>
                       {lcModuleData &&
                       lcModuleData?.lcApplication?.presentaionPeriod ? (
                         <tr className="table_row">

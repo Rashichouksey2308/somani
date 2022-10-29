@@ -148,12 +148,19 @@ function Index() {
           LRorRRDoc: {},
           eWayBillDoc: {},
           destination: '',
-          rrlrNumber: '',
+          rrlrNumber: '', 
         });
       }
-      dat;
+     
     });
     setLifting([...tempArr]);
+  };
+  const deleteNewRow = (index, index2) => {
+     let tempArr = [...lifting];
+     tempArr[index].detail.splice(index2, 1)
+     setLifting([...tempArr])
+  
+  
   };
   const handleChange = (name, value, index, index2) => {
     console.log(index, index2, 'date');
@@ -707,6 +714,8 @@ function Index() {
                       handleLiftingSubmit={handleLiftingSubmit}
                       removeLiftinDoc={removeLiftinDoc}
                       ReleaseOrderData={ReleaseOrderData}
+                      deleteNewRow= {deleteNewRow}
+
                     />
                   </div>
                 </div>

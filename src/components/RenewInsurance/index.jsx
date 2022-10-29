@@ -153,19 +153,19 @@ const Index = () => {
   };
 
   return (
-    <div className={`${styles.card} accordion_body container-fluid`}>
-      <div className={`${styles.head_container}`}>
-        <div className={styles.head_header}>
-          <div
-            style={{ cursor: 'pointer' }}
+    <div
+    className={`${styles.card} p-0 vessel_card datatable bg-transparent card border-0 container-fluid`}
+  >
+    <div className={`${styles.accordion_body} bg-transparent`}>
+      <div className={`${styles.head_container} align-items-center`}>
+        <div className={`${styles.head_header} align-items-center`}>
+          <img
+            className={`${styles.back_arrow} img-fluid mr-2 ml-0 image_arrow`}
+            src="/static/keyboard_arrow_right-3.svg"
+            alt="ArrowRight"
             onClick={() => Router.push('/insurance/form')}
-          >
-            <img
-              className={`${styles.back_arrow} img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-            />
-          </div>
+          />
+
           <h1 className={styles.heading}>
             {insuranceData?.company?.companyName} - Ramal001-000001
           </h1>
@@ -222,7 +222,7 @@ const Index = () => {
             <>
               <div
                 id="storageInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -592,6 +592,7 @@ const Index = () => {
           />
         </div>
       </div>
+     
       {/* <InspectionDocument
         lcDoc={insuranceDocument}
         module="Agreements&Insurance&LC&Opening"
@@ -604,6 +605,7 @@ const Index = () => {
         orderid={insuranceData?.order?._id}
         module="Agreements&Insurance&LC&Opening"
       />
+       </div>
       <SubmitBar handleSubmit={handleInsuranceUpdate} />
     </div>
   );

@@ -951,7 +951,7 @@ const Index = ({
                       calcRevised?.additionalAmountPerPDC == 0
                         ? 0
                         : convertValue(
-                            checkNan(calcRevised.additionalAmountPerPDC),
+                            (calcRevised.additionalAmountPerPDC),
                             conversionRateUnit,
                           ).toLocaleString('en-In', {
                             minimumFractionDigits: 2,
@@ -1046,7 +1046,7 @@ const Index = ({
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {finalCal.marginMoney} */}₹{' '}
                       {convertValue(
-                        calcRevised?.marginMoney,
+                        calcRevised?.revisedMarginMoney,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,

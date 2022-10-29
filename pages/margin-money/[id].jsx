@@ -297,7 +297,7 @@ function Index() {
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
-    console.log(newInput, 'newInputnewInput');
+  
     setInvoiceData({ ...newInput });
   };
   const savedataRevised = (name, value, name2, value2, value3) => {
@@ -305,11 +305,11 @@ function Index() {
     newInput.branch = value3;
     newInput.branchAddress = value;
     newInput.IFSCcode = value2;
-    console.log(newInput, 'newInputnewInput');
+    
     setInvoiceDataRevised({ ...newInput });
   };
   const saveInvoiceData = (name, value) => {
-    console.log(value, 'invoice data value', name);
+   
     const newInput = { ...invoiceData };
 
     newInput[name] = value;
@@ -330,11 +330,11 @@ function Index() {
         newInput[a] = value;
       }
     }
-    console.log(newInput, 'newInput');
+
     setInvoiceData({ ...newInput });
   };
 
-  console.log(invoiceData, 'invoiceData');
+  
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
@@ -383,7 +383,7 @@ function Index() {
       setInvoiceData({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
-      console.log(value, val.Company_Name, 'ssssss');
+
       if (val.Company_Name == value) {
         return val;
       }
@@ -391,7 +391,7 @@ function Index() {
     setBranchOptions(filter);
   };
   const changeImporter = (e) => {
-    console.log(e.target.name, e.target.value, 'Xxxcxc');
+   
     if (e.target.name == 'branchOffice') {
       changeImporterData.branch = e.target.value;
       const newInput = { ...invoiceData };
@@ -642,19 +642,6 @@ function Index() {
           orderValue: finalCal.orderValue,
         },
       };
-      // if (
-      //   marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
-      //   marginData?.order?.quantity !== forCalculation.quantity
-      // ) {
-      //   obj = {
-      //     ...obj,
-      //     orderObj: {
-      //       quantity: forCalculation.quantity,
-      //       perUnitPrice: forCalculation.perUnitPrice,
-      //       orderValue:finalCal.orderValue
-      //     },
-      //   }
-      // }
 
       dispatch(UpdateMarginMoney(obj));
     }
@@ -663,20 +650,22 @@ function Index() {
   // RevisedMargin Money New Calculation
 
   const [forCalculationRevised, setforCalculationRevised] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
-    status: marginData?.status || '',
-    quantity: marginData?.order?.quantity || '',
-    additionalPDC: marginData?.additionalPDC || '',
-    conversionRate: marginData?.conversionRate || '',
-    perUnitPrice: marginData?.order?.perUnitPrice || '',
-    usanceInterestPercentage:
-      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
-    numberOfPDC: marginData?.numberOfPDC || '',
-    tradeMarginPercentage:
-      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
-    tolerance: marginData?.order?.tolerance || '',
-    marginMoney:
-      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
+
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      status: marginData?.status,
+      quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : marginData?.order?.quantity,
+      additionalPDC: marginData?.additionalPDC,
+      conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate ,
+      perUnitPrice: marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice : marginData?.order?.perUnitPrice,
+      usanceInterestPercentage:
+        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      numberOfPDC: marginData?.numberOfPDC,
+      tradeMarginPercentage:
+        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      tolerance: marginData?.order?.tolerance,
+      marginMoney:
+        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+      
   });
 
   // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
@@ -704,14 +693,15 @@ function Index() {
     amountPerSPDC: '',
   });
 
+  
   const getDataRevised2 = () => {
     setforCalculationRevised({
       isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
       status: marginData?.status,
-      quantity: marginData?.order?.quantity,
+      quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
-      conversionRate: marginData?.conversionRate,
-      perUnitPrice: marginData?.order?.perUnitPrice,
+      conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate ,
+      perUnitPrice: marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice : marginData?.order?.perUnitPrice,
       usanceInterestPercentage:
         marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
       numberOfPDC: marginData?.numberOfPDC,
@@ -847,8 +837,8 @@ function Index() {
       marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
     revisedNetOrderValue:
       marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
-    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
-    revisedMarginMoney: marginData?.calculation?.marginMoney,
+    marginMoney: marginData?.calculation?.marginMoney,
+    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
     marginMoneyReceived:
       marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
     marginMoneyPayable:
@@ -863,6 +853,8 @@ function Index() {
     marginMoneyReceived: '',
     marginMoneyPayable: '',
   });
+
+
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -915,19 +907,19 @@ function Index() {
     });
 
     // T calculation
-    let additionalAmountPerPDC = parseFloat(
+    let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
         Number(forCalculationRevised.additionalPDC),
     ).toFixed(2);
     // u calculation
-    let revisedNetOrderValueNew = parseFloat(
-      marginData?.revisedMarginMoney?.totalOrderValue -
+    let revisedNetOrderValueNew = Number(
+      finalCalRevised?.totalOrderValue -
         marginData?.calculation?.totalOrderValue,
     ).toFixed(2);
 
     let marginMoneyRevised = marginData?.calculation?.marginMoney;
-    let revisedMarginMoneyNew = marginData?.calculation?.marginMoney;
+    let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -940,27 +932,23 @@ function Index() {
   };
 
   const getRevisedData2 = () => {
-    let additionalAmountPerPDC = parseFloat(
+    let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
         Number(forCalculationRevised.additionalPDC),
     ).toFixed(2);
 
-    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC');
-    let revisedNetOrderValueNew = parseFloat(
+   
+    let revisedNetOrderValueNew = Number(
       Number(
-        marginData?.revisedMarginMoney?.totalOrderValue
-          ? marginData?.revisedMarginMoney?.totalOrderValue
-          : 0,
+        finalCalRevised?.totalOrderValue
       ) - Number(marginData?.calculation?.totalOrderValue),
     ).toFixed(2);
     let marginMoneyRevised = Number(
       marginData?.calculation?.marginMoney,
     ).toFixed(2);
     let revisedMarginMoneyNew = Number(
-      marginData?.calculation?.marginMoney
-        ? marginData?.calculation?.marginMoney
-        : 0,
+      finalCalRevised?.marginMoney
     );
 
     setCalcRevised({
@@ -1007,29 +995,36 @@ function Index() {
         isActive: true,
         invoiceDetail: { ...invoiceDataRevised },
         calculation: { ...calcRevised },
+        revisedCalculation: {
+          orderValue: finalCalRevised.orderValue,
+          orderValueCurrency: finalCalRevised.orderValueCurrency,
+          orderValueInINR: finalCalRevised.orderValueInINR,
+          usanceInterest: finalCalRevised.usanceInterest,
+          tradeMargin: finalCalRevised.tradeMargin,
+          grossOrderValue: finalCalRevised.grossOrderValue,
+          toleranceValue: finalCalRevised.toleranceValue,
+          totalOrderValue: finalCalRevised.totalOrderValue,
+          provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
+          marginMoney: finalCalRevised.marginMoney,
+          totalSPDC: finalCalRevised.totalSPDC,
+          amountPerSPDC: finalCalRevised.amountPerSPDC,
+        },
+        revisedCommodityDetails: {
+          conversionRate: forCalculationRevised.conversionRate,
+          quantity: forCalculationRevised.quantity,
+          perUnitPrice: forCalculationRevised.perUnitPrice,
+          orderValue: finalCalRevised.orderValue,
+        }
       },
-      calculation: {
-        orderValue: finalCalRevised.orderValue,
-        orderValueCurrency: finalCalRevised.orderValueCurrency,
-        orderValueInINR: finalCalRevised.orderValueInINR,
-        usanceInterest: finalCalRevised.usanceInterest,
-        tradeMargin: finalCalRevised.tradeMargin,
-        grossOrderValue: finalCalRevised.grossOrderValue,
-        toleranceValue: finalCalRevised.toleranceValue,
-        totalOrderValue: finalCalRevised.totalOrderValue,
-        provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
-        marginMoney: finalCalRevised.marginMoney,
-        totalSPDC: finalCalRevised.totalSPDC,
-        amountPerSPDC: finalCalRevised.amountPerSPDC,
-      },
-      conversionRate: forCalculationRevised.conversionRate,
+      
+      // conversionRate: forCalculationRevised.conversionRate,
       isUsanceInterestIncluded:
         forCalculationRevised.isUsanceInterestIncluded || true,
-      orderObj: {
-        quantity: forCalculationRevised.quantity,
-        perUnitPrice: forCalculationRevised.perUnitPrice,
-        orderValue: finalCalRevised.orderValue,
-      },
+      // orderObj: {
+      //   quantity: forCalculationRevised.quantity,
+      //   perUnitPrice: forCalculationRevised.perUnitPrice,
+      //   orderValue: finalCalRevised.orderValue,
+      // },
     };
 
     dispatch(RevisedMarginMoney(obj));
@@ -4678,11 +4673,7 @@ function Index() {
     }
     if (getInternalCompaniesMasterData) {
       let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        console.log(
-          val.Company_Name,
-          marginData?.invoiceDetail?.importerName,
-          'ppopop',
-        );
+        
         if (
           val.Company_Name?.toLowerCase() ==
             marginData?.invoiceDetail?.importerName?.toLowerCase() ||
@@ -4695,10 +4686,10 @@ function Index() {
           return val;
         }
       });
-      console.log('useefff', filter);
+      
       setBranchOptions(filter);
     }
-    console.log('workingDIVESH', marginData);
+    
   }, [marginData, getInternalCompaniesMasterData]);
 
   useEffect(() => {
@@ -5295,7 +5286,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.additionalPDC}
+                                  {/* {marginData?.additionalPDC} */}
                                 </div>
                               </div>
                             </div>
@@ -5749,10 +5740,6 @@ function Index() {
                             <div
                               className={`${styles.each_input} col-md-4 col-sm-6`}
                             >
-                              {console.log(
-                                marginData?.company?.companyName,
-                                'bye10001',
-                              )}
 
                               <input
                                 type="text"
@@ -6042,7 +6029,7 @@ function Index() {
                                           }
                                         },
                                       );
-                                    console.log(filter, 'filter');
+                                    
                                     if (filter.length > 0) {
                                       const newInput = { ...invoiceData };
                                       changeImporterData.address =
@@ -6161,7 +6148,7 @@ function Index() {
                                         }
                                       },
                                     );
-                                    console.log(filter, 'filter');
+                                    
                                     dispatch(getBranches(filter[0].code));
                                   }}
                                 >
@@ -6202,11 +6189,7 @@ function Index() {
                                   required
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
-                                    console.log(e.target.value, 'branch');
-                                    //   saveInvoiceData(
-                                    //    e.target.name,
-                                    //    e.target.value,
-                                    // )
+                                  
                                     let filter = getBranchesMasterData.filter(
                                       (val, index) => {
                                         if (val.BRANCH == e.target.value) {

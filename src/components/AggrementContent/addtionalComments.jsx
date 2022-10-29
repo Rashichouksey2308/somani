@@ -183,9 +183,9 @@ function Index(props) {
                     <th width="20%" className="border-0 generic_th">
                       Additional Comments
                     </th>
-                    <th width="15%" className="border-0 generic_th">
+                    {/* <th width="15%" className="border-0 generic_th">
                       Date of Execution
-                    </th>
+                    </th> */}
                    
                       <>
                         <th width="20%" className="border-0 generic_th">
@@ -211,7 +211,7 @@ function Index(props) {
                               <tr key={index}>
                                 <td>{val?.name}</td>
                                 <td>{val?.comment}</td>
-                                <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td>
+                                {/* <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td> */}
                                 <td>{val?.monthOfLoadingCargo}</td>
 
                                 <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : '' }</td>
@@ -286,7 +286,7 @@ function Index(props) {
                                     }}
                                   />
                                 </td>
-                                <td>
+                                {/* <td>
                                   <div className="d-flex align-items-center">
                                     <DateCalender
                                       name="dateOfExecution"
@@ -307,7 +307,7 @@ function Index(props) {
                                       alt="Search"
                                     />
                                   </div>
-                                </td>
+                                </td> */}
 
                                 {val.name === 'Assignment Letter' ? (
                                   <>

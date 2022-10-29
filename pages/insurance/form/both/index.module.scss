@@ -980,3 +980,15 @@ input:checked + .slider:before {
     height: 15px;
   }
 }
+.img_arrow {
+  transform: translateY(30%);
+  top: 30%;
+  margin-left: -40px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
