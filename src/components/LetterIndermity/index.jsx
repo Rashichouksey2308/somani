@@ -3,22 +3,16 @@ import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-// import { GetLcModule } from 'redux/lcModule/action'
-// import Filter from '../Filter'
 import _get from 'lodash/get';
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar';
 import Image from 'next/image';
-import {
-  UpdateTransitDetails,
-  GetTransitDetails,
-} from '../../redux/TransitDetails/action';
+import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
 import { toast } from 'react-toastify';
 import moment from 'moment';
-// import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
   console.log(
-    '🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails',
+    '🚀 ~ file: index.jsx ~ line 21 ~ Index ~ TransitDetails',
     TransitDetails,
   );
   const dispatch = useDispatch();
@@ -37,7 +31,7 @@ function Index({ TransitDetails }) {
       ).format('DD MMMM YYYY'),
     },
   ]);
-  console.log(bolArray, 'bolArray');
+
   const [loi, setLOI] = useState({
     loiIssueDate: new Date(),
     blSurrenderDate: null,
@@ -76,7 +70,6 @@ function Index({ TransitDetails }) {
       },
     ]);
   };
-  console.log(billsofLanding, 'billsofLanding');
   useEffect(() => {
     let existingData = _get(TransitDetails, `data[0].LOI`, {});
     if (existingData?.authorizedSignatory) {
@@ -93,17 +86,14 @@ function Index({ TransitDetails }) {
     }
   }, [TransitDetails]);
   const [bolArray, setBolArray] = useState([]);
-  console.log(billsofLanding, 'bolArray');
+
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
       setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
   }, [TransitDetails]);
 
-  console.log(loi, 'LOI');
-
   const SetAuthorisedSignatoryHanlder = (e) => {
-    console.log(e.target.value.toLowerCase(), 'w');
     if (e.target.value == '') {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
@@ -201,7 +191,6 @@ function Index({ TransitDetails }) {
     setBillsofLanding([...temp]);
   };
 
-  console.log(billsofLanding, 'asasasasas');
   const OnAddHandler = () => {
     let tempArray = billsofLanding;
     tempArray.push({
@@ -217,7 +206,6 @@ function Index({ TransitDetails }) {
       ...billsofLanding.slice(index + 1),
     ]);
   };
-  console.log(loi, 'billsofLanding');
 
   const isOptionAvailable = (elem, index) => {
     let returned = false;
@@ -280,10 +268,26 @@ function Index({ TransitDetails }) {
           <div className={`d-flex`}>
             <span>To:</span>
             {'  '}
-            <div className={`ml-3 ${styles.noadd} text-left`}>
-              {' '}
-              INDO INTERNATIONAL TRADING FZCO JAFZA VIEW-18, LOB-180504, JEBEL
-              ALI, DUBAI, U.A.E
+            <div className={`ml-3 ${styles.noadd} text-left text-uppercase`}>
+              {_get(TransitDetails, 'data[0].order.generic.seller.name')}
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.seller.addresses[0].fullAddress',
+              )}
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.seller.addresses[0].city',
+              )}
+              ,
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.seller.addresses[0].pinCode',
+              )}
+              ,
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.seller.addresses[0].country',
+              )}
             </div>
           </div>
           <div className="w-25 text-right">
@@ -302,7 +306,7 @@ function Index({ TransitDetails }) {
           <div className={`ml-3`}>
             {_get(
               TransitDetails,
-              'data[0].BL.billOfLanding[0].vesselName',
+              'data[0].order.generic.shippingLine.vesselName',
               '',
             ).toUpperCase()}
           </div>
@@ -314,10 +318,15 @@ function Index({ TransitDetails }) {
             FROM{' '}
             {_get(
               TransitDetails,
-              'data[0].order.portOfDischarge',
+              'data[0].order.termsheet.transactionDetails.loadPort',
               '',
             ).toUpperCase()}{' '}
-            TO ANY PORT(S) IN INDIA
+            TO{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.termsheet.transactionDetails.portOfDischarge',
+              '',
+            ).toUpperCase()}{' '}
           </div>
         </div>
         <div className={`d-flex  ${styles.salutations}`}>
@@ -341,7 +350,6 @@ function Index({ TransitDetails }) {
           <div style={{ marginRight: '10px' }}>
             {billsofLanding.map((bills, index1) => (
               <>
-                {console.log(bills, 'bills')}
                 <div
                   key={index1}
                   className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
@@ -367,7 +375,6 @@ function Index({ TransitDetails }) {
                     'data[0].order.portOfDischarge',
                     '',
                   ).toUpperCase()}{' '}
-                  {index1}
                   {bolArray.length - 1 > index1 ? (
                     index1 === billsofLanding.length - 1 ? (
                       <button
@@ -406,28 +413,134 @@ function Index({ TransitDetails }) {
         <div className={styles.body}>
           <p>
             The above cargo was shipped on the above ship by{' '}
-            <span className={styles.bold}>
-              LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE
-              4000 QUEESLAND, AUSTRALIA{' '}
+            <span className={`${styles.bold} text-uppercase`}>
+              {_get(TransitDetails, 'data[0].order.generic.supplier.name')},
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.supplier.addresses[0].fullAddress',
+              )}
+              ,{' '}
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.supplier.addresses[0].city',
+              )}
+              ,{' '}
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.supplier.addresses[0].country',
+              )}
+              ,
+              {_get(
+                TransitDetails,
+                'data[0].order.generic.supplier.addresses[0].pinCode',
+              )}
             </span>
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
             <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            bill of Lading has not arrived and we, EMERGENT INDUSTRIAL SOLUTIONS
-            LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD
-            AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA , hereby
-            request you to deliver the said cargo to EMERGENT INDUSTRIAL
-            SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
-            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016,
-            INDIA or to such party as you believe to be or to represent EMERGENT
-            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
-            PRADESH - 530016, INDIA or to be acting on behalf of EMERGENT
-            INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
-            PRADESH - 530016, INDIA at{' '}
+            bill of Lading has not arrived and we,{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}
+            , hereby request you to deliver the said cargo to{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+            or to such party as you believe to be or to represent{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+            or to be acting on behalf of {''}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+            at{' '}
             <span className={styles.bold}>
-              VISAKHAPATNAM PORT (VSPL), INDIA
+              {_get(
+                TransitDetails,
+                'data[0].order.termsheet.transactionDetails.portOfDischarge',
+                '',
+              ).toUpperCase()}{' '}
             </span>{' '}
             without production of the original Bill of Lading.
           </p>
@@ -502,7 +615,11 @@ function Index({ TransitDetails }) {
           <div style={{ fontWeight: 'normal' }}>Yours faithfully</div>
           <div style={{ fontWeight: 'normal' }}>For and on behalf of </div>
           <div className={styles.bold}>
-            EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+            {_get(
+              TransitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
           </div>
           <div style={{ fontWeight: 'normal' }}>The Requestor</div>
           <div className={`${styles.athorised}`}>
