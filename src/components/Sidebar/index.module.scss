@@ -10,7 +10,7 @@
   line-height: 25px;
   overflow-y: auto;
   background-color: #0a1834;
-
+  margin-bottom: 100px;
   @include respond(lg-desktop) {
     font-size: 16px;
     line-height: 1.25;

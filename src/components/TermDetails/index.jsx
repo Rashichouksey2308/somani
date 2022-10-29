@@ -94,6 +94,7 @@ const Index = ({
       onChangeCommodityDetails2(name,value)
       setToView(false)
   }
+  console.log(termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),"termsheetDetails?.commercials?.lcOpeningChargesUnit")
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -760,7 +761,7 @@ const Index = ({
                     required
                     id={'typeOfPort'}
                   >
-                    <option disabled selected>
+                    <option  selected>
                       Select an option
                     </option>
                     <option value="Load Port">Load Port</option>

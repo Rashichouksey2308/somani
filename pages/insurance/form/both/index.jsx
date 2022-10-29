@@ -5,6 +5,7 @@ import { Form, Row, Col } from 'react-bootstrap';
 import UploadDocument from '../../../../src/components/UploadDocument';
 import DateCalender from '../../../../src/components/DateCalender';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
 import {
   GettingAllInsurance,
   UpdateInsurance,
@@ -25,8 +26,10 @@ import {
 import { settingSidebar } from '../../../../src/redux/breadcrumb/action';
 
 import moment from 'moment/moment';
+import { getInternalCompanies } from '../../../../src/redux/masters/action';
 
 const Index = () => {
+
   const [insuranceType, setInsuranceType] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
@@ -55,7 +58,15 @@ const Index = () => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}));
   }, [insuranceResponse]);
 
-  console.log(insuranceResponse, 'insuranceResponse');
+
+
+  useEffect(() => {
+    dispatch(getInternalCompanies())
+  }, [dispatch])
+  
+  const {getInternalCompaniesMasterData} = useSelector(state=>state.MastersData)
+
+  const [option, setOption] = useState([])
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -85,15 +96,16 @@ const Index = () => {
     premiumAmount: '',
   });
 
-  console.log(marineData, 'Premium', storageData);
+  console.log(marineData, 'MARINE STORAGE', storageData, 'OPTION', option)
+
 
   useEffect(() => {
     setMarineData({
       policyNumber: insuranceData?.marineInsurance?.policyNumber || '',
       nameOfInsurer:
-        insuranceData?.marineInsurance?.nameOfInsurer || 'Policy Bazaar',
+        insuranceData?.marineInsurance?.nameOfInsurer ? insuranceData?.marineInsurance?.nameOfInsurer : '',
       gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer || '',
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured || '',
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured ? insuranceData?.marineInsurance?.nameOfInsured : insuranceData?.order?.generic?.buyer?.name,
       gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured || '',
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
@@ -111,9 +123,9 @@ const Index = () => {
     });
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
-      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
+      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer ? insuranceData?.storageInsurance?.nameOfInsurer : '',
       gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
-      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
+      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured ? insuranceData?.storageInsurance?.nameOfInsured : insuranceData?.order?.generic?.buyer?.name ,
       gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
       insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
@@ -129,7 +141,7 @@ const Index = () => {
       marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
     });
   }, [insuranceResponse, insuranceData]);
-  console.log(marineData, 'marineData');
+
 
   let dateM1 = new Date(marineData?.insuranceFrom);
   let dateM2 = new Date(marineData?.insuranceTo);
@@ -149,15 +161,27 @@ const Index = () => {
     return date4.diff(date3, 'days');
   }
 
+  const gettingCompanyList = (name) => {
+    
+      let filter = getInternalCompaniesMasterData?.filter((val, index)=> {
+        console.log(val?.Company_Name?.toLowerCase(),name?.toLowerCase(),"val")
+        if (val?.Company_Name?.toLowerCase() == name?.toLowerCase()) {
+      return val;
+    }
+  }) 
+  setOption(filter)
+  }
+
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData };
     newInput[name] = value;
     // if(insuranceDocument){
     //   setStorageData(newInput)
     // }
-    setMarineData(newInput);
+    console.log(name, value,"newInput")
+    setMarineData({...newInput});
   };
-  console.log(marineData, 'setMarineData');
+
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value);
@@ -209,15 +233,12 @@ const Index = () => {
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(!isInsurerSameData);
   };
+
   useEffect(() => {
     if (isInsurerSameData) {
       setStorageData({ ...marineData });
     }
     if (isInsurerSameData == false) {
-      console.log(
-        insuranceData,
-        'insuranceData?.storageInsurance?.policyNumber',
-      );
       setStorageData({
         policyNumber: insuranceData?.storageInsurance?.policyNumber || '',
         nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || '',
@@ -237,7 +258,7 @@ const Index = () => {
 
   const validate = () => {
     let toastMessage = '';
-    console.log(marineData, 'marineData');
+  
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
@@ -414,7 +435,6 @@ const Index = () => {
     }
   };
 
-  console.log(insuranceData, 'insuranceData');
 
   const handleInsuranceUpdate = async () => {
     if (!validate()) return;
@@ -457,7 +477,12 @@ const Index = () => {
   const handleRoute = () => {
     Router.push('/insurance');
   };
+  useEffect(() =>{
+   
+ gettingCompanyList(marineData?.nameOfInsured||storageData?.nameOfInsured)
 
+  },[marineData,storageData])
+  console.log(marineData,"<marineData></marineData>")
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={`${styles.head_container} align-items-center`}>
@@ -689,7 +714,7 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
@@ -698,31 +723,76 @@ const Index = () => {
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Name of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                          /> */}
+                          <div className="d-flex">
+                            <select
+                            name="nameOfInsured"
+                            value={marineData?.nameOfInsured} onChange={(e)=>{gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Name of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
+
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            value={storageData?.gstOfInsured}
                             name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }
+                          /> */}
+                          <div className="d-flex">
+                            <select
                             value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
-                            }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            GSTIN of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              GSTIN of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
@@ -1186,40 +1256,84 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            name="nameOfInsured"
-                            value={storageData?.nameOfInsured}
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
                             type="text"
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Name of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                            value={marineData?.nameOfInsured}
+                            name="nameOfInsured"
+                            onChange={(e) =>
+                              saveMarineData(e.target.name, e.target.value)
+                            }
+                          /> */}
+                          <div className="d-flex">
+                            <select
+                            
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                               <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Name of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            name="gstOfInsured"
                             value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            GSTIN of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                          /> */}
+                          <div className="d-flex">
+                            <select
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                             {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              GSTIN of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
@@ -1427,10 +1541,7 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
-                                {console.log(
-                                  insuranceDocument?.storagePolicyDocument,
-                                  'insuranceDocument?.storagePolicyDocument',
-                                )}
+                  
                                 {insuranceDocument?.storagePolicyDocument ? (
                                   insuranceDocument?.storagePolicyDocument?.originalName
                                     ?.toLowerCase()
@@ -1679,40 +1790,74 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            type="text"
-                            name="nameOfInsured"
-                            value={marineData?.nameOfInsured}
-                            onChange={(e) =>
-                              saveMarineData(e.target.name, e.target.value)
-                            }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Name of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                         
+                          <div className="d-flex">
+                            <select
+                            value={marineData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Name of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            value={storageData?.gstOfInsured}
                             name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }
+                          /> */}
+                          <div className="d-flex">
+                            <select
                             value={marineData?.gstOfInsured}
+                            name="gstOfInsured"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
-                            }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            GSTIN of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                              {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              GSTIN of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">
@@ -1995,25 +2140,33 @@ const Index = () => {
                         </Col>
 
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
-                            className={`${styles.input_field} input form-control`}
-                            required
-                            name="nameOfInsured"
-                            value={storageData?.nameOfInsured}
-                            onChange={(e) =>
-                              saveStorageData(e.target.name, e.target.value)
-                            }
-                            type="text"
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Name of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                        
+                          <div className="d-flex">
+                            <select
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                              <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Name of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                          {/* <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
@@ -2022,13 +2175,39 @@ const Index = () => {
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
-                          />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            GSTIN of Insured
-                            <strong className="text-danger">*</strong>
-                          </label>
+                          /> */}
+                          <div className="d-flex">
+                            <select
+                            value={storageData?.gstOfInsured}
+                            name="gstOfInsured"
+                            onChange={(e) =>
+                              saveStorageData(e.target.name, e.target.value)
+                            }  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            >
+                              <option selected>Select</option>
+                               {option?.map((val, index) => {
+                                    return (
+                                      <option key={index} value={val.GSTIN}>
+                                        {val.GSTIN}
+                                      </option>
+                                    );
+                                  })}
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              GSTIN of Insured
+                              <strong className="text-danger ml-1">*</strong>
+                            </label>
+                            <div className={`${styles.img_arrow} image_arrow`}>
+                              <Image
+                                width="13px"
+                                height="8px"
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={2} md={6}>
                           <div className="d-flex">

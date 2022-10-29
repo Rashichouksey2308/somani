@@ -144,8 +144,14 @@ function Index() {
     },
     {
       main: 'Supplier Onboarding',
+      Other: [],
       image: '/static/Masters.svg',
       route: '/add-supplier',
+    },
+    {
+      main: '',
+      Other: [],
+      route: '',
     },
   ];
   const [className, setClassName] = useState('');
@@ -246,8 +252,9 @@ console.log(index12,className,"ASasas")
     <>
       {isMobile ? (
         <div
-          className={`${styles.main_container_mobile} sidebar-bg  ${!sidebar ? styles.collapse_sidebar_mobile : null
-            }`}
+          className={`${styles.main_container_mobile} sidebar-bg  ${
+            !sidebar ? styles.collapse_sidebar_mobile : null
+          }`}
         >
           {tempArr.map((val, index) => {
             const className1 =
@@ -267,7 +274,9 @@ console.log(index12,className,"ASasas")
                     }}
                   >
                     <div>
-                      <img src={`${val.image}`}></img>
+                      {index === tempArr.length - 1 && (
+                        <img src={`${val.image}`}></img>
+                      )}
                       <span>{val.main}</span>
                     </div>
                     {val?.Other?.length > 0 ? (
@@ -280,50 +289,51 @@ console.log(index12,className,"ASasas")
                     )}
                   </div>
                   <div
-                    className={`${styles.sub_wrapper} ${index12 == index ? className : null
-                      }`}
+                    className={`${styles.sub_wrapper} ${
+                      index12 == index ? className : null
+                    }`}
                   >
                    
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-
-                        const className12 =
-                          index12 == index || subCategory == other.main
-                            ? `${styles.openlist} sidebar-selected`
-                            : null;
-                        return (
-                          <>
-                            <div
-                              index={index2}
-                              className={`${styles.sub_header} ${subCategory == null
-                                  ? null
-                                  : subCategory == other.name
+                          const className12 =
+                            index12 == index || subCategory == other.main
+                              ? `${styles.openlist} sidebar-selected`
+                              : null;
+                          return (
+                            <>
+                              <div
+                                index={index2}
+                                className={`${styles.sub_header} ${
+                                  subCategory == null
+                                    ? null
+                                    : subCategory == other.name
                                     ? styles.subSelected
                                     : null
                                 }`}
-                              onClick={() => {
-                                
-                                handleOpen(other.name, index2, '');
-                                Router.push(other.route);
-                              }}
-                            >
-                              <div>
-                                <img src={`${other.image}`}></img>
-                                <span
-                                  className={`${subCategory == null
-                                      ? null
-                                      : subCategory == other.name
+                                onClick={() => {
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
+                                }}
+                              >
+                                <div>
+                                  <img src={`${other.image}`}></img>
+                                  <span
+                                    className={`${
+                                      subCategory == null
+                                        ? null
+                                        : subCategory == other.name
                                         ? styles.subSelected
                                         : null
                                     }`}
-                                >
-                                  {other.name}
-                                </span>
+                                  >
+                                    {other.name}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </>
-                        );
-                      })
+                            </>
+                          );
+                        })
                       : null}
                   </div>
                 </div>
@@ -333,11 +343,11 @@ console.log(index12,className,"ASasas")
         </div>
       ) : (
         <div
-          className={`${styles.main_container} sidebar-bg  ${!sidebar ? styles.collapse_sidebar : null
-            }`}
+          className={`${styles.main_container} sidebar-bg  ${
+            !sidebar ? styles.collapse_sidebar : null
+          }`}
         >
           {tempArr.map((val, index) => {
-
             const className1 =
               subCategory == null || subCategory == 'null'
                 ? category == val.main
@@ -348,29 +358,31 @@ console.log(index12,className,"ASasas")
               <>
                 <div
                   key={index}
-                  className={`${styles.wrapper} ${category == val.main ? styles.wrapperSlected : null
-                    } `}
+                  className={`${styles.wrapper} ${
+                    category == val.main ? styles.wrapperSlected : null
+                  } `}
                 >
                   <div
                     className={`${styles.header} ${className1}`}
                     onClick={(e) => {
-                     
                       handleOpen(val.main, index, 'main');
                       console.log('router', val.route);
 
-                      if (val.route !== "") {
+                      if (val.route !== '') {
                         Router.push(val.route);
                       }
                     }}
                   >
                     <div>
-                      <img
-                        src={`${val.image}`}
-                        style={{
-                          filter:
-                            'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)',
-                        }}
-                      ></img>
+                      {index !== tempArr.length - 1 && (
+                        <img
+                          src={`${val.image}`}
+                          style={{
+                            filter:
+                              'invert(50%) sepia(9%) saturate(5858%) hue-rotate(183deg) brightness(92%) contrast(92%)',
+                          }}
+                        ></img>
+                      )}
                       <span>{val.main}</span>
                     </div>
                     {val.Other?.length > 0 ? (
@@ -383,50 +395,53 @@ console.log(index12,className,"ASasas")
                     )}
                   </div>
                   <div
-                    className={`${styles.sub_wrapper} ${index12 == index ? className : null
-                      }`}
+                    className={`${styles.sub_wrapper} ${
+                      index12 == index ? className : null
+                    }`}
                   >
                      {console.log(index12==index,val?.Other,"Asasasasasa")}
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                        const className12 =
-                          index12 == index
-                            ? `${styles.openlist} sidebar-selected`
-                            : null;
+                          const className12 =
+                            index12 == index
+                              ? `${styles.openlist} sidebar-selected`
+                              : null;
 
-                        return (
-                          <>
-                            <div
-                              index={index2}
-                              className={`${styles.sub_header} ${subCategory == null
-                                  ? null
-                                  : subCategory == other.name
+                          return (
+                            <>
+                              <div
+                                index={index2}
+                                className={`${styles.sub_header} ${
+                                  subCategory == null
+                                    ? null
+                                    : subCategory == other.name
                                     ? styles.subSelected
                                     : null
                                 }`}
-                              onClick={() => {
-                                console.log(other, 'sidebarRoyte1')
-                                handleOpen(other.name, index2, '');
-                                Router.push(other.route);
-                              }}
-                            >
-                              <div>
-                                <img src={`${other.image}`}></img>
-                                <span
-                                  className={`${subCategory == null
-                                      ? null
-                                      : subCategory == other.name
+                                onClick={() => {
+                                  console.log(other, 'sidebarRoyte1');
+                                  handleOpen(other.name, index2, '');
+                                  Router.push(other.route);
+                                }}
+                              >
+                                <div>
+                                  <img src={`${other.image}`}></img>
+                                  <span
+                                    className={`${
+                                      subCategory == null
+                                        ? null
+                                        : subCategory == other.name
                                         ? styles.subSelected
                                         : null
                                     }`}
-                                >
-                                  {other.name}
-                                </span>
+                                  >
+                                    {other.name}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </>
-                        );
-                      })
+                            </>
+                          );
+                        })
                       : null}
                   </div>
                 </div>

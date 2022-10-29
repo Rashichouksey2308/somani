@@ -181,21 +181,20 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
     };
-    Axios.get(
+    let response = await Axios.get(
       `${API.corebaseUrl}${API.getDocuments}${payload}`,
       {
         headers: headers,
       },
       payload,
-    ).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(gettingDocumentsSuccess(response.data.data));
-        dispatch(setNotLoading());
-      } else {
-        dispatch(gettingDocumentsFailed(response.data.data));
-        dispatch(setNotLoading());
-      }
-    });
+    );
+    if (response.data.code === 200) {
+      dispatch(gettingDocumentsSuccess(response.data.data));
+      dispatch(setNotLoading());
+    } else {
+      dispatch(gettingDocumentsFailed(response.data.data));
+      dispatch(setNotLoading());
+    }
   } catch (error) {
     dispatch(gettingDocumentsFailed());
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
@@ -344,27 +343,31 @@ export const changeModuleDocument =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
     try {
-      Axios.post(`${API.corebaseUrl}${API.changeDocModule}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(changeModuleDocumentsSuccess(response.data.data));
-          let toastMessage = 'Document Successfully MOVED';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
-            });
-          }
-          dispatch(setNotLoading());
-        } else {
-          dispatch(changeModuleDocumentsFailed(response.data.data));
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.changeDocModule}`,
+        payload,
+        {
+          headers: headers,
+        },
+      );
+      if (response.data.code === 200) {
+        dispatch(changeModuleDocumentsSuccess(response.data.data));
+        let toastMessage = 'Document Successfully MOVED';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), {
+            toastId: toastMessage,
+          });
         }
-      });
+
+        dispatch(setNotLoading());
+      } else {
+        dispatch(changeModuleDocumentsFailed(response.data.data));
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
     } catch (error) {
       dispatch(changeModuleDocumentsFailed());
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';

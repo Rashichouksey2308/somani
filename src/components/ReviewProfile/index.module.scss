@@ -169,6 +169,7 @@
             }
             .checkBox {
               transform: scale(1.5);
+              margin-left: 20px;
               @include respond(lg-desktop) {
                 transform: scale(1.2);
               }

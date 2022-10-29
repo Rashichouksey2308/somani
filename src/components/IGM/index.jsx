@@ -297,7 +297,8 @@ export default function Index({
   console.log(igmList, 'igmList1223123');
   const onRemoveBlNumber = (index, index2) => {
     let tempArray = { ...igmList };
-    tempArray.igmDetails[index].blNumber.pop(index2);
+    tempArray.igmDetails[index].blNumber.splice(index2,1);
+   
     setIgmList(tempArray);
   };
 
@@ -619,18 +620,16 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {TransitDetails?.data
-                      ?.map((bl) => {
-                        return bl?.BL?.billOfLanding[0]?.blQuantity;
-                      })
-                      ?.toLocaleString('en-IN', {
-                        maximumFractionDigits: 2,
-                      })}{' '}
+                      {_get(
+                      TransitDetails,
+                      'data[0].order.quantity',
+                      '',
+                    )?.toLocaleString('en-IN')}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
                       '',
-                    )?.toUpperCase()}{' '}
+                    ).toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -975,17 +974,7 @@ export default function Index({
                                   </option>
                                 ))}
                               </select>
-                              {/* <input
-                            id="blNumber"
-                            onChange={(e) => onChangeBlNumberEntry(e)}
-                            className={`${styles.input_field} input form-control`}
-                             type="number"
-                                        onWheel={(event) =>
-                                          event.currentTarget.blur()
-                                        }
-                            onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                            required
-                          /> */}
+                         
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >

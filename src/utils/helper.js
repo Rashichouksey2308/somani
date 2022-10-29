@@ -117,6 +117,12 @@ export const addPrefixOrSuffix = (
         console.log(symbol, 'symbol');
       }
 
+      if (type == 'EUR') {
+        symbol = 'EUR';
+      }
+      if (type == 'CHF') {
+        symbol = 'CHF';
+      }
       if (type == 'EURO') {
         symbol = 'EURO';
       }
@@ -142,6 +148,9 @@ export const addPrefixOrSuffix = (
         .replaceAll('U', '')
         .replaceAll('U', '')
         .replaceAll('D', '')
+        .replaceAll('C', '')
+        .replaceAll('H', '')
+        .replaceAll('A', '')
         .replaceAll(',', '')
         .replace(/ /g, '');
 
@@ -234,6 +243,9 @@ export const removePrefixOrSuffix = (unitOfValue) => {
       .replaceAll('U', '')
       .replaceAll('U', '')
       .replaceAll('D', '')
+      .replaceAll('C', '')
+      .replaceAll('H', '')
+      .replaceAll('A', '')
       .replaceAll(',', '')
       .replace(/ /g, '')
       .replace(/ /g, '');
@@ -266,6 +278,7 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
 
 export const addPrefixSymbol = (type = '') => {
   if (type != undefined) {
+    console.log(type, 'type');
     let symbol = type;
     if (type == 'INR' || 'RUPEE') {
       symbol = 'INR';
@@ -276,8 +289,12 @@ export const addPrefixSymbol = (type = '') => {
       console.log(symbol, 'symbol');
     }
 
-    if (type == 'EURO') {
-      symbol = 'EURO';
+    if (type == 'EUR') {
+      symbol = 'EUR';
+    }
+
+    if (type == 'CHF') {
+      symbol = 'CHF';
     }
     if (type == 'BRITISHPOUND') {
       symbol = 'POUND';
