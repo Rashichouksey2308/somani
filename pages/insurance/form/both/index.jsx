@@ -161,10 +161,11 @@ const Index = () => {
     return date4.diff(date3, 'days');
   }
 
-  const gettingCompanyList = (e) => {
+  const gettingCompanyList = (name) => {
     
       let filter = getInternalCompaniesMasterData?.filter((val, index)=> {
-        if (val.Company_Name.toLowerCase() == e.target.value.toLowerCase()) {
+        console.log(val?.Company_Name?.toLowerCase(),name?.toLowerCase(),"val")
+        if (val?.Company_Name?.toLowerCase() == name?.toLowerCase()) {
       return val;
     }
   }) 
@@ -177,7 +178,8 @@ const Index = () => {
     // if(insuranceDocument){
     //   setStorageData(newInput)
     // }
-    setMarineData(newInput);
+    console.log(name, value,"newInput")
+    setMarineData({...newInput});
   };
 
   const saveDate = (value, name) => {
@@ -475,7 +477,12 @@ const Index = () => {
   const handleRoute = () => {
     Router.push('/insurance');
   };
+  useEffect(() =>{
+   
+ gettingCompanyList(marineData?.nameOfInsured||storageData?.nameOfInsured)
 
+  },[marineData,storageData])
+  console.log(marineData,"<marineData></marineData>")
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={`${styles.head_container} align-items-center`}>
@@ -719,11 +726,12 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured} onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            name="nameOfInsured"
+                            value={marineData?.nameOfInsured} onChange={(e)=>{gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                                <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
-                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1260,11 +1268,12 @@ const Index = () => {
                           /> */}
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                                <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
-                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1784,11 +1793,11 @@ const Index = () => {
                          
                           <div className="d-flex">
                             <select
-                            value={marineData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={marineData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveMarineData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
-                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -2134,11 +2143,11 @@ const Index = () => {
                         
                           <div className="d-flex">
                             <select
-                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
+                            value={storageData?.nameOfInsured} name='nameOfInsured' onChange={(e)=>{gettingCompanyList(e.target.value), saveStorageData(e.target.name, e.target.value)}}  className={`${styles.input_field} ${styles.customSelect} border_color input form-control`}
                             >
                               <option selected>Select</option>
                               <option value='Indo German International Private Limited' >Indo German International Private Limited</option>
-                              <option value='Emergent Industrial Solution limited' >Emergent Industrial Solution limited</option>
+                              <option value='Emergent Industrial Solutions limited' >Emergent Industrial Solutions limited</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
