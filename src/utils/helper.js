@@ -148,6 +148,9 @@ export const addPrefixOrSuffix = (
         .replaceAll('U', '')
         .replaceAll('U', '')
         .replaceAll('D', '')
+        .replaceAll('C', '')
+        .replaceAll('H', '')
+        .replaceAll('A', '')
         .replaceAll(',', '')
         .replace(/ /g, '');
 
@@ -240,6 +243,9 @@ export const removePrefixOrSuffix = (unitOfValue) => {
       .replaceAll('U', '')
       .replaceAll('U', '')
       .replaceAll('D', '')
+      .replaceAll('C', '')
+      .replaceAll('H', '')
+      .replaceAll('A', '')
       .replaceAll(',', '')
       .replace(/ /g, '')
       .replace(/ /g, '');
