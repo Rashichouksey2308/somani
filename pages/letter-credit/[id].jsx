@@ -607,7 +607,7 @@ function Index() {
                                 // }
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
-                                <option selected disabled>
+                                <option selected >
                                   Select an option
                                 </option>
 

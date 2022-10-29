@@ -211,7 +211,7 @@ function Index() {
     ) {
       setFieldType('date');
     } else if (e.target.value == 'partialShipment') {
-      setFieldType('select');
+     setFieldType('drop');
     } else {
       setFieldType('');
     }
@@ -247,7 +247,7 @@ function Index() {
   const addToArr = () => {
     // console.log(inputRef, 'THIS IN INPUT REF')
     // inputRef.current.value = '';
-    if (fieldType == 'date' || fieldType == 'select') {
+    if (fieldType == 'date' || fieldType == 'drop') {
       setFieldType('');
     }
     inputRef1.current.value = '';
@@ -594,10 +594,10 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          {fieldType == 'select' ? (
+                          {fieldType == 'drop' ? (
                             <>
                               <select
-                                defaultValue={
+                                value={
                                   editInput ? editCurrent?.newValue : ''
                                 }
                                 onChange={(e) => {
@@ -606,11 +606,12 @@ function Index() {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option disabled selected>
+                                <option  selected>
                                   Select an option
                                 </option>
-                                <option value="No">Prohibited</option>
                                 <option value="Yes">Allowed</option>
+                                <option value="No">Not Allowed</option>
+                                <option value="No">Conditional</option>
                               </select>
 
                               <img
@@ -625,12 +626,22 @@ function Index() {
                           >
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className="ml-4"
-                            src="/static/add-btn.svg"
-                            alt="add button"
-                            onClick={() => addToArr()}
-                          />
+                         {fieldType == '' ? (
+                            <img
+                              className={`${styles.add_btn} ml-4`}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          ) : (
+                            <img
+                              className={`${styles.add_btn}`}
+                              style={{ marginLeft: '40px' }}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          )}
                         </div>
                       </Col>
                     </Row>
