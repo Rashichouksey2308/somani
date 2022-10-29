@@ -914,10 +914,10 @@ function Index() {
     ).toFixed(2);
     // u calculation
     let revisedNetOrderValueNew = Number(
-      finalCalRevised?.totalOrderValue -
-        marginData?.calculation?.totalOrderValue,
+     Number(finalCalRevised?.totalOrderValue) -
+        Number(marginData?.calculation?.totalOrderValue),
     ).toFixed(2);
-
+   console.log(finalCalRevised?.totalOrderValue, marginData?.calculation?.totalOrderValue,"saddasd")
     let marginMoneyRevised = marginData?.calculation?.marginMoney;
     let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
 

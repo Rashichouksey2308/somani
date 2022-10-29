@@ -760,7 +760,7 @@ const Index = ({
                     required
                     id={'typeOfPort'}
                   >
-                    <option disabled selected>
+                    <option  selected>
                       Select an option
                     </option>
                     <option value="Load Port">Load Port</option>
