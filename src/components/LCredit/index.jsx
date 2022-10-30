@@ -204,14 +204,14 @@ function Index() {
 
   const [fieldType, setFieldType] = useState('');
 
-  const dropDownChange = (e) => {
+ const dropDownChange = (e) => {
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
     ) {
       setFieldType('date');
     } else if (e.target.value == 'partialShipment') {
-      setFieldType('select');
+      setFieldType('drop');
     } else {
       setFieldType('');
     }
@@ -221,14 +221,19 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text;
     let val2 = e.target.value;
     setDrop(val2);
-
-    newInput['existingValue'] = clauseData[e.target.value];
-    newInput['dropDownValue'] = val1;
-
+    console.log(
+      lcData[e.target.value],
+      'lcData[e.target.value]',
+      e.target.value,
+    );
+    newInput['existingValue'] = lcData[e.target.value] || '';
+    newInput['dropDownValue'] = val1 || '';
+    console.log(newInput, 'dropDownChange');
     setClauseObj(newInput);
   };
 
   const arrChange = (name, value) => {
+    console.log(name, value,"name, value")
     const newInput = { ...clauseObj };
     newInput[name] = value;
     setClauseObj(newInput);
@@ -237,39 +242,46 @@ function Index() {
     newInput1[drop] = value;
     setClauseData(newInput1);
   };
-
+ console.log(clauseObj,"arrChange")
   const saveDropDownDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
     arrChange(name, text);
   };
 
-  const addToArr = () => {
-    // console.log(inputRef, 'THIS IN INPUT REF')
-    // inputRef.current.value = '';
-    if (fieldType == 'date' || fieldType == 'select') {
+   const addToArr = () => {
+    if (fieldType == 'date' || fieldType == 'drop') {
       setFieldType('');
     }
     inputRef1.current.value = '';
     setClauseObj(initialState);
-    if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
-      let toastMessage = 'CANNOT ADD A CLAUSE WITH EMPTY VALUES';
+    const newArr = [...clauseArr];
+    if (
+      clauseObj.dropDownValue === 'Select an option' ||
+      clauseObj.dropDownValue === ''
+    ) {
+      let toastMessage = 'please select a dropdown value first ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage });
       }
     } else {
-      const newArr = [...clauseArr];
+    
       if (
         clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
       ) {
-        let toastMessage = 'Please select a different Clause from drop down';
+        let toastMessage = 'CLAUSE ALREADY ADDED';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage, { toastId: toastMessage });
         }
       } else {
         newArr.push(clauseObj);
 
         setClauseArr(newArr);
+        // setClauseObj({
+        //   existingValue: '',
+        //   dropDownValue: '',
+        //   newValue: '',
+        // })
       }
     }
   };
@@ -332,7 +344,7 @@ function Index() {
       dispatch(UpdateLcAmendment(fd));
     }
   };
-
+console.log(clauseObj,lcData,"sasdasdasd");
   return (
     <>
       {' '}
@@ -594,23 +606,22 @@ function Index() {
                               />
                             </>
                           ) : null}
-                          {fieldType == 'select' ? (
+                          {fieldType == 'drop' ? (
                             <>
                               <select
-                                defaultValue={
-                                  editInput ? editCurrent?.newValue : ''
-                                }
+                               value={clauseObj?.newValue}
                                 onChange={(e) => {
                                   // inputRef.current.value = ''
                                   arrChange('newValue', e.target.value);
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option disabled selected>
+                                <option  selected>
                                   Select an option
                                 </option>
-                                <option value="No">Prohibited</option>
                                 <option value="Yes">Allowed</option>
+                                <option value="No">Not Allowed</option>
+                                <option value="">Conditional</option>
                               </select>
 
                               <img
@@ -625,12 +636,22 @@ function Index() {
                           >
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className="ml-4"
-                            src="/static/add-btn.svg"
-                            alt="add button"
-                            onClick={() => addToArr()}
-                          />
+                         {fieldType == '' ? (
+                            <img
+                              className={`${styles.add_btn} ml-4`}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          ) : (
+                            <img
+                              className={`${styles.add_btn}`}
+                              style={{ marginLeft: '40px' }}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          )}
                         </div>
                       </Col>
                     </Row>
