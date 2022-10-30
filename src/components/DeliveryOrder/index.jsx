@@ -69,7 +69,7 @@ export default function Index(props) {
                       {Number(
                         _get(
                           props,
-                          'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+                          'ReleaseOrder.data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
                           '',
                         ),
                       )?.toLocaleString('en-In', {

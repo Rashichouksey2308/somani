@@ -115,6 +115,8 @@ function Index() {
   const liftingData = _get(allLiftingData, 'data[0]', '');
   const [lifting, setLifting] = useState([]);
 
+  console.log(liftingData,'lifting data')
+
   const addNewLifting = (value) => {
     setLifting([
       ...lifting,
@@ -351,7 +353,7 @@ function Index() {
     let number = Number(
       _get(
         ReleaseOrderData,
-        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+        'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
         0,
       ),
     );
