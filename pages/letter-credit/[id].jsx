@@ -605,6 +605,7 @@ function Index() {
                                 // value={
 
                                 // }
+                                value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
                                 <option selected >
@@ -613,7 +614,7 @@ function Index() {
 
                                 <option value="Yes">Allowed</option>
                                 <option value="No">Not Allowed</option>
-                                <option value="No">Conditional</option>
+                                <option value="">Conditional</option>
                               </select>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
