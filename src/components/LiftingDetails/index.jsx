@@ -437,9 +437,9 @@ export default function Index(props) {
                                           id={`inline-${type}-1`}
                                           value={'RR'}
                                           checked={
-                                            val2.modeOfTransportation == 'RR'
-                                              ? 'checked'
-                                              : ''
+                                            val2?.modeOfTransportation === 'RR'
+                                              ? true
+                                              : false
                                           }
                                           onChange={(e) => {
                                             props.handleChange(
@@ -459,9 +459,9 @@ export default function Index(props) {
                                           id={`inline-${type}-2`}
                                           value={'LR'}
                                           checked={
-                                            val2.modeOfTransportation == 'LR'
-                                              ? 'checked'
-                                              : ''
+                                            val2.modeOfTransportation !== 'RR'
+                                              ? true
+                                              : false
                                           }
                                           onChange={(e) => {
                                             props.handleChange(

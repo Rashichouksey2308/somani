@@ -31,7 +31,7 @@ export default function Index({
   }, [ReleaseOrderData]);
   let InvoiceQuantity = _get(
     ReleaseOrderData,
-    'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+    'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
     0,
   );
 
@@ -156,7 +156,7 @@ export default function Index({
       Number(
         _get(
           ReleaseOrderData,
-          'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
           0,
         ),
       ) < Number(e.target.value)
@@ -335,7 +335,7 @@ export default function Index({
                       {Number(
                         _get(
                           ReleaseOrderData,
-                          'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+                          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
                           0,
                         ),
                       )?.toLocaleString('en-In', {
