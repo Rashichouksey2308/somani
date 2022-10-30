@@ -115,7 +115,7 @@ function Index() {
   const liftingData = _get(allLiftingData, 'data[0]', '');
   const [lifting, setLifting] = useState([]);
 
-  console.log(liftingData,'lifting data')
+  console.log(liftingData, 'lifting data');
 
   const addNewLifting = (value) => {
     setLifting([
@@ -150,19 +150,16 @@ function Index() {
           LRorRRDoc: {},
           eWayBillDoc: {},
           destination: '',
-          rrlrNumber: '', 
+          rrlrNumber: '',
         });
       }
-     
     });
     setLifting([...tempArr]);
   };
   const deleteNewRow = (index, index2) => {
-     let tempArr = [...lifting];
-     tempArr[index].detail.splice(index2, 1)
-     setLifting([...tempArr])
-  
-  
+    let tempArr = [...lifting];
+    tempArr[index].detail.splice(index2, 1);
+    setLifting([...tempArr]);
   };
   const handleChange = (name, value, index, index2) => {
     console.log(index, index2, 'date');
@@ -182,56 +179,193 @@ function Index() {
     setLifting([...tempArr]);
   };
 
-  const handleLiftingSubmit = () => {
-    let tempArr = [];
-    let temp2 = [];
-    lifting.forEach((val, index) => {
-      console.log(val, 'val88');
-      if (val.detail.modeOfTransportation == 'RR') {
-        val.detail.map((val2, index2) => {
-          temp2.push({
-            dateOfLifting: val2.dateOfLifting,
-            liftingQuantity: val2.liftingQuant,
-            unitOfQuantity: val2.unitOfQuantity,
-            modeOfTransport: val2.modeOfTransportation,
-            ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc || {},
-            RRDocument: val2.LRorRRDoc || {},
-            destination: val2.destination,
-            rrlrNumber: val2.rrlrNumber,
-          });
-        });
-        tempArr.push({
-          deliveryOrder: val.deliveryOrder,
-          deliveryOrderDetail: temp2,
-        });
-      } else {
-        val.detail.map((val2, index2) => {
-          temp2.push({
-            dateOfLifting: val2.dateOfLifting,
-            liftingQuantity: val2.liftingQuant,
-            unitOfQuantity: val2.unitOfQuantity,
-            modeOfTransport: val2.modeOfTransportation,
-            ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc || {},
-            LRDocument: val2.LRorRRDoc || {},
-            destination: val2.destination,
-            rrlrNumber: val2.rrlrNumber,
-          });
-        });
-        tempArr.push({
-          deliveryOrder: val.deliveryOrder,
-          deliveryOrderDetail: temp2,
-        });
+  const liftingValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= lifting.length - 1; i++) {
+      if (returnLiftingData(lifting[i].deliveryOrder).balaceQuantity < 0) {
+        isOk = false;
+        break;
       }
-    });
+      for (let j = 0; j <= lifting[i].detail.length - 1; j++) {
+        if (
+          lifting[i].detail[j]?.dateOfLifting == '' ||
+          lifting[i].detail[j]?.dateOfLifting == null
+        ) {
+          toastMessage = `please provide Date Of lifting Of lifting Details   ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.liftingQuant == '' ||
+          lifting[i].detail[j]?.liftingQuant == null
+        ) {
+          toastMessage = `please provide lifting Quantity Of lifting Details   ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
 
-    let data = {
-      liftingId: _get(ReleaseOrderData, 'data[0].order.lifting', ''),
-      liftingOrders: tempArr,
-    };
-    console.log(data, 'datatoSend');
-    dispatch(UpdateLiftingData(data));
+        if (
+          lifting[i].detail[j]?.modeOfTransportation == '' ||
+          lifting[i].detail[j]?.modeOfTransportation == null
+        ) {
+          toastMessage = `please provide mode Of Transportation Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.rrlrNumber == '' ||
+          lifting[i].detail[j]?.rrlrNumber == null
+        ) {
+          toastMessage = `please provide rr/lr Number  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.destination == '' ||
+          lifting[i].detail[j]?.destination == null
+        ) {
+          toastMessage = `please provide destination  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBill == '' ||
+          lifting[i].detail[j]?.eWayBill == null
+        ) {
+          toastMessage = `please provide a eWay Bill  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBill == '' ||
+          lifting[i].detail[j]?.eWayBill == null
+        ) {
+          toastMessage = `please provide a eWay Bill   Of lifting Details ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.LRorRRDoc.originalName == '' ||
+          !lifting[i].detail[j]?.LRorRRDoc.originalName
+        ) {
+          toastMessage = `please upload ${
+            lifting[i].detail[j]?.modeOfTransportation
+          }  document  Of Listing Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBillDoc.originalName == '' ||
+          !lifting[i].detail[j]?.eWayBillDoc.originalName
+        ) {
+          toastMessage = `please upload a eWay Bill  Of Listing Details  Of Listing Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+      }
+    }
+
+    return isOk;
+  };
+
+  const handleLiftingSubmit = () => {
+    if (liftingValidation()) {
+      let tempArr = [];
+      let temp2 = [];
+      lifting.forEach((val, index) => {
+        console.log(val, 'val88');
+        if (val.detail.modeOfTransportation == 'RR') {
+          val.detail.map((val2, index2) => {
+            temp2.push({
+              dateOfLifting: val2.dateOfLifting,
+              liftingQuantity: val2.liftingQuant,
+              unitOfQuantity: val2.unitOfQuantity,
+              modeOfTransport: val2.modeOfTransportation,
+              ewayBillNo: val2.eWayBill,
+              ewayBillDocument: val2.eWayBillDoc || {},
+              RRDocument: val2.LRorRRDoc || {},
+              destination: val2.destination,
+              rrlrNumber: val2.rrlrNumber,
+            });
+          });
+          tempArr.push({
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2,
+          });
+        } else {
+          val.detail.map((val2, index2) => {
+            temp2.push({
+              dateOfLifting: val2.dateOfLifting,
+              liftingQuantity: val2.liftingQuant,
+              unitOfQuantity: val2.unitOfQuantity,
+              modeOfTransport: val2.modeOfTransportation,
+              ewayBillNo: val2.eWayBill,
+              ewayBillDocument: val2.eWayBillDoc || {},
+              LRDocument: val2.LRorRRDoc || {},
+              destination: val2.destination,
+              rrlrNumber: val2.rrlrNumber,
+            });
+          });
+          tempArr.push({
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2,
+          });
+        }
+      });
+
+      let data = {
+        liftingId: _get(ReleaseOrderData, 'data[0].order.lifting', ''),
+        liftingOrders: tempArr,
+      };
+      console.log(data, 'datatoSend');
+      dispatch(UpdateLiftingData(data));
+    }
   };
   //console.log(lifting, "newLift")
 
@@ -434,16 +568,14 @@ function Index() {
           if (value !== 'Not Available') {
             val.Quantity = filteredArray[0]?.netQuantityReleased;
           } else {
-            tempArr[index].Quantity = 0
+            tempArr[index].Quantity = 0;
           }
-
 
           val.deliveryOrderNo = tempString;
         }
         val[name] = value;
       }
     });
-
 
     setDeliveryOrder([...tempArr]);
   };
@@ -456,8 +588,9 @@ function Index() {
         deliveryOrder[i]?.Quantity == '' ||
         deliveryOrder[i]?.Quantity == null
       ) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1
-          }  `;
+        toastMessage = `please provide quantity for delivery  order   ${
+          i + 1
+        }  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -543,8 +676,6 @@ function Index() {
     });
 
     setLifting([...temp]);
-
-
 
     //   setList(prevState => {
     //   const newState = prevState.map((obj, i) => {
@@ -716,8 +847,7 @@ function Index() {
                       handleLiftingSubmit={handleLiftingSubmit}
                       removeLiftinDoc={removeLiftinDoc}
                       ReleaseOrderData={ReleaseOrderData}
-                      deleteNewRow= {deleteNewRow}
-
+                      deleteNewRow={deleteNewRow}
                     />
                   </div>
                 </div>
