@@ -27,7 +27,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     },
     document: null,
   });
-
+console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wareHouseDetails?.quantity")
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {});
 
@@ -220,7 +220,11 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : warehouseDetails?.wareHouseDetails?.quantity == 0
+                          : warehouseDetails?.wareHouseDetails?.quantity == 0 
+                          ||
+                            warehouseDetails?.wareHouseDetails?.quantity == NaN ||
+                             warehouseDetails?.wareHouseDetails?.quantity==undefined
+                          || warehouseDetails?.wareHouseDetails?.quantity == ''
                           ? ''
                           : Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
