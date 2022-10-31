@@ -2817,12 +2817,12 @@ console.log(lcModuleData,"lcModuleData")
                         <td width="40%">1</td>
                         <td className="border-top-0">
                           <div
-                        className={`${styles.datatable} mb-5 ml-5 datatable `}
+                        className={`${styles.datatable} datatable `}
                       >
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
                             <table
-                              className={`${styles.table} table`}
+                              className={`${styles.table} ${styles.add_cond_table} table`}
                               cellPadding="0"
                               cellSpacing="0"
                               border="0"
