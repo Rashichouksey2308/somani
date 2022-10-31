@@ -24,7 +24,7 @@ function Index(props) {
   const [addressList, setAddressList] = useState([]);
   const [docList, setDocList] = useState([]);
   const [doc, setdoc] = useState({ attachDoc: '' });
-  const [pan, setPan] = useState('AAACI3028D');
+  const [pan, setPan] = useState('');
   const [removedOption, setRemovedOption] = useState(null);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
@@ -61,6 +61,8 @@ function Index(props) {
           name: savedData.name || 'Indo German International Private Limited',
           branchName: savedData.branchName,
         };
+        setGstin(savedData.gstin||"")
+        setPan(savedData.pan||"")
         // if (savedData.branchName == 'Delhi') {
         //   setGstin('07AAACI3028D1Z4');
         // } else if (savedData.branchName == 'Andhra Pradesh') {
@@ -101,6 +103,8 @@ function Index(props) {
             props?.data?.name || 'Indo German International Private Limited',
           branchName: props?.data?.branch,
         };
+        setGstin(props?.data.gstin||"")
+        setPan(props?.data.pan||"")
         // if (props?.data?.branch == 'Delhi') {
         //   setGstin('07AAACI3028D1Z4');
         // } else if (props?.data?.branch == 'Andhra Pradesh') {
@@ -171,6 +175,8 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
+        gstin:gstin,
+        pan,gstin
       };
       props.sendData('Buyer', data);
     }
@@ -180,6 +186,8 @@ function Index(props) {
         list: list,
         addresses: addressList,
         list: list,
+        gstin:gstin,
+        pan,gstin
       };
 
       props.updateData('Buyer', data);
@@ -536,8 +544,12 @@ function Index(props) {
                                 city: "",
                               },
                             ]);
+                            
                         }
                          
+                        }else{
+                           setGstin("");
+                            setPan("");
                         }
                    
     
@@ -556,6 +568,7 @@ function Index(props) {
                         return val
                       }
                     })
+                    console.log(otherData)
                     if(otherData.length > 0){
                      setGstin(otherData[0].GSTIN);
                      setPan(otherData[0].PAN);
@@ -599,7 +612,11 @@ function Index(props) {
                                 city: "",
                               },
                             ]);
+                             
                         }
+                    }else{
+                      setGstin("");
+                             setPan("");
                     }
         // if (buyerData.branchName == 'Delhi') {
         //   setGstin('07AAACS8253L1Z0');
@@ -698,10 +715,13 @@ function Index(props) {
                   value={buyerData.branchName}
                   onChange={(e) => {
                     let filter =props.internal.filter((val)=>{
-                      if(val.Company_Name==e.target.value){
+                      if(val.Company_Name?.toLowerCase()==e.target.value?.toLowerCase()){
                         return val
                       }
                     })
+                    console.log(filter,"filter")
+                    //  setGstin(props?.data.gstin||"")
+                    //  setPan(props?.data.pan||"")
                     setBranchOptions([...filter])
                     handleInput(e.target.name, e.target.value);
                   }}
