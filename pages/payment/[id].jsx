@@ -111,7 +111,7 @@ function Index() {
       );
     }
   }, [ReleaseOrderData]);
-  console.log(allLiftingData, 'allLiftingData');
+  console.log(ReleaseOrderData, 'ReleaseOrderData');
   const liftingData = _get(allLiftingData, 'data[0]', '');
   const [lifting, setLifting] = useState([]);
 
