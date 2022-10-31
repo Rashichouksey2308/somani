@@ -21,6 +21,7 @@ function Index() {
   };
   const [quantity,setQuantity] = useState(0);
   const [balanceQuantity,setbalanceQuantity] = useState(0);
+   const [releasedQuantity,setreleasedQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
  
   console.log(DeliveryNo,"DeliveryNo")
@@ -52,6 +53,7 @@ function Index() {
       ),
     );
      const balance = sessionStorage.getItem('balanceQuantity');
+     setreleasedQuantity(balance)
      setbalanceQuantity(number-balance)
       }
     }
@@ -162,7 +164,7 @@ function Index() {
                 >
                   <span className={styles.head}>2) Quantity : </span>{' '}
                   <span className={`${styles.bold} `}>
-                    {quantity} {_get(
+                    {releasedQuantity} {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
