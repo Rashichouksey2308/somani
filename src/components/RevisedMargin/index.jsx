@@ -25,6 +25,7 @@ const Index = ({
   getBanksMasterData,
   savedataRevised,
 }) => {
+  console.log(invoiceDataRevised,"invoiceDataRevised")
   console.log(marginData, 'marginData');
  const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -1408,19 +1409,57 @@ const Index = ({
                                           console.log(filter,"filter")
                                           if(filter.length>0){
 
-                                         
-                                        const newInput = { ...invoiceDataRevised };
-                                        changeImporterData.address = filter[0].Address;
-                                        newInput['companyAddress'] = filter[0].Address;
-                                        changeImporterData.GSTIN = filter[0].GSTIN;
-                                        newInput['importerGSTIN'] = filter[0].GSTIN;
-                                        changeImporterData.branch = e.target.value;
-                                   
-                                        newInput['branchOffice'] = e.target.value;
+                                         if (filter.length > 0) {
+                                          console.log(invoiceDataRevised,
+                                            "invoiceDataRevised")
+                                      const newInput = { ...invoiceDataRevised };
+                                      changeImporterData.address =
+                                        filter[0].Address;
+                                      newInput['companyAddress'] =
+                                        filter[0].Address;
                                      
-                                        setChangeImporterData({ ...changeImporterData });
-                                        setInvoiceDataRevised({ ...newInput });
-                                         }
+                                        changeImporterData.GSTIN =
+                                        filter[0].GSTIN;
+                                      newInput['importerGSTIN'] =
+                                        filter[0].GSTIN;
+                                     
+                                      newInput['branchAddress'] =
+                                        filter[0]?.Branch_Address || "";
+                                      changeImporterData.branchAddress =
+                                        filter[0]?.Branch_Address || "";
+                                       
+                                        newInput['IFSCcode'] =
+                                        filter[0]?.IFSC || "";
+                                      changeImporterData.IFSCcode =
+                                        filter[0]?.IFSC || "";
+                                      
+                                        newInput['accountNo'] =
+                                        filter[0]?.Account_No || "";
+                                      changeImporterData.accountNo =
+                                        filter[0]?.Account_No || "";
+
+                                    
+                                     
+                                      newInput['branch'] =
+                                        filter[0]?.Branch_Type || "";
+                                      changeImporterData.branch =
+                                        filter[0]?.Branch_Type || "";
+                                      
+                                       newInput['bankName'] =
+                                        filter[0]?.Bank_Name || "";
+                                      changeImporterData.bankName =
+                                        filter[0]?.Bank_Name || "";
+                                     
+                                       newInput['branchOffice'] = e.target.value;
+                                       changeImporterData.branch =
+                                         e.target.value
+                                        setChangeImporterData({
+                                        ...changeImporterData,
+                                      });
+                                      setInvoiceDataRevised({ ...newInput });
+                                    }
+                 
+                                   }
                                   }}
                     >
                       <option selected >
@@ -1495,13 +1534,15 @@ const Index = ({
 
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <div className="d-flex">
-                    <select
+                    <input
+                     type="text"
                       id="Code"
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
                       value={
-                        marginData?.revisedMarginMoney?.invoiceDetail?.bankName
+                       
+                        invoiceDataRevised?.bankName
                       }
                       onChange={(e) =>
                        {
@@ -1509,23 +1550,23 @@ const Index = ({
                           e.target.name,
                           e.target.value,
                         )
-                          let filter=getBanksMasterData.filter((val,index)=>{
-                                      if(val.name==e.target.value){
-                                        return val
-                                      }
-                                    })
-                                    console.log(filter,"filter")
-                                    dispatch(getBranches(filter[0].code))
+                          // let filter=getBanksMasterData.filter((val,index)=>{
+                          //             if(val.name==e.target.value){
+                          //               return val
+                          //             }
+                          //           })
+                          //           console.log(filter,"filter")
+                          // dispatch(getBranches(filter[0].code))
                        }
                       }
                     >
-                      <option selected disabled>
+                      {/* <option selected disabled>
                         Select an option
                       </option>
                        {getBanksMasterData.map((val,index)=>{
                                    return <option value={`${val.name}`}>{val.name}</option>
-                         })}
-                    </select>
+                         })} */}
+                    </input>
                     <label
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
@@ -1533,21 +1574,23 @@ const Index = ({
                       Bank Name
                       <strong className="text-danger">*</strong>
                     </label>
-                    <img
+                    {/* <img
                       className={`img-fluid  image_arrow ${styles.arrow}`}
                       src="/static/inputDropDown.svg"
-                    ></img>
+                    ></img> */}
                   </div>
                 </div>
                 <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <div className="d-flex">
-                    <select
+                    <input
+                    type="text"
                       id="Code"
                       name="branch"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={
-                        marginData?.revisedMarginMoney?.invoiceDetail?.branch
+                      value={
+                        invoiceDataRevised?.branch
+                         
                       }
                       onChange={(e) =>
                        {
@@ -1555,24 +1598,24 @@ const Index = ({
                           e.target.name,
                           e.target.value,
                         )
-                      let filter=getBranchesMasterData.filter((val,index)=>{
-                            if(val.BRANCH==e.target.value){
-                              return val
-                            }
-                          })
+                      // let filter=getBranchesMasterData.filter((val,index)=>{
+                      //       if(val.BRANCH==e.target.value){
+                      //         return val
+                      //       }
+                      //     })
                           
                                     
-                         savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
+                      //    savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
                        }
                       }
                     >
-                      <option selected disabled>
+                      {/* <option selected disabled>
                         Select an option
                       </option>
                      {getBranchesMasterData.map((val,index)=>{
                                   return  <option value={`${val.BRANCH}`}>{val.BRANCH}</option>
-                                  })}
-                    </select>
+                                  })} */}
+                    </input>
                     <label
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
@@ -1580,10 +1623,10 @@ const Index = ({
                       Branch
                       <strong className="text-danger">*</strong>
                     </label>
-                    <img
+                    {/* <img
                       className={`img-fluid image_arrow ${styles.arrow}`}
                       src="/static/inputDropDown.svg"
-                    ></img>
+                    ></img> */}
                   </div>
                 </div>
 
@@ -1599,10 +1642,7 @@ const Index = ({
                       )
                     }
                     value={
-                      invoiceDataRevised.branchAddress?
-                      invoiceDataRevised.branchAddress:
-                      marginData?.revisedMarginMoney?.invoiceDetail
-                        ?.branchAddress 
+                      invoiceDataRevised.branchAddress
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1627,8 +1667,7 @@ const Index = ({
                       )
                     }
                     value={
-                      invoiceDataRevised.IFSCcode?invoiceDataRevised.IFSCcode:
-                      marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode
+                      invoiceDataRevised.IFSCcode 
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1652,8 +1691,8 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={
-                      marginData?.revisedMarginMoney?.invoiceDetail?.accountNo
+                    value={
+                      invoiceDataRevised.accountNo
                     }
                     className={`${styles.input_field} input form-control`}
                     required
