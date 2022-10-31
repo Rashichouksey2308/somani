@@ -867,7 +867,7 @@ function Index() {
                             <br></br>
                             {_get(
                               insuranceData,
-                              'order.generic.buyer.addresses[0].gstin',
+                              'order.generic.buyer.gstin',
                               '',
                             )}
                           </p>
@@ -1303,7 +1303,7 @@ function Index() {
                     ,<br></br>
                     {_get(
                       insuranceData,
-                      'order.generic.buyer.addresses[0].gstin',
+                      'order.generic.buyer.gstin',
                       '',
                     )}
                   </Col>
