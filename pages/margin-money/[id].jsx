@@ -856,7 +856,7 @@ function Index() {
     marginMoneyPayable: '',
   });
 
-
+  console.log(calcRevised ,'calcRevised')
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName:  '',
