@@ -973,7 +973,32 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {insuranceData?.company?.companyName}
+                            {insuranceData?.order?.generic?.buyer?.name} ,{' '}
+                            <br></br>{' '}
+                            {_get(
+                              insuranceData,
+                              'order.generic.buyer.addresses[0].fullAddress',
+                              '',
+                            )}{' '}
+                            <br></br>
+                            {_get(
+                              insuranceData,
+                              'order.generic.buyer.addresses[0].state',
+                              '',
+                            )}{' '}
+                            <br></br>
+                            {_get(
+                              insuranceData,
+                              'order.generic.buyer.addresses[0].country',
+                              '',
+                            )}{' '}
+                            <br></br>
+                            {_get(
+                              insuranceData,
+                              'order.generic.buyer.gstin',
+                              '',
+                            )}{' '}
+                            <br></br>
                           </p>
                         </td>
                       </tr>
@@ -1439,11 +1464,30 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} , <br></br>{' '}
-                    {
-                      insuranceData?.company?.detailedCompanyInfo?.profile
-                        ?.companyDetail?.registeredAddress
-                    }
+                    {insuranceData?.order?.generic?.buyer?.name} , <br></br>{' '}
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].fullAddress',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].state',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].country',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.gstin',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

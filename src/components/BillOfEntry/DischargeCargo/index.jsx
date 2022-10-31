@@ -25,14 +25,29 @@ export default function Index({
   console.log(customData, 'customData');
 
   const dispatch = useDispatch();
-
-  const sumOfDischargeQuantities =
-    customData &&
-    customData?.billOfEntry?.billOfEntry?.reduce(
+ const [sumOfDischargeQuantities,setSum]=useState('')
+ useEffect(() => {
+ if(customData){
+let data=customData?.billOfEntry?.billOfEntry?.reduce(
       (previousValue, currentValue) =>
         previousValue + Number(currentValue?.boeDetails?.invoiceQuantity),
       0,
-    );
+    )
+    console.log(data,"data1111")
+    if(data==NaN || data=="NaN" || data == undefined){
+     setSum('')
+    }else{
+     setSum(data)
+    }
+   
+ }
+
+    
+ },[
+  customData
+ ])
+  
+    
 
   console.log(sumOfDischargeQuantities, 'sumOf');
 
@@ -450,13 +465,21 @@ export default function Index({
                         ['e', 'E', '+', '-'].includes(evt.key) &&
                         evt.preventDefault()
                       }
-                      value={
+                       value={
                         isFieldInFocus
                           ? sumOfDischargeQuantities
-                          : Number(sumOfDischargeQuantities)?.toLocaleString(
-                              'en-IN',
-                            ) + ` MT`
+                          : sumOfDischargeQuantities == 0 
+                          ||
+                            sumOfDischargeQuantities == NaN ||
+                             sumOfDischargeQuantities==undefined
+                          || sumOfDischargeQuantities == ''
+                          ? ''
+                          : Number(
+                              sumOfDischargeQuantities,
+                            )?.toLocaleString('en-IN') +
+                            ` MT`
                       }
+                    
                       name="dischargeQuantity"
                       onChange={(e) =>
                         onChangeDischargeOfCargo(e.target.name, e.target.value)

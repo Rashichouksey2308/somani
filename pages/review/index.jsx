@@ -75,6 +75,7 @@ import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
 import _get from 'lodash/get';
 import Router from 'next/router';
+import {McaReportFetch} from '../../src/redux/mcaReport/action'
 
 let alertObj = {
   isShell: 'Shell',
@@ -1836,11 +1837,10 @@ function Index() {
   };
 
   const handleMcaReport = () => {
-    if (companyData?.mcaDocs[0].s3Path || companyData?.mcaDocs[0].s3Path !== '') {
-      console.log(companyData?.mcaDocs[0].s3Path, 'companyData')
+    if (_get(companyData,'mcaDocs[0].s3Path','') !== '') {
       dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }))
     } else {
-      dispatch(McaReportFetch({company: orderList.company._id , order : orderList?._id}))
+       dispatch(McaReportFetch({company: orderList.company._id , order : orderList?._id}))
     }
   }
 

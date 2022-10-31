@@ -20,8 +20,10 @@ function Index() {
     setShow(true);
   };
   const [quantity,setQuantity] = useState(0);
+  const [balanceQuantity,setbalanceQuantity] = useState(0);
+   const [releasedQuantity,setreleasedQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
-  const balanceQuantity = sessionStorage.getItem('balanceQuantity');
+ 
   console.log(DeliveryNo,"DeliveryNo")
  const { ReleaseOrderData } = useSelector((state) => state.Release);
  console.log(ReleaseOrderData,"ReleaseOrderData")
@@ -42,6 +44,18 @@ function Index() {
 
       })
       setQuantity(temp)
+      if(window){
+       let number = Number(
+      _get(
+        ReleaseOrderData,
+        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+        0,
+      ),
+    );
+     const balance = sessionStorage.getItem('balanceQuantity');
+     setreleasedQuantity(balance)
+     setbalanceQuantity(number-balance)
+      }
     }
   },[ReleaseOrderData])
   return (
@@ -71,7 +85,7 @@ function Index() {
           >
             <div className={`${styles.date} `}>
               <p>
-                DO.NO: <span className={`${styles.bold}`}>{DeliveryNo}</span>
+                DO.NO: <span className={`${styles.bold}`}>{DeliveryNo} {" "} / {" "} {_get(ReleaseOrderData,"data[0].order.generic.shippingLine.vesselName","")}</span>
               </p>
               <p>
                 DATE: <span className={`${styles.bold}`}>{moment().format("DD.MM.YYYY")}</span>
@@ -86,19 +100,28 @@ function Index() {
           <div className={`${styles.content}`}>
             <p>To:</p>
             <p className={`${styles.bold} ${styles.width} w-50`}>
-             {_get(ReleaseOrderData,"data[0].order.generic.CHA.name","") || _get(ReleaseOrderData,"data[0].order.generic.stevedore.name","")},
+             {_get(ReleaseOrderData,"data[0].order.generic.CHA.name","")!==""?_get(ReleaseOrderData,"data[0].order.generic.CHA.name",""): _get(ReleaseOrderData,"data[0].order.generic.stevedore.name","")},
              <br></br>
-              <span>
+             {_get(ReleaseOrderData,"data[0].order.generic.CHA.name","")!==""?
+             <span>
               {_get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].fullAddress","")},
               { _get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].state","")},
               { _get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].pinCode","")}
  
+              </span>:
+              <span>
+              {_get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].fullAddress","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].state","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].pinCode","")}
+ 
               </span>
+            }
+              
             </p>
 
             <div>
               {
-                _get(ReleaseOrderData,"data[0].order.generic.CHA.authorisedSignatoryDetails",[]).map((val,index)=>{
+                _get(ReleaseOrderData,"data[0].order.generic.associateBuyer.authorisedSignatoryDetails",[]).map((val,index)=>{
                   return (
                     <>
                     CC:{' '}
@@ -119,9 +142,23 @@ function Index() {
             </div>
             <p>
               Kind Attn.{' '}
-              <span className={`${styles.bold} w-50`}>
+              
+               {
+                _get(ReleaseOrderData,"data[0].order.generic.stevedore.authorisedSignatoryDetails",[]).map((val,index)=>{
+                  return (
+                    <>
+                  
+                    <span className={`${styles.bold} ${styles.width2} `}>
+                     {`${index!==0?"/":""}${val.name} `}
+                     
+                    </span>
+                    </>
+                  )
+                })
+              }
+              {/* <span className={`${styles.bold} w-50`}>
                 Mr. N.A. Khan / Mr. Nabin Chand Boyed.
-              </span>
+              </span> */}
             </p>
             <div className={`${styles.letter_content}`}>
               <p>Dear Sir,</p>
@@ -150,11 +187,11 @@ function Index() {
                 >
                   <span className={styles.head}>2) Quantity : </span>{' '}
                   <span className={`${styles.bold} `}>
-                    {quantity} {_get(
+                    {releasedQuantity} {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
-                      ).toUpperCase()}. {" "}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
+                      ).toUpperCase()}s. {" "}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
                   </span>
                 </div>
                 <div
@@ -170,7 +207,7 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
-                      ).toUpperCase()}</p>
+                      ).toUpperCase()}s</p>
                   </span>
                 </div>
               </div>

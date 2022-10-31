@@ -1650,7 +1650,14 @@ console.log(lcModuleData,"lcModuleData")
                         </tr>
                       
                         <tr></tr>
-                        <tr>                          
+                         {
+                                  _get(
+                                lcModule,
+                                'data[0].order.generic.productSpecifications.specificationTable',
+                                []
+                                 ).length>0?
+                                 <>
+                                 <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
                           </td>
@@ -1704,6 +1711,9 @@ console.log(lcModuleData,"lcModuleData")
                             </table>
                           </td>
                         </tr>
+                                 </>
+                                 :null}
+                        
                           {lcModuleData &&
                           lcModuleData?.additionalConditions?.map(
                             (comment, index) => (
@@ -1737,7 +1747,7 @@ console.log(lcModuleData,"lcModuleData")
                                         fontWeight: '500',
                                       }}
                                     >
-                                      {index + 2}
+                                      {getIndex(index)}
                                     </span>
                                   </p>
                                 </td>
@@ -2346,7 +2356,18 @@ console.log(lcModuleData,"lcModuleData")
       },
     );
   };
+const getIndex=(index)=>{
+  if( _get(
+                                lcModule,
+                                'data[0].order.generic.productSpecifications.specificationTable',
+                                []
+                                 ).length>0){
+                                 return index=index+2
+                                 }else{
+                                  return index+1
+                                 }
 
+}
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -2812,8 +2833,14 @@ console.log(lcModuleData,"lcModuleData")
                       </tr>
                       
                      
-                      
-                      <tr className="table_row">
+                        {
+                                  _get(
+                                lcModule,
+                                'data[0].order.generic.productSpecifications.specificationTable',
+                                []
+                                 ).length>0?
+                                 <>
+                                  <tr className="table_row">
                         <td width="40%">1</td>
                         <td className="border-top-0">
                           <div
@@ -2828,42 +2855,43 @@ console.log(lcModuleData,"lcModuleData")
                               border="0"
                             >
                               <tbody>
+                              
                                 <tr className="table_row">
                                   {_get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      ) &&
+                                  lcModule,
+                                  'data[0].order.generic.productSpecifications.specificationTable',
+                                  [],
+                                ) &&
                                     _get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      ).length > 0 &&
+                                    lcModule,
+                                    'data[0].order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  ).length > 0 &&
                                     Object.keys(_get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      )[0]).map(
-                                      (val, index) => (
+                                    lcModule,
+                                    'data[0].order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  )[0]).map(
+                                        (val, index) => (
                                         <th key={index}>{val}</th>
                                       ),
                                     )}
                                 </tr>
                                 {_get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      ) &&
-                                  _get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      ).length > 0 &&
-                                  _get(
-        lcModule,
-        'data[0].order.generic.productSpecifications.specificationTable',
-        [],
-      ).map((item, index) => (
+                                    lcModule,
+                                    'data[0].order.generic.productSpecifications.specificationTable',
+                                    [],
+                                        ) &&
+                                        _get(
+                                        lcModule,
+                                        'data[0].order.generic.productSpecifications.specificationTable',
+                                        [],
+                                      ).length > 0 &&
+                                        _get(
+                                    lcModule,
+                                    'data[0].order.generic.productSpecifications.specificationTable',
+                                    [],
+                                  ).map((item, index) => (
                                     <tr>
                                       {Object.values(item).map((value, id) => (
                                         <td key={id}>{value}</td>
@@ -2877,12 +2905,16 @@ console.log(lcModuleData,"lcModuleData")
                       </div>
                         </td>
                       </tr>
+                                 </>
+                                 :null
+                                }
+                     
                        {lcModuleData &&
                         lcModuleData?.additionalConditions?.map(
                           (comment, index) => (
                             <tr key={index} className="table_row">
                               <td className="border-top-0" width="40%">
-                                {(index += 2)}
+                                {getIndex(index)}
                               </td>
                               <td className="border-top-0">{comment}</td>
                             </tr>

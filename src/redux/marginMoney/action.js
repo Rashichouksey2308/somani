@@ -228,6 +228,9 @@ export const RevisedMarginMoney =
               toastId: toastMessage,
             });
           }
+          let id = sessionStorage.getItem('marginId');
+
+          dispatch(GetMarginMoney({ orderId: id }));
           dispatch(setNotLoading());
           // router.push('/margin-money')
         } else {

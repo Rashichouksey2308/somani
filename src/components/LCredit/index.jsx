@@ -218,8 +218,8 @@ function Index() {
 
     let newInput = { ...clauseObj };
 
-    let val1 = e.target.options[e.target.selectedIndex].text;
-    let val2 = e.target.value;
+    let val1 = e.target.options[e.target.selectedIndex].text || "";
+    let val2 = e.target.value || "";
     setDrop(val2);
     console.log(
       lcData[e.target.value],
@@ -228,6 +228,7 @@ function Index() {
     );
     newInput['existingValue'] = lcData[e.target.value] || '';
     newInput['dropDownValue'] = val1 || '';
+    newInput['newValue'] =  '';
     console.log(newInput, 'dropDownChange');
     setClauseObj(newInput);
   };
@@ -806,7 +807,7 @@ console.log(clauseObj,lcData,"sasdasdasd");
                                                 required
                                                 type="text"
                                                 ref={inputRef}
-                                                defaultValue={
+                                                value={
                                                   editInput
                                                     ? editCurrent?.newValue
                                                     : ''
