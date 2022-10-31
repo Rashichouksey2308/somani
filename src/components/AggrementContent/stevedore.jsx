@@ -581,7 +581,7 @@ function Index(props) {
             <Form.Group
               className={`${styles.form_group} d-flex col-md-8 col-sm-6`}
             >
-              <div className="d-flex align-items-center">
+            
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
@@ -600,7 +600,7 @@ function Index(props) {
                   src="/static/search-grey.svg"
                   alt="Search"
                 />
-              </div>
+             
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <Form.Control
