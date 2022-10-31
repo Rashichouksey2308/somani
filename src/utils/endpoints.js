@@ -90,6 +90,9 @@ export default {
   getGstKarza: '/lead/refetch-gst-karza',
   getConsolidatedGst : '/lead/consolidate-gst',
 
+  //mcaReport 
+  getMcaReport : 'karza/request-mca-document',
+
 
   // getGstKarza: 'karza/send-gst-link',
 

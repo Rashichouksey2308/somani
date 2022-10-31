@@ -14,6 +14,10 @@ export default function Index(props) {
 
   const handleRoute = (val) => {
     sessionStorage.setItem('dono', val);
+    let balance= props.BalanceQuantity()?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      })
+    sessionStorage.setItem('balanceQuantity',balance );
     Router.push('/delivery-preview');
   };
   console.log(props.releaseOrderData, 'tempArr');
