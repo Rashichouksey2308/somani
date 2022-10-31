@@ -144,11 +144,25 @@ function Index() {
                             >
                               To:
                             </span>
-                            INDO INTERNATIONAL TRADING FZCO
+                          {_get(transitDetails, 'data[0].order.generic.seller.name')}
+                           {_get(
+                          transitDetails,
+                          'data[0].order.generic.seller.addresses[0].fullAddress',
+                        )}
+                         {_get(
+                transitDetails,
+                'data[0].order.generic.seller.addresses[0].city',
+              )}
                             <br />
-                            JAFZA VIEW-18, LOB-180504
+                           {_get(
+                          transitDetails,
+                          'data[0].order.generic.seller.addresses[0].pinCode',
+                        )}
                             <br />
-                            JEBEL ALI, DUBAI, U.A.E
+                           {_get(
+                          transitDetails,
+                          'data[0].order.generic.seller.addresses[0].country',
+                        )}
                           </td>
                           <td
                             valign="top"
@@ -191,30 +205,59 @@ function Index() {
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>Ship: </span>
-                            MV CRIMSON ARK
+                           {_get(
+                          transitDetails,
+                          'data[0].BL.billOfLanding[0].vesselName',
+                          '',
+                        ).toUpperCase()}
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>
                               Voyage:{' '}
                             </span>
-                            FROM ABBOT POINT, AUSTRALIA TO ANY PORT(S) IN INDIA
+                            FROM {_get(
+                              transitDetails,
+                              'data[0].BL.billOfLanding[0].vesselName',
+                              '',
+                            ).toUpperCase()} TO {' '}
+                          {_get(
+                            transitDetails,
+                            'data[0].order.termsheet.transactionDetails.portOfDischarge',
+                            '',
+                          ).toUpperCase()}{' '}
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>
                               Cargo:{' '}
                             </span>
-                            36,750 MT LAKE VERMONT PREMIUM HARD COKING COAL
+                           {_get(
+                              transitDetails,
+                              'data[0].order.quantity',
+                              '',
+                            ).toLocaleString()}{' '}
+                            {_get(
+                              transitDetails,
+                              'data[0].order.unitOfQuantity',
+                              '',
+                            ).toUpperCase()}{' '}
+                            {_get(
+                              transitDetails,
+                              'data[0].order.commodity',
+                              '',
+                            ).toUpperCase()}
                             <br />
                             <br />
                             <span style={{ fontWeight: 'normal' }}>
                               Bill(s) of Lading:
                             </span>
+                            <div style={{ display: 'flex',flexDirection: 'column', }} >
                             {_get(
                               transitDetails,
                               'data[0].LOI.billOfLanding',
                               [],
                             ).map((val, index) => {
                               return (
+                                <>
                                 <span>
                                   {' '}
                                   {val.blnumber} Dated {val.date},{' '}
@@ -224,8 +267,11 @@ function Index() {
                                     '',
                                   ).toUpperCase()}{' '}
                                 </span>
+                                
+                                </>
                               );
                             })}
+                            </div>
                           </td>
                         </tr>
                         <tr>
@@ -243,8 +289,26 @@ function Index() {
                           >
                             The above cargo was shipped on the above ship by{' '}
                             <span style={{ fontWeight: 'bold' }}>
-                              LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK
-                              STREET, BRISBANE 4000 QUEBSLAND, AUSTRALIA
+                                {_get(transitDetails, 'data[0].order.generic.supplier.name')},
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.supplier.addresses[0].fullAddress',
+                                )}
+                                ,{' '}
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.supplier.addresses[0].city',
+                                )}
+                                ,{' '}
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.supplier.addresses[0].country',
+                                )}
+                                ,
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.supplier.addresses[0].pinCode',
+                                )}
                             </span>{' '}
                             and consigned to{' '}
                             <span style={{ fontWeight: 'bold' }}>TO ORDER</span>{' '}
@@ -252,25 +316,120 @@ function Index() {
                             <span style={{ fontWeight: 'bold' }}>
                               ANY PORT (S) IN INDIA
                             </span>{' '}
-                            but the bill of lading has not arrived and we,
-                            EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1,
-                            GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD
-                            AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH -
-                            530016, INDIA, hereby request you to deliver the
-                            said cargo to EMERGENT INDUSTRIAL SOLUTIONS LIMITED,
-                            49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
-                            OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
-                            PRADESH - 530016, INDIA or to such party as you
-                            believe to be or to represent EMERGENT INDUSTRIAL
-                            SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-                            NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
-                            VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to
-                            be acting on behalf of EMERGENT INDUSTRIAL SOLUTIONS
-                            LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR,
-                            SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-                            ANDHRA PRADESH - 530016, INDIA at{' '}
+                            but the bill of lading has not arrived and we, {" "}
+
+                                    {_get(
+                                      transitDetails,
+                                      'data[0].order.generic.buyer.name',
+                                      '',
+                                    ).toUpperCase()}
+                                    ,
+                                    {_get(
+                                      transitDetails,
+                                      'data[0].order.generic.buyer.addresses[0].fullAddress',
+                                      '',
+                                    ).toUpperCase()}
+                                    ,{' '}
+                                    {_get(
+                                      transitDetails,
+                                      'data[0].order.generic.buyer.addresses[0].state',
+                                      '',
+                                    ).toUpperCase()}
+                                    ,
+                                    {_get(
+                                      transitDetails,
+                                      'data[0].order.generic.buyer.addresses[0].country',
+                                      '',
+                                ).toUpperCase()} 
+                            
+                            hereby request you to deliver the
+                            said cargo to {" "}
+
+                               {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.buyer.name',
+                                  '',
+                                ).toUpperCase()}
+                                ,
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.buyer.addresses[0].fullAddress',
+                                  '',
+                                ).toUpperCase()}
+                                ,{' '}
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.buyer.addresses[0].state',
+                                  '',
+                                ).toUpperCase()}
+                                ,
+                                {_get(
+                                  transitDetails,
+                                  'data[0].order.generic.buyer.addresses[0].country',
+                                  '',
+                                ).toUpperCase()}{' '}
+                            
+                            or to such party as you
+                            believe to be or to represent {" "}
+
+                             {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.name',
+                              '',
+                            ).toUpperCase()}
+                            ,
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].fullAddress',
+                              '',
+                            ).toUpperCase()}
+                            ,{' '}
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].state',
+                              '',
+                            ).toUpperCase()}
+                            ,
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].country',
+                              '',
+                            ).toUpperCase()}{' '}
+                            
+                            or to
+                            be acting on behalf of 
+
+                             {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.name',
+                              '',
+                            ).toUpperCase()}
+                            ,
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].fullAddress',
+                              '',
+                            ).toUpperCase()}
+                            ,{' '}
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].state',
+                              '',
+                            ).toUpperCase()}
+                            ,
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.addresses[0].country',
+                              '',
+                            ).toUpperCase()}{' '}
+                            
+                             at{' '}
                             <span style={{ fontWeight: 'bold' }}>
-                              VISAKHAPATNAM PORT (VSPL), INDIA
+                              {_get(
+                          transitDetails,
+                          'data[0].order.termsheet.transactionDetails.portOfDischarge',
+                          '',
+                        ).toUpperCase()}{' '}
                             </span>{' '}
                             without production of the original bill of lading.
                           </td>
@@ -523,7 +682,11 @@ function Index() {
                               For and on behalf of
                             </span>
                             <br />
-                            EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+                            {_get(
+                              transitDetails,
+                              'data[0].order.generic.buyer.name',
+                              '',
+                            ).toUpperCase()}
                             <br />
                             <span style={{ fontWeight: 'normal' }}>
                               The Requestor
@@ -703,8 +866,25 @@ function Index() {
               {'  '}
               <div className={`ml-3 ${styles.noadd} text-left`}>
                 {' '}
-                INDO INTERNATIONAL TRADING FZCO JAFZA VIEW-18, LOB-180504, JEBEL
-                ALI, DUBAI, U.A.E
+                {_get(transitDetails, 'data[0].order.generic.seller.name')}
+              {_get(
+                transitDetails,
+                'data[0].order.generic.seller.addresses[0].fullAddress',
+              )}
+              {_get(
+                transitDetails,
+                'data[0].order.generic.seller.addresses[0].city',
+              )}
+              ,
+              {_get(
+                transitDetails,
+                'data[0].order.generic.seller.addresses[0].pinCode',
+              )}
+              ,
+              {_get(
+                transitDetails,
+                'data[0].order.generic.seller.addresses[0].country',
+              )}
               </div>
             </div>
             <div className="w-25 text-right">
@@ -732,13 +912,18 @@ function Index() {
             <span>Voyage:</span>
             {'  '}
             <div className={`ml-3`}>
-              FROM{' '}
-              {_get(
-                transitDetails,
-                'data[0].order.portOfDischarge',
-                '',
-              ).toUpperCase()}{' '}
-              TO ANY PORT(S) IN INDIA
+               FROM{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.termsheet.transactionDetails.loadPort',
+              '',
+            ).toUpperCase()}{' '}
+            TO{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.termsheet.transactionDetails.portOfDischarge',
+              '',
+            ).toUpperCase()}{' '}
             </div>
           </div>
           <div className={`d-flex ${styles.salutations}`}>
@@ -794,28 +979,141 @@ function Index() {
             <p>
               The above cargo was shipped on the above ship by{' '}
               <span className={styles.bold}>
-                LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET,
-                BRISBANE 4000 QUEESLAND, AUSTRALIA{' '}
+              {_get(transitDetails, 'data[0].order.generic.supplier.name')},
+              {_get(
+                transitDetails,
+                'data[0].order.generic.supplier.addresses[0].fullAddress',
+              )}
+              ,{' '}
+              {_get(
+                transitDetails,
+                'data[0].order.generic.supplier.addresses[0].city',
+              )}
+              ,{' '}
+              {_get(
+                transitDetails,
+                'data[0].order.generic.supplier.addresses[0].country',
+              )}
+              ,
+              {_get(
+                transitDetails,
+                'data[0].order.generic.supplier.addresses[0].pinCode',
+              )}
               </span>{' '}
               and consigned to <span className={styles.bold}>TO ORDER</span> for
               delivery at the port of{' '}
               <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but
-              the bill of Lading has not arrived and we, EMERGENT INDUSTRIAL
-              SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI
-              OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016,
-              INDIA , hereby request you to deliver the said cargo to EMERGENT
-              INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA
-              NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA
-              PRADESH - 530016, INDIA or to such party as you believe to be or
-              to represent EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1,
-              GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
-              VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA or to be acting on
-              behalf of EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND
-              FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,
-              VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at
+              the bill of Lading has not arrived and we, {" "}
+              {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}
+              
+              , hereby request you to deliver the said cargo to  {" "}
+
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+              
+              or to such party as you believe to be or
+              to represent {" "}
+
+              {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+              
+              or to be acting on behalf of  {" "}
+              {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].fullAddress',
+              '',
+            ).toUpperCase()}
+            ,{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].state',
+              '',
+            ).toUpperCase()}
+            ,
+            {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.addresses[0].country',
+              '',
+            ).toUpperCase()}{' '}
+              
+               at
               <span className={styles.bold}>
                 {' '}
-                VISAKHAPATNAM PORT (VSPL), INDIA{' '}
+               {_get(
+                transitDetails,
+                'data[0].order.termsheet.transactionDetails.portOfDischarge',
+                '',
+              ).toUpperCase()}{' '}
               </span>{' '}
               without production of the original bill of lading.
             </p>
@@ -889,8 +1187,14 @@ function Index() {
           </div>
           <div className={styles.footerSalutations}>
             <p>Yours faithfully</p>
-            <p>For and on behalf of </p>
-            <p className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
+            <p>For and on behalf of  {" "}</p>
+            <p className={styles.bold}>
+              {_get(
+              transitDetails,
+              'data[0].order.generic.buyer.name',
+              '',
+            ).toUpperCase()}
+            </p>
             <p>The Requestor</p>
             <div className={`${styles.athorised} ml-n3`}>
               <p>Authorised Signatory</p>
