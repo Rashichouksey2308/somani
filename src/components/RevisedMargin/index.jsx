@@ -25,8 +25,7 @@ const Index = ({
   getBanksMasterData,
   savedataRevised,
 }) => {
-  console.log(invoiceDataRevised,"invoiceDataRevised")
-  console.log(marginData, 'marginData');
+
  const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -62,7 +61,7 @@ const Index = ({
  useEffect(() => {
   if(invoiceDataRevised){
     let filter= getInternalCompaniesMasterData.filter((val,index)=>{
-        console.log(val.Company_Name, marginData?.invoiceDetail?.importerName,"ppopop")
+     
         if(val.Company_Name?.toLowerCase()== invoiceDataRevised.importerName?.toLowerCase()
         
            
@@ -71,7 +70,7 @@ const Index = ({
           return val
         }
       })
-      console.log("useefff",filter)
+  
       setBranchOptions(filter)
   }
  },[invoiceDataRevised,getInternalCompaniesMasterData])
@@ -103,7 +102,7 @@ const Index = ({
       
     }
      let filter= getInternalCompaniesMasterData.filter((val,index)=>{
-      console.log(value,val.Company_Name,"ssssss")
+    
         if(val.Company_Name==value)
         {
           return val
@@ -989,13 +988,16 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.revisedNetOrderValue} */}₹{' '}
-                      {convertValue(
-                        calcRevised.revisedNetOrderValue,
-                        conversionRateUnit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      {calcRevised.revisedNetOrderValue === NaN ||
+                      calcRevised?.revisedNetOrderValue == 0
+                        ? 0
+                        : convertValue(
+                            (calcRevised.revisedNetOrderValue),
+                            conversionRateUnit,
+                          ).toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </div>
                   </div>
                 </div>
@@ -1289,7 +1291,7 @@ const Index = ({
                     Consignee Name
                   </label>
                 </div>
-                <div className={`${styles.each_input} col-md-4 col-sm-6`}>
+                {/* <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       id="Code"
@@ -1322,7 +1324,34 @@ const Index = ({
                       src="/static/inputDropDown.svg"
                     ></img>
                   </div>
-                </div>
+                </div> */}
+                <div
+                              className={`${styles.each_input} col-md-4 col-sm-6`}
+                            >
+                              <div className="d-flex">
+                                <input
+                                  type="text"
+                                  id="textInput"
+                                  name="consigneeGSTIN"
+                                  onChange={(e) =>
+                                    saveInvoiceDataRevisedRevised(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
+                                  }
+                                  value={invoiceDataRevised?.consigneeGSTIN}
+                                  className={`${styles.input_field} input form-control`}
+                                  required
+                                />
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                  id="textInput"
+                                >
+                                  Consignee GSTIN
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                              </div>
+                            </div>
                 <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <input
                     type="text"
@@ -1406,12 +1435,11 @@ const Index = ({
                                               return val
                                             }
                                           })
-                                          console.log(filter,"filter")
+                                         
                                           if(filter.length>0){
 
                                          if (filter.length > 0) {
-                                          console.log(invoiceDataRevised,
-                                            "invoiceDataRevised")
+                                       
                                       const newInput = { ...invoiceDataRevised };
                                       changeImporterData.address =
                                         filter[0].Address;

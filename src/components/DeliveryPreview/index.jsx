@@ -20,8 +20,9 @@ function Index() {
     setShow(true);
   };
   const [quantity,setQuantity] = useState(0);
+  const [balanceQuantity,setbalanceQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
-  const balanceQuantity = sessionStorage.getItem('balanceQuantity');
+ 
   console.log(DeliveryNo,"DeliveryNo")
  const { ReleaseOrderData } = useSelector((state) => state.Release);
  console.log(ReleaseOrderData,"ReleaseOrderData")
@@ -42,6 +43,17 @@ function Index() {
 
       })
       setQuantity(temp)
+      if(window){
+       let number = Number(
+      _get(
+        ReleaseOrderData,
+        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+        0,
+      ),
+    );
+     const balance = sessionStorage.getItem('balanceQuantity');
+     setbalanceQuantity(number-balance)
+      }
     }
   },[ReleaseOrderData])
   return (
@@ -154,7 +166,7 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
-                      ).toUpperCase()}. {" "}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
+                      ).toUpperCase()}s. {" "}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
                   </span>
                 </div>
                 <div
@@ -170,7 +182,7 @@ function Index() {
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
-                      ).toUpperCase()}</p>
+                      ).toUpperCase()}s</p>
                   </span>
                 </div>
               </div>
