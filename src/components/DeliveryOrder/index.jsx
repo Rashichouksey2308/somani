@@ -13,11 +13,10 @@ export default function Index(props) {
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
-    sessionStorage.setItem('dono', val);
-    let balance= props.BalanceQuantity()?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
-    sessionStorage.setItem('balanceQuantity',balance );
+    sessionStorage.setItem('dono', val.deliveryOrderNo);
+  
+   
+    sessionStorage.setItem('balanceQuantity',Number(val.Quantity));
     Router.push('/delivery-preview');
   };
   console.log(props.releaseOrderData, 'tempArr');
@@ -328,7 +327,7 @@ export default function Index(props) {
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
                                       onClick={() =>
-                                        handleRoute(val.deliveryOrderNo)
+                                        handleRoute(val)
                                       }
                                     />
 
