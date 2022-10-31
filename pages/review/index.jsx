@@ -75,6 +75,7 @@ import { toast } from 'react-toastify';
 import UploadOther from '../../src/components/UploadOther';
 import _get from 'lodash/get';
 import Router from 'next/router';
+import {McaReportFetch} from '../../src/redux/mcaReport/action'
 
 let alertObj = {
   isShell: 'Shell',
