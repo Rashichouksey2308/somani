@@ -4671,10 +4671,22 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>BUSINESS PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#FFB700' }}
+                        style={{ backgroundColor: '#FFB700' ,width:`${
+                          filteredCreditRating
+                            ? (
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:""
+                        }%`}}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>80%</span>
+                      <span>{
+                          filteredCreditRating
+                            ? Number(
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            ).toFixed(2)*100:""
+                        } %</span>
                     </div>
                   </div>
                 </div>
@@ -4685,10 +4697,23 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>REVENUE PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#FF4230' }}
+                        style={{ backgroundColor: '#FF4230',width:`${
+                          filteredCreditRating
+                            ? (
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:""
+                        }%` }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>40%</span>
+                      <span>{
+                          filteredCreditRating
+                            ? Number(
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            ).toFixed(2)*100:""
+                        } %
+                        </span>
                     </div>
                   </div>
                 </div>
@@ -4699,10 +4724,22 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>FINANCIAL PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#83C400' }}
+                        style={{ backgroundColor: '#83C400',width:`${
+                          filteredCreditRating
+                            ? (
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:""
+                        }%` }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>90%</span>
+                      <span>{
+                          filteredCreditRating
+                            ? Number(
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            ).toFixed(2)*100:""
+                        } %</span>
                     </div>
                   </div>
                 </div>
