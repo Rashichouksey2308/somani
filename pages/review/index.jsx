@@ -1836,11 +1836,10 @@ function Index() {
   };
 
   const handleMcaReport = () => {
-    if (companyData?.mcaDocs[0].s3Path || companyData?.mcaDocs[0].s3Path !== '') {
-      console.log(companyData?.mcaDocs[0].s3Path, 'companyData')
+    if (_get(companyData,'mcaDocs[0].s3Path','') !== '') {
       dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }))
     } else {
-      dispatch(McaReportFetch({company: orderList.company._id , order : orderList?._id}))
+       dispatch(McaReportFetch({company: orderList.company._id , order : orderList?._id}))
     }
   }
 
