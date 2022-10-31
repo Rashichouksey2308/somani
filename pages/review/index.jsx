@@ -237,7 +237,7 @@ function Index() {
       }
     }
   }, [dispatch, fetchingKarzaGst]);
-    useEffect(() => {
+  useEffect(() => {
     dispatch(getCountries())
     dispatch(getPorts());
     dispatch(getCommodities())
@@ -325,8 +325,10 @@ function Index() {
   }, [companyData]);
 
   const [gstData, setGstData] = useState({});
+  
 
   const { orderList } = useSelector((state) => state.buyer);
+  console.log(orderList,'gstDataout2')
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     if (
@@ -499,13 +501,13 @@ function Index() {
     unitOfValue: "",
     supplierName: "",
     countryOfOrigin: "",
-    portOfDischarge:"",
+    portOfDischarge: "",
     ExpectedDateOfShipment: "",
     incoTerm: "",
     grade: "",
     tolerance: "",
     hsnCode: "",
-    manufacturerName:"",
+    manufacturerName: "",
   });
   useEffect(() => {
     let newObj = {
@@ -526,7 +528,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
-    console.log(newObj,"newObj")
+    console.log(newObj, "newObj")
     setOrderDetails({ ...newObj });
 
     setShipment({
@@ -954,9 +956,9 @@ function Index() {
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
-        gstin: gstData.gstin,
+        gstin: gstData.gstin ? gstData.gstin : orderList?.company?.GST,
       };
-
+      
       dispatch(UpdateCreditCalculate(obj));
     }
   };
@@ -1638,6 +1640,7 @@ function Index() {
 
       console.log(tempArray, 'groupExposure');
 
+
       let obj = {
         productSummary: { ...data },
         supplierCredential: { ...supplierData },
@@ -1832,6 +1835,16 @@ function Index() {
     }
   };
 
+  const handleMcaReport = () => {
+    if (companyData?.mcaDocs[0].s3Path || companyData?.mcaDocs[0].s3Path !== '') {
+      console.log(companyData?.mcaDocs[0].s3Path, 'companyData')
+      dispatch(ViewDocument({ path: companyData?.mcaDocs[0].s3Path }))
+    } else {
+      dispatch(McaReportFetch({company: orderList.company._id , order : orderList?._id}))
+    }
+  }
+
+
   const updateLitigationStatus = (e) => {
     setlitigationStatus(e.target.value);
     dispatch(
@@ -1864,7 +1877,7 @@ function Index() {
 
     return length;
   };
-  
+
   const debtProfileColor = (conduct) => {
     switch (conduct.toLowerCase()) {
       case 'good':
@@ -2644,8 +2657,8 @@ function Index() {
                 >
                   {camData?.supplierCredential?.latestShipmentDate
                     ? moment(
-                        camData?.supplierCredential?.latestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                      camData?.supplierCredential?.latestShipmentDate,
+                    ).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -2690,8 +2703,8 @@ function Index() {
                   {' '}
                   {camData?.supplierCredential?.oldestShipmentDate
                     ? moment(
-                        camData?.supplierCredential?.oldestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                      camData?.supplierCredential?.oldestShipmentDate,
+                    ).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -3949,7 +3962,7 @@ function Index() {
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
                     .nameOfAuditor
                     ? camData.company.detailedCompanyInfo.profile
-                        .auditorDetail[0].nameOfAuditor ==
+                      .auditorDetail[0].nameOfAuditor ==
                       camData.company.detailedCompanyInfo.profile
                         .auditorDetail[1].nameOfAuditor
                       ? 'No'
@@ -4392,11 +4405,11 @@ function Index() {
                               >
                                 {share?.percentageShareHolding
                                   ? Number(
-                                      share?.percentageShareHolding,
-                                    )?.toLocaleString('en-In', {
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2,
-                                    }) + '%'
+                                    share?.percentageShareHolding,
+                                  )?.toLocaleString('en-In', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }) + '%'
                                   : ''}
                               </td>
                               <td
@@ -4657,9 +4670,9 @@ function Index() {
                               >
                                 {charge?.dateOfCreationOfCharge
                                   ? moment(
-                                      charge?.dateOfCreationOfCharge,
-                                      'DD-MM-YYYY',
-                                    ).format('DD-MM-YYYY')
+                                    charge?.dateOfCreationOfCharge,
+                                    'DD-MM-YYYY',
+                                  ).format('DD-MM-YYYY')
                                   : ''}
                               </td>
                             </tr>
@@ -4873,12 +4886,11 @@ function Index() {
                                 <span
                                   style={{
                                     background: `${debtProfileColor(debt.conduct)}`,
-                                    width: `${
-                                      (Number(debt.limit) / totalLimitDebt() > 1
+                                    width: `${(Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
                                         : Number(debt.limit) /
-                                          totalLimitDebt()) * 100
-                                    }%`,
+                                        totalLimitDebt()) * 100
+                                      }%`,
                                     height: '10px',
                                     borderRadius: '2px',
                                     display: 'inline-block',
@@ -5014,8 +5026,7 @@ function Index() {
                               fontWeight: 'bold',
                               paddingTop: '25px',
                               paddingBottom: '25px',
-                              color: `${
-                                debt.conduct == 'Good'
+                              color: `${debt.conduct == 'Good'
                                   ? '#43C34D'
                                   : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
@@ -10179,9 +10190,7 @@ function Index() {
           rightButtonName={`Next`}
           handleApprove={onNext}
           handleUpdate={onPreviousClick}
-          handleReject={() => {
-            console.log('download pdf');
-          }}
+          handleReject={handleMcaReport}
         />
       ) : null}
       {selectedTab == 'GST' ? (

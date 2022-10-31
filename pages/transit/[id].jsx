@@ -206,7 +206,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity?.toLowerCase() === 'coal' && (
+            {commodity?.toLowerCase().includes('coal') && (
               <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link ${
