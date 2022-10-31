@@ -25,8 +25,7 @@ const Index = ({
   getBanksMasterData,
   savedataRevised,
 }) => {
-  console.log(invoiceDataRevised,"invoiceDataRevised")
-  console.log(marginData, 'marginData');
+
  const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
@@ -62,7 +61,7 @@ const Index = ({
  useEffect(() => {
   if(invoiceDataRevised){
     let filter= getInternalCompaniesMasterData.filter((val,index)=>{
-        console.log(val.Company_Name, marginData?.invoiceDetail?.importerName,"ppopop")
+     
         if(val.Company_Name?.toLowerCase()== invoiceDataRevised.importerName?.toLowerCase()
         
            
@@ -71,7 +70,7 @@ const Index = ({
           return val
         }
       })
-      console.log("useefff",filter)
+  
       setBranchOptions(filter)
   }
  },[invoiceDataRevised,getInternalCompaniesMasterData])
@@ -103,7 +102,7 @@ const Index = ({
       
     }
      let filter= getInternalCompaniesMasterData.filter((val,index)=>{
-      console.log(value,val.Company_Name,"ssssss")
+    
         if(val.Company_Name==value)
         {
           return val
@@ -989,13 +988,16 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.revisedNetOrderValue} */}₹{' '}
-                      {convertValue(
-                        calcRevised.revisedNetOrderValue,
-                        conversionRateUnit,
-                      ).toLocaleString('en-In', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                      {calcRevised.revisedNetOrderValue === NaN ||
+                      calcRevised?.revisedNetOrderValue == 0
+                        ? 0
+                        : convertValue(
+                            (calcRevised.revisedNetOrderValue),
+                            conversionRateUnit,
+                          ).toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </div>
                   </div>
                 </div>
@@ -1406,12 +1408,11 @@ const Index = ({
                                               return val
                                             }
                                           })
-                                          console.log(filter,"filter")
+                                         
                                           if(filter.length>0){
 
                                          if (filter.length > 0) {
-                                          console.log(invoiceDataRevised,
-                                            "invoiceDataRevised")
+                                       
                                       const newInput = { ...invoiceDataRevised };
                                       changeImporterData.address =
                                         filter[0].Address;

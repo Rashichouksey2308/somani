@@ -388,10 +388,10 @@ function Index() {
         return val;
       }
     });
-    console.log(filter,"filter2233")
+   
     setBranchOptions(filter);
   };
-  console.log(invoiceData,"invoiceData")
+
   const changeImporter = (e) => {
    
     if (e.target.name == 'branchOffice') {
@@ -856,8 +856,6 @@ function Index() {
     marginMoneyPayable: '',
   });
 
-  console.log(calcRevised ,'calcRevised')
-
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName:  '',
     buyerGSTIN: '',
@@ -962,7 +960,7 @@ function Index() {
      Number(finalCalRevised?.totalOrderValue) -
         Number(marginData?.calculation?.totalOrderValue),
     ).toFixed(2);
-   console.log(finalCalRevised?.totalOrderValue, marginData?.calculation?.totalOrderValue,"saddasd")
+  
     let marginMoneyRevised = marginData?.calculation?.marginMoney;
     let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
 
@@ -6075,7 +6073,7 @@ function Index() {
                                         },
                                       );
                                     
-                                      console.log(filter,"filter")
+                                     
                                     if (filter.length > 0) {
                                       const newInput = { ...invoiceData };
                                       changeImporterData.address =
