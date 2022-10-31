@@ -1228,6 +1228,8 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
+          gstin:data.gstin,
+          pan:data.pan,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
@@ -1237,6 +1239,8 @@ function Index(props) {
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
+        gstin:data.gstin,
+          pan:data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       };
@@ -2564,7 +2568,8 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
-
+          gstin:data.gstin,
+          pan:data.pan,
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
@@ -2573,6 +2578,8 @@ function Index(props) {
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
+        gstin:data.gstin,
+        pan:data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
       };
