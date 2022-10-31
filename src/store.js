@@ -30,7 +30,7 @@ import AnalyticsReducer from 'redux/analytics/reducer';
 import LoadReducer from 'redux/Loaders/reducer';
 import ShareDocumentReducer from 'redux/shareDoc/reducer';
 import MastersReducer from 'redux/masters/reducer';
-import { McaReportFetch } from 'redux/mcaReport/action';
+import McaReportReducer from 'redux/mcaReport/reducer';
 
 export const createStore = (preloadedState) => {
   const middlewares = [];
@@ -73,7 +73,7 @@ export const createStore = (preloadedState) => {
       Load: LoadReducer,
       shareDoc: ShareDocumentReducer,
       MastersData: MastersReducer,
-      mcaReport: McaReportFetch,
+      mcaReport: McaReportReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
