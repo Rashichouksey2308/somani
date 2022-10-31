@@ -114,10 +114,10 @@ export default function Index(props) {
         </div> */}
 
       <div className={`${styles.backgroundMain} vessel_card container-fluid`}>
-        <div className={`${styles.vessel_card} m-2 border_color`}>
-          <div className={`${styles.main} border_color mt-4 card `}>
+        <div className={`${styles.vessel_card} border_color`}>
+          <div className={`${styles.main} border_color card`}>
             <div
-              className={`${styles.head_container} border_color card-header head_container d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Basic Info</h3>
             </div>
@@ -163,46 +163,41 @@ export default function Index(props) {
               </div>
             </div>
           </div>
-          <div className={`${styles.wrapper} border_color mt-4 card`}>
-            <div className="d-lg-flex align-items-center justify-content-between d-inline-block  pl-3">
-              <div className="row w-75">
-                <div className="col-lg-2">
-                  <h2 className="pt-2">Delivery Order</h2>
-                </div>
-                <div className={`${styles.form_group} col-lg-4`}>
-                  <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      style={{ height: '46px', width: '277px' }}
-                      value={currentOrder}
-                      onChange={(e) => {
-                        setCurrentOrder(e.target.value);
-                      }}
-                    >
-                      <option disabled value="">
-                        Select an option
-                      </option>
-                      {_get(props.data, 'data[0].deliveryDetail', []).map(
-                        (val, index) => {
-                          return (
-                            <option
-                              disabled={checkAvail(val?.deliveryOrderNumber)}
-                              key={index}
-                              value={val?.deliveryOrderNumber}
-                            >
-                              {val?.deliveryOrderNumber}
-                            </option>
-                          );
-                        },
-                      )}
-                    </select>
+          <div className={`${styles.wrapper} border_color card`}>
+            <div className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}>
+              <h2 className="mr-auto">Delivery Order</h2>
+              <div className={`${styles.form_group}`}>
+                <div className="d-flex position-relative">
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    value={currentOrder}
+                    onChange={(e) => {
+                      setCurrentOrder(e.target.value);
+                    }}
+                  >
+                    <option disabled value="">
+                      Select an option
+                    </option>
+                    {_get(props.data, 'data[0].deliveryDetail', []).map(
+                      (val, index) => {
+                        return (
+                          <option
+                            disabled={checkAvail(val?.deliveryOrderNumber)}
+                            key={index}
+                            value={val?.deliveryOrderNumber}
+                          >
+                            {val?.deliveryOrderNumber}
+                          </option>
+                        );
+                      },
+                    )}
+                  </select>
 
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
                 </div>
               </div>
               {currentOrder !== '' && (
@@ -224,9 +219,9 @@ export default function Index(props) {
             props.liftingData.map((val, index) => {
               console.log(val, 'Lifting Add ');
               return (
-                <div className={`${styles.main} mt-4 card border_color`}>
+                <div className={`${styles.main} card border_color`}>
                   <div
-                    className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
+                    className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}
                     data-toggle={`collapse`}
                     data-target={`#upload${index}`}
                     aria-expanded="true"
