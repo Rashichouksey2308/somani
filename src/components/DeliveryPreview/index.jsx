@@ -37,6 +37,7 @@ function Index() {
   };
   useEffect(() => {
     if(ReleaseOrderData){
+       if(window){
       let temp=0;
       _get(ReleaseOrderData,"data[0].deliveryDetail").forEach((val,index)=>{
        temp = Number(temp) + Number(val.netQuantityReleased)
@@ -44,17 +45,19 @@ function Index() {
 
       })
       setQuantity(temp)
-      if(window){
+     
        let number = Number(
-      _get(
-        ReleaseOrderData,
-        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
-        0,
-      ),
-    );
+                        _get(
+                          ReleaseOrderData,
+                          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
+                          0,
+                        ),
+                      )
+    
      const balance = sessionStorage.getItem('balanceQuantity');
+     console.log(number,"number")
      setreleasedQuantity(balance)
-     setbalanceQuantity(number-balance)
+     setbalanceQuantity(Number(number)-Number(balance))
       }
     }
   },[ReleaseOrderData])
