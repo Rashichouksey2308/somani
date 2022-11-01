@@ -151,7 +151,7 @@ function Index() {
                         opacity: '0.7',
                       }}
                     >
-                      {moment(marginData?.createdAt?.slice(0, 10)).format(
+                      {moment(marginData?.createdAt).format(
                     'DD-MM-yy',
                   )}
                     </span>
@@ -2365,7 +2365,7 @@ function Index() {
                   Date:
                 </span>{' '}
                 <span className={`${styles.termValue} text-color`}>
-                  {moment(marginData?.createdAt?.slice(0, 10)).format(
+                  {moment(marginData?.createdAt).format(
                     'DD-MM-yy',
                   )}
                 </span>

@@ -1077,7 +1077,6 @@ function Index() {
     const newInput = { ...unit };
     newInput[name] = value;
 
-    /
     setUnit(newInput);
   };
 
