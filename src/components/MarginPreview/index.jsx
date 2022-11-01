@@ -329,9 +329,9 @@ function Index() {
                           }}
                         >
                           USD{' '}
-                          {marginData?.order?.perUnitPrice?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -625,7 +625,9 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.numberOfPDC?.toLocaleString('en-In') ??
+                          {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ??
                             0}
                         </p>
                       </td>
@@ -745,9 +747,9 @@ function Index() {
                           }}
                         >
                           USD{' '}
-                          {marginData?.calculation?.orderValue?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -804,9 +806,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.orderValueInINR?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -863,9 +865,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.usanceInterest?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -922,9 +924,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.tradeMargin?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -982,9 +984,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.grossOrderValue?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1042,9 +1044,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.toleranceValue?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1102,9 +1104,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.totalOrderValue?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1162,9 +1164,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1222,9 +1224,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.marginMoney?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1282,9 +1284,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.totalSPDC?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1342,9 +1344,9 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.amountPerSPDC?.toLocaleString(
-                            'en-In',
-                          ) ?? 0}
+                          {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1691,9 +1693,9 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                       USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1777,7 +1779,9 @@ function Index() {
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.numberOfPDC?.toLocaleString('en-In') ?? 0}
+                      {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
 
@@ -1824,9 +1828,9 @@ function Index() {
                     </td>
                     <td>
                       USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1839,9 +1843,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.orderValueInINR?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1856,9 +1860,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.usanceInterest?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1871,9 +1875,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.tradeMargin?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1886,9 +1890,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.grossOrderValue?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
 
@@ -1902,9 +1906,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.toleranceValue?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1917,9 +1921,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.totalOrderValue?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
 
@@ -1935,9 +1939,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1950,9 +1954,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.marginMoney?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1967,9 +1971,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.totalSPDC?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -1984,9 +1988,9 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.amountPerSPDC?.toLocaleString(
-                        'en-In',
-                      ) ?? 0}
+                      {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
+                       minimumFractionDigits: 2, maximumFractionDigits: 2,
+                      }) ?? 0}
                     </td>
                   </tr>
 
