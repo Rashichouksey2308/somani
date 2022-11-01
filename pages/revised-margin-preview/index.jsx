@@ -1003,7 +1003,7 @@ function Index() {
                           }}
                         >
                           USD{' '}
-                          {marginData?.calculation?.orderValue?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString(
                             'en-EN',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1087,7 +1087,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.orderValueInINR?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1175,7 +1175,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.usanceInterest?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1263,7 +1263,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.tradeMargin?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1351,7 +1351,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.grossOrderValue?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.grossOrderValue?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1439,7 +1439,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.toleranceValue?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.toleranceValue?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1527,7 +1527,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.totalOrderValue?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.totalOrderValue?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1615,7 +1615,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.provisionalUnitPricePerTon?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1703,7 +1703,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.marginMoney?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.marginMoney?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -1792,7 +1792,7 @@ function Index() {
                             alt="Rupee"
                             height="13"
                           /> {' '}
-                          {marginData?.calculation?.totalSPDC?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCalculation?.totalSPDC?.toLocaleString(
                             'en-In',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -2609,7 +2609,7 @@ function Index() {
                     </td>
                     <td>
                       USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString(
                         'en-EN',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2632,7 +2632,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.orderValueInINR?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.orderValueInINR?.toLocaleString(
                         'en-In',
                         { minimumFractionDigits: 2, maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2657,7 +2657,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.usanceInterest?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.usanceInterest?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2680,7 +2680,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.tradeMargin?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.tradeMargin?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2703,7 +2703,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.grossOrderValue?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.grossOrderValue?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2727,7 +2727,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.toleranceValue?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.toleranceValue?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2750,7 +2750,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.totalOrderValue?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.totalOrderValue?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2776,7 +2776,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.provisionalUnitPricePerTon?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2799,7 +2799,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.marginMoney?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.marginMoney?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
@@ -2824,7 +2824,7 @@ function Index() {
                     </td>
                     <td>
                       ₹{' '}
-                      {marginData?.calculation?.totalSPDC?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCalculation?.totalSPDC?.toLocaleString(
                         'en-In',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
