@@ -2314,13 +2314,7 @@ function Index() {
       autoPaging: 'text',
     });
   };
-  console.log(
-    marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString(
-      'en-In',
-      { maximumFractionDigits: 2 },
-    ) ?? 0,
-    'asasasasasas',
-  );
+ 
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>
@@ -2972,7 +2966,7 @@ function Index() {
         leftButtonTitle={'Revised Margin Money'}
         rightButtonTitle={'Send to Buyer'}
         openbar={() => {
-          console.log('open');
+          console.log('OPEN')
         }}
       />
     </>

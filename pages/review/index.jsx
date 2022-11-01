@@ -198,7 +198,7 @@ function Index() {
     (state) => state.companyDetails,
   );
   const [selectedTab, setSelectedTab] = useState('Profile');
- console.log(orderList,"orderList")
+
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID');
@@ -218,11 +218,7 @@ function Index() {
         let tempIndex = 7;
 
         list[0]?.children[0]?.children[0]?.classList?.remove('active');
-        console.log(
-          tab[0]?.children[tempIndex],
-          'Dasdasdsadasd',
-          tab[0]?.children[0],
-        );
+        
         list[0]?.children[tempIndex]?.children[0]?.classList?.add('active');
         tab[0]?.children[0]?.classList?.remove('show');
         tab[0]?.children[0]?.classList?.remove('active');
@@ -329,7 +325,7 @@ function Index() {
   
 
   const { orderList } = useSelector((state) => state.buyer);
-  console.log(orderList,'gstDataout2')
+
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     if (
@@ -358,7 +354,7 @@ function Index() {
         );
       }
       if (last < previous && previous < latest) {
-        console.log(last, latest, previous, 'trends');
+        
         return (
           <img
             src="/static/trend-green-321.svg"
@@ -408,7 +404,7 @@ function Index() {
       }
 
       if (last == previous && previous == latest) {
-        console.log(last, previous, latest, 'trends');
+     
 
         return (
           <img
@@ -477,10 +473,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'));
-    console.log(
-      orderList?.company?.companyName,
-      'orderList?.company?.companyName',
-    );
+    
     dispatch(setDynamicName(orderList?.company?.companyName));
 
     dispatch(
@@ -529,7 +522,7 @@ function Index() {
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     };
-    console.log(newObj, "newObj")
+
     setOrderDetails({ ...newObj });
 
     setShipment({
@@ -719,14 +712,6 @@ function Index() {
       }
       return false;
     }
-    // if(orderDetails?.hsnCode?.length > 10){
-    //   console.log(orderDetails?.hsnCode?.length, 'hsn code lenght')
-    //   let toastMessage = 'HSN CODE CANNOT BE GREATER THAN 10 CHARACTERS'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return false
-    // }
     if (shipment?.shipmentType === '' || shipment?.shipmentType == undefined) {
       let toastMessage = 'add shipment Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -840,10 +825,9 @@ function Index() {
     // console.log(newInput, "prod")
     setProduct(newInput);
   };
-  console.log(product, 'productData');
+
   const [supplierCred, setSupplierCred] = useState();
-  console.log('orderList', orderList);
-  console.log(supplierCred, 'supplierCred');
+
   useEffect(() => {
     setProduct({
       AvgMonthlyElectricityBill: orderList?.productSummary
@@ -1147,7 +1131,7 @@ function Index() {
   //   },
   // ])
   const [personData, setPersonData] = useState([]);
-  console.log(personData, 'personData');
+
   // useEffect(() => {
   //   if (orderList?.company?.keyContactPerson.length > 0) {
   //     setPersonData([
@@ -1259,7 +1243,7 @@ function Index() {
   }, [orderList, orderList?.company, companyData?.profile?.directorDetail]);
 
   const [groupExposureData, setGroupExposureData] = useState([]);
-  console.log(groupExposureData, 'groupExposureData');
+  
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: '',
     suggestedOrderValue: '',
@@ -1291,7 +1275,7 @@ function Index() {
   }, [orderList]);
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name, value, '');
+  
     const newInput = { ...suggestedCredit };
     newInput[name] = value;
     // console.log(newInput)
@@ -1415,7 +1399,7 @@ function Index() {
     });
     setPersonData(tempArr);
   };
-  console.log(product, 'xxxxxxxx');
+
   const creditValidation = () => {
     if (
       product.monthlyProductionCapacity == '' ||
@@ -1639,8 +1623,6 @@ function Index() {
         }
       });
 
-      console.log(tempArray, 'groupExposure');
-
 
       let obj = {
         productSummary: { ...data },
@@ -1663,7 +1645,7 @@ function Index() {
           removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       };
 
-      console.log(obj, 'credit obj');
+    
       dispatch(UpdateCredit({ ...obj }));
     }
   };
@@ -1673,8 +1655,7 @@ function Index() {
       return orderList?._id === rating.order;
     });
 
-  console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING');
-
+ 
   let approvedCreditLimit =
     filteredCreditRating && filteredCreditRating.length > 0
       ? filteredCreditRating[0]?.approved?.value
@@ -1733,9 +1714,9 @@ function Index() {
 
   const handleCamApprove = async () => {
     if (orderValidation() && creditValidation()) {
-      console.log('CAAAAA2');
+    
       if (gettingPercentageCredit && gettingPercentageOrder) {
-        console.log('CAAAAA3', approveComment);
+      
         const obj = {
           approvalRemarks: [...approveComment],
           approvedOrderValue: approvedCredit.approvedOrderValue * 10000000,
@@ -1744,7 +1725,7 @@ function Index() {
           status: 'Approved',
         };
         let code = await dispatch(UpdateCam(obj, 'CAM APPROVED'));
-        console.log(code, 'code');
+     
         if (code == 200) {
           dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'));
           router.push(`/termsheet/id`);
@@ -1767,7 +1748,7 @@ function Index() {
   };
 
   const currentOpenLink = (e) => {
-    console.log(e.target.attributes[4].nodeValue, 'eee');
+   
     if (e.target.attributes[4].nodeValue == 'Compliance') {
       let list = document.getElementsByClassName('nav-tabs');
       let tab = document.getElementsByClassName('tab-content');
@@ -1795,12 +1776,7 @@ function Index() {
         if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML);
           list[0].children[i].children[0].classList.remove('active');
-          console.log(
-            list[0].children[tempIndex].children[0],
-            'okok',
-            tab[0].children[i],
-            tab[0].children,
-          );
+          
           list[0].children[tempIndex].children[0].classList.add('active');
           tab[0].children[i].classList.remove('show');
           tab[0].children[i].classList.remove('active');
@@ -1811,10 +1787,11 @@ function Index() {
       }
     }
   };
-  console.log(selectedTab, 'specificationTable');
+ 
   const onPreviousClick = () => {
     Router.push('/credit-queue');
   };
+
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs');
     let tab = document.getElementsByClassName('tab-content');
@@ -1855,10 +1832,7 @@ function Index() {
     );
   };
   const primaryBankName = () => {
-    console.log(
-      orderList?.company?.debtProfile,
-      'orderList?.company?.debtProfile',
-    );
+   
     let filteredData = [];
     filteredData =
       orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
@@ -1901,7 +1875,7 @@ function Index() {
     openBankChargeChartImg,
     debtProfileColor,
   ) => {
-    console.log(_get, 'get');
+
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0;
@@ -8585,10 +8559,10 @@ function Index() {
   };
 
   const GstDataHandler = (data) => {
-    console.log(data, 'gst3234');
+
     setGstData(data);
   };
-  console.log(gstData, 'gstDAta');
+
 
   const handleGSTDownload = (value) => {
     // console.log(gstData?.detail?.other?.pdfLink, 'efgilegleghlui')
@@ -8660,12 +8634,10 @@ function Index() {
         return true;
       },
     );
-    console.log(users, 'data1110filter');
+  
   }, [companyData]);
 
-  // console.log(filterType, 'filterType')
-  // console.log(district,'filtered')
-  console.log(filterType.party, 'filterType.class');
+
   useEffect(() => {
     if (companyData) {
       filterLitigation();
@@ -8677,19 +8649,19 @@ function Index() {
     setFilterType({ ...filter });
   };
   const changeParty = (val) => {
-    console.log(val, 'valval');
+
     let filter = { ...filterType };
     filter.party = val;
     setFilterType({ ...filter });
   };
   const changeRisk = (val) => {
-    console.log(val, 'valval');
+   
     let filter = { ...filterType };
     filter.risk = val;
     setFilterType({ ...filter });
   };
   const filterLitigation = () => {
-    console.log('hit');
+   
     let count = {
       pending: 0,
       disposed: 0,
@@ -8698,7 +8670,7 @@ function Index() {
       medium: 0,
       relevence: 0,
     };
-    console.log(filterType, 'filterType', companyData?.compliance?.highCourt);
+ 
     //getCount
     companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1;
@@ -8792,7 +8764,7 @@ function Index() {
           !filterType.filterBy.disposed
         ) {
           if (val.caseStatus == 'Pending') {
-            console.log('Ssssss1');
+          
             return val;
           }
         }
@@ -8802,7 +8774,7 @@ function Index() {
           !filterType.filterBy.pending
         ) {
           if (val.caseStatus == 'Disposed') {
-            console.log('Ssssss2');
+           
             return val;
           }
         }
@@ -8811,7 +8783,7 @@ function Index() {
           !filterType.filterBy.disposed &&
           !filterType.filterBy.pending
         ) {
-          console.log('Ssssss3');
+    
           return val;
         }
         if (
@@ -8820,7 +8792,7 @@ function Index() {
           !filterType.filterBy.total
         ) {
           if (val.caseStatus == 'Pending' || val.caseStatus == 'Disposed') {
-            console.log('Ssssss5');
+        
             return val;
           }
         }
@@ -8830,7 +8802,7 @@ function Index() {
           filterType.filterBy.totall &&
           !filterType.filterBy.disposed
         ) {
-          console.log('Ssssss6');
+        
           return val;
         }
         if (
@@ -8838,7 +8810,7 @@ function Index() {
           filterType.filterBy.total &&
           !filterType.filterBy.pending
         ) {
-          console.log('Ssssss7');
+        
           return val;
         }
         if (
@@ -8846,7 +8818,7 @@ function Index() {
           filterType.filterBy.total &&
           filterType.filterBy.pending
         ) {
-          console.log('Ssssss');
+    
           return val;
         }
       };
@@ -8871,13 +8843,13 @@ function Index() {
         },
       );
     }
-    console.log(filterType.risk, 'filterType.risk ');
+   
     if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
       const partyFilter = (val) => {
-        console.log(val.memberType, 'val.memberType');
+      
         if (filterType.party == 'Respondent') {
           if (val.memberType == 'Respondent') {
-            console.log('1111111111');
+           
             return val;
           }
         }
@@ -8902,7 +8874,7 @@ function Index() {
               return partyFilter(val);
             })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
+             
               return partyFilter(val);
             });
 
@@ -8923,15 +8895,15 @@ function Index() {
               return partyFilter(val);
             });
     }
-    console.log(highCourt, 'highCourt44444');
+   
     //civil Crimnal
-    console.log(highCourt, 'highCourt111');
+
     if (filterType.class == 'Civil' || filterType.class == 'Criminal') {
       const civilfilter = (val) => {
-        console.log(val.civilCriminal, 'val.civilCriminal');
+      
         if (filterType.class == 'Criminal') {
           if (val.civilCriminal == 'Criminal') {
-            console.log('1111111111');
+      
             return val;
           }
         }
@@ -8956,7 +8928,7 @@ function Index() {
               return civilfilter(val);
             })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
+             
               return civilfilter(val);
             });
 
@@ -8977,7 +8949,7 @@ function Index() {
               return civilfilter(val);
             });
     }
-    console.log(highCourt, 'highCourt222');
+
 
     //party2
 
@@ -8988,10 +8960,10 @@ function Index() {
       filterType.risk == 'high'
     ) {
       const riskFilter = (val) => {
-        console.log(val.civilCriminal, 'val.civilCriminal');
+      
         if (filterType.risk == 'high') {
           if (val.severity_ == 'high') {
-            console.log('1111111111');
+          
             return val;
           }
         }
@@ -9021,7 +8993,7 @@ function Index() {
               return riskFilter(val);
             })
           : highCourt?.filter((val) => {
-              console.log(val, 'secodnoneene');
+           
               return riskFilter(val);
             });
 
@@ -9042,7 +9014,7 @@ function Index() {
               return riskFilter(val);
             });
     }
-    console.log(districtCourt,"districtCourt",highCourt)
+   
     setSupreme([...supremeCourt]);
     setTribunal([...tribunalCourts]);
     setHigh([...highCourt]);
@@ -9054,30 +9026,7 @@ function Index() {
     
     setTotalCourt(count);
   };
-  console.log(High, 'highCourtDisplay');
-  // useEffect(() => {
-  //   let temp = []
-  //   if (companyData?.profile?.directorDetail.length > 0) {
-  //     companyData?.profile?.directorDetail.forEach((val, index) => {
-  //       temp.push({
-  //         contact: {
-  //           callingCode: '+91',
-  //           number: '',
-  //         },
-  //         department: '',
-  //         designation: val.designation,
-  //         email: val.email,
-  //         name: val.name,
-  //         isEdit: false,
-  //         addnew: false,
-  //       })
-  //     })
-  //   }
-  //   console.log(temp, 'temp')
-  //   setPersonData([...temp])
-  // }, [companyData?.profile?.directorDetail])
-  console.log(personData, 'per');
-  console.log(companyData?.profile?.directorDetail, 'director');
+
   const [top5Customers, setTop5Customers1] = useState({
     labels: [],
     datasets: [],
@@ -9097,7 +9046,7 @@ function Index() {
     datasets: [],
   });
   const exportPDF = async () => {
-    console.log(orderList, 'orderList');
+  
     const doc = new jsPDF('p', 'pt', 'a4');
 
     const trendChartRevenue = document.getElementById('trendChartRevenue');
@@ -10245,7 +10194,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
 };
 
 const ligitations = (Supreme, District, High, Tribunal, companyData) => {
-  console.log(High, 'High');
+  
 
   return (
     <>
@@ -10278,7 +10227,7 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 };
 
 const table2 = (sat, balance, complienceFilter) => {
-  console.log(balance, complienceFilter, 'oi');
+
   let length =
     complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
   if (complienceFilter == 'All') {
@@ -10294,7 +10243,7 @@ const table2 = (sat, balance, complienceFilter) => {
       let caps = '';
       let myArray = result.split(' ');
       if (myArray.length > 1) {
-        console.log(myArray, 'myArray');
+      
         const getText = (arr) => {
           let text = '';
           arr.forEach((val, index) => {
@@ -10302,7 +10251,7 @@ const table2 = (sat, balance, complienceFilter) => {
               text = `${text} ${val}`;
             }
           });
-          console.log(text, 'etxtxttx');
+        
           return text;
         };
         if (myArray[0] == 'Gst' || myArray[0] == 'Epf' || myArray[0] == 'Tan') {
@@ -10311,7 +10260,7 @@ const table2 = (sat, balance, complienceFilter) => {
         }
       }
     }
-    console.log(result, 'caps');
+  
     if (result == 'Ibbi') {
       result = 'IBBI';
     }
@@ -10356,7 +10305,7 @@ const table2 = (sat, balance, complienceFilter) => {
           ? sat.length &&
             sat?.map((alert, index) => {
               {
-                console.log(alert.source, 'alert.value');
+             
               }
               return (
                 <tr key={index}>

@@ -6,10 +6,7 @@ import styles from './index.module.scss';
 import {
   CovertvaluefromtoCR,
   checkNan,
-  addPrefixOrSuffix,
 } from '../../utils/helper';
-import { add } from 'lodash';
-import { array } from 'prop-types';
 
 const Index = ({
   financialsComment,
@@ -36,6 +33,7 @@ const Index = ({
   setSanctionComment,
   suggestedCredit,
 }) => {
+
   const [editProfile, setEditProfile] = useState([]);
   const [editFinance, setEditFinance] = useState([]);
   const [saveTable, setSaveTable] = useState(false);
@@ -50,6 +48,7 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('');
   const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([]);
   const [weaknessComments, setWeaknessComments] = useState('');
+
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -58,7 +57,7 @@ const Index = ({
     suggestedCreditLimit: false,
   });
 
-  console.log(financialsComment, editProfile, 'companyComments');
+ 
   // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating =
@@ -111,6 +110,8 @@ const Index = ({
     addGroupExpArr(exposureData);
   };
 
+  
+
   const addMoreExpRows = () => {
     setGroupExposureData([
       ...groupExposureData,
@@ -125,17 +126,18 @@ const Index = ({
   };
 
   const handleGroupExpChange = (name, value, index) => {
-    console.log(name, value, index, 'name,value');
+ 
     let tempArr = [...groupExposureData];
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value;
       }
     });
-    console.log(tempArr, 'tempArr');
+
     // console.log(tempArr, 'tempArr')
     setGroupExposureData([...tempArr]);
   };
+
   const handleRemoveRowEx = (index) => {
     setGroupExposureData([
       ...groupExposureData.slice(0, index),
@@ -144,7 +146,7 @@ const Index = ({
   };
 
   const setActions = (index, val, editType) => {
-    console.log(index, val, editType, 'DANGEROUS');
+
     if (editType === 'sanctionComments') {
       setSanctionComment((prevState) => {
         const newState = prevState.map((obj, i) => {
@@ -179,6 +181,7 @@ const Index = ({
     temp.splice(index, 1, val);
     setSanctionComment(temp);
   };
+
   const onEditClickHandler = (index, task) => {
     if (task === 'edit') {
       let tempIndex = [...sanctionCommentsIndex];
@@ -197,7 +200,7 @@ const Index = ({
       ...sanctionComment.slice(index + 1),
     ]);
   };
-  console.log(sanctionCommentsIndex, 'INDEXOF');
+
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
@@ -406,7 +409,7 @@ const Index = ({
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
                               disabled={!profile.actions}
-                              defaultValue={profile?.name}
+                              value={profile?.name}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
@@ -415,7 +418,7 @@ const Index = ({
                                 );
                               }}
                             >
-                              <option>Select an option</option>
+                              <option selected>Select an option</option>
                               <option value="Emerging Traders">
                                 Emerging Traders
                               </option>
@@ -452,11 +455,7 @@ const Index = ({
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
-                                console.log(
-                                  re.test(evt.target.value),
-                                  'keydone',
-                                  evt.target.value,
-                                );
+                                
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
@@ -486,11 +485,7 @@ const Index = ({
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
-                                console.log(
-                                  re.test(evt.target.value),
-                                  'keydone',
-                                  evt.target.value,
-                                );
+                                
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
@@ -516,7 +511,7 @@ const Index = ({
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="accountConduct"
                               disabled={!profile.actions}
-                              defaultValue={profile?.accountConduct}
+                              value={profile?.accountConduct}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
@@ -525,7 +520,7 @@ const Index = ({
                                 );
                               }}
                             >
-                              <option>Select an Option</option>
+                              <option selected>Select an Option</option>
                               <option value="Poor">Poor</option>
                               <option value="Good">Good</option>
                               <option value="Satisfactory">Satisfactory</option>
