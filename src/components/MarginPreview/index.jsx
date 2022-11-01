@@ -670,7 +670,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.additionalPDC}
+                          {/* {marginData?.additionalPDC} */}
                         </p>
                       </td>
                     </tr>
@@ -1787,7 +1787,7 @@ function Index() {
                       <span className={`ml-2`}>Additional PDC’s</span>
                     </td>
                     <td className={`${styles.highlight} satisfactory`}>
-                      {marginData?.additionalPDC}
+                      {/* {marginData?.additionalPDC} */}
                     </td>
                   </tr>
 
