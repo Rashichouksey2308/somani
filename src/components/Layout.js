@@ -20,7 +20,6 @@ function Layout({ children }) {
   const [isLogin, setIsLogin] = useState(false);
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const isMobile = useSelector((state) => state.sidebar.isMobile);
-  // console.log(isMobile, 'isMObile')
 
   const dispatch = useDispatch();
   const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin);
@@ -32,7 +31,6 @@ function Layout({ children }) {
     setIsLogin(isuserlogged);
 
     if (isLogin) {
-      // console.log('login is true verifying token')
       dispatch(validateToken());
     }
   }, [isuserLoggedin, isLogin]);
@@ -42,14 +40,13 @@ function Layout({ children }) {
 
     router.events.on('routeChangeStart', doMagic); // add listener
     router.events.on('routeChangeComplete', (url, { shallow }) => {
-      console.log('route change', router.asPath);
       setQuery(router.asPath);
     });
     return () => {
       router.events.off('routeChangeStart', doMagic); // remove listener
     };
   }, []);
-  console.log(isQuery, 'isQuery');
+
   return (
     <>
       {isLogin ? (

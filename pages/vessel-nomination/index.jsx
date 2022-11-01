@@ -22,7 +22,7 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order);
 
   const { allVessel, Vessel } = useSelector((state) => state.vessel);
-  console.log(allVessel, 'allVessel');
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module');

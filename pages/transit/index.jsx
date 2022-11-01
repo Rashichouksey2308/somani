@@ -24,7 +24,7 @@ function Index() {
   const { allTransitDetails, TransitDetails } = useSelector(
     (state) => state.TransitDetails,
   );
-  //console.log(allTransitDetails,'allTransitDetails')
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
 import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
 import { useDispatch, useSelector } from 'react-redux';
 import _get from 'lodash/get';
-import {
- 
-  GetDelivery,
- 
-} from '../../redux/release&DeliveryOrder/action';
+import {GetDelivery} from '../../redux/release&DeliveryOrder/action';
 import moment from 'moment/moment';
+
 function Index() {
    const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -24,9 +20,9 @@ function Index() {
    const [releasedQuantity,setreleasedQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
  
-  console.log(DeliveryNo,"DeliveryNo")
+
  const { ReleaseOrderData } = useSelector((state) => state.Release);
- console.log(ReleaseOrderData,"ReleaseOrderData")
+
    useEffect(() => {
     getOrderData();
   }, []);
@@ -37,6 +33,7 @@ function Index() {
   };
   useEffect(() => {
     if(ReleaseOrderData){
+       if(window){
       let temp=0;
       _get(ReleaseOrderData,"data[0].deliveryDetail").forEach((val,index)=>{
        temp = Number(temp) + Number(val.netQuantityReleased)
@@ -44,17 +41,19 @@ function Index() {
 
       })
       setQuantity(temp)
-      if(window){
+     
        let number = Number(
-      _get(
-        ReleaseOrderData,
-        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
-        0,
-      ),
-    );
+                        _get(
+                          ReleaseOrderData,
+                          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
+                          0,
+                        ),
+                      )
+    
      const balance = sessionStorage.getItem('balanceQuantity');
+
      setreleasedQuantity(balance)
-     setbalanceQuantity(number-balance)
+     setbalanceQuantity(Number(number)-Number(balance))
       }
     }
   },[ReleaseOrderData])
@@ -178,8 +177,11 @@ function Index() {
                   <span className={styles.head}>l) Material :</span>{' '}
                   <span className={`${styles.bold} `}>
                     {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {" "}({_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
-                    Bothra, S-4 & L-6 Yard, Port Area, Visakhapatnam Port Trust,
-                    Visakhapatnam.
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress'," ")} 
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',"")!==""
+                    ?`,${_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage'," ")}`:""
+                    }
+                    
                   </span>
                 </div>
                 <div

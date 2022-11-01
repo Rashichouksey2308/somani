@@ -88,11 +88,10 @@ export default {
   //getGstKarza
 
   getGstKarza: '/lead/refetch-gst-karza',
-  getConsolidatedGst : '/lead/consolidate-gst',
+  getConsolidatedGst: '/lead/consolidate-gst',
 
-  //mcaReport 
-  getMcaReport : '/karza/request-mca-document',
-
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
 
   // getGstKarza: 'karza/send-gst-link',
 
@@ -129,6 +128,8 @@ export default {
 
   //supplier
   updateSupplier: '/supplier',
+  //preview
+  preview: '/document/access/preview',
 
   //ALL MASTER URL's
   masterBaseUrl:

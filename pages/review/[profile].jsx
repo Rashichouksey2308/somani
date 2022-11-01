@@ -28,10 +28,7 @@ const Index = () => {
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
   const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
-  console.log(
-    '🚀 ~ file: [profile].jsx ~ line 19 ~ Index ~ buyerList',
-    buyerList,
-  );
+ 
   const [fields, setFields] = useState([
     {
       isEdit: true,
@@ -62,11 +59,11 @@ const Index = () => {
   const [payloadData, setPayloadData] = useState({
     action: 'APPROVE',
   });
-  console.log(payloadData, 'payloadData');
+
   const [rejectPayloadData, setRejectPayloadData] = useState({
     action: 'REJECT',
   });
-  console.log(buyerList, 'buyerList');
+
   useEffect(() => {
     const orderId = sessionStorage.getItem('orderID');
     const companyId = sessionStorage.getItem('company');
@@ -202,7 +199,7 @@ const Index = () => {
   };
 
   const handleChange = (name, value) => {
-    console.log(name, 'nammwaa');
+
     const newInput = { ...payloadData, [name]: value };
     setPayloadData(newInput);
   };

@@ -42,11 +42,11 @@ function Index() {
   let OrderId = _get(customData, 'order._id', {});
   let CompanyOrderId = _get(customData, 'order', {});
   const uploadDoc = async (e) => {
-    console.log(e, 'response data');
+  
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
-    console.log(customData, 'customData');
+
 
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
@@ -65,7 +65,7 @@ function Index() {
           headers: headers,
         },
       );
-      console.log(response.data.data, 'dischargeOfCargo2');
+
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 

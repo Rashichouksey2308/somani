@@ -117,11 +117,11 @@ function Index() {
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
   });
 
-  // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
+
   const saveForCalculation = (name, value) => {
     const newInput = { ...forCalculation };
     newInput[name] = value;
-    // console.log(newInput)
+   
     setForCalculation(newInput);
     getData2();
     getRevisedData2();
@@ -201,7 +201,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
     ).toFixed(2); //T
 
-    // console.log(orderValue, 'orderValue')
+
     setFinalCal({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -261,7 +261,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
     ).toFixed(2); //T
 
-    // console.log(orderValue, 'orderValue')
+
     setFinalCal({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -314,7 +314,7 @@ function Index() {
 
     newInput[name] = value;
 
-    // console.log(newInput, 'nnto', name, value)
+   
 
     if (invoiceData?.isConsigneeSameAsBuyer == true) {
       if (name == 'buyerName') {
@@ -670,11 +670,11 @@ function Index() {
       
   });
 
-  // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
+
   const saveforCalculationRevised = (name, value) => {
     const newInput = { ...forCalculationRevised };
     newInput[name] = value;
-    // console.log(newInput)
+
     setforCalculationRevised(newInput);
     getDataRevised();
     getRevisedData2();
@@ -756,7 +756,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
     ).toFixed(2); //T
 
-    // console.log(orderValue, 'orderValue')
+  
     setfinalCalRevised({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -817,7 +817,7 @@ function Index() {
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
     ).toFixed(2); //T
 
-    // console.log(orderValue, 'orderValue')
+  
     setfinalCalRevised({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -1007,7 +1007,7 @@ function Index() {
   const saveInvoiceDataRevisedRevised = (name, value) => {
     const newInput = { ...invoiceDataRevised };
     newInput[name] = value;
-    // console.log(newInput, 'nnto', name, value)
+
 
     setInvoiceDataRevised({ ...newInput });
   };
@@ -1077,7 +1077,6 @@ function Index() {
     const newInput = { ...unit };
     newInput[name] = value;
 
-    // console.log(newInput)
     setUnit(newInput);
   };
 

@@ -26,10 +26,6 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    `API.corebaseUrl{API.getVessel}`,
-  );
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   let headers = {
@@ -43,7 +39,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(viewingDocumentSuccess(response.data.data));
-        console.log('ViewDocument');
+
         dispatch(setNotLoading());
         window.open(
           response.data.data.signedUrl,
@@ -59,6 +55,52 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(setNotLoading());
       }
     });
+  } catch (error) {
+    dispatch(viewingDocumentFailed());
+
+    let toastMessage = 'COULD NOT GET DATA AT THIS TIME';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+export const previewDocument = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  let cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  let headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    let response = await Axios.post(
+      `${API.corebaseUrl}${API.preview}`,
+      payload,
+      {
+        headers: headers,
+      },
+    );
+    if (response.data.code === 200) {
+      dispatch(viewingDocumentSuccess(response.data.data));
+
+      dispatch(setNotLoading());
+      window.open(
+        response.data.data.signedUrl,
+        '_blank',
+        'noopener,noreferrer',
+      );
+    } else {
+      dispatch(viewingDocumentFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      dispatch(setNotLoading());
+    }
   } catch (error) {
     dispatch(viewingDocumentFailed());
 
