@@ -120,16 +120,16 @@ export default function Index({ addButton }) {
     dischargeCertificateOfWeightStatus:
       inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
   });
-  console.log(inspectionDetails,'inspectionDetails')
+  console.log(inspectionDetails, 'inspectionDetails')
 
   useEffect(() => {
 
     let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort
-  console.log(inspectionDetails,'inspectionDetails1')
+    console.log(inspectionDetails, typeOfPort, inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy, 'inspectionDetails1')
 
     setInspectionData({
-      dischargePortInspection: inspectionData?.thirdPartyInspection ? inspectionData?.thirdPartyInspection?.dischargePortInspection :typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
-      loadPortInspection: inspectionData?.thirdPartyInspection  ? inspectionData?.thirdPartyInspection?.loadPortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Load Port' ? true : false,
+      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.dischargePortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
+      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.loadPortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Load Port' ? true : false,
 
       loadPortInspectionDetails: {
         numberOfContainer:
