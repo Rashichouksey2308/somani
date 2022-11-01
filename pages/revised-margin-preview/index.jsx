@@ -287,8 +287,8 @@ function Index() {
                           }}
                         >
                           {addPrefixOrSuffix(
-                            marginData?.order?.quantity
-                              ? marginData?.order?.quantity?.toLocaleString(
+                            marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
+                              ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity?.toLocaleString(
                                   'en-In',
                                   { maximumFractionDigits: 2 },
                                 )
@@ -369,7 +369,7 @@ function Index() {
                           }}
                         >
                           USD{' '}
-                          {marginData?.order?.perUnitPrice?.toLocaleString(
+                          {marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice?.toLocaleString(
                             'en-EN',
                             { maximumFractionDigits: 2 },
                           ) ?? 0}
@@ -2394,8 +2394,8 @@ function Index() {
                     </td>
                     <td className={`${styles.good} good`}>
                       {addPrefixOrSuffix(
-                        marginData?.order?.quantity
-                          ? marginData?.order?.quantity
+                        marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
+                          ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity
                           : 0,
                         'MT',
                         '',
@@ -2419,7 +2419,7 @@ function Index() {
                     </td>
                     <td className={`${styles.good} `}>
                       USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString(
+                      {marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice?.toLocaleString(
                         'en-EN',
                         { maximumFractionDigits: 2 },
                       ) ?? 0}
