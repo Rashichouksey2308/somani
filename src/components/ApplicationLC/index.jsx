@@ -3040,7 +3040,7 @@ const getIndex=(index)=>{
                               78{' '}
                             </span>
                             <span>
-                              INSTRUCTIONS TO PAYING / ACCEPTING /<br />
+                              INSTRUCTIONS TO PAYING / ACCEPTING /
                               NEGOTIATING BANK
                             </span>
                           </td>
