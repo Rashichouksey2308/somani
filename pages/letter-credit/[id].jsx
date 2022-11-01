@@ -27,14 +27,14 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   let lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(lcModuleData, 'lcModuleData');
+
 
   const [editInput, setEditInput] = useState(false);
   const [editCurrent, setEditCurrent] = useState();
 
-  console.log(editCurrent, 'this is edit current');
+
   const handleEdit = (val) => {
-    console.log('THIS IS HANDLE EDIT', val);
+ 
     setEditCurrent(val);
     setEditInput(true);
   };
@@ -58,8 +58,6 @@ function Index() {
 
   const [lcData, setLcData] = useState();
 
-  // console.log(lcData, "THIS IS LC USE STATE")
-  console.log(editCurrent, 'editCurrent');
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -115,7 +113,6 @@ function Index() {
     // })
   }, [lcModuleData]);
 
-  // console.log(lcData, 'LC DATA')
 
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData };
@@ -140,7 +137,7 @@ function Index() {
  
 
   const [clauseArr, setClauseArr] = useState([]);
-  // console.log(clauseArr, 'new arr')
+
 
   const [drop, setDrop] = useState('');
 
@@ -166,17 +163,13 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text;
     let val2 = e.target.value;
     setDrop(val2);
-    console.log(
-      lcData[e.target.value],
-      'lcData[e.target.value]',
-      e.target.value,
-    );
+   
     newInput['existingValue'] = lcData[e.target.value] || '';
     newInput['dropDownValue'] = val1 || '';
-    console.log(newInput, 'dropDownChange');
+  
     setClauseObj(newInput);
   };
-  //  console.log(lcData,"lcData")
+
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj };
     newInput[name] = value;
@@ -184,14 +177,14 @@ function Index() {
 
     const newInput1 = { ...lcData };
     newInput1[drop] = value;
-    // console.log(newInput1, "NEW INPUT 1")
+
     setLcData(newInput1);
   };
 
   const saveDropDownDate = (value, name) => {
     const d = new Date(value);
     let text = d.toISOString();
-    console.log(text, 'dateee');
+
     arrChange(name, text);
   };
 
@@ -243,7 +236,7 @@ function Index() {
     lcDraftDoc: null,
   });
 
-  // console.log(lcDoc, "THIS IS LC DOC")
+
 
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc };
@@ -307,7 +300,7 @@ function Index() {
     } else {
       let tempData = { ...lcData };
 
-      // console.log(tempData,"tempData",clauseArr)
+     
       let fd = new FormData();
       fd.append('lcApplication', JSON.stringify(tempData));
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
@@ -318,7 +311,7 @@ function Index() {
   };
 
   const getData = (value, type) => {
-    // console.log(value,"775456")
+
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY');
     } else if (type == '(43P) Partial Shipment') {
@@ -328,7 +321,7 @@ function Index() {
     }
   };
   const getDataFormDropDown = (value) => {
-    // console.log(value,"ssdsdsdsd")
+   
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
     } else {

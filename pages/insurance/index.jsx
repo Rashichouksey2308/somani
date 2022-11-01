@@ -52,7 +52,7 @@ function Index() {
   };
 
   const handleEditRoute = (insured) => {
-    // console.log("asdas",d,insured)
+
     sessionStorage.setItem('quotationId', insured._id);
 
     if (insured?.quotationRequest?.quotationRequestSubmitted === true) {

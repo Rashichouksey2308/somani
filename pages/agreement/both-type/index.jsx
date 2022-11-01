@@ -46,9 +46,9 @@ function Index() {
       insurance: '',
     },
   ]);
-  console.log(insuranceAdd, emailAdd, 'emailAdd');
+ 
   const addMoreRows = (val) => {
-    console.log(val, 'vak');
+   
     if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
@@ -1795,7 +1795,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this);
+                       
                         addMoreRows('email');
                       }}
                     >

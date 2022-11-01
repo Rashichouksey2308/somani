@@ -47,9 +47,9 @@ function Index() {
       insurance: '',
     },
   ]);
-  console.log(insuranceAdd, emailAdd, 'emailAdd');
+
   const addMoreRows = (val) => {
-    console.log(val, 'vak');
+
     if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
@@ -72,10 +72,10 @@ function Index() {
   );
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
-  console.log(insuranceData, 'insuranceData');
+
 
   const exportPDF = () => {
-    console.log('hwhhwhhw,aas');
+
     const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(
       ReactDOMServer.renderToString(
@@ -1613,7 +1613,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this);
+                       
                         addMoreRows('email');
                       }}
                     >

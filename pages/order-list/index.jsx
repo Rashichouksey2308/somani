@@ -22,7 +22,7 @@ function Index() {
   const dispatch = useDispatch();
 
   const { singleOrder } = useSelector((state) => state.buyer);
-  console.log(singleOrder, 'singleorder');
+
 
   useEffect(() => {
     let companyIDnewOrder = sessionStorage.getItem('companyID');

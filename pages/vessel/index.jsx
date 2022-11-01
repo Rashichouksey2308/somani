@@ -31,11 +31,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Vessel1 } = useSelector((state) => state.vessel);
-  // console.log(Vessel1, 'vessels1')
 
-  // let id1 = sessionStorage.getItem('VesselCompany')
-  // const orderID = sessionStorage.getItem('orderID')
-  // constid1 = _get(data, 'data[0].order._id', '')
+
+
   let id = sessionStorage.getItem('VesselId');
   useEffect(() => {
     fetchInitialData();
@@ -52,7 +50,7 @@ export default function Home() {
   const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId');
     const data = await dispatch(GetVessel(`?vesselId=${id}`));
-    // console.log(data, 'vessel data')
+ 
     setData(data);
     serVesselDataToAdd(data);
     dispatch(setPageName('vessel'));
@@ -61,7 +59,7 @@ export default function Home() {
     );
     dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')));
   };
-  console.log('test');
+
   const [list, setList] = useState([]);
   const [containerExcel, setContainerExcel] = useState(null);
   const [vesselCertificate, setVesselCertificate] = useState({});
@@ -76,18 +74,13 @@ export default function Home() {
   const [vesselData, setVesselData] = useState();
   const [orderID, setOrderId] = useState('');
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }]);
-  console.log(
-    containerExcel,
-    vesselCertificate,
-    containerListDocument,
-    'containerExcel',
-  );
-  console.log(shipmentTypeBulk, '');
+
+
 
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''));
 
-    console.log(_get(Vessel, 'data[0].vessels', []).length, 'Vessel123');
+ 
 
     setCurrency(
       _get(
@@ -110,7 +103,7 @@ export default function Home() {
       list.forEach((val, index) => {
         temp.push({ value: false });
       });
-      console.log(temp, 'temp555');
+     
       setIsFieldInFocus([...temp]);
     }
     setCompanyName(_get(Vessel, 'data[0].company.companyName', ''));
@@ -320,15 +313,15 @@ export default function Home() {
         },
       ]);
     } else {
-      console.log('elelele');
+   
       setList(_get(Vessel, 'data[0].vessels', []));
     }
     // serVesselDataToAdd(Vessel)
   };
-  console.log(list, 'besslist');
+
 
   const onAddVessel = () => {
-    console.log(VesselToAdd, 'THIS IS VESSEL TO ADD');
+  
     setList([
       ...list,
       {
@@ -367,7 +360,7 @@ export default function Home() {
     ]);
     setIsFieldInFocus([...isFieldInFocus, { value: false }]);
   };
-  console.log(list, '874');
+
 
   const OnAddvesselInformation = () => {
     const newArr = [...list];
@@ -377,11 +370,11 @@ export default function Home() {
       flag: '',
       yearOfBuilt: '',
     });
-    // console.log(newArr.vesselInformation, 'vesselsnew')
+   
     setList(newArr);
   };
 
-  console.log(vesselData, 'vesselData');
+
 
   const [startDate, setStartDate] = useState(null);
   const [lastDate, setlastDate] = useState(new Date());
@@ -401,13 +394,13 @@ export default function Home() {
       return newState;
     });
   };
-  // console.log(list, 'Vessels')
+
 
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
     const name = e.target.id;
     const value = e.target.value;
     if (name === 'quantity') {
-      // console.log('THIS IS VESSELquantity', removePrefixOrSuffix(value), _get(vesselData, 'data[0].order.quantity', 0))
+    
       if (
         removePrefixOrSuffix(value) >
         _get(vesselData, 'data[0].order.quantity', 0)
@@ -431,10 +424,10 @@ export default function Home() {
   const OnVesselTransitFieldsChangeHandler = (e, index) => {
     const name = e.target.id;
     const value = e.target.value;
-    // console.log(name, value, 'Vessels')
+    
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
-        // console.log(i, index, 'Vessels')
+        
         if (i == index) {
           return {
             ...obj,
@@ -463,9 +456,9 @@ export default function Home() {
       setDateStartFrom(temp);
     }
   }, [vesselData]);
-  console.log(dateStartFrom, 'dateStartFrom');
+
   const saveDate = (startDate, name, index) => {
-    // console.log(startDate, name, 'Event1')
+   
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -491,16 +484,11 @@ export default function Home() {
     temp[index] = new_date;
     setDateStartFrom([...temp]);
   };
-  console.log(dateStartFrom, 'dateStartFrom');
+
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id;
     let value = e.target.value;
-    // let value = Math.max(1000, Math.min(2022, Number(e.target.value))) ?? 0
-    // if (name === 'yearOfBuilt' && value.length === 4) {
-    //   // value = new Date(e.target.value)
-    //   // console.log(value, 'fghfhf')
-    // }
-    // console.log(name, value,new Date().getFullYear(), Math.max(1000, Math.min(2022, Number(value))), 'arrayvesselbulk')
+    
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -508,7 +496,7 @@ export default function Home() {
       }
     } else {
       let array = { ...list[index].vesselInformation[0], [name]: value };
-      // console.log(array, 'arrayvessel')
+      
       setList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == index) {
@@ -523,15 +511,12 @@ export default function Home() {
       });
     }
   };
-  // console.log(list, 'vessel liner state')
+ 
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id;
     let value = e.target.value;
-    // if (name === 'yearOfBuilt' && value.length === 4) {
-    // value = new Date(e.target.value)
-
-    // }
+   
 
     let tempArr = [...list];
     tempArr[0].vesselInformation.forEach((val, i) => {
@@ -562,7 +547,7 @@ export default function Home() {
 
   const uploadDocHandler = async (e) => {
     let uploadDocType = e.target.id;
-    // // console.log(uploadDocType, 'containerExcel')
+
 
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
@@ -584,9 +569,9 @@ export default function Home() {
         },
       );
       if (response.data.code === 200) {
-        console.log(uploadDocType, 'uploadDocType');
+       
         if (uploadDocType == 'containerExcel') {
-          console.log(response.data.data, 'response.data.data');
+          
           setContainerExcel(response.data.data);
         }
         if (uploadDocType === 'Vessel Certificate') {
@@ -631,7 +616,7 @@ export default function Home() {
   const validation = () => {
     let isOk = true;
     let toastMessage = '';
-    console.log(list, 'list validation');
+  
 
     for (let i = 0; i < list.length; i++) {
       if (list[i].shipmentType == '' || list[i].shipmentType == undefined) {
@@ -877,7 +862,7 @@ export default function Home() {
   };
 
   const onSubmitHanler = async () => {
-    console.log(list, 'gdksfujhfgjkdgfkjhhhhmh');
+
     if (validation()) {
       const payload = {
         vesselId: id,
@@ -893,8 +878,7 @@ export default function Home() {
       if (containerExcel) {
         payload.containerExcel = containerExcel;
       }
-      // console.log(payload, 'vessels123456')
-      // console.log("check 3")
+  
       let data = await dispatch(UpdateVessel(payload));
       if (data == 200) {
         let toastMessage = 'VESSEL UPDATED SUCCESSFULLY';
@@ -914,8 +898,7 @@ export default function Home() {
       }
     }
   };
-  // // console.log(Vessel, "Vessel")
-  // console.log(containerExcel, ' containerExcel')
+
 
   const onDeleteVessel = (index) => {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
@@ -923,13 +906,13 @@ export default function Home() {
   const OnAddvesselInformationDelete = (index) => {
     let tempArr = [...list];
     tempArr[0].vesselInformation.splice(index, 1);
-    // console.log(tempArr, "tempArr")
+
     setList(tempArr);
   };
-  // console.log(vesselUpdatedAt, 'vesselUpdatedAt')
+
 
   const onSaveHandler = async () => {
-    console.log(list, 'gdksfujhfgjkdgfkjhhhhmh');
+   
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
@@ -944,8 +927,7 @@ export default function Home() {
     if (containerExcel) {
       payload.containerExcel = containerExcel;
     }
-    // console.log(payload, 'vessels123456')
-    // console.log("check 3")
+  
     await dispatch(UpdateVessel(payload));
 
     let toastMessage = `Vessel DATA SAVED`;

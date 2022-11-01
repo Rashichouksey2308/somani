@@ -29,7 +29,7 @@ function Index() {
     website: '',
     status:""
   });
-  console.log(formData,"formData")
+
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -46,7 +46,7 @@ function Index() {
     emailId: '',
     action:false
   }]);
-  console.log(person,"person")
+
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
@@ -55,7 +55,7 @@ function Index() {
     ownershipPercentage: '',
     action:false
   }]);
-  console.log(detail,"detail")
+
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
@@ -174,7 +174,7 @@ function Index() {
       action:false
     },
   ]);
-  console.log(listDirector,"listDirector")
+
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -189,7 +189,7 @@ function Index() {
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+    
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
@@ -197,7 +197,7 @@ function Index() {
   };
 
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
+    
 
     formData.incorporationDate = value;
     setFormData({
@@ -222,31 +222,31 @@ function Index() {
   };
 
   const onChangeHandler2 = (name,value,index) => {
-    console.log(name,value,index,"name,value,<index></index>")
+   
     let newInput=[...person]
-    console.log(newInput[index],"newInput[index]")
+   
     newInput[index][name]=value;
-    console.log(newInput,"newInput")
+   
     setListShare([...newInput])
     
   };
- console.log(person,"person")
+
  const onChangeHandler3 = (name,value,index) => {
-    console.log(name,value,index,"name,value,<index></index>")
+   
     let newInput=[...detail]
-    console.log(newInput[index],"newInput[index]")
+   
     newInput[index][name]=value;
-    console.log(newInput,"newInput")
+   
     setDetail([...newInput])
     
   };
-console.log(listShare,"listShare")
+
  const onChangeHandler4 = (name,value,index) => {
-    console.log(name,value,index,"name,value,<index></index>")
+   
     let newInput=[...listDirector]
-    console.log(newInput[index],"newInput[index]")
+   
     newInput[index][name]=value;
-    console.log(newInput,"newInput")
+   
     setListDirector([...newInput])
     
   };
@@ -264,11 +264,11 @@ console.log(listShare,"listShare")
   };
 
    const onChangeHandler6 = (name,value,index) => {
-    console.log(name,value,index,"name,value,<index></index>")
+   
     let newInput=[...listCommodity]
    
     newInput[index][name]=value;
-    console.log(newInput,"newInput")
+   
     setListCommodity([...newInput])
     
   };
@@ -350,7 +350,7 @@ console.log(listShare,"listShare")
     // apiData.additionalInformation.push(info)
   };
   // {
-  //   console.log('apidata', apiData)
+ 
   // }
 
   const handleSave = () => {
@@ -363,7 +363,7 @@ console.log(listShare,"listShare")
     apiData.commoditiesTraded.push(commodity);
     apiData.additionalInformation.push(info);
     dispatch(UpdateSupplier(apiData));
-    // console.log('apidata', apiData)
+   
   };
 
   const [darkMode, setDarkMode] = useState(false);
@@ -394,7 +394,7 @@ console.log(listShare,"listShare")
     ]);
   };
    const addressValidtion = (data) => {
-    console.log(data, 'addressValidtion');
+  
   
     if (
       data.pinCode === null ||
@@ -512,7 +512,7 @@ console.log(listShare,"listShare")
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-    console.log(keyAddData, 'keyAddData');
+  
     let tempArr = keyAddData;
     setEditData({
       
@@ -556,11 +556,11 @@ console.log(listShare,"listShare")
     }
   };
    const handleChange = (name, value) => {
-    console.log(name, value,"name, value")
+
     const newInput = { ...keyAddressData };
     newInput[name] = value;
 
-    // console.log(newInput)
+    
     setKeyAddressData(newInput);
   };
   return (
@@ -1128,7 +1128,7 @@ console.log(listShare,"listShare")
                                   }}
                                 />
                               </td>
-                              {console.log('data55', val)}
+                            
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1138,7 +1138,7 @@ console.log(listShare,"listShare")
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          console.log("herer1")
+                                        
                                           onChangeHandler2("action",true,index)
                                           // setContactTable(true);
                                         }}
@@ -1151,7 +1151,7 @@ console.log(listShare,"listShare")
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                           console.log("herer2")
+                                          
                                            onChangeHandler2("action",false,index)
                                           // setContactTable(false);
                                         }}
@@ -1577,7 +1577,7 @@ console.log(listShare,"listShare")
                                   }}
                                 />
                               </td>
-                              {console.log('data99', commodity)}
+                              
 
                               <td className="text-right">
                                 <div>
