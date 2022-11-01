@@ -27,9 +27,9 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status:""
+    status: ""
   });
-
+  console.log(formData, "formData")
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -44,18 +44,18 @@ function Index() {
     designation: '',
     contact: '',
     emailId: '',
-    action:false
+    action: false
   }]);
-
+  console.log(person, "person")
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
     designation: '',
     contact: '',
     ownershipPercentage: '',
-    action:false
+    action: false
   }]);
-
+  console.log(detail, "detail")
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
@@ -66,7 +66,7 @@ function Index() {
   const [commodity, setCommidity] = useState([{
     hsnCode: '',
     commodity: '',
-    action:false
+    action: false
   }]);
 
   const [info, setInfo] = useState("");
@@ -98,7 +98,7 @@ function Index() {
     {
       hsnCode: '',
       commodity: '',
-      action:false
+      action: false
     },
   ]);
 
@@ -119,9 +119,9 @@ function Index() {
       {
         hsnCode: '',
         commodity: '',
-       action:false
+        action: false
       },
-      
+
     ]);
   };
   const [listContact, setListContact] = useState([
@@ -140,7 +140,7 @@ function Index() {
         designation: '',
         contactNo: '',
         emailID: '',
-        action:false
+        action: false
       },
     ]);
   };
@@ -150,7 +150,7 @@ function Index() {
       designation: '',
       contactNo: '',
       emailID: '',
-      action:false
+      action: false
     },
   ]);
   const onAddShare = () => {
@@ -161,7 +161,7 @@ function Index() {
         designation: '',
         contact: '',
         ownershipPercentage: '',
-        action:false
+        action: false
       },
     ]);
   };
@@ -170,26 +170,26 @@ function Index() {
       name: '',
       nationality: '',
       authorityToSign: false,
-     
-      action:false
+
+      action: false
     },
   ]);
-
+  console.log(listDirector, "listDirector")
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
       {
         name: '',
-      nationality: '',
-      authorityToSign: false,
-     
-      action:false
+        nationality: '',
+        authorityToSign: false,
+
+        action: false
       },
     ]);
   };
 
   const saveDate = (value, name) => {
-    
+    // console.log(value, name, 'save date')
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
@@ -197,7 +197,7 @@ function Index() {
   };
 
   const saveQuotationData = (name, value) => {
-    
+    // console.log(value, 'dhjsgfksjdghf')
 
     formData.incorporationDate = value;
     setFormData({
@@ -221,56 +221,56 @@ function Index() {
     });
   };
 
-  const onChangeHandler2 = (name,value,index) => {
-   
-    let newInput=[...person]
-   
-    newInput[index][name]=value;
-   
+  const onChangeHandler2 = (name, value, index) => {
+    console.log(name, value, index, "name,value,<index></index>")
+    let newInput = [...person]
+    console.log(newInput[index], "newInput[index]")
+    newInput[index][name] = value;
+    console.log(newInput, "newInput")
     setListShare([...newInput])
-    
-  };
 
- const onChangeHandler3 = (name,value,index) => {
-   
-    let newInput=[...detail]
-   
-    newInput[index][name]=value;
-   
+  };
+  console.log(person, "person")
+  const onChangeHandler3 = (name, value, index) => {
+    console.log(name, value, index, "name,value,<index></index>")
+    let newInput = [...detail]
+    console.log(newInput[index], "newInput[index]")
+    newInput[index][name] = value;
+    console.log(newInput, "newInput")
     setDetail([...newInput])
-    
-  };
 
- const onChangeHandler4 = (name,value,index) => {
-   
-    let newInput=[...listDirector]
-   
-    newInput[index][name]=value;
-   
+  };
+  console.log(listShare, "listShare")
+  const onChangeHandler4 = (name, value, index) => {
+    console.log(name, value, index, "name,value,<index></index>")
+    let newInput = [...listDirector]
+    console.log(newInput[index], "newInput[index]")
+    newInput[index][name] = value;
+    console.log(newInput, "newInput")
     setListDirector([...newInput])
-    
+
   };
 
   const onChangeHandler5 = (e) => {
     const { name, value } = e.target;
-    
+
     setBusiness(value);
   };
-   const addToBusinessArray = (e) => {
-    let temp=[...businessArray]
+  const addToBusinessArray = (e) => {
+    let temp = [...businessArray]
     temp.push(business)
     setBusinessArray([...temp])
     setBusiness('');
   };
 
-   const onChangeHandler6 = (name,value,index) => {
-   
-    let newInput=[...listCommodity]
-   
-    newInput[index][name]=value;
-   
+  const onChangeHandler6 = (name, value, index) => {
+    console.log(name, value, index, "name,value,<index></index>")
+    let newInput = [...listCommodity]
+
+    newInput[index][name] = value;
+    console.log(newInput, "newInput")
     setListCommodity([...newInput])
-    
+
   };
 
 
@@ -279,7 +279,7 @@ function Index() {
     setInfo(value);
   };
   const onChangeHandler7Array = (e) => {
-    let temp=[...infoArray]
+    let temp = [...infoArray]
     temp.push(info)
     setInfoArray([...temp])
     setInfo('');
@@ -350,7 +350,7 @@ function Index() {
     // apiData.additionalInformation.push(info)
   };
   // {
- 
+  //   console.log('apidata', apiData)
   // }
 
   const handleSave = () => {
@@ -363,14 +363,14 @@ function Index() {
     apiData.commoditiesTraded.push(commodity);
     apiData.additionalInformation.push(info);
     dispatch(UpdateSupplier(apiData));
-   
+    // console.log('apidata', apiData)
   };
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     dispatch(setPageName('inception2'));
   });
-    const [keyAddData, setKeyAddData] = useState([
+  const [keyAddData, setKeyAddData] = useState([
     {
       GSTIN: "",
       GSTIN_document: "",
@@ -379,78 +379,48 @@ function Index() {
       city: "",
       state: "",
       email: "",
-      completeAddress:"",
+      completeAddress: "",
       contact: {
-        callingCode:"",
+        callingCode: "",
         number: "",
       },
       pinCode: "",
     },
   ]);
-    const deleteComponent = (index) => {
+  const deleteComponent = (index) => {
     setKeyAddData([
       ...keyAddData.slice(0, index),
       ...keyAddData.slice(index + 1),
     ]);
   };
-   const addressValidtion = (data) => {
-  
-  
-    if (
-      data.pinCode === null ||
-      data.pinCode === '' ||
-      data.pinCode === undefined
-    ) {
-      let toastMessage = 'Please add pin code';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-   
-   
-    if (data.email === null || data.email === '' || data.email === undefined) {
-      let toastMessage = 'Please add email';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
+  const addressValidtion = (data) => {
 
-      return false;
-    }
-    if (
-      !String(data.email)
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        )
-    ) {
-      let toastMessage = 'Please add valid email id';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      return false;
-    }
-    if (data.email === null || data.email === '' || data.email === undefined) {
-      let toastMessage = 'Please add email';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
 
-      return false;
+    const emailValidate = () => {
+      let isOk = true
+      data.email.forEach((email, index) => {
+        if (
+          !String(email)
+            .toLowerCase()
+            .match(
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            )
+        ) {
+          let toastMessage = `Please add valid email id for Email Field ${index}`;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          }
+          isOk = false;
+          return
+        }
+      })
+      console.log(isOk, 'keyAddressData')
+      return isOk
     }
-    if (
-      data.contact.phoneNumber === null ||
-      data.contact.phoneNumber === '' ||
-      data.contact.phoneNumber === undefined
-    ) {
-      let toastMessage = 'Please add phone phoneNumber';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
 
-      return false;
-    }
-   
+
+
+    console.log(data, 'addressValidtion');
     if (
       data.address === null ||
       data.address === '' ||
@@ -463,7 +433,18 @@ function Index() {
 
       return false;
     }
-      if (
+    else if (
+      data.pinCode === null ||
+      data.pinCode === '' ||
+      data.pinCode === undefined
+    ) {
+      let toastMessage = 'Please add pin code';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false;
+    }
+    else if (
       data.country === null ||
       data.country === '' ||
       data.country === undefined
@@ -475,12 +456,46 @@ function Index() {
 
       return false;
     }
-    return true;
+
+
+    // if (data.email === null || data.email === '' || data.email === undefined) {
+    //   let toastMessage = 'Please add email';
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    //   }
+
+    //   return false;
+    // }
+
+
+    else if (!emailValidate()) {
+      return false;
+    }
+
+
+
+    else if (
+      data.contact.phoneNumber === null ||
+      data.contact.phoneNumber === '' ||
+      data.contact.phoneNumber === undefined
+    ) {
+      let toastMessage = 'Please add phone phoneNumber';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+
+      return false;
+    } else {
+      return true;
+
+    }
+
+
   };
   const [showAddress, setShowAddress] = useState(false);
   const [showEditAddress, setShowEditAddress] = useState(false);
   const [Index, setIndex] = useState('0');
-   const [editData, setEditData] = useState({
+  const [editData, setEditData] = useState({
     GSTIN: '',
     GSTIN_document: '',
     addressType: '',
@@ -494,30 +509,33 @@ function Index() {
       number: '',
     },
     pinCode: '',
-    
+
   });
   const [keyAddressData, setKeyAddressData] = useState({
-        
-        email: '',
-        address: '',
-        country:"",
-        contact: {
-          callingCode: null,
-          phoneNumber: null,
-          alternatePhoneNumber: null,
-        },
-        pinCode: null,
+
+    email: [''],
+    address: '',
+    country: "",
+    contact: {
+      phoneNumberCallingCode: '+91',
+      alternatePhoneNumberCallingCode: '+91',
+      phoneNumber: null,
+      alternatePhoneNumber: null,
+    },
+    pinCode: null,
   });
-   const editAddress = (index) => {
+
+  console.log(keyAddressData, 'keyAddressData')
+  const editAddress = (index) => {
     setShowAddress(false);
     setShowEditAddress(true);
     setIndex(index);
-  
+    console.log(keyAddData, 'keyAddData');
     let tempArr = keyAddData;
     setEditData({
-      
-    
-      
+
+
+
       email: tempArr[index].email,
       country: tempArr[index].country,
       address: tempArr[index].address,
@@ -527,10 +545,10 @@ function Index() {
         alternatePhoneNumber: tempArr[index].contact.alternatePhoneNumber,
       },
       pinCode: tempArr[index].pinCode,
-    
+
     });
   };
-   const keyAddDataArr = (keyAddressData) => {
+  const keyAddDataArr = (keyAddressData) => {
     let newArr = [...keyAddData];
     newArr.push(keyAddressData);
     setKeyAddData(newArr);
@@ -539,28 +557,47 @@ function Index() {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData);
       setKeyAddressData({
-        
-       
-       
-        email: '',
+
+
+
+        email: [''],
         address: '',
-        country:"",
+        country: "",
         contact: {
-          callingCode: null,
+          phoneNumberCallingCode: '+91',
+          alternatePhoneNumberCallingCode: '+91',
           phoneNumber: null,
           alternatePhoneNumber: null,
         },
         pinCode: null,
-       
+
       });
     }
   };
-   const handleChange = (name, value) => {
+
+  const handleChange = (value, name, index) => {
 
     const newInput = { ...keyAddressData };
-    newInput[name] = value;
 
-    
+
+
+
+    let namesplit = name.split('.')
+    console.log(name, namesplit, value, "name, value")
+
+
+
+    if (name === 'emailId') {
+      newInput.email[index] = value
+    }
+    else if (namesplit.length > 1) {
+      newInput[namesplit[0]][namesplit[1]] = value;
+    } else {
+      newInput[name] = value;
+
+    }
+
+    // console.log(newInput)
     setKeyAddressData(newInput);
   };
   return (
@@ -570,11 +607,10 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode
+                  ? `/static/white-arrow.svg`
+                  : `/static/arrow-right.svg`
+                  }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -796,28 +832,29 @@ function Index() {
               >
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="d-flex justify-content-between">
-                  {keyAddData.map((address, index) => {
-                return (
-                  <>
-                    <AddressComponent
-                      index={index}
-                      Title={address?.addressType}
-                      address={address?.completeAddress}
-                      number={address?.contact?.number}
-                      callingCode={address?.contact?.callingCode}
-                      branch={address?.branch}
-                      gstIn={address?.GSTIN}
-                      email={address?.email}
-                      deleteComponent={deleteComponent}
-                      editAddress={editAddress}
-                      // orderDetail={orderDetail}
-                      path={''}
-                     
-                    />
-                  </>
-                );
-              })}
-                   
+                    {keyAddData.map((address, index) => {
+
+                      return (
+                        <>
+                          <AddressComponent
+                            index={index}
+                            Title={address?.addressType}
+                            address={address?.address}
+                            number={address?.contact?.phoneNumber}
+                            callingCode={address?.contact?.callingCode}
+                            branch={address?.branch}
+                            gstIn={address?.GSTIN}
+                            email={address?.email}
+                            deleteComponent={deleteComponent}
+                            editAddress={editAddress}
+                            // orderDetail={orderDetail}
+                            path={''}
+
+                          />
+                        </>
+                      );
+                    })}
+
                   </div>
                   <div
                     className={`${styles.address_card} mt-3 pb-5 value background1`}
@@ -842,11 +879,11 @@ function Index() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
-                            
+
                             name="address"
                             value={keyAddressData?.address}
-                            onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
+                            onChange={(e) => {
+                              handleChange(e.target.value, e.target.name)
                             }}
                           />
                           <label
@@ -866,9 +903,9 @@ function Index() {
                               type="text"
                               name="pinCode"
                               value={keyAddressData?.pinCode}
-                              onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
-                            }}
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -894,9 +931,9 @@ function Index() {
                               type="text"
                               name="country"
                               value={keyAddressData?.country}
-                              onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
-                            }}
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -917,16 +954,19 @@ function Index() {
                         >
                           <div className={`${styles.phone_card}`}>
                             <select
-                              name="callingCode"
+                              name="contact.phoneNumberCallingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
-                             
+                              value={keyAddressData.contact.phoneNumberCallingCode}
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             >
-                              <option>+91</option>
-                              <option>+1</option>
-                              <option>+92</option>
-                              <option>+95</option>
-                              <option>+24</option>
+                              <option value='+91'>+91</option>
+                              <option value='+1'>+1</option>
+                              <option value='+92'>+92</option>
+                              <option value='+95'>+95</option>
+                              <option value='+24'>+24</option>
                             </select>
                             <input
                               type="tel"
@@ -934,9 +974,9 @@ function Index() {
                               name="contact.phoneNumber"
                               value={keyAddressData?.phoneNumber}
                               className={`${styles.input_field}  input form-control border-left-0`}
-                             onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
-                            }}
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -952,16 +992,21 @@ function Index() {
                         >
                           <div className={`${styles.phone_card}`}>
                             <select
-                              name="callingCode"
+                              name="contact.alternatePhoneNumberCallingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
+                              value={keyAddressData.contact.alternatePhoneNumberCallingCode}
+
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             >
                               {' '}
-                              <option>+91</option>
-                              <option>+1</option>
-                              <option>+92</option>
-                              <option>+95</option>
-                              <option>+24</option>
+                              <option value='+91'>+91</option>
+                              <option value='+1'>+1</option>
+                              <option value='+92'>+92</option>
+                              <option value='+95'>+95</option>
+                              <option value='+24'>+24</option>
                             </select>
                             <input
                               type="tel"
@@ -969,9 +1014,9 @@ function Index() {
                               name="contact.alternatePhoneNumber"
                               value={keyAddressData?.alternatePhoneNumber}
                               className={`${styles.input_field} input form-control border-left-0`}
-                              onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
-                            }}
+                              onChange={(e) => {
+                                handleChange(e.target.value, e.target.name)
+                              }}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -981,42 +1026,50 @@ function Index() {
                             </label>
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-6`}
-                        >
-                          <div className="d-flex">
-                            <input
-                              className={`${styles.input_field} input form-control`}
-                              required
-                              type="text"
-                              name="emailId"
-                              value={keyAddressData?.emailId}
-                              onChange={(e)=>{
-                              handleChange(e.target.value,e.target.name)
-                            }}
-                            />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Email ID
-                              <strong className="text-danger">*</strong>
-                            </label>
+                        {keyAddressData.email.map((email, index) => (
+                          <div
+                            className={`${styles.form_group} col-md-4 col-sm-6`}
+                          >
+                            <div className="d-flex">
+                              <input
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                type="text"
+                                name="emailId"
+                                value={email}
+
+                                onChange={(e) => {
+                                  handleChange(e.target.value, e.target.name, index)
+                                }}
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Email ID
+                                <strong className="text-danger">*</strong>
+                              </label>
+
+                            </div>
                             <img
+                              onClick={() => setKeyAddressData((prev) => {
+                                return { ...prev, email: [...prev.email, ''] }
+                              })}
                               className={`${styles.plus_add} img-fluid`}
                               src="/static/add-btn.svg"
                               alt="Search"
                             />
+
                           </div>
-                        </div>
+                        ))}
                       </div>
                       <button
-                      className={`${styles.add_btn}`}
-                      onClick={() => handleClick()}
-                    >
-                      Add
-                    </button>
+                        className={`${styles.add_btn}`}
+                        onClick={() => handleClick()}
+                      >
+                        Add
+                      </button>
                     </div>
-                   
+
                   </div>
                 </div>
               </div>
@@ -1078,10 +1131,10 @@ function Index() {
                                   name="name"
                                   value={val?.name}
                                   type="text"
-                                  onChange={(e)=>{
-                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  onChange={(e) => {
+                                    onChangeHandler2(e.target.name, e.target.value, index)
                                   }}
-                                   readOnly={!val.action}
+                                  readOnly={!val.action}
                                 />
                               </td>
                               <td>
@@ -1091,8 +1144,8 @@ function Index() {
                                   value={val?.designation}
                                   type="text"
                                   readOnly={!val.action}
-                                 onChange={(e)=>{
-                                    onChangeHandler2(e.target.name,e.target.value,index)
+                                  onChange={(e) => {
+                                    onChangeHandler2(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
@@ -1106,14 +1159,14 @@ function Index() {
                                   onWheel={(event) =>
                                     event.currentTarget.blur()
                                   }
-                                 onChange={(e)=>{
-                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  onChange={(e) => {
+                                    onChangeHandler2(e.target.name, e.target.value, index)
                                   }}
                                   onKeyDown={(evt) =>
                                     ['e', 'E', '+', '-'].includes(evt.key) &&
                                     evt.preventDefault()
                                   }
-                                   readOnly={!val.action}
+                                  readOnly={!val.action}
                                 />
                               </td>
                               <td>
@@ -1123,12 +1176,12 @@ function Index() {
                                   value={val?.emailId}
                                   type="text"
                                   readOnly={!val.action}
-                                  onChange={(e)=>{
-                                   onChangeHandler2(e.target.name,e.target.value,index)
+                                  onChange={(e) => {
+                                    onChangeHandler2(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
-                            
+                              {console.log('data55', val)}
                               <td className="text-right">
                                 <div>
                                   {!val.action ? (
@@ -1138,8 +1191,8 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                        
-                                          onChangeHandler2("action",true,index)
+                                          console.log("herer1")
+                                          onChangeHandler2("action", true, index)
                                           // setContactTable(true);
                                         }}
                                       />
@@ -1151,8 +1204,8 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          
-                                           onChangeHandler2("action",false,index)
+                                          console.log("herer2")
+                                          onChangeHandler2("action", false, index)
                                           // setContactTable(false);
                                         }}
                                       />
@@ -1232,9 +1285,9 @@ function Index() {
                                     name="shareHoldersName"
                                     value={val?.shareHoldersName}
                                     type="text"
-                                    onChange={(e)=>{
-                                   onChangeHandler3(e.target.name,e.target.value,index)
-                                  }}
+                                    onChange={(e) => {
+                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                    }}
                                     readOnly={!val.action}
                                   />
                                 </td>
@@ -1244,9 +1297,9 @@ function Index() {
                                     name="designation"
                                     value={val?.designation}
                                     type="text"
-                                   onChange={(e)=>{
-                                   onChangeHandler3(e.target.name,e.target.value,index)
-                                  }}
+                                    onChange={(e) => {
+                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                    }}
                                     readOnly={!val.action}
                                   />
                                 </td>
@@ -1264,9 +1317,9 @@ function Index() {
                                       ['e', 'E', '+', '-'].includes(evt.key) &&
                                       evt.preventDefault()
                                     }
-                                     onChange={(e)=>{
-                                   onChangeHandler3(e.target.name,e.target.value,index)
-                                  }}
+                                    onChange={(e) => {
+                                      onChangeHandler3(e.target.name, e.target.value, index)
+                                    }}
                                     readOnly={!val.action}
                                   />
                                 </td>
@@ -1280,7 +1333,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="edit"
                                           onClick={(e) => {
-                                           onChangeHandler3("action",true,index)
+                                            onChangeHandler3("action", true, index)
                                           }}
                                         />
                                       </>
@@ -1291,7 +1344,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="save"
                                           onClick={(e) => {
-                                            onChangeHandler3("action",false,index)
+                                            onChangeHandler3("action", false, index)
                                           }}
                                         />
                                       </>
@@ -1379,9 +1432,9 @@ function Index() {
                                   name="name"
                                   value={val?.name}
                                   type="text"
-                                 readOnly={!val.action}
-                                  onChange={(e)=>{
-                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  readOnly={!val.action}
+                                  onChange={(e) => {
+                                    onChangeHandler4(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
@@ -1391,9 +1444,9 @@ function Index() {
                                   name="nationality"
                                   value={val?.nationality}
                                   type="text"
-                                 readOnly={!val.action}
-                                  onChange={(e)=>{
-                                   onChangeHandler4(e.target.name,e.target.value,index)
+                                  readOnly={!val.action}
+                                  onChange={(e) => {
+                                    onChangeHandler4(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
@@ -1404,8 +1457,8 @@ function Index() {
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
                                   readOnly={!val.action}
-                                  onChange={(e)=>{
-                                   onChangeHandler4(e.target.name,!val?.authorityToSign,index)
+                                  onChange={(e) => {
+                                    onChangeHandler4(e.target.name, !val?.authorityToSign, index)
                                   }}
                                 />
                               </td>
@@ -1418,9 +1471,9 @@ function Index() {
                                         src="/static/mode_edit.svg"
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
-                                       onClick={(e) => {
-                                            onChangeHandler4("action",true,index)
-                                          }}
+                                        onClick={(e) => {
+                                          onChangeHandler4("action", true, index)
+                                        }}
                                       />
                                     </>
                                   ) : (
@@ -1430,8 +1483,8 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                            onChangeHandler4("action",false,index)
-                                          }}
+                                          onChangeHandler4("action", false, index)
+                                        }}
                                       />
                                     </>
                                   )}
@@ -1479,7 +1532,7 @@ function Index() {
               data-parent="#businessSummary"
             >
               <div className={`${styles.dashboard_form} mr-3`}>
-              
+
 
                 <div className="d-flex mt-4 pb-4 ml-4">
                   <input
@@ -1495,16 +1548,16 @@ function Index() {
                     Business Summary
                   </label>
                   <img
-                  onClick={(e)=>{addToBusinessArray()}}
+                    onClick={(e) => { addToBusinessArray() }}
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
                   />
                 </div>
                 <ol>
-                {businessArray.map((val,index)=>{
-                  return <li>{val}</li>
-                })}
+                  {businessArray.map((val, index) => {
+                    return <li>{val}</li>
+                  })}
                 </ol>
               </div>
             </div>
@@ -1560,8 +1613,8 @@ function Index() {
                                   value={val?.hsnCode}
                                   type="text"
                                   readOnly={!val.action}
-                                  onChange={(e)=>{
-                                    onChangeHandler6(e.target.name,e.target.value,index)
+                                  onChange={(e) => {
+                                    onChangeHandler6(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
@@ -1571,13 +1624,13 @@ function Index() {
                                   name="commodity"
                                   value={val?.commodity}
                                   type="text"
-                                 readOnly={!val.action}
-                                  onChange={(e)=>{
-                                    onChangeHandler6(e.target.name,e.target.value,index)
+                                  readOnly={!val.action}
+                                  onChange={(e) => {
+                                    onChangeHandler6(e.target.name, e.target.value, index)
                                   }}
                                 />
                               </td>
-                              
+                              {console.log('data99', commodity)}
 
                               <td className="text-right">
                                 <div>
@@ -1588,7 +1641,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                           onChangeHandler6("action",true,index)
+                                          onChangeHandler6("action", true, index)
                                         }}
                                       />
                                     </>
@@ -1599,7 +1652,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                           onChangeHandler6("action",false,index)
+                                          onChangeHandler6("action", false, index)
                                         }}
                                       />
                                     </>
@@ -1693,12 +1746,12 @@ function Index() {
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
                     alt="add button"
-                    onClick={(e)=>{
+                    onClick={(e) => {
                       onChangeHandler7Array()
                     }}
                   />
                 </div>
-                  {infoArray.map((val,index)=>{
+                {infoArray.map((val, index) => {
                   return <li>{val}</li>
                 })}
               </div>
@@ -1708,7 +1761,7 @@ function Index() {
             <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
-              // uploadDocument1={uploadDocument1}
+            // uploadDocument1={uploadDocument1}
             />
           </div>
         </div>
