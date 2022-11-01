@@ -329,15 +329,15 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     if (
-      Number(last) === NaN ||
+      isNaN(Number(last)) ||
       last === null ||
       (!last && last !== 0) ||
       last === undefined ||
-      Number(previous) === NaN ||
+      isNaN(Number(previous)) ||
       previous === null ||
       (!previous && previous !== 0) ||
       previous === undefined ||
-      Number(latest) === NaN ||
+       isNaN(Number(latest)) ||
       latest === null ||
       (!latest && latest !== 0) ||
       latest === undefined
@@ -615,7 +615,7 @@ function Index() {
     if (
       orderDetails?.orderValue === '' ||
       orderDetails?.orderValue == undefined ||
-      orderDetails?.orderValue == NaN
+      isNaN( orderDetails?.orderValue) 
     ) {
       let toastMessage = 'Please Check the orderValue  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -4631,7 +4631,9 @@ function Index() {
                                 }}
                               >
                                 {' '}
-                                {charge?.nameOfChargeHolder1}
+                                {charge?.nameOfChargeHolder
+                                ? charge?.nameOfChargeHolder
+                                : charge?.nameOfChargeHolder1}
                               </td>
                               <td
                                 style={{
@@ -4643,11 +4645,11 @@ function Index() {
                                 }}
                               >
                                 {convertValue(
-                                  charge?.finalAmountSecured,
-                                  camConversionunit,
-                                ).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                              charge?.finalAmountSecured,
+                              camConversionunit,
+                            ).toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                            })}
                               </td>
                               <td
                                 style={{
@@ -4658,12 +4660,12 @@ function Index() {
                                   paddingBottom: '21px',
                                 }}
                               >
-                                {charge?.dateOfCreationOfCharge
-                                  ? moment(
-                                    charge?.dateOfCreationOfCharge,
-                                    'DD-MM-YYYY',
-                                  ).format('DD-MM-YYYY')
-                                  : ''}
+                               {charge?.dateOfCreationOfCharge
+                              ? moment(
+                                  charge?.dateOfCreationOfCharge,
+                                  'DD-YY-MMMM',
+                                ).format('DD-MM-YYYY')
+                              : ''}
                               </td>
                             </tr>
                           );

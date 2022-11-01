@@ -321,10 +321,26 @@ function Index() {
     }
   };
   const getDataFormDropDown = (value) => {
-   
+     console.log(value,fieldType,"SADdsdfsdf")
     if (fieldType == 'date') {
       return moment(value).format('DD-MM-YYYY');
-    } else {
+    }
+    else if (fieldType == 'drop') {
+      if(value=="Yes"){
+        return "Allowed"
+      }
+      if(value=="No"){
+        return "Not Allowed"
+      }
+      if(value=="Conditional"){
+        return "Conditional"
+      }
+      if(value==""){
+        return ""
+      }
+      
+    } 
+     else {
       return value;
     }
   };
@@ -607,7 +623,7 @@ function Index() {
 
                                 <option value="Yes">Allowed</option>
                                 <option value="No">Not Allowed</option>
-                                <option value="">Conditional</option>
+                                <option value="Conditional">Conditional</option>
                               </select>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}
