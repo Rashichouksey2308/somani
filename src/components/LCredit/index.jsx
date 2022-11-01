@@ -378,6 +378,37 @@ function Index() {
       return ;
     }
   };
+     const getValue = (value,toCheck) => {
+    console.log("asasasasa",value,toCheck)
+    console.log(value,)
+    if (toCheck == '(32D) Place Of Expiry' || toCheck == '(44C) Latest Date Of Shipment') {
+      
+      return moment(value).format('DD-MM-YYYY') ;
+    }
+    else if (toCheck == '(43P) Partial Shipment') {
+      if(value=="Yes"){
+       
+        return "Allowed"
+      }
+      if(value=="No"){
+      
+        return "Not Allowed"
+      }
+      if(value=="Conditional"){
+       
+        return "Conditional"
+      }
+      if(value==""){
+        
+        return ""
+      }
+      
+    } 
+     else {
+     
+      return value ;
+    }
+  }
   useEffect(() => {
     console.log("useeedd")
     getDataFormDropDown(editInput
@@ -897,8 +928,8 @@ console.log(clauseObj,lcData,"sasdasdasd");
                                     <>
                                       <tr key={index} className="table_row">
                                         <td>{arr.dropDownValue}</td>
-                                        <td>{arr.existingValue}</td>
-                                        <td>{arr.newValue}</td>
+                                        <td>{getValue(arr.existingValue,arr.dropDownValue)}</td>
+                                        <td>{getValue(arr.newValue,arr.dropDownValue)}</td>
                                         <td>
                                           {/* <img
                                             src="/static/mode_edit.svg"
