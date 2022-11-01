@@ -40,10 +40,7 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
   let insuranceData = _get(insuranceResponse, 'data[0]', {});
-  console.log(
-    _get(insuranceResponse, 'data[0].order.inspection', ''),
-    'This is InsuranceData',
-  );
+
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
@@ -69,8 +66,7 @@ const Index = () => {
   let sumInsuredCalc = parseFloat(
     ((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100,
   );
-  console.log(sumInsuredCalc, 'THIS IS SUM INSURED CAL');
-  // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
+
   useEffect(() => {
     dispatch(setPageName('insurance'));
     dispatch(
@@ -79,7 +75,7 @@ const Index = () => {
       ),
     );
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
-    //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+    
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
@@ -112,9 +108,9 @@ const Index = () => {
         : sumInsuredCalc,
     });
   }, [insuranceData]);
-  //  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
+ 
   const saveQuotationData = (name, value) => {
-    // console.log(value, 'dhjsgfksjdghf')
+   
     const newInput = { ...quotationData };
     const namesplit = name.split('.');
     namesplit.length > 1
@@ -124,7 +120,7 @@ const Index = () => {
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+
     const d = new Date(value);
     let text = d.toISOString();
     saveQuotationData(name, text);
@@ -140,11 +136,7 @@ const Index = () => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
   };
-  console.log(
-    quotationData?.sumInsured,
-    'quotationData?.sumInsured',
-    insuranceData?.quotationRequest?.sumInsured,
-  );
+
   const [reset, setReset] = useState(false);
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
@@ -172,7 +164,7 @@ const Index = () => {
   };
 
   const validation = () => {
-    console.log(quotationData.lossPayee, 'quotationData.lossPayee ');
+  
     let toastMessage = '';
     // if (
     //   quotationData.lossPayee == '' ||
@@ -304,7 +296,7 @@ const Index = () => {
   };
 
   const [insuranceType, setInsuranceType] = useState('Marine Insurance');
-  console.log(quotationData, 'quotationData');
+ 
   return (
     <>
       <div

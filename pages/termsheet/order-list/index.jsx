@@ -23,8 +23,7 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer);
   const { termsheet, gettingTermsheet } = useSelector((state) => state.order);
 
-  // console.log(singleOrder, 'all order listtt1')
-  console.log(termsheet, 'TErmshetTermsheet');
+
 
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId');
@@ -52,9 +51,9 @@ function Index() {
   }, [dispatch, singleOrder, termsheet]);
 
   const handleRoute = async (term, index) => {
-    console.log('here', term);
-    // console.log(term?.order._id, "termtrem")
-    //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
+
+  
+  
     await dispatch(GetTermsheet(`?termsheetId=${term._id}`));
     sessionStorage.setItem('termID', term._id);
 
@@ -350,7 +349,7 @@ function Index() {
                                         `?company=${term.company._id}`,
                                       ),
                                     );
-                                    console.log(term.order, 'term.order');
+                                 
                                     dispatch(
                                       setDynamicName(term.order.orderId),
                                     );

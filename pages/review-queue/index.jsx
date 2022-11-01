@@ -21,7 +21,7 @@ function Index() {
   const { allBuyerList } = useSelector((state) => state.buyer);
 
   const { searchedLeads } = useSelector((state) => state.order);
-  // console.log(searchedLeads, 'searched items')
+
 
   useEffect(() => {
     if (window) {

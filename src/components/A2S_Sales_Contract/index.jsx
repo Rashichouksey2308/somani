@@ -7,7 +7,7 @@ import moment from 'moment';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index(props) {
-  console.log(props, '55');
+
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -94,7 +94,7 @@ function Index(props) {
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-        console.log(data, 'data22222');
+    
         let exe;
         let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {
@@ -112,7 +112,7 @@ function Index(props) {
           }
         });
 
-        console.log(dat, exe, comment, 'exedasa');
+     
 
         setData({
           seller: data?.seller?.name,
@@ -161,7 +161,7 @@ function Index(props) {
       }
     }
   }, [props]);
-  console.log(data, 'agreementdata');
+
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val });
   };
@@ -185,7 +185,7 @@ function Index(props) {
                   <span
                     onClick={(e) => {
                       sessionStorage.setItem('preview', JSON.stringify(data));
-                      console.log('at preview');
+                     
 
                       Router.push('agreement/preview');
                       props.setPreviewValue(true);
@@ -211,7 +211,7 @@ function Index(props) {
 
 export default Index;
 const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
-  console.log(data, 'data2342');
+
   return (
     <>
       <div className={`${styles.card_body}`}>

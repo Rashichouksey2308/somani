@@ -32,7 +32,7 @@ function Index() {
   );
   const { searchedLeads } = useSelector((state) => state.order);
 
-  // console.log(currentPage)
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Leads');
@@ -54,8 +54,8 @@ function Index() {
   });
 
   const handleRoute = async (buyer) => {
-    // console.log(buyer,'butyer')
-    console.log('getDetails payload', buyer.company._id);
+  
+  
     Router.push('/review');
     if (buyer.queue === 'CreditQueue') {
       sessionStorage.setItem('orderID', buyer._id);

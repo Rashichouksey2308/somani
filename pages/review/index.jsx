@@ -213,7 +213,7 @@ function Index() {
         let list = document.getElementsByClassName('nav-tabs') || [];
         let tab = document.getElementsByClassName('tab-content') || [];
 
-        //  console.log(list[0].children[i].children[0].innerHTML,"check")
+       
 
         let tempIndex = 7;
 
@@ -561,7 +561,7 @@ function Index() {
     const newInput = { ...orderDetails };
 
     newInput[name] = value;
-    // console.log(newInput)
+ 
     setOrderDetails(newInput);
   };
 
@@ -822,7 +822,7 @@ function Index() {
   const saveProductData = (name, value) => {
     const newInput = { ...product };
     newInput[name] = value;
-    // console.log(newInput, "prod")
+   
     setProduct(newInput);
   };
 
@@ -959,7 +959,7 @@ function Index() {
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred };
     newInput[name] = value;
-    // console.log(newInput)
+   
     setSupplierCred(newInput);
   };
 
@@ -1117,19 +1117,7 @@ function Index() {
       setDebtData([...temp]);
     }
   }, [orderList?.company?.debtProfile]);
-  // console.log(debtData, 'debtData')
-  // const [personData, setPersonData] = useState([
-  //   {
-  //     contact: {
-  //       callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-  //       number: orderList?.company?.keyContactPerson?.contact?.number,
-  //     },
-  //     department: orderList?.company?.keyContactPerson?.department,
-  //     designation: orderList?.company?.keyContactPerson?.designation,
-  //     email: orderList?.company?.keyContactPerson?.email,
-  //     name: orderList?.company?.keyContactPerson?.name,
-  //   },
-  // ])
+
   const [personData, setPersonData] = useState([]);
 
   // useEffect(() => {
@@ -1158,16 +1146,10 @@ function Index() {
     });
     setGroupExposureData(groupExposureArr);
 
-    // let debtArr = []
-    // orderList?.company?.debtProfile?.forEach((element) => {
-    //   // console.log(element,"useEE")
-    //   debtArr.push(element)
-    // })
-    // setDebtData([...debtArr])
 
     let addressArr = [];
     orderList?.company?.keyAddress?.forEach((element) => {
-      // console.log(element,"useEE")
+    
       addressArr.push(element);
     });
     setKeyAddData(addressArr);
@@ -1176,7 +1158,7 @@ function Index() {
 
     if (orderList?.company?.keyContactPerson?.length > 0) {
       orderList?.company?.keyContactPerson?.forEach((element) => {
-        //  console.log(element,"useEE")
+        
         personArr.push({
           contact: {
             callingCode: element.contact.callingCode,
@@ -1278,18 +1260,18 @@ function Index() {
   
     const newInput = { ...suggestedCredit };
     newInput[name] = value;
-    // console.log(newInput)
+    
     setSuggestedCredit(newInput);
   };
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit };
     newInput[name] = value;
-    // console.log(newInput)
+   
     setApprovedCredit(newInput);
   };
 
-  //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
+
 
   const addGroupExpArr = (exposureData) => {
     let newArr = [...groupExposureData];
@@ -1371,11 +1353,9 @@ function Index() {
     }
   };
 
-  // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
+ 
   const addPersonArr = (keyPersonData) => {
-    // let newArr = [...personData]
-    // newArr.push(keyPersonData)
-    // console.log(keyPersonData, 'This IS KEY PETDHDH')
+  
     setPersonData([
       ...keyPersonData,
       {
@@ -1607,7 +1587,7 @@ function Index() {
         supplierCred.commodityOfTotalTrade,
       );
       let tempArray = [...groupExposureData];
-      // console.log(tempArray, 'groupExposure')
+  
       tempArray.forEach((e) => {
         if (e.limit.length >= 5) {
           let oldValue = e?.limit?.replace(/,/g, '');
@@ -1770,7 +1750,7 @@ function Index() {
     let list = document.getElementsByClassName('nav-tabs');
     let tab = document.getElementsByClassName('tab-content');
     for (let i = 0; i < list[0].children.length; i++) {
-      //  console.log(list[0].children[i].children[0].innerHTML,"check")
+      
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i + 1;
         if (tempIndex < list[0].children.length) {
@@ -1796,7 +1776,7 @@ function Index() {
     let list = document.getElementsByClassName('nav-tabs');
     let tab = document.getElementsByClassName('tab-content');
     for (let i = 0; i < list[0].children.length; i++) {
-      //  console.log(list[0].children[i].children[0].classList,"check")
+     
       if (list[0].children[i].children[0].classList.contains('active')) {
         let tempIndex = i - 1;
         if (tempIndex >= 0) {
@@ -8565,7 +8545,7 @@ function Index() {
 
 
   const handleGSTDownload = (value) => {
-    // console.log(gstData?.detail?.other?.pdfLink, 'efgilegleghlui')
+    
 
     let path = '';
     if (value === 'pdf') {
@@ -8591,7 +8571,7 @@ function Index() {
   };
 
   const deleteData = (index) => {
-    //console.log("indexssd",index)
+    
     setCompanyComment([
       ...companyComment.slice(0, index),
       ...companyComment.slice(index + 1),
@@ -8620,7 +8600,7 @@ function Index() {
     class: '',
     risk: '',
   });
-  // console.log(filterType, 'filtertype')
+
   useEffect(() => {
     const filter = {
       caseStatus: 'Disposed',
