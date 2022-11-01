@@ -10,8 +10,9 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
 import { UpdateSupplier } from '../../src/redux/supplier/action';
 import Image from 'next/image';
-import AddressComponent from '../../src/components/Credit/addressComponent';
+import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
+import { emailValidation } from 'utils/helper';
 
 function Index() {
   const dispatch = useDispatch();
@@ -353,40 +354,267 @@ function Index() {
   //   console.log('apidata', apiData)
   // }
 
+
+  const contactPersonDetailsValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= person.length - 1; i++) {
+      if (
+        person[i].name === '' ||
+        person[i].name === null
+      ) {
+        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        person[i].designation === '' ||
+        person[i].designation === null
+      ) {
+        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        person[i].contact === '' ||
+        person[i].contact === null ||
+        person[i].contact.length !== 10
+
+      ) {
+        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        person[i].emailId === '' ||
+        person[i].emailId === null ||
+        !emailValidation(person[i].emailId)
+      ) {
+        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+    }
+    return isOk;
+  };
+
+  const shareholdersDetailsValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= detail.length - 1; i++) {
+      if (
+        detail[i].shareHoldersName === '' ||
+        detail[i].shareHoldersName === null
+      ) {
+        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        detail[i].designation === '' ||
+        detail[i].designation === null
+      ) {
+        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        detail[i].ownershipPercentage === '' ||
+        detail[i].ownershipPercentage === null ||
+        detail[i].ownershipPercentage >= 100
+
+      ) {
+        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+    }
+    return isOk;
+  };
+
+  const directorsAndAuthorisedSignatoryValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= listDirector.length - 1; i++) {
+      if (
+        listDirector[i].name === '' ||
+        listDirector[i].name === null
+      ) {
+        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        listDirector[i].nationality === '' ||
+        listDirector[i].nationality === null
+      ) {
+        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      // if (
+      //   listDirector[i].authorityToSign === '' ||
+      //   listDirector[i].authorityToSign === null 
+      // ) {
+      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
+    }
+    return isOk;
+  };
+  const commoditiesTradedValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= listCommodity.length - 1; i++) {
+      if (
+        listCommodity[i].hsnCode === '' ||
+        listCommodity[i].hsnCode === null
+      ) {
+        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      if (
+        listCommodity[i].commodity === '' ||
+        listCommodity[i].commodity === null
+      ) {
+        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          isOk = false;
+          break;
+        }
+      }
+      // if (
+      //   listDirector[i].authorityToSign === '' ||
+      //   listDirector[i].authorityToSign === null 
+      // ) {
+      //   toastMessage = `Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //     isOk = false;
+      //     break;
+      //   }
+      // }
+    }
+    return isOk;
+  };
+
+
+  const supplierValidtaion = () => {
+    if (!formData.supplierName || formData.supplierName === '') {
+      let toastMessage = `supplier Name cannot be empty`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    } else if (!formData.constitution || formData.constitution === '') {
+      let toastMessage = `please select a constitution`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    } else if (!formData.incorporationDate || formData.incorporationDate === '') {
+      let toastMessage = `please select a incorporation Date`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
+      let toastMessage = `please provide a country Of Incorporation`;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      }
+      return false
+    } else if (!contactPersonDetailsValidation()) {
+      return false
+    } else if (!shareholdersDetailsValidation()) {
+      return false
+    } else if (!directorsAndAuthorisedSignatoryValidation()) {
+      return false
+    }
+    else if (!commoditiesTradedValidation()) {
+      return false
+    } else {
+      return true
+    }
+
+  }
+
   const handleSave = () => {
-    apiData.supplierName = formData;
-    apiData.contactPerson.push(person);
-    apiData.keyAddress.push(address);
-    apiData.shareHoldersDetails.push(detail);
-    apiData.directorsAndAuthorizedSignatory.push(signatory);
-    apiData.bussinessSummary.push(business);
-    apiData.commoditiesTraded.push(commodity);
-    apiData.additionalInformation.push(info);
-    dispatch(UpdateSupplier(apiData));
-    // console.log('apidata', apiData)
+    if (supplierValidtaion()) {
+
+      apiData.supplierName = formData;
+      apiData.contactPerson.push(person);
+      apiData.keyAddress.push(address);
+      apiData.shareHoldersDetails.push(detail);
+      apiData.directorsAndAuthorizedSignatory.push(signatory);
+      apiData.bussinessSummary.push(business);
+      apiData.commoditiesTraded.push(commodity);
+      apiData.additionalInformation.push(info);
+      dispatch(UpdateSupplier(apiData));
+      // console.log('apidata', apiData)
+    }
+
   };
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     dispatch(setPageName('inception2'));
   });
-  const [keyAddData, setKeyAddData] = useState([
-    {
-      GSTIN: "",
-      GSTIN_document: "",
-      addressType: "",
-      branch: "",
-      city: "",
-      state: "",
-      email: "",
-      completeAddress: "",
-      contact: {
-        callingCode: "",
-        number: "",
-      },
-      pinCode: "",
-    },
-  ]);
+  const [keyAddData, setKeyAddData] = useState(
+    [
+      // {
+      //   GSTIN: "",
+      //   GSTIN_document: "",
+      //   addressType: "",
+      //   branch: "",
+      //   city: "",
+      //   state: "",
+      //   email: [""],
+      //   completeAddress: "",
+      //   contact: {
+      //     callingCode: "",
+      //     number: "",
+      //   },
+      //   pinCode: "",
+      // },
+    ]
+  );
   const deleteComponent = (index) => {
     setKeyAddData([
       ...keyAddData.slice(0, index),
@@ -841,12 +1069,14 @@ function Index() {
                             Title={address?.addressType}
                             address={address?.address}
                             number={address?.contact?.phoneNumber}
-                            callingCode={address?.contact?.callingCode}
-                            branch={address?.branch}
-                            gstIn={address?.GSTIN}
+                            callingCode={address?.contact?.phoneNumberCallingCode}
+                            alterNumber={address?.contact?.alternatePhoneNumber}
+                            alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
+                            country={address?.country}
                             email={address?.email}
                             deleteComponent={deleteComponent}
                             editAddress={editAddress}
+                            pinCode={address.pinCode}
                             // orderDetail={orderDetail}
                             path={''}
 
