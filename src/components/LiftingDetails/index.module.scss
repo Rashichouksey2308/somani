@@ -7,19 +7,15 @@
       line-height: 27px;
       font-weight: bold;
       text-transform: capitalize;
-
-      @include respond(md-desktop) {
+      @include respond(lg-desktop) {
         font-size: 18px;
+        line-height: 1.3;
       }
-
       @include respond(sm-desktop) {
         font-size: 16px;
-        line-height: 20px;
       }
-
       @include respond(phone) {
         font-size: 14px;
-        line-height: 15px;
       }
     }
     h2 {
@@ -74,8 +70,12 @@
         margin: 0 15px 0 30px;
         width: 97px;
         height: 38px;
-        @include respond(md-desktop) {
-          font-size: 16px;
+        @include respond(lg-desktop) {
+          width: 90px;
+          height: 34px;
+          font-size: 15px;
+          line-height: 1;
+          padding-bottom: 0 !important;
         }
         @include respond(sm-desktop) {
           font-size: 14px;
@@ -92,8 +92,9 @@
           font-weight: bold;
           line-height: 1;
           margin-right: 5px;
-          @include respond(md-desktop) {
-            font-size: 22px;
+          @include respond(lg-desktop) {
+            font-size: 20px;
+            line-height: 0.7;
           }
           @include respond(sm-desktop) {
             font-size: 20px;
@@ -163,6 +164,12 @@
           }
         }
       }
+      .label_heading {
+        @include respond(lg-desktop) {
+          font-size: 14px;
+          line-height: 1.3;
+        }
+      }
     }
     .dashboard_form {
       padding: 20px 35px 25px 40px;
@@ -184,8 +191,10 @@
             margin: 0 15px 0 30px;
             //width: 78px;
             height: 36px;
-            @include respond(md-desktop) {
-              font-size: 16px;
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1;
+              height: 34px;
             }
             @include respond(sm-desktop) {
               font-size: 14px;
@@ -319,8 +328,10 @@
             font-weight: 500;
             padding: 10px 0 15px;
             letter-spacing: 0.53px;
-            @include respond(phone) {
-              font-size: $font_size_mobile_input_label;
+            @include respond(lg-desktop) {
+              font-size: 14px;
+              line-height: 15px;
+              padding: 10px 0;
             }
           }
         }
@@ -1080,6 +1091,7 @@
             height: 50px;
             font-size: 14px;
             line-height: 1.2;
+            padding: 15px 15px;
           }
           @include respond(sm-desktop) {
             font-size: 13px;
@@ -1099,7 +1111,7 @@
             padding: 24px 15px;
             border-top: none;
             vertical-align: middle;
-            border-bottom: 2px solid #f2f5f9;
+            // border-bottom: 2px solid #f2f5f9;
             white-space: nowrap;
             white-space: nowrap;
             &:first-child {
@@ -1162,11 +1174,9 @@
           font-size: 20px;
           text-transform: capitalize;
           padding-left: 35px;
-          @include respond(md-desktop) {
-            font-size: 18px;
-          }
-          @include respond(sm-desktop) {
-            font-size: 16px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 14px;
@@ -1177,11 +1187,9 @@
           line-height: 24px;
           opacity: 0.7;
           font-weight: 500;
-          @include respond(md-desktop) {
-            font-size: 17px;
-          }
-          @include respond(sm-desktop) {
+          @include respond(lg-desktop) {
             font-size: 15px;
+            line-height: 1.3;
           }
           @include respond(phone) {
             font-size: 12px;
@@ -1293,7 +1301,10 @@
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
-
+  @include respond(lg-desktop) {
+    font-size: 15px;
+    line-height: 1.3;
+  }
   span {
     max-width: 92%;
     overflow-x: hidden;
@@ -1304,5 +1315,8 @@
   img {
     width: auto !important;
     height: auto !important;
+    @include respond(lg-desktop) {
+      width: 11px !important;
+    }
   }
 }

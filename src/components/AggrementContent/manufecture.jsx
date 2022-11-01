@@ -244,7 +244,7 @@ function Index(props) {
         setSupplierState(supplier);
       }
     }
-  }, [props]);
+  }, [props.data]);
   console.log(list, 'props23424234');
   useEffect(() => {
     if(getPincodesMasterData.length > 0) {
