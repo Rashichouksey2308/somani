@@ -102,7 +102,7 @@ function Index({ order, companyDetail }) {
                     <img
                       src="/static/approved.svg"
                       alt="Approved"
-                      className="img-fluid mt-n1"
+                      className={`${styles.approved} mt-n1`}
                     />
                   )}
                 </div>
@@ -117,7 +117,7 @@ function Index({ order, companyDetail }) {
                     <img
                       src="/static/approved.svg"
                       alt="approved"
-                      className="img-fluid mb-1"
+                      className={`${styles.approved} mb-1`}
                     />
                   )}
                 </div>
@@ -197,7 +197,7 @@ function Index({ order, companyDetail }) {
                     <img
                       src="/static/approved.svg"
                       alt="approved"
-                      className="img-fluid"
+                      className={`${styles.approved}`}
                     />
                   )}
                 </div>

@@ -270,7 +270,7 @@ export default function Index(props) {
                                 style={{ marginTop: '-40px' }}
                               >
                                 <div
-                                  className={`${styles.form_group} ml-n2 col-lg-6 col-md-6`}
+                                  className={`${styles.form_group} col-lg-5 col-md-5`}
                                 >
                                   <div className={`${styles.label} text`}>
                                     Status
@@ -310,8 +310,7 @@ export default function Index(props) {
                                   </div>
                                 ) : (
                                   <div
-                                    className={`${styles.form_group} col-lg-6`}
-                                    style={{ marginLeft: '-30px' }}
+                                    className={`${styles.form_group} col-md-7`}
                                   >
                                     <img
                                       src="/static/mode_edit.svg"
@@ -333,7 +332,7 @@ export default function Index(props) {
 
                                     {props.releaseOrderData.length > 1 && (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2 mr-2`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {

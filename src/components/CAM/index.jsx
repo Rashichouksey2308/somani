@@ -633,6 +633,7 @@ function Index({
 
   const getRotate = (rat = 1) => {
     let r = Math.round(rat);
+    // let r = 10;
     if (r == 0) {
       setRating(`rotate(90deg)`);
     }
@@ -646,7 +647,7 @@ function Index({
       setRating(`rotate(180deg)`);
     }
     if (r == 4) {
-      setRating(`rotate(205deg)`);
+      setRating(`rotate(200deg)`);
     }
     if (r == 5) {
       setRating(`rotate(225deg)`);

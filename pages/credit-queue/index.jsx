@@ -360,7 +360,7 @@ function Index() {
                             <td>
                               <img
                                 src="/static/preview.svg"
-                                className="img-fluid"
+                                className={`${styles.eye_icon}`}
                                 alt="Preview"
                                 onClick={() => {
                                   handleRoute(buyer);
