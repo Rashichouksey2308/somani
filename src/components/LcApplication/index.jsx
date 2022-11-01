@@ -564,7 +564,7 @@ function Index({
 
                             <option value="Yes">Allowed</option>
                             <option value="No">Not Allowed</option>
-                            <option value="No">Conditional</option>
+                             <option value="Conditional">Conditional</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
