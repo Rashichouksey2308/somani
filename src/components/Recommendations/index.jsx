@@ -389,11 +389,11 @@ const Index = ({
                         <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
-                            {/* <input
+                            <input
                               className={`${styles.input} input form-control`}
                               name="name"
                               disabled={!profile.actions}
-                              defaultValue={profile?.name}
+                              value={profile?.name}
                               onChange={(e) => {
                                 handleGroupExpChange(
                                   e.target.name,
@@ -401,8 +401,8 @@ const Index = ({
                                   index,
                                 )
                               }}
-                            ></input> */}
-                            <select
+                            ></input>
+                            {/* <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -425,12 +425,12 @@ const Index = ({
                               <option value="Krishna Traders">
                                 Krishna Traders
                               </option>
-                            </select>
-                            <img
+                            </select> */}
+                            {/* <img
                               className={`${styles.arrow} img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            /> */}
                           </td>
                           <td>
                             <input

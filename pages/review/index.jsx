@@ -3041,7 +3041,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FFB700',
-                              width: '80%',
+                              width: `${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3060,7 +3066,13 @@ function Index() {
                             display: 'inline-block',
                           }}
                         >
-                          80%
+                          {
+                          filteredCreditRating?.length>0
+                            ?( Number(
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %
                         </span>
                       </td>
                     </tr>
@@ -3103,7 +3115,13 @@ function Index() {
                           <span
                             style={{
                               background: '#FF4230',
-                              width: '40%',
+                              width:`${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3122,7 +3140,13 @@ function Index() {
                             display: 'inline-block',
                           }}
                         >
-                          40%
+                         {
+                          filteredCreditRating?.length>0
+                            ? (Number(
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %
                         </span>
                       </td>
                     </tr>
@@ -3162,7 +3186,13 @@ function Index() {
                           <span
                             style={{
                               background: '#83C400',
-                              width: '80%',
+                              width: `${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%`,
                               height: '12px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3181,7 +3211,13 @@ function Index() {
                             display: 'inline-block',
                           }}
                         >
-                          40%
+                          {
+                          filteredCreditRating?.length>0
+                            ? (Number(
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %
                         </span>
                       </td>
                     </tr>
