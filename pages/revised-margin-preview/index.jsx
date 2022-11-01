@@ -440,7 +440,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.conversionRate}
+                          {marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate}
                         </p>
                       </td>
                       <td align="left">
@@ -2438,7 +2438,7 @@ function Index() {
                       <span className={`ml-2`}>Conversion Rate</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.conversionRate}
+                      {marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate}
                     </td>
                     <td>{marginData?.conversionRate}</td>
                   </tr>
