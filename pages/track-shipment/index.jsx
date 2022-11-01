@@ -30,7 +30,7 @@ function Index() {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`));
   }, [currentPage]);
   const { allVessel, Vessel } = useSelector((state) => state.vessel);
-  console.log(allVessel, Vessel, 'Vessel');
+
   useEffect(() => {
     if (allVessel?.data?.length > 0) {
       let temp = [];
@@ -47,7 +47,7 @@ function Index() {
         }
         if (vessel?.vessels[0]?.shipmentType == 'Liner') {
           vessel.vessels[0].vesselInformation.forEach((v, index) => {
-            console.log(v, 'IMONumber');
+
             temp.push({
               orderID: vessel.order.orderId,
               name: vessel.company.companyName,
@@ -60,13 +60,13 @@ function Index() {
         }
       });
       setTable([...temp]);
-      console.log(allVessel.data, 'allVessel.data.data');
+   
     }
   }, [allVessel]);
   const getSn = (index) => {
     return index + 1;
   };
-  console.log(table, 'table');
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

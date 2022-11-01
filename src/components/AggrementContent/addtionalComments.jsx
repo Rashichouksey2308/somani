@@ -10,7 +10,7 @@ function Index(props) {
   const [value, setValue] = useState('');
   const [isAssignment, setIsAssignment] = useState('');
 
-  console.log(addressList,'addressList')
+
   const changeEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -26,7 +26,7 @@ function Index(props) {
   };
   useEffect(() => {
     if (window) {
-      console.log(sessionStorage.getItem('add'), '.getItem');
+     
       if (sessionStorage.getItem('add')) {
         let savedData = JSON.parse(sessionStorage.getItem('add'));
         let temp = [];
@@ -57,7 +57,7 @@ function Index(props) {
       }
     }
   }, [props]);
-  console.log(addressList, 'addressList');
+
   useEffect(() => {
     if (props.saveData == true && props.active == 'Additional Comments') {
       let data = {
@@ -103,7 +103,7 @@ function Index(props) {
     ]);
   };
   const handleChangeInput = (name, value, index) => {
-    console.log(name, 'name');
+ 
 
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -146,12 +146,12 @@ function Index(props) {
   const getFiled = () => {
     let isPresent = false;
     addressList.forEach((val, index) => {
-      console.log(val.agreementName, 'val.agreementName');
+    
       if (val.name == 'Assignment Letter') {
         isPresent = true;
       }
     });
-    console.log(isPresent, 'isPresent');
+
     if (isPresent) {
       return (
         <>

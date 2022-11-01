@@ -24,11 +24,7 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc);
 
   const lcModuleData = _get(lcModule, 'data[0]', {});
-  console.log(
-    _get(lcModule, 'data[0].order.vessel'),
-    'sasdasdasdasd',
-    lcModule,
-  );
+
   const [excelFile, setExcelFile] = useState(null);
   useEffect(() => {
     let id = sessionStorage.getItem('lcOrder');
@@ -45,10 +41,7 @@ function Index() {
   const [lcData, setLcData] = useState();
   useEffect(() => {
     dispatch(setPageName('Lc'));
-    console.log(
-      lcModule?.data?.order?.orderId,
-      'lcModule?.data?.order?.orderId',
-    );
+  
     dispatch(
       setDynamicName(
         _get(lcModule, 'data[0].company.companyName', 'Company Name'),
@@ -58,8 +51,7 @@ function Index() {
       setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')),
     );
   }, [lcModuleData]);
-  // console.log(lcData, "THIS IS LC USE STATE")
-  console.log(lcModuleData, 'lcModuleData');
+
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -138,7 +130,7 @@ function Index() {
     );
   }, [lcModuleData, lcModule]);
 
-  console.log(lcData, 'THIS IS LC DATA');
+
 
   const saveLcData = (name, value) => {
     const newInput = { ...lcData };
@@ -146,7 +138,7 @@ function Index() {
     if (name == 'atSight' && value == 'AT SIGHT') {
       newInput.numberOfDays = '';
     }
-    // console.log(newInput)
+  
     setLcData(newInput);
   };
 
@@ -160,7 +152,7 @@ function Index() {
   const [lcCondition, setLcCondition] = useState(
     lcModuleData?.additionalConditions,
   );
-  console.log(lcCondition, 'lcCondition1223');
+
   const [currentComment2, setCurrentComment2] = useState('');
 
   const addCommentArr = (lcComment) => {
@@ -202,7 +194,7 @@ function Index() {
       return newState;
     });
   };
-  console.log(lcDocuments, 'lcDocumentslcDocuments');
+
   const editLcDocComments = (val, index) => {
     setLcDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
@@ -218,12 +210,11 @@ function Index() {
   };
   //condition
   const addConditionComment = (val) => {
-    console.log(val, '888888');
-
+  
     setCurrentComment2(val);
   };
   const addConditionArr = (index) => {
-    // console.log("thsbhjsbdjh",lcCondition,currentComment2)
+
     if (currentComment2 == '') {
       let toastMessage = 'Comment cannot be empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -253,7 +244,7 @@ function Index() {
     ]);
   };
   const lcConditionEdit = (val, index) => {
-    console.log(val, 'AAAAAAAA');
+
     setLcComments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -279,7 +270,7 @@ function Index() {
       return newState;
     });
   };
-  console.log(lcComments, 'lcComments');
+
   useEffect(() => {
     let commentLcArr = [];
     lcModuleData?.additionalConditions?.forEach((element) => {
@@ -295,7 +286,7 @@ function Index() {
   }, [lcModuleData]);
 
   const checkValidation = () => {
-    console.log('valid', lcData.applicableRules);
+  
     let toastMessage;
     if (
       lcData.formOfDocumentaryCredit == '' ||
@@ -562,7 +553,7 @@ function Index() {
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       };
-      console.log(lcModule, 'lcModule');
+      
       let code = await dispatch(UpdateLcModule({ obj: obj }));
       if (code == 200) {
         sessionStorage.setItem(

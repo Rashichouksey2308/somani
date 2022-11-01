@@ -14,7 +14,7 @@ import {
 } from '../../../src/redux/userData/action';
 
 function Index(props) {
-  console.log('🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props', props);
+
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
   const [genData, setData] = useState([]);
@@ -61,7 +61,7 @@ function Index(props) {
   };
 
   const handleRoute = (term) => {
-    console.log(term, 'ssd');
+
     sessionStorage.setItem('genericSelected', JSON.stringify(term));
     sessionStorage.setItem('genericID', term.order.orderId);
     Router.push('/generic');
@@ -212,40 +212,5 @@ function Index(props) {
     </>
   );
 }
-// export async function getServerSideProps(context) {
-//   try {
-//     console.log("inside123", context.req.cookies['SOMANI']);
-//     let cookie = context.req.cookies['SOMANI']
-//    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-//   console.log("inside fetch2222");
-//   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-//   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-//   var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
-//       method: "GET",
-//       headers: headers,
-//       // body: urlencoded,
-//       redirect: "follow",
-//     }).then((response) => response.json());
-
-//    console.log(result,"thi sis result123")
-
-//     if (result.code === 200) {
-//       return {
-//         props: {
-//           pageProps: result.data,
-
-//         },
-//       };
-//     } else {
-
-//       return {
-//         props: { pageProps: result.data},
-//       };
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return {}
-//   }
-// }
 export default Index;

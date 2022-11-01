@@ -96,7 +96,6 @@ const Index = () => {
     premiumAmount: '',
   });
 
-  console.log(marineData, 'MARINE STORAGE', storageData, 'OPTION', option)
 
 
   useEffect(() => {
@@ -164,7 +163,7 @@ const Index = () => {
   const gettingCompanyList = (name) => {
     
       let filter = getInternalCompaniesMasterData?.filter((val, index)=> {
-        console.log(val?.Company_Name?.toLowerCase(),name?.toLowerCase(),"val")
+      
         if (val?.Company_Name?.toLowerCase() == name?.toLowerCase()) {
       return val;
     }
@@ -175,22 +174,19 @@ const Index = () => {
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData };
     newInput[name] = value;
-    // if(insuranceDocument){
-    //   setStorageData(newInput)
-    // }
-    console.log(name, value,"newInput")
+  
     setMarineData({...newInput});
   };
 
   const saveDate = (value, name) => {
-    // console.log(value, name, 'save date')
+
     const d = new Date(value);
     let text = d.toISOString();
     saveMarineData(name, text);
   };
 
   const saveStorageDate = (value, name) => {
-    // console.log(value, name, 'save date')
+   
     const d = new Date(value);
     let text = d.toISOString();
     saveStorageData(name, text);
@@ -218,7 +214,7 @@ const Index = () => {
   const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument };
     newUploadDoc.storagePolicyDocument = e.target.files[0];
-    // console.log(newUploadDoc, 'new upload doc')
+   
     setInsuranceDocument(newUploadDoc);
   };
   const uploadDocument1 = (e) => {
@@ -482,7 +478,7 @@ const Index = () => {
  gettingCompanyList(marineData?.nameOfInsured||storageData?.nameOfInsured)
 
   },[marineData,storageData])
-  console.log(marineData,"<marineData></marineData>")
+
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={`${styles.head_container} align-items-center`}>

@@ -49,12 +49,12 @@ function Index() {
     dispatch(setDynamicName(_get(inspectionData, 'company.companyName')));
     dispatch(setDynamicOrder(_get(inspectionData, 'order.orderId')));
   }, [inspectionData]);
-  console.log(inspectionData, 'THIS IS INSPECTION DATA');
+
 
   const [addTPI, setAddTPI] = useState([{}]);
 
   const setDate = (date) => {
-    console.log(date, 'setDatesetDate');
+   
     setlastModified(date);
   };
   const handleBreadcrumbClick = (value) => {

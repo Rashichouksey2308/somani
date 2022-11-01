@@ -17,7 +17,6 @@ function Index() {
   const [currentPage, setCurrentPage] = useState(0);
   const dispatch = useDispatch();
 
-  console.log(order.order, 'singleorder');
 
   useEffect(() => {
     if (window) {

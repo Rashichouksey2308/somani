@@ -38,7 +38,6 @@ function Index() {
   );
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
-  console.log(insuranceData, 'INSURANCE DATA LETTER');
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
@@ -49,9 +48,9 @@ function Index() {
       insurance: '',
     },
   ]);
-  console.log(insuranceAdd, emailAdd, 'emailAdd');
+
   const addMoreRows = (val) => {
-    console.log(val, 'vak');
+
     if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
@@ -706,7 +705,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        console.log(this);
+                       
                         addMoreRows('email');
                       }}
                     >
