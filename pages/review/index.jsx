@@ -4631,7 +4631,9 @@ function Index() {
                                 }}
                               >
                                 {' '}
-                                {charge?.nameOfChargeHolder1}
+                                {charge?.nameOfChargeHolder
+                                ? charge?.nameOfChargeHolder
+                                : charge?.nameOfChargeHolder1}
                               </td>
                               <td
                                 style={{
@@ -4643,11 +4645,11 @@ function Index() {
                                 }}
                               >
                                 {convertValue(
-                                  charge?.finalAmountSecured,
-                                  camConversionunit,
-                                ).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
+                              charge?.finalAmountSecured,
+                              camConversionunit,
+                            ).toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                            })}
                               </td>
                               <td
                                 style={{
@@ -4658,12 +4660,12 @@ function Index() {
                                   paddingBottom: '21px',
                                 }}
                               >
-                                {charge?.dateOfCreationOfCharge
-                                  ? moment(
-                                    charge?.dateOfCreationOfCharge,
-                                    'DD-MM-YYYY',
-                                  ).format('DD-MM-YYYY')
-                                  : ''}
+                               {charge?.dateOfCreationOfCharge
+                              ? moment(
+                                  charge?.dateOfCreationOfCharge,
+                                  'DD-YY-MMMM',
+                                ).format('DD-MM-YYYY')
+                              : ''}
                               </td>
                             </tr>
                           );

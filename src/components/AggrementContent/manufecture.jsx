@@ -490,7 +490,7 @@ function Index(props) {
     newInput.country = "India";
     newInput.city = value.City;
     newInput.state = value.State;
-    setMultiAddress(newInput);
+    setNewMultiAddress(newInput);
     setToView(false)
   }
     const handleDataEditMines=(name,value)=>{
