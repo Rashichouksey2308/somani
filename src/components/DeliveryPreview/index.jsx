@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
 import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
 import { useDispatch, useSelector } from 'react-redux';
 import _get from 'lodash/get';
-import {
- 
-  GetDelivery,
- 
-} from '../../redux/release&DeliveryOrder/action';
+import {GetDelivery} from '../../redux/release&DeliveryOrder/action';
 import moment from 'moment/moment';
+
 function Index() {
    const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -24,9 +20,9 @@ function Index() {
    const [releasedQuantity,setreleasedQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
  
-  console.log(DeliveryNo,"DeliveryNo")
+
  const { ReleaseOrderData } = useSelector((state) => state.Release);
- console.log(ReleaseOrderData,"ReleaseOrderData")
+
    useEffect(() => {
     getOrderData();
   }, []);
@@ -55,7 +51,7 @@ function Index() {
                       )
     
      const balance = sessionStorage.getItem('balanceQuantity');
-     console.log(number,"number")
+
      setreleasedQuantity(balance)
      setbalanceQuantity(Number(number)-Number(balance))
       }
@@ -181,8 +177,11 @@ function Index() {
                   <span className={styles.head}>l) Material :</span>{' '}
                   <span className={`${styles.bold} `}>
                     {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {" "}({_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
-                    Bothra, S-4 & L-6 Yard, Port Area, Visakhapatnam Port Trust,
-                    Visakhapatnam.
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress'," ")} 
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',"")!==""
+                    ?`,${_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage'," ")}`:""
+                    }
+                    
                   </span>
                 </div>
                 <div
