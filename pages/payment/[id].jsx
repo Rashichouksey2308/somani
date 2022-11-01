@@ -32,7 +32,6 @@ function Index() {
   const { allLiftingData } = useSelector((state) => state.Lifting);
   const { ReleaseOrderData } = useSelector((state) => state.Release);
 
-  console.log(allLiftingData, 'allLiftingData');
   const [score, setScore] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
   const [releaseDetail, setReleaseDetail] = useState([
@@ -82,14 +81,11 @@ function Index() {
         }
       });
     }
-    console.log(temp, 'temppppp');
+  
     setLifting([...temp]);
   }, [allLiftingData]);
 
-  console.log(
-    _get(allLiftingData, 'data[0].liftingOrders', []),
-    'deliveryOrder=val.deliveryOrder',
-  );
+ 
 
   useEffect(() => {
     getOrderData();
@@ -111,9 +107,11 @@ function Index() {
       );
     }
   }, [ReleaseOrderData]);
-  console.log(allLiftingData, 'allLiftingData');
+
   const liftingData = _get(allLiftingData, 'data[0]', '');
   const [lifting, setLifting] = useState([]);
+
+
 
   const addNewLifting = (value) => {
     setLifting([
@@ -135,7 +133,7 @@ function Index() {
       },
     ]);
   };
-  console.log(lifting, 'listting to send');
+
   const addNewSubLifting = (index) => {
     let tempArr = lifting;
     tempArr.forEach((val, i) => {
@@ -148,29 +146,26 @@ function Index() {
           LRorRRDoc: {},
           eWayBillDoc: {},
           destination: '',
-          rrlrNumber: '', 
+          rrlrNumber: '',
         });
       }
-     
     });
     setLifting([...tempArr]);
   };
   const deleteNewRow = (index, index2) => {
-     let tempArr = [...lifting];
-     tempArr[index].detail.splice(index2, 1)
-     setLifting([...tempArr])
-  
-  
+    let tempArr = [...lifting];
+    tempArr[index].detail.splice(index2, 1);
+    setLifting([...tempArr]);
   };
   const handleChange = (name, value, index, index2) => {
-    console.log(index, index2, 'date');
+
     let tempArr = lifting;
     tempArr.forEach((val, i) => {
       if (i == index) {
         val.detail.forEach((val2, i2) => {
           {
             if (i2 == index2) {
-              //console.log(val2, "val2.detail")
+             
               val2[name] = value;
             }
           }
@@ -180,58 +175,195 @@ function Index() {
     setLifting([...tempArr]);
   };
 
-  const handleLiftingSubmit = () => {
-    let tempArr = [];
-    let temp2 = [];
-    lifting.forEach((val, index) => {
-      console.log(val, 'val88');
-      if (val.detail.modeOfTransportation == 'RR') {
-        val.detail.map((val2, index2) => {
-          temp2.push({
-            dateOfLifting: val2.dateOfLifting,
-            liftingQuantity: val2.liftingQuant,
-            unitOfQuantity: val2.unitOfQuantity,
-            modeOfTransport: val2.modeOfTransportation,
-            ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc || {},
-            RRDocument: val2.LRorRRDoc || {},
-            destination: val2.destination,
-            rrlrNumber: val2.rrlrNumber,
-          });
-        });
-        tempArr.push({
-          deliveryOrder: val.deliveryOrder,
-          deliveryOrderDetail: temp2,
-        });
-      } else {
-        val.detail.map((val2, index2) => {
-          temp2.push({
-            dateOfLifting: val2.dateOfLifting,
-            liftingQuantity: val2.liftingQuant,
-            unitOfQuantity: val2.unitOfQuantity,
-            modeOfTransport: val2.modeOfTransportation,
-            ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc || {},
-            LRDocument: val2.LRorRRDoc || {},
-            destination: val2.destination,
-            rrlrNumber: val2.rrlrNumber,
-          });
-        });
-        tempArr.push({
-          deliveryOrder: val.deliveryOrder,
-          deliveryOrderDetail: temp2,
-        });
+  const liftingValidation = () => {
+    let isOk = true;
+    let toastMessage = '';
+    for (let i = 0; i <= lifting.length - 1; i++) {
+      if (returnLiftingData(lifting[i].deliveryOrder).balaceQuantity < 0) {
+        isOk = false;
+        break;
       }
-    });
+      for (let j = 0; j <= lifting[i].detail.length - 1; j++) {
+        if (
+          lifting[i].detail[j]?.dateOfLifting == '' ||
+          lifting[i].detail[j]?.dateOfLifting == null
+        ) {
+          toastMessage = `please provide Date Of lifting Of lifting Details   ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.liftingQuant == '' ||
+          lifting[i].detail[j]?.liftingQuant == null
+        ) {
+          toastMessage = `please provide lifting Quantity Of lifting Details   ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
 
-    let data = {
-      liftingId: _get(ReleaseOrderData, 'data[0].order.lifting', ''),
-      liftingOrders: tempArr,
-    };
-    console.log(data, 'datatoSend');
-    dispatch(UpdateLiftingData(data));
+        if (
+          lifting[i].detail[j]?.modeOfTransportation == '' ||
+          lifting[i].detail[j]?.modeOfTransportation == null
+        ) {
+          toastMessage = `please provide mode Of Transportation Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.rrlrNumber == '' ||
+          lifting[i].detail[j]?.rrlrNumber == null
+        ) {
+          toastMessage = `please provide rr/lr Number  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.destination == '' ||
+          lifting[i].detail[j]?.destination == null
+        ) {
+          toastMessage = `please provide destination  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBill == '' ||
+          lifting[i].detail[j]?.eWayBill == null
+        ) {
+          toastMessage = `please provide a eWay Bill  Of lifting Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBill == '' ||
+          lifting[i].detail[j]?.eWayBill == null
+        ) {
+          toastMessage = `please provide a eWay Bill   Of lifting Details ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.LRorRRDoc.originalName == '' ||
+          !lifting[i].detail[j]?.LRorRRDoc.originalName
+        ) {
+          toastMessage = `please upload ${
+            lifting[i].detail[j]?.modeOfTransportation
+          }  document  Of Listing Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (
+          lifting[i].detail[j]?.eWayBillDoc.originalName == '' ||
+          !lifting[i].detail[j]?.eWayBillDoc.originalName
+        ) {
+          toastMessage = `please upload a eWay Bill  Of Listing Details  Of Listing Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+      }
+    }
+
+    return isOk;
   };
-  //console.log(lifting, "newLift")
+
+  const handleLiftingSubmit = () => {
+    if (liftingValidation()) {
+      let tempArr = [];
+      let temp2 = [];
+      lifting.forEach((val, index) => {
+
+        if (val.detail.modeOfTransportation == 'RR') {
+          val.detail.map((val2, index2) => {
+            temp2.push({
+              dateOfLifting: val2.dateOfLifting,
+              liftingQuantity: val2.liftingQuant,
+              unitOfQuantity: val2.unitOfQuantity,
+              modeOfTransport: val2.modeOfTransportation,
+              ewayBillNo: val2.eWayBill,
+              ewayBillDocument: val2.eWayBillDoc || {},
+              RRDocument: val2.LRorRRDoc || {},
+              destination: val2.destination,
+              rrlrNumber: val2.rrlrNumber,
+            });
+          });
+          tempArr.push({
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2,
+          });
+        } else {
+          val.detail.map((val2, index2) => {
+            temp2.push({
+              dateOfLifting: val2.dateOfLifting,
+              liftingQuantity: val2.liftingQuant,
+              unitOfQuantity: val2.unitOfQuantity,
+              modeOfTransport: val2.modeOfTransportation,
+              ewayBillNo: val2.eWayBill,
+              ewayBillDocument: val2.eWayBillDoc || {},
+              LRDocument: val2.LRorRRDoc || {},
+              destination: val2.destination,
+              rrlrNumber: val2.rrlrNumber,
+            });
+          });
+          tempArr.push({
+            deliveryOrder: val.deliveryOrder,
+            deliveryOrderDetail: temp2,
+          });
+        }
+      });
+
+      let data = {
+        liftingId: _get(ReleaseOrderData, 'data[0].order.lifting', ''),
+        liftingOrders: tempArr,
+      };
+   
+      dispatch(UpdateLiftingData(data));
+    }
+  };
+
 
   const [deliveryOrder, setDeliveryOrder] = useState([
     {
@@ -284,7 +416,7 @@ function Index() {
   }, [ReleaseOrderData]);
 
   const [quantity, setQuantity] = useState(0);
-  //console.log(deliveryOrder, "deliveryOrder")
+
   const addNewDelivery = (value) => {
     setDeliveryOrder([
       ...deliveryOrder,
@@ -308,11 +440,11 @@ function Index() {
   const [filteredDOArray, setFilteredDOArray] = useState([]);
   const [DOlimit, setDoLimit] = useState(0);
   let [lastMileDelivery, setLastMileDelivery] = useState(false);
-  console.log(DOlimit, 'DOlimit');
+
   const setLastMile = (val) => {
     setLastMileDelivery(val);
   };
-  console.log(lastMileDelivery, 'lastMileDelivery');
+
   useEffect(() => {
     let limit = DOlimit;
     filteredDOArray.forEach((item, index) => {
@@ -320,15 +452,8 @@ function Index() {
       setDoLimit(limit);
     });
 
-    // if (DOlimit < 0) {
-    //   let toastMessage =
-    //     'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
   }, [filteredDOArray, deliveryOrder]);
-  //console.log(filteredDOArray, 'filteredDOArray')
+
   const onEdit = (index, value) => {
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
@@ -338,7 +463,7 @@ function Index() {
     });
     setDeliveryOrder([...tempArr]);
   };
-  console.log(quantity, DOlimit, filteredDOArray, 'deliveryOrder');
+
 
   const generateDoNumber = (index) => {
     let orderDONumber = index < 10 ? `0${index}` : index;
@@ -351,7 +476,7 @@ function Index() {
     let number = Number(
       _get(
         ReleaseOrderData,
-        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+        'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
         0,
       ),
     );
@@ -363,7 +488,7 @@ function Index() {
   };
 
   const returnLiftingData = (number) => {
-    // console.log(index, 'props.liftingData1')
+
     let datainNeed = {};
     let data = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}]);
     data.forEach((item) => {
@@ -377,7 +502,7 @@ function Index() {
       if (item.deliveryOrder === number) {
         item.detail.forEach((item2) => {
           balaceQuantity = balaceQuantity - Number(item2.liftingQuant);
-          console.log(balaceQuantity, 'props.liftingData');
+        
         });
         if (balaceQuantity < 0) {
           let toastMessage =
@@ -392,7 +517,7 @@ function Index() {
   };
 
   const deliverChange = (name, value, index) => {
-    console.log(name, value, index, 'deliveryChange');
+   
     let tempArr = deliveryOrder;
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -410,10 +535,10 @@ function Index() {
           } else {
             let tempLimit = quantity;
             filteredDOArray.forEach((item, index) => {
-              // console.log(item, 'deliveryOrder')
+         
               tempLimit = tempLimit - Number(item.Quantity);
             });
-            //console.log(tempLimit, 'deliveryOrder')
+    
             setDoLimit(tempLimit);
           }
         }
@@ -432,16 +557,14 @@ function Index() {
           if (value !== 'Not Available') {
             val.Quantity = filteredArray[0]?.netQuantityReleased;
           } else {
-            tempArr[index].Quantity = 0
+            tempArr[index].Quantity = 0;
           }
-
 
           val.deliveryOrderNo = tempString;
         }
         val[name] = value;
       }
     });
-
 
     setDeliveryOrder([...tempArr]);
   };
@@ -454,8 +577,9 @@ function Index() {
         deliveryOrder[i]?.Quantity == '' ||
         deliveryOrder[i]?.Quantity == null
       ) {
-        toastMessage = `please provide quantity for delivery  order   ${i + 1
-          }  `;
+        toastMessage = `please provide quantity for delivery  order   ${
+          i + 1
+        }  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -511,7 +635,7 @@ function Index() {
         });
       });
 
-      console.log(lastMileDelivery, 'lastMileDelivery');
+   
       let payload = {
         deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
         deliveryDetail: newarr,
@@ -526,7 +650,6 @@ function Index() {
 
     temp.forEach((val, i) => {
       if (i == index1) {
-        console.log(val, 'temppp');
         val.detail.forEach((val2, i2) => {
           if (i2 == index2) {
             if (type == 'lr') {
@@ -542,27 +665,12 @@ function Index() {
 
     setLifting([...temp]);
 
-
-
-    //   setList(prevState => {
-    //   const newState = prevState.map((obj, i) => {
-    //     if (i == index) {
-    //       return { ...obj, shipmentType: e.target.value };
-    //     }
-    //     return obj;
-    //   });
-    //   return newState;
-    // })
   };
 
-  // const tabNameHandler = (value) => {
-  //   dispatch(setPageTabName(value))
-  //   console.log('value', value)
-  // }
 
   // for setting default breadcrumb tab value //
   useEffect(() => {
-    console.log('workinguse');
+ 
     dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
   }, []);
 
@@ -714,8 +822,7 @@ function Index() {
                       handleLiftingSubmit={handleLiftingSubmit}
                       removeLiftinDoc={removeLiftinDoc}
                       ReleaseOrderData={ReleaseOrderData}
-                      deleteNewRow= {deleteNewRow}
-
+                      deleteNewRow={deleteNewRow}
                     />
                   </div>
                 </div>

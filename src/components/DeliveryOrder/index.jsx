@@ -13,7 +13,10 @@ export default function Index(props) {
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
-    sessionStorage.setItem('dono', val);
+    sessionStorage.setItem('dono', val.deliveryOrderNo);
+  
+   
+    sessionStorage.setItem('balanceQuantity',Number(val.Quantity));
     Router.push('/delivery-preview');
   };
   console.log(props.releaseOrderData, 'tempArr');
@@ -69,7 +72,7 @@ export default function Index(props) {
                       {Number(
                         _get(
                           props,
-                          'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+                          'ReleaseOrder.data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
                           '',
                         ),
                       )?.toLocaleString('en-In', {
@@ -324,7 +327,7 @@ export default function Index(props) {
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
                                       onClick={() =>
-                                        handleRoute(val.deliveryOrderNo)
+                                        handleRoute(val)
                                       }
                                     />
 

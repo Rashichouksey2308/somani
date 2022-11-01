@@ -12,13 +12,7 @@ const Index = ({
   termsheetDetails,
   otherTermConditions,
 }) => {
-  console.log(
-    otherTermConditions?.buyer?.bank.slice(
-      otherTermConditions?.buyer?.bank.length - 5,
-      otherTermConditions?.buyer?.bank.length - 1,
-    ),
-    'otherTermConditions',
-  );
+ 
 
   const [commentType, setCommentType] = useState('select an Option');
 
@@ -43,7 +37,7 @@ const Index = ({
       input3: 'IGM',
     });
   }, [termsheetDetails]);
-  console.log(comment, 'comment');
+
   const allcomment = [];
   useEffect(() => {
     additionalComments.map((comment, index) => {
@@ -58,10 +52,10 @@ const Index = ({
     }));
   };
 
-  console.log(isCommentEditable, 'termsheetDetails');
+
 
   const getInputValue = (name, value) => {
-    console.log(name, value, 'name,value');
+ 
     if (commentType == 'Deliveries/Due Date/Payment') {
       if (name == 'day1') {
         setDays({ ...days, day1: value });

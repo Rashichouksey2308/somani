@@ -14,7 +14,7 @@ import _get from 'lodash/get';
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper';
 import { toast } from 'react-toastify';
 import { checkNan } from '../../utils/helper';
-import { ViewDocument } from '../../redux/ViewDoc/action';
+import { ViewDocument,previewDocument } from '../../redux/ViewDoc/action';
 // import { set } from 'lodash'
 import {
   GetAllCustomClearance,
@@ -107,9 +107,14 @@ export default function Index({
 
   const getDoc = (payload) => {
     console.log(payload, 'payload');
+    console.log(customData,"customData")
+    
     dispatch(
-      ViewDocument({
+      previewDocument({
         path: payload,
+        order: _get(customData, 'order._id', ''),
+        company: _get(customData, 'company._id', '')
+
         // orderId: documentsFetched._id,
       }),
     );
@@ -448,7 +453,7 @@ export default function Index({
           document3: val?.document3 ?? null,
         });
 
-        duty11.push(val.duty);
+        duty11.push(JSON.parse(JSON.stringify(val.duty)));
       });
 
       setDutyData([...duty11]);

@@ -90,6 +90,9 @@ export default {
   getGstKarza: '/lead/refetch-gst-karza',
   getConsolidatedGst: '/lead/consolidate-gst',
 
+  //mcaReport
+  getMcaReport: '/karza/request-mca-document',
+
   // getGstKarza: 'karza/send-gst-link',
 
   // Insurance
@@ -125,6 +128,8 @@ export default {
 
   //supplier
   updateSupplier: '/supplier',
+  //preview
+  preview: '/document/access/preview',
 
   //ALL MASTER URL's
   masterBaseUrl:

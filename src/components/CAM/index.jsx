@@ -3701,7 +3701,7 @@ const sectionTerms = (
                       <>
                         {' '}
                         {filteredCreditRating &&
-                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(
@@ -3719,7 +3719,7 @@ const sectionTerms = (
                       <>
                         {' '}
                         {filteredCreditRating &&
-                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating?.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(
@@ -4615,7 +4615,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                 <div className={`${styles.score}`}>
                   <div className={`${styles.excellent}`}>
                     <span>
-                      {filteredCreditRating
+                      {filteredCreditRating?.length>0
                         ? filteredCreditRating[0]?.creditResult?.toUpperCase()
                         : ''}
                     </span>
@@ -4671,10 +4671,22 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>BUSINESS PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#FFB700' }}
+                        style={{ backgroundColor: '#FFB700' ,width:`${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%`}}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>80%</span>
+                      <span>{
+                          filteredCreditRating?.length>0
+                            ?( Number(
+                              filteredCreditRating[0].businessProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %</span>
                     </div>
                   </div>
                 </div>
@@ -4685,10 +4697,23 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>REVENUE PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#FF4230' }}
+                        style={{ backgroundColor: '#FF4230',width:`${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%` }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>40%</span>
+                      <span>{
+                          filteredCreditRating?.length>0
+                            ? (Number(
+                              filteredCreditRating[0].revenueProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %
+                        </span>
                     </div>
                   </div>
                 </div>
@@ -4699,10 +4724,24 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <span>FINANCIAL PROFILE</span>
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
-                        style={{ backgroundColor: '#83C400' }}
+                        style={{ backgroundColor: '#83C400',width:`${
+                          filteredCreditRating?.length>0
+                            ? (
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100:"0"
+                        }%` }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>90%</span>
+                      <span>{
+                          filteredCreditRating?.length>0
+                            ? (Number(
+                              filteredCreditRating[0].financialProfile.total.overallValue/
+                              filteredCreditRating[0].totalRating
+                            )*100).toFixed(2):"0"
+                        } %
+                        </span>
+                     
                     </div>
                   </div>
                 </div>

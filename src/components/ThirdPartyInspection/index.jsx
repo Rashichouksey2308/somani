@@ -28,6 +28,7 @@ export default function Index({ addButton }) {
   const { allInspection } = useSelector((state) => state.Inspection);
 
   const [inspectionData, setInspectionData2] = useState({});
+  console.log(inspectionData, 'inspectionData')
 
   useEffect(() => {
     setInspectionData2(_get(allInspection, 'data[0]', {}));
@@ -119,9 +120,17 @@ export default function Index({ addButton }) {
     dischargeCertificateOfWeightStatus:
       inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
   });
+  console.log(inspectionDetails, 'inspectionDetails')
 
   useEffect(() => {
+
+    let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort
+    console.log(inspectionDetails, typeOfPort, inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy, 'inspectionDetails1')
+
     setInspectionData({
+      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.dischargePortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
+      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.loadPortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Load Port' ? true : false,
+
       loadPortInspectionDetails: {
         numberOfContainer:
           inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -173,6 +182,8 @@ export default function Index({ addButton }) {
         inspectionData?.thirdPartyInspection
           ?.dischargeCertificateOfWeightStatus,
     });
+
+
   }, [inspectionData, allInspection]);
 
   const [documents, setDocuments] = useState({
@@ -348,7 +359,7 @@ export default function Index({ addButton }) {
     let toastMessage = '';
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-        null ||
+      null ||
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == ''
     ) {
       toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE';
@@ -555,9 +566,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-            '' ||
+          '' ||
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -568,7 +579,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -589,7 +600,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -611,9 +622,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -624,7 +635,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -634,9 +645,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -684,9 +695,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-            '' ||
+          '' ||
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -697,7 +708,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -718,7 +729,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -762,9 +773,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -775,7 +786,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -785,9 +796,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -843,7 +854,7 @@ export default function Index({ addButton }) {
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
     ) {
-   if (
+      if (
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == true
       ) {
@@ -856,11 +867,11 @@ export default function Index({ addButton }) {
           }
           return (noError = true);
         }
-       
+
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -881,7 +892,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -889,12 +900,12 @@ export default function Index({ addButton }) {
           }
           return (noError = true);
         }
-       
+
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -905,7 +916,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -915,9 +926,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -963,11 +974,11 @@ export default function Index({ addButton }) {
           }
           return (noError2 = true);
         }
-       
+
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -988,7 +999,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1018,12 +1029,12 @@ export default function Index({ addButton }) {
         inspectionDetails.loadPortInspection == false
       ) {
         var noError3 = false;
-       
+
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1034,7 +1045,7 @@ export default function Index({ addButton }) {
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE';
           if (!toast.isActive(toastMessage)) {
@@ -1044,9 +1055,9 @@ export default function Index({ addButton }) {
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            '' ||
+          '' ||
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
-            undefined
+          undefined
         ) {
           let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
           if (!toast.isActive(toastMessage)) {
@@ -1097,75 +1108,75 @@ export default function Index({ addButton }) {
         }
         return;
       }
-  }
-}
-
-  useEffect(() => {
-    if (inspectionData?.thirdPartyInspection) {
-      if (
-        inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-          true &&
-        inspectionData?.thirdPartyInspection?.loadPortInspection === true
-      ) {
-        setInspectionData({
-          ...inspectionDetails,
-          loadPortInspection: true,
-          dischargePortInspection: true,
-        });
-      } else if (
-        inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-          false &&
-        inspectionData?.thirdPartyInspection?.loadPortInspection === false
-      ) {
-        setInspectionData({
-          ...inspectionDetails,
-          loadPortInspection: false,
-          dischargePortInspection: false,
-        });
-      } else if (
-        inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-          true &&
-        inspectionData?.thirdPartyInspection?.loadPortInspection === false
-      ) {
-        setInspectionData({
-          ...inspectionDetails,
-          loadPortInspection: false,
-          dischargePortInspection: true,
-        });
-      } else if (
-        inspectionData?.thirdPartyInspection?.dischargePortInspection ===
-          false &&
-        inspectionData?.thirdPartyInspection?.loadPortInspection === true
-      ) {
-        setInspectionData({
-          ...inspectionDetails,
-          loadPortInspection: true,
-          dischargePortInspection: false,
-        });
-      }
-    } else {
-      if (
-        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
-        'Load Port'
-      ) {
-        setInspectionData({ ...inspectionDetails, loadPortInspection: true });
-      } else if (
-        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
-        'Both'
-      ) {
-        setInspectionData({
-          ...inspectionDetails,
-          loadPortInspection: true,
-          dischargePortInspection: true,
-        });
-      } else {
-        setInspectionData({
-          ...inspectionDetails,
-          dischargePortInspection: true,
-        });
-      }
     }
-  }, [inspectionData]);
+  }
+
+  // useEffect(() => {
+  //   if (inspectionData?.thirdPartyInspection) {
+  //     if (
+  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
+  //       true &&
+  //       inspectionData?.thirdPartyInspection?.loadPortInspection === true
+  //     ) {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         loadPortInspection: true,
+  //         dischargePortInspection: true,
+  //       });
+  //     } else if (
+  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
+  //       false &&
+  //       inspectionData?.thirdPartyInspection?.loadPortInspection === false
+  //     ) {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         loadPortInspection: false,
+  //         dischargePortInspection: false,
+  //       });
+  //     } else if (
+  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
+  //       true &&
+  //       inspectionData?.thirdPartyInspection?.loadPortInspection === false
+  //     ) {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         loadPortInspection: false,
+  //         dischargePortInspection: true,
+  //       });
+  //     } else if (
+  //       inspectionData?.thirdPartyInspection?.dischargePortInspection ===
+  //       false &&
+  //       inspectionData?.thirdPartyInspection?.loadPortInspection === true
+  //     ) {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         loadPortInspection: true,
+  //         dischargePortInspection: false,
+  //       });
+  //     }
+  //   } else {
+  //     if (
+  //       inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+  //       'Load Port'
+  //     ) {
+  //       setInspectionData({ ...inspectionDetails, loadPortInspection: true });
+  //     } else if (
+  //       inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+  //       'Both'
+  //     ) {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         loadPortInspection: true,
+  //         dischargePortInspection: true,
+  //       });
+  //     } else {
+  //       setInspectionData({
+  //         ...inspectionDetails,
+  //         dischargePortInspection: true,
+  //       });
+  //     }
+  //   }
+  // }, [inspectionData]);
 
   return (
     <>
@@ -1487,7 +1498,7 @@ export default function Index({ addButton }) {
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                          // style={{ backgroundColor: 'none' }}
+                        // style={{ backgroundColor: 'none' }}
                         />
                         <label
                           className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -1503,14 +1514,14 @@ export default function Index({ addButton }) {
           ) : null}
           {inspectionDetails.dischargePortInspection
             ? Discharge(
-                inspectionData,
-                inspectionDetails,
-                saveInspectionDetails,
-                saveDate,
-                setStartDate,
-                setDateStartFrom,
-                handleShow,
-              )
+              inspectionData,
+              inspectionDetails,
+              saveInspectionDetails,
+              saveDate,
+              setStartDate,
+              setDateStartFrom,
+              handleShow,
+            )
             : ''}
           {inspectionDetails.loadPortInspection && (
             <div className={`${styles.main} vessel_card card border_color`}>
@@ -1606,12 +1617,12 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.certificateOfOrigin
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.certificateOfOrigin?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfOrigin?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : documents?.certificateOfOrigin != null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 {' '}
@@ -1670,20 +1681,18 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.certificateOfOriginStatus ===
+                                      className={`${inspectionDetails?.certificateOfOriginStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.certificateOfOriginStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfOriginStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.certificateOfOriginStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.certificateOfOriginStatus
@@ -1726,7 +1735,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {documents &&
-                                documents?.certificateOfOrigin == null ? (
+                                  documents?.certificateOfOrigin == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1798,12 +1807,12 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.certificateOfQuality
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.certificateOfQuality?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfQuality?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : documents?.certificateOfQuality != null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 {' '}
@@ -1857,20 +1866,18 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.certificateOfQualityStatus ===
+                                      className={`${inspectionDetails?.certificateOfQualityStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.certificateOfQualityStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfQualityStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.certificateOfQualityStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.certificateOfQualityStatus
@@ -1913,7 +1920,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {documents &&
-                                documents?.certificateOfQuality == null ? (
+                                  documents?.certificateOfQuality == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1986,12 +1993,12 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.certificateOfWeight
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.certificateOfWeight?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfWeight?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : documents?.certificateOfWeight != null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2045,20 +2052,18 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.certificateOfWeightStatus ===
+                                      className={`${inspectionDetails?.certificateOfWeightStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.certificateOfWeightStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.certificateOfWeightStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.certificateOfWeightStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.certificateOfWeightStatus
@@ -2101,7 +2106,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {documents &&
-                                documents?.certificateOfWeight == null ? (
+                                  documents?.certificateOfWeight == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -2250,32 +2255,30 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.dischargeCertificateOfOrigin
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.dischargeCertificateOfOrigin?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.dischargeCertificateOfOrigin?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : dischargeDocuments?.dischargeCertificateOfOrigin !=
                                     null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.dischargeCertificateOfOriginStatus ===
+                                      className={`${inspectionDetails?.dischargeCertificateOfOriginStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.dischargeCertificateOfOriginStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.dischargeCertificateOfOriginStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.dischargeCertificateOfOriginStatus
@@ -2318,7 +2321,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {dischargeDocuments &&
-                                dischargeDocuments?.dischargeCertificateOfOrigin ==
+                                  dischargeDocuments?.dischargeCertificateOfOrigin ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2394,13 +2397,13 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.dischargeCertificateOfQuality
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.dischargeCertificateOfQuality?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.dischargeCertificateOfQuality?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : dischargeDocuments?.dischargeCertificateOfQuality !=
                                     null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2454,20 +2457,18 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.dischargeCertificateOfQualityStatus ===
+                                      className={`${inspectionDetails?.dischargeCertificateOfQualityStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.dischargeCertificateOfQualityStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.dischargeCertificateOfQualityStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.dischargeCertificateOfQualityStatus
@@ -2510,7 +2511,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {dischargeDocuments &&
-                                dischargeDocuments?.dischargeCertificateOfQuality ==
+                                  dischargeDocuments?.dischargeCertificateOfQuality ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2587,13 +2588,13 @@ export default function Index({ addButton }) {
                                 {inspectionData?.thirdPartyInspection
                                   ?.dischargeCertificateOfWeight
                                   ? moment(
-                                      inspectionData?.thirdPartyInspection
-                                        ?.dischargeCertificateOfWeight?.date,
-                                    ).format('DD-MM-YYYY, h:mm A')
+                                    inspectionData?.thirdPartyInspection
+                                      ?.dischargeCertificateOfWeight?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
                                   : dischargeDocuments?.dischargeCertificateOfWeight !=
                                     null
-                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                  : ''}
+                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                    : ''}
                               </td>
                               <td>
                                 {' '}
@@ -2647,20 +2648,18 @@ export default function Index({ addButton }) {
                                 <Form.Group className={styles.form_group}>
                                   <div className="d-flex">
                                     <select
-                                      className={`${
-                                        inspectionDetails?.dischargeCertificateOfWeightStatus ===
+                                      className={`${inspectionDetails?.dischargeCertificateOfWeightStatus ===
                                         'On Hold'
-                                          ? styles.hold_option
-                                          : inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                            'Rejected'
+                                        ? styles.hold_option
+                                        : inspectionDetails?.dischargeCertificateOfWeightStatus ===
+                                          'Rejected'
                                           ? styles.rejected_option
                                           : inspectionDetails?.dischargeCertificateOfWeightStatus ===
                                             'Approved'
-                                          ? styles.approved_option
-                                          : styles.value
-                                      } ${
-                                        styles.customSelect
-                                      } input form-control`}
+                                            ? styles.approved_option
+                                            : styles.value
+                                        } ${styles.customSelect
+                                        } input form-control`}
                                       id="docType"
                                       value={
                                         inspectionDetails?.dischargeCertificateOfWeightStatus
@@ -2703,7 +2702,7 @@ export default function Index({ addButton }) {
                               </td>
                               <td>
                                 {dischargeDocuments &&
-                                dischargeDocuments?.dischargeCertificateOfWeight ==
+                                  dischargeDocuments?.dischargeCertificateOfWeight ==
                                   null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -2860,7 +2859,7 @@ const Discharge = (
 
         <div className="row">
           {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
-          'Liner' ? (
+            'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -2984,7 +2983,7 @@ const Discharge = (
                 }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                // style={{ backgroundColor: 'none' }}
+              // style={{ backgroundColor: 'none' }}
               />
               <label
                 className={`${styles.comment_heading} ${styles.label_heading} label_heading`}

@@ -32,7 +32,7 @@ const IndexPage = () => {
     totalOrigin,
     totalCustomer,
   } = useSelector((state) => state.analytics);
-  console.log(customerSummary, 'leadSummary');
+  
   useEffect(() => {
     dispatch(setPageName('dashboard'));
   });
@@ -46,7 +46,7 @@ const IndexPage = () => {
       sessionStorage.setItem('openList', ``);
     }
   }, []);
-  console.log('BUILD TEST *******************');
+ 
   return (
     <>
       <Popup />

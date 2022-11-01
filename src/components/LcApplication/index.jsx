@@ -54,7 +54,7 @@ function Index({
     let a = index;
     return `${a + 1}.`;
   };
-
+ console.log(lcData?.drawee,"lcData?.drawee")
   return (
     <>
       {' '}
@@ -126,7 +126,7 @@ function Index({
                           className={`${styles.input_field} input form-control`}
                           required
                           name="applicableRules"
-                          defaultValue={lcData?.applicableRules}
+                          value={lcData?.applicableRules}
                           type="text"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
@@ -161,7 +161,7 @@ function Index({
                           required
                           type="text"
                           name="placeOfExpiry"
-                          defaultValue={lcData?.placeOfExpiry}
+                          value={lcData?.placeOfExpiry}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
@@ -252,7 +252,7 @@ function Index({
                           required
                           type="text"
                           name="beneficiary"
-                          defaultValue={
+                          value={
                             lcData?.beneficiary
                               ? lcData?.beneficiary
                               : lcModuleData?.order?.supplierName
@@ -515,7 +515,7 @@ function Index({
                           required
                           type="text"
                           name="drawee"
-                          defaultValue={lcData?.drawee}
+                          value={lcData?.drawee}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
@@ -532,7 +532,7 @@ function Index({
                           required
                           type="text"
                           name="deferredPayment"
-                          defaultValue={lcData?.deferredPayment}
+                          value={lcData?.deferredPayment}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value);
                           }}
@@ -615,7 +615,7 @@ function Index({
                             required
                             type="text"
                             name="shipmentForm"
-                            defaultValue={lcData?.shipmentForm}
+                            value={lcData?.shipmentForm}
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value);
                             }}
@@ -640,7 +640,7 @@ function Index({
                             required
                             type="text"
                             name="portOfLoading"
-                            defaultValue={
+                            value={
                               lcData?.portOfLoading
                                 ? lcData?.portOfLoading
                                 : lcModuleData?.order?.termsheet
@@ -977,7 +977,7 @@ function Index({
                               required
                               type="text"
                               name="presentaionPeriod"
-                              defaultValue={
+                              value={
                                 lcData?.presentaionPeriod
                                   ? lcData.presentaionPeriod
                                   : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC.'
@@ -1122,7 +1122,7 @@ function Index({
                               required
                               type="text"
                               name="secondAdvisingBank"
-                              defaultValue={lcData?.secondAdvisingBank}
+                              value={lcData?.secondAdvisingBank}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
                               }}
@@ -1139,7 +1139,7 @@ function Index({
                               required
                               type="text"
                               name="requestedConfirmationParty"
-                              defaultValue={lcData?.requestedConfirmationParty}
+                              value={lcData?.requestedConfirmationParty}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
                               }}
@@ -1158,7 +1158,7 @@ function Index({
                               required
                               type="text"
                               name="charges"
-                              defaultValue={
+                              value={
                                 lcData?.charges
                                   ? lcData?.charges
                                   : 'ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT'
@@ -1181,7 +1181,7 @@ function Index({
                               required
                               type="text"
                               name="instructionToBank"
-                              defaultValue={
+                              value={
                                 lcData?.instructionToBank
                                   ? lcData?.instructionToBank
                                   : 'THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS).............. UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS'
@@ -1206,7 +1206,7 @@ function Index({
                               required
                               type="text"
                               name="senderToReceiverInformation"
-                              defaultValue={lcData?.senderToReceiverInformation}
+                              value={lcData?.senderToReceiverInformation}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value);
                               }}

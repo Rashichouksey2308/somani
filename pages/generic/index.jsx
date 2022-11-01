@@ -37,7 +37,7 @@ function Index(props) {
       setGenericData(JSON.parse(sessionStorage.getItem('genericSelected')));
     }
   }, []);
-  console.log(genericData, 'genericData');
+
 
   const setDate = (date) => {
     setlastModified(date);

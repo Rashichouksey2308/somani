@@ -161,7 +161,6 @@ export const addPrefixOrSuffix = (
       return '';
     }
   } else {
-    console.log(unitOfValue, 'type', type);
     if (unitOfValue !== undefined) {
       if (unitOfValue == '') {
         return '';
@@ -190,7 +189,6 @@ export const addPrefixOrSuffix = (
         .replaceAll(',', '')
         .replace(/ /g, '');
 
-      console.log(removedValue, 'removedValue');
       let newValue = `${Number(removedValue)?.toLocaleString(
         'en-IN',
       )}${` `}${type}`;
@@ -201,7 +199,6 @@ export const addPrefixOrSuffix = (
   }
 };
 export const removePrefixOrSuffix = (unitOfValue) => {
-  console.log(unitOfValue, 'unitOfValueremove');
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
       ?.toString()
@@ -249,13 +246,11 @@ export const removePrefixOrSuffix = (unitOfValue) => {
       .replaceAll(',', '')
       .replace(/ /g, '')
       .replace(/ /g, '');
-    console.log(newValue, 'newValueremove');
+
     return Number(newValue);
   }
 };
 export const checkNan = (unitOfValue, type = false, number = 2) => {
-  console.log(unitOfValue, 'nana');
-
   if (isNaN(unitOfValue)) {
     return '';
   } else {
@@ -278,15 +273,12 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
 
 export const addPrefixSymbol = (type = '') => {
   if (type != undefined) {
-    console.log(type, 'type');
     let symbol = type;
     if (type == 'INR' || 'RUPEE') {
       symbol = 'INR';
-      console.log(symbol, 'symbol');
     }
     if (type == 'USD') {
       symbol = 'USD';
-      console.log(symbol, 'symbol');
     }
 
     if (type == 'EUR') {

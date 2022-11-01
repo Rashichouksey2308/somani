@@ -54,7 +54,7 @@ function index() {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
       const data2 = JSON.parse(sessionStorage.getItem('preview'));
-      console.log(data, 'data22222');
+    ;
       let exe;
       let dat = '';
       data?.placeOfExecution?.execution?.forEach((val, index) => {
@@ -72,7 +72,7 @@ function index() {
         }
       });
 
-      console.log(dat, exe, 'exedasa');
+     
 
       setData({
         seller: data?.seller?.name,

@@ -1,25 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
 import styles from './index.module.scss';
 import SaveBar from '../SaveBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import _get from 'lodash/get';
+import {GetDelivery} from '../../redux/release&DeliveryOrder/action';
+import moment from 'moment/moment';
 
 function Index() {
+   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
   const handlePopup = () => {
     setShow(true);
   };
+  const [quantity,setQuantity] = useState(0);
+  const [balanceQuantity,setbalanceQuantity] = useState(0);
+   const [releasedQuantity,setreleasedQuantity] = useState(0);
   const DeliveryNo = sessionStorage.getItem('dono');
+ 
 
+ const { ReleaseOrderData } = useSelector((state) => state.Release);
+
+   useEffect(() => {
+    getOrderData();
+  }, []);
+  const getOrderData = async () => {
+    let id = sessionStorage.getItem('ROrderID');
+    let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
+    await dispatch(GetDelivery(`?deliveryId=${id}`));
+  };
+  useEffect(() => {
+    if(ReleaseOrderData){
+       if(window){
+      let temp=0;
+      _get(ReleaseOrderData,"data[0].deliveryDetail").forEach((val,index)=>{
+       temp = Number(temp) + Number(val.netQuantityReleased)
+
+
+      })
+      setQuantity(temp)
+     
+       let number = Number(
+                        _get(
+                          ReleaseOrderData,
+                          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
+                          0,
+                        ),
+                      )
+    
+     const balance = sessionStorage.getItem('balanceQuantity');
+
+     setreleasedQuantity(balance)
+     setbalanceQuantity(Number(number)-Number(balance))
+      }
+    }
+  },[ReleaseOrderData])
   return (
     <>
       <div className={`${styles.root} card container-fluid`}>
         <div className={`${styles.head}`}>
           <p className={`${styles.heading}`}>
-            INDO GERMAN INTERNATIONAL PVT. LTD.
+            {_get(ReleaseOrderData,"data[0].order.termsheet.otherTermsAndConditions.buyer.bank","")?.replace(/ *\([^)]*\) */g, "")}
+          
           </p>
           <div className={`${styles.heading_addresses}`}>
             <p>7A, SAGAR APARTMENTS, 6-TILAK MARG, NEW DELHI-110001 </p>
@@ -40,10 +84,10 @@ function Index() {
           >
             <div className={`${styles.date} `}>
               <p>
-                DO.NO: <span className={`${styles.bold}`}>{DeliveryNo}</span>
+                DO.NO: <span className={`${styles.bold}`}>{DeliveryNo} {" "} / {" "} {_get(ReleaseOrderData,"data[0].order.generic.shippingLine.vesselName","")}</span>
               </p>
               <p>
-                DATE: <span className={`${styles.bold}`}>01.07.2021</span>
+                DATE: <span className={`${styles.bold}`}>{moment().format("DD.MM.YYYY")}</span>
               </p>
             </div>
             <div className={`${styles.validity}`}>
@@ -55,35 +99,72 @@ function Index() {
           <div className={`${styles.content}`}>
             <p>To:</p>
             <p className={`${styles.bold} ${styles.width} w-50`}>
-              M/S BOTHRA SHIPPING SERVICES PVT. LTD. 28-2-47,Ist Floor, Daspalla
-              Centre, Suryabagh, Visakhapatnam 530020, (Andhra Pradesh)
+             {_get(ReleaseOrderData,"data[0].order.generic.CHA.name","")!==""?_get(ReleaseOrderData,"data[0].order.generic.CHA.name",""): _get(ReleaseOrderData,"data[0].order.generic.stevedore.name","")},
+             <br></br>
+             {_get(ReleaseOrderData,"data[0].order.generic.CHA.name","")!==""?
+             <span>
+              {_get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].fullAddress","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].state","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.CHA.addresses[0].pinCode","")}
+ 
+              </span>:
+              <span>
+              {_get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].fullAddress","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].state","")},
+              { _get(ReleaseOrderData,"data[0].order.generic.stevedore.addresses[0].pinCode","")}
+ 
+              </span>
+            }
+              
             </p>
 
             <div>
-              CC:{' '}
-              <span className={`${styles.bold} ${styles.width2} `}>
-                Dr. Shivadeo Upadhyay, M/S Jayaswal Neco Industries Limited,
-                Raipur, Chhatisgarh.
-              </span>
+              {
+                _get(ReleaseOrderData,"data[0].order.generic.associateBuyer.authorisedSignatoryDetails",[]).map((val,index)=>{
+                  return (
+                    <>
+                    CC:{' '}
+                    <span className={`${styles.bold} ${styles.width2} `}>
+                     {val.name}, M/S {" "}{_get(ReleaseOrderData,"data[0].company.companyName")},{_get(ReleaseOrderData,"data[0].order.generic.associateBuyer.branch","")}
+                     
+                    </span>
+                    </>
+                  )
+                })
+              }
             </div>
             <div>
               CC:{' '}
               <span className={`${styles.bold} ${styles.width2} `}>
-                Dr. Amin Controllersr, Yizag.
+               {_get(ReleaseOrderData,"data[0].order.generic.CMA.name","")}, {_get(ReleaseOrderData,"data[0].order.generic.CMA.addresses[0].state","")}.
               </span>
             </div>
             <p>
               Kind Attn.{' '}
-              <span className={`${styles.bold} w-50`}>
+              
+               {
+                _get(ReleaseOrderData,"data[0].order.generic.stevedore.authorisedSignatoryDetails",[]).map((val,index)=>{
+                  return (
+                    <>
+                  
+                    <span className={`${styles.bold} ${styles.width2} `}>
+                     {`${index!==0?"/":""}${val.name} `}
+                     
+                    </span>
+                    </>
+                  )
+                })
+              }
+              {/* <span className={`${styles.bold} w-50`}>
                 Mr. N.A. Khan / Mr. Nabin Chand Boyed.
-              </span>
+              </span> */}
             </p>
             <div className={`${styles.letter_content}`}>
               <p>Dear Sir,</p>
               <p>
                 We hereby authorize you to deliver the quantity to{' '}
                 <span className={`${styles.bold}`}>
-                  MS Jayaswal Neco Industries Limited,
+                 {_get(ReleaseOrderData,"data[0].company.companyName")},
                 </span>{' '}
                 Vide <span className={`${styles.bold}`}>BL No. 1</span> dated{' '}
                 <span className={`${styles.bold}`}>18/03/2021</span> as per the
@@ -95,9 +176,12 @@ function Index() {
                 >
                   <span className={styles.head}>l) Material :</span>{' '}
                   <span className={`${styles.bold} `}>
-                    Lake Vermont Premium Hard Coking Coal (MV CRIMSON ARK)
-                    Bothra, S-4 & L-6 Yard, Port Area, Visakhapatnam Port Trust,
-                    Visakhapatnam.
+                    {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {" "}({_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress'," ")} 
+                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',"")!==""
+                    ?`,${_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage'," ")}`:""
+                    }
+                    
                   </span>
                 </div>
                 <div
@@ -105,7 +189,11 @@ function Index() {
                 >
                   <span className={styles.head}>2) Quantity : </span>{' '}
                   <span className={`${styles.bold} `}>
-                    6350.000 MTs. Vermont Premium Hard Coking Coal
+                    {releasedQuantity} {_get(
+                        ReleaseOrderData,
+                        'data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}s. {" "}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
                   </span>
                 </div>
                 <div
@@ -115,7 +203,13 @@ function Index() {
                   <span className={`${styles.bold} `}>
                     After delivery of material against this DO the balance Qty.
                     will be as under :
-                    <p>a) Vermont Premium PH C Coal NIL MTs</p>
+                    <p>a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')}  {" "}
+                     {balanceQuantity}
+                     {" "} {_get(
+                        ReleaseOrderData,
+                        'data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}s</p>
                   </span>
                 </div>
               </div>
@@ -125,7 +219,7 @@ function Index() {
             <p>
               For{' '}
               <span className={`${styles.bold}`}>
-                Indo German International Private Limited
+                {_get(ReleaseOrderData,"data[0].order.termsheet.otherTermsAndConditions.buyer.bank","")?.replace(/ *\([^)]*\) */g, "")}
               </span>
             </p>
             <div>
@@ -138,7 +232,8 @@ function Index() {
         </div>
         <div className={`${styles.cc}`}>
           <p>
-            CC : Indo German International Private Limited, VIZAG : Delivery
+            CC :  {_get(ReleaseOrderData,"data[0].order.termsheet.otherTermsAndConditions.buyer.bank","")?.replace(/ *\([^)]*\) */g, "")},
+             VIZAG : Delivery
             order file
           </p>
           <p className={`${styles.bold} ${styles.extra_margin}`}>

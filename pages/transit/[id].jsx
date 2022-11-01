@@ -33,15 +33,13 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false);
   const [componentId, setComponentId] = useState(1);
   const [TransitDetails, setTransitDetails] = useState({});
-  console.log(TransitDetails, 'TransitDetails');
+;
 
   const dispatch = useDispatch();
   const { breadCrumbData } = useSelector((state) => state.Breadcrumb);
-  // const { TransitDetail } = useSelector((state) => state.TransitDetails)
-  // console.log(TransitDetail,';TransitDetail')
-  // console.log(breadCrumbData?.upperTabs,'breadCrumbData1')
+  
   const vesselData = _get(TransitDetails, 'data[0].order.vessel', {});
-  console.log(TransitDetails, 'TransitDetails');
+
   const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
     .trim()
     .toLowerCase();
@@ -69,7 +67,7 @@ function Index() {
     if (transID) {
       fetchInitialData();
     }
-    console.log(transID, 'dsfgk,dhgf');
+  
   }, [transID]);
 
   // useEffect(()=>{
@@ -85,7 +83,7 @@ function Index() {
     dispatch(getBreadcrumbValues({ upperTabs: value }));
   };
   const uploadDoc = async (e) => {
-    console.log(e, 'response data');
+
     let fd = new FormData();
     fd.append('document', e.target.files[0]);
     // dispatch(UploadCustomDoc(fd))
@@ -107,7 +105,7 @@ function Index() {
           headers: headers,
         },
       );
-      console.log(response.data.data, 'response data123');
+    
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
@@ -206,7 +204,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity?.toLowerCase() === 'coal' && (
+            {commodity?.toLowerCase().includes('coal') && (
               <li className={`${styles.navItem} nav-item`}>
                 <a
                   className={`${styles.navLink} navLink nav-link ${
