@@ -103,17 +103,17 @@ function Index() {
     },
   ]);
 
-  const [apiData, setApiData] = useState({
-    supplierName: '',
-    keyAddress: [],
-    contactPerson: [],
-    shareHoldersDetails: [],
-    directorsAndAuthorizedSignatory: [],
-    directorsAndAuthorizedSignatory: [],
-    bussinessSummary: [],
-    commoditiesTraded: [],
-    additionalInformation: [],
-  });
+  // const [apiData, setApiData] = useState({
+  //   supplierName: '',
+  //   keyAddress: [],
+  //   contactPerson: [],
+  //   shareHoldersDetails: [],
+  //   directorsAndAuthorizedSignatory: [],
+  //   directorsAndAuthorizedSignatory: [],
+  //   bussinessSummary: [],
+  //   commoditiesTraded: [],
+  //   additionalInformation: [],
+  // });
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -577,16 +577,27 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
+      
+    let fd = new FormData();
+    fd.append('supplierProfile', JSON.stringify(formData));
+    fd.append('keyAddress', JSON.stringify(keyAddressData));
+    fd.append('contactPerson', JSON.stringify(person));
+    fd.append('shareHoldersDetails', JSON.stringify(detail));
+    fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
+    fd.append('bussinessSummary', JSON.stringify(businessArray));
+    fd.append('commoditiesTraded', JSON.stringify(commodity));
+    fd.append('additionalInformation', JSON.stringify(info));
 
-      apiData.supplierName = formData;
-      apiData.contactPerson.push(person);
-      apiData.keyAddress.push(address);
-      apiData.shareHoldersDetails.push(detail);
-      apiData.directorsAndAuthorizedSignatory.push(signatory);
-      apiData.bussinessSummary.push(business);
-      apiData.commoditiesTraded.push(commodity);
-      apiData.additionalInformation.push(info);
-      dispatch(UpdateSupplier(apiData));
+
+      // apiData.supplierName = formData;
+      // apiData.contactPerson.push(person);
+      // apiData.keyAddress.push(address);
+      // apiData.shareHoldersDetails.push(detail);
+      // apiData.directorsAndAuthorizedSignatory.push(signatory);
+      // apiData.bussinessSummary.push(business);
+      // apiData.commoditiesTraded.push(commodity);
+      // apiData.additionalInformation.push(info);
+      dispatch(UpdateSupplier(fd));
       // console.log('apidata', apiData)
     }
 
