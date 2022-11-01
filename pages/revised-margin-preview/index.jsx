@@ -916,9 +916,9 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.additionalPDC?.toLocaleString('en-In', {
+                          {/* {marginData?.additionalPDC?.toLocaleString('en-In', {
                             maximumFractionDigits: 2,
-                          })}
+                          })} */}
                         </p>
                       </td>
                     </tr>
@@ -2583,9 +2583,9 @@ function Index() {
                     </td>
                     <td>
                       {' '}
-                      {marginData?.additionalPDC?.toLocaleString('en-In', {
+                      {/* {marginData?.additionalPDC?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
-                      })}
+                      })} */}
                     </td>
                   </tr>
                 </tbody>
