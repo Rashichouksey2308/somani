@@ -329,15 +329,15 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     if (
-      Number(last) === NaN ||
+      isNaN(Number(last)) ||
       last === null ||
       (!last && last !== 0) ||
       last === undefined ||
-      Number(previous) === NaN ||
+      isNaN(Number(previous)) ||
       previous === null ||
       (!previous && previous !== 0) ||
       previous === undefined ||
-      Number(latest) === NaN ||
+       isNaN(Number(latest)) ||
       latest === null ||
       (!latest && latest !== 0) ||
       latest === undefined
@@ -615,7 +615,7 @@ function Index() {
     if (
       orderDetails?.orderValue === '' ||
       orderDetails?.orderValue == undefined ||
-      orderDetails?.orderValue == NaN
+      isNaN( orderDetails?.orderValue) 
     ) {
       let toastMessage = 'Please Check the orderValue  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {

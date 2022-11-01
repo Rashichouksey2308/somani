@@ -947,7 +947,7 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
                       {/* ₹ {calcRevised.additionalAmountPerPDC} */}₹{' '}
-                      {calcRevised.additionalAmountPerPDC === NaN ||
+                      {isNaN(calcRevised.additionalAmountPerPDC) ||
                       calcRevised?.additionalAmountPerPDC == 0
                         ? 0
                         : convertValue(
