@@ -285,6 +285,7 @@
               height: 50px;
               font-size: 14px;
               line-height: 1.2;
+              padding: 17px 15px;
             }
             @include respond(sm-desktop) {
               font-size: 13px;

@@ -83,9 +83,11 @@
   margin-bottom: 112px;
   @include respond(lg-desktop) {
     margin: 10px 20px 20px;
+    margin-bottom: 110px;
   }
   @include respond(sm-desktop) {
     margin: 8px 18px 18px;
+    margin-bottom: 108px;
   }
   @include respond(phone) {
     margin: 5px 15px 15px;
