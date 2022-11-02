@@ -88,7 +88,10 @@ const index = () => {
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
-              onClick={() => Router.push('/supplier')}
+              onClick={() => {
+                sessionStorage.removeItem('supplier')
+                Router.push('/supplier')
+              }}
             >
               <span className={styles.add_supplier}>+</span>Add Supplier
             </button>
