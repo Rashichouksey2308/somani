@@ -286,70 +286,70 @@ function Index() {
     setInfo('');
   };
 
-  const addData = (item) => {
-    // apiData.supplierName.push(formData)
-    if (item === 'address') {
-      apiData.keyAddress.push(address);
-      setAddress({
-        contactPerson: '',
-        pinCode: '',
-        country: '',
-        phoneNumber: '',
-        alternatePhoneNumber: '',
-        emailId: '',
-      });
-    } else if (item === 'person') {
-      apiData.contactPerson.push(person);
-      setPerson({
-        name: '',
-        designation: '',
-        contact: '',
-        emailId: '',
-      });
-    } else if (item === 'detail') {
-      apiData.shareHoldersDetails.push(detail);
+  // const addData = (item) => {
+  //   // apiData.supplierName.push(formData)
+  //   if (item === 'address') {
+  //     apiData.keyAddress.push(address);
+  //     setAddress({
+  //       contactPerson: '',
+  //       pinCode: '',
+  //       country: '',
+  //       phoneNumber: '',
+  //       alternatePhoneNumber: '',
+  //       emailId: '',
+  //     });
+  //   } else if (item === 'person') {
+  //     apiData.contactPerson.push(person);
+  //     setPerson({
+  //       name: '',
+  //       designation: '',
+  //       contact: '',
+  //       emailId: '',
+  //     });
+  //   } else if (item === 'detail') {
+  //     apiData.shareHoldersDetails.push(detail);
 
-      setDetail({
-        shareHoldersName: '',
-        designation: '',
-        contact: '',
-        ownershipPercentage: '',
-      });
-    } else if (item === 'signatory') {
-      apiData.directorsAndAuthorizedSignatory.push(signatory);
+  //     setDetail({
+  //       shareHoldersName: '',
+  //       designation: '',
+  //       contact: '',
+  //       ownershipPercentage: '',
+  //     });
+  //   } else if (item === 'signatory') {
+  //     apiData.directorsAndAuthorizedSignatory.push(signatory);
 
-      setSignatory({
-        name: '',
-        nationality: '',
-        authoriztyToSign: '',
-      });
-    } else if (item === 'business') {
-      apiData.bussinessSummary.push(business);
+  //     setSignatory({
+  //       name: '',
+  //       nationality: '',
+  //       authoriztyToSign: '',
+  //     });
+  //   } else if (item === 'business') {
+  //     apiData.bussinessSummary.push(business);
 
-      setSignatory({
-        businessSummary: '',
-      });
-    } else if (item === 'commodity') {
-      apiData.commoditiesTraded.push(commodity);
+  //     setSignatory({
+  //       businessSummary: '',
+  //     });
+  //   } else if (item === 'commodity') {
+  //     apiData.commoditiesTraded.push(commodity);
 
-      setCommidity({
-        hsnCode: '',
-        commodity: '',
-      });
-    } else if (item === 'info') {
-      apiData.additionalInformation.push(info);
+  //     setCommidity({
+  //       hsnCode: '',
+  //       commodity: '',
+  //     });
+  //   } else if (item === 'info') {
+  //     apiData.additionalInformation.push(info);
 
-      setInfo({
-        remarks: '',
-      });
-    }
+  //     setInfo({
+  //       remarks: '',
+  //     });
+  //   }
 
-    // apiData.shareHoldersDetails.push(detail)
-    // apiData.directorsAndAuthorizedSignatory.push(signatory)
-    // apiData.bussinessSummary.push(business)
-    // apiData.commoditiesTraded.push(commodity)
-    // apiData.additionalInformation.push(info)
-  };
+  //   // apiData.shareHoldersDetails.push(detail)
+  //   // apiData.directorsAndAuthorizedSignatory.push(signatory)
+  //   // apiData.bussinessSummary.push(business)
+  //   // apiData.commoditiesTraded.push(commodity)
+  //   // apiData.additionalInformation.push(info)
+  // };
   // {
   //   console.log('apidata', apiData)
   // }
@@ -577,30 +577,41 @@ function Index() {
 
   const handleSave = () => {
     if (supplierValidtaion()) {
-      
-    let fd = new FormData();
-    fd.append('supplierProfile', JSON.stringify(formData));
-    fd.append('keyAddress', JSON.stringify(keyAddressData));
-    fd.append('contactPerson', JSON.stringify(person));
-    fd.append('shareHoldersDetails', JSON.stringify(detail));
-    fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
-    fd.append('bussinessSummary', JSON.stringify(businessArray));
-    fd.append('commoditiesTraded', JSON.stringify(commodity));
-    fd.append('additionalInformation', JSON.stringify(info));
+
+      // let fd = new FormData();
+      // fd.append('supplierProfile', JSON.stringify(formData));
+      // fd.append('keyAddress', JSON.stringify(keyAddressData));
+      // fd.append('contactPerson', JSON.stringify(person));
+      // fd.append('shareHoldersDetails', JSON.stringify(detail));
+      // fd.append('directorsAndAuthorizedSignatory', JSON.stringify(listDirector));
+      // fd.append('bussinessSummary', JSON.stringify(businessArray));
+      // fd.append('commoditiesTraded', JSON.stringify(commodity));
+      // fd.append('additionalInformation', JSON.stringify(info));
+      // dispatch(UpdateSupplier( {fd:fd}));
+
+      let apiData = {
+        supplierProfile: formData,
+        keyAddress: keyAddData,
+        contactPerson: person,
+        shareHoldersDetails: detail,
+        directorsAndAuthorizedSignatory: listDirector,
+        bussinessSummary: businessArray,
+        commoditiesTraded: commodity,
+        additionalInformation: {info},
+      }
 
 
-      // apiData.supplierName = formData;
+      // apiData.supplierProfile = formData;
       // apiData.contactPerson.push(person);
       // apiData.keyAddress.push(address);
       // apiData.shareHoldersDetails.push(detail);
       // apiData.directorsAndAuthorizedSignatory.push(signatory);
       // apiData.bussinessSummary.push(business);
       // apiData.commoditiesTraded.push(commodity);
-      // apiData.additionalInformation.push(info);
-      dispatch(UpdateSupplier(fd));
+      // apiData.additionalInformation.push({info});
+      dispatch(UpdateSupplier( apiData));
       // console.log('apidata', apiData)
     }
-
   };
 
   const [darkMode, setDarkMode] = useState(false);
