@@ -3,9 +3,14 @@ import * as types from './actionType';
 const initialState = {
   updatingSupplier: false,
   updatedSupplierResponse: null,
+  gettingsupplier: false,
+  supplierResponse: null,
+  gettingAllSupplier: false,
+  allSupplierResponse: null,
+
 };
 
-function BuyerReducer(state = initialState, action) {
+function SupplierReducer(state = initialState, action) {
   switch (action.type) {
     case types.UPDATE_SUPPLIER:
       return {
@@ -26,9 +31,47 @@ function BuyerReducer(state = initialState, action) {
         updatedSupplierResponse: null,
       };
 
+    case types.GET_SUPPLIER:
+      return {
+        ...state,
+        gettingsupplier: true,
+        supplierResponse: null,
+      };
+    case types.GET_SUPPLIER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingsupplier: false,
+        supplierResponse: action.payload,
+      };
+    case types.GET_SUPPLIER_FAILED:
+      return {
+        ...state,
+        gettingsupplier: false,
+        supplierResponse: null,
+      };
+
+    case types.GET_ALL_SUPPLIER:
+      return {
+        ...state,
+        gettingAllSupplier: true,
+        allSupplierResponse: null,
+      };
+    case types.GET_ALL_SUPPLIER_SUCCESSFULL:
+      return {
+        ...state,
+        gettingAllSupplier: false,
+        allSupplierResponse: action.payload,
+      };
+    case types.GET_ALL_SUPPLIER_FAILED:
+      return {
+        ...state,
+        gettingAllSupplier: false,
+        allSupplierResponse: null,
+      };
+
     default:
       return state;
   }
 }
 
-export default BuyerReducer;
+export default SupplierReducer;
