@@ -212,7 +212,7 @@ function Index(props) {
             <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
               <tr>
                 <td align='center' style={{padding:'20px 0'}}>
-                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000, marginBottom:'0'}}><strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p></td>
+                  <p style={{fontSize:'12px', lineHeight:'18px', color:'#000000', marginBottom:'0'}}><strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p></td>
               </tr>
               <tr>
                 <td align='justify'>
@@ -1843,7 +1843,6 @@ function Index(props) {
         </tr>
       </table> */}
       {/* Agreement pdf download code end */}
-
       
       {/* Undertaking 1 pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
@@ -2342,6 +2341,12 @@ function Index(props) {
                     <tr>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Seller)</strong></p></td>
                       <td align='left'><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Buyer)</strong></p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000', marginBottom:'0'}}>.................................................</p></td>
+                    </tr>
+                    <tr>
+                      <td align='left' colSpan={2}><p style={{fontSize:'12px', lineHeight:'18px', color: '#000000'}}><strong>(Shipper)</strong></p></td>
                     </tr>
                   </table>
                 </td>
