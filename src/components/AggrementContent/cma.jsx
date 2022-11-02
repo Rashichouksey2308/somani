@@ -819,7 +819,7 @@ function Index(props) {
                         required
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
-                        name="text"
+                        name="pinCode"
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         value={newAddress.pinCode}
