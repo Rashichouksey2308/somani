@@ -89,6 +89,32 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
+          supplier:data.supplier,
+          supplierAddress:data.supplierAddress,
+          supplierAuthorized:data.supplierAuthorized,
+          buyerAuthorized:data.buyerAuthorized,
+          toleranceLevel:data.toleranceLevel,
+          incoTerms:data.incoTerms,
+          financialBank:data.financialBank,
+          associateBuyer:data.associateBuyer,
+          associateBuyerAddress:data.associateBuyerAddress,
+          associateBuyerGst:data.associateBuyerGst,
+          associateBuyerPan:data.associateBuyerPan,
+          associateBuyerAuthorized:data.associateBuyerAuthorized,
+          stevedore:data.stevedore,
+          stevedoreAddress:data.stevedoreAddress,
+          stevedoreAuthorized:data.stevedoreAuthorized,
+          cma: data.name,
+          cmaAddress:data.cmaAddress,
+          cmaAuthorized:data.cmaAuthorized,
+          vessel:data.vessel,
+          storagePlot:data.storagePlot
+
+
+
+
+
+
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -109,8 +135,7 @@ function Index(props) {
             comment.push(val.comment);
           }
         });
-        console.log(dat, exe, 'exedasa');
-
+       
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
@@ -140,7 +165,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -153,7 +178,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.addresses.[0].fullAddress', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -166,14 +191,14 @@ function Index(props) {
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
           financialAddress: '',
-          associateBuyer: 'ADANI PORTS AND SPECIAL ECONOMIC ZONE LIMITED',
+          associateBuyer: _get(data,"company.companyName",""),
           associateBuyerAddress: _get(
             data,
-            'associateBuyer.addresses.[0].fullAddress',
-            '',
+            'associateBuyer.addresses[0]',
+            {},
           ),
           associateBuyerGst: data?.associateBuyer?.gstin,
-          associateBuyerPan: 'AAACG7917K',
+          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
           associateBuyerAuthorized: _get(
             data,
             'associateBuyer.authorisedSignatoryDetails',
@@ -182,8 +207,8 @@ function Index(props) {
           stevedore: data?.stevedore?.name,
           stevedoreAddress: _get(
             data,
-            'stevedore.addresses.[0].fullAddress',
-            '',
+            'stevedore.addresses[0]',
+            {},
           ),
           stevedoreAuthorized: _get(
             data,
@@ -191,8 +216,12 @@ function Index(props) {
             [],
           ),
           cma: data?.CMA?.name,
-          cmaAddress:
-            'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3, Khar (West) Mumbai',
+          cmaAddress:_get(
+            data,
+            'CMA.addresses[0]',
+            {},
+          ),
+            
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
           storagePlot:
@@ -204,8 +233,8 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {qpa(data,props.preview,)}
-         {props.preview !== "Sales" ? (
+        {qpa(data,props.preview)}
+         {props.preview !== "QPA" ? (
             <>
               <div
                 className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
@@ -1029,9 +1058,9 @@ function Index(props) {
       </table> */}
       {/* Undertaking 1 pdf download code end */}
 
-      <div className={`${styles.root}`}>
+      {/* <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
-          {qpa(data)}
+        
           <div
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
           >
@@ -1046,7 +1075,7 @@ function Index(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
      </div>
      </div>
@@ -1054,7 +1083,7 @@ function Index(props) {
 }
 
 export default Index;
-const qpa = (data,preview,) => {
+const qpa = (data,preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
        {preview ? (
@@ -1436,7 +1465,12 @@ const qpa = (data,preview,) => {
             Address of Associate Buyer
           </Col>
           <Col md={7} className={styles.right}>
-            {data.associateBuyerAddress}
+            {data.associateBuyerAddress?.fullAddress},
+              {data.associateBuyerAddress?.city}{" "} 
+              {data.associateBuyerAddress?.country},{" "}
+              
+              {data.associateBuyerAddress?.pinCode}
+          
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1490,7 +1524,11 @@ const qpa = (data,preview,) => {
             Address of Stevedore
           </Col>
           <Col md={7} className={styles.right}>
-            {data.stevedoreAddress}
+            {data.stevedoreAddress?.fullAddress},
+            {data.stevedoreAddress?.city}{" "} 
+            {data.stevedoreAddress?.country},{" "}
+            {data.stevedoreAddress?.pinCode}
+            
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1528,7 +1566,11 @@ const qpa = (data,preview,) => {
             Address of CMA Agent
           </Col>
           <Col md={7} className={styles.right}>
-            {data.cmaAddress}
+            {data.cmaAddress?.fullAddress},
+              {data.cmaAddress?.city}{" "} 
+              {data.cmaAddress?.country},{" "}
+              
+              {data.cmaAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>

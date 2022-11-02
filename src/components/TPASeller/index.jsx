@@ -89,6 +89,17 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
+          supplierAddress:data?.supplierAddress,
+          supplierAuthorized:data?.supplierAuthorized,
+          buyerAuthorized:data?.buyerAuthorized,
+          associateBuyerAuthorized:data?.associateBuyerAuthorized,
+          buyerEmail:data?.buyerEmail,
+          supplierEmail:data?.buyerEmail,
+          endBuyer:data.endBuyer
+
+
+
+
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -140,7 +151,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -153,7 +164,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.address[0]', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', ''),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -813,7 +824,11 @@ const tripartiteAgreement = (data,preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.supplierAddress}
+               {data.supplierAddress?.fullAddress},
+              {data.supplierAddress?.city}{" "} 
+              {data.supplierAddress?.country},{" "}
+              
+              {data.supplierAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -888,7 +903,7 @@ const tripartiteAgreement = (data,preview) => {
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start`} >
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
