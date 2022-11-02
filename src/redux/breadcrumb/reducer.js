@@ -14,7 +14,6 @@ const initialState = {
 };
 
 function BreadcrumbReducer(state = initialState, action) {
-  console.log(action.payload, 'SET_UNIT');
   switch (action.type) {
     case types.GET_BREADCRUMB_DATA:
       return {

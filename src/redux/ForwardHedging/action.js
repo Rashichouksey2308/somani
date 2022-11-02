@@ -155,7 +155,7 @@ export const UpdateForwardHedging =
           dispatch(updateForwardHedgingSuccess(response.data.data));
 
           let toastMessage = 'updated  SUCCESSFULLY';
-          console.log(payload.task, 'payload.task');
+      
           if (payload.task === 'save') {
             toastMessage = 'SAVED SUCCESSFULLY';
           }

@@ -197,9 +197,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(createBuyerSuccess(response.data.data));
-        // document.getElementById('CompanyDetailsForm').reset()
-        // document.getElementById('OrderDetailsForm').reset()
-        // console.log(response.data.data, "THIS IS CREATE BUYER")
+
         let toastMessage = 'Lead Created Successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -211,19 +209,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         sessionStorage.setItem('company', response.data.data.form._id);
         sessionStorage.setItem('companyID', response.data.data.form._id);
         Router.push(`/review/${response.data.data.form._id}`);
-        // if (response.data.data.queue == 'ReviewQueue') {
-        //   dispatch(
-        //     GetBuyer({
-        //       companyId: response.data.data.form._id,
-        //       orderId: response.data.data.form.orderDetails[0],
-        //     }),
-        //   )
 
-        // }
-
-        // Router.push('/leads')
-
-        // payload.history.goBack()
         dispatch(setNotLoading());
       } else {
         dispatch(createBuyerFailed(response.data.data));
@@ -235,7 +221,6 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
       }
     });
   } catch (error) {
-    console.log(error, 'API FAILED');
     dispatch(createBuyerFailed());
     let toastMessage = error.message;
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -273,13 +258,13 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
       return 200;
     } else {
       dispatch(updateBuyerFailed(response.data));
-      console.log('UPDATE REQUEST FAILED');
+
       dispatch(setNotLoading());
       return 500;
     }
   } catch (error) {
     dispatch(updateBuyerFailed());
-    console.log(error, 'UPDATE API FAILED');
+
     dispatch(setNotLoading());
     return 500;
   }
@@ -293,7 +278,6 @@ export const settingSelectBuyer = (payload) => {
 };
 
 export const settingDocument = (payload) => {
-  // console.log("reached here")
   return {
     type: types.SET_DOCUMENT,
     payload,
@@ -303,7 +287,7 @@ export const settingDocument = (payload) => {
 export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   dispatch(setIsLoading());
-  // console.log(company, "in getbuyer1")
+
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -314,7 +298,6 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    // console.log("in getbuyer")
     Axios.get(
       `${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`,
       { headers: headers },
@@ -368,7 +351,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(getAllBuyerFailed());
-    console.log(error, 'GET ALL BUYER API FAILED');
+
     dispatch(setNotLoading());
   }
 };
@@ -401,7 +384,7 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
     }
   } catch (error) {
     dispatch(getAllOrderFailed());
-    console.log(error, 'GET ALL ORDER API FAILED');
+
     dispatch(setNotLoading());
   }
 };
@@ -435,7 +418,7 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(getOrderFailed());
-    console.log(error, 'GET ALL ORDERS API FAILED');
+
     dispatch(setNotLoading());
   }
 };
@@ -479,7 +462,6 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    // console.log(payload,"in getbuyer")
     Axios.post(
       `${API.userbaseUrl}${API.getGst}`,
       { pan: payload },
@@ -500,7 +482,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(getGstFailed());
-    console.log('GET GST API FAILED');
+
     dispatch(setNotLoading());
   }
 };

@@ -282,7 +282,7 @@ export const UpdateCreditCalculate =
 export const UpdateOrderShipment =
   (payload) => async (dispatch, getState, api) => {
     //   dispatch(updateOrder()
-    // console.log(payload, 'update order shipment')
+    
     dispatch(setIsLoading());
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');

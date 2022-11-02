@@ -7,10 +7,10 @@ import SaveBar from '../SaveBar';
 import UploadOther from '../UploadOther';
 import DateCalender from '../DateCalender';
 import _get from 'lodash/get';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   UpdateTransitDetails,
-  GetTransitDetails,
+
 } from '../../redux/TransitDetails/action';
 import { element, number } from 'prop-types';
 import { useEffect } from 'react';
@@ -19,7 +19,7 @@ import DatePicker from 'react-datepicker';
 import {
   checkNan,
   convertValue,
-  CovertvaluefromtoCR,
+
 } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
@@ -67,21 +67,9 @@ export default function Index({
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
-      consigneeName: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.importerName`,
-        '',
-      ),
-      consigneeBranch: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.branch`,
-        '',
-      ),
-      consigneeAddress: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.buyerAddress`,
-        '',
-      ),
+      consigneeName: "",
+      consigneeBranch: "",
+      consigneeAddress: "",
     },
     igmDetails: [
       {
@@ -297,30 +285,21 @@ export default function Index({
             `data[0].IGM.shipmentDetails.consigneeName`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.importerName`,
-          ),
+          "",
         branch:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeBranch`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.branch`,
-          ),
+          "",
         address:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeAddress`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.consigneeAddress`,
-          ),
+          "",
       });
 
       if (

@@ -269,7 +269,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
       headers: headers,
     });
-    console.log(response, 'response');
+
     if (response.data.code === 200) {
       dispatch(loggingUserSuccess(response.data));
 
@@ -326,34 +326,7 @@ export const fetchCurrentUserProfile =
     }
   };
 
-//********  Verify User Token Validity  ********//
-// export const validateToken = () => async (dispatch, getState, api) => {
-//   dispatch(validatingToken())
 
-//   let cookie = Cookies.get('SOMANI')
-
-//   try {
-//     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-//     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-//     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
-//       headers: {
-//         authorization: jwtAccessToken,
-//       },
-//     })
-
-//     if (response.data.code === 200)
-//        dispatch(validatingTokenSuccess(response.data.data))
-
-//     if (response.code === 401 || response.code === 402){
-//        dispatch(generateToken())
-//     }
-
-//     dispatch(validatingTokenFailed(response.data))
-//   } catch (error) {
-//     console.log(error, "validating token failed")
-//      dispatch(validatingTokenFailed(errorMessage))
-//   }
-// }
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI');
@@ -370,8 +343,6 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     });
     if (response.data.code === 200) {
-      console.log(response.data.code, 'dfgfdg');
-
       // dispatch(getVesselSuccess(response.data.data))
       return response.data.data;
     } else {
@@ -435,9 +406,8 @@ export const generateToken = () => async (dispatch, getState, api) => {
 export const logoutUser = () => async (dispatch, getState, api) => {
   // let  cookie =  Cookies.get('SOMANI')
   let cookie = Cookies.get('SOMANI');
-  console.log(cookie, 'cookie');
+
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(decodedString, 'decodedString');
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   try {

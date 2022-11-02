@@ -133,8 +133,6 @@ export const GetTransitDetails =
         },
       );
       if (response.data.code === 200) {
-        console.log('this');
-
         // dispatch(getVesselSuccess(response.data.data))
         dispatch(setNotLoading());
         return response.data.data;
@@ -180,11 +178,11 @@ export const UpdateTransitDetails =
       if (response.data.code === 200) {
         dispatch(updateTransitDetailsSuccess(response.data.data));
         let toastMessage = 'UPDATE SUCCESSFULL';
-        console.log(payload, 'dfddfdhgfhdftg');
+
         if (payload.task === 'save') {
           toastMessage = 'Saved successfully';
         }
-        console.log(toastMessage, 'dfddfdhgfhdftg');
+
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }

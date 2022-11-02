@@ -1909,7 +1909,10 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          -
+                          {marginData?.calculation?.amountPerSPDC?.toLocaleString(
+                            'en-In',
+                            {minimumFractionDigits:2, maximumFractionDigits: 2 },
+                          ) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -2885,7 +2888,10 @@ function Index() {
                         { minimumFractionDigits:2, maximumFractionDigits: 2 },
                       ) ?? 0}
                     </td>
-                    <td>-</td>
+                    <td>{marginData?.calculation?.amountPerSPDC?.toLocaleString(
+                            'en-In',
+                            {minimumFractionDigits:2, maximumFractionDigits: 2 },
+                          ) ?? 0}</td>
                   </tr>
                   <tr>
                     <td>
@@ -2894,7 +2900,7 @@ function Index() {
                         Revised Net Order Value (INR){' '}
                       </span>
                       <span className={`${styles.formula} text1 ml-2`}>
-                        [(S-Previous Value)/I)]
+                      [P - Total Order Value (Previous)]
                       </span>
                     </td>
                     <td className={`${styles.good} good`}>
