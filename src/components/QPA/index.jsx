@@ -203,7 +203,7 @@ function Index(props) {
   return (
     <>
       {/* Undertaking 1 pdf download code start */}
-      <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
+      {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
           <td valign='top' style={{padding:'20px'}}>
             <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
@@ -995,7 +995,7 @@ function Index(props) {
             </table>
           </td>
         </tr>
-      </table>
+      </table> */}
       {/* Undertaking 1 pdf download code end */}
 
       <div className={`${styles.root}`}>
