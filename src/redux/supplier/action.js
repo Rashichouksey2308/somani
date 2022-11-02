@@ -66,6 +66,14 @@ function getAllSupplierFailed () {
   }
 }
 
+
+export function ClearSupplier () {
+  return {
+    type: types.CLEAR_SUPPLIER
+
+  }
+}
+
 export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   dispatch(updateSupplier())
@@ -81,7 +89,7 @@ export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 200) {
         const toastMessage = 'request send successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         dispatch(updateSupplierSuccess(response.data))
         dispatch(setNotLoading())

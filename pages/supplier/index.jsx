@@ -13,14 +13,57 @@ import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
+import { GetSupplier, ClearSupplier } from 'redux/supplier/action';
+import _get from 'lodash/get';
+import Router from 'next/router';
+
+
 
 function Index() {
   const dispatch = useDispatch();
+  const { supplierResponse } = useSelector((state) => state.supplier);
+
+  let id = sessionStorage.getItem('supplier')
+  useEffect(() => {
+    if (id) {
+      dispatch(GetSupplier(`?supplierId=${id}`))
+    }
+  }, [id])
+
+  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
+
+
+  let apiData = {
+    supplierProfile: formData,
+    keyAddress: keyAddData,
+    contactPerson: person,
+    shareHoldersDetails: detail,
+    directorsAndAuthorizedSignatory: listDirector,
+    bussinessSummary: businessArray,
+    commoditiesTraded: commodity,
+    additionalInformation: infoArray,
+  }
+
+  useEffect(() => {
+    setFormData(supplierData?.supplierProfile)
+    setKeyAddData(supplierData?.keyAddress ?? [])
+    setPerson(supplierData.contactPerson ?? [])
+    setDetail(supplierData?.shareHoldersDetails ?? [])
+    setListDirector(supplierData?.directorsAndAuthorizedSignatory ?? [])
+    setBusinessArray(supplierData?.bussinessSummary ?? [])
+    setCommidity(supplierData?.commoditiesTraded ?? [])
+    setInfoArray(supplierData?.additionalInformation ?? [])
+
+  }, [supplierResponse])
+  console.log(supplierData, keyAddData, 'supplierResponse')
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
+
 
   const [saveShareTable, setSaveTable] = useState(false);
   const [saveContactTable, setContactTable] = useState(false);
   const [saveDirectorTable, setDirectorTable] = useState(false);
   const [saveCommodityTable, setCommodityTable] = useState(false);
+
   const [formData, setFormData] = useState({
     supplierName: '',
     constitution: '',
@@ -69,6 +112,7 @@ function Index() {
     commodity: '',
     action: false
   }]);
+  console.log(businessArray, business, 'business')
 
   const [info, setInfo] = useState("");
   const [infoArray, setInfoArray] = useState([]);
@@ -258,9 +302,10 @@ function Index() {
     setBusiness(value);
   };
   const addToBusinessArray = (e) => {
+    console.log(businessArray, 'businessArray')
     let temp = [...businessArray]
-    temp.push(business)
-    setBusinessArray([...temp])
+    // temp.push(business)
+    setBusinessArray([...temp, { business: business }])
     setBusiness('');
   };
 
@@ -281,8 +326,8 @@ function Index() {
   };
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray]
-    temp.push(info)
-    setInfoArray([...temp])
+    // temp.push(info)
+    setInfoArray([...temp, { comment: info }])
     setInfo('');
   };
 
@@ -597,7 +642,7 @@ function Index() {
         directorsAndAuthorizedSignatory: listDirector,
         bussinessSummary: businessArray,
         commoditiesTraded: commodity,
-        additionalInformation: {info},
+        additionalInformation: infoArray,
       }
 
 
@@ -609,10 +654,22 @@ function Index() {
       // apiData.bussinessSummary.push(business);
       // apiData.commoditiesTraded.push(commodity);
       // apiData.additionalInformation.push({info});
-      dispatch(UpdateSupplier( apiData));
+      dispatch(UpdateSupplier(apiData));
       // console.log('apidata', apiData)
     }
   };
+
+
+  const handleSendForApproval = () => {
+
+   sessionStorage.removeItem('supplier');
+   dispatch(ClearSupplier())
+  let  toastMessage = `request sent for approval`;
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    Router.push('/add-supplier')
+  }
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -850,6 +907,8 @@ function Index() {
     // console.log(newInput)
     setKeyAddressData(newInput);
   };
+
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -864,7 +923,7 @@ function Index() {
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>Add Supplier</span>
+              <span>{supplierName !== '' ? supplierName : 'Add Supplier'}</span>
             </h1>
           </div>
         </div>
@@ -980,6 +1039,7 @@ function Index() {
                     >
                       <div className="d-flex">
                         <DateCalender
+                        defaultDate ={formData?.incorporationDate ?? ''}
                           saveDate={saveDate}
                           saveQuotationData={saveQuotationData}
                           labelName="Incorporation Date"
@@ -1051,7 +1111,7 @@ function Index() {
                         type="text"
                         required
                         name="website"
-                        value={formData.website}
+                        value={formData?.website}
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -1082,7 +1142,7 @@ function Index() {
               >
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="d-flex justify-content-between">
-                    {keyAddData.map((address, index) => {
+                    {keyAddData?.map((address, index) => {
 
                       return (
                         <>
@@ -1374,8 +1434,8 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {person.length > 0 &&
-                          person.map((val, index) => (
+                        {person?.length > 0 &&
+                          person?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 <input
@@ -1527,8 +1587,8 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {detail.length > 0 &&
-                          detail.map((val, index) => {
+                        {detail?.length > 0 &&
+                          detail?.map((val, index) => {
                             return (
                               <tr key={index} className="table_credit">
                                 <td>
@@ -1675,8 +1735,8 @@ function Index() {
                       </thead>
 
                       <tbody>
-                        {listDirector.length > 0 &&
-                          listDirector.map((val, index) => (
+                        {listDirector?.length > 0 &&
+                          listDirector?.map((val, index) => (
                             <tr key={index} className="table_credit">
                               <td>
                                 <input
@@ -1807,8 +1867,8 @@ function Index() {
                   />
                 </div>
                 <ol>
-                  {businessArray.map((val, index) => {
-                    return <li>{val}</li>
+                  {businessArray?.map((val, index) => {
+                    return <li>{val?.business}</li>
                   })}
                 </ol>
               </div>
@@ -1931,7 +1991,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div onClick={() => addData('address')}>Add More Rows</div>
+                  <div >Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -2003,8 +2063,8 @@ function Index() {
                     }}
                   />
                 </div>
-                {infoArray.map((val, index) => {
-                  return <li>{val}</li>
+                {infoArray?.length > 0 && infoArray?.map((val, index) => {
+                  return <li>{val.comment}</li>
                 })}
               </div>
             </div>
@@ -2017,7 +2077,7 @@ function Index() {
             /> */}
           </div>
         </div>
-        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} />
+        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
       </div>
     </>
   );

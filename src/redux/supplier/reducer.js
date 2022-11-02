@@ -68,6 +68,11 @@ function SupplierReducer(state = initialState, action) {
         gettingAllSupplier: false,
         allSupplierResponse: null,
       };
+    case types.CLEAR_SUPPLIER:
+      return {
+        ...state,
+        supplierResponse: null
+      };
 
     default:
       return state;
