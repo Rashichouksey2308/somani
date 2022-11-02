@@ -33,11 +33,11 @@ export default function Index({
 }) {
   let transId = _get(TransitDetails, `data[0]`, '');
 
- 
+
   const dispatch = useDispatch();
   const router = useRouter();
 
- 
+
 
   let shipmentTypeBulk =
     _get(
@@ -47,7 +47,7 @@ export default function Index({
     ) === 'Bulk'
       ? true
       : false;
- 
+
   const [editInput, setEditInput] = useState(true);
 
   const [shipmentType, setShipmentType] = useState(true);
@@ -175,7 +175,7 @@ export default function Index({
         }
       }
     }
-  
+
     let newData = { ...igmList };
     newData.igmDetails[index][name] = text;
     setIgmList(newData);
@@ -223,7 +223,7 @@ export default function Index({
         }
       });
     }
-   
+
     const newArray = [...igmList];
     newArray[index].vesselName = filteredVessel.vesselInformation[0].name;
     newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber;
@@ -236,7 +236,7 @@ export default function Index({
   };
   const onAddBlNumber = (index, index2) => {
     let newIgmList = { ...igmList };
- 
+
     newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
@@ -247,13 +247,13 @@ export default function Index({
 
   const onRemoveBlNumber = (index, index2) => {
     let tempArray = { ...igmList };
-    tempArray.igmDetails[index].blNumber.splice(index2,1);
-   
+    tempArray.igmDetails[index].blNumber.splice(index2, 1);
+
     setIgmList(tempArray);
   };
 
- 
- 
+
+
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
       setConsigneeInfo({
@@ -275,7 +275,7 @@ export default function Index({
       setConsigneeName('');
     }
   };
- 
+
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
@@ -304,23 +304,34 @@ export default function Index({
 
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
         _get(
           TransitDetails,
           `data[0].order.marginMoney.invoiceDetail.importerName`,
         ) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
         setConsigneeName('EMERGENT');
+        setConsigneeInfo({
+          name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
+          branch: 'VIZAG',
+          address:
+            '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
+        })
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(
           TransitDetails,
           `data[0].order.marginMoney.invoiceDetail.importerName`,
         ) == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
         setConsigneeName('indoGerman');
+        setConsigneeInfo({
+          name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
+          branch: 'DELHI',
+          address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
+        })
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
         {
@@ -356,6 +367,7 @@ export default function Index({
       tempArray.igmDetails = [...existingData];
       setIgmList(tempArray);
     }
+
   }, [TransitDetails]);
 
   const onChangeBlDropDown = (e) => {
@@ -370,7 +382,7 @@ export default function Index({
         return item.blNumber === value;
       });
 
-    
+
       //     setIgmList(prevState => {
       //       return {
       //         ...prevState, [
@@ -393,14 +405,14 @@ export default function Index({
       setIgmList(tempArray);
     }
   };
- 
+
 
   const onDocumentSelect = async (e, index) => {
-    
+
     const docData = await docUploadFunction(e);
-    
+
     let temparray = { ...igmList };
-   
+
     temparray.igmDetails[index].document = docData;
     setIgmList(temparray);
   };
@@ -423,7 +435,7 @@ export default function Index({
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
     };
-  
+
     let fd = new FormData();
     fd.append('igm', JSON.stringify(igmDetails));
     fd.append('transitId', transId._id);
@@ -443,7 +455,7 @@ export default function Index({
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
     };
-   
+
     let fd = new FormData();
     fd.append('igm', JSON.stringify(igmDetails));
     fd.append('transitId', transId._id);
@@ -469,9 +481,9 @@ export default function Index({
       router.push(`/forward-hedging`);
     }
   };
- const getIndex=(index)=>{
-  return index=index+1
- }
+  const getIndex = (index) => {
+    return index = index + 1
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -543,7 +555,7 @@ export default function Index({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                      {_get(
+                    {_get(
                       TransitDetails,
                       'data[0].order.quantity',
                       '',
@@ -580,7 +592,7 @@ export default function Index({
                       maximumFractionDigits: 2,
                     })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -706,7 +718,7 @@ export default function Index({
             </div>
           </div>
           {igmList.igmDetails.map((item, index) => {
-          
+
             return (
               <div
                 key={index}
@@ -775,26 +787,26 @@ export default function Index({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation[0]?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation[0]?.name}
-                                </option>
-                              ))
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation[0]?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ))
                             : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -864,7 +876,7 @@ export default function Index({
                   <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
                     {item.blNumber.map((blEntry, index2) => {
-                    
+
                       return (
                         <>
                           <div
@@ -897,7 +909,7 @@ export default function Index({
                                   </option>
                                 ))}
                               </select>
-                         
+
                               <label
                                 className={`${styles.label_heading} label_heading`}
                               >
@@ -926,8 +938,8 @@ export default function Index({
                                 <span className={styles.value}>
                                   {blEntry?.blDate
                                     ? moment(blEntry?.blDate).format(
-                                        'DD-MM-YYYY',
-                                      )
+                                      'DD-MM-YYYY',
+                                    )
                                     : ''}
                                 </span>
                               </div>
@@ -1000,8 +1012,8 @@ export default function Index({
                                     <span className={styles.value}>
                                       {blEntry?.blDate
                                         ? moment(blEntry?.blDate).format(
-                                            'DD-MM-YYYY',
-                                          )
+                                          'DD-MM-YYYY',
+                                        )
                                         : ''}
                                     </span>
                                   </div>
@@ -1025,7 +1037,7 @@ export default function Index({
                                 <div className="row align-items-center">
                                   <div className="col-md-6">
                                     <div className={`${styles.label} text`}>
-                                      BL Quantity{' '} 
+                                      BL Quantity{' '}
                                       <strong className="text-danger ml-n1">
                                         *
                                       </strong>
@@ -1123,17 +1135,17 @@ export default function Index({
                               item?.document?.originalName
                                 ?.toLowerCase()
                                 .endsWith('.xls') ||
-                              item?.document?.originalName
-                                ?.toLowerCase()
-                                .endsWith('.xlsx') ? (
+                                item?.document?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.xlsx') ? (
                                 <img
                                   src="/static/excel.svg"
                                   className="img-fluid"
                                   alt="Pdf"
                                 />
                               ) : item?.document?.originalName
-                                  ?.toLowerCase()
-                                  .endsWith('.doc') ||
+                                ?.toLowerCase()
+                                .endsWith('.doc') ||
                                 item?.document?.originalName
                                   ?.toLowerCase()
                                   .endsWith('.docx') ? (
@@ -1154,8 +1166,8 @@ export default function Index({
                           <td className={styles.doc_row}>
                             {item?.document
                               ? moment(item?.document?.Date).format(
-                                  ' DD-MM-YYYY , h:mm a',
-                                )
+                                ' DD-MM-YYYY , h:mm a',
+                              )
                               : ''}
                           </td>
                           <td>
