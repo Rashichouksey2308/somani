@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Contract from '../../../src/components/A2S_Sales_Contract';
+import QPA from '../../../src/components/QPA';
+import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
+import TPASeller from '../../../src/components/TPASeller';
+import TPAIGI from '../../../src/components/TPAIGI';
 import DownloadBar from '../../../src/components/DownloadBar';
+import AssignmentLetter from '../../../src/components/AssignmentLetter';
 import moment from 'moment';
 import jsPDF from 'jspdf';
 import ReactDOMServer from 'react-dom/server';
@@ -34,6 +39,7 @@ function index() {
     curr: '',
     specComment: '',
   });
+  const [preview,setPreview]=useState("")
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
@@ -53,8 +59,10 @@ function index() {
   useEffect(() => {
     if (window) {
       const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-      const data2 = JSON.parse(sessionStorage.getItem('preview'));
-    ;
+      
+      const data2 = sessionStorage.getItem('agreementPreview')
+      setPreview(data2)
+    
       let exe;
       let dat = '';
       data?.placeOfExecution?.execution?.forEach((val, index) => {
@@ -132,7 +140,13 @@ function index() {
   };
   return (
     <>
-      <Contract preview={true} />
+      {preview=="Sales"?<Contract preview={true} />:null}
+      {preview=="QPA"?<QPA preview={true} />:null}
+      {preview=="TPASELLER"?<TPASeller preview={true} />:null}
+      {preview=="TPAIGI"?<TPAIGI preview={true} />:null}
+      {preview=="LETTER"?<AssignmentLetter preview={true} />:null}
+      {preview=="ASSO" ||preview=="UNDERTAKING1"||preview=="UNDERTAKING2"?<AssociateshipAgreement preview={true} type={preview}/>:null}  
+
       <DownloadBar
         downLoadButtonName={`Download`}
         handleReject={exportPDF}

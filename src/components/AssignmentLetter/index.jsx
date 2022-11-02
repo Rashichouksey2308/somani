@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import GrowInput from '../GrowInput';
 import _get from 'lodash/get';
 import moment from 'moment';
+import Router from 'next/router';
 function Index(props) {
   const [data, setData] = useState({
     seller: '',
@@ -173,30 +174,57 @@ function Index(props) {
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {assignmentSupplier(data)}
-        <div
-          className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
-        >
-          <div className={`${styles.approve} mr-3`}>
-            <span>Preview</span>
-          </div>
-          <div className={styles.reject}>
-            <span>Save</span>
-          </div>
-          <div className={styles.approve}>
-            <span>Submit</span>
-          </div>
-        </div>
+        {assignmentSupplier(data,props.preview)}
+       {props.preview !== "LETTER" ? (
+            <>
+              <div
+                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+              >
+                <div className={`${styles.approve} mr-3`}>
+                  <span
+                    onClick={(e) => {
+                      sessionStorage.setItem('preview', JSON.stringify(data));
+                     
+
+                      Router.push('agreement/preview');
+                      props.setPreviewValue("LETTER");
+                    }}
+                  >
+                    Preview
+                  </span>
+                </div>
+                <div className={styles.reject}>
+                  <span>Save</span>
+                </div>
+                <div className={styles.approve}>
+                  <span>Submit</span>
+                </div>
+              </div>
+            </>
+          ) : null}
       </div>
     </div>
   );
 }
 
 export default Index;
-const assignmentSupplier = (data) => {
+const assignmentSupplier = (data,preview) => {
   return (
     <>
       <div className="card-body">
+        {preview ? (
+          <div className={`${styles.inputsContainer2} border_black`}>
+            <Row className={`${styles.row} ${styles.last}`}>
+              <Col md={7} className={`${styles.left} border_black`}>
+                Assignment Letter No.:{' '}
+                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+              </Col>
+              <Col md={5} className={styles.right}>
+                Date: {moment(new Date()).format('DD-MM-YYYY')}
+              </Col>
+            </Row>
+          </div>
+        ) : null}
         <p className="text-center text_sales">
           {' '}
           <strong>
