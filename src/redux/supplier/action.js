@@ -90,6 +90,51 @@ export function ClearSupplier() {
   };
 }
 
+
+
+function uploadSupplierDoc(payload) {
+  return {
+    type: types.UPLOAD_SUPPLIER_DOC,
+    payload,
+  };
+}
+
+function uploadSupplierDocSuccess(payload) {
+  return {
+    type: types.UPLOAD_SUPPLIER_DOC_SUCCESSFULL,
+    payload,
+  };
+}
+
+function uploadSupplierDocFailed() {
+  return {
+    type: types.UPLOAD_SUPPLIER_DOC_FAILED,
+  };
+}
+
+
+
+function deleteSupplierDoc(payload) {
+  return {
+    type: types.DELETE_SUPPLIER_DOC,
+    payload,
+  };
+}
+
+function deleteSupplierDocSuccess(payload) {
+  return {
+    type: types.DELETE_SUPPLIER_DOC_SUCCESSFULL,
+    payload,
+  };
+}
+
+function deleteSupplierDocFailed() {
+  return {
+    type: types.DELETE_SUPPLIER_DOC_FAILED,
+  };
+}
+
+
 export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   dispatch(createSupplier());
@@ -199,6 +244,8 @@ export const GetSupplier = (payload) => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   }
 };
+
+
 export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   dispatch(getAllSupplier());
@@ -225,6 +272,74 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
     });
   } catch (error) {
     dispatch(getAllSupplierFailed());
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  dispatch(uploadSupplierDoc());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    Axios.post(`${API.corebaseUrl}${API.supplierDoc}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(uploadSupplierDocSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(uploadSupplierDocFailed(response.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(uploadSupplierDocFailed());
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
+
+export const DeleteSupplierDoc = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  dispatch(deleteSupplierDoc());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    Axios.put(`${API.corebaseUrl}${API.supplierDoc}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(deleteSupplierDocSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(deleteSupplierDocFailed(response.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(deleteSupplierDocFailed());
     const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });

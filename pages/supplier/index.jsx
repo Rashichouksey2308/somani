@@ -36,16 +36,16 @@ function Index() {
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
 
 
-  let apiData = {
-    supplierProfile: formData,
-    keyAddress: keyAddData,
-    contactPerson: person,
-    shareHoldersDetails: detail,
-    directorsAndAuthorizedSignatory: listDirector,
-    bussinessSummary: businessArray,
-    commoditiesTraded: commodity,
-    additionalInformation: infoArray,
-  }
+  // let apiData = {
+  //   supplierProfile: formData,
+  //   keyAddress: keyAddData,
+  //   contactPerson: person,
+  //   shareHoldersDetails: detail,
+  //   directorsAndAuthorizedSignatory: listDirector,
+  //   bussinessSummary: businessArray,
+  //   commoditiesTraded: commodity,
+  //   additionalInformation: infoArray,
+  // }
 
   useEffect(() => {
     setFormData(supplierData?.supplierProfile ?? {
