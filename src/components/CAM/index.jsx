@@ -3612,7 +3612,7 @@ const sectionTerms = (
 ) => {
   const [limitValueChecked, setLimitValueChecked] = useState(false);
   const [orderValueChecked, setOrderValueChecked] = useState(false);
-  console.log(isFieldInFocus, 'setIsFieldInFocus');
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -3726,8 +3726,8 @@ const sectionTerms = (
                               {checkNan(
                                 convertValue(
                                   val?.suggested?.value,
-                                )?.toLocaleString('en-In'),
-                              )}
+                                ),
+                              )?.toLocaleString('en-In')}
                               {` ${
                                 camData?.unitOfValue === 'Crores'
                                   ? 'Cr'
@@ -3795,8 +3795,8 @@ const sectionTerms = (
                     <td>-</td>
                     <td>
                       {checkNan(
-                        CovertvaluefromtoCR(camData?.suggestedOrderValue),
-                      )}
+                        convertValue(camData?.suggestedOrderValue),
+                      )?.toLocaleString('en-In')}
                       {` ${
                         camData?.unitOfValue === 'Crores'
                           ? 'Cr'

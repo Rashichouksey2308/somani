@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import config from 'config';
-import { repoSearchReducer } from 'features/repoSearch/repoSearchSlice';
 import AuthReducer from 'redux/authentication/reducer';
 import BuyerReducer from 'redux/registerBuyer/reducer';
 import UserReducer from 'redux/userData/reducer';
@@ -47,7 +46,6 @@ export const createStore = (preloadedState) => {
 
   return configureStore({
     reducer: {
-      repoSearch: repoSearchReducer,
       auth: AuthReducer,
       buyer: BuyerReducer,
       sidebar: sidebar,
