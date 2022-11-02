@@ -89,6 +89,27 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
+          priceOfGoods:data?.priceOfGoods,
+          supplier:data?.supplier,
+          supplierAddress:data?.supplierAddress,
+          supplierAuthorized:data?.supplierAuthorized,
+          buyerAuthorized:data?.buyerAuthorized,
+          toleranceLevel:data?.toleranceLevel,
+          incoTerms:data.incoTerms,
+          addComm: data.addComm,
+          priceOfGoods:data.priceOfGoods,
+          specComment:data.specComment,
+          buyerEmail:data.buyerEmail,
+          supplierEmail:data.supplierEmail,
+          loadingCargo:data.loadingCargo,
+          dateOfContract:data.dateOfContract,
+          financialAddress:data?.financialAddress
+
+
+         
+
+
+
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -104,9 +125,11 @@ function Index(props) {
           }
         });
         let comment = [];
+        let dateOfContract =''
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
             comment.push(val.comment);
+            dateOfContract=moment(val?.dateOfContract).format('DD-MM-YYYY')
           }
         });
         console.log(dat, exe, 'exedasa');
@@ -140,7 +163,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -153,7 +176,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.address[0]', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -167,6 +190,8 @@ function Index(props) {
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           priceOfGoods: data?.order?.perUnitPrice,
+          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
+          dateOfContract:dateOfContract
         });
       }
     }
@@ -713,7 +738,7 @@ function Index(props) {
       </table> */}
       {/* Assignment Letter pdf download code end */}
 
-      <div className={`${styles.root}`}>
+      {/* <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
           {assignmentSupplier(data)}
           <div
@@ -730,7 +755,7 @@ function Index(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
      </div>
      </div>
@@ -742,19 +767,7 @@ const assignmentSupplier = (data,preview) => {
   return (
     <>
       <div className="card-body">
-        {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                Assignment Letter No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+      
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -888,14 +901,19 @@ const assignmentSupplier = (data,preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplierAddress}
+              {data.supplierAddress?.fullAddress},
+              {data.supplierAddress?.city}{" "} 
+              {data.supplierAddress?.country},{" "}
+              
+              {data.supplierAddress?.pinCode}
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
@@ -940,14 +958,7 @@ const assignmentSupplier = (data,preview) => {
               MT
             </Col>
           </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Date of execution of Assignment Letter
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.dateOfExecution}
-            </Col>
-          </Row>
+          
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Price of Goods / MT
@@ -964,7 +975,7 @@ const assignmentSupplier = (data,preview) => {
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
-              })}
+              })} %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -996,7 +1007,7 @@ const assignmentSupplier = (data,preview) => {
               Month of loading of Cargo
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+              {data?.loadingCargo}
             </Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>
@@ -1004,7 +1015,7 @@ const assignmentSupplier = (data,preview) => {
               Date of Sales Contract between Supplier and Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+              {data?.dateOfContract}
             </Col>
           </Row>
         </div>
