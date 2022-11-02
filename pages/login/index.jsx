@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './index.module.scss';
-import Login from '../../src/components/Login';
-import { loginUser } from '../../src/redux/authentication/actions';
+import React from 'react'
 
-function index() {
+function index () {
   // if(token){
   //   return <Redirect to ="/" />
   // }
@@ -117,6 +113,7 @@ function index() {
     //     </div>
     //   </div>
     // </div>
-  );
+  )
 }
-export default index;
+
+export default index

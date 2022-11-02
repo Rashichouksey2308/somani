@@ -26,7 +26,7 @@ export default {
   authServerUrl: 'https://api-dev.simport.global/auth',
   userServerUrl: 'https://api-dev.simport.global/user',
   coreServerUrl: 'https://api-dev.simport.global/core',
-};
+}
 
 //local
 

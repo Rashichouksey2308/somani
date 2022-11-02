@@ -1,19 +1,18 @@
-import Router from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import styles from './index.module.scss'
 
-function Index({
+function Index ({
   handleSave,
   rightBtn,
   rightBtnClick,
   handleRoute,
   buttonText = 'Save',
 }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
 
-  console.log(rightBtnClick, 'handleSave');
+  console.log(rightBtnClick, 'handleSave')
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
     <div
@@ -24,8 +23,8 @@ function Index({
         <div
           onClick={() => {
             if (handleSave) {
-              console.log('thsu');
-              handleSave();
+              console.log('thsu')
+              handleSave()
             }
           }}
           className={`${styles.reject} ml-3`}
@@ -37,10 +36,10 @@ function Index({
         <div
           className={`${styles.approve} ml-3`}
           onClick={() => {
-            console.log('INspection Submitted');
+            console.log('INspection Submitted')
             if (rightBtnClick) {
-              console.log('INspection Submitted2');
-              rightBtnClick();
+              console.log('INspection Submitted2')
+              rightBtnClick()
 
               // handleRoute()
             }
@@ -52,7 +51,7 @@ function Index({
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

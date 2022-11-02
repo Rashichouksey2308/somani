@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { ViewDocument } from 'redux/ViewDoc/action';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import styles from './index.module.scss'
 
-function AddressComponent({
+function AddressComponent ({
   index,
   Title,
   address,
@@ -20,7 +18,7 @@ function AddressComponent({
   pinCode,
 }) {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <div className={`${styles.address_card} value background1 border_color`}>
@@ -45,25 +43,25 @@ function AddressComponent({
               <h5 className={`mb-0`}>{Title}</h5>
             </div> */}
             <div>
-                <img
-                  className={`${styles.edit_image} ml-2 mr-3`}
-                  src="/static/mode_edit.svg"
-                  alt="edit"
-                  onClick={() => {
-                    console.log('index', index);
-                    editAddress(index);
-                  }}
-                />
-                <img
-                  onClick={() => {
-                    // console.log('index', index)
-                    deleteComponent(index);
-                  }}
-                  src="/static/delete 2.svg"
-                  className={`${styles.delete_image}`}
-                  alt="delete"
-                />
-              
+              <img
+                className={`${styles.edit_image} ml-2 mr-3`}
+                src="/static/mode_edit.svg"
+                alt="edit"
+                onClick={() => {
+                  console.log('index', index)
+                  editAddress(index)
+                }}
+              />
+              <img
+                onClick={() => {
+                  // console.log('index', index)
+                  deleteComponent(index)
+                }}
+                src="/static/delete 2.svg"
+                className={`${styles.delete_image}`}
+                alt="delete"
+              />
+
             </div>
           </div>
           <div className={`${styles.address_values}`}>
@@ -86,7 +84,7 @@ function AddressComponent({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AddressComponent;
+export default AddressComponent

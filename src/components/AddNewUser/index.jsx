@@ -1,15 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import { Card } from 'react-bootstrap';
-import { UploadDocument } from '../UploadDocument';
-import Router from 'next/router';
-import Image from 'next/image';
+import React from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import Image from 'next/image'
 
-function Index() {
+function Index () {
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -97,7 +94,7 @@ function Index() {
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Date of Incorporation" />
+                  <DateCalender labelName="Date of Incorporation"/>
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -154,11 +151,11 @@ function Index() {
                 <input
                   className={`${styles.input_field} border_color input form-control`}
                   type="number"
-                    onWheel={(event) => event.currentTarget.blur()}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
+                  onWheel={(event) => event.currentTarget.blur()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   required
                   name="supplierName"
                 />
@@ -526,92 +523,92 @@ function Index() {
                       border="0"
                     >
                       <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            UPLOADED BY{' '}
-                            <Image
-                              width="14px"
-                              height="14px"
-                              className={`${styles.sort_img}`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                        </tr>
+                      <tr>
+                        <th>
+                          DOCUMENT NAME{' '}
+                          <Image
+                            width="14px"
+                            height="14px"
+                            className={`${styles.sort_img}`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>
+                          FORMAT{' '}
+                          <Image
+                            width="14px"
+                            height="14px"
+                            className={`${styles.sort_img}`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>
+                          DOCUMENT DATE{' '}
+                          <Image
+                            width="14px"
+                            height="14px"
+                            className={`${styles.sort_img}`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                        <th>
+                          UPLOADED BY{' '}
+                          <Image
+                            width="14px"
+                            height="14px"
+                            className={`${styles.sort_img}`}
+                            src="/static/icons8-sort-24.svg"
+                            alt="Sort icon"
+                          />
+                        </th>
+                      </tr>
                       </thead>
                       <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>PAN</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>GST Certificate</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>Board Resolution</td>
-                          <td>
-                            <Image
-                              width="57px"
-                              height="25px"
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                          <td>John Doe</td>
-                        </tr>
+                      <tr className="table_row">
+                        <td className={styles.doc_name}>PAN</td>
+                        <td>
+                          <Image
+                            width="57px"
+                            height="25px"
+                            src="/static/pdf.svg"
+                            className={`${styles.pdfImage} img-fluid`}
+                            alt="Pdf"
+                          />
+                        </td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td>John Doe</td>
+                      </tr>
+                      <tr className="table_row">
+                        <td className={styles.doc_name}>GST Certificate</td>
+                        <td>
+                          <Image
+                            width="57px"
+                            height="25px"
+                            src="/static/pdf.svg"
+                            className={`${styles.pdfImage} img-fluid`}
+                            alt="Pdf"
+                          />
+                        </td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td>John Doe</td>
+                      </tr>
+                      <tr className="table_row">
+                        <td className={styles.doc_name}>Board Resolution</td>
+                        <td>
+                          <Image
+                            width="57px"
+                            height="25px"
+                            src="/static/pdf.svg"
+                            className={`${styles.pdfImage} img-fluid`}
+                            alt="Pdf"
+                          />
+                        </td>
+                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td>John Doe</td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
@@ -622,6 +619,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

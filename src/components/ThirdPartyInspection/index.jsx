@@ -1,78 +1,75 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import { useState } from 'react';
-import DateCalender from '../DateCalender';
-import Modal from 'react-bootstrap/Modal';
-import { useEffect } from 'react';
-import { ReactReduxContext, useDispatch, useSelector } from 'react-redux';
-import { UpdateInspection } from 'redux/Inspections/action';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import UploadOther from '../UploadOther/index';
-import { ViewDocument } from 'redux/ViewDoc/action';
-import moment from 'moment';
-import { GetAllInspection } from '../../redux/Inspections/action';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import DateCalender from '../DateCalender'
+import Modal from 'react-bootstrap/Modal'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateInspection } from 'redux/Inspections/action'
+import _get from 'lodash/get'
+import { toast } from 'react-toastify'
+import UploadOther from '../UploadOther/index'
+import { ViewDocument } from 'redux/ViewDoc/action'
+import moment from 'moment'
+import { GetAllInspection } from '../../redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
-export default function Index({ addButton }) {
-  const dispatch = useDispatch();
+export default function Index ({ addButton }) {
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let id = sessionStorage.getItem('inspectionId');
-    dispatch(GetAllInspection(`?inspectionId=${id}`));
-  }, []);
+    let id = sessionStorage.getItem('inspectionId')
+    dispatch(GetAllInspection(`?inspectionId=${id}`))
+  }, [])
 
-  const { allInspection } = useSelector((state) => state.Inspection);
+  const { allInspection } = useSelector((state) => state.Inspection)
 
-  const [inspectionData, setInspectionData2] = useState({});
- 
+  const [inspectionData, setInspectionData2] = useState({})
 
   useEffect(() => {
-    setInspectionData2(_get(allInspection, 'data[0]', {}));
-  }, [allInspection]);
+    setInspectionData2(_get(allInspection, 'data[0]', {}))
+  }, [allInspection])
 
-  const [excelFile, setExcelFile] = useState([]);
+  const [excelFile, setExcelFile] = useState([])
 
-  let orderid = _get(inspectionData, 'order._id', '');
+  let orderid = _get(inspectionData, 'order._id', '')
 
-  let d = new Date();
+  let d = new Date()
 
-  const [editInput, setEditInput] = useState(true);
-  const [bothField, setBothField] = useState(false);
-  const [haveDoc, sethaveDoc] = useState(false);
-  const [haveDischargeDoc, setHaveDischargeDoc] = useState(false);
-  const [documentAction, setDocumentAction] = useState('');
-  const [documentAction1, setDocumentAction1] = useState('');
-  const [documentAction2, setDocumentAction2] = useState('');
+  const [editInput, setEditInput] = useState(true)
+  const [bothField, setBothField] = useState(false)
+  const [haveDoc, sethaveDoc] = useState(false)
+  const [haveDischargeDoc, setHaveDischargeDoc] = useState(false)
+  const [documentAction, setDocumentAction] = useState('')
+  const [documentAction1, setDocumentAction1] = useState('')
+  const [documentAction2, setDocumentAction2] = useState('')
 
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
-  });
+  })
 
   const handlePortType = (name, value) => {
-    let newInput = { ...inspectionDetails };
-    newInput[name] = value;
+    let newInput = { ...inspectionDetails }
+    newInput[name] = value
 
-    setInspectionData(newInput);
-  };
+    setInspectionData(newInput)
+  }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false);
+      setEditInput(false)
     } else {
-      setEditInput(true);
+      setEditInput(true)
     }
-  };
+  }
 
   const ChangeValue = (item) => {
-    document.getElementById('dropdownMenuButton').value = item;
-  };
+    document.getElementById('dropdownMenuButton').value = item
+  }
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     if (inspectionData) {
@@ -82,12 +79,12 @@ export default function Index({ addButton }) {
           'order.generic.productSpecifications.specificationTable',
           [],
         ),
-      );
+      )
     }
-  }, [inspectionData]);
+  }, [inspectionData])
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionData] = useState({
     loadPortInspection: false,
@@ -107,25 +104,23 @@ export default function Index({ addButton }) {
       specialMention: '',
     },
     certificateOfOriginStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+    inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
     certificateOfQualityStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+    inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
     certificateOfWeightStatus:
-      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+    inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
 
     dischargeCertificateOfOriginStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfOriginStatus,
+    inspectionData?.thirdPartyInspection?.dischargeCertificateOfOriginStatus,
     dischargeCertificateOfQualityStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfQualityStatus,
+    inspectionData?.thirdPartyInspection?.dischargeCertificateOfQualityStatus,
     dischargeCertificateOfWeightStatus:
-      inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
-  });
-
+    inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
+  })
 
   useEffect(() => {
 
     let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort
-  
 
     setInspectionData({
       dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.dischargePortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
@@ -133,58 +128,57 @@ export default function Index({ addButton }) {
 
       loadPortInspectionDetails: {
         numberOfContainer:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.numberOfContainer,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.numberOfContainer,
         inspectionPort:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectionPort,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.inspectionPort,
         inspectedBy:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectedBy,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.inspectedBy,
         startDate:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.startDate,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.startDate,
         specialMention:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.specialMention,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.specialMention,
       },
       dischargePortInspectionDetails: {
         numberOfContainer:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.numberOfContainer,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.numberOfContainer,
         inspectionPort:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectionPort,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.inspectionPort,
         inspectedBy:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectedBy,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.inspectedBy,
         startDate:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.startDate,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.startDate,
         specialMention:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.specialMention,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.specialMention,
       },
       certificateOfOriginStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
+      inspectionData?.thirdPartyInspection?.certificateOfOriginStatus,
       certificateOfQualityStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
+      inspectionData?.thirdPartyInspection?.certificateOfQualityStatus,
       certificateOfWeightStatus:
-        inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
+      inspectionData?.thirdPartyInspection?.certificateOfWeightStatus,
 
       dischargeCertificateOfOriginStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfOriginStatus,
+      inspectionData?.thirdPartyInspection
+        ?.dischargeCertificateOfOriginStatus,
       dischargeCertificateOfQualityStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfQualityStatus,
+      inspectionData?.thirdPartyInspection
+        ?.dischargeCertificateOfQualityStatus,
       dischargeCertificateOfWeightStatus:
-        inspectionData?.thirdPartyInspection
-          ?.dischargeCertificateOfWeightStatus,
-    });
+      inspectionData?.thirdPartyInspection
+        ?.dischargeCertificateOfWeightStatus,
+    })
 
-
-  }, [inspectionData, allInspection]);
+  }, [inspectionData, allInspection])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -193,7 +187,7 @@ export default function Index({ addButton }) {
       inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
-  });
+  })
 
   const [dischargeDocuments, setDischargeDocuments] = useState({
     dischargeCertificateOfQuality:
@@ -205,7 +199,7 @@ export default function Index({ addButton }) {
     dischargeCertificateOfOrigin:
       inspectionData?.thirdPartyInspection?.dischargeCertificateOfOrigin ||
       null,
-  });
+  })
 
   useEffect(() => {
     if (
@@ -213,13 +207,13 @@ export default function Index({ addButton }) {
       documents.certificateOfWeight == null &&
       documents.certificateOfOrigin == null
     ) {
-      sethaveDoc(false);
+      sethaveDoc(false)
     }
   }, [
     documents.certificateOfQuality,
     documents.certificateOfWeight,
     documents.certificateOfOrigin,
-  ]);
+  ])
 
   useEffect(() => {
     if (
@@ -227,149 +221,149 @@ export default function Index({ addButton }) {
       dischargeDocuments.dischargeCertificateOfWeight == null &&
       dischargeDocuments.dischargeCertificateOfOrigin == null
     ) {
-      setHaveDischargeDoc(false);
+      setHaveDischargeDoc(false)
     }
   }, [
     dischargeDocuments.dischargeCertificateOfQuality,
     dischargeDocuments.dischargeCertificateOfWeight,
     dischargeDocuments.dischargeCertificateOfOrigin,
-  ]);
+  ])
 
   const uploadDocument1 = (e) => {
-    const newUploadDoc = { ...documents };
-    newUploadDoc.certificateOfQuality = e.target.files[0];
+    const newUploadDoc = { ...documents }
+    newUploadDoc.certificateOfQuality = e.target.files[0]
 
-    setDocuments(newUploadDoc);
-    sethaveDoc(true);
-  };
+    setDocuments(newUploadDoc)
+    sethaveDoc(true)
+  }
 
   const uploadDocument2 = (e) => {
-    const newUploadDoc1 = { ...documents };
-    newUploadDoc1.certificateOfWeight = e.target.files[0];
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfWeight = e.target.files[0]
 
-    setDocuments(newUploadDoc1);
-    sethaveDoc(true);
-  };
+    setDocuments(newUploadDoc1)
+    sethaveDoc(true)
+  }
 
   const uploadDocument3 = (e) => {
-    const newUploadDoc1 = { ...documents };
-    newUploadDoc1.certificateOfOrigin = e.target.files[0];
+    const newUploadDoc1 = { ...documents }
+    newUploadDoc1.certificateOfOrigin = e.target.files[0]
 
-    setDocuments(newUploadDoc1);
-    sethaveDoc(true);
-  };
+    setDocuments(newUploadDoc1)
+    sethaveDoc(true)
+  }
 
   const uploadDischargeDocument1 = (e) => {
-    const newUploadDoc = { ...dischargeDocuments };
-    newUploadDoc.dischargeCertificateOfQuality = e.target.files[0];
+    const newUploadDoc = { ...dischargeDocuments }
+    newUploadDoc.dischargeCertificateOfQuality = e.target.files[0]
 
-    setDischargeDocuments(newUploadDoc);
-    setHaveDischargeDoc(true);
-  };
+    setDischargeDocuments(newUploadDoc)
+    setHaveDischargeDoc(true)
+  }
 
   const uploadDischargeDocument2 = (e) => {
-    const newUploadDoc1 = { ...dischargeDocuments };
-    newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0];
+    const newUploadDoc1 = { ...dischargeDocuments }
+    newUploadDoc1.dischargeCertificateOfWeight = e.target.files[0]
 
-    setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
-  };
+    setDischargeDocuments(newUploadDoc1)
+    setHaveDischargeDoc(true)
+  }
 
   const uploadDischargeDocument3 = (e) => {
-    const newUploadDoc1 = { ...dischargeDocuments };
-    newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0];
+    const newUploadDoc1 = { ...dischargeDocuments }
+    newUploadDoc1.dischargeCertificateOfOrigin = e.target.files[0]
 
-    setDischargeDocuments(newUploadDoc1);
-    setHaveDischargeDoc(true);
-  };
+    setDischargeDocuments(newUploadDoc1)
+    setHaveDischargeDoc(true)
+  }
 
   const handleCloseW = () => {
-    setDocuments({ ...documents, certificateOfWeight: null });
-  };
+    setDocuments({ ...documents, certificateOfWeight: null })
+  }
   const handleCloseQ = () => {
-    setDocuments({ ...documents, certificateOfQuality: null });
-  };
+    setDocuments({ ...documents, certificateOfQuality: null })
+  }
   const handleCloseO = () => {
-    setDocuments({ ...documents, certificateOfOrigin: null });
-  };
+    setDocuments({ ...documents, certificateOfOrigin: null })
+  }
 
   const handleCloseW2 = () => {
     setDischargeDocuments({
       ...dischargeDocuments,
       dischargeCertificateOfWeight: null,
-    });
-  };
+    })
+  }
   const handleCloseQ2 = () => {
     setDischargeDocuments({
       ...dischargeDocuments,
       dischargeCertificateOfQuality: null,
-    });
-  };
+    })
+  }
   const handleCloseO2 = () => {
     setDischargeDocuments({
       ...dischargeDocuments,
       dischargeCertificateOfOrigin: null,
-    });
-  };
+    })
+  }
 
   const saveInspectionDetails = (name, value) => {
-    const newInput = { ...inspectionDetails };
-    const namesplit = name.split('.');
+    const newInput = { ...inspectionDetails }
+    const namesplit = name.split('.')
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
-    setInspectionData(newInput);
-  };
+      : (newInput[name] = value)
+    setInspectionData(newInput)
+  }
 
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d?.toISOString();
-    saveInspectionDetails(name, text);
-  };
+    const d = new Date(value)
+    let text = d?.toISOString()
+    saveInspectionDetails(name, text)
+  }
 
   const saveDischargeInspectionDetails = (name, value) => {
-    const newInput = { ...inspectionDetails };
-    const namesplit = name.split('.');
+    const newInput = { ...inspectionDetails }
+    const namesplit = name.split('.')
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
-    setInspectionData(newInput);
-  };
+      : (newInput[name] = value)
+    setInspectionData(newInput)
+  }
 
   const [dateStartFrom, setDateStartFrom] = useState({
     inspectionDateAtLoad: '',
     inspectionDateAtDischarge: '',
-  });
+  })
 
   const setStartDate = (val, name) => {
     let new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
-      .format('DD-MM-YYYY');
+      .format('DD-MM-YYYY')
     if (name == 'loadPortInspectionDetails.startDate') {
-      setDateStartFrom({ ...dateStartFrom, inspectionDateAtLoad: new_date });
+      setDateStartFrom({ ...dateStartFrom, inspectionDateAtLoad: new_date })
     } else {
       setDateStartFrom({
         ...dateStartFrom,
         inspectionDateAtDischarge: new_date,
-      });
+      })
     }
-  };
+  }
 
   const validation = () => {
-    let toastMessage = '';
+    let toastMessage = ''
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       null ||
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == ''
     ) {
-      toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE';
+      toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   const handleSave = () => {
     if (
@@ -380,19 +374,19 @@ export default function Index({ addButton }) {
         inspectionDetails.loadPortInspection == true &&
         inspectionDetails.dischargePortInspection == false
       ) {
-        let fd = new FormData();
+        let fd = new FormData()
 
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('loadPortInspection', portType.loadPortInspection)
-        fd.append('inspectionId', inspectionData?._id);
+        fd.append('inspectionId', inspectionData?._id)
 
-        fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        fd.append('certificateOfQuality', documents.certificateOfQuality);
-        fd.append('certificateOfWeight', documents.certificateOfWeight);
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       } else if (
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == false
@@ -401,9 +395,9 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === ''
         ) {
-          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
           inspectionDetails.dischargePortInspection == true &&
@@ -411,64 +405,64 @@ export default function Index({ addButton }) {
         ) {
           if (haveDischargeDoc == false || haveDoc == false) {
             let toastMessage =
-              'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+              'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT'
             if (!toast.isActive(toastMessage)) {
-              toast.error(toastMessage, { toastId: toastMessage });
+              toast.error(toastMessage, { toastId: toastMessage })
             }
-            return;
+            return
           }
         }
 
-        let fd = new FormData();
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('dischargePortInspection', portType.dischargePortInspection)
-        fd.append('inspectionId', inspectionData?._id);
-        fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        fd.append('certificateOfQuality', documents.certificateOfQuality);
-        fd.append('certificateOfWeight', documents.certificateOfWeight);
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
         fd.append(
           'dischargeCertificateOfOrigin',
           dischargeDocuments.dischargeCertificateOfOrigin,
-        );
+        )
         fd.append(
           'dischargeCertificateOfQuality',
           dischargeDocuments.dischargeCertificateOfQuality,
-        );
+        )
         fd.append(
           'dischargeCertificateOfWeight',
           dischargeDocuments.dischargeCertificateOfWeight,
-        );
+        )
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       } else {
-        let fd = new FormData();
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('dischargePortInspection', portType.dischargePortInspection)
         // fd.append('loadPortInspection', portType.loadPortInspection)
-        fd.append('inspectionId', inspectionData?._id);
-        fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        fd.append('certificateOfQuality', documents.certificateOfQuality);
-        fd.append('certificateOfWeight', documents.certificateOfWeight);
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       }
     } else {
-      let fd = new FormData();
-      fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+      let fd = new FormData()
+      fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
       // fd.append('dischargePortInspection', portType.dischargePortInspection)
       // fd.append('loadPortInspection', portType.loadPortInspection)
-      fd.append('inspectionId', inspectionData?._id);
-      fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-      fd.append('certificateOfQuality', documents.certificateOfQuality);
-      fd.append('certificateOfWeight', documents.certificateOfWeight);
+      fd.append('inspectionId', inspectionData?._id)
+      fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+      fd.append('certificateOfQuality', documents.certificateOfQuality)
+      fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-      let task = 'save';
+      let task = 'save'
 
-      dispatch(UpdateInspection({ fd, task }));
+      dispatch(UpdateInspection({ fd, task }))
     }
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
@@ -479,74 +473,74 @@ export default function Index({ addButton }) {
       ) {
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return;
+          return
         }
       }
       if (
         inspectionDetails.loadPortInspection == true &&
         inspectionDetails.dischargePortInspection == false
       ) {
-        let fd = new FormData();
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('loadPortInspection', portType.loadPortInspection)
-        fd.append('inspectionId', inspectionData?._id);
-        fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        fd.append('certificateOfQuality', documents.certificateOfQuality);
-        fd.append('certificateOfWeight', documents.certificateOfWeight);
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       } else if (
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == false
       ) {
-        let fd = new FormData();
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('dischargePortInspection', portType.dischargePortInspection)
-        fd.append('inspectionId', inspectionData?._id);
+        fd.append('inspectionId', inspectionData?._id)
         // fd.append('certificateOfOrigin', documents.certificateOfOrigin);
         // fd.append('certificateOfQuality', documents.certificateOfQuality);
         // fd.append('certificateOfWeight', documents.certificateOfWeight);
         fd.append(
           'dischargeCertificateOfOrigin',
           dischargeDocuments.dischargeCertificateOfOrigin,
-        );
+        )
         fd.append(
           'dischargeCertificateOfQuality',
           dischargeDocuments.dischargeCertificateOfQuality,
-        );
+        )
         fd.append(
           'dischargeCertificateOfWeight',
           dischargeDocuments.dischargeCertificateOfWeight,
-        );
+        )
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       } else {
-        let fd = new FormData();
-        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
         // fd.append('dischargePortInspection', portType.dischargePortInspection)
         // fd.append('loadPortInspection', portType.loadPortInspection)
-        fd.append('inspectionId', inspectionData?._id);
-        fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-        fd.append('certificateOfQuality', documents.certificateOfQuality);
-        fd.append('certificateOfWeight', documents.certificateOfWeight);
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-        let task = 'save';
+        let task = 'save'
 
-        dispatch(UpdateInspection({ fd, task }));
+        dispatch(UpdateInspection({ fd, task }))
       }
     }
-  };
+  }
 
   const handleSubmit = () => {
-    if (!validation()) return;
+    if (!validation()) return
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -555,14 +549,14 @@ export default function Index({ addButton }) {
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == true
       ) {
-        var noError = false;
+        var noError = false
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
@@ -570,43 +564,43 @@ export default function Index({ addButton }) {
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
           undefined
         ) {
-          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
           inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails
@@ -614,11 +608,11 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === undefined
         ) {
-          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
@@ -626,22 +620,22 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
@@ -649,35 +643,35 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (noError == false) {
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
           // fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-          fd.append('certificateOfQuality', documents.certificateOfQuality);
-          fd.append('certificateOfWeight', documents.certificateOfWeight);
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
           fd.append(
             'dischargeCertificateOfOrigin',
             dischargeDocuments.dischargeCertificateOfOrigin,
-          );
+          )
           fd.append(
             'dischargeCertificateOfQuality',
             dischargeDocuments.dischargeCertificateOfQuality,
-          );
+          )
           fd.append(
             'dischargeCertificateOfWeight',
             dischargeDocuments.dischargeCertificateOfWeight,
-          );
-          let task = 'submit';
+          )
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
 
@@ -685,13 +679,13 @@ export default function Index({ addButton }) {
         inspectionDetails.loadPortInspection == true &&
         inspectionDetails.dischargePortInspection == false
       ) {
-        var noError2 = false;
+        var noError2 = false
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
@@ -699,58 +693,58 @@ export default function Index({ addButton }) {
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer ===
           undefined
         ) {
-          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
           inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
 
         if (noError2 == false) {
-         
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
           // fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-          fd.append('certificateOfQuality', documents.certificateOfQuality);
-          fd.append('certificateOfWeight', documents.certificateOfWeight);
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'submit';
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
 
@@ -758,18 +752,18 @@ export default function Index({ addButton }) {
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == false
       ) {
-        var noError3 = false;
+        var noError3 = false
         if (
           inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === '' ||
           inspectionDetails?.dischargePortInspectionDetails
             ?.numberOfContainer === undefined
         ) {
-          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY';
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
@@ -777,22 +771,22 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
@@ -800,54 +794,54 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (noError3 == false) {
-         
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('inspectionId', inspectionData?._id);
+          fd.append('inspectionId', inspectionData?._id)
 
           fd.append(
             'dischargeCertificateOfOrigin',
             dischargeDocuments.dischargeCertificateOfOrigin,
-          );
+          )
           fd.append(
             'dischargeCertificateOfQuality',
             dischargeDocuments.dischargeCertificateOfQuality,
-          );
+          )
           fd.append(
             'dischargeCertificateOfWeight',
             dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          )
 
-          let task = 'submit';
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
       if (
         inspectionDetails.dischargePortInspection == false &&
         inspectionDetails.loadPortInspection == false
       ) {
-        let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT';
+        let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage });
+          toast.error(toastMessage, { toastId: toastMessage })
         }
-        return;
+        return
       }
     }
 
@@ -858,14 +852,14 @@ export default function Index({ addButton }) {
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == true
       ) {
-        var noError = false;
+        var noError = false
         if (haveDischargeDoc == false || haveDoc == false) {
           let toastMessage =
-            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT';
+            'ATLEAST ONE DOCUMENT IS REQUIRED IN LOAD PORT & DISCHARGE PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
 
         if (
@@ -873,32 +867,32 @@ export default function Index({ addButton }) {
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
           inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
 
         if (
@@ -907,22 +901,22 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
@@ -930,35 +924,35 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError = true);
+          return (noError = true)
         }
         if (noError == false) {
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
           // fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-          fd.append('certificateOfQuality', documents.certificateOfQuality);
-          fd.append('certificateOfWeight', documents.certificateOfWeight);
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
           fd.append(
             'dischargeCertificateOfOrigin',
             dischargeDocuments.dischargeCertificateOfOrigin,
-          );
+          )
           fd.append(
             'dischargeCertificateOfQuality',
             dischargeDocuments.dischargeCertificateOfQuality,
-          );
+          )
           fd.append(
             'dischargeCertificateOfWeight',
             dischargeDocuments.dischargeCertificateOfWeight,
-          );
-          let task = 'submit';
+          )
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
 
@@ -966,13 +960,13 @@ export default function Index({ addButton }) {
         inspectionDetails.loadPortInspection == true &&
         inspectionDetails.dischargePortInspection == false
       ) {
-        var noError2 = false;
+        var noError2 = false
         if (haveDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN LOAD PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
 
         if (
@@ -980,47 +974,47 @@ export default function Index({ addButton }) {
           inspectionDetails?.loadPortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.startDate === '' ||
           inspectionDetails?.loadPortInspectionDetails?.startDate === undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
         if (
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort === '' ||
           inspectionDetails?.loadPortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError2 = true);
+          return (noError2 = true)
         }
 
         if (noError2 == false) {
-      
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
           // fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id);
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin);
-          fd.append('certificateOfQuality', documents.certificateOfQuality);
-          fd.append('certificateOfWeight', documents.certificateOfWeight);
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'submit';
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
 
@@ -1028,7 +1022,7 @@ export default function Index({ addButton }) {
         inspectionDetails.dischargePortInspection == true &&
         inspectionDetails.loadPortInspection == false
       ) {
-        var noError3 = false;
+        var noError3 = false
 
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
@@ -1036,22 +1030,22 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy ===
           undefined
         ) {
-          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.startDate === '' ||
           inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           undefined
         ) {
-          let toastMessage = 'PLEASE SELECT INSPECTION DATE';
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
@@ -1059,54 +1053,54 @@ export default function Index({ addButton }) {
           inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
           undefined
         ) {
-          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY';
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (haveDischargeDoc == false) {
-          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT';
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY IN DISCHARGE PORT'
           if (!toast.isActive(toastMessage)) {
-            toast.error(toastMessage, { toastId: toastMessage });
+            toast.error(toastMessage, { toastId: toastMessage })
           }
-          return (noError3 = true);
+          return (noError3 = true)
         }
         if (noError3 == false) {
-       
-          let fd = new FormData();
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
+
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
 
           // fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('inspectionId', inspectionData?._id);
+          fd.append('inspectionId', inspectionData?._id)
 
           fd.append(
             'dischargeCertificateOfOrigin',
             dischargeDocuments.dischargeCertificateOfOrigin,
-          );
+          )
           fd.append(
             'dischargeCertificateOfQuality',
             dischargeDocuments.dischargeCertificateOfQuality,
-          );
+          )
           fd.append(
             'dischargeCertificateOfWeight',
             dischargeDocuments.dischargeCertificateOfWeight,
-          );
+          )
 
-          let task = 'submit';
+          let task = 'submit'
 
-          dispatch(UpdateInspection({ fd, task }));
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
       if (
         inspectionDetails.dischargePortInspection == false &&
         inspectionDetails.loadPortInspection == false
       ) {
-        let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT';
+        let toastMessage = 'PLEASE SELECT LOAD PORT OR DISCHARGE PORT'
         if (!toast.isActive(toastMessage)) {
-          toast.error(toastMessage, { toastId: toastMessage });
+          toast.error(toastMessage, { toastId: toastMessage })
         }
-        return;
+        return
       }
     }
   }
@@ -1240,7 +1234,7 @@ export default function Index({ addButton }) {
                     name="loadPortInspection"
                     type={type}
                     onChange={(e) => {
-                      handlePortType(e.target.name, e.target.checked);
+                      handlePortType(e.target.name, e.target.checked)
 
                       // setBothField(!bothField)
                     }}
@@ -1255,7 +1249,7 @@ export default function Index({ addButton }) {
                     name="dischargePortInspection"
                     value="Discharge"
                     onChange={(e) => {
-                      handlePortType(e.target.name, e.target.checked);
+                      handlePortType(e.target.name, e.target.checked)
                       // setBothField(!bothField)
                     }}
                     checked={inspectionDetails.dischargePortInspection}
@@ -1265,7 +1259,7 @@ export default function Index({ addButton }) {
                 </div>
               ))}
             </div>
-            <hr className="m-0 border_color" />
+            <hr className="m-0 border_color"/>
             <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -1475,7 +1469,7 @@ export default function Index({ addButton }) {
                     </div>
                   </div>
                 </div>
-                <hr className="m-0 border_color" />
+                <hr className="m-0 border_color"/>
                 <div className={`${styles.dashboard_form} mb-3 card-body`}>
                   <h5 className={`${styles.sub_heading}`}>Special Mention</h5>
                   <Row>
@@ -1498,7 +1492,7 @@ export default function Index({ addButton }) {
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                        // style={{ backgroundColor: 'none' }}
+                          // style={{ backgroundColor: 'none' }}
                         />
                         <label
                           className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -1552,81 +1546,81 @@ export default function Index({ addButton }) {
                           border="0"
                         >
                           <thead>
-                            <tr>
-                              <th width="25%">
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="10%">
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="20%">
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="20%">ACTION</th>
-                              <th width="20%"></th>
-                            </tr>
+                          <tr>
+                            <th width="25%">
+                              DOCUMENT NAME{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="10%">
+                              FORMAT{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="20%">
+                              DOCUMENT DATE{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="20%">ACTION</th>
+                            <th width="20%"></th>
+                          </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Origin
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfOrigin ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfOrigin?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                    }
-                                  >
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Origin
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfOrigin ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfOrigin?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
                                     View
                                   </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfOrigin
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfOrigin?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : documents?.certificateOfOrigin != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                {' '}
-                                {/* <div className="dropdown">
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfOrigin
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.certificateOfOrigin?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfOrigin != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              {' '}
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1678,83 +1672,83 @@ export default function Index({ addButton }) {
                                   </a>
                                 </div>
                               </div> */}
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.certificateOfOriginStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.certificateOfOriginStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.certificateOfOriginStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
                                         : inspectionDetails?.certificateOfOriginStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfOriginStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfOriginStatus
-                                      }
-                                      name="certificateOfOriginStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
-                                    >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
-                                    />
-                                  </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {documents &&
-                                  documents?.certificateOfOrigin == null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) => uploadDocument3(e)}
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfOriginStatus
+                                    }
+                                    name="certificateOfOriginStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
                                   >
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {documents &&
+                              documents?.certificateOfOrigin == null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument3(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {documents?.certificateOfOrigin?.name.slice(
                                         documents?.certificateOfOrigin?.name.lastIndexOf(
@@ -1762,61 +1756,61 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseO()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Quality
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfQuality ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfQuality?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                    }
-                                  >
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseO()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Quality
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfQuality ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfQuality?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
                                     View
                                   </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfQuality
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfQuality?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : documents?.certificateOfQuality != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                {' '}
-                                {/* <div className="dropdown">
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfQuality
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.certificateOfQuality?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfQuality != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              {' '}
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -1863,83 +1857,83 @@ export default function Index({ addButton }) {
                                   </a>
                                 </div>
                               </div> */}
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.certificateOfQualityStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.certificateOfQualityStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.certificateOfQualityStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
                                         : inspectionDetails?.certificateOfQualityStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfQualityStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfQualityStatus
-                                      }
-                                      name="certificateOfQualityStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
-                                    >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
-                                    />
-                                  </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {documents &&
-                                  documents?.certificateOfQuality == null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) => uploadDocument1(e)}
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfQualityStatus
+                                    }
+                                    name="certificateOfQualityStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
                                   >
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {documents &&
+                              documents?.certificateOfQuality == null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument1(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {documents?.certificateOfQuality?.name.slice(
                                         documents?.certificateOfQuality?.name.lastIndexOf(
@@ -1947,62 +1941,62 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseQ()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Weight
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfWeight ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.certificateOfWeight?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                    }
-                                  >
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseQ()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Weight
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfWeight ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfWeight?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
                                     View
                                   </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
 
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.certificateOfWeight
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.certificateOfWeight?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : documents?.certificateOfWeight != null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                {' '}
-                                {/* <div className="dropdown">
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfWeight
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.certificateOfWeight?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfWeight != null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              {' '}
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -2049,83 +2043,83 @@ export default function Index({ addButton }) {
                                   </a>
                                 </div>
                               </div> */}
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.certificateOfWeightStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.certificateOfWeightStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.certificateOfWeightStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
                                         : inspectionDetails?.certificateOfWeightStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.certificateOfWeightStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.certificateOfWeightStatus
-                                      }
-                                      name="certificateOfWeightStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
-                                    >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
-                                    />
-                                  </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {documents &&
-                                  documents?.certificateOfWeight == null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) => uploadDocument2(e)}
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.certificateOfWeightStatus
+                                    }
+                                    name="certificateOfWeightStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
                                   >
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {documents &&
+                              documents?.certificateOfWeight == null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument2(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {documents?.certificateOfWeight?.name.slice(
                                         documents?.certificateOfWeight?.name.lastIndexOf(
@@ -2133,16 +2127,16 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseW()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseW()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
                           </tbody>
                         </table>
                       </div>
@@ -2189,161 +2183,161 @@ export default function Index({ addButton }) {
                           border="0"
                         >
                           <thead>
-                            <tr>
-                              <th width="25%">
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="10%">
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="20%">
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="20%">ACTION</th>
-                              <th width="20%"></th>
-                            </tr>
+                          <tr>
+                            <th width="25%">
+                              DOCUMENT NAME{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="10%">
+                              FORMAT{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="20%">
+                              DOCUMENT DATE{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th width="20%">ACTION</th>
+                            <th width="20%"></th>
+                          </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Origin
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfOrigin ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfOrigin
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Origin
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfOrigin ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.dischargeCertificateOfOrigin
+                                          ?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
+                                    View
+                                  </span>
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfOrigin
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.dischargeCertificateOfOrigin?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : dischargeDocuments?.dischargeCertificateOfOrigin !=
+                                null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.dischargeCertificateOfOriginStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.dischargeCertificateOfOriginStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
+                                        : inspectionDetails?.dischargeCertificateOfOriginStatus ===
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.dischargeCertificateOfOriginStatus
+                                    }
+                                    name="dischargeCertificateOfOriginStatus"
+                                    onChange={(e) =>
+                                      saveDischargeInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
                                       )
                                     }
                                   >
-                                    View
-                                  </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfOrigin
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfOrigin?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfOrigin !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
-                                        : inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfOriginStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfOriginStatus
-                                      }
-                                      name="dischargeCertificateOfOriginStatus"
-                                      onChange={(e) =>
-                                        saveDischargeInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
                                     >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {dischargeDocuments &&
+                              dischargeDocuments?.dischargeCertificateOfOrigin ==
+                              null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) =>
+                                        uploadDischargeDocument3(e)
+                                      }
                                     />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
                                   </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfOrigin ==
-                                  null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument3(e)
-                                        }
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfOrigin?.name.slice(
                                         dischargeDocuments?.dischargeCertificateOfOrigin?.name.lastIndexOf(
@@ -2351,63 +2345,63 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseO2()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Quality
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfQuality ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfQuality
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                    }
-                                  >
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseO2()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Quality
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfQuality ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.dischargeCertificateOfQuality
+                                          ?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
                                     View
                                   </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfQuality
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfQuality?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfQuality !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                {' '}
-                                {/* <div className="dropdown">
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfQuality
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.dischargeCertificateOfQuality?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : dischargeDocuments?.dischargeCertificateOfQuality !=
+                                null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              {' '}
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -2454,86 +2448,86 @@ export default function Index({ addButton }) {
                                   </a>
                                 </div>
                               </div> */}
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.dischargeCertificateOfQualityStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.dischargeCertificateOfQualityStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
                                         : inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfQualityStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfQualityStatus
-                                      }
-                                      name="dischargeCertificateOfQualityStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
-                                    >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
-                                    />
-                                  </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfQuality ==
-                                  null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument1(e)
-                                        }
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.dischargeCertificateOfQualityStatus
+                                    }
+                                    name="dischargeCertificateOfQualityStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
                                   >
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {dischargeDocuments &&
+                              dischargeDocuments?.dischargeCertificateOfQuality ==
+                              null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) =>
+                                        uploadDischargeDocument1(e)
+                                      }
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfQuality?.name.slice(
                                         dischargeDocuments?.dischargeCertificateOfQuality?.name.lastIndexOf(
@@ -2541,64 +2535,64 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseQ2()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Certificate of Weight
-                                <strong className="text-danger ml-1">*</strong>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfWeight ? (
-                                  <span
-                                    onClick={() =>
-                                      dispatch(
-                                        ViewDocument({
-                                          path: inspectionData
-                                            ?.thirdPartyInspection
-                                            ?.dischargeCertificateOfWeight
-                                            ?.path,
-                                          order: inspectionData?.order?._id,
-                                        }),
-                                      )
-                                    }
-                                  >
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseQ2()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Certificate of Weight
+                              <strong className="text-danger ml-1">*</strong>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfWeight ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.dischargeCertificateOfWeight
+                                          ?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
                                     View
                                   </span>
-                                ) : (
-                                  ''
-                                )}
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
+                              ) : (
+                                ''
+                              )}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
 
-                              <td className={styles.doc_row}>
-                                {inspectionData?.thirdPartyInspection
-                                  ?.dischargeCertificateOfWeight
-                                  ? moment(
-                                    inspectionData?.thirdPartyInspection
-                                      ?.dischargeCertificateOfWeight?.date,
-                                  ).format('DD-MM-YYYY, h:mm A')
-                                  : dischargeDocuments?.dischargeCertificateOfWeight !=
-                                    null
-                                    ? moment(d).format('DD-MM-YYYY, h:mm A')
-                                    : ''}
-                              </td>
-                              <td>
-                                {' '}
-                                {/* <div className="dropdown">
+                            <td className={styles.doc_row}>
+                              {inspectionData?.thirdPartyInspection
+                                ?.dischargeCertificateOfWeight
+                                ? moment(
+                                  inspectionData?.thirdPartyInspection
+                                    ?.dischargeCertificateOfWeight?.date,
+                                ).format('DD-MM-YYYY, h:mm A')
+                                : dischargeDocuments?.dischargeCertificateOfWeight !=
+                                null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
+                            </td>
+                            <td>
+                              {' '}
+                              {/* <div className="dropdown">
                                 <button
                                   className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
@@ -2645,86 +2639,86 @@ export default function Index({ addButton }) {
                                   </a>
                                 </div>
                               </div> */}
-                                <Form.Group className={styles.form_group}>
-                                  <div className="d-flex">
-                                    <select
-                                      className={`${inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                        'On Hold'
-                                        ? styles.hold_option
+                              <Form.Group className={styles.form_group}>
+                                <div className="d-flex">
+                                  <select
+                                    className={`${inspectionDetails?.dischargeCertificateOfWeightStatus ===
+                                    'On Hold'
+                                      ? styles.hold_option
+                                      : inspectionDetails?.dischargeCertificateOfWeightStatus ===
+                                      'Rejected'
+                                        ? styles.rejected_option
                                         : inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                          'Rejected'
-                                          ? styles.rejected_option
-                                          : inspectionDetails?.dischargeCertificateOfWeightStatus ===
-                                            'Approved'
-                                            ? styles.approved_option
-                                            : styles.value
-                                        } ${styles.customSelect
-                                        } input form-control`}
-                                      id="docType"
-                                      value={
-                                        inspectionDetails?.dischargeCertificateOfWeightStatus
-                                      }
-                                      name="dischargeCertificateOfWeightStatus"
-                                      onChange={(e) =>
-                                        saveInspectionDetails(
-                                          e.target.name,
-                                          e.target.value,
-                                        )
-                                      }
-                                    >
-                                      <option selected>Please Specify</option>
-                                      <option
-                                        className={`${styles.hold_option}`}
-                                        value="On Hold"
-                                      >
-                                        On Hold
-                                      </option>
-                                      <option
-                                        className={`${styles.rejected_option}`}
-                                        value="Rejected"
-                                      >
-                                        Rejected
-                                      </option>
-                                      <option
-                                        className={`${styles.approved_option}`}
-                                        value="Approved"
-                                      >
-                                        Approved
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="arrow"
-                                    />
-                                  </div>
-                                </Form.Group>
-                              </td>
-                              <td>
-                                {dischargeDocuments &&
-                                  dischargeDocuments?.dischargeCertificateOfWeight ==
-                                  null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) =>
-                                          uploadDischargeDocument2(e)
-                                        }
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
-                                ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                        'Approved'
+                                          ? styles.approved_option
+                                          : styles.value
+                                    } ${styles.customSelect
+                                    } input form-control`}
+                                    id="docType"
+                                    value={
+                                      inspectionDetails?.dischargeCertificateOfWeightStatus
+                                    }
+                                    name="dischargeCertificateOfWeightStatus"
+                                    onChange={(e) =>
+                                      saveInspectionDetails(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
                                   >
+                                    <option selected>Please Specify</option>
+                                    <option
+                                      className={`${styles.hold_option}`}
+                                      value="On Hold"
+                                    >
+                                      On Hold
+                                    </option>
+                                    <option
+                                      className={`${styles.rejected_option}`}
+                                      value="Rejected"
+                                    >
+                                      Rejected
+                                    </option>
+                                    <option
+                                      className={`${styles.approved_option}`}
+                                      value="Approved"
+                                    >
+                                      Approved
+                                    </option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="arrow"
+                                  />
+                                </div>
+                              </Form.Group>
+                            </td>
+                            <td>
+                              {dischargeDocuments &&
+                              dischargeDocuments?.dischargeCertificateOfWeight ==
+                              null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) =>
+                                        uploadDischargeDocument2(e)
+                                      }
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
                                     <span>
                                       {dischargeDocuments?.dischargeCertificateOfWeight?.name.slice(
                                         dischargeDocuments?.dischargeCertificateOfWeight?.name.lastIndexOf(
@@ -2732,16 +2726,16 @@ export default function Index({ addButton }) {
                                         ) + 1,
                                       )}
                                     </span>
-                                    <img
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleCloseW2()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseW2()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
                           </tbody>
                         </table>
                       </div>
@@ -2760,7 +2754,7 @@ export default function Index({ addButton }) {
           )}
 
           <div className="0">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading"/>
           </div>
         </div>
         <SaveBar
@@ -2796,24 +2790,24 @@ export default function Index({ addButton }) {
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
-                      {excelFile &&
-                        excelFile.length > 0 &&
-                        Object.keys(excelFile[0]).map((val, index) => (
-                          <th key={index}>{val}</th>
-                        ))}
-                    </tr>
-                  </thead>
-                  <tbody>
+                  <tr className="table_row">
                     {excelFile &&
                       excelFile.length > 0 &&
-                      excelFile.map((item, index) => (
-                        <tr>
-                          {Object.values(item).map((value, id) => (
-                            <td key={id}>{value}</td>
-                          ))}
-                        </tr>
+                      Object.keys(excelFile[0]).map((val, index) => (
+                        <th key={index}>{val}</th>
                       ))}
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {excelFile &&
+                    excelFile.length > 0 &&
+                    excelFile.map((item, index) => (
+                      <tr>
+                        {Object.values(item).map((value, id) => (
+                          <td key={id}>{value}</td>
+                        ))}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -2822,7 +2816,7 @@ export default function Index({ addButton }) {
         </Modal.Body>
       </Modal>
     </>
-  );
+  )
 }
 
 const Discharge = (
@@ -2859,7 +2853,7 @@ const Discharge = (
 
         <div className="row">
           {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
-            'Liner' ? (
+          'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -2964,7 +2958,7 @@ const Discharge = (
           </div>
         </div>
       </div>
-      <hr className="m-0 border_color" />
+      <hr className="m-0 border_color"/>
       <div className={`${styles.dashboard_form} card-body`}>
         <h5 className={`${styles.sub_heading} mt-3`}>Special Mention</h5>
         <Row>
@@ -2983,7 +2977,7 @@ const Discharge = (
                 }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-              // style={{ backgroundColor: 'none' }}
+                // style={{ backgroundColor: 'none' }}
               />
               <label
                 className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -2995,5 +2989,5 @@ const Discharge = (
         </Row>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,37 +1,35 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import styles from '../index.module.scss';
-import { toast } from 'react-toastify';
-import { checkNan, convertValue } from '../../../utils/helper';
+import React, { useEffect, useState } from 'react'
+import styles from '../index.module.scss'
+import { toast } from 'react-toastify'
+import { convertValue } from '../../../utils/helper'
 
-function Index({ chargesData }) {
-  let [unit, setUnit] = useState(10000000);
+function Index ({ chargesData }) {
+  let [unit, setUnit] = useState(10000000)
 
-  const [chargesDatas, setChargesData] = useState();
+  const [chargesDatas, setChargesData] = useState()
 
   const handleRadioSelect = (e) => {
     if (e === 'open') {
       const filteredData = chargesData.financial?.openCharges?.filter(
         (data) => data.dateOfSatisfactionOfChargeInFull == null,
-      );
-      setChargesData(filteredData);
+      )
+      setChargesData(filteredData)
     } else if (e === 'close') {
       const filteredData = chargesData?.financial?.openCharges?.filter(
         (data) => data.dateOfSatisfactionOfChargeInFull !== null,
-      );
-      setChargesData(filteredData);
+      )
+      setChargesData(filteredData)
     } else {
-      setChargesData(chargesData?.financial?.openCharges);
+      setChargesData(chargesData?.financial?.openCharges)
     }
-  };
+  }
   useEffect(
     (e) => {
-      handleRadioSelect('all');
+      handleRadioSelect('all')
     },
     [chargesData],
-  );
+  )
   return (
     <>
       <div className={`${styles.card} card mb-6 border_color border-bottom`}>
@@ -45,7 +43,7 @@ function Index({ chargesData }) {
               type="radio"
               id="all"
               onClick={() => {
-                handleRadioSelect('all');
+                handleRadioSelect('all')
               }}
               name="charges"
               value="All"
@@ -59,7 +57,7 @@ function Index({ chargesData }) {
               name="charges"
               value="Open"
               onClick={() => {
-                handleRadioSelect('open');
+                handleRadioSelect('open')
               }}
             />
             <label className="text-color" htmlFor="open">
@@ -70,7 +68,7 @@ function Index({ chargesData }) {
               id="closed"
               name="charges"
               onClick={() => {
-                handleRadioSelect('close');
+                handleRadioSelect('close')
               }}
               value="Closed"
             />
@@ -122,78 +120,78 @@ function Index({ chargesData }) {
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width="15%">CHARGE ID</th>
-                      <th width="25%">CHARGE HOLDER</th>
-                      <th className="text-center" width="12%">
-                        AMOUNT
-                      </th>
-                      <th className="text-center" width="12%">
-                        CREATION
-                      </th>
-                      <th className="text-center" width="12%">
-                        SECURITY
-                      </th>
-                      <th className="text-center" width="12%">
-                        MODIFICATION
-                      </th>
-                      <th className="text-center" width="12%">
-                        SATISFACTION
-                      </th>
-                    </tr>
+                  <tr>
+                    <th width="15%">CHARGE ID</th>
+                    <th width="25%">CHARGE HOLDER</th>
+                    <th className="text-center" width="12%">
+                      AMOUNT
+                    </th>
+                    <th className="text-center" width="12%">
+                      CREATION
+                    </th>
+                    <th className="text-center" width="12%">
+                      SECURITY
+                    </th>
+                    <th className="text-center" width="12%">
+                      MODIFICATION
+                    </th>
+                    <th className="text-center" width="12%">
+                      SATISFACTION
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {chargesDatas &&
-                      chargesDatas?.map((charges, index) => (
-                        <tr key={index}>
-                          <td>{charges.chargeId}</td>
-                          <td>{charges.nameOfChargeHolder}</td>
-                          <td className="text-center">
-                            {/* {charges.finalAmountSecured} */}
-                            {convertValue(
-                              charges.finalAmountSecured,
-                              unit,
-                            )?.toLocaleString('en-In', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })}
-                          </td>
-                          <td className="text-center">
-                            {charges.dateOfCreationOfCharge}
-                          </td>
-                          <td className="text-center">
-                            <img
-                              onClick={() => {
+                  {chargesDatas &&
+                    chargesDatas?.map((charges, index) => (
+                      <tr key={index}>
+                        <td>{charges.chargeId}</td>
+                        <td>{charges.nameOfChargeHolder}</td>
+                        <td className="text-center">
+                          {/* {charges.finalAmountSecured} */}
+                          {convertValue(
+                            charges.finalAmountSecured,
+                            unit,
+                          )?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          })}
+                        </td>
+                        <td className="text-center">
+                          {charges.dateOfCreationOfCharge}
+                        </td>
+                        <td className="text-center">
+                          <img
+                            onClick={() => {
+                              if (
+                                charges.docLink === '' ||
+                                !charges.docLink
+                              ) {
+                                let toastMessage = 'doc not available'
                                 if (
-                                  charges.docLink === '' ||
-                                  !charges.docLink
+                                  !toast.isActive(toastMessage.toUpperCase())
                                 ) {
-                                  let toastMessage = 'doc not available';
-                                  if (
-                                    !toast.isActive(toastMessage.toUpperCase())
-                                  ) {
-                                    toast.error(toastMessage.toUpperCase(), {
-                                      toastId: toastMessage,
-                                    });
-                                  }
-                                } else {
-                                  window.open(charges.docLink);
+                                  toast.error(toastMessage.toUpperCase(), {
+                                    toastId: toastMessage,
+                                  })
                                 }
-                              }}
-                              src="/static/eye.svg"
-                              alt="Eye"
-                              className="img-fluid"
-                            />
-                          </td>
-                          <td className="text-center">
-                            {charges.chargeLastModifiedDate}
-                          </td>
-                          <td className="text-center">
-                            {charges.dateOfSatisfactionOfChargeInFull}
-                          </td>
-                        </tr>
-                      ))}
-                    {/* <tr>
+                              } else {
+                                window.open(charges.docLink)
+                              }
+                            }}
+                            src="/static/eye.svg"
+                            alt="Eye"
+                            className="img-fluid"
+                          />
+                        </td>
+                        <td className="text-center">
+                          {charges.chargeLastModifiedDate}
+                        </td>
+                        <td className="text-center">
+                          {charges.dateOfSatisfactionOfChargeInFull}
+                        </td>
+                      </tr>
+                    ))}
+                  {/* <tr>
                       <td>100310953</td>
                       <td>Divine Infracon Private Limited</td>
                       <td className="text-center">96.17</td>
@@ -231,7 +229,7 @@ function Index({ chargesData }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

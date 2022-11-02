@@ -1,47 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
-import DateCalender from '../DateCalender';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react'
+import { Form } from 'react-bootstrap'
+import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
+
 const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
   // const {shipmentDetail}= orderDetail;
 
-  const [expShipment, setExpectedShipment] = useState(null);
-  const [maxdate, setmaxDate] = useState(null);
+  const [expShipment, setExpectedShipment] = useState(null)
+  const [maxdate, setmaxDate] = useState(null)
   useEffect(() => {
     if (expectedShipment) {
-      let date = moment(expectedShipment).add(1, 'days').toDate();
-      setExpectedShipment(moment(date).format('DD-MM-YYYY'));
+      let date = moment(expectedShipment).add(1, 'days').toDate()
+      setExpectedShipment(moment(date).format('DD-MM-YYYY'))
     }
-  }, [expectedShipment]);
+  }, [expectedShipment])
   useEffect(() => {
     if (expectedShipment) {
-      setmaxDate(moment(expectedShipment).format('DD-MM-YYYY'));
+      setmaxDate(moment(expectedShipment).format('DD-MM-YYYY'))
     }
-  }, [expectedShipment]);
+  }, [expectedShipment])
 
-  console.log(expShipment, 'expectedShipment');
+  console.log(expShipment, 'expectedShipment')
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveShipmentData(name, text);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveShipmentData(name, text)
+  }
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
-  });
+  })
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
-      .format('DD-MM-YYYY');
+      .format('DD-MM-YYYY')
     if (name == 'loadPort.fromDate') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date });
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
     } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date });
+      setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
-  };
-  console.log(shipment, 'shipment');
+  }
+  console.log(shipment, 'shipment')
   return (
     <div className={`${styles.main} vessel_card border_color card`}>
       <div
@@ -69,7 +70,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     name="shipmentType"
                     required
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value);
+                      saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
                     <option>Select an option</option>
@@ -261,12 +262,12 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="portOfLoading"
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value);
+                      saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
                     <option value="">Select an option</option>
                     {port.filter((val, index) => {
-                      if (val.Country.toLowerCase() !== "india") {
+                      if (val.Country.toLowerCase() !== 'india') {
                         return val
                       }
                     }).map((val, index) => {
@@ -295,7 +296,7 @@ const index = ({ saveShipmentData, shipment, expectedShipment, port }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default index;
+export default index

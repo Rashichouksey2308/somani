@@ -1,69 +1,68 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetAllBuyer, GetBuyer } from '../../src/redux/registerBuyer/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { setPageName } from '../../src/redux/userData/action';
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
-import Filter from '../../src/components/Filter';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllBuyer } from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
+import { setPageName } from '../../src/redux/userData/action'
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
+import Filter from '../../src/components/Filter'
 
-function Index() {
-  const [serachterm, setSearchTerm] = useState('');
+function Index () {
+  const [serachterm, setSearchTerm] = useState('')
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const { allBuyerList } = useSelector((state) => state.buyer);
+  const { allBuyerList } = useSelector((state) => state.buyer)
 
-  const { searchedLeads } = useSelector((state) => state.order);
-
+  const { searchedLeads } = useSelector((state) => state.order)
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Leads');
-      sessionStorage.setItem('loadedSubPage', `Review Queue`);
-      sessionStorage.setItem('openList', 1);
+      sessionStorage.setItem('loadedPage', 'Leads')
+      sessionStorage.setItem('loadedSubPage', `Review Queue`)
+      sessionStorage.setItem('openList', 1)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     dispatch(
       GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`),
-    );
-  }, [dispatch, currentPage]);
+    )
+  }, [dispatch, currentPage])
 
   useEffect(() => {
-    dispatch(setPageName('review-queue'));
-  });
+    dispatch(setPageName('review-queue'))
+  })
 
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderID', buyer._id);
-    sessionStorage.setItem('company', buyer.company._id);
-    sessionStorage.setItem('companyID', buyer.company._id);
+    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('company', buyer.company._id)
+    sessionStorage.setItem('companyID', buyer.company._id)
     //dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
-    Router.push('/review/id');
-  };
+    Router.push('/review/id')
+  }
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
 
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllBuyer(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -71,17 +70,17 @@ function Index() {
         GetAllBuyer(
           `?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetAllBuyer(
           `?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <>
@@ -125,7 +124,7 @@ function Index() {
                 </div>
               )}
             </div>
-            <Filter />
+            <Filter/>
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -228,9 +227,9 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
+                      return
                     } else {
-                      setCurrentPage((prevState) => prevState - 1);
+                      setCurrentPage((prevState) => prevState - 1)
                     }
                   }}
                   href="#"
@@ -249,7 +248,7 @@ function Index() {
                       currentPage + 1 <
                       Math.ceil(allBuyerList?.data?.totalCount / 7)
                     ) {
-                      setCurrentPage((prevState) => prevState + 1);
+                      setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
                   href="#"
@@ -272,68 +271,68 @@ function Index() {
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
-                      <th>
-                        CUSTOMER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="./static/icons8-sort-24.svg"
-                          onClick={() => handleSort()}
-                        />
-                      </th>
-                      <th>BUYER NAME</th>
-                      <th>CREATED BY</th>
-                      <th>USERNAME</th>
-                      <th>EXISTING CUSTOMER</th>
-                      <th>STATUS</th>
-                    </tr>
+                  <tr className="table_row">
+                    <th>
+                      CUSTOMER ID{' '}
+                      <img
+                        className={`mb-1`}
+                        src="./static/icons8-sort-24.svg"
+                        onClick={() => handleSort()}
+                      />
+                    </th>
+                    <th>BUYER NAME</th>
+                    <th>CREATED BY</th>
+                    <th>USERNAME</th>
+                    <th>EXISTING CUSTOMER</th>
+                    <th>STATUS</th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {allBuyerList &&
-                      allBuyerList.data?.data?.map((buyer, index) => (
-                        <tr
-                          key={index}
-                          className={`${styles.table_row} table_row`}
-                        >
-                          {buyer.queue === 'ReviewQueue' ? (
-                            <>
-                              <td>
-                                {buyer.company.customerId
-                                  ? buyer.company.customerId
-                                  : buyer.company.temporaryCustomerId}
-                              </td>
-                              <td
-                                className={`${styles.buyerName}`}
-                                onClick={() => {
-                                  handleRoute(buyer);
-                                  dispatch(
-                                    getBreadcrumbValues({
-                                      companyName: buyer.company.companyName,
-                                      companyId: buyer.company.customerId,
-                                    }),
-                                  );
-                                }}
-                              >
-                                {buyer.company.companyName}
-                              </td>
-                              <td>
-                                {buyer.createdBy.userRole
-                                  ? buyer.createdBy.userRole
-                                  : 'RM'}
-                              </td>
-                              <td>{buyer.createdBy.fName}</td>
-                              <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                              <td>
+                  {allBuyerList &&
+                    allBuyerList.data?.data?.map((buyer, index) => (
+                      <tr
+                        key={index}
+                        className={`${styles.table_row} table_row`}
+                      >
+                        {buyer.queue === 'ReviewQueue' ? (
+                          <>
+                            <td>
+                              {buyer.company.customerId
+                                ? buyer.company.customerId
+                                : buyer.company.temporaryCustomerId}
+                            </td>
+                            <td
+                              className={`${styles.buyerName}`}
+                              onClick={() => {
+                                handleRoute(buyer)
+                                dispatch(
+                                  getBreadcrumbValues({
+                                    companyName: buyer.company.companyName,
+                                    companyId: buyer.company.customerId,
+                                  }),
+                                )
+                              }}
+                            >
+                              {buyer.company.companyName}
+                            </td>
+                            <td>
+                              {buyer.createdBy.userRole
+                                ? buyer.createdBy.userRole
+                                : 'RM'}
+                            </td>
+                            <td>{buyer.createdBy.fName}</td>
+                            <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                            <td>
                                 <span
                                   className={`${styles.status} ${styles.review}`}
                                 ></span>
 
-                                {'Review'}
-                              </td>
-                            </>
-                          ) : null}
-                        </tr>
-                      ))}
+                              {'Review'}
+                            </td>
+                          </>
+                        ) : null}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -342,7 +341,7 @@ function Index() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

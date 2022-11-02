@@ -1,28 +1,27 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from '../profile.module.scss';
-import CommonSave from '../../CommonSave';
-import { useDispatch } from 'react-redux';
-import { UpdateCompanyDetails } from '../../../redux/companyDetail/action';
-import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper';
-import _get from 'lodash/get';
+import React, { useEffect, useState } from 'react'
+import styles from '../profile.module.scss'
+import { useDispatch } from 'react-redux'
+import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
+import { checkNan, CovertvaluefromtoCR } from '../../../utils/helper'
+import _get from 'lodash/get'
 
-function Index({ order, companyDetail }) {
-  console.log(companyDetail, 'companyDetail');
+function Index ({ order, companyDetail }) {
+  console.log(companyDetail, 'companyDetail')
 
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
     referedBy: '',
     sourceChanel: '',
-  });
+  })
   useEffect(() => {
-    let newCompanyData = {};
+    let newCompanyData = {}
     newCompanyData = {
       referalName: order?.referalName ?? '',
       referedBy: order?.referedBy ?? '',
       sourceChanel: order?.sourceChanel ?? '',
-    };
-    setUpdateCompany(newCompanyData);
+    }
+    setUpdateCompany(newCompanyData)
 
     // if (order?.referalName) {
     //   setUpdateCompany({ ...updateCompany, referalName: order.referalName })
@@ -33,26 +32,26 @@ function Index({ order, companyDetail }) {
     // if (order?.sourceChanel) {
     //   setUpdateCompany({ ...updateCompany, sourceChanel: order.sourceChanel })
     // }
-  }, [order]);
+  }, [order])
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onChangeHandler = (e) => {
-    const Key = e.target.id;
-    const value = e.target.value;
-    console.log(Key, ':', value);
-    setUpdateCompany((prev) => ({ ...prev, [Key]: value }));
-  };
+    const Key = e.target.id
+    const value = e.target.value
+    console.log(Key, ':', value)
+    setUpdateCompany((prev) => ({ ...prev, [Key]: value }))
+  }
 
   const saveHandler = () => {
     const payload = {
       ...updateCompany,
       _id: companyDetail?.company,
-    };
+    }
     // console.log(updateCompany, "updateCompany")
-    dispatch(UpdateCompanyDetails(payload));
-  };
-  console.log(order, 'order', companyDetail);
+    dispatch(UpdateCompanyDetails(payload))
+  }
+  console.log(order, 'order', companyDetail)
 
   return (
     <>
@@ -99,12 +98,12 @@ function Index({ order, companyDetail }) {
                   {_get(companyDetail, 'profile.companyDetail.pans[0]', '')}{' '}
                   {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !==
                     '' && (
-                    <img
-                      src="/static/approved.svg"
-                      alt="Approved"
-                      className={`${styles.approved} mt-n1`}
-                    />
-                  )}
+                      <img
+                        src="/static/approved.svg"
+                        alt="Approved"
+                        className={`${styles.approved} mt-n1`}
+                      />
+                    )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -174,9 +173,9 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.activeCompliance == null
                     ? ''
                     : companyDetail?.activeCompliance?.toLowerCase()?.trim() ==
-                      'activecompliant'
-                    ? 'Yes'
-                    : 'No'}
+                    'activecompliant'
+                      ? 'Yes'
+                      : 'No'}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -343,7 +342,8 @@ function Index({ order, companyDetail }) {
                         <option value="">Select</option>
                         <option value="CHA">{'CHA'}</option>
                         <option value="CMA">CMA</option>
-                        <option value="Stevedore">{'Stevedore'}</option>{' '}
+                        <option value="Stevedore">{'Stevedore'}</option>
+                        {' '}
                       </>
                     ) : updateCompany?.sourceChanel === 'Sales Assocaite' ? (
                       <>
@@ -413,7 +413,7 @@ function Index({ order, companyDetail }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

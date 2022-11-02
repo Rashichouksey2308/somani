@@ -1,67 +1,61 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './letter.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
-import InspectionDocument from '../../src/components/InspectionDocument';
-import DateCalender from '../../src/components/DateCalender';
-import SaveBar from '../../src/components/SaveBar';
+import React, { useEffect, useRef, useState } from 'react'
+import styles from './letter.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import InspectionDocument from '../../src/components/InspectionDocument'
+import DateCalender from '../../src/components/DateCalender'
+import SaveBar from '../../src/components/SaveBar'
 
-import Router from 'next/router';
-import { removePrefixOrSuffix } from '../../src/utils/helper';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import moment from 'moment/moment';
+import Router from 'next/router'
+import { removePrefixOrSuffix } from '../../src/utils/helper'
+import _get from 'lodash/get'
+import { toast } from 'react-toastify'
+import moment from 'moment/moment'
 
 ///REDUX/////
-import { useDispatch, useSelector } from 'react-redux';
-import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
 
-function Index() {
-  const dispatch = useDispatch();
+function Index () {
+  const dispatch = useDispatch()
 
-  const { lcModule } = useSelector((state) => state.lc);
+  const { lcModule } = useSelector((state) => state.lc)
 
-  let lcModuleData = _get(lcModule, 'data[0]', {});
+  let lcModuleData = _get(lcModule, 'data[0]', {})
 
-
-  const [editInput, setEditInput] = useState(false);
-  const [editCurrent, setEditCurrent] = useState();
-
+  const [editInput, setEditInput] = useState(false)
+  const [editCurrent, setEditCurrent] = useState()
 
   const handleEdit = (val) => {
- 
-    setEditCurrent(val);
-    setEditInput(true);
-  };
+
+    setEditCurrent(val)
+    setEditInput(true)
+  }
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcAmmend');
-    dispatch(GetLcModule(`?lcModuleId=${id}`));
-  }, [dispatch]);
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(setPageName('Lc'));
-    dispatch(setDynamicName(lcModuleData?.company?.companyName));
+    dispatch(setPageName('Lc'))
+    dispatch(setDynamicName(lcModuleData?.company?.companyName))
     dispatch(
       setDynamicOrder(
         lcModuleData?.order?.orderId
           ? lcModuleData?.order?.orderId
           : lcModuleData?.order?.applicationId,
       ),
-    );
-  }, [lcModuleData]);
+    )
+  }, [lcModuleData])
 
-  const [lcData, setLcData] = useState();
+  const [lcData, setLcData] = useState()
 
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      lcModuleData?.lcApplication?.formOfDocumentaryCredit,
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
@@ -71,9 +65,9 @@ function Index() {
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary,
       currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+      lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
       currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
+      lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
       tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
@@ -92,130 +86,126 @@ function Index() {
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
       presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
       confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
+      lcModuleData?.lcApplication?.confirmationInstructions,
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
       requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      lcModuleData?.lcApplication?.requestedConfirmationParty,
       charges: lcModuleData?.lcApplication?.charges,
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
       senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
+      lcModuleData?.lcApplication?.senderToReceiverInformation,
       documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
+      lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
-    });
+    })
     // setLcDoc({
     //   lcDraftDoc: lcModuleData?.document
     // })
-  }, [lcModuleData]);
-
+  }, [lcModuleData])
 
   const saveAmendmentData = (name, value) => {
-    const newInput = { ...lcData };
-    newInput[name] = value;
-    setLcData(newInput);
-  };
+    const newInput = { ...lcData }
+    newInput[name] = value
+    setLcData(newInput)
+  }
 
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveAmendmentData(name, text);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveAmendmentData(name, text)
+  }
 
   const initialState = {
     existingValue: '',
     dropDownValue: '',
     newValue: '',
-  };
+  }
 
-  const [clauseObj, setClauseObj] = useState(initialState);
+  const [clauseObj, setClauseObj] = useState(initialState)
 
- 
+  const [clauseArr, setClauseArr] = useState([])
 
-  const [clauseArr, setClauseArr] = useState([]);
+  const [drop, setDrop] = useState('')
 
+  const [fieldType, setFieldType] = useState('')
 
-  const [drop, setDrop] = useState('');
-
-  const [fieldType, setFieldType] = useState('');
-
-  const inputRef = useRef(null);
-  const inputRef1 = useRef(null);
+  const inputRef = useRef(null)
+  const inputRef1 = useRef(null)
 
   const dropDownChange = (e) => {
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
     ) {
-      setFieldType('date');
+      setFieldType('date')
     } else if (e.target.value == 'partialShipment') {
-      setFieldType('drop');
+      setFieldType('drop')
     } else {
-      setFieldType('');
+      setFieldType('')
     }
 
-    let newInput = { ...clauseObj };
+    let newInput = { ...clauseObj }
 
-    let val1 = e.target.options[e.target.selectedIndex].text;
-    let val2 = e.target.value;
-    setDrop(val2);
-   
-    newInput['existingValue'] = lcData[e.target.value] || '';
-    newInput['dropDownValue'] = val1 || '';
-  
-    setClauseObj(newInput);
-  };
+    let val1 = e.target.options[e.target.selectedIndex].text
+    let val2 = e.target.value
+    setDrop(val2)
+
+    newInput['existingValue'] = lcData[e.target.value] || ''
+    newInput['dropDownValue'] = val1 || ''
+
+    setClauseObj(newInput)
+  }
 
   const arrChange = (name, value) => {
-    const newInput = { ...clauseObj };
-    newInput[name] = value;
-    setClauseObj(newInput);
+    const newInput = { ...clauseObj }
+    newInput[name] = value
+    setClauseObj(newInput)
 
-    const newInput1 = { ...lcData };
-    newInput1[drop] = value;
+    const newInput1 = { ...lcData }
+    newInput1[drop] = value
 
-    setLcData(newInput1);
-  };
+    setLcData(newInput1)
+  }
 
   const saveDropDownDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
+    const d = new Date(value)
+    let text = d.toISOString()
 
-    arrChange(name, text);
-  };
+    arrChange(name, text)
+  }
 
   const addToArr = () => {
     if (fieldType == 'date' || fieldType == 'drop') {
-      setFieldType('');
+      setFieldType('')
     }
-    inputRef1.current.value = '';
-    setClauseObj(initialState);
-    const newArr = [...clauseArr];
+    inputRef1.current.value = ''
+    setClauseObj(initialState)
+    const newArr = [...clauseArr]
     if (
       clauseObj.dropDownValue === 'Select an option' ||
       clauseObj.dropDownValue === ''
     ) {
-      let toastMessage = 'please select a dropdown value first ';
+      let toastMessage = 'please select a dropdown value first '
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-    
+
       if (
         clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
       ) {
-        let toastMessage = 'CLAUSE ALREADY ADDED';
+        let toastMessage = 'CLAUSE ALREADY ADDED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage, { toastId: toastMessage });
+          toast.error(toastMessage, { toastId: toastMessage })
         }
       } else {
-        newArr.push(clauseObj);
+        newArr.push(clauseObj)
 
-        setClauseArr(newArr);
+        setClauseArr(newArr)
         // setClauseObj({
         //   existingValue: '',
         //   dropDownValue: '',
@@ -223,127 +213,122 @@ function Index() {
         // })
       }
     }
-  };
+  }
 
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
-      return item.dropDownValue !== arr;
-    });
-    setClauseArr(newClause);
-  };
+      return item.dropDownValue !== arr
+    })
+    setClauseArr(newClause)
+  }
 
   const [lcDoc, setLcDoc] = useState({
     lcDraftDoc: null,
-  });
-
-
+  })
 
   const uploadDocument1 = (e) => {
-    const newInput = { ...lcDoc };
-    newInput.lcDraftDoc = e.target.files[0];
+    const newInput = { ...lcDoc }
+    newInput.lcDraftDoc = e.target.files[0]
 
-    setLcDoc(newInput);
-  };
+    setLcDoc(newInput)
+  }
 
   const handleRightButton = () => {
     if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
-      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
+      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (
       lcData.numberOfAmendment === '' ||
       lcData.numberOfAmendment == undefined
     ) {
-      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
+      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC DRAFT';
+      let toastMessage = 'PLEASE UPLOAD LC DRAFT'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      let sendLcData = { ...lcData };
+      let sendLcData = { ...lcData }
       sendLcData.tolerancePercentage = Number(
         removePrefixOrSuffix(lcData.tolerancePercentage),
-      );
-      let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(sendLcData));
-      fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-      fd.append('document1', lcDoc.lcDraftDoc);
+      )
+      let fd = new FormData()
+      fd.append('lcApplication', JSON.stringify(sendLcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+      fd.append('document1', lcDoc.lcDraftDoc)
 
-      dispatch(UpdateAmendment(fd));
+      dispatch(UpdateAmendment(fd))
     }
-  };
+  }
 
   const handleSubmit = () => {
     if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
-      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY';
+      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (
       lcData.numberOfAmendment === '' ||
       lcData.numberOfAmendment == undefined
     ) {
-      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY';
+      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT';
+      let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      let tempData = { ...lcData };
+      let tempData = { ...lcData }
 
-     
-      let fd = new FormData();
-      fd.append('lcApplication', JSON.stringify(tempData));
-      fd.append('lcModuleId', JSON.stringify(lcModuleData._id));
-      fd.append('document1', lcDoc.lcDraftDoc);
+      let fd = new FormData()
+      fd.append('lcApplication', JSON.stringify(tempData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+      fd.append('document1', lcDoc.lcDraftDoc)
 
-      dispatch(UpdateAmendment(fd));
+      dispatch(UpdateAmendment(fd))
     }
-  };
+  }
 
   const getData = (value, type) => {
 
     if (type == '(44C) Latest Date Of Shipment') {
-      return moment(value).format('DD-MM-YYYY');
+      return moment(value).format('DD-MM-YYYY')
     } else if (type == '(43P) Partial Shipment') {
-      return value == 'Yes' ? 'Allowed' : 'Not Allowed';
+      return value == 'Yes' ? 'Allowed' : 'Not Allowed'
     } else {
-      return value;
+      return value
     }
-  };
+  }
   const getDataFormDropDown = (value) => {
-     console.log(value,fieldType,"SADdsdfsdf")
+    console.log(value, fieldType, 'SADdsdfsdf')
     if (fieldType == 'date') {
-      return moment(value).format('DD-MM-YYYY');
+      return moment(value).format('DD-MM-YYYY')
+    } else if (fieldType == 'drop') {
+      if (value == 'Yes') {
+        return 'Allowed'
+      }
+      if (value == 'No') {
+        return 'Not Allowed'
+      }
+      if (value == 'Conditional') {
+        return 'Conditional'
+      }
+      if (value == '') {
+        return ''
+      }
+
+    } else {
+      return value
     }
-    else if (fieldType == 'drop') {
-      if(value=="Yes"){
-        return "Allowed"
-      }
-      if(value=="No"){
-        return "Not Allowed"
-      }
-      if(value=="Conditional"){
-        return "Conditional"
-      }
-      if(value==""){
-        return ""
-      }
-      
-    } 
-     else {
-      return value;
-    }
-  };
+  }
   return (
     <>
       {' '}
@@ -416,8 +401,8 @@ function Index() {
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
                             ? moment(
-                                lcModuleData?.lcApplication?.dateOfIssue,
-                              ).format('DD-MM-YYYY')
+                              lcModuleData?.lcApplication?.dateOfIssue,
+                            ).format('DD-MM-YYYY')
                             : ''}
                         </span>
                       </div>
@@ -585,7 +570,7 @@ function Index() {
                               value={clauseObj?.newValue}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
-                                arrChange('newValue', e.target.value);
+                                arrChange('newValue', e.target.value)
                               }}
                             />
                           ) : null}
@@ -609,7 +594,7 @@ function Index() {
                               <select
                                 name="partialShipment"
                                 onChange={(e) => {
-                                  arrChange('newValue', e.target.value);
+                                  arrChange('newValue', e.target.value)
                                 }}
                                 // value={
 
@@ -617,7 +602,7 @@ function Index() {
                                 value={clauseObj?.newValue}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
-                                <option selected >
+                                <option selected>
                                   Select an option
                                 </option>
 
@@ -667,62 +652,62 @@ function Index() {
                             border="0"
                           >
                             <thead>
-                              <tr>
-                                <th
-                                  width="35%"
-                                  className={`${styles.table_header} label_heading`}
-                                >
-                                  CLAUSE{' '}
-                                </th>
-                                <th
-                                  className={`${styles.table_header} label_heading`}
-                                >
-                                  EXISTING VALUE{' '}
-                                </th>
-                                <th
-                                  className={`${styles.table_header} label_heading`}
-                                >
-                                  NEW VALUE{' '}
-                                </th>
-                                <th className={`${styles.table_header}`}></th>
-                              </tr>
+                            <tr>
+                              <th
+                                width="35%"
+                                className={`${styles.table_header} label_heading`}
+                              >
+                                CLAUSE{' '}
+                              </th>
+                              <th
+                                className={`${styles.table_header} label_heading`}
+                              >
+                                EXISTING VALUE{' '}
+                              </th>
+                              <th
+                                className={`${styles.table_header} label_heading`}
+                              >
+                                NEW VALUE{' '}
+                              </th>
+                              <th className={`${styles.table_header}`}></th>
+                            </tr>
                             </thead>
                             <tbody>
-                              {clauseArr &&
-                                clauseArr?.map((clause, index) => (
-                                  <tr key={index} className="table_row">
-                                    <td>{clause.dropDownValue}</td>
-                                    <td>
-                                      {getData(
-                                        clause.existingValue,
-                                        clause.dropDownValue,
-                                      )}{' '}
-                                    </td>
-                                    <td>
-                                      {getData(
-                                        clause.newValue,
-                                        clause.dropDownValue,
-                                      )}
-                                    </td>
-                                    <td>
-                                      {/* <img
+                            {clauseArr &&
+                              clauseArr?.map((clause, index) => (
+                                <tr key={index} className="table_row">
+                                  <td>{clause.dropDownValue}</td>
+                                  <td>
+                                    {getData(
+                                      clause.existingValue,
+                                      clause.dropDownValue,
+                                    )}{' '}
+                                  </td>
+                                  <td>
+                                    {getData(
+                                      clause.newValue,
+                                      clause.dropDownValue,
+                                    )}
+                                  </td>
+                                  <td>
+                                    {/* <img
                                         src="/static/mode_edit.svg"
                                         className="img-fluid ml-n5"
                                         alt="edit"
                                         onClick={() => handleEdit(clause)}
                                       /> */}
-                                      <img
-                                        src="/static/delete 2.svg"
-                                        className="img-fluid ml-3 mr-n5"
-                                        alt="delete"
-                                        onClick={() =>
-                                          removeFromArr(clause.dropDownValue)
-                                        }
-                                      />
-                                    </td>
-                                  </tr>
-                                ))}
-                              {/* <tr className="table_row">
+                                    <img
+                                      src="/static/delete 2.svg"
+                                      className="img-fluid ml-3 mr-n5"
+                                      alt="delete"
+                                      onClick={() =>
+                                        removeFromArr(clause.dropDownValue)
+                                      }
+                                    />
+                                  </td>
+                                </tr>
+                              ))}
+                            {/* <tr className="table_row">
                                 <td>(44A) SHIPMENT FROM </td>
                                 <td>Owendo </td>
                                 <td>Russia</td>
@@ -769,7 +754,7 @@ function Index() {
         buttonText="null"
       />
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

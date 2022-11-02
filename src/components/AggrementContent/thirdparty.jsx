@@ -1,15 +1,16 @@
 /* eslint-disable jsx-a11y/ermsalt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import moment from 'moment';
-function Index(props) {
-  const [deliveryData, setDeliveryData] = useState('');
-  const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('');
-  const [paymentTerms, setPaymentTerms] = useState('');
-  const [saveContactTable, setContactTable] = useState(false);
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
+
+function Index (props) {
+  const [deliveryData, setDeliveryData] = useState('')
+  const [monthOfLoadingCargo, setMonthOfLoadingCargo] = useState('')
+  const [paymentTerms, setPaymentTerms] = useState('')
+  const [saveContactTable, setContactTable] = useState(false)
   const [listContact, setListContact] = useState([
     {
       sNo: '',
@@ -18,7 +19,7 @@ function Index(props) {
       chequeDate: null,
       amount: '',
     },
-  ]);
+  ])
   const onAddContact = () => {
     setListContact([
       ...listContact,
@@ -29,58 +30,58 @@ function Index(props) {
         chequeDate: null,
         amount: '',
       },
-    ]);
-  };
+    ])
+  }
   const handleDeleteContact = (index) => {
     setListContact([
       ...listContact.slice(0, index),
       ...listContact.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Delivery')) {
-        console.log(props?.data, 'sadadsdasd1');
-        let savedData = JSON.parse(sessionStorage.getItem('Delivery'));
+        console.log(props?.data, 'sadadsdasd1')
+        let savedData = JSON.parse(sessionStorage.getItem('Delivery'))
 
-        console.log('savd', savedData);
-        setDeliveryData(savedData?.deliveryTerm);
-        setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo);
-        setPaymentTerms(savedData?.paymentTerms);
+        console.log('savd', savedData)
+        setDeliveryData(savedData?.deliveryTerm)
+        setMonthOfLoadingCargo(savedData?.monthOfLoadingCargo)
+        setPaymentTerms(savedData?.paymentTerms)
         setListContact(
           savedData?.cheque?.length > 0
             ? savedData.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
-        );
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
+        )
       } else {
-        console.log(props?.data, 'sadadsdasd');
-        setDeliveryData(props?.data?.deliveryTerm);
-        setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo);
-        setPaymentTerms(props?.data?.paymentTerms);
+        console.log(props?.data, 'sadadsdasd')
+        setDeliveryData(props?.data?.deliveryTerm)
+        setMonthOfLoadingCargo(props?.data?.monthOfLoadingCargo)
+        setPaymentTerms(props?.data?.paymentTerms)
         setListContact(
           props?.data?.cheque?.length > 0
             ? props.data.cheque
             : [
-                {
-                  sNo: '',
-                  bankName: '',
-                  chequeNo: '',
-                  chequeDate: null,
-                  amount: '',
-                },
-              ],
-        );
+              {
+                sNo: '',
+                bankName: '',
+                chequeNo: '',
+                chequeDate: null,
+                amount: '',
+              },
+            ],
+        )
       }
     }
-  }, [props.data]);
+  }, [props.data])
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Delivery Terms') {
@@ -89,35 +90,35 @@ function Index(props) {
         monthOfLoadingCargo: monthOfLoadingCargo,
         paymentTerms: paymentTerms,
         listContact: listContact,
-      };
-      props.sendData('Delivery Terms', data);
+      }
+      props.sendData('Delivery Terms', data)
     }
     if (props.submitData == true && props.active == 'Delivery Terms') {
-      console.log('this12');
+      console.log('this12')
       let data = {
         deliveryData: deliveryData,
         monthOfLoadingCargo: monthOfLoadingCargo,
         paymentTerms: paymentTerms,
         listContact: listContact,
-      };
+      }
 
-      props.updateData('Delivery Terms', data);
+      props.updateData('Delivery Terms', data)
     }
-  }, [props.saveData, props.submitData]);
+  }, [props.saveData, props.submitData])
 
   const handleInput = (name, value, key) => {
-    setDeliveryData(value);
+    setDeliveryData(value)
     let dataToSend2 = {
       deliveryTerms: value,
-    };
+    }
     // sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
-  };
+  }
   const handleChangeInput = (name, value, index) => {
-    let temp = [...listContact];
-    temp[index][name] = value;
-    setListContact([...temp]);
-  };
-  console.log(deliveryData, 'deliveryData');
+    let temp = [...listContact]
+    temp[index][name] = value
+    setListContact([...temp])
+  }
+  console.log(deliveryData, 'deliveryData')
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0 `}>
@@ -129,7 +130,7 @@ function Index(props) {
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="delivery"
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value);
+                    handleInput(e.target.name, e.target.value)
                   }}
                   value={deliveryData}
                 >
@@ -167,7 +168,7 @@ function Index(props) {
                   name="paymentTerms"
                   value={paymentTerms}
                   onChange={(e) => {
-                    setPaymentTerms(e.target.value);
+                    setPaymentTerms(e.target.value)
                   }}
                 >
                   <option selected>Select an option</option>
@@ -198,7 +199,7 @@ function Index(props) {
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="delivery"
                   onChange={(e) => {
-                    setMonthOfLoadingCargo(e.target.value);
+                    setMonthOfLoadingCargo(e.target.value)
                   }}
                   value={monthOfLoadingCargo}
                 >
@@ -251,133 +252,133 @@ function Index(props) {
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width="10%">S NO.</th>
-                      <th width="20%">BANK NAME</th>
-                      <th width="20%">CHEQUE NO.</th>
-                      <th width="20%">CHEQUE DATE</th>
-                      <th width="20%">AMOUNT</th>
-                      <th width="10%">Actions</th>
-                    </tr>
+                  <tr>
+                    <th width="10%">S NO.</th>
+                    <th width="20%">BANK NAME</th>
+                    <th width="20%">CHEQUE NO.</th>
+                    <th width="20%">CHEQUE DATE</th>
+                    <th width="20%">AMOUNT</th>
+                    <th width="10%">Actions</th>
+                  </tr>
                   </thead>
 
                   <tbody>
-                    {listContact?.length > 0 &&
-                      listContact.map((val, index) => (
-                        <tr key={index} className="table_credit">
-                          <td>
-                            <input
-                              className="input font-weight-bold"
-                              name="sNo"
-                              type="text"
-                              value={val.sNo}
-                              onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="bankName"
-                              type="text"
-                              value={val.bankName}
-                              onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                            />
-                          </td>
+                  {listContact?.length > 0 &&
+                    listContact.map((val, index) => (
+                      <tr key={index} className="table_credit">
+                        <td>
+                          <input
+                            className="input font-weight-bold"
+                            name="sNo"
+                            type="text"
+                            value={val.sNo}
+                            onChange={(e) => {
+                              handleChangeInput(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            name="bankName"
+                            type="text"
+                            value={val.bankName}
+                            onChange={(e) => {
+                              handleChangeInput(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }}
+                          />
+                        </td>
 
-                          <td>
-                            <input
-                              className="input"
-                              name="chequeNo"
-                              type="text"
-                              value={val.chequeNo}
-                              onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
+                        <td>
+                          <input
+                            className="input"
+                            name="chequeNo"
+                            type="text"
+                            value={val.chequeNo}
+                            onChange={(e) => {
+                              handleChangeInput(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }}
+                            // readOnly={!saveContactTable}
+                          />
+                        </td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <DateCalender
+                              name="chequeDate"
+                              saveDate={(val, name, index) => {
+                                handleChangeInput(name, val, index)
                               }}
-                              // readOnly={!saveContactTable}
-                            />
-                          </td>
-                          <td>
-                            <div className="d-flex align-items-center">
-                              <DateCalender
-                                name="chequeDate"
-                                saveDate={(val, name, index) => {
-                                  handleChangeInput(name, val, index);
-                                }}
-                                defaultDate={
-                                  val.chequeDate == null
-                                    ? null
-                                    : moment(val.chequeDate).toDate()
-                                }
-                                // small={true}
-                                index={index}
-                              />
-                              <img
-                                className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
-                                src="/static/caldericon.svg"
-                                alt="Search"
-                              />
-                            </div>
-                          </td>
-                          <td>
-                            <input
-                              className="input"
-                              name="amount"
-                              type="number"
-                              value={val.amount}
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
+                              defaultDate={
+                                val.chequeDate == null
+                                  ? null
+                                  : moment(val.chequeDate).toDate()
                               }
-                              onChange={(e) => {
-                                handleChangeInput(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                );
-                              }}
-                              // readOnly={!saveContactTable}
+                              // small={true}
+                              index={index}
                             />
-                          </td>
+                            <img
+                              className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <input
+                            className="input"
+                            name="amount"
+                            type="number"
+                            value={val.amount}
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
+                            onChange={(e) => {
+                              handleChangeInput(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }}
+                            // readOnly={!saveContactTable}
+                          />
+                        </td>
 
-                          <td className="text-right">
-                            <div className="d-flex">
+                        <td className="text-right">
+                          <div className="d-flex">
+                            <img
+                              className={`${styles.plus_field} mr-2`}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={(e) => {
+                                onAddContact()
+                              }}
+                            />
+
+                            {index != 0 ? (
                               <img
-                                className={`${styles.plus_field} mr-2`}
-                                src="/static/add-btn.svg"
-                                alt="add button"
-                                onClick={(e) => {
-                                  onAddContact();
-                                }}
+                                src="/static/delete 2.svg"
+                                // className="img-fluid"
+                                alt="delete"
+                                onClick={() => handleDeleteContact(index)}
                               />
-
-                              {index != 0 ? (
-                                <img
-                                  src="/static/delete 2.svg"
-                                  // className="img-fluid"
-                                  alt="delete"
-                                  onClick={() => handleDeleteContact(index)}
-                                />
-                              ) : null}
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                            ) : null}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -386,7 +387,7 @@ function Index(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

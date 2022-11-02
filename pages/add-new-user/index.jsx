@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import Router from 'next/router';
-import AddNewInternal from '../../src/components/AddNewInternal';
+import React from 'react'
+import styles from './index.module.scss'
+import { Card } from 'react-bootstrap'
+import Router from 'next/router'
+import AddNewInternal from '../../src/components/AddNewInternal'
 
-function Index() {
+function Index () {
   return (
     <Card className={`${styles.card} container-fluid`}>
       <div className="m-2">
@@ -36,10 +36,10 @@ function Index() {
             </button>
           </div>
         </Card.Header>
-        <AddNewInternal />
+        <AddNewInternal/>
       </div>
     </Card>
-  );
+  )
 }
 
-export default Index;
+export default Index

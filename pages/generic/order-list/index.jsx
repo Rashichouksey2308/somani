@@ -1,39 +1,34 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch } from 'react-redux'
 
-import {
-  setPageName,
-  setDynamicName,
-} from '../../../src/redux/userData/action';
-import _get from 'lodash/get';
+import { setDynamicName, setPageName, } from '../../../src/redux/userData/action'
 
-function Index() {
-  const [order, setOrder] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch();
-
+function Index () {
+  const [order, setOrder] = useState([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (window) {
-      let data = JSON.parse(sessionStorage.getItem('genericSelected'));
-      setOrder(data);
-      dispatch(setPageName('generic'));
-      dispatch(setDynamicName(data.company.companyName));
+      let data = JSON.parse(sessionStorage.getItem('genericSelected'))
+      setOrder(data)
+      dispatch(setPageName('generic'))
+      dispatch(setDynamicName(data.company.companyName))
     }
-  }, []);
+  }, [])
 
   //  useEffect(() => {
 
   //   },[dispatch, singleOrder])
 
   const handleRoute = () => {
-    Router.push('/generic');
-  };
+    Router.push('/generic')
+  }
 
   return (
     <>
@@ -72,9 +67,9 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
+                      return
                     } else {
-                      setCurrentPage((prevState) => prevState - 1);
+                      setCurrentPage((prevState) => prevState - 1)
                     }
                   }}
                   href="#"
@@ -93,7 +88,7 @@ function Index() {
                       currentPage + 1 <
                       Math.ceil(singleOrder?.totalCount / 10)
                     ) {
-                      setCurrentPage((prevState) => prevState + 1);
+                      setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
                   href="#"
@@ -116,62 +111,62 @@ function Index() {
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                        />
-                      </th>
-                      <th>COMMODITY</th>
-                      <th>CREATED BY</th>
-                      <th>CREATED ON</th>
-                      <th>STATUS</th>
-                    </tr>
+                  <tr className="table_row">
+                    <th>
+                      ORDER ID{' '}
+                      <img
+                        className={`mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                      />
+                    </th>
+                    <th>COMMODITY</th>
+                    <th>CREATED BY</th>
+                    <th>CREATED ON</th>
+                    <th>STATUS</th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {order?.order?.length > 0 &&
-                      order?.order.map((buyer, index) => (
-                        <tr
-                          key={index}
-                          className={`${styles.table_row} table_row`}
+                  {order?.order?.length > 0 &&
+                    order?.order.map((buyer, index) => (
+                      <tr
+                        key={index}
+                        className={`${styles.table_row} table_row`}
+                      >
+                        <td>{buyer.orderId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => {
+                            handleRoute(buyer)
+                          }}
                         >
-                          <td>{buyer.orderId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer.commodity}
-                          </td>
-                          <td>{buyer.createdBy.fName}</td>
+                          {buyer.commodity}
+                        </td>
+                        <td>{buyer.createdBy.fName}</td>
 
-                          <td>{buyer.createdAt.split('T')[0]}</td>
-                          <td>
+                        <td>{buyer.createdAt.split('T')[0]}</td>
+                        <td>
                             <span
                               className={`${styles.status} ${
                                 buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
+                                    ? styles.review
+                                    : buyer.queue === 'CreditQueue'
+                                      ? styles.approved
+                                      : styles.rejected
                               }`}
                             ></span>
 
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
+                          {buyer.queue === 'Rejected'
+                            ? 'Rejected'
+                            : buyer.queue === 'ReviewQueue'
                               ? 'Review'
                               : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
+                                ? 'Approved'
+                                : 'Rejected'}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -180,7 +175,7 @@ function Index() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

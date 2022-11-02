@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import config from './config';
+import config from './config'
 
 export default {
   baseUrl: `${config.baseUrl}`,
@@ -145,4 +145,4 @@ export default {
   banksMaster: 'banks/master.json',
   bankBranchesMaster: 'banks/branches/',
   pincodesMaster: 'locations/pincodes/',
-};
+}

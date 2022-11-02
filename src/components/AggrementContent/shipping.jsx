@@ -1,60 +1,62 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+
 let shipping = {
   name: '',
   vesselName: '',
   gstin: '',
-};
-function Index(props) {
-  console.log(props.submitData, 'submitData', props.active);
-  const [shippingData, setShippingData] = useState(shipping);
+}
+
+function Index (props) {
+  console.log(props.submitData, 'submitData', props.active)
+  const [shippingData, setShippingData] = useState(shipping)
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Shipping')) {
-        let savedData = JSON.parse(sessionStorage.getItem('Shipping'));
+        let savedData = JSON.parse(sessionStorage.getItem('Shipping'))
         let shipping = {
           name: savedData.name,
           vesselName: savedData.vesselName,
           gstin: savedData.gstin,
-        };
+        }
 
-        setShippingData(shipping);
+        setShippingData(shipping)
       } else {
         let shipping = {
           name: props.data?.name,
           vesselName: props.data?.vesselName,
           gstin: props.data?.gstin,
-        };
+        }
 
-        setShippingData(shipping);
+        setShippingData(shipping)
       }
     }
-  }, [props]);
+  }, [props])
   useEffect(() => {
     if (props.saveData == true && props.active == 'Shipping Line') {
       let data = {
         shippingData: shippingData,
-      };
-      props.sendData('Shipping Line', data);
+      }
+      props.sendData('Shipping Line', data)
     }
     if (props.submitData == true && props.active == 'Shipping Line') {
-      console.log('this12');
+      console.log('this12')
       let data = {
         shippingData: shippingData,
-      };
+      }
 
-      props.updateData('Shipping Line', data);
+      props.updateData('Shipping Line', data)
     }
-  }, [props.saveData, props.submitData]);
+  }, [props.saveData, props.submitData])
   const handleInput = (name, value, key) => {
-    const newInput = { ...shippingData };
+    const newInput = { ...shippingData }
 
-    newInput[name] = value;
-    setShippingData(newInput);
-  };
+    newInput[name] = value
+    setShippingData(newInput)
+  }
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -70,7 +72,7 @@ function Index(props) {
                 name="name"
                 value={shippingData.name}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value);
+                  handleInput(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -91,7 +93,7 @@ function Index(props) {
                 name="vesselName"
                 value={shippingData.vesselName}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value);
+                  handleInput(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -106,7 +108,7 @@ function Index(props) {
                 name="gstin"
                 value={shippingData.gstin}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value);
+                  handleInput(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -117,7 +119,7 @@ function Index(props) {
         </Form>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

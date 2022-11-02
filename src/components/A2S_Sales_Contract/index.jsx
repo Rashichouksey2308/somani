@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import Router from 'next/router';
-import moment from 'moment';
-import { CovertvaluefromtoCR } from '../../utils/helper';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import Router from 'next/router'
+import moment from 'moment'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
-function Index(props) {
-  console.log(props,"props")
+function Index (props) {
+  console.log(props, 'props')
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -36,27 +35,27 @@ function Index(props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
+  })
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A, SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
+        return '7A, SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'));
+        const data = JSON.parse(sessionStorage.getItem('preview'))
 
         setData({
           seller: data?.seller,
@@ -91,28 +90,26 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.curr,
           specComment: data?.specComment,
-        });
+        })
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-    
-        let exe;
-        let dat = '';
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+
+        let exe
+        let dat = ''
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            exe = val.place;
+            exe = val.place
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
             }
           }
-        });
-        let comment = [];
+        })
+        let comment = []
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            comment.push(val.comment);
+            comment.push(val.comment)
           }
-        });
-
-     
+        })
 
         setData({
           seller: data?.seller?.name,
@@ -157,14 +154,14 @@ function Index(props) {
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
-        });
+        })
       }
     }
-  }, [props]);
+  }, [props])
 
   const changeHandler = (name, val) => {
-    setData({ ...data, [name]: val });
-  };
+    setData({ ...data, [name]: val })
+  }
 
   return (
     <>
@@ -176,7 +173,7 @@ function Index(props) {
             props.preview,
             CovertvaluefromtoCR,
           )}
-          {props.preview !== "Sales" ? (
+          {props.preview !== 'Sales' ? (
             <>
               <div
                 className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
@@ -184,11 +181,10 @@ function Index(props) {
                 <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      props.setPreviewValue("Sales");
+                      Router.push('agreement/preview')
+                      props.setPreviewValue('Sales')
                     }}
                   >
                     Preview
@@ -206,10 +202,10 @@ function Index(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index
 const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
   return (
@@ -250,7 +246,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             </Col>
             <Col md={7} className={styles.right}>
               <>{data?.seller}</>
-              <br />
+              <br/>
               <>{data?.seller ? data.sellerAddress : ''}</>
             </Col>
           </Row>
@@ -267,7 +263,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               style={{ textTransform: 'capitalize' }}
             >
               <>{data?.buyer?.toLowerCase()}</>
-              <br />
+              <br/>
               <>{data?.buyer ? data.buyerAddress : null}</>
             </Col>
           </Row>
@@ -1217,7 +1213,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <ol type="1">
                     {data?.addComm?.length > 0 &&
                       data?.addComm?.map((val, index) => {
-                        return <li key={index}>{val}</li>;
+                        return <li key={index}>{val}</li>
                       })}
                   </ol>
                 </>
@@ -1258,7 +1254,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <ol>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
-                      return <li>{val}</li>;
+                      return <li>{val}</li>
                     })}
                 </ol>
               </>
@@ -1286,7 +1282,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <textarea
                     rows={3}
                     onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
+                      changeHandler(e.target.name, e.target.value)
                     }}
                     value={data?.sellerSignature}
                     name="sellerSignature"
@@ -1313,7 +1309,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <textarea
                     rows={3}
                     onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value);
+                      changeHandler(e.target.name, e.target.value)
                     }}
                     type="text"
                     value={data?.buyerSignature}
@@ -1328,5 +1324,5 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

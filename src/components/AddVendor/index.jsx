@@ -1,17 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import { Card } from 'react-bootstrap';
-import { UploadDocument } from '../UploadDocument';
-import Router from 'next/router';
-import Image from 'next/image';
-import UploadOther from '../UploadOther';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import Image from 'next/image'
+import UploadOther from '../UploadOther'
 
-function Index() {
-  const [vendorRadio, setVendorRadio] = useState('');
+function Index () {
+  const [vendorRadio, setVendorRadio] = useState('')
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -162,7 +159,7 @@ function Index() {
                 className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
               >
                 <div className="d-flex">
-                  <DateCalender labelName="Activation Date" />
+                  <DateCalender labelName="Activation Date"/>
                   <div className={`${styles.calanderIcon} image_arrow`}>
                     <Image
                       width="22px"
@@ -974,7 +971,7 @@ function Index() {
           </div>
         </div>
         <div className="mt-4">
-          <UploadOther isDocumentName={true} />
+          <UploadOther isDocumentName={true}/>
         </div>
 
         <div className={`${styles.main} vessel_card mt-4 card border_color`}>
@@ -1000,13 +997,14 @@ function Index() {
           </div>
         </div>
 
-        <div className='d-flex justify-content-end mb-5'
-        style={{marginTop:'35px'}}>
+        <div className="d-flex justify-content-end mb-5"
+             style={{ marginTop: '35px' }}>
           <div className={`${styles.footer_heading} mr-5`}>Created By <span>Balakrishna SGF001</span></div>
           <div className={`${styles.footer_heading}`}>Approved By <span>Ramakrishna SGF001</span></div>
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

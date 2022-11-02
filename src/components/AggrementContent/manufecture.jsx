@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import { add } from 'lodash';
-import { useSyncExternalStore } from 'react';
-import {getPincodes } from '../../redux/masters/action';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Form } from 'react-bootstrap'
+import { getPincodes } from '../../redux/masters/action'
+import { useDispatch, useSelector } from 'react-redux'
+
 let supplier = {
   name: '',
   shortName: '',
@@ -21,16 +20,17 @@ let supplier = {
   multiParty: true,
   multiPartyName: '',
   multiPartyAddresses: [],
-};
-function Index(props) {
-  console.log(props.data, '1234');
-  const dispatch = useDispatch();
-  const { getPincodesMasterData } = useSelector((state) => state.MastersData);
-  const [supplierState, setSupplierState] = useState(supplier);
-  const [list, setList] = useState([]);
-  const [addressList, setAddressList] = useState([]);
-  const [docList, setDocList] = useState([]);
-  const [doc, setdoc] = useState({ attachDoc: '' });
+}
+
+function Index (props) {
+  console.log(props.data, '1234')
+  const dispatch = useDispatch()
+  const { getPincodesMasterData } = useSelector((state) => state.MastersData)
+  const [supplierState, setSupplierState] = useState(supplier)
+  const [list, setList] = useState([])
+  const [addressList, setAddressList] = useState([])
+  const [docList, setDocList] = useState([])
+  const [doc, setdoc] = useState({ attachDoc: '' })
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -39,9 +39,9 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  });
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
+  })
+  const [toShow, setToShow] = useState([])
+  const [toView, setToView] = useState(false)
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -50,20 +50,20 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  });
-  const [removedOption, setRemovedOption] = useState(null);
-  const [addressType, setAddressType] = useState('Registered');
-  const [addressEditType, setAddressEditType] = useState('Registered');
+  })
+  const [removedOption, setRemovedOption] = useState(null)
+  const [addressType, setAddressType] = useState('Registered')
+  const [addressEditType, setAddressEditType] = useState('Registered')
   const [options, setOptions] = useState([
     'Bhawana Jain',
     'Vipin Kumar',
     'Devesh Jain',
     'Fatima Yannoulis',
-  ]);
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
-  console.log(supplierState, 'supplierState');
+  ])
+  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']
+  console.log(supplierState, 'supplierState')
   //multiParty
-  const [multiList, setMultiList] = useState([]);
+  const [multiList, setMultiList] = useState([])
   const [newMultiAddress, setNewMultiAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -72,7 +72,7 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  });
+  })
   const [MultiEditAddress, setMultiEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -81,8 +81,8 @@ function Index(props) {
     gstin: '',
     state: '',
     city: '',
-  });
-  const [addressMutliType, setMultiAddressType] = useState('Registered');
+  })
+  const [addressMutliType, setMultiAddressType] = useState('Registered')
   let masterList = [
     {
       name: 'Bhawana Jain',
@@ -108,9 +108,9 @@ function Index(props) {
       email: 'fatima@indointertrade.ch',
       phoneNo: '',
     },
-  ];
+  ]
 
-  console.log(multiList, 'props?.order?.supplierName');
+  console.log(multiList, 'props?.order?.supplierName')
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Supplier') {
@@ -119,8 +119,8 @@ function Index(props) {
         list: list,
         addressList: addressList,
         multiList: multiList,
-      };
-      props.sendData('Supplier', data);
+      }
+      props.sendData('Supplier', data)
     }
     if (props.submitData == true && props.active == 'Supplier') {
       let data = {
@@ -128,19 +128,19 @@ function Index(props) {
         list: list,
         addressList: addressList,
         multiList: multiList,
-      };
+      }
 
-      props.updateData('Supplier', data);
+      props.updateData('Supplier', data)
     }
 
-    setSupplierState({ ...supplierState, multiParty: props.multiPart });
-  }, [props.saveData, props.submitData]);
+    setSupplierState({ ...supplierState, multiParty: props.multiPart })
+  }, [props.saveData, props.submitData])
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Supplier')) {
-        console.log('herer23123');
+        console.log('herer23123')
 
-        let savedData = JSON.parse(sessionStorage.getItem('Supplier'));
+        let savedData = JSON.parse(sessionStorage.getItem('Supplier'))
         let supplier = {
           name: savedData.name || props?.order?.supplierName,
           shortName: savedData.shortName,
@@ -155,41 +155,41 @@ function Index(props) {
           multiParty: savedData.multiParty,
           multiPartyName: savedData.multiPartyName,
           multiPartyAddresses: savedData.multiPartyAddresses,
-        };
+        }
         setList(
           savedData.authorisedSignatoryDetails?.length > 0
             ? savedData.authorisedSignatoryDetails
             : [
-                {
-                  name: '',
-                  designation: '',
-                  email: '',
-                  phone: '',
-                  actions: 'false',
-                  addnew: 'false',
-                },
-              ],
-        );
+              {
+                name: '',
+                designation: '',
+                email: '',
+                phone: '',
+                actions: 'false',
+                addnew: 'false',
+              },
+            ],
+        )
 
-        setAddressList(savedData.addresses);
-        setMultiList(savedData.multiPartyAddresses);
-        setSupplierState(supplier);
-        let tempArr = savedData?.authorisedSignatoryDetails;
-        let optionArray = [...options];
+        setAddressList(savedData.addresses)
+        setMultiList(savedData.multiPartyAddresses)
+        setSupplierState(supplier)
+        let tempArr = savedData?.authorisedSignatoryDetails
+        let optionArray = [...options]
         tempArr.forEach((val, index) => {
-          val.actions = 'true';
+          val.actions = 'true'
           if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name);
+            let index = optionArray.indexOf(val.name)
             if (index > -1) {
-              optionArray.splice(index, 1);
+              optionArray.splice(index, 1)
             }
           }
-        });
-        setOptions([...optionArray]);
+        })
+        setOptions([...optionArray])
         console.log(
           savedData.authorisedSignatoryDetails,
           'savedData.authorisedSignatoryDetails',
-        );
+        )
       } else {
         let supplier = {
           name: props?.order?.supplierName || props.order?.supplierName,
@@ -205,21 +205,21 @@ function Index(props) {
           multiParty: props.data?.multiParty,
           multiPartyName: props.data?.multiPartyName,
           multiPartyAddresses: props.data?.multiPartyAddresses,
-        };
+        }
         if (props.data?.authorisedSignatoryDetails.length > 0) {
-          let tempArr = props.data?.authorisedSignatoryDetails;
-          let optionArray = [...options];
+          let tempArr = props.data?.authorisedSignatoryDetails
+          let optionArray = [...options]
           tempArr.forEach((val, index) => {
-            val.actions = 'true';
+            val.actions = 'true'
             if (tempArr?.length > 0) {
-              let index = optionArray.indexOf(val.name);
+              let index = optionArray.indexOf(val.name)
               if (index > -1) {
-                optionArray.splice(index, 1);
+                optionArray.splice(index, 1)
               }
             }
-          });
-          setOptions([...optionArray]);
-          setList(tempArr);
+          })
+          setOptions([...optionArray])
+          setList(tempArr)
         } else {
           setList([
             {
@@ -230,78 +230,78 @@ function Index(props) {
               actions: 'false',
               addnew: 'false',
             },
-          ]);
+          ])
         }
 
         console.log(
           props.data?.authorisedSignatoryDetails,
           'savedData.authorisedSignatoryDetails',
-        );
+        )
 
         //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
-        setAddressList(props.data?.addresses);
-        setMultiList(props.data?.multiPartyAddresses);
-        setSupplierState(supplier);
+        setAddressList(props.data?.addresses)
+        setMultiList(props.data?.multiPartyAddresses)
+        setSupplierState(supplier)
       }
     }
-  }, [props.data]);
-  console.log(list, 'props23424234');
+  }, [props.data])
+  console.log(list, 'props23424234')
   useEffect(() => {
-    if(getPincodesMasterData.length > 0) {
+    if (getPincodesMasterData.length > 0) {
       setToShow(getPincodesMasterData)
       setToView(true)
-      
-    }else{
-       setToShow([])
-       setToView(false)
+
+    } else {
+      setToShow([])
+      setToView(false)
     }
-  },[getPincodesMasterData])
+  }, [getPincodesMasterData])
   const onEdit = (index) => {
-    let tempArr = list;
+    let tempArr = list
     // tempArr[index].actions.edit="false"
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name);
-          return { ...obj, actions: 'false' };
+          setRemovedOption(obj.name)
+          return { ...obj, actions: 'false' }
         }
 
         // 👇️ otherwise return object as is
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
     // let temp=[...options]
     // var indexOption = temp.indexOf(value.name);
     //  setRemovedOption(value.name)
-  };
+  }
   const onEditRemove = (index, value) => {
-    console.log(value, 'value');
+    console.log(value, 'value')
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'true' }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-    let temp = [...options];
-    var indexOption = temp.indexOf(value.name);
+      return newState
+    })
+    let temp = [...options]
+    var indexOption = temp.indexOf(value.name)
 
-    setRemovedOption(value.name);
+    setRemovedOption(value.name)
     if (indexOption !== -1) {
-      temp.splice(indexOption, 1);
+      temp.splice(indexOption, 1)
     }
-    console.log(temp, 'temp');
-    setOptions([...temp]);
-  };
+    console.log(temp, 'temp')
+    setOptions([...temp])
+  }
   const addMoreRows = () => {
     setList([
       ...list,
@@ -313,17 +313,17 @@ function Index(props) {
         actions: 'false',
         addnew: 'false',
       },
-    ]);
-    setRemovedOption(null);
-  };
+    ])
+    setRemovedOption(null)
+  }
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
       if (index == val.index) {
-        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
+        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)])
       }
-    });
-    setList([...list.slice(0, index), ...list.slice(index + 1)]);
-    setRemovedOption(null);
+    })
+    setList([...list.slice(0, index), ...list.slice(index + 1)])
+    setRemovedOption(null)
 
     if (
       val.name == 'Bhawana Jain' ||
@@ -331,36 +331,36 @@ function Index(props) {
       val.name == 'Devesh Jain' ||
       val.name == 'Fatima Yannoulis'
     ) {
-      let temp = [...options];
-      temp.push(val.name);
-      setOptions([...temp]);
+      let temp = [...options]
+      temp.push(val.name)
+      setOptions([...temp])
     }
-  };
+  }
   const handleInput = (name, value, key) => {
-    const newInput = { ...supplierState };
+    const newInput = { ...supplierState }
     if (key == 'bankName') {
-      newInput.bankDetails[name] = value;
-      setSupplierState(newInput);
+      newInput.bankDetails[name] = value
+      setSupplierState(newInput)
     } else {
-      newInput[name] = value;
-      setSupplierState(newInput);
+      newInput[name] = value
+      setSupplierState(newInput)
     }
-  };
-  console.log(removedOption, 'removedOption');
+  }
+  console.log(removedOption, 'removedOption')
   const removeDoc = (index) => {
-    console.log('removeDOc');
+    console.log('removeDOc')
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' };
+          return { ...obj, attachDoc: '' }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const handleChangeInput = (name, value, index) => {
     let arrayToSave = {
       name: '',
@@ -369,7 +369,7 @@ function Index(props) {
       phoneNo: '',
       actions: 'false',
       addnew: 'false',
-    };
+    }
     if (value == 'addnew') {
       arrayToSave = {
         name: '',
@@ -379,74 +379,74 @@ function Index(props) {
         actions: 'false',
         addnew: 'true',
         document: 'new',
-      };
-      setDocList([...docList, { attachDoc: '', index: index }]);
+      }
+      setDocList([...docList, { attachDoc: '', index: index }])
     } else {
       masterList.forEach((val, index) => {
         if (val.name == value) {
-          arrayToSave.name = val.name;
-          arrayToSave.designation = val.designation;
-          arrayToSave.email = val.email;
-          arrayToSave.phoneNo = val.phoneNo;
+          arrayToSave.name = val.name
+          arrayToSave.designation = val.designation
+          arrayToSave.email = val.email
+          arrayToSave.phoneNo = val.phoneNo
         }
-      });
+      })
     }
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return arrayToSave;
+          return arrayToSave
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: e };
+          return { ...obj, attachDoc: e }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document');
+          console.log(obj.document, 'obj.document')
           if ((obj.document = 'new')) {
-            return { ...obj, document: e };
+            return { ...obj, document: e }
           }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name2]: value };
+          return { ...obj, [name2]: value }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const handleAddressInput = () => {
     if (props.addressValidation(addressType, newAddress, false)) {
-      setAddressList((current) => [...current, newAddress]);
+      setAddressList((current) => [...current, newAddress])
 
       setNewAddress({
         addressType: 'Registered',
@@ -456,64 +456,64 @@ function Index(props) {
         gstin: '',
         state: '',
         city: '',
-      });
-      setAddressType('Registered');
+      })
+      setAddressType('Registered')
     }
-  };
+  }
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ]);
-  };
-  const handleData=(name,value)=>{
-    const newInput = { ...newAddress };
-    newInput[name] = value.Pincode;
-   newInput.country = "India";
-    newInput.city = value.City;
-    newInput.state = value.State;
-    setNewAddress(newInput);
+    ])
+  }
+  const handleData = (name, value) => {
+    const newInput = { ...newAddress }
+    newInput[name] = value.Pincode
+    newInput.country = 'India'
+    newInput.city = value.City
+    newInput.state = value.State
+    setNewAddress(newInput)
     setToView(false)
   }
-  const handleDataEdit=(name,value)=>{
-    const newInput = { ...EditAddress };
-    newInput[name] = value.Pincode;
-    newInput.country = "India";
-    newInput.city = value.City;
-    newInput.state = value.State;
-    setEditAddress(newInput);
+  const handleDataEdit = (name, value) => {
+    const newInput = { ...EditAddress }
+    newInput[name] = value.Pincode
+    newInput.country = 'India'
+    newInput.city = value.City
+    newInput.state = value.State
+    setEditAddress(newInput)
     setToView(false)
   }
-  const handleDataMines=(name,value)=>{
-    const newInput = { ...newMultiAddress };
-    newInput[name] = value.Pincode;
-    newInput.country = "India";
-    newInput.city = value.City;
-    newInput.state = value.State;
-    setNewMultiAddress(newInput);
+  const handleDataMines = (name, value) => {
+    const newInput = { ...newMultiAddress }
+    newInput[name] = value.Pincode
+    newInput.country = 'India'
+    newInput.city = value.City
+    newInput.state = value.State
+    setNewMultiAddress(newInput)
     setToView(false)
   }
-    const handleDataEditMines=(name,value)=>{
-    const newInput = { ...MultiEditAddress };
-    newInput[name] = value.Pincode;
-    newInput.country = "India";
-    newInput.city = value.City;
-    newInput.state = value.State;
-    setMultiEditAddress(newInput);
+  const handleDataEditMines = (name, value) => {
+    const newInput = { ...MultiEditAddress }
+    newInput[name] = value.Pincode
+    newInput.country = 'India'
+    newInput.city = value.City
+    newInput.state = value.State
+    setMultiEditAddress(newInput)
     setToView(false)
   }
   const setAddress = (name, value) => {
-    const newInput = { ...newAddress };
-    newInput[name] = value;
-    setNewAddress(newInput);
-  };
-  const [isEdit, setIsEdit] = useState(false);
-  const [toEditIndex, setToEditIndex] = useState(0);
+    const newInput = { ...newAddress }
+    newInput[name] = value
+    setNewAddress(newInput)
+  }
+  const [isEdit, setIsEdit] = useState(false)
+  const [toEditIndex, setToEditIndex] = useState(0)
   const handleEditAddressInput = (index, val) => {
-    setIsEdit(true);
-    setToEditIndex(index);
-    setAddressEditType(val);
-    let tempArr = addressList;
+    setIsEdit(true)
+    setToEditIndex(index)
+    setAddressEditType(val)
+    let tempArr = addressList
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -525,18 +525,18 @@ function Index(props) {
           gstin: val.gstin,
           state: val.state,
           city: val.city,
-        });
+        })
       }
-    });
-  };
+    })
+  }
   const editNewAddress = (name, value) => {
-    setIsEdit(true);
-    const newInput = { ...EditAddress };
-    newInput[name] = value;
-    setEditAddress(newInput);
-  };
+    setIsEdit(true)
+    const newInput = { ...EditAddress }
+    newInput[name] = value
+    setEditAddress(newInput)
+  }
   const cancelEditAddress = () => {
-    setIsEdit(false);
+    setIsEdit(false)
     setEditAddress({
       addressType: '',
       fullAddress: '',
@@ -545,8 +545,8 @@ function Index(props) {
       gstin: '',
       state: '',
       city: '',
-    });
-  };
+    })
+  }
   const cancelAddress = () => {
     setNewAddress({
       addressType: 'Registered',
@@ -556,8 +556,8 @@ function Index(props) {
       gstin: '',
       state: '',
       city: '',
-    });
-    setAddressType('Registered');
+    })
+    setAddressType('Registered')
     setNewMultiAddress({
       addressType: '',
       fullAddress: '',
@@ -566,25 +566,25 @@ function Index(props) {
       gstin: '',
       state: '',
       city: '',
-    });
-    setMultiAddressType('Registered');
-  };
+    })
+    setMultiAddressType('Registered')
+  }
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex);
+      console.log(EditAddress, 'EditAddress', toEditIndex)
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here');
-            return EditAddress;
+            console.log('here')
+            return EditAddress
           }
           // 👇️ otherwise return object as is
-          return obj;
-        });
+          return obj
+        })
 
-        return newState;
-      });
-      setIsEdit(false);
+        return newState
+      })
+      setIsEdit(false)
       setEditAddress({
         addressType: '',
         fullAddress: '',
@@ -593,15 +593,15 @@ function Index(props) {
         gstin: '',
         state: '',
         city: '',
-      });
+      })
     }
-  };
+  }
 
   //multi address
 
   const handleAddressMultiInput = () => {
     if (props.addressValidation2(addressMutliType, newMultiAddress, false)) {
-      setMultiList((current) => [...current, newMultiAddress]);
+      setMultiList((current) => [...current, newMultiAddress])
 
       setNewMultiAddress({
         addressType: 'Registered',
@@ -611,24 +611,24 @@ function Index(props) {
         gstin: '',
         state: '',
         city: '',
-      });
+      })
     }
-  };
+  }
   const onAddressMultiRemove = (index) => {
-    setMultiList([...multiList.slice(0, index), ...multiList.slice(index + 1)]);
-  };
+    setMultiList([...multiList.slice(0, index), ...multiList.slice(index + 1)])
+  }
   const setMultiAddress = (name, value) => {
-    const newInput = { ...newMultiAddress };
-    newInput[name] = value;
-    setNewMultiAddress(newInput);
-  };
-  const [isEditMulti, setIsEditMulti] = useState(false);
-  const [toEditIndexMulti, setToEditIndexMulti] = useState(0);
+    const newInput = { ...newMultiAddress }
+    newInput[name] = value
+    setNewMultiAddress(newInput)
+  }
+  const [isEditMulti, setIsEditMulti] = useState(false)
+  const [toEditIndexMulti, setToEditIndexMulti] = useState(0)
   const handleEditAddressMuliInput = (index, val) => {
-    setMultiAddressType(val);
-    setIsEditMulti(true);
-    setToEditIndexMulti(index);
-    let tempArr = multiList;
+    setMultiAddressType(val)
+    setIsEditMulti(true)
+    setToEditIndexMulti(index)
+    let tempArr = multiList
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -640,18 +640,18 @@ function Index(props) {
           gstin: val.gstin,
           state: val.state,
           city: val.city,
-        });
+        })
       }
-    });
-  };
+    })
+  }
   const editNewMultiAddress = (name, value) => {
-    setIsEditMulti(true);
-    const newInput = { ...MultiEditAddress };
-    newInput[name] = value;
-    setMultiEditAddress(newInput);
-  };
+    setIsEditMulti(true)
+    const newInput = { ...MultiEditAddress }
+    newInput[name] = value
+    setMultiEditAddress(newInput)
+  }
   const cancelEditMultiAddress = () => {
-    setIsEditMulti(false);
+    setIsEditMulti(false)
     setMultiEditAddress({
       addressType: '',
       fullAddress: '',
@@ -660,22 +660,22 @@ function Index(props) {
       gstin: '',
       state: '',
       city: '',
-    });
-  };
+    })
+  }
   const saveNewMultiAddress = () => {
     setMultiList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == toEditIndex) {
-          console.log('here');
-          return MultiEditAddress;
+          console.log('here')
+          return MultiEditAddress
         }
         // 👇️ otherwise return object as is
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-    setIsEditMulti(false);
+      return newState
+    })
+    setIsEditMulti(false)
     setMultiEditAddress({
       addressType: '',
       fullAddress: '',
@@ -684,9 +684,9 @@ function Index(props) {
       gstin: '',
       state: '',
       city: '',
-    });
-  };
-  console.log(addressMutliType, 'addressMutliType');
+    })
+  }
+  console.log(addressMutliType, 'addressMutliType')
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -702,7 +702,7 @@ function Index(props) {
                 name="name"
                 value={supplierState.name}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value);
+                  handleInput(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -723,7 +723,7 @@ function Index(props) {
                 name="shortName"
                 value={supplierState.shortName}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value);
+                  handleInput(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -743,7 +743,7 @@ function Index(props) {
                 name="bankName"
                 value={supplierState.bankDetails.bankName}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value, 'bankName');
+                  handleInput(e.target.name, e.target.value, 'bankName')
                 }}
               />
               <label className={`${styles.label_heading} label_heading`}>
@@ -765,12 +765,12 @@ function Index(props) {
                 name="accountNo"
                 value={supplierState.bankDetails.accountNo}
                 onChange={(e) => {
-                  let temp = e.target.value.replace(/[^\w\s]/gi, '');
+                  let temp = e.target.value.replace(/[^\w\s]/gi, '')
                   if (temp == '_') {
-                    temp = '';
+                    temp = ''
                   }
 
-                  handleInput(e.target.name, temp, 'bankName');
+                  handleInput(e.target.name, temp, 'bankName')
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -785,12 +785,12 @@ function Index(props) {
                 name="swiftCode"
                 value={supplierState.bankDetails.swiftCode}
                 onChange={(e) => {
-                  let temp = e.target.value.replace(/[^\w\s]/gi, '');
+                  let temp = e.target.value.replace(/[^\w\s]/gi, '')
                   if (temp == '_') {
-                    temp = '';
+                    temp = ''
                   }
-                  console.log(temp, '____');
-                  handleInput(e.target.name, temp, 'bankName');
+                  console.log(temp, '____')
+                  handleInput(e.target.name, temp, 'bankName')
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -805,7 +805,7 @@ function Index(props) {
                 name="city"
                 value={supplierState.bankDetails.city}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value, 'bankName');
+                  handleInput(e.target.name, e.target.value, 'bankName')
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -835,7 +835,7 @@ function Index(props) {
                     <div
                       className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                       onClick={() => {
-                        handleEditAddressInput(index, val.addressType);
+                        handleEditAddressInput(index, val.addressType)
                       }}
                     >
                       <img
@@ -847,7 +847,7 @@ function Index(props) {
                     <div
                       className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                       onClick={() => {
-                        onAddressRemove(index);
+                        onAddressRemove(index)
                       }}
                     >
                       <img
@@ -858,7 +858,7 @@ function Index(props) {
                     </div>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -876,7 +876,6 @@ function Index(props) {
             dispatch,
             toShow,
             toView
-            
           )}
         {isEdit == false && (
           <div
@@ -897,14 +896,14 @@ function Index(props) {
                       value={addressType}
                       onChange={(e) => {
                         // setMultiAddressType(e.target.value)
-                        setAddressType(e.target.value);
-                        setAddress(e.target.name, e.target.value);
+                        setAddressType(e.target.value)
+                        setAddress(e.target.name, e.target.value)
                       }}
                     >
                       <option disabled>Select an option</option>
                       <option value="Registered">Registered Office</option>
-                      <option value="Branch">Branch </option>
-                      <option value="Supplier">Supplier Address </option>
+                      <option value="Branch">Branch</option>
+                      <option value="Supplier">Supplier Address</option>
                     </select>
                     <Form.Label
                       className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -930,7 +929,7 @@ function Index(props) {
                         name="fullAddress"
                         value={newAddress.fullAddress}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
                       <Form.Label
@@ -952,25 +951,25 @@ function Index(props) {
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           dispatch(getPincodes(e.target.value))
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
-                      {toShow.length>0 && toView &&  (
+                      {toShow.length > 0 && toView && (
                         <div className={styles.searchResults}>
                           <ul>
                             {toShow
                               ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
+                                (results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ),
+                              )
                               : ''}
                           </ul>
                         </div>
@@ -996,7 +995,7 @@ function Index(props) {
                         value={newAddress.country}
                         name="country"
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                         onKeyDown={(evt) =>
                           [
@@ -1066,25 +1065,25 @@ function Index(props) {
 
                         onChange={(e) => {
                           dispatch(getPincodes(e.target.value))
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
-                       {toShow.length>0 && toView &&  (
+                      {toShow.length > 0 && toView && (
                         <div className={styles.searchResults}>
                           <ul>
                             {toShow
                               ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
+                                (results, index) => (
+                                  <li
+                                    onClick={() => handleData('pinCode', results)}
+                                    id={results._id}
+                                    key={index}
+                                    value={results.Pincode}
+                                  >
+                                    {results.Pincode}{' '}
+                                  </li>
+                                ),
+                              )
                               : ''}
                           </ul>
                         </div>
@@ -1110,7 +1109,7 @@ function Index(props) {
                         name="country"
                         value={newAddress.country}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                         onKeyDown={(evt) =>
                           [
@@ -1143,7 +1142,7 @@ function Index(props) {
                         name="state"
                         value={newAddress.state}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
                       <Form.Label
@@ -1162,7 +1161,7 @@ function Index(props) {
                         name="city"
                         value={newAddress.city}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
                       <Form.Label
@@ -1181,7 +1180,7 @@ function Index(props) {
                         name="fullAddress"
                         value={newAddress.fullAddress}
                         onChange={(e) => {
-                          setAddress(e.target.name, e.target.value);
+                          setAddress(e.target.name, e.target.value)
                         }}
                       />
                       <Form.Label
@@ -1197,7 +1196,7 @@ function Index(props) {
                 <div
                   className={`${styles.add} d-flex justify-content-center align-items-center`}
                   onClick={() => {
-                    handleAddressInput();
+                    handleAddressInput()
                   }}
                 >
                   <span>Add</span>
@@ -1205,7 +1204,7 @@ function Index(props) {
                 <div
                   className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                   onClick={() => {
-                    cancelAddress();
+                    cancelAddress()
                   }}
                 >
                   <span>Cancel</span>
@@ -1251,224 +1250,224 @@ function Index(props) {
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length > 0 &&
-                      list.map((val, index) => {
-                        return (
-                          <>
-                            {val.actions == 'true' ? (
-                              <tr key={index} className="table_row">
-                                <td>{val.name}</td>
-                                <td>{val.designation}</td>
-                                <td>{val.email}</td>
-                                <td>{val.phoneNo}</td>
-                                <td className={`d-flex`}>
-                                  <img
-                                    className={`${styles.image} mr-3`}
-                                    onClick={() => onEdit(index)}
-                                    src="/static/mode_edit.svg"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    onClick={() => handleRemove(index, val)}
-                                    src="/static/delete 2.svg"
-                                    alt="delete"
-                                  />
-                                </td>
-                              </tr>
-                            ) : (
-                              <tr key={index} className="table_row">
-                                <td>
-                                  {val.addnew == 'false' ? (
-                                    <>
-                                      <select
-                                        value={val.name}
-                                        className={`${styles.customSelect} input`}
-                                        onChange={(e) => {
-                                          setRemovedOption(e.target.value);
-                                          handleChangeInput(
-                                            e.target.name,
-                                            e.target.value,
-                                            index,
-                                          );
-                                        }}
-                                      >
-                                        <option>Select an option</option>
-                                        {removedOption != null ? (
-                                          <option value={removedOption}>
-                                            {removedOption}
-                                          </option>
-                                        ) : null}
-                                        {options.map((val, i) => {
-                                          return (
-                                            <option value={val}>{val}</option>
-                                          );
-                                        })}
-
-                                        <option value={'addnew'}>
-                                          {'Add New'}
+                  {list.length > 0 &&
+                    list.map((val, index) => {
+                      return (
+                        <>
+                          {val.actions == 'true' ? (
+                            <tr key={index} className="table_row">
+                              <td>{val.name}</td>
+                              <td>{val.designation}</td>
+                              <td>{val.email}</td>
+                              <td>{val.phoneNo}</td>
+                              <td className={`d-flex`}>
+                                <img
+                                  className={`${styles.image} mr-3`}
+                                  onClick={() => onEdit(index)}
+                                  src="/static/mode_edit.svg"
+                                  alt="edit"
+                                />
+                                <img
+                                  onClick={() => handleRemove(index, val)}
+                                  src="/static/delete 2.svg"
+                                  alt="delete"
+                                />
+                              </td>
+                            </tr>
+                          ) : (
+                            <tr key={index} className="table_row">
+                              <td>
+                                {val.addnew == 'false' ? (
+                                  <>
+                                    <select
+                                      value={val.name}
+                                      className={`${styles.customSelect} input`}
+                                      onChange={(e) => {
+                                        setRemovedOption(e.target.value)
+                                        handleChangeInput(
+                                          e.target.name,
+                                          e.target.value,
+                                          index,
+                                        )
+                                      }}
+                                    >
+                                      <option>Select an option</option>
+                                      {removedOption != null ? (
+                                        <option value={removedOption}>
+                                          {removedOption}
                                         </option>
-                                      </select>
-                                      <img
-                                        className={`${styles.arrow2} image_arrow img-fluid`}
-                                        src="/static/inputDropDown.svg"
-                                        alt="Search"
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
-                                        <>
-                                          <select
-                                            value={val.name}
-                                            className={`${styles.customSelect} input`}
-                                            onChange={(e) => {
-                                              handleChangeInput(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
-                                            }}
-                                          >
-                                            <option>Select an option</option>
-                                            <option value={'Vipin Kumar'}>
-                                              Vipin Kumar
-                                            </option>
-                                            <option value={'Bhawana Jain'}>
-                                              Bhawana Jain
-                                            </option>
-                                            <option value={'Devesh Jain'}>
-                                              Devesh Jain
-                                            </option>
-                                            <option value={'Fatima Yannoulis'}>
-                                              Fatima Yannoulis
-                                            </option>
+                                      ) : null}
+                                      {options.map((val, i) => {
+                                        return (
+                                          <option value={val}>{val}</option>
+                                        )
+                                      })}
 
-                                            {/* {options.map((val,i)=>{
+                                      <option value={'addnew'}>
+                                        {'Add New'}
+                                      </option>
+                                    </select>
+                                    <img
+                                      className={`${styles.arrow2} image_arrow img-fluid`}
+                                      src="/static/inputDropDown.svg"
+                                      alt="Search"
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    {val.name == 'Vipin Kumar' ||
+                                    val.name == 'Bhawana Jain' ||
+                                    val.name == 'Devesh Jain' ||
+                                    val.name == 'Fatima Yannoulis' ? (
+                                      <>
+                                        <select
+                                          value={val.name}
+                                          className={`${styles.customSelect} input`}
+                                          onChange={(e) => {
+                                            handleChangeInput(
+                                              e.target.name,
+                                              e.target.value,
+                                              index,
+                                            )
+                                          }}
+                                        >
+                                          <option>Select an option</option>
+                                          <option value={'Vipin Kumar'}>
+                                            Vipin Kumar
+                                          </option>
+                                          <option value={'Bhawana Jain'}>
+                                            Bhawana Jain
+                                          </option>
+                                          <option value={'Devesh Jain'}>
+                                            Devesh Jain
+                                          </option>
+                                          <option value={'Fatima Yannoulis'}>
+                                            Fatima Yannoulis
+                                          </option>
+
+                                          {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                            <option value={'addnew'}>
-                                              {'Add New'}
-                                            </option>
-                                          </select>
-                                          <img
-                                            className={`${styles.arrow2} image_arrow img-fluid`}
-                                            src="/static/inputDropDown.svg"
-                                            alt="Search"
-                                          />
-                                        </>
-                                      ) : (
-                                        <>
-                                          <input
-                                            type="text"
-                                            className="input"
-                                            placeholder={'Add new'}
-                                            name="name"
-                                            value={val.name}
-                                            onChange={(e) => {
-                                              handleChangeInput2(
-                                                e.target.name,
-                                                e.target.value,
-                                                index,
-                                              );
-                                            }}
-                                          />
-                                        </>
-                                      )}
-                                    </>
-                                  )}
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    className="input"
-                                    value={val.designation}
-                                    name="designation"
-                                    // readOnly={val.addnew!="true"?true:false}
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
-                                    }}
+                                          <option value={'addnew'}>
+                                            {'Add New'}
+                                          </option>
+                                        </select>
+                                        <img
+                                          className={`${styles.arrow2} image_arrow img-fluid`}
+                                          src="/static/inputDropDown.svg"
+                                          alt="Search"
+                                        />
+                                      </>
+                                    ) : (
+                                      <>
+                                        <input
+                                          type="text"
+                                          className="input"
+                                          placeholder={'Add new'}
+                                          name="name"
+                                          value={val.name}
+                                          onChange={(e) => {
+                                            handleChangeInput2(
+                                              e.target.name,
+                                              e.target.value,
+                                              index,
+                                            )
+                                          }}
+                                        />
+                                      </>
+                                    )}
+                                  </>
+                                )}
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  className="input"
+                                  value={val.designation}
+                                  name="designation"
+                                  // readOnly={val.addnew!="true"?true:false}
+                                  onChange={(e) => {
+                                    handleChangeInput2(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  value={val.email}
+                                  name="email"
+                                  className="input"
+                                  onChange={(e) => {
+                                    handleChangeInput2(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  value={val.phoneNo}
+                                  className="input"
+                                  name="phoneNo"
+                                  type="number"
+                                  onWheel={(event) =>
+                                    event.currentTarget.blur()
+                                  }
+                                  onKeyDown={(evt) =>
+                                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                                    evt.preventDefault()
+                                  }
+                                  onChange={(e) => {
+                                    handleChangeInput2(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }}
+                                />
+                              </td>
+                              <td className={`d-flex`}>
+                                <div
+                                  className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                                  onClick={() => {
+                                    onEditRemove(index, val)
+                                  }}
+                                >
+                                  <img
+                                    className={`${styles.image} mr-3`}
+                                    src="/static/save-3.svg"
+                                    alt="save"
                                   />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    value={val.email}
-                                    name="email"
-                                    className="input"
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
-                                    }}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    value={val.phoneNo}
-                                    className="input"
-                                    name="phoneNo"
-                                    type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
-                                    }}
-                                  />
-                                </td>
-                                <td className={`d-flex`}>
-                                  <div
-                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
-                                    onClick={() => {
-                                      onEditRemove(index, val);
-                                    }}
-                                  >
-                                    <img
-                                      className={`${styles.image} mr-3`}
-                                      src="/static/save-3.svg"
-                                      alt="save"
-                                    />
-                                  </div>
-                                  <div
-                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
-                                    onClick={() => {
-                                      handleRemove(index, val);
-                                    }}
-                                  >
-                                    <img src="/static/delete 2.svg" />
-                                  </div>
-                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                                </div>
+                                <div
+                                  className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                                  onClick={() => {
+                                    handleRemove(index, val)
+                                  }}
+                                >
+                                  <img src="/static/delete 2.svg"/>
+                                </div>
+                                {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
                             <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                                </td>
-                              </tr>
-                            )}
-                          </>
-                        );
-                      })}
+                              </td>
+                            </tr>
+                          )}
+                        </>
+                      )
+                    })}
                   </tbody>
                 </table>
                 <div
                   className={`${styles.addMoreRows}`}
                   onClick={(e) => {
-                    addMoreRows();
+                    addMoreRows()
                   }}
                 >
                   <span>+</span> Add more rows
@@ -1478,7 +1477,6 @@ function Index(props) {
           </div>
         </div>
 
-    
 
         {props.multiPart == true ? (
           <>
@@ -1495,7 +1493,7 @@ function Index(props) {
                     name="multiPartyName"
                     value={supplierState.multiPartyName}
                     onChange={(e) => {
-                      handleInput(e.target.name, e.target.value);
+                      handleInput(e.target.name, e.target.value)
                     }}
                   />
                   <Form.Label
@@ -1540,7 +1538,7 @@ function Index(props) {
                               handleEditAddressMuliInput(
                                 index,
                                 val.addressType,
-                              );
+                              )
                             }}
                           >
                             <img
@@ -1552,7 +1550,7 @@ function Index(props) {
                           <div
                             className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                             onClick={() => {
-                              onAddressMultiRemove(index);
+                              onAddressMultiRemove(index)
                             }}
                           >
                             <img
@@ -1563,7 +1561,7 @@ function Index(props) {
                           </div>
                         </div>
                       </div>
-                    );
+                    )
                   })}
                 </div>
               </div>
@@ -1581,8 +1579,6 @@ function Index(props) {
                   dispatch,
                   toShow,
                   toView
-                  
-                  
                 )}
               <div className={`row`}>
                 {isEditMulti == false && (
@@ -1603,8 +1599,8 @@ function Index(props) {
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             name="addressType"
                             onChange={(e) => {
-                              setMultiAddressType(e.target.value);
-                              setMultiAddress(e.target.name, e.target.value);
+                              setMultiAddressType(e.target.value)
+                              setMultiAddress(e.target.name, e.target.value)
                             }}
                             value={addressMutliType}
                           >
@@ -1612,8 +1608,8 @@ function Index(props) {
                             <option value="Registered">
                               Registered Office
                             </option>
-                            <option value="Branch">Branch </option>
-                            <option value="Supplier">Supplier Address </option>
+                            <option value="Branch">Branch</option>
+                            <option value="Supplier">Supplier Address</option>
                           </select>
                           <Form.Label
                             className={`${styles.label_heading} ${styles.select} label_heading`}
@@ -1641,7 +1637,7 @@ function Index(props) {
                               name="fullAddress"
                               value={newMultiAddress.fullAddress}
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
                             <Form.Label
@@ -1663,29 +1659,29 @@ function Index(props) {
 
                               onChange={(e) => {
                                 dispatch(getPincodes(e.target.value))
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
-                            {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleDataMines("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+                            {toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map(
+                                      (results, index) => (
+                                        <li
+                                          onClick={() => handleDataMines('pinCode', results)}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ),
+                                    )
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                             <Form.Label
                               className={`${styles.label_heading} label_heading`}
                             >
@@ -1707,7 +1703,7 @@ function Index(props) {
                               value={newMultiAddress.country}
                               name="country"
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                               onKeyDown={(evt) =>
                                 [
@@ -1777,29 +1773,29 @@ function Index(props) {
 
                               onChange={(e) => {
                                 dispatch(getPincodes(e.target.value))
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
-                            {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleDataMines("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+                            {toShow.length > 0 && toView && (
+                              <div className={styles.searchResults}>
+                                <ul>
+                                  {toShow
+                                    ? toShow?.map(
+                                      (results, index) => (
+                                        <li
+                                          onClick={() => handleDataMines('pinCode', results)}
+                                          id={results._id}
+                                          key={index}
+                                          value={results.Pincode}
+                                        >
+                                          {results.Pincode}{' '}
+                                        </li>
+                                      ),
+                                    )
+                                    : ''}
+                                </ul>
+                              </div>
+                            )}
                             <Form.Label
                               className={`${styles.label_heading} label_heading`}
                             >
@@ -1821,7 +1817,7 @@ function Index(props) {
                               name="country"
                               value={newMultiAddress.country}
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                               onKeyDown={(evt) =>
                                 [
@@ -1854,7 +1850,7 @@ function Index(props) {
                               name="state"
                               value={newMultiAddress.state}
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
                             <Form.Label
@@ -1873,7 +1869,7 @@ function Index(props) {
                               name="city"
                               value={newMultiAddress.city}
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
                             <Form.Label
@@ -1892,7 +1888,7 @@ function Index(props) {
                               name="fullAddress"
                               value={newMultiAddress.fullAddress}
                               onChange={(e) => {
-                                setMultiAddress(e.target.name, e.target.value);
+                                setMultiAddress(e.target.name, e.target.value)
                               }}
                             />
                             <Form.Label
@@ -1908,7 +1904,7 @@ function Index(props) {
                       <div
                         className={`${styles.add} d-flex justify-content-center align-items-center`}
                         onClick={() => {
-                          handleAddressMultiInput();
+                          handleAddressMultiInput()
                         }}
                       >
                         <span>Add</span>
@@ -1916,7 +1912,7 @@ function Index(props) {
                       <div
                         className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                         onClick={() => {
-                          cancelAddress();
+                          cancelAddress()
                         }}
                       >
                         <span>Cancel</span>
@@ -1930,10 +1926,10 @@ function Index(props) {
         ) : null}
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index
 
 const editData = (
   addressEditType,
@@ -1949,7 +1945,7 @@ const editData = (
   toShow,
   toView
 ) => {
-  console.log(addressEditType, 'addressEditType');
+  console.log(addressEditType, 'addressEditType')
   return (
     <div className={`${styles.newAddressContainer}`}>
       <div className={styles.newAddressHead}>
@@ -1963,14 +1959,14 @@ const editData = (
               name="addressType"
               value={EditAddress.addressType}
               onChange={(e) => {
-                setAddressEditType(e.target.value);
-                editNewAddress(e.target.name, e.target.value);
+                setAddressEditType(e.target.value)
+                editNewAddress(e.target.name, e.target.value)
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered </option>
-              <option value="Branch">Branch </option>
-              <option value="Supplier">Supplier </option>
+              <option value="Registered">Registered</option>
+              <option value="Branch">Branch</option>
+              <option value="Supplier">Supplier</option>
             </select>
             <Form.Label
               className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -1994,7 +1990,7 @@ const editData = (
                 name="fullAddress"
                 value={EditAddress.fullAddress}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -2014,29 +2010,29 @@ const editData = (
 
                 onChange={(e) => {
                   dispatch(getPincodes(e.target.value))
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
-               {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map(
+                        (results, index) => (
+                          <li
+                            onClick={() => handleData('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ),
+                      )
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
@@ -2056,7 +2052,7 @@ const editData = (
                 value={EditAddress.country}
                 name="country"
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
                 onKeyDown={(evt) =>
                   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
@@ -2083,7 +2079,7 @@ const editData = (
                   name="gstin"
                   value={EditAddress.gstin}
                   onChange={(e) => {
-                    editNewAddress(e.target.name, e.target.value);
+                    editNewAddress(e.target.name, e.target.value)
                   }}
                 >
                   <option>Select an option</option>
@@ -2113,30 +2109,30 @@ const editData = (
                 //  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
-                   dispatch(getPincodes(e.target.value))
-                  editNewAddress(e.target.name, e.target.value);
+                  dispatch(getPincodes(e.target.value))
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
-               {toShow.length>0 && toView &&  (
-                        <div className={styles.searchResults}>
-                          <ul>
-                            {toShow
-                              ? toShow?.map(
-                                  (results, index) => (
-                                    <li
-                                      onClick={() => handleData("pinCode",results)}
-                                      id={results._id}
-                                      key={index}
-                                      value={results.Pincode}
-                                    >
-                                      {results.Pincode}{' '}
-                                    </li>
-                                  ),
-                                )
-                              : ''}
-                          </ul>
-                        </div>
-                      )}
+              {toShow.length > 0 && toView && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {toShow
+                      ? toShow?.map(
+                        (results, index) => (
+                          <li
+                            onClick={() => handleData('pinCode', results)}
+                            id={results._id}
+                            key={index}
+                            value={results.Pincode}
+                          >
+                            {results.Pincode}{' '}
+                          </li>
+                        ),
+                      )
+                      : ''}
+                  </ul>
+                </div>
+              )}
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Pin Code<strong className="text-danger">*</strong>
               </Form.Label>
@@ -2154,7 +2150,7 @@ const editData = (
                 name="country"
                 value={EditAddress.country}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
                 onKeyDown={(evt) =>
                   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
@@ -2174,7 +2170,7 @@ const editData = (
                 name="state"
                 value={EditAddress.state}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -2189,7 +2185,7 @@ const editData = (
                 name="city"
                 value={EditAddress.city}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -2204,7 +2200,7 @@ const editData = (
                 name="fullAddress"
                 value={EditAddress.fullAddress}
                 onChange={(e) => {
-                  editNewAddress(e.target.name, e.target.value);
+                  editNewAddress(e.target.name, e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -2218,7 +2214,7 @@ const editData = (
         <div
           className={`${styles.add} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            saveNewAddress();
+            saveNewAddress()
           }}
         >
           <span>Update</span>
@@ -2226,12 +2222,12 @@ const editData = (
         <div
           className={`${styles.cancel} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            cancelEditAddress();
+            cancelEditAddress()
           }}
         >
           <span>Cancel</span>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

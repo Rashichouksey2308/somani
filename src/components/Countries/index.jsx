@@ -1,31 +1,28 @@
-import React from 'react';
-import styles from './index.module.scss';
-import ProgressBar from '@ramonak/react-progress-bar';
-import { checkNan } from '../../utils/helper';
-import { number } from 'prop-types';
+import React from 'react'
+import styles from './index.module.scss'
 
 const Index = (props) => {
-  let backgroundColor = ['#2884DE', '#876EB1', '#4CAF50'];
+  let backgroundColor = ['#2884DE', '#876EB1', '#4CAF50']
   const getPercentage = (value) => {
-    return Number(((Number(value) / Number(props.total)) * 100).toFixed(2));
-  };
+    return Number(((Number(value) / Number(props.total)) * 100).toFixed(2))
+  }
   const getClass = (index) => {
     if (index == 0) {
-      return styles.barCompleted0;
+      return styles.barCompleted0
     }
     if (index == 1) {
-      return styles.barCompleted1;
+      return styles.barCompleted1
     }
     if (index == 2) {
-      return styles.barCompleted2;
+      return styles.barCompleted2
     }
     if (index == 3) {
-      return styles.barCompleted3;
+      return styles.barCompleted3
     }
     if (index == 4) {
-      return styles.barCompleted4;
+      return styles.barCompleted4
     }
-  };
+  }
 
   return (
     <div className={`${styles.main} border card`}>
@@ -78,11 +75,11 @@ const Index = (props) => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

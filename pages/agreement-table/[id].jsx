@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
-import { GetOrders } from '../../src/redux/registerBuyer/action';
-import Filter from '../../src/components/Filter';
+import React from 'react'
+import styles from './index.module.scss'
+import Router from 'next/router'
 
-function Index() {
+function Index () {
   const handleRoute = () => {
-    Router.push('/agreement');
-  };
+    Router.push('/agreement')
+  }
 
   return (
     <div className="container-fluid p-0">
@@ -78,85 +74,85 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />
-                    </th>
-                    <th>COMMODITY</th>
-                    <th>CREATED BY</th>
-                    <th>STATUS</th>
-                  </tr>
+                <tr className="table_row">
+                  <th>
+                    ORDER ID{' '}
+                    <img
+                      className={`mb-1`}
+                      src="/static/icons8-sort-24.svg"
+                      alt="Sort icon"
+                    />
+                  </th>
+                  <th>COMMODITY</th>
+                  <th>CREATED BY</th>
+                  <th>STATUS</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td>12432</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => handleRoute()}
-                    >
-                      Iron
-                    </td>
-                    <td>22-02-2022</td>
-                    <td>
+                <tr className="table_row">
+                  <td>12432</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={() => handleRoute()}
+                  >
+                    Iron
+                  </td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                      Pending
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>12432</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => handleRoute()}
-                    >
-                      Crude Oil
-                    </td>
-                    <td>22-02-2022</td>
-                    <td>
+                    Pending
+                  </td>
+                </tr>
+                <tr className="table_row">
+                  <td>12432</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={() => handleRoute()}
+                  >
+                    Crude Oil
+                  </td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                      Pending
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>12432</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => handleRoute()}
-                    >
-                      Brass
-                    </td>
-                    <td>22-02-2022</td>
-                    <td>
+                    Pending
+                  </td>
+                </tr>
+                <tr className="table_row">
+                  <td>12432</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={() => handleRoute()}
+                  >
+                    Brass
+                  </td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.approved}`}
                       ></span>
-                      Approved
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>12432</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => handleRoute()}
-                    >
-                      Steel
-                    </td>
-                    <td>22-02-2022</td>
-                    <td>
+                    Approved
+                  </td>
+                </tr>
+                <tr className="table_row">
+                  <td>12432</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={() => handleRoute()}
+                  >
+                    Steel
+                  </td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                      Pending
-                    </td>
-                  </tr>
+                    Pending
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -164,6 +160,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

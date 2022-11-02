@@ -1,37 +1,37 @@
-import React from 'react';
-import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import React from 'react'
+import { Button, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 
-import Config from '../../utils/config';
-import Image from '../ImageComponent';
+import Config from '../../utils/config'
+import Image from '../ImageComponent'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as sessionActions from '../../redux/authentication/actions';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as sessionActions from '../../redux/authentication/actions'
 
-import '../../assets/css/components/login.css';
+import '../../assets/css/components/login.css'
 
 class ForgotPassword extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       mobileNo: '',
-    };
+    }
   }
 
   handleChange = (e) => {
-    e.preventDefault();
-    let state = { ...this.state };
-    state[e.target.name] = e.target.value;
-    this.setState({ ...state });
-  };
+    e.preventDefault()
+    let state = { ...this.state }
+    state[e.target.name] = e.target.value
+    this.setState({ ...state })
+  }
   handleSubmit = (e) => {
-    e.preventDefault();
-    let state = this.state;
-    this.props.actions.forgotPassword(state);
-  };
+    e.preventDefault()
+    let state = this.state
+    this.props.actions.forgotPassword(state)
+  }
 
-  render() {
-    let { mobileNo } = this.state;
+  render () {
+    let { mobileNo } = this.state
     return (
       <div className="backgroundImg d-flex justify-content-center align-items-center full-height">
         <Col sm={5}>
@@ -78,14 +78,14 @@ class ForgotPassword extends React.Component {
           </div>
         </Col>
       </div>
-    );
+    )
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators(sessionActions, dispatch),
-  };
+  }
 }
 
-export default connect(null, mapDispatchToProps)(ForgotPassword);
+export default connect(null, mapDispatchToProps)(ForgotPassword)

@@ -1,80 +1,81 @@
-import * as types from './actionType';
-import API from '../../utils/endpoints';
-import Axios from 'axios';
-import Router from 'next/router';
-import Cookies from 'js-cookie';
-import { toast } from 'react-toastify';
-import { setIsLoading, setNotLoading } from '../Loaders/action';
-function placeNewOrder() {
+import * as types from './actionType'
+import API from '../../utils/endpoints'
+import Axios from 'axios'
+import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
+import { setIsLoading, setNotLoading } from '../Loaders/action'
+
+function placeNewOrder () {
   return {
     type: types.PLACE_ORDER,
-  };
+  }
 }
 
-function placeNewOrderSuccess(payload) {
+function placeNewOrderSuccess (payload) {
   return {
     type: types.PLACE_ORDER_SUCCESSFULL,
     payload,
-  };
+  }
 }
 
-function placeNewOrderFailed() {
+function placeNewOrderFailed () {
   return {
     type: types.PLACE_ORDER_FAILED,
-  };
+  }
 }
-function placeorderRouted() {
+
+function placeorderRouted () {
   return {
     type: types.PLACED_ORDER_ROUTED,
-  };
+  }
 }
 
 export const PlaceNewOrderRouted =
   (payload) => async (dispatch, getState, api) => {
-    dispatch(placeorderRouted());
-  };
+    dispatch(placeorderRouted())
+  }
 
 export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
-  dispatch(setIsLoading());
-  dispatch(placeNewOrder());
+  dispatch(setIsLoading())
+  dispatch(placeNewOrder())
 
-  let cookie = Cookies.get('SOMANI');
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
     'Access-Control-Allow-Origin': '*',
-  };
+  }
   try {
     Axios.post(`${API.corebaseUrl}${API.newOrder}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        dispatch(placeNewOrderSuccess(response.data.data));
+        dispatch(placeNewOrderSuccess(response.data.data))
 
-        let toastMessage = 'ORDER PLACED';
+        let toastMessage = 'ORDER PLACED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
         // Router.push('/order-list')
       } else {
-        dispatch(placeNewOrderFailed(response.data.data));
-        let toastMessage = 'FAILED TO PLACE NEW ORDER';
+        dispatch(placeNewOrderFailed(response.data.data))
+        let toastMessage = 'FAILED TO PLACE NEW ORDER'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        dispatch(setNotLoading());
+        dispatch(setNotLoading())
       }
-    });
+    })
   } catch (error) {
-    dispatch(placeNewOrderFailed());
-    let toastMessage = error.message;
+    dispatch(placeNewOrderFailed())
+    let toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
-    dispatch(setNotLoading());
+    dispatch(setNotLoading())
   }
-};
+}

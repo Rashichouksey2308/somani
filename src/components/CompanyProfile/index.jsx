@@ -1,11 +1,10 @@
-import React from 'react';
-import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { CovertvaluefromtoCR } from '../../utils/helper';
+import React from 'react'
+import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
-function Index() {
-  const { buyerList } = useSelector((state) => state.buyer);
+function Index () {
+  const { buyerList } = useSelector((state) => state.buyer)
   // console.log(buyerList, "this is buyer list")
   return (
     <div className={`${styles.wrapper} card border_color`}>
@@ -49,8 +48,8 @@ function Index() {
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
             : buyerList?.order?.unitOfValue == 'Million'
-            ? 'Mn'
-            : buyerList?.order?.unitOfValue,
+              ? 'Mn'
+              : buyerList?.order?.unitOfValue,
         )}
         {fields('Email ID', buyerList?.company?.email ?? '')}
 
@@ -70,10 +69,10 @@ function Index() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index
 const fields = (head, value, countryCode, value3 = '') => {
   return (
     <>
@@ -88,5 +87,5 @@ const fields = (head, value, countryCode, value3 = '') => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

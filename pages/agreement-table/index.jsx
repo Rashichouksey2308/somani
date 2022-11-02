@@ -1,98 +1,92 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { getGenericData } from '../../src/redux/generic/actionsType';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getGenericData } from '../../src/redux/generic/actionsType'
 
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
-function Index(props) {
+function Index (props) {
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0)
+  const [serachterm, setSearchTerm] = useState('')
 
-  const dispatch = useDispatch();
-  const [genData, setData] = useState([]);
-  const [total, setTotal] = useState([]);
-  const [sorting, setSorting] = useState(1);
+  const dispatch = useDispatch()
+  const [genData, setData] = useState([])
+  const [total, setTotal] = useState([])
+  const [sorting, setSorting] = useState(1)
 
-  const { generic } = useSelector((state) => state.generic.allGeneric);
+  const { generic } = useSelector((state) => state.generic.allGeneric)
 
-  const { searchedLeads } = useSelector((state) => state.order);
-
-
+  const { searchedLeads } = useSelector((state) => state.order)
 
   useEffect(() => {
-    dispatch(setPageName('agreement'));
-    dispatch(setDynamicName(null));
-    dispatch(setDynamicOrder(null));
-  });
+    dispatch(setPageName('agreement'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
+  })
   useEffect(() => {
-    getDate();
-  }, [currentPage, dispatch]);
+    getDate()
+  }, [currentPage, dispatch])
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Agreement & Lc Module');
-      sessionStorage.setItem('loadedSubPage', `Agreement`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('loadedPage', 'Agreement & Lc Module')
+      sessionStorage.setItem('loadedSubPage', `Agreement`)
+      sessionStorage.setItem('openList', 2)
     }
-  }, []);
+  }, [])
 
   const getDate = async () => {
-    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
+    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
 
-    setData(data?.data);
-    setTotal(data?.totalCount);
-  };
+    setData(data?.data)
+    setTotal(data?.totalCount)
+  }
 
   const handleSort = async () => {
     if (sorting == -1) {
       let data = await dispatch(
         getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
-      setData(data.data);
-      setTotal(data.totalCount);
-      setSorting(1);
+      )
+      setData(data.data)
+      setTotal(data.totalCount)
+      setSorting(1)
     } else if (sorting == 1) {
       let data = await dispatch(
         getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
-      setData(data.data);
-      setTotal(data.totalCount);
-      setSorting(-1);
+      )
+      setData(data.data)
+      setTotal(data.totalCount)
+      setSorting(-1)
     }
-  };
+  }
   const handleRoute = (term) => {
-;
-    sessionStorage.setItem('genericSelected', JSON.stringify(term));
-    Router.push('/agreement');
-    dispatch(setDynamicName(term.company.companyName));
-    dispatch(setDynamicOrder(term.order.orderId));
+
+    sessionStorage.setItem('genericSelected', JSON.stringify(term))
+    Router.push('/agreement')
+    dispatch(setDynamicName(term.company.companyName))
+    dispatch(setDynamicOrder(term.order.orderId))
     // Router.push('/lc-module')
-  };
+  }
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
 
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(getGenericData(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(getGenericData(`?company=${id}`))
+  }
 
   return (
     <>
@@ -153,9 +147,9 @@ function Index(props) {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
+                      return
                     } else {
-                      setCurrentPage((prevState) => prevState - 1);
+                      setCurrentPage((prevState) => prevState - 1)
                     }
                   }}
                   href="#"
@@ -171,7 +165,7 @@ function Index(props) {
                 <a
                   onClick={() => {
                     if (currentPage + 1 < Math.ceil(total / 10)) {
-                      setCurrentPage((prevState) => prevState + 1);
+                      setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
                   href="#"
@@ -194,50 +188,50 @@ function Index(props) {
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img
-                          onClick={() => handleSort()}
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                        />
-                      </th>
-                      <th>BUYER NAME </th>
-                      <th>STATUS </th>
-                      <th>Customer ID</th>
-                    </tr>
+                  <tr className="table_row">
+                    <th>
+                      ORDER ID{' '}
+                      <img
+                        onClick={() => handleSort()}
+                        className={`mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                      />
+                    </th>
+                    <th>BUYER NAME</th>
+                    <th>STATUS</th>
+                    <th>Customer ID</th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {genData?.length > 0 &&
-                      genData?.map((term, index) => (
-                        <tr Key={index} className="table_row">
-                          <td>{term?.order.orderId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => handleRoute(term)}
-                          >
-                            {term?.company?.companyName}
-                          </td>
+                  {genData?.length > 0 &&
+                    genData?.map((term, index) => (
+                      <tr Key={index} className="table_row">
+                        <td>{term?.order.orderId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => handleRoute(term)}
+                        >
+                          {term?.company?.companyName}
+                        </td>
 
-                          <td>
+                        <td>
                             <span
                               className={`${styles.status} ${
                                 term.order.termsheet.status === 'Rejected'
                                   ? styles.rejected
                                   : term.order.termsheet.status === 'Review'
-                                  ? styles.review
-                                  : term.order.termsheet.status === 'Approved'
-                                  ? styles.approved
-                                  : styles.rejected
+                                    ? styles.review
+                                    : term.order.termsheet.status === 'Approved'
+                                      ? styles.approved
+                                      : styles.rejected
                               }`}
                             ></span>
 
-                            {term.order.termsheet.status}
-                          </td>
-                          <td>{term?.company.customerId}</td>
-                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                          {/* <td>
+                          {term.order.termsheet.status}
+                        </td>
+                        <td>{term?.company.customerId}</td>
+                        {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
+                        {/* <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
                             ? styles.review
@@ -253,8 +247,8 @@ function Index(props) {
                             ? 'Approved'
                             : 'Rejected'}
                       </td> */}
-                        </tr>
-                      ))}
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -263,7 +257,7 @@ function Index(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

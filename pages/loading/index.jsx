@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import TableMain from '../../src/components/TableMain';
-import Router from 'next/router';
-import Filter from '../../src/components/Filter';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
-function Index() {
-  const dispatch = useDispatch();
+import React, { useEffect } from 'react'
+import styles from './index.module.scss'
+import TableMain from '../../src/components/TableMain'
+import Filter from '../../src/components/Filter'
+import { useDispatch } from 'react-redux'
+import { setDynamicName, setPageName } from '../../src/redux/userData/action'
+
+function Index () {
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setPageName('loading'));
-    dispatch(setDynamicName(null));
-  });
+    dispatch(setPageName('loading'))
+    dispatch(setDynamicName(null))
+  })
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -44,7 +43,7 @@ function Index() {
               />
             </div>
           </div>
-          <Filter />
+          <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -130,6 +129,7 @@ function Index() {
         />
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

@@ -1,56 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Row, Col, Container, Card } from 'react-bootstrap';
-import LCAmendBar from '../LCAmendBar';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import _get from 'lodash/get';
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-import { GetLcModule } from 'redux/lcModule/action';
-import moment from 'moment';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Card, Col, Row } from 'react-bootstrap'
+import LCAmendBar from '../LCAmendBar'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import _get from 'lodash/get'
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
+import { GetLcModule } from 'redux/lcModule/action'
+import moment from 'moment'
+import Modal from 'react-bootstrap/Modal'
 
-function Index() {
-  const dispatch = useDispatch();
+function Index () {
+  const dispatch = useDispatch()
 
-  let d = new Date();
+  let d = new Date()
 
   useEffect(() => {
-    let id = sessionStorage.getItem('lcPreviewId');
-    dispatch(GetLcModule(`?lcModuleId=${id}`));
-  }, [dispatch]);
+    let id = sessionStorage.getItem('lcPreviewId')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
 
-  const { lcModule } = useSelector((state) => state.lc);
+  const { lcModule } = useSelector((state) => state.lc)
 
-  let lcModuleData = _get(lcModule, 'data[0]', {});
+  let lcModuleData = _get(lcModule, 'data[0]', {})
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ]);
+  ])
   const addMoreRows = () => {
     setEmailAdd([
       ...emailAdd,
       {
         emailID: '',
       },
-    ]);
-  };
+    ])
+  }
   // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
 
   const handlePopup = () => {
-    setShow(true);
-  };
+    setShow(true)
+  }
   useEffect(() => {
-    let id = sessionStorage.getItem('lcAmmend');
-    dispatch(GetLcModule(`?lcModuleId=${id}`));
-  }, [dispatch]);
+    let id = sessionStorage.getItem('lcAmmend')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -92,7 +92,7 @@ function Index() {
                         {lcModuleData?.order?.orderId}
                       </span>
                     </span>
-                    <br />
+                    <br/>
                     <span
                       style={{
                         fontSize: '20px',
@@ -157,7 +157,7 @@ function Index() {
                         {lcModuleData?.lcApplication?.documentaryCreditNumber}
                       </span>
                     </span>
-                    <br />
+                    <br/>
                     <span
                       style={{
                         fontSize: '20px',
@@ -216,26 +216,26 @@ function Index() {
                       border="0"
                     >
                       <tbody>
-                        <tr>
-                          <td
-                            width="40%"
-                            align="left"
+                      <tr>
+                        <td
+                          width="40%"
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
                               <span
                                 style={{
                                   display: 'inline-block',
@@ -248,50 +248,50 @@ function Index() {
                               >
                                 40A
                               </span>
-                              FORM OF DOCUMENTARY CREDIT
-                            </p>
-                          </td>
-                          <td
-                            width="60%"
-                            align="left"
+                            FORM OF DOCUMENTARY CREDIT
+                          </p>
+                        </td>
+                        <td
+                          width="60%"
+                          align="left"
+                          style={{
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
+                            {lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
                               <span
                                 style={{
                                   display: 'inline-block',
@@ -304,49 +304,49 @@ function Index() {
                               >
                                 40E
                               </span>
-                              APPLICABLE RULES
-                            </p>
-                          </td>
-                          <td
-                            align="left"
+                            APPLICABLE RULES
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
+                            {lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
                               <span
                                 style={{
                                   display: 'inline-block',
@@ -359,51 +359,51 @@ function Index() {
                               >
                                 31D
                               </span>
-                              DATE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
+                            DATE OF EXPIRY
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {moment(
-                                lcModuleData?.lcApplication?.dateOfExpiry,
-                              ).format('DD-MM-YYYY')}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
+                            {moment(
+                              lcModuleData?.lcApplication?.dateOfExpiry,
+                            ).format('DD-MM-YYYY')}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
                               <span
                                 style={{
                                   display: 'inline-block',
@@ -416,47 +416,47 @@ function Index() {
                               >
                                 31D
                               </span>
-                              PLACE OF EXPIRY
-                            </p>
-                          </td>
-                          <td
-                            align="left"
+                            PLACE OF EXPIRY
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom:
+                              '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderBottom:
-                                '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td
-                            align="left"
+                            {lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
                             style={{
-                              borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
                             }}
                           >
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: 'rgba(17, 17, 17, 0.7)',
-                                lineHeight: '24px',
-                                fontWeight: 'normal',
-                                padding: '16px 15px 16px 35px',
-                                marginBottom: '0',
-                              }}
-                            >
                               <span
                                 style={{
                                   display: 'inline-block',
@@ -469,24 +469,24 @@ function Index() {
                               >
                                 51D
                               </span>
-                              LC ISSUING BANK
-                            </p>
-                          </td>
-                          <td align="left">
-                            <p
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                fontWeight: '500',
-                                padding: '16px 15px 16px 24px',
-                                marginBottom: '0',
-                              }}
-                            >
-                              {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
-                            </p>
-                          </td>
-                        </tr>
+                            LC ISSUING BANK
+                          </p>
+                        </td>
+                        <td align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}
+                          </p>
+                        </td>
+                      </tr>
                       </tbody>
                     </table>
                   </td>
@@ -498,13 +498,13 @@ function Index() {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf');
+          doc.save('sample.pdf')
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -571,43 +571,43 @@ function Index() {
                   border="0"
                 >
                   <tbody>
-                    <tr className="table_row">
-                      <td width="40%">
-                        40A &nbsp; &nbsp;{' '}
-                        <span>FORM OF DOCUMENTARY CREDIT</span>
-                      </td>
-                      <td>
-                        {lcModuleData?.lcApplication?.formOfDocumentaryCredit}
-                      </td>
-                    </tr>
-                    <tr className="table_row">
-                      <td width="40%">
-                        40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
-                      </td>
-                      <td>{lcModuleData?.lcApplication?.applicableRules}</td>
-                    </tr>
-                    <tr className="table_row">
-                      <td width="40%">
-                        31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
-                      </td>
-                      <td>
-                        {moment(
-                          lcModuleData?.lcApplication?.dateOfExpiry,
-                        ).format('DD-MM-yyy')}
-                      </td>
-                    </tr>
-                    <tr className="table_row">
-                      <td width="40%">
-                        31D &nbsp; &nbsp; <span>PLACE OF EXPIRY</span>
-                      </td>
-                      <td>{lcModuleData?.lcApplication?.placeOfExpiry}</td>
-                    </tr>
-                    <tr className="table_row">
-                      <td width="40%">
-                        51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
-                      </td>
-                      <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
-                    </tr>
+                  <tr className="table_row">
+                    <td width="40%">
+                      40A &nbsp; &nbsp;{' '}
+                      <span>FORM OF DOCUMENTARY CREDIT</span>
+                    </td>
+                    <td>
+                      {lcModuleData?.lcApplication?.formOfDocumentaryCredit}
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td width="40%">
+                      40E &nbsp; &nbsp; <span>APPLICABLE RULES</span>
+                    </td>
+                    <td>{lcModuleData?.lcApplication?.applicableRules}</td>
+                  </tr>
+                  <tr className="table_row">
+                    <td width="40%">
+                      31D &nbsp; &nbsp; <span>DATE OF EXPIRY</span>
+                    </td>
+                    <td>
+                      {moment(
+                        lcModuleData?.lcApplication?.dateOfExpiry,
+                      ).format('DD-MM-yyy')}
+                    </td>
+                  </tr>
+                  <tr className="table_row">
+                    <td width="40%">
+                      31D &nbsp; &nbsp; <span>PLACE OF EXPIRY</span>
+                    </td>
+                    <td>{lcModuleData?.lcApplication?.placeOfExpiry}</td>
+                  </tr>
+                  <tr className="table_row">
+                    <td width="40%">
+                      51D &nbsp; &nbsp; <span>LC ISSUING BANK</span>
+                    </td>
+                    <td>{lcModuleData?.lcApplication?.lcIssuingBank}</td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -794,7 +794,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                        addMoreRows()
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -862,7 +862,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows();
+                        addMoreRows()
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -958,7 +958,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

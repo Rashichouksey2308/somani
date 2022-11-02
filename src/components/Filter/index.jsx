@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
-export default function index() {
+export default function index () {
   return (
     <div className={`${styles.dropdown} filter dropdown`}>
       <a
@@ -11,7 +11,7 @@ export default function index() {
         aria-haspopup="true"
         aria-expanded="false"
       >
-        <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
+        <img src="/static/filter.svg" className="img-fluid" alt="Filter"/>
       </a>
       <div
         className={`${styles.dropdown_menu} dropdown_menu dropdown-menu`}
@@ -33,7 +33,7 @@ export default function index() {
           />
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
-          <input type="checkbox" id="orderId" name="orderId" value="Order ID" />{' '}
+          <input type="checkbox" id="orderId" name="orderId" value="Order ID"/>{' '}
           <label htmlFor="orderId">Order ID</label>
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
@@ -46,7 +46,7 @@ export default function index() {
           <label htmlFor="commodity">Commodity</label>
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
-          <input type="checkbox" id="status" name="status" value="Status" />{' '}
+          <input type="checkbox" id="status" name="status" value="Status"/>{' '}
           <label htmlFor="status">Status</label>
         </div>
         <div className={`${styles.filter_list} dropdown-item`} href="#">
@@ -63,5 +63,5 @@ export default function index() {
         </button>
       </div>
     </div>
-  );
+  )
 }

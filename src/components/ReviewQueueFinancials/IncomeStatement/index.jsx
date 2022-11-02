@@ -1,25 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from '../index.module.scss';
-import moment from 'moment';
-import _get from 'lodash/get';
-import { checkNan, convertValue } from '../../../utils/helper';
+import React, { useState } from 'react'
+import styles from '../index.module.scss'
+import moment from 'moment'
+import _get from 'lodash/get'
+import { checkNan, convertValue } from '../../../utils/helper'
 
-function Index({ incomeData, rtrnChartIndiaction }) {
-  const [unit, setUnit] = useState(10000000);
+function Index ({ incomeData, rtrnChartIndiaction }) {
+  const [unit, setUnit] = useState(10000000)
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
 
-  const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {});
+  const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {})
 
-  const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', {});
+  const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', {})
 
-  const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', {});
+  const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', {})
 
   const yearArray = _get(incomeData, 'financial.other.financialYears', [
     '',
     '',
     '',
-  ]);
+  ])
 
   return (
     <>
@@ -72,713 +72,713 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width="50%"></th>
-                      <th
-                        className="text-center"
-                        width="12.5%"
-                        style={{
-                          color: `${
-                            latestYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
-                        }}
-                      >
-                        {latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
-                          : 'MAR-' + yearArray[0].slice(5, 7)}
-                      </th>
-                      <th
-                        className="text-center"
-                        width="12.5%"
-                        style={{
-                          color: `${
-                            previousYearData?.financialEndDate
-                              ? '#3687e8'
-                              : 'red'
-                          }`,
-                        }}
-                      >
-                        {previousYearData?.financialEndDate
-                          ? moment(previousYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
-                          : 'MAR-' + yearArray[1].slice(5, 7)}
-                      </th>
-                      <th
-                        className="text-center"
-                        width="12.5%"
-                        style={{
-                          color: `${
-                            lastYearData?.financialEndDate ? '#3687e8' : 'red'
-                          }`,
-                        }}
-                      >
-                        {lastYearData?.financialEndDate
-                          ? moment(lastYearData?.financialEndDate)
-                              .format('MMM-YY')
-                              .toUpperCase()
-                          : 'MAR-' + yearArray[2].slice(5, 7)}
-                      </th>
-                      <th className="text-center" width="12.5%">
-                        TREND
-                      </th>
-                    </tr>
+                  <tr>
+                    <th width="50%"></th>
+                    <th
+                      className="text-center"
+                      width="12.5%"
+                      style={{
+                        color: `${
+                          latestYearData?.financialEndDate ? '#3687e8' : 'red'
+                        }`,
+                      }}
+                    >
+                      {latestYearData?.financialEndDate
+                        ? moment(latestYearData?.financialEndDate)
+                          .format('MMM-YY')
+                          .toUpperCase()
+                        : 'MAR-' + yearArray[0].slice(5, 7)}
+                    </th>
+                    <th
+                      className="text-center"
+                      width="12.5%"
+                      style={{
+                        color: `${
+                          previousYearData?.financialEndDate
+                            ? '#3687e8'
+                            : 'red'
+                        }`,
+                      }}
+                    >
+                      {previousYearData?.financialEndDate
+                        ? moment(previousYearData?.financialEndDate)
+                          .format('MMM-YY')
+                          .toUpperCase()
+                        : 'MAR-' + yearArray[1].slice(5, 7)}
+                    </th>
+                    <th
+                      className="text-center"
+                      width="12.5%"
+                      style={{
+                        color: `${
+                          lastYearData?.financialEndDate ? '#3687e8' : 'red'
+                        }`,
+                      }}
+                    >
+                      {lastYearData?.financialEndDate
+                        ? moment(lastYearData?.financialEndDate)
+                          .format('MMM-YY')
+                          .toUpperCase()
+                        : 'MAR-' + yearArray[2].slice(5, 7)}
+                    </th>
+                    <th className="text-center" width="12.5%">
+                      TREND
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Revenue From Operation</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
+                  <tr>
+                    <td>Revenue From Operation</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.revenue?.revenueFromOperations,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.revenue?.revenueFromOperations,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.revenue?.revenueFromOperations,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.revenue?.revenueFromOperations,
+                        previousYearData?.revenue?.revenueFromOperations,
+                        lastYearData?.revenue?.revenueFromOperations,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Other Income</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.revenue?.otherIncome?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.revenue?.otherIncome,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.revenue?.otherIncome?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.revenue?.otherIncome,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.revenue?.otherIncome?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.revenue?.otherIncome,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.revenue?.otherIncome,
+                        previousYearData?.revenue?.otherIncome,
+                        lastYearData?.revenue?.otherIncome,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Total Income</strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {latestYearData?.revenue?.totalRev?.toLocaleString()} */}
                         {convertValue(
-                          latestYearData?.revenue?.revenueFromOperations,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.revenue?.revenueFromOperations,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.revenue?.revenueFromOperations,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.revenue?.revenueFromOperations,
-                          previousYearData?.revenue?.revenueFromOperations,
-                          lastYearData?.revenue?.revenueFromOperations,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Other Income</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.revenue?.otherIncome?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.revenue?.otherIncome,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.revenue?.otherIncome?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.revenue?.otherIncome,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.revenue?.otherIncome?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.revenue?.otherIncome,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.revenue?.otherIncome,
-                          previousYearData?.revenue?.otherIncome,
-                          lastYearData?.revenue?.otherIncome,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Total Income</strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {latestYearData?.revenue?.totalRev?.toLocaleString()} */}
-                          {convertValue(
-                            latestYearData?.revenue?.totalRev,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {previousYearData?.revenue?.totalRev?.toLocaleString()} */}
-                          {convertValue(
-                            previousYearData?.revenue?.totalRev,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {lastYearData?.revenue?.totalRev?.toLocaleString()} */}
-                          {convertValue(
-                            lastYearData?.revenue?.totalRev,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
                           latestYearData?.revenue?.totalRev,
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {previousYearData?.revenue?.totalRev?.toLocaleString()} */}
+                        {convertValue(
                           previousYearData?.revenue?.totalRev,
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {lastYearData?.revenue?.totalRev?.toLocaleString()} */}
+                        {convertValue(
                           lastYearData?.revenue?.totalRev,
-                        )}
-                      </td>
-                    </tr>
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.revenue?.totalRev,
+                        previousYearData?.revenue?.totalRev,
+                        lastYearData?.revenue?.totalRev,
+                      )}
+                    </td>
+                  </tr>
 
-                    <tr>
-                      <td>Purchases</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.expenses?.purchaseStock?.toLocaleString()} */}
+                  <tr>
+                    <td>Purchases</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.expenses?.purchaseStock?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.expenses?.purchaseStock,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.expenses?.purchaseStock?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.expenses?.purchaseStock,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.expenses?.purchaseStock?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.expenses?.purchaseStock,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.expenses?.purchaseStock,
+                        previousYearData?.expenses?.purchaseStock,
+                        lastYearData?.expenses?.purchaseStock,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Other Expenses (Ex Dep, Int, Tax)</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.expenses?.othExp?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.expenses?.othExp,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.expenses?.othExp?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.expenses?.othExp,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.expenses?.othExp?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.expenses?.othExp,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.expenses?.othExp,
+                        previousYearData?.expenses?.othExp,
+                        lastYearData?.expenses?.othExp,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Total Expenses</strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {latestYearData?.expenses?.totExp?.toLocaleString()} */}
                         {convertValue(
-                          latestYearData?.expenses?.purchaseStock,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.expenses?.purchaseStock?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.expenses?.purchaseStock,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.expenses?.purchaseStock?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.expenses?.purchaseStock,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.expenses?.purchaseStock,
-                          previousYearData?.expenses?.purchaseStock,
-                          lastYearData?.expenses?.purchaseStock,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Other Expenses (Ex Dep, Int, Tax)</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.expenses?.othExp?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.expenses?.othExp,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.expenses?.othExp?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.expenses?.othExp,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.expenses?.othExp?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.expenses?.othExp,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.expenses?.othExp,
-                          previousYearData?.expenses?.othExp,
-                          lastYearData?.expenses?.othExp,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Total Expenses</strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {latestYearData?.expenses?.totExp?.toLocaleString()} */}
-                          {convertValue(
-                            latestYearData?.expenses?.totExp,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {previousYearData?.expenses?.totExp?.toLocaleString()} */}
-                          {convertValue(
-                            previousYearData?.expenses?.totExp,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className="text-center">
-                        <strong>
-                          {/* {lastYearData?.expenses?.totExp?.toLocaleString()} */}
-                          {convertValue(
-                            lastYearData?.expenses?.totExp,
-                            unit,
-                          )?.toLocaleString('en-In', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </strong>
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
                           latestYearData?.expenses?.totExp,
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {previousYearData?.expenses?.totExp?.toLocaleString()} */}
+                        {convertValue(
                           previousYearData?.expenses?.totExp,
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className="text-center">
+                      <strong>
+                        {/* {lastYearData?.expenses?.totExp?.toLocaleString()} */}
+                        {convertValue(
                           lastYearData?.expenses?.totExp,
-                        )}
-                      </td>
-                    </tr>
+                          unit,
+                        )?.toLocaleString('en-In', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </strong>
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.expenses?.totExp,
+                        previousYearData?.expenses?.totExp,
+                        lastYearData?.expenses?.totExp,
+                      )}
+                    </td>
+                  </tr>
 
-                    <tr>
-                      <td>
-                        <strong>EBITDA</strong>
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                  <tr>
+                    <td>
+                      <strong>EBITDA</strong>
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (latestYearData?.revenue?.revenueFromOperations -
                             latestYearData?.expenses?.totExp +
                             latestYearData?.expenses?.finCost +
                             latestYearData?.expenses?.deprcnAmort), true
                         )} */}
-                        {convertValue(
-                          latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost +
-                            latestYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                      {convertValue(
+                        latestYearData?.revenue?.revenueFromOperations -
+                        latestYearData?.expenses?.totExp +
+                        latestYearData?.expenses?.finCost +
+                        latestYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (previousYearData?.revenue?.revenueFromOperations -
                             previousYearData?.expenses?.totExp +
                             previousYearData?.expenses?.finCost +
                             previousYearData?.expenses?.deprcnAmort), true
                         )} */}
-                        {convertValue(
-                          previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost +
-                            previousYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                      {convertValue(
+                        previousYearData?.revenue?.revenueFromOperations -
+                        previousYearData?.expenses?.totExp +
+                        previousYearData?.expenses?.finCost +
+                        previousYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (lastYearData?.revenue?.revenueFromOperations -
                             lastYearData?.expenses?.totExp +
                             lastYearData?.expenses?.finCost +
                             lastYearData?.expenses?.deprcnAmort), true
                         )} */}
-                        {convertValue(
-                          lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost +
-                            lastYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost +
-                            latestYearData?.expenses?.deprcnAmort,
-                          previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost +
-                            previousYearData?.expenses?.deprcnAmort,
-                          lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost +
-                            lastYearData?.expenses?.deprcnAmort,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Depreciation</td>
-                      <td className="text-center">
-                        {/* {(latestYearData?.expenses?.deprcnAmort)?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.expenses?.deprcnAmort?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.expenses?.deprcnAmort?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.expenses?.deprcnAmort,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.expenses?.deprcnAmort,
-                          previousYearData?.expenses?.deprcnAmort,
-                          lastYearData?.expenses?.deprcnAmort,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>EBIT</strong>
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                      {convertValue(
+                        lastYearData?.revenue?.revenueFromOperations -
+                        lastYearData?.expenses?.totExp +
+                        lastYearData?.expenses?.finCost +
+                        lastYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.revenue?.revenueFromOperations -
+                        latestYearData?.expenses?.totExp +
+                        latestYearData?.expenses?.finCost +
+                        latestYearData?.expenses?.deprcnAmort,
+                        previousYearData?.revenue?.revenueFromOperations -
+                        previousYearData?.expenses?.totExp +
+                        previousYearData?.expenses?.finCost +
+                        previousYearData?.expenses?.deprcnAmort,
+                        lastYearData?.revenue?.revenueFromOperations -
+                        lastYearData?.expenses?.totExp +
+                        lastYearData?.expenses?.finCost +
+                        lastYearData?.expenses?.deprcnAmort,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Depreciation</td>
+                    <td className="text-center">
+                      {/* {(latestYearData?.expenses?.deprcnAmort)?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.expenses?.deprcnAmort?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.expenses?.deprcnAmort?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.expenses?.deprcnAmort,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.expenses?.deprcnAmort,
+                        previousYearData?.expenses?.deprcnAmort,
+                        lastYearData?.expenses?.deprcnAmort,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>EBIT</strong>
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (latestYearData?.revenue?.revenueFromOperations -
                             latestYearData?.expenses?.totExp +
                             latestYearData?.expenses?.finCost), true
                         )} */}
-                        {convertValue(
-                          latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                      {convertValue(
+                        latestYearData?.revenue?.revenueFromOperations -
+                        latestYearData?.expenses?.totExp +
+                        latestYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (previousYearData?.revenue?.revenueFromOperations -
                             previousYearData?.expenses?.totExp +
                             previousYearData?.expenses?.finCost), true
                         )} */}
-                        {convertValue(
-                          previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
+                      {convertValue(
+                        previousYearData?.revenue?.revenueFromOperations -
+                        previousYearData?.expenses?.totExp +
+                        previousYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {checkNan(
                           (lastYearData?.revenue?.revenueFromOperations -
                             lastYearData?.expenses?.totExp +
                             lastYearData?.expenses?.finCost), true
                         )} */}
-                        {convertValue(
-                          lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.revenue?.revenueFromOperations -
-                            latestYearData?.expenses?.totExp +
-                            latestYearData?.expenses?.finCost,
-                          previousYearData?.revenue?.revenueFromOperations -
-                            previousYearData?.expenses?.totExp +
-                            previousYearData?.expenses?.finCost,
-                          lastYearData?.revenue?.revenueFromOperations -
-                            lastYearData?.expenses?.totExp +
-                            lastYearData?.expenses?.finCost,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Interest Cost</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.expenses?.finCost?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.expenses?.finCost?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.expenses?.finCost?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.expenses?.finCost,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.expenses?.finCost,
-                          previousYearData?.expenses?.finCost,
-                          lastYearData?.expenses?.finCost,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>PBT</strong>
-                      </td>
-                      <td className="text-center">
-                        {/* {latestYearData?.profLossBefTax?.toLocaleString()} */}
-                        {convertValue(
+                      {convertValue(
+                        lastYearData?.revenue?.revenueFromOperations -
+                        lastYearData?.expenses?.totExp +
+                        lastYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.revenue?.revenueFromOperations -
+                        latestYearData?.expenses?.totExp +
+                        latestYearData?.expenses?.finCost,
+                        previousYearData?.revenue?.revenueFromOperations -
+                        previousYearData?.expenses?.totExp +
+                        previousYearData?.expenses?.finCost,
+                        lastYearData?.revenue?.revenueFromOperations -
+                        lastYearData?.expenses?.totExp +
+                        lastYearData?.expenses?.finCost,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Interest Cost</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.expenses?.finCost?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.expenses?.finCost?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.expenses?.finCost?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.expenses?.finCost,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.expenses?.finCost,
+                        previousYearData?.expenses?.finCost,
+                        lastYearData?.expenses?.finCost,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>PBT</strong>
+                    </td>
+                    <td className="text-center">
+                      {/* {latestYearData?.profLossBefTax?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.profLossBefTax,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.profLossBefTax?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.profLossBefTax,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.profLossBefTax?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.profLossBefTax,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.profLossBefTax,
+                        previousYearData?.profLossBefTax,
+                        lastYearData?.profLossBefTax,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Less: Tax</td>
+                    <td className="text-center">
+                      {/* {latestYearData?.totalTaxExpense?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.totalTaxExpense,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.totalTaxExpense?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.totalTaxExpense,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.totalTaxExpense?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.totalTaxExpense,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.totalTaxExpense,
+                        previousYearData?.totalTaxExpense,
+                        lastYearData?.totalTaxExpense,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>PAT</strong>
+                    </td>
+                    <td className="text-center">
+                      {/* {latestYearData?.profitLoss?.toLocaleString()} */}
+                      {convertValue(
+                        latestYearData?.profitLoss,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {previousYearData?.profitLoss?.toLocaleString()} */}
+                      {convertValue(
+                        previousYearData?.profitLoss,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className="text-center">
+                      {/* {lastYearData?.profitLoss?.toLocaleString()} */}
+                      {convertValue(
+                        lastYearData?.profitLoss,
+                        unit,
+                      )?.toLocaleString('en-In', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        latestYearData?.profitLoss,
+                        previousYearData?.profitLoss,
+                        lastYearData?.profitLoss,
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Effective Tax Rate %</td>
+                    <td className="text-center">
+                      {(
+                        checkNan(
+                          latestYearData?.totalTaxExpense /
                           latestYearData?.profLossBefTax,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.profLossBefTax?.toLocaleString()} */}
-                        {convertValue(
+                          true,
+                        ) * 100
+                      ).toFixed(2)}
+                      %
+                    </td>
+                    <td className="text-center">
+                      {(
+                        checkNan(
+                          previousYearData?.totalTaxExpense /
                           previousYearData?.profLossBefTax,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.profLossBefTax?.toLocaleString()} */}
-                        {convertValue(
+                          true,
+                        ) * 100
+                      ).toFixed(2)}
+                      %
+                    </td>
+                    <td className="text-center">
+                      {(
+                        checkNan(
+                          lastYearData?.totalTaxExpense /
                           lastYearData?.profLossBefTax,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.profLossBefTax,
-                          previousYearData?.profLossBefTax,
-                          lastYearData?.profLossBefTax,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Less: Tax</td>
-                      <td className="text-center">
-                        {/* {latestYearData?.totalTaxExpense?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.totalTaxExpense,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.totalTaxExpense?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.totalTaxExpense,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.totalTaxExpense?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.totalTaxExpense,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.totalTaxExpense,
-                          previousYearData?.totalTaxExpense,
-                          lastYearData?.totalTaxExpense,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>PAT</strong>
-                      </td>
-                      <td className="text-center">
-                        {/* {latestYearData?.profitLoss?.toLocaleString()} */}
-                        {convertValue(
-                          latestYearData?.profitLoss,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {previousYearData?.profitLoss?.toLocaleString()} */}
-                        {convertValue(
-                          previousYearData?.profitLoss,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className="text-center">
-                        {/* {lastYearData?.profitLoss?.toLocaleString()} */}
-                        {convertValue(
-                          lastYearData?.profitLoss,
-                          unit,
-                        )?.toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          latestYearData?.profitLoss,
-                          previousYearData?.profitLoss,
-                          lastYearData?.profitLoss,
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Effective Tax Rate %</td>
-                      <td className="text-center">
-                        {(
-                          checkNan(
-                            latestYearData?.totalTaxExpense /
-                              latestYearData?.profLossBefTax,
-                            true,
-                          ) * 100
-                        ).toFixed(2)}
-                        %
-                      </td>
-                      <td className="text-center">
-                        {(
-                          checkNan(
-                            previousYearData?.totalTaxExpense /
-                              previousYearData?.profLossBefTax,
-                            true,
-                          ) * 100
-                        ).toFixed(2)}
-                        %
-                      </td>
-                      <td className="text-center">
-                        {(
-                          checkNan(
-                            lastYearData?.totalTaxExpense /
-                              lastYearData?.profLossBefTax,
-                            true,
-                          ) * 100
-                        ).toFixed(2)}
-                        %
-                      </td>
-                      <td className={`${styles.trend} text-center`}>
-                        {rtrnChartIndiaction(
-                          (
-                            latestYearData?.totalTaxExpense /
-                            latestYearData?.profLossBefTax
-                          )?.toLocaleString() * 100,
-                          (
-                            previousYearData?.totalTaxExpense /
-                            previousYearData?.profLossBefTax
-                          )?.toLocaleString() * 100,
-                          (
-                            lastYearData?.totalTaxExpense /
-                            lastYearData?.profLossBefTax
-                          )?.toLocaleString() * 100,
-                        )}
-                      </td>
-                    </tr>
+                          true,
+                        ) * 100
+                      ).toFixed(2)}
+                      %
+                    </td>
+                    <td className={`${styles.trend} text-center`}>
+                      {rtrnChartIndiaction(
+                        (
+                          latestYearData?.totalTaxExpense /
+                          latestYearData?.profLossBefTax
+                        )?.toLocaleString() * 100,
+                        (
+                          previousYearData?.totalTaxExpense /
+                          previousYearData?.profLossBefTax
+                        )?.toLocaleString() * 100,
+                        (
+                          lastYearData?.totalTaxExpense /
+                          lastYearData?.profLossBefTax
+                        )?.toLocaleString() * 100,
+                      )}
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -787,7 +787,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

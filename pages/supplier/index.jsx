@@ -1,39 +1,34 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import DateCalender from '../../src/components/DateCalender';
-import InspectionDocument from '../../src/components/InspectionDocument';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
-import SaveBar from '../../src/components/SaveBar';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import DateCalender from '../../src/components/DateCalender'
+import InspectionDocument from '../../src/components/InspectionDocument'
+import { setPageName } from '../../src/redux/userData/action'
+import SaveBar from '../../src/components/SaveBar'
+import AddressComponent from '../../src/components/AddressSupplier'
+import { toast } from 'react-toastify'
+import { emailValidation } from 'utils/helper'
+import { ClearSupplier, CreateSupplier, GetSupplier, UpdateSupplier } from 'redux/supplier/action'
+import _get from 'lodash/get'
+import Router from 'next/router'
 
-import Image from 'next/image';
-import AddressComponent from '../../src/components/AddressSupplier';
-import { toast } from 'react-toastify';
-import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier } from 'redux/supplier/action';
-import _get from 'lodash/get';
-import Router from 'next/router';
-
-
-
-function Index() {
-  const dispatch = useDispatch();
-  const { supplierResponse } = useSelector((state) => state.supplier);
+function Index () {
+  const dispatch = useDispatch()
+  const { supplierResponse } = useSelector((state) => state.supplier)
 
   let id = sessionStorage.getItem('supplier')
   useEffect(() => {
     if (id) {
       dispatch(GetSupplier(`?supplierId=${id}`))
-    } else{
+    } else {
       dispatch(ClearSupplier())
     }
   }, [id])
 
   let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})))
-
 
   // let apiData = {
   //   supplierProfile: formData,
@@ -54,7 +49,7 @@ function Index() {
       countryOfIncorporation: '',
       nationalIdentificationNumber: '',
       website: '',
-      status: ""
+      status: ''
     })
     setKeyAddData(supplierData?.keyAddress ?? [])
     setPerson(supplierData.contactPerson ?? [])
@@ -68,11 +63,10 @@ function Index() {
   console.log(supplierData, keyAddData, 'supplierResponse')
   let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '')
 
-
-  const [saveShareTable, setSaveTable] = useState(false);
-  const [saveContactTable, setContactTable] = useState(false);
-  const [saveDirectorTable, setDirectorTable] = useState(false);
-  const [saveCommodityTable, setCommodityTable] = useState(false);
+  const [saveShareTable, setSaveTable] = useState(false)
+  const [saveContactTable, setContactTable] = useState(false)
+  const [saveDirectorTable, setDirectorTable] = useState(false)
+  const [saveCommodityTable, setCommodityTable] = useState(false)
 
   const [formData, setFormData] = useState({
     supplierName: '',
@@ -81,9 +75,9 @@ function Index() {
     countryOfIncorporation: '',
     nationalIdentificationNumber: '',
     website: '',
-    status: ""
-  });
-  console.log(formData, "formData")
+    status: ''
+  })
+  console.log(formData, 'formData')
   const [address, setAddress] = useState({
     contactPerson: '',
     pinCode: '',
@@ -91,7 +85,7 @@ function Index() {
     phoneNumber: '',
     alternatePhoneNumber: '',
     emailId: '',
-  });
+  })
 
   const [person, setPerson] = useState([{
     name: '',
@@ -99,8 +93,8 @@ function Index() {
     contact: '',
     emailId: '',
     action: false
-  }]);
-  console.log(person, "person")
+  }])
+  console.log(person, 'person')
 
   const [detail, setDetail] = useState([{
     shareHoldersName: '',
@@ -108,46 +102,46 @@ function Index() {
     contact: '',
     ownershipPercentage: '',
     action: false
-  }]);
-  console.log(detail, "detail")
+  }])
+  console.log(detail, 'detail')
   const [signatory, setSignatory] = useState({
     name: '',
     nationality: '',
     authoriztyToSign: '',
-  });
-  const [business, setBusiness] = useState('');
-  const [businessArray, setBusinessArray] = useState([]);
+  })
+  const [business, setBusiness] = useState('')
+  const [businessArray, setBusinessArray] = useState([])
   const [commodity, setCommidity] = useState([{
     hsnCode: '',
     commodity: '',
     action: false
-  }]);
+  }])
   console.log(businessArray, business, 'business')
 
-  const [info, setInfo] = useState("");
-  const [infoArray, setInfoArray] = useState([]);
+  const [info, setInfo] = useState('')
+  const [infoArray, setInfoArray] = useState([])
 
   const handleShareDelete = (index) => {
-    setDetail([...detail.slice(0, index), ...detail.slice(index + 1)]);
-  };
+    setDetail([...detail.slice(0, index), ...detail.slice(index + 1)])
+  }
   const handleDeletePersonContact = (index) => {
     setPerson([
       ...person.slice(0, index),
       ...person.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const handleDeleteDirector = (index) => {
     setListDirector([
       ...listDirector.slice(0, index),
       ...listDirector.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const handleCommodity = (index) => {
     setListCommodity([
       ...listCommodity.slice(0, index),
       ...listCommodity.slice(index + 1),
-    ]);
-  };
+    ])
+  }
 
   const [listCommodity, setListCommodity] = useState([
     {
@@ -155,7 +149,7 @@ function Index() {
       commodity: '',
       action: false
     },
-  ]);
+  ])
 
   // const [apiData, setApiData] = useState({
   //   supplierName: '',
@@ -177,8 +171,8 @@ function Index() {
         action: false
       },
 
-    ]);
-  };
+    ])
+  }
   const [listContact, setListContact] = useState([
     {
       name: '',
@@ -186,7 +180,7 @@ function Index() {
       contactNo: '',
       emailID: '',
     },
-  ]);
+  ])
   const onAddPersonContact = () => {
     setPerson([
       ...person,
@@ -197,8 +191,8 @@ function Index() {
         emailID: '',
         action: false
       },
-    ]);
-  };
+    ])
+  }
   const [listShare, setListShare] = useState([
     {
       name: '',
@@ -207,7 +201,7 @@ function Index() {
       emailID: '',
       action: false
     },
-  ]);
+  ])
   const onAddShare = () => {
     setDetail([
       ...detail,
@@ -218,8 +212,8 @@ function Index() {
         ownershipPercentage: '',
         action: false
       },
-    ]);
-  };
+    ])
+  }
   const [listDirector, setListDirector] = useState([
     {
       name: '',
@@ -228,8 +222,8 @@ function Index() {
 
       action: false
     },
-  ]);
-  console.log(listDirector, "listDirector")
+  ])
+  console.log(listDirector, 'listDirector')
   const onAddDirector = () => {
     setListDirector([
       ...listDirector,
@@ -240,106 +234,105 @@ function Index() {
 
         action: false
       },
-    ]);
-  };
+    ])
+  }
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveQuotationData(name, text);
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveQuotationData(name, text)
     // setStartDate(value, name)
-  };
+  }
 
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
 
-    formData.incorporationDate = value;
+    formData.incorporationDate = value
     setFormData({
       ...formData,
-    });
-  };
+    })
+  }
 
   const onChangeHandler = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const onChangeHandler1 = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setAddress({
       ...address,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const onChangeHandler2 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
+    console.log(name, value, index, 'name,value,<index></index>')
     let newInput = [...person]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
+    console.log(newInput[index], 'newInput[index]')
+    newInput[index][name] = value
+    console.log(newInput, 'newInput')
     setListShare([...newInput])
 
-  };
-  console.log(person, "person")
+  }
+  console.log(person, 'person')
   const onChangeHandler3 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
+    console.log(name, value, index, 'name,value,<index></index>')
     let newInput = [...detail]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
+    console.log(newInput[index], 'newInput[index]')
+    newInput[index][name] = value
+    console.log(newInput, 'newInput')
     setDetail([...newInput])
 
-  };
-  console.log(listShare, "listShare")
+  }
+  console.log(listShare, 'listShare')
   const onChangeHandler4 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
+    console.log(name, value, index, 'name,value,<index></index>')
     let newInput = [...listDirector]
-    console.log(newInput[index], "newInput[index]")
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
+    console.log(newInput[index], 'newInput[index]')
+    newInput[index][name] = value
+    console.log(newInput, 'newInput')
     setListDirector([...newInput])
 
-  };
+  }
 
   const onChangeHandler5 = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
 
-    setBusiness(value);
-  };
+    setBusiness(value)
+  }
   const addToBusinessArray = (e) => {
     console.log(businessArray, 'businessArray')
     let temp = [...businessArray]
     // temp.push(business)
     setBusinessArray([...temp, { business: business }])
-    setBusiness('');
-  };
+    setBusiness('')
+  }
 
   const onChangeHandler6 = (name, value, index) => {
-    console.log(name, value, index, "name,value,<index></index>")
+    console.log(name, value, index, 'name,value,<index></index>')
     let newInput = [...listCommodity]
 
-    newInput[index][name] = value;
-    console.log(newInput, "newInput")
+    newInput[index][name] = value
+    console.log(newInput, 'newInput')
     setListCommodity([...newInput])
 
-  };
-
+  }
 
   const onChangeHandler7 = (e) => {
-    const { name, value } = e.target;
-    setInfo(value);
-  };
+    const { name, value } = e.target
+    setInfo(value)
+  }
   const onChangeHandler7Array = (e) => {
     let temp = [...infoArray]
     // temp.push(info)
     setInfoArray([...temp, { comment: info }])
-    setInfo('');
-  };
+    setInfo('')
+  }
 
   // const addData = (item) => {
   //   // apiData.supplierName.push(formData)
@@ -409,31 +402,30 @@ function Index() {
   //   console.log('apidata', apiData)
   // }
 
-
   const contactPersonDetailsValidation = () => {
-    let isOk = true;
-    let toastMessage = '';
+    let isOk = true
+    let toastMessage = ''
     for (let i = 0; i <= person.length - 1; i++) {
       if (
         person[i].name === '' ||
         person[i].name === null
       ) {
-        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
+        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
         person[i].designation === '' ||
         person[i].designation === null
       ) {
-        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
+        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
@@ -442,11 +434,11 @@ function Index() {
         person[i].contact.length !== 10
 
       ) {
-        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
+        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
@@ -454,41 +446,41 @@ function Index() {
         person[i].emailId === null ||
         !emailValidation(person[i].emailId)
       ) {
-        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
+        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
     }
-    return isOk;
-  };
+    return isOk
+  }
 
   const shareholdersDetailsValidation = () => {
-    let isOk = true;
-    let toastMessage = '';
+    let isOk = true
+    let toastMessage = ''
     for (let i = 0; i <= detail.length - 1; i++) {
       if (
         detail[i].shareHoldersName === '' ||
         detail[i].shareHoldersName === null
       ) {
-        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
+        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
         detail[i].designation === '' ||
         detail[i].designation === null
       ) {
-        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
+        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
@@ -497,41 +489,41 @@ function Index() {
         detail[i].ownershipPercentage >= 100
 
       ) {
-        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
+        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
     }
-    return isOk;
-  };
+    return isOk
+  }
 
   const directorsAndAuthorisedSignatoryValidation = () => {
-    let isOk = true;
-    let toastMessage = '';
+    let isOk = true
+    let toastMessage = ''
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (
         listDirector[i].name === '' ||
         listDirector[i].name === null
       ) {
-        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
         listDirector[i].nationality === '' ||
         listDirector[i].nationality === null
       ) {
-        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
+        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       // if (
@@ -546,32 +538,32 @@ function Index() {
       //   }
       // }
     }
-    return isOk;
-  };
+    return isOk
+  }
   const commoditiesTradedValidation = () => {
-    let isOk = true;
-    let toastMessage = '';
+    let isOk = true
+    let toastMessage = ''
     for (let i = 0; i <= listCommodity.length - 1; i++) {
       if (
         listCommodity[i].hsnCode === '' ||
         listCommodity[i].hsnCode === null
       ) {
-        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
+        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       if (
         listCommodity[i].commodity === '' ||
         listCommodity[i].commodity === null
       ) {
-        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
+        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          isOk = false;
-          break;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
         }
       }
       // if (
@@ -586,33 +578,32 @@ function Index() {
       //   }
       // }
     }
-    return isOk;
-  };
-
+    return isOk
+  }
 
   const supplierValidtaion = () => {
     if (!formData.supplierName || formData.supplierName === '') {
-      let toastMessage = `supplier Name cannot be empty`;
+      let toastMessage = `supplier Name cannot be empty`
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     } else if (!formData.constitution || formData.constitution === '') {
-      let toastMessage = `please select a constitution`;
+      let toastMessage = `please select a constitution`
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     } else if (!formData.incorporationDate || formData.incorporationDate === '') {
-      let toastMessage = `please select a incorporation Date`;
+      let toastMessage = `please select a incorporation Date`
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
-      let toastMessage = `please provide a country Of Incorporation`;
+      let toastMessage = `please provide a country Of Incorporation`
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     } else if (!contactPersonDetailsValidation()) {
@@ -621,8 +612,7 @@ function Index() {
       return false
     } else if (!directorsAndAuthorisedSignatoryValidation()) {
       return false
-    }
-    else if (!commoditiesTradedValidation()) {
+    } else if (!commoditiesTradedValidation()) {
       return false
     } else {
       return true
@@ -655,7 +645,6 @@ function Index() {
         additionalInformation: infoArray,
       }
 
-
       // apiData.supplierProfile = formData;
       // apiData.contactPerson.push(person);
       // apiData.keyAddress.push(address);
@@ -666,30 +655,29 @@ function Index() {
       // apiData.additionalInformation.push({info});
 
       if (id) {
-        dispatch(UpdateSupplier(apiData));
+        dispatch(UpdateSupplier(apiData))
       } else {
         dispatch(CreateSupplier(apiData))
       }
       // console.log('apidata', apiData)
     }
-  };
-
+  }
 
   const handleSendForApproval = () => {
 
-    sessionStorage.removeItem('supplier');
+    sessionStorage.removeItem('supplier')
     dispatch(ClearSupplier())
-    let toastMessage = `request sent for approval`;
+    let toastMessage = `request sent for approval`
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
     Router.push('/add-supplier')
   }
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
-    dispatch(setPageName('inception2'));
-  });
+    dispatch(setPageName('inception2'))
+  })
   const [keyAddData, setKeyAddData] = useState(
     [
       // {
@@ -708,15 +696,14 @@ function Index() {
       //   pinCode: "",
       // },
     ]
-  );
+  )
   const deleteComponent = (index) => {
     setKeyAddData([
       ...keyAddData.slice(0, index),
       ...keyAddData.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const addressValidtion = (data) => {
-
 
     const emailValidate = () => {
       let isOk = true
@@ -728,11 +715,11 @@ function Index() {
               /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             )
         ) {
-          let toastMessage = `Please add valid email id for Email Field ${index}`;
+          let toastMessage = `Please add valid email id for Email Field ${index}`
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          isOk = false;
+          isOk = false
           return
         }
       })
@@ -740,83 +727,73 @@ function Index() {
       return isOk
     }
 
-
-
-    console.log(data, 'addressValidtion');
+    console.log(data, 'addressValidtion')
     if (
       data.address === null ||
       data.address === '' ||
       data.address === undefined
     ) {
-      let toastMessage = 'Please add address';
+      let toastMessage = 'Please add address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
 
-      return false;
-    }
-    else if (
+      return false
+    } else if (
       data.pinCode === null ||
       data.pinCode === '' ||
       data.pinCode === undefined
     ) {
-      let toastMessage = 'Please add pin code';
+      let toastMessage = 'Please add pin code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
-    }
-    else if (
+      return false
+    } else if (
       data.country === null ||
       data.country === '' ||
       data.country === undefined
     ) {
-      let toastMessage = 'Please add country';
+      let toastMessage = 'Please add country'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
 
-      return false;
+      return false
     }
 
 
-    // if (data.email === null || data.email === '' || data.email === undefined) {
-    //   let toastMessage = 'Please add email';
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-    //   }
+      // if (data.email === null || data.email === '' || data.email === undefined) {
+      //   let toastMessage = 'Please add email';
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+      //   }
 
-    //   return false;
+      //   return false;
     // }
 
-
     else if (!emailValidate()) {
-      return false;
-    }
-
-
-
-    else if (
+      return false
+    } else if (
       data.contact.phoneNumber === null ||
       data.contact.phoneNumber === '' ||
       data.contact.phoneNumber === undefined
     ) {
-      let toastMessage = 'Please add phone phoneNumber';
+      let toastMessage = 'Please add phone phoneNumber'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
 
-      return false;
+      return false
     } else {
-      return true;
+      return true
 
     }
 
-
-  };
-  const [showAddress, setShowAddress] = useState(false);
-  const [showEditAddress, setShowEditAddress] = useState(false);
-  const [Index, setIndex] = useState('0');
+  }
+  const [showAddress, setShowAddress] = useState(false)
+  const [showEditAddress, setShowEditAddress] = useState(false)
+  const [Index, setIndex] = useState('0')
   const [editData, setEditData] = useState({
     GSTIN: '',
     GSTIN_document: '',
@@ -832,12 +809,12 @@ function Index() {
     },
     pinCode: '',
 
-  });
+  })
   const [keyAddressData, setKeyAddressData] = useState({
 
     email: [''],
     address: '',
-    country: "",
+    country: '',
     contact: {
       phoneNumberCallingCode: '+91',
       alternatePhoneNumberCallingCode: '+91',
@@ -845,18 +822,16 @@ function Index() {
       alternatePhoneNumber: null,
     },
     pinCode: null,
-  });
+  })
 
   console.log(keyAddressData, 'keyAddressData')
   const editAddress = (index) => {
-    setShowAddress(false);
-    setShowEditAddress(true);
-    setIndex(index);
-    console.log(keyAddData, 'keyAddData');
-    let tempArr = keyAddData;
+    setShowAddress(false)
+    setShowEditAddress(true)
+    setIndex(index)
+    console.log(keyAddData, 'keyAddData')
+    let tempArr = keyAddData
     setEditData({
-
-
 
       email: tempArr[index].email,
       country: tempArr[index].country,
@@ -868,23 +843,21 @@ function Index() {
       },
       pinCode: tempArr[index].pinCode,
 
-    });
-  };
+    })
+  }
   const keyAddDataArr = (keyAddressData) => {
-    let newArr = [...keyAddData];
-    newArr.push(keyAddressData);
-    setKeyAddData(newArr);
-  };
+    let newArr = [...keyAddData]
+    newArr.push(keyAddressData)
+    setKeyAddData(newArr)
+  }
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
-      keyAddDataArr(keyAddressData);
+      keyAddDataArr(keyAddressData)
       setKeyAddressData({
-
-
 
         email: [''],
         address: '',
-        country: "",
+        country: '',
         contact: {
           phoneNumberCallingCode: '+91',
           alternatePhoneNumberCallingCode: '+91',
@@ -893,36 +866,29 @@ function Index() {
         },
         pinCode: null,
 
-      });
+      })
     }
-  };
+  }
 
   const handleChange = (value, name, index) => {
 
-    const newInput = { ...keyAddressData };
-
-
-
+    const newInput = { ...keyAddressData }
 
     let namesplit = name.split('.')
-    console.log(name, namesplit, value, "name, value")
-
-
+    console.log(name, namesplit, value, 'name, value')
 
     if (name === 'emailId') {
       newInput.email[index] = value
-    }
-    else if (namesplit.length > 1) {
-      newInput[namesplit[0]][namesplit[1]] = value;
+    } else if (namesplit.length > 1) {
+      newInput[namesplit[0]][namesplit[1]] = value
     } else {
-      newInput[name] = value;
+      newInput[name] = value
 
     }
 
     // console.log(newInput)
-    setKeyAddressData(newInput);
-  };
-
+    setKeyAddressData(newInput)
+  }
 
   return (
     <>
@@ -934,7 +900,7 @@ function Index() {
                 src={`${darkMode
                   ? `/static/white-arrow.svg`
                   : `/static/arrow-right.svg`
-                  }`}
+                }`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -1179,7 +1145,7 @@ function Index() {
 
                           />
                         </>
-                      );
+                      )
                     })}
 
                   </div>
@@ -1289,11 +1255,11 @@ function Index() {
                                 handleChange(e.target.value, e.target.name)
                               }}
                             >
-                              <option value='+91'>+91</option>
-                              <option value='+1'>+1</option>
-                              <option value='+92'>+92</option>
-                              <option value='+95'>+95</option>
-                              <option value='+24'>+24</option>
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
                             </select>
                             <input
                               type="tel"
@@ -1329,11 +1295,11 @@ function Index() {
                               }}
                             >
                               {' '}
-                              <option value='+91'>+91</option>
-                              <option value='+1'>+1</option>
-                              <option value='+92'>+92</option>
-                              <option value='+95'>+95</option>
-                              <option value='+24'>+24</option>
+                              <option value="+91">+91</option>
+                              <option value="+1">+1</option>
+                              <option value="+92">+92</option>
+                              <option value="+95">+95</option>
+                              <option value="+24">+24</option>
                             </select>
                             <input
                               type="tel"
@@ -1432,123 +1398,123 @@ function Index() {
                       border="0"
                     >
                       <thead>
-                        <tr>
-                          <th>
-                            NAME <strong className="text-danger">*</strong>
-                          </th>
-                          <th>DESIGNATION</th>
-                          <th>
-                            CONTACT NO.{' '}
-                            <strong className="text-danger">*</strong>
-                          </th>
-                          <th>
-                            EMAIL ID <strong className="text-danger">*</strong>
-                          </th>
-                          <th></th>
-                        </tr>
+                      <tr>
+                        <th>
+                          NAME <strong className="text-danger">*</strong>
+                        </th>
+                        <th>DESIGNATION</th>
+                        <th>
+                          CONTACT NO.{' '}
+                          <strong className="text-danger">*</strong>
+                        </th>
+                        <th>
+                          EMAIL ID <strong className="text-danger">*</strong>
+                        </th>
+                        <th></th>
+                      </tr>
                       </thead>
 
                       <tbody>
-                        {person?.length > 0 &&
-                          person?.map((val, index) => (
-                            <tr key={index} className="table_credit">
-                              <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
-                                  }}
-                                  readOnly={!val.action}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className="input"
-                                  name="designation"
-                                  value={val?.designation}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
+                      {person?.length > 0 &&
+                        person?.map((val, index) => (
+                          <tr key={index} className="table_credit">
+                            <td>
+                              <input
+                                className="input font-weight-bold"
+                                name="name"
+                                value={val?.name}
+                                type="text"
+                                onChange={(e) => {
+                                  onChangeHandler2(e.target.name, e.target.value, index)
+                                }}
+                                readOnly={!val.action}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                name="designation"
+                                value={val?.designation}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler2(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
 
-                              <td>
-                                <input
-                                  className="input"
-                                  name="contact"
-                                  value={val?.contact}
-                                  type="number"
-                                  onWheel={(event) =>
-                                    event.currentTarget.blur()
-                                  }
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
-                                  }}
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
-                                  readOnly={!val.action}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className="input"
-                                  name="emailId"
-                                  value={val?.emailId}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler2(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
-                              {console.log('data55', val)}
-                              <td className="text-right">
-                                <div>
-                                  {!val.action ? (
-                                    <>
-                                      <img
-                                        src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="edit"
-                                        onClick={(e) => {
-                                          console.log("herer1")
-                                          onChangeHandler2("action", true, index)
-                                          // setContactTable(true);
-                                        }}
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <img
-                                        src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="save"
-                                        onClick={(e) => {
-                                          console.log("herer2")
-                                          onChangeHandler2("action", false, index)
-                                          // setContactTable(false);
-                                        }}
-                                      />
-                                    </>
-                                  )}
+                            <td>
+                              <input
+                                className="input"
+                                name="contact"
+                                value={val?.contact}
+                                type="number"
+                                onWheel={(event) =>
+                                  event.currentTarget.blur()
+                                }
+                                onChange={(e) => {
+                                  onChangeHandler2(e.target.name, e.target.value, index)
+                                }}
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
+                                readOnly={!val.action}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                name="emailId"
+                                value={val?.emailId}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler2(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
+                            {console.log('data55', val)}
+                            <td className="text-right">
+                              <div>
+                                {!val.action ? (
+                                  <>
+                                    <img
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="edit"
+                                      onClick={(e) => {
+                                        console.log('herer1')
+                                        onChangeHandler2('action', true, index)
+                                        // setContactTable(true);
+                                      }}
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    <img
+                                      src="/static/save-3.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="save"
+                                      onClick={(e) => {
+                                        console.log('herer2')
+                                        onChangeHandler2('action', false, index)
+                                        // setContactTable(false);
+                                      }}
+                                    />
+                                  </>
+                                )}
 
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                    onClick={() => handleDeletePersonContact(index)}
-                                  />
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
+                                <img
+                                  src="/static/delete 2.svg"
+                                  className="img-fluid"
+                                  alt="delete"
+                                  onClick={() => handleDeletePersonContact(index)}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1556,7 +1522,7 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddPersonContact();
+                    onAddPersonContact()
                   }}
                 >
                   <span>+</span>
@@ -1593,100 +1559,100 @@ function Index() {
                       border="0"
                     >
                       <thead>
-                        <tr>
-                          <th>SHAREHOLDER NAME</th>
-                          <th>DESIGNATION</th>
-                          <th>OWNERSHIP (%)</th>
-                          <th></th>
-                        </tr>
+                      <tr>
+                        <th>SHAREHOLDER NAME</th>
+                        <th>DESIGNATION</th>
+                        <th>OWNERSHIP (%)</th>
+                        <th></th>
+                      </tr>
                       </thead>
 
                       <tbody>
-                        {detail?.length > 0 &&
-                          detail?.map((val, index) => {
-                            return (
-                              <tr key={index} className="table_credit">
-                                <td>
-                                  <input
-                                    className="input font-weight-bold"
-                                    name="shareHoldersName"
-                                    value={val?.shareHoldersName}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
-                                    }}
-                                    readOnly={!val.action}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    className="input"
-                                    name="designation"
-                                    value={val?.designation}
-                                    type="text"
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
-                                    }}
-                                    readOnly={!val.action}
-                                  />
-                                </td>
+                      {detail?.length > 0 &&
+                        detail?.map((val, index) => {
+                          return (
+                            <tr key={index} className="table_credit">
+                              <td>
+                                <input
+                                  className="input font-weight-bold"
+                                  name="shareHoldersName"
+                                  value={val?.shareHoldersName}
+                                  type="text"
+                                  onChange={(e) => {
+                                    onChangeHandler3(e.target.name, e.target.value, index)
+                                  }}
+                                  readOnly={!val.action}
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="designation"
+                                  value={val?.designation}
+                                  type="text"
+                                  onChange={(e) => {
+                                    onChangeHandler3(e.target.name, e.target.value, index)
+                                  }}
+                                  readOnly={!val.action}
+                                />
+                              </td>
 
-                                <td>
-                                  <input
-                                    className="input"
-                                    name="ownershipPercentage"
-                                    value={val?.ownershipPercentage}
-                                    type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
-                                    onChange={(e) => {
-                                      onChangeHandler3(e.target.name, e.target.value, index)
-                                    }}
-                                    readOnly={!val.action}
-                                  />
-                                </td>
+                              <td>
+                                <input
+                                  className="input"
+                                  name="ownershipPercentage"
+                                  value={val?.ownershipPercentage}
+                                  type="number"
+                                  onWheel={(event) =>
+                                    event.currentTarget.blur()
+                                  }
+                                  onKeyDown={(evt) =>
+                                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                                    evt.preventDefault()
+                                  }
+                                  onChange={(e) => {
+                                    onChangeHandler3(e.target.name, e.target.value, index)
+                                  }}
+                                  readOnly={!val.action}
+                                />
+                              </td>
 
-                                <td className="text-right">
-                                  <div>
-                                    {!val.action ? (
-                                      <>
-                                        <img
-                                          src="/static/mode_edit.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
-                                          alt="edit"
-                                          onClick={(e) => {
-                                            onChangeHandler3("action", true, index)
-                                          }}
-                                        />
-                                      </>
-                                    ) : (
-                                      <>
-                                        <img
-                                          src="/static/save-3.svg"
-                                          className={`${styles.edit_image} mr-3 img-fluid`}
-                                          alt="save"
-                                          onClick={(e) => {
-                                            onChangeHandler3("action", false, index)
-                                          }}
-                                        />
-                                      </>
-                                    )}
-                                    <img
-                                      src="/static/delete 2.svg"
-                                      className="img-fluid"
-                                      alt="delete"
-                                      onClick={() => handleShareDelete(index)}
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
-                            );
-                          })}
+                              <td className="text-right">
+                                <div>
+                                  {!val.action ? (
+                                    <>
+                                      <img
+                                        src="/static/mode_edit.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="edit"
+                                        onClick={(e) => {
+                                          onChangeHandler3('action', true, index)
+                                        }}
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <img
+                                        src="/static/save-3.svg"
+                                        className={`${styles.edit_image} mr-3 img-fluid`}
+                                        alt="save"
+                                        onClick={(e) => {
+                                          onChangeHandler3('action', false, index)
+                                        }}
+                                      />
+                                    </>
+                                  )}
+                                  <img
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid"
+                                    alt="delete"
+                                    onClick={() => handleShareDelete(index)}
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          )
+                        })}
                       </tbody>
                     </table>
                   </div>
@@ -1694,11 +1660,11 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddShare();
+                    onAddShare()
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1733,98 +1699,98 @@ function Index() {
                       border="0"
                     >
                       <thead>
-                        <tr>
-                          <th>
-                            NAME<strong className="text-danger">*</strong>
-                          </th>
-                          <th>
-                            NATIONALITY
-                            <strong className="text-danger">*</strong>
-                          </th>
-                          <th>
-                            AUTHORITY TO SIGN
-                            <strong className="text-danger">*</strong>
-                          </th>
-                          <th></th>
-                        </tr>
+                      <tr>
+                        <th>
+                          NAME<strong className="text-danger">*</strong>
+                        </th>
+                        <th>
+                          NATIONALITY
+                          <strong className="text-danger">*</strong>
+                        </th>
+                        <th>
+                          AUTHORITY TO SIGN
+                          <strong className="text-danger">*</strong>
+                        </th>
+                        <th></th>
+                      </tr>
                       </thead>
 
                       <tbody>
-                        {listDirector?.length > 0 &&
-                          listDirector?.map((val, index) => (
-                            <tr key={index} className="table_credit">
-                              <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="name"
-                                  value={val?.name}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className="input"
-                                  name="nationality"
-                                  value={val?.nationality}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  name="authorityToSign"
-                                  checked={val?.authorityToSign}
-                                  className={`${styles.checkBox}`}
-                                  type="checkbox"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler4(e.target.name, !val?.authorityToSign, index)
-                                  }}
-                                />
-                              </td>
+                      {listDirector?.length > 0 &&
+                        listDirector?.map((val, index) => (
+                          <tr key={index} className="table_credit">
+                            <td>
+                              <input
+                                className="input font-weight-bold"
+                                name="name"
+                                value={val?.name}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler4(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                name="nationality"
+                                value={val?.nationality}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler4(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                name="authorityToSign"
+                                checked={val?.authorityToSign}
+                                className={`${styles.checkBox}`}
+                                type="checkbox"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler4(e.target.name, !val?.authorityToSign, index)
+                                }}
+                              />
+                            </td>
 
-                              <td className="text-right">
-                                <div>
-                                  {!val.action ? (
-                                    <>
-                                      <img
-                                        src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="edit"
-                                        onClick={(e) => {
-                                          onChangeHandler4("action", true, index)
-                                        }}
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <img
-                                        src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="save"
-                                        onClick={(e) => {
-                                          onChangeHandler4("action", false, index)
-                                        }}
-                                      />
-                                    </>
-                                  )}
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                    onClick={() => handleDeleteDirector(index)}
-                                  />
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
+                            <td className="text-right">
+                              <div>
+                                {!val.action ? (
+                                  <>
+                                    <img
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="edit"
+                                      onClick={(e) => {
+                                        onChangeHandler4('action', true, index)
+                                      }}
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    <img
+                                      src="/static/save-3.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="save"
+                                      onClick={(e) => {
+                                        onChangeHandler4('action', false, index)
+                                      }}
+                                    />
+                                  </>
+                                )}
+                                <img
+                                  src="/static/delete 2.svg"
+                                  className="img-fluid"
+                                  alt="delete"
+                                  onClick={() => handleDeleteDirector(index)}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -1832,11 +1798,11 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddDirector();
+                    onAddDirector()
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1916,85 +1882,85 @@ function Index() {
                       border="0"
                     >
                       <thead>
-                        <tr>
-                          <th>
-                            HSN CODE<strong className="text-danger">*</strong>
-                          </th>
-                          <th>
-                            COMMODITY
-                            <strong className="text-danger">*</strong>
-                          </th>
+                      <tr>
+                        <th>
+                          HSN CODE<strong className="text-danger">*</strong>
+                        </th>
+                        <th>
+                          COMMODITY
+                          <strong className="text-danger">*</strong>
+                        </th>
 
-                          <th width="50%"></th>
-                        </tr>
+                        <th width="50%"></th>
+                      </tr>
                       </thead>
 
                       <tbody>
-                        {listCommodity.length > 0 &&
-                          listCommodity.map((val, index) => (
-                            <tr key={index} className="table_credit">
-                              <td>
-                                <input
-                                  className="input font-weight-bold"
-                                  name="hsnCode"
-                                  value={val?.hsnCode}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className="input"
-                                  name="commodity"
-                                  value={val?.commodity}
-                                  type="text"
-                                  readOnly={!val.action}
-                                  onChange={(e) => {
-                                    onChangeHandler6(e.target.name, e.target.value, index)
-                                  }}
-                                />
-                              </td>
-                              {console.log('data99', commodity)}
+                      {listCommodity.length > 0 &&
+                        listCommodity.map((val, index) => (
+                          <tr key={index} className="table_credit">
+                            <td>
+                              <input
+                                className="input font-weight-bold"
+                                name="hsnCode"
+                                value={val?.hsnCode}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler6(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
+                            <td>
+                              <input
+                                className="input"
+                                name="commodity"
+                                value={val?.commodity}
+                                type="text"
+                                readOnly={!val.action}
+                                onChange={(e) => {
+                                  onChangeHandler6(e.target.name, e.target.value, index)
+                                }}
+                              />
+                            </td>
+                            {console.log('data99', commodity)}
 
-                              <td className="text-right">
-                                <div>
-                                  {!val.action ? (
-                                    <>
-                                      <img
-                                        src="/static/mode_edit.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="edit"
-                                        onClick={(e) => {
-                                          onChangeHandler6("action", true, index)
-                                        }}
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <img
-                                        src="/static/save-3.svg"
-                                        className={`${styles.edit_image} mr-3 img-fluid`}
-                                        alt="save"
-                                        onClick={(e) => {
-                                          onChangeHandler6("action", false, index)
-                                        }}
-                                      />
-                                    </>
-                                  )}
+                            <td className="text-right">
+                              <div>
+                                {!val.action ? (
+                                  <>
+                                    <img
+                                      src="/static/mode_edit.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="edit"
+                                      onClick={(e) => {
+                                        onChangeHandler6('action', true, index)
+                                      }}
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    <img
+                                      src="/static/save-3.svg"
+                                      className={`${styles.edit_image} mr-3 img-fluid`}
+                                      alt="save"
+                                      onClick={(e) => {
+                                        onChangeHandler6('action', false, index)
+                                      }}
+                                    />
+                                  </>
+                                )}
 
-                                  <img
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid"
-                                    alt="delete"
-                                    onClick={() => handleCommodity(index)}
-                                  />
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
+                                <img
+                                  src="/static/delete 2.svg"
+                                  className="img-fluid"
+                                  alt="delete"
+                                  onClick={() => handleCommodity(index)}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -2002,11 +1968,11 @@ function Index() {
                 <div
                   className={`${styles.add_row} p-3 d-flex justify-content-end`}
                   onClick={(e) => {
-                    onAddCommodity();
+                    onAddCommodity()
                   }}
                 >
                   <span>+</span>
-                  <div >Add More Rows</div>
+                  <div>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -2088,13 +2054,15 @@ function Index() {
             <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
-            // uploadDocument1={uploadDocument1}
+              // uploadDocument1={uploadDocument1}
             />
           </div>
         </div>
-        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
+        <SaveBar rightBtn="Send for Approval" handleSave={handleSave}
+                 rightBtnClick={() => { handleSendForApproval() }}/>
       </div>
     </>
-  );
+  )
 }
-export default Index;
+
+export default Index

@@ -1,82 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 
-import Filter from '../../src/components/Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
+import Filter from '../../src/components/Filter'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
 
-function Index() {
-  const [serachterm, setSearchTerm] = useState('');
+function Index () {
+  const [serachterm, setSearchTerm] = useState('')
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const { searchedLeads } = useSelector((state) => state.order);
+  const { searchedLeads } = useSelector((state) => state.order)
 
-  const { allVessel, Vessel } = useSelector((state) => state.vessel);
+  const { allVessel, Vessel } = useSelector((state) => state.vessel)
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
-      sessionStorage.setItem('loadedSubPage', `Vessel Nomination`);
-      sessionStorage.setItem('openList', 2);
+      sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
+      sessionStorage.setItem('loadedSubPage', `Vessel Nomination`)
+      sessionStorage.setItem('openList', 2)
     }
-  }, []);
+  }, [])
   useEffect(() => {
-    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`));
-  }, [currentPage]);
+    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
+  }, [currentPage])
 
   useEffect(() => {
-    dispatch(setPageName('vessel'));
-    dispatch(setDynamicName(null));
-    dispatch(setDynamicOrder(null));
-  }, [allVessel]);
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
+  }, [allVessel])
 
   const handleRoute = (vessel) => {
-    sessionStorage.setItem('VesselCompany', vessel.company._id);
-    sessionStorage.setItem('VesselId', vessel._id);
-    dispatch(GetVessel(`?vesselId=${vessel._id}`));
+    sessionStorage.setItem('VesselCompany', vessel.company._id)
+    sessionStorage.setItem('VesselId', vessel._id)
+    dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
-      Router.push('/vessel');
-    }, 500);
-  };
+      Router.push('/vessel')
+    }, 500)
+  }
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
 
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllVessel(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllVessel(`?company=${id}`))
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
     if (sorting == -1) {
       dispatch(
         GetAllVessel(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetAllVessel(`?page=${currentPage}&limit=7&createdAt=${sorting}`),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <div className="container-fluid p-0">
@@ -117,7 +113,7 @@ function Index() {
               </div>
             )}
           </div>
-          <Filter />
+          <Filter/>
           {/* <a href="#" className={`${styles.filterList} filterList `}>
           Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -145,9 +141,9 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return;
+                    return
                   } else {
-                    setCurrentPage((prevState) => prevState - 1);
+                    setCurrentPage((prevState) => prevState - 1)
                   }
                 }}
                 href="#"
@@ -163,7 +159,7 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1);
+                    setCurrentPage((prevState) => prevState + 1)
                   }
                 }}
                 href="#"
@@ -186,58 +182,58 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                        onClick={() => handleSort()}
-                      />
-                    </th>
-                    <th>BUYER NAME</th>
-                    <th>COMMODITY</th>
-                    <th>CREATED BY</th>
-                    <th>CREATED ON</th>
-                    <th>STATUS</th>
-                    <th>PREVIEW</th>
-                  </tr>
+                <tr className="table_row">
+                  <th>
+                    ORDER ID{' '}
+                    <img
+                      className={`mb-1`}
+                      src="/static/icons8-sort-24.svg"
+                      alt="Sort icon"
+                      onClick={() => handleSort()}
+                    />
+                  </th>
+                  <th>BUYER NAME</th>
+                  <th>COMMODITY</th>
+                  <th>CREATED BY</th>
+                  <th>CREATED ON</th>
+                  <th>STATUS</th>
+                  <th>PREVIEW</th>
+                </tr>
                 </thead>
                 <tbody>
-                  {allVessel &&
-                    allVessel?.data?.map((vessel, index) => (
-                      <tr key={index} className="table_row">
-                        <td>
-                          {vessel?.order?.orderId
-                            ? vessel?.order?.orderId
-                            : vessel?.order?.applicationId}
-                        </td>
-                        <td
-                          className={styles.buyerName}
-                          onClick={() => handleRoute(vessel)}
-                        >
-                          {vessel?.company?.companyName}
-                        </td>
-                        <td>{vessel?.order?.commodity}</td>
-                        <td>RM-Sales</td>
-                        <td>22-02-2022</td>
-                        <td>
+                {allVessel &&
+                  allVessel?.data?.map((vessel, index) => (
+                    <tr key={index} className="table_row">
+                      <td>
+                        {vessel?.order?.orderId
+                          ? vessel?.order?.orderId
+                          : vessel?.order?.applicationId}
+                      </td>
+                      <td
+                        className={styles.buyerName}
+                        onClick={() => handleRoute(vessel)}
+                      >
+                        {vessel?.company?.companyName}
+                      </td>
+                      <td>{vessel?.order?.commodity}</td>
+                      <td>RM-Sales</td>
+                      <td>22-02-2022</td>
+                      <td>
                           <span
                             className={`${styles.status} ${styles.approved}`}
                           ></span>
-                          Approved
-                        </td>
-                        <td>
-                          {' '}
-                          <img
-                            className="img-fluid"
-                            src="/static/preview.svg"
-                            alt="P"
-                          />{' '}
-                        </td>
-                      </tr>
-                    ))}
+                        Approved
+                      </td>
+                      <td>
+                        {' '}
+                        <img
+                          className="img-fluid"
+                          src="/static/preview.svg"
+                          alt="P"
+                        />{' '}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -245,6 +241,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

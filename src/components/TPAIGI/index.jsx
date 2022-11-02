@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import _get from 'lodash/get';
-import moment from 'moment';
-import Router from 'next/router';
-function Index(props) {
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import GrowInput from '../GrowInput'
+import _get from 'lodash/get'
+import moment from 'moment'
+import Router from 'next/router'
+
+function Index (props) {
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -34,27 +35,27 @@ function Index(props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
+  })
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'));
+        const data = JSON.parse(sessionStorage.getItem('preview'))
 
         setData({
           seller: data?.seller,
@@ -89,27 +90,26 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        });
+        })
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-       
-        let exe;
-        let dat = '';
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+
+        let exe
+        let dat = ''
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'TPA (CMA)') {
-            exe = val.place;
+            exe = val.place
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
             }
           }
-        });
-        let comment = [];
+        })
+        let comment = []
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'TPA (CMA)') {
-            comment.push(val.comment);
+            comment.push(val.comment)
           }
-        });
-     
+        })
 
         setData({
           seller: data?.seller?.name,
@@ -170,12 +170,12 @@ function Index(props) {
           cmaAddress:
             'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba',
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-        });
+        })
       }
     }
-  }, [props]);
+  }, [props])
   return (
-    <>      
+    <>
       {/* TPA (CMA) pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
@@ -1108,8 +1108,8 @@ function Index(props) {
 
       <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
-          {tpaSeller(data,props.preview)}
-          {props.preview !== "TPAIGI" ? (
+          {tpaSeller(data, props.preview)}
+          {props.preview !== 'TPAIGI' ? (
             <>
               <div
                 className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
@@ -1117,11 +1117,10 @@ function Index(props) {
                 <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      props.setPreviewValue("TPAIGI");
+                      Router.push('agreement/preview')
+                      props.setPreviewValue('TPAIGI')
                     }}
                   >
                     Preview
@@ -1139,26 +1138,26 @@ function Index(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
-const tpaSeller = (data,preview) => {
+export default Index
+const tpaSeller = (data, preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
       {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                TRIPARTITE AGREEMENT No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+        <div className={`${styles.inputsContainer2} border_black`}>
+          <Row className={`${styles.row} ${styles.last}`}>
+            <Col md={7} className={`${styles.left} border_black`}>
+              TRIPARTITE AGREEMENT No.:{' '}
+              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+            </Col>
+            <Col md={5} className={styles.right}>
+              Date: {moment(new Date()).format('DD-MM-YYYY')}
+            </Col>
+          </Row>
+        </div>
+      ) : null}
       <p className="text-center text_sales">
         {' '}
         <strong>TRIPARTITE AGREEMENT</strong>
@@ -1684,7 +1683,7 @@ const tpaSeller = (data,preview) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  );
+                  )
                 })}
             </ol>
           </Col>
@@ -1763,8 +1762,8 @@ const tpaSeller = (data,preview) => {
         </Col>
       </div>
     </div>
-  );
-};
+  )
+}
 // const tpaSeller=()=>{
 //   return(
 //     <div className={`${styles.cardBody} card-body pt-3`}>

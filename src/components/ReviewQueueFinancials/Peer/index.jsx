@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styles from '../index.module.scss';
-import moment from 'moment';
-import { checkNan, convertValue } from 'utils/helper';
+import React, { useState } from 'react'
+import styles from '../index.module.scss'
+import moment from 'moment'
+import { checkNan, convertValue } from 'utils/helper'
 
-function Index({ peerData }) {
-  const [conversionUnit, setConversionUnit] = useState(10000000);
+function Index ({ peerData }) {
+  const [conversionUnit, setConversionUnit] = useState(10000000)
 
   // console.log(peerData?.financial?.peerComparison, 'THIS IS PEER COMPARISON DATA')
 
@@ -60,77 +60,77 @@ function Index({ peerData }) {
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width="30%">COMPANY</th>
-                      <th className="text-center" width="14%">
-                        FY ENDING
-                      </th>
-                      <th className="text-center" width="14%">
-                        REVENUE
-                      </th>
-                      <th className="text-center" width="14%">
-                        EBDITA MARGIN (%)
-                      </th>
-                      <th className="text-center" width="14%">
-                        PAT MARGIN (%)
-                      </th>
-                      <th className="text-center" width="14%">
-                        BORROWINGS
-                      </th>
-                    </tr>
+                  <tr>
+                    <th width="30%">COMPANY</th>
+                    <th className="text-center" width="14%">
+                      FY ENDING
+                    </th>
+                    <th className="text-center" width="14%">
+                      REVENUE
+                    </th>
+                    <th className="text-center" width="14%">
+                      EBDITA MARGIN (%)
+                    </th>
+                    <th className="text-center" width="14%">
+                      PAT MARGIN (%)
+                    </th>
+                    <th className="text-center" width="14%">
+                      BORROWINGS
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {peerData &&
-                      peerData?.financial?.peerComparison?.map(
-                        (peers, index) => (
-                          <tr key={index}>
-                            <td>{peers.name}</td>
-                            <td className="text-center">
-                              {moment(peers?.finyrEnddate)
-                                .format('MMM-YY')
-                                .toUpperCase()}
-                            </td>
-                            <td className="text-center">
-                              {convertValue(
-                                peers.revenue,
-                                conversionUnit,
-                              )?.toLocaleString('en-In', {
+                  {peerData &&
+                    peerData?.financial?.peerComparison?.map(
+                      (peers, index) => (
+                        <tr key={index}>
+                          <td>{peers.name}</td>
+                          <td className="text-center">
+                            {moment(peers?.finyrEnddate)
+                              .format('MMM-YY')
+                              .toUpperCase()}
+                          </td>
+                          <td className="text-center">
+                            {convertValue(
+                              peers.revenue,
+                              conversionUnit,
+                            )?.toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })}
+                          </td>
+                          <td className="text-center">
+                            {checkNan(
+                              peers?.ebidtaMargin * 100,
+                            )?.toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })}{' '}
+                            %
+                          </td>
+                          <td className="text-center">
+                            {checkNan(peers?.patMargin * 100)?.toLocaleString(
+                              'en-In',
+                              {
                                 maximumFractionDigits: 2,
                                 minimumFractionDigits: 2,
-                              })}
-                            </td>
-                            <td className="text-center">
-                              {checkNan(
-                                peers?.ebidtaMargin * 100,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })}{' '}
-                              %
-                            </td>
-                            <td className="text-center">
-                              {checkNan(peers?.patMargin * 100)?.toLocaleString(
-                                'en-In',
-                                {
-                                  maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
-                              %
-                            </td>
-                            <td className="text-center">
-                              {convertValue(
-                                peers.borrowings,
-                                conversionUnit,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              })}
-                            </td>
-                          </tr>
-                        ),
-                      )}
-                    {/* <tr>
+                              },
+                            )}
+                            %
+                          </td>
+                          <td className="text-center">
+                            {convertValue(
+                              peers.borrowings,
+                              conversionUnit,
+                            )?.toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })}
+                          </td>
+                        </tr>
+                      ),
+                    )}
+                  {/* <tr>
                       <td>Ascent Hotels Private Limited</td>
                       <td className="text-center">Mar-2018</td>
                       <td className="text-center">96.17</td>
@@ -170,7 +170,7 @@ function Index({ peerData }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

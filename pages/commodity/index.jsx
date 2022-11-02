@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Filter from '../../src/components/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { SearchLeads } from 'redux/buyerProfile/action';
-import DownloadMasterBar from '../../src/components/DownloadMasterBar';
-import Image from 'next/image';
-import Router from 'next/router';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import Filter from '../../src/components/Filter'
+import { useDispatch, useSelector } from 'react-redux'
+import { SearchLeads } from 'redux/buyerProfile/action'
+import DownloadMasterBar from '../../src/components/DownloadMasterBar'
+import Image from 'next/image'
+import Router from 'next/router'
 
 const index = () => {
-  const dispatch = useDispatch();
-  const [serachterm, setSearchTerm] = useState('');
-  const { searchedLeads } = useSelector((state) => state.order);
+  const dispatch = useDispatch()
+  const [serachterm, setSearchTerm] = useState('')
+  const { searchedLeads } = useSelector((state) => state.order)
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetLcModule(`?company=${id}`))
+  }
 
   return (
     <>
@@ -31,12 +31,12 @@ const index = () => {
         <div className={styles.container_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={`${styles.head_header} mr-3 align-items-center`}>
-            <img
+            <div className={`${styles.head_header} mr-3 align-items-center`}>
+              <img
                 className={`${styles.arrow} image_arrow mr-3 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
-              /> 
+              />
               <h1 className={styles.heading}>Commodity</h1>
             </div>
             <div className={`${styles.search}`}>
@@ -74,7 +74,7 @@ const index = () => {
                 </div>
               )}
             </div>
-            <Filter />
+            <Filter/>
 
             <button
               type="button"
@@ -92,7 +92,7 @@ const index = () => {
             >
               <h3 className="heading_card">Commodity</h3>
               <div className="d-flex align-items-center">
-                <div className={`${styles.show_record}`}>Show Records: </div>
+                <div className={`${styles.show_record}`}>Show Records:</div>
                 <div className="d-flex align-items-center position-relative ml-2">
                   <select
                     className={`${styles.select} ${styles.customSelect} text1 accordion_body form-select`}
@@ -143,207 +143,207 @@ const index = () => {
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th className={`${styles.table_heading} table_heading`}>
+                  <tr>
+                    <th className={`${styles.table_heading} table_heading`}>
                       COMMODITY{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th
-                        width="25%"
-                        className={`${styles.table_heading} table_heading`}
-                      >
-                        CHAPTER NAME{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th
+                      width="25%"
+                      className={`${styles.table_heading} table_heading`}
+                    >
+                      CHAPTER NAME{' '}
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th className={`${styles.table_heading} table_heading`}>
                       CHAPTER CODE{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th className={`${styles.table_heading} table_heading`}>
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+                    <th className={`${styles.table_heading} table_heading`}>
                       APPROVED{' '}
-                        <Image
-                          width="9px"
-                          height="14px"
-                          className={`${styles.sort_img}`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      
-                      <th className={`${styles.table_heading} table_heading`}>
-                        ACTION
-                      </th>
-                    </tr>
+                      <Image
+                        width="9px"
+                        height="14px"
+                        className={`${styles.sort_img}`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />
+                    </th>
+
+                    <th className={`${styles.table_heading} table_heading`}>
+                      ACTION
+                    </th>
+                  </tr>
                   </thead>
                   <tbody>
                   <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
+                        src="/static/active.svg"
+                        className="img-fluid"
+                        alt="active"
+                      />
+                      <span className="m-3">Yes</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row17`}>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
+                        src="/static/active.svg"
+                        className="img-fluid"
+                        alt="active"
+                      />
+                      <span className="m-3">Yes</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row17`}>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
+                        src="/static/active.svg"
+                        className="img-fluid"
+                        alt="active"
+                      />
+                      <span className="m-3">Yes</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row17`}>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
+                        src="/static/active.svg"
+                        className="img-fluid"
+                        alt="active"
+                      />
+                      <span className="m-3">Yes</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row17`}>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
+                        src="/static/active.svg"
+                        className="img-fluid"
+                        alt="active"
+                      />
+                      <span className="m-3">Yes</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">Yes</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className={`${styles.table_row} table_row17`}>
-                      <td className={styles.buyerName}>Ferro-Alloys </td>
-                      <td>Iron & Steel</td>
-                    
-                      <td>72</td>
-                      <td>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr className={`${styles.table_row} table_row17`}>
+                    <td className={styles.buyerName}>Ferro-Alloys</td>
+                    <td>Iron & Steel</td>
+
+                    <td>72</td>
+                    <td>
                       <img
-                           src="/static/blacklisted.svg"
-                           className="img-fluid"
-                           alt="blacklisted"
+                        src="/static/blacklisted.svg"
+                        className="img-fluid"
+                        alt="blacklisted"
+                      />
+                      <span className="m-3">No</span>
+                    </td>
+                    <td>
+                      {' '}
+                      <div className={`${styles.edit_image} img-fluid`}>
+                        <Image
+                          height="40px"
+                          width="40px"
+                          src="/static/mode_edit.svg"
+                          alt="Edit"
                         />
-                        <span className="m-3">No</span>
-                      </td>
-                      <td>
-                        {' '}
-                        <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </div>
-                      </td>
-                    </tr>
+                      </div>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div>
@@ -364,9 +364,9 @@ const index = () => {
         </div>
       </div> */}
       </div>
-      <DownloadMasterBar btnName="Download" />
+      <DownloadMasterBar btnName="Download"/>
     </>
-  );
-};
+  )
+}
 
-export default index;
+export default index

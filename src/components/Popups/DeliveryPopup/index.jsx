@@ -1,17 +1,8 @@
-import React from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-  Form,
-} from 'react-bootstrap';
-import styles from './index.module.scss';
+import React from 'react'
+import { Col, Dropdown, DropdownButton, Form, FormControl, InputGroup, Modal, Row, } from 'react-bootstrap'
+import styles from './index.module.scss'
 
-function index(props) {
+function index (props) {
   return (
     <Modal
       show={props.open}
@@ -30,7 +21,7 @@ function index(props) {
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
           <Col md={6} className={`${styles.left} `}>
-            <img src="/static/icons8-whatsapp.svg" className={`mb-3`} />
+            <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
             <InputGroup className="mb-3">
               <DropdownButton
                 variant="outline-secondary"
@@ -52,7 +43,7 @@ function index(props) {
             </div>
           </Col>
           <Col md={6} className={`${styles.right}`}>
-            <img src="/static/icons8-email-open-48.png" className="mb-3" />
+            <img src="/static/icons8-email-open-48.png" className="mb-3"/>
             <Form.Control
               type="text"
               id="inputPassword5"
@@ -71,7 +62,7 @@ function index(props) {
       </div> */}
       </Modal.Body>
     </Modal>
-  );
+  )
 }
 
-export default index;
+export default index

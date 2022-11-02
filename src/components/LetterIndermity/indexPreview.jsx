@@ -1,12 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetLcModule } from 'redux/lcModule/action';
-import Filter from '../Filter';
+import React from 'react'
+import styles from './index.module.scss'
 
-function Index() {
+function Index () {
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
@@ -181,6 +177,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

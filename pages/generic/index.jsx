@@ -1,47 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import SalesAgreement from '../../src/components/SalesAgreement';
-import Cookies from 'js-cookie';
-import API from '../../src/utils/endpoints';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import Router from 'next/router';
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
-import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import SalesAgreement from '../../src/components/SalesAgreement'
+import { useDispatch } from 'react-redux'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import Router from 'next/router'
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action'
+import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 
-function Index(props) {
-  const [genericData, setGenericData] = useState();
-  const dispatch = useDispatch();
-  const [darkMode, setDarkMode] = useState(false);
-  const [lastModified, setlastModified] = useState('');
+function Index (props) {
+  const [genericData, setGenericData] = useState()
+  const dispatch = useDispatch()
+  const [darkMode, setDarkMode] = useState(false)
+  const [lastModified, setlastModified] = useState('')
 
   useEffect(() => {
     if (window) {
-      dispatch(setPageName('generic'));
-      dispatch(setDynamicOrder(sessionStorage.getItem('genericID')));
-      let data = JSON.parse(sessionStorage.getItem('genericSelected'));
+      dispatch(setPageName('generic'))
+      dispatch(setDynamicOrder(sessionStorage.getItem('genericID')))
+      let data = JSON.parse(sessionStorage.getItem('genericSelected'))
 
-      dispatch(setDynamicName(data?.company?.companyName));
-      dispatch(GetCompanyDetails({ company: data?.company._id }));
-      dispatch(GetAllOrders({ orderId: data?.order?._id }));
+      dispatch(setDynamicName(data?.company?.companyName))
+      dispatch(GetCompanyDetails({ company: data?.company._id }))
+      dispatch(GetAllOrders({ orderId: data?.order?._id }))
     }
-  }, []);
+  }, [])
   useEffect(() => {
     if (window) {
-      setGenericData(JSON.parse(sessionStorage.getItem('genericSelected')));
+      setGenericData(JSON.parse(sessionStorage.getItem('genericSelected')))
     }
-  }, []);
-
+  }, [])
 
   const setDate = (date) => {
-    setlastModified(date);
-  };
+    setlastModified(date)
+  }
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div
@@ -53,7 +46,7 @@ function Index(props) {
             alt="arrow right"
             className={`${styles.arrow} img-fluid mr-2 image_arrow`}
             onClick={() => {
-              Router.push('/generic/generic-list');
+              Router.push('/generic/generic-list')
             }}
             style={{ cursor: 'pointer' }}
           />
@@ -75,13 +68,13 @@ function Index(props) {
         <div className="row">
           <div className="col-md-12  accordion_body">
             <div className={`${styles.tabContent} tab-content`}>
-              <SalesAgreement genericData={genericData} setDate={setDate} />
+              <SalesAgreement genericData={genericData} setDate={setDate}/>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { useRouter } from 'next/router';
-import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import { GetOrders } from '../../redux/registerBuyer/action';
-import Filter from '../Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
-import _get from 'lodash/get';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import Router, { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetOrders } from '../../redux/registerBuyer/action'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../redux/userData/action'
+import _get from 'lodash/get'
 
-function Index() {
-  const { singleOrder } = useSelector((state) => state.buyer);
-;
-  const [edit, setEdit] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
+function Index () {
+  const { singleOrder } = useSelector((state) => state.buyer)
+
+  const [edit, setEdit] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    let id1 = sessionStorage.getItem('VesselCompany');
-    dispatch(GetOrders(`?company=${id1}`));
-  }, [dispatch]);
+    let id1 = sessionStorage.getItem('VesselCompany')
+    dispatch(GetOrders(`?company=${id1}`))
+  }, [dispatch])
 
   useEffect(() => {
-    dispatch(setPageName('vessel'));
+    dispatch(setPageName('vessel'))
     dispatch(
       setDynamicName(
         _get(singleOrder, 'data[0].company.companyName', 'Company Name'),
       ),
-    );
-    dispatch(setDynamicOrder(null));
-  }, [singleOrder]);
+    )
+    dispatch(setDynamicOrder(null))
+  }, [singleOrder])
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -41,7 +35,7 @@ function Index() {
           <div className={`${styles.head_header} align-items-center`}>
             <img
               onClick={() => {
-                Router.push('/vessel-nomination');
+                Router.push('/vessel-nomination')
               }}
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -122,42 +116,42 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />{' '}
-                    </th>
-                    <th>COMMODITY</th>
-                    <th>SHIPMENT TYPE</th>
-                    <th>CREATED ON</th>
-                    <th>STATUS</th>
-                  </tr>
+                <tr className="table_row">
+                  <th>
+                    ORDER ID{' '}
+                    <img
+                      className={`mb-1`}
+                      src="/static/icons8-sort-24.svg"
+                      alt="Sort icon"
+                    />{' '}
+                  </th>
+                  <th>COMMODITY</th>
+                  <th>SHIPMENT TYPE</th>
+                  <th>CREATED ON</th>
+                  <th>STATUS</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={(e) => {
-                        Router.push('/vessel');
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bulk</td>
-                    <td>22-02-2022</td>
-                    <td>
+                <tr className="table_row">
+                  <td>124621</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={(e) => {
+                      Router.push('/vessel')
+                    }}
+                  >
+                    Iron
+                  </td>
+                  <td>Bulk</td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                      Pending
-                    </td>
+                    Pending
+                  </td>
 
-                    {/* {!edit ? (
+                  {/* {!edit ? (
                       <td colSpan={2}>
                         {' '}
                         <button
@@ -179,45 +173,45 @@ function Index() {
                         </td>
                       </>
                     )} */}
-                  </tr>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={(e) => {
-                        Router.push('/vessel');
-                      }}
-                    >
-                      Iron
-                    </td>
-                    <td>Bulk</td>
-                    <td>22-02-2022</td>
-                    <td>
+                </tr>
+                <tr className="table_row">
+                  <td>124621</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={(e) => {
+                      Router.push('/vessel')
+                    }}
+                  >
+                    Iron
+                  </td>
+                  <td>Bulk</td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                      Pending
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>124621</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={(e) => {
-                        Router.push('/vessel');
-                      }}
-                    >
-                      Copper
-                    </td>
-                    <td>Liner</td>
-                    <td>22-02-2022</td>
-                    <td>
+                    Pending
+                  </td>
+                </tr>
+                <tr className="table_row">
+                  <td>124621</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={(e) => {
+                      Router.push('/vessel')
+                    }}
+                  >
+                    Copper
+                  </td>
+                  <td>Liner</td>
+                  <td>22-02-2022</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.approved}`}
                       ></span>
-                      Approved
-                    </td>
-                  </tr>
+                    Approved
+                  </td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -225,6 +219,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

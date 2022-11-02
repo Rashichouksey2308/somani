@@ -1,7 +1,9 @@
 @import '../styles/Core/config';
+
 .root {
   position: relative;
   font-family: 'Times New Roman', Times, serif;
+
   .sidebar {
     width: 376px;
     height: 736px;
@@ -13,17 +15,21 @@
     border-radius: 6px !important;
     margin-bottom: 42px;
     padding: 10px 26px 15px 30px;
+
     .sidebar_content {
       height: 70px;
       padding: 20px 0;
+
       .content2 {
         height: 100%;
         cursor: pointer;
         color: #28487b;
+
         input {
           width: 27px;
           height: 27px;
         }
+
         span {
           font-size: 22px;
           line-height: 27px;
@@ -31,6 +37,7 @@
           margin-right: 20px;
           margin-left: 22px !important;
         }
+
         img {
           width: 27px;
           height: 27px;
@@ -44,25 +51,30 @@
           display: flex;
           justify-content: center;
           align-items: center;
+
           img {
             width: 9px;
             height: 14px;
           }
         }
       }
+
       .selected {
         opacity: 1 !important;
         color: #3687e8 !important;
       }
     }
   }
+
   .content {
     // margin-left: 400px;
     box-shadow: 0px 3px 6px #cad0e2;
     border-radius: 6px !important;
+
     label {
       font-size: 20px;
     }
+
     .date_input {
       font-size: 20px;
       height: 60px;
@@ -78,12 +90,15 @@
         font-size: 15px;
       }
     }
+
     .card_body {
       padding: 0px 100px 20px 100px;
+
       .sub_heading {
         text-decoration: underline;
         font-weight: 500;
       }
+
       p {
         font-size: 20px;
         margin-bottom: 2rem;
@@ -95,6 +110,7 @@
           font-size: 15px;
         }
       }
+
       .para {
         //line-height: 60px;
         font-size: 20px;
@@ -112,12 +128,14 @@
         }
       }
     }
+
     .footer {
       font-size: 22px;
       border-top: 2px solid #d2d7e5;
       height: 5rem;
     }
   }
+
   p {
     font-size: 20px;
     margin-bottom: 1rem;
@@ -191,6 +209,7 @@
     }
   }
 }
+
 .pageList span {
   font-size: 18px;
   color: #718096;
@@ -198,6 +217,7 @@
   line-height: 23px;
   margin-right: 38px;
 }
+
 .reject {
   cursor: pointer;
   width: 260px;
@@ -209,6 +229,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .approve {
   cursor: pointer;
   width: 260px;
@@ -221,12 +242,14 @@
   justify-content: center;
   margin-left: 1rem;
 }
+
 .image_reverse {
   transform: rotate(180deg);
   width: 9px;
   height: 14px;
   opacity: 0.6;
 }
+
 .inputsContainer2 {
   padding-left: 50px;
   font-size: 20px;

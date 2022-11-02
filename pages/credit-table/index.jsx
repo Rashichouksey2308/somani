@@ -1,9 +1,7 @@
-import React from 'react';
-import styles from './index.module.scss';
-import Image from 'next/image';
-import { Modal } from 'react-bootstrap';
+import React from 'react'
+import styles from './index.module.scss'
 
-function Index() {
+function Index () {
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -29,73 +27,73 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
-                    <th>SUPPLIER NAME</th>
-                    <th>ORDER ID</th>
-                    <th>ORDER DATE</th>
-                    <th>ORDER VALUE</th>
-                    <th>COMMODITY</th>
-                    <th>STATUS</th>
-                    <th>DAYS DUE</th>
-                  </tr>
+                <tr className="table_row">
+                  <th>SUPPLIER NAME</th>
+                  <th>ORDER ID</th>
+                  <th>ORDER DATE</th>
+                  <th>ORDER VALUE</th>
+                  <th>COMMODITY</th>
+                  <th>STATUS</th>
+                  <th>DAYS DUE</th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
-                    <td
-                      className={`d-flex justify-content-start align-items-center`}
-                    >
-                      <div className={`${styles.icon} `}>
+                <tr className="table_row">
+                  <td
+                    className={`d-flex justify-content-start align-items-center`}
+                  >
+                    <div className={`${styles.icon} `}>
                         <span
                           className={`d-flex justify-content-center align-items-center`}
                         >
                           ET
                         </span>
-                      </div>
+                    </div>
 
-                      <span className={` ${styles.name} ml-4`}>
+                    <span className={` ${styles.name} ml-4`}>
                         Emerging Traders
                       </span>
-                    </td>
-                    <td>2765470888</td>
-                    <td>22-02-2022</td>
-                    <td>1,900.00</td>
-                    <td>Iron</td>
-                    <td>
+                  </td>
+                  <td>2765470888</td>
+                  <td>22-02-2022</td>
+                  <td>1,900.00</td>
+                  <td>Iron</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.rejected}`}
                       ></span>
-                      In Process
-                    </td>
-                    <td> 12 </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td
-                      className={`d-flex justify-content-start align-items-center`}
-                    >
-                      <div className={`${styles.icon} `}>
+                    In Process
+                  </td>
+                  <td> 12</td>
+                </tr>
+                <tr className="table_row">
+                  <td
+                    className={`d-flex justify-content-start align-items-center`}
+                  >
+                    <div className={`${styles.icon} `}>
                         <span
                           className={`d-flex justify-content-center align-items-center`}
                         >
                           ET
                         </span>
-                      </div>
+                    </div>
 
-                      <span className={` ${styles.name} ml-4 `}>
+                    <span className={` ${styles.name} ml-4 `}>
                         Emerging Traders
                       </span>
-                    </td>
-                    <td>2765470888</td>
-                    <td>22-02-2022</td>
-                    <td>1,900.00</td>
-                    <td>Iron</td>
-                    <td>
+                  </td>
+                  <td>2765470888</td>
+                  <td>22-02-2022</td>
+                  <td>1,900.00</td>
+                  <td>Iron</td>
+                  <td>
                       <span
                         className={`${styles.status} ${styles.rejected}`}
                       ></span>
-                      In Process
-                    </td>
-                    <td> 12 </td>
-                  </tr>
+                    In Process
+                  </td>
+                  <td> 12</td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -103,6 +101,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

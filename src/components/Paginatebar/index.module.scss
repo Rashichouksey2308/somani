@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .root {
   left: 0;
   right: 0;
@@ -32,6 +33,7 @@
     bottom: 55px;
     height: auto;
   }
+
   .reject {
     cursor: pointer;
     width: 260px;
@@ -47,6 +49,7 @@
       width: 200px;
       height: 38px;
     }
+
     img {
       margin-left: 0.5rem;
       @include respond(lg-desktop) {
@@ -57,15 +60,18 @@
         width: 10px;
       }
     }
+
     span {
       @include respond(phone) {
         font-size: 12px;
       }
     }
+
     @include respond(phone) {
       font-size: 12px;
     }
   }
+
   .navigate {
     width: 300px;
     font-size: 18px;
@@ -82,6 +88,7 @@
     @include respond(phone) {
       font-size: 10px;
     }
+
     span {
       display: flex;
       align-items: center;
@@ -97,40 +104,45 @@
         height: 19px;
       }
     }
+
     .reject {
-        cursor: pointer;
-        width: 260px;
-        height: 48px;
-        border: 3px solid #3687E8;
-        border-radius: 5px;
-        color: #3687E8;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 1rem;
+      cursor: pointer;
+      width: 260px;
+      height: 48px;
+      border: 3px solid #3687E8;
+      border-radius: 5px;
+      color: #3687E8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      @include respond(lg-desktop) {
+        width: 200px;
+        height: 38px;
+      }
+
+      img {
+        margin-left: 0.5rem;
         @include respond(lg-desktop) {
-            width: 200px;
-            height: 38px;
-        }
-        img {
-            margin-left: 0.5rem;
-            @include respond(lg-desktop) {
-                width: 13px;
-                margin-left: 0.3rem;
-            }
-            @include respond(phone) {
-                width: 10px;
-            }
-        }
-        span {
-            @include respond(phone) {
-                font-size: 12px;
-            }
+          width: 13px;
+          margin-left: 0.3rem;
         }
         @include respond(phone) {
-            font-size: 12px;
+          width: 10px;
         }
+      }
+
+      span {
+        @include respond(phone) {
+          font-size: 12px;
+        }
+      }
+
+      @include respond(phone) {
+        font-size: 12px;
+      }
     }
+
     .button {
       width: 24px;
       height: 4px;
@@ -142,6 +154,7 @@
         width: 10px;
       }
     }
+
     img {
       @include respond(sm-desktop) {
         width: 20px;
@@ -150,12 +163,14 @@
         width: 10px;
       }
     }
+
     .button2 {
       width: 24px;
       height: 24px;
       background: #667085 0% 0% no-repeat padding-box;
     }
   }
+
   .approve {
     cursor: pointer;
     width: 260px;
@@ -171,19 +186,23 @@
       width: 200px;
       height: 38px;
     }
+
     span {
       @include respond(phone) {
         font-size: 12px;
       }
     }
+
     @include respond(phone) {
       font-size: 12px;
     }
   }
 }
+
 .no_sidebar {
   margin-left: 102px !important;
 }
+
 .no_sidebar_mobile {
   margin-left: 0px !important;
 }

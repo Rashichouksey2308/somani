@@ -1,16 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import _get from 'lodash/get';
-import moment from 'moment';
-import Router from 'next/router';
-function Index(props) {
- console.log(props.type,"adadf")
-  const [active, setActive] = useState('none');
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import GrowInput from '../GrowInput'
+import _get from 'lodash/get'
+import moment from 'moment'
+import Router from 'next/router'
+
+function Index (props) {
+  console.log(props.type, 'adadf')
+  const [active, setActive] = useState('none')
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -39,27 +40,27 @@ function Index(props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
+  })
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'));
+        const data = JSON.parse(sessionStorage.getItem('preview'))
 
         setData({
           seller: data?.seller,
@@ -94,27 +95,27 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        });
+        })
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-        console.log(data, 'data22222');
-        let exe;
-        let dat = '';
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+        console.log(data, 'data22222')
+        let exe
+        let dat = ''
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            exe = val.place;
+            exe = val.place
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
             }
           }
-        });
-        let comment = [];
+        })
+        let comment = []
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            comment.push(val.comment);
+            comment.push(val.comment)
           }
-        });
-        console.log(dat, exe, 'exedasa');
+        })
+        console.log(dat, exe, 'exedasa')
 
         setData({
           seller: data?.seller?.name,
@@ -200,13 +201,13 @@ function Index(props) {
             'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba',
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: '',
-        });
+        })
       }
     }
-  }, [props]);
+  }, [props])
   return (
     <>
-    
+
       {/* Agreement pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
@@ -1845,7 +1846,7 @@ function Index(props) {
         </tr>
       </table> */}
       {/* Agreement pdf download code end */}
-      
+
       {/* Undertaking 1 pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
@@ -2872,7 +2873,7 @@ function Index(props) {
 
       <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
-         {props.preview ==""? <div
+          {props.preview == '' ? <div
             className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
             data-toggle="collapse"
             data-target="#cashFlowStatement"
@@ -2927,32 +2928,31 @@ function Index(props) {
                         />
                       </a>
                     </div> */}
-          </div>:null}
-          {props.preview==""?
-           
+          </div> : null}
+          {props.preview == '' ?
+
             active == 'none'
-            ? associateShip(data,props.preview,props.setPreviewValue)
-            : active == 'one' 
-            ? underTaking1(data,props.preview,props.setPreviewValue)
-            : underTaking2(data,props.preview,props.setPreviewValue)
-          
-          :
+              ? associateShip(data, props.preview, props.setPreviewValue)
+              : active == 'one'
+                ? underTaking1(data, props.preview, props.setPreviewValue)
+                : underTaking2(data, props.preview, props.setPreviewValue)
+
+            :
             props.type == 'ASSO'
-            ? associateShip(data,props.preview,props.setPreviewValue)
-            : props.type == 'UNDERTAKING1' 
-            ? underTaking1(data,props.preview,props.setPreviewValue)
-            : underTaking2(data,props.preview,props.setPreviewValue)
+              ? associateShip(data, props.preview, props.setPreviewValue)
+              : props.type == 'UNDERTAKING1'
+                ? underTaking1(data, props.preview, props.setPreviewValue)
+                : underTaking2(data, props.preview, props.setPreviewValue)
           }
 
-            
-          
+
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index
 
 const assignmentSupplier = (props) => {
   return (
@@ -3208,8 +3208,8 @@ const assignmentSupplier = (props) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 const tripartiteAgreement = () => {
   return (
     <>
@@ -3463,8 +3463,8 @@ const tripartiteAgreement = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 const salesContract = () => {
   return (
     <>
@@ -4481,8 +4481,8 @@ Andhra Pradesh, 530016 India
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 const tpaSeller = () => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
@@ -5076,15 +5076,15 @@ const tpaSeller = () => {
         </Col>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const associateShip = (data,preview,setPreviewValue) => {
-  console.log(data, 'data');
+const associateShip = (data, preview, setPreviewValue) => {
+  console.log(data, 'data')
   return (
     <>
-      <div className="card-body" style={{minHeight:'auto', flex:'none'}}>
-         {preview ? (
+      <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>
+        {preview ? (
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
@@ -5485,7 +5485,7 @@ const associateShip = (data,preview,setPreviewValue) => {
                   &amp; Sale basis as per delivery terms mentioned in Schedule
                   I. IGI shall file the Bill of Entry in its name and the
                   Associate Buyer shall arrange to clear the cargo at the port.
-                  <br />
+                  <br/>
                   In case the shipment is under Form A-1 the same shall be
                   arranged by the Associate Buyer on or before the customs
                   clearance.
@@ -5563,7 +5563,7 @@ const associateShip = (data,preview,setPreviewValue) => {
                 {' '}
                 <p className="text_sales">
                   <strong>Safekeeping and Security of the Goods: </strong>
-                  <br />
+                  <br/>
                   Proper safekeeping and security of Goods shall be the
                   responsibility of the Associate Buyer. The Associate Buyer
                   shall provide round the clock security guards at the Storage
@@ -6570,36 +6570,35 @@ const associateShip = (data,preview,setPreviewValue) => {
           </Col>
         </div>
       </div>
-       {preview !== "ASSO" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
+      {preview !== 'ASSO' ? (
+        <>
+          <div
+            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+          >
+            <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      setPreviewValue("ASSO");
+                      Router.push('agreement/preview')
+                      setPreviewValue('ASSO')
                     }}
                   >
                     Preview
                   </span>
-                </div>
-                <div className={styles.reject}>
-                  <span>Save</span>
-                </div>
-                <div className={styles.approve}>
-                  <span>Submit</span>
-                </div>
-              </div>
-            </>
-          ) : null}
+            </div>
+            <div className={styles.reject}>
+              <span>Save</span>
+            </div>
+            <div className={styles.approve}>
+              <span>Submit</span>
+            </div>
+          </div>
+        </>
+      ) : null}
     </>
-  );
-};
+  )
+}
 
 // const sales=()=>{
 //   return(
@@ -7135,12 +7134,11 @@ const associateShip = (data,preview,setPreviewValue) => {
 //   )
 // }
 
-
-const underTaking1 = (data,preview,setPreviewValue) => {
+const underTaking1 = (data, preview, setPreviewValue) => {
   return (
     <>
-      <div className={`${styles.cardBody} card-body pt-3`} style={{minHeight:'auto', flex:'0 0 auto'}}>
-         {preview ? (
+      <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
+        {preview ? (
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
@@ -7162,7 +7160,7 @@ const underTaking1 = (data,preview,setPreviewValue) => {
         <p className="text-center text_sales">
           {' '}
           <span>To:</span>{' '}
-          <strong>Indo German International Private Limited,	7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -7477,41 +7475,40 @@ const underTaking1 = (data,preview,setPreviewValue) => {
           </Col>
         </div>
       </div>
-     {preview !== "UNDERTAKING1" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
+      {preview !== 'UNDERTAKING1' ? (
+        <>
+          <div
+            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+          >
+            <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      setPreviewValue("UNDERTAKING1");
+                      Router.push('agreement/preview')
+                      setPreviewValue('UNDERTAKING1')
                     }}
                   >
                     Preview
                   </span>
-                </div>
-                <div className={styles.reject}>
-                  <span>Save</span>
-                </div>
-                <div className={styles.approve}>
-                  <span>Submit</span>
-                </div>
-              </div>
-            </>
-          ) : null}
+            </div>
+            <div className={styles.reject}>
+              <span>Save</span>
+            </div>
+            <div className={styles.approve}>
+              <span>Submit</span>
+            </div>
+          </div>
+        </>
+      ) : null}
     </>
-  );
-};
-const underTaking2 = (data,preview,setPreviewValue) => {
+  )
+}
+const underTaking2 = (data, preview, setPreviewValue) => {
   return (
     <>
-      <div className={`${styles.cardBody} card-body pt-3`} style={{minHeight:'auto', flex:'0 0 auto'}}>
-         {preview ? (
+      <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
+        {preview ? (
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
@@ -7533,7 +7530,7 @@ const underTaking2 = (data,preview,setPreviewValue) => {
         <p className="text-center text_sales">
           {' '}
           <span>To:</span>{' '}
-          <strong>Indo German International Private Limited,	7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -7861,34 +7858,33 @@ const underTaking2 = (data,preview,setPreviewValue) => {
             {data.buyer}
           </Col>
         </div>
-      </div>    
-      {preview !== "UNDERTAKING2" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
+      </div>
+      {preview !== 'UNDERTAKING2' ? (
+        <>
+          <div
+            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+          >
+            <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      setPreviewValue("UNDERTAKING2");
+                      Router.push('agreement/preview')
+                      setPreviewValue('UNDERTAKING2')
                     }}
                   >
                     Preview
                   </span>
-                </div>
-                <div className={styles.reject}>
-                  <span>Save</span>
-                </div>
-                <div className={styles.approve}>
-                  <span>Submit</span>
-                </div>
-              </div>
-            </>
-          ) : null}
+            </div>
+            <div className={styles.reject}>
+              <span>Save</span>
+            </div>
+            <div className={styles.approve}>
+              <span>Submit</span>
+            </div>
+          </div>
+        </>
+      ) : null}
     </>
-  );
-};
+  )
+}

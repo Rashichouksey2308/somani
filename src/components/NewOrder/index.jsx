@@ -1,41 +1,40 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
-import DateCalender from '../DateCalender';
-import { addPrefixOrSuffix } from 'utils/helper';
+import React, { useState } from 'react'
+import { Form } from 'react-bootstrap'
+import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
 
-const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
+const Index = ({ saveOrderData, orderData, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
     tolerance: false,
-  });
+  })
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveOrderData(name, text);
-  };
-  const [toShow,setToShow] = useState([])
-  const [toView,setToView] = useState(false)
-   const filterCommodity=(value)=>{
-    if(value==""){
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveOrderData(name, text)
+  }
+  const [toShow, setToShow] = useState([])
+  const [toView, setToView] = useState(false)
+  const filterCommodity = (value) => {
+    if (value == '') {
       setToShow([])
       setToView(false)
       return
     }
-   let filterData = commodity.filter(o => {
-    return o.Commodity.toLowerCase().includes(value.toLowerCase())
-   });
-   console.log(filterData,"filterData")
+    let filterData = commodity.filter(o => {
+      return o.Commodity.toLowerCase().includes(value.toLowerCase())
+    })
+    console.log(filterData, 'filterData')
 
-   setToShow(filterData)
-     setToView(true)
+    setToShow(filterData)
+    setToView(true)
 
   }
-   const handleData=(name,value)=>{
-    saveOrderData(name,value)
-      setToView(false)
+  const handleData = (name, value) => {
+    saveOrderData(name, value)
+    setToView(false)
   }
   return (
     <div className={`${styles.main} vessel_card card border_color`}>
@@ -51,7 +50,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
               className={`${styles.options} accordion_DropDown`}
               name="unitOfQuantity"
               onChange={(e) => {
-                saveOrderData(e.target.name, e.target.value);
+                saveOrderData(e.target.name, e.target.value)
               }}
             >
               <option>Select</option>
@@ -72,7 +71,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
               style={{ paddingRight: '0px' }}
             >
-              <option>Select </option>
+              <option>Select</option>
               <option value="Crores" selected>
                 Crores
               </option>
@@ -108,7 +107,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   inline
                   label="Import"
                   onChange={(e) => {
-                    saveOrderData('transactionType', 'Import');
+                    saveOrderData('transactionType', 'Import')
                   }}
                   name="group1"
                   type={type}
@@ -119,7 +118,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   inline
                   label="Domestic"
                   onChange={(e) => {
-                    saveOrderData('transactionType', 'Domestic');
+                    saveOrderData('transactionType', 'Domestic')
                   }}
                   name="group1"
                   type={type}
@@ -140,29 +139,29 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     value={orderData.commodity}
                     onChange={(e) => {
                       filterCommodity(e.target.value)
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   />
-              {toShow.length>0 && toView &&  (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {toShow
-                      ? toShow?.map(
-                          (results, index) => (
-                            <li
-                              onClick={() => handleData("commodity",results.Commodity)}
-                              id={results._id}
-                              key={index}
-                              value={results.Commodity}
-                            >
-                              {results.Commodity}{' '}
-                            </li>
-                          ),
-                        )
-                      : ''}
-                  </ul>
-                </div>
-              )}
+                  {toShow.length > 0 && toView && (
+                    <div className={styles.searchResults}>
+                      <ul>
+                        {toShow
+                          ? toShow?.map(
+                            (results, index) => (
+                              <li
+                                onClick={() => handleData('commodity', results.Commodity)}
+                                id={results._id}
+                                key={index}
+                                value={results.Commodity}
+                              >
+                                {results.Commodity}{' '}
+                              </li>
+                            ),
+                          )
+                          : ''}
+                      </ul>
+                    </div>
+                  )}
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
@@ -184,11 +183,11 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                      (e.target.type = 'number');
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                      (e.target.type = 'text');
+                      (e.target.type = 'text')
                   }}
                   // value={addPrefixOrSuffix(
                   //   orderData.quantity ? orderData.quantity : 0,
@@ -199,11 +198,11 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     isFieldInFocus.quantity
                       ? orderData.quantity
                       : Number(orderData.quantity).toLocaleString('en-In') +
-                        ` ${orderData.unitOfQuantity}`
+                      ` ${orderData.unitOfQuantity}`
                   }
                   name="quantity"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -219,23 +218,23 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                      (e.target.type = 'number');
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                      (e.target.type = 'text');
+                      (e.target.type = 'text')
                   }}
                   value={
                     isFieldInFocus.orderValue
                       ? orderData.orderValue
                       : Number(orderData.orderValue).toLocaleString('en-In') +
-                        ` ${
-                          orderData.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderData.unitOfValue == 'Million'
+                      ` ${
+                        orderData.unitOfValue == 'Crores'
+                          ? 'Cr'
+                          : orderData.unitOfValue == 'Million'
                             ? 'Mn'
                             : orderData.unitOfValue
-                        }`
+                      }`
                   }
                   // value={addPrefixOrSuffix(
                   //   orderData.orderValue ? orderData.orderValue : 0,
@@ -256,7 +255,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   //         : orderData.unitOfValue}`}
                   name="orderValue"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -271,7 +270,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   type="text"
                   name="grade"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -286,17 +285,17 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     name="countryOfOrigin"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   >
                     <option selected>Select an option</option>
-                     {country.map((val,index)=>{
-                   return(
-                     <option value={`${val.Country}`}>
-                  {val.Country}
-                  </option>
-                   )
-                })}
+                    {country.map((val, index) => {
+                      return (
+                        <option value={`${val.Country}`}>
+                          {val.Country}
+                        </option>
+                      )
+                    })}
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -318,11 +317,11 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   onWheel={(event) => event.currentTarget.blur()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number');
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text');
+                      (e.target.type = 'text')
                   }}
                   type="text"
                   name="tolerance"
@@ -330,14 +329,14 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     isFieldInFocus.tolerance
                       ? orderData.tolerance
                       : '± ' +
-                        Number(orderData.tolerance)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                        }) +
-                        ' %'
+                      Number(orderData.tolerance)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) +
+                      ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -354,7 +353,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     type="text"
                     name="supplierName"
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   />
                   <Form.Label
@@ -390,7 +389,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     type="text"
                     name="manufacturerName"
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   />
                   <Form.Label
@@ -414,21 +413,21 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     name="portOfDischarge"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   >
                     <option selected>Select an option</option>
-                    {port.filter((val,index)=>{
-                  if(val.Country.toLowerCase()=="india"){
-                    return val
-                  }
-                }).map((val,index)=>{
-                   return(
-                     <option value={`${val.Port_Name},${val.Country}`}>
-                  {val.Port_Name},{val.Country}
-                  </option>
-                   )
-                })}
+                    {port.filter((val, index) => {
+                      if (val.Country.toLowerCase() == 'india') {
+                        return val
+                      }
+                    }).map((val, index) => {
+                      return (
+                        <option value={`${val.Port_Name},${val.Country}`}>
+                          {val.Port_Name},{val.Country}
+                        </option>
+                      )
+                    })}
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -450,7 +449,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                     name="incoTerm"
                     required
                     onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value);
+                      saveOrderData(e.target.name, e.target.value)
                     }}
                   >
                     <option selected>Select an option</option>
@@ -507,7 +506,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
                   onWheel={(event) => event.currentTarget.blur()}
                   name="transactionPeriodDays"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value);
+                    saveOrderData(e.target.name, e.target.value)
                   }}
                   onKeyDown={(evt) =>
                     ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -527,7 +526,7 @@ const Index = ({ saveOrderData, orderData,country,port,commodity }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

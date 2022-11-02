@@ -1,54 +1,46 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import { useState, useEffect } from 'react';
-import DateCalender from '../DateCalender';
-import Router, { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  GetAllForwardHedging,
-  UpdateForwardHedging,
-} from 'redux/ForwardHedging/action';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Row } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import DateCalender from '../DateCalender'
+import Router, { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllForwardHedging, UpdateForwardHedging, } from 'redux/ForwardHedging/action'
 // import { UploadDocument } from 'redux/registerBuyer/action'
-import UploadOther from '../UploadOther';
-import _get from 'lodash/get';
-import API from '../../utils/endpoints';
-import Cookies from 'js-cookie';
-import Axios from 'axios';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
-import moment from 'moment';
-import { toast } from 'react-toastify';
+import UploadOther from '../UploadOther'
+import _get from 'lodash/get'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../redux/userData/action'
+import moment from 'moment'
+import { toast } from 'react-toastify'
 
-export default function Index() {
-  const dispatch = useDispatch();
-  const router = useRouter();
+export default function Index () {
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
-    let ForwardHeading = sessionStorage.getItem('headgingId');
-    dispatch(GetAllForwardHedging(`?forwardHedgingId=${ForwardHeading}`));
-  }, [dispatch]);
+    let ForwardHeading = sessionStorage.getItem('headgingId')
+    dispatch(GetAllForwardHedging(`?forwardHedgingId=${ForwardHeading}`))
+  }, [dispatch])
 
-  const { allForwardHedging } = useSelector((state) => state.ForwardHedging);
+  const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
 
-  let hedgingData = _get(allForwardHedging, 'data[0]', '');
-  let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {});
-  console.log(hedgingDataDetail, 'THIS IS HEDGING DATA');
+  let hedgingData = _get(allForwardHedging, 'data[0]', '')
+  let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
+  console.log(hedgingDataDetail, 'THIS IS HEDGING DATA')
 
   useEffect(() => {
-    dispatch(setPageName('forward'));
+    dispatch(setPageName('forward'))
     dispatch(
       setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')),
-    );
+    )
     dispatch(
       setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})),
-    );
-  }, [allForwardHedging]);
+    )
+  }, [allForwardHedging])
   const [list, setList] = useState([
     {
       bankName: '',
@@ -64,12 +56,12 @@ export default function Index() {
       balanceAmount: '',
       forwardSalesContract: null,
     },
-  ]);
+  ])
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     bookedRate: false,
     bookedAmount: false,
-  });
-  console.log(isFieldInFocus, 'isFieldInFocus');
+  })
+  console.log(isFieldInFocus, 'isFieldInFocus')
 
   useEffect(() => {
     setList([
@@ -87,10 +79,10 @@ export default function Index() {
         balanceAmount: hedgingDataDetail?.balanceAmount,
         forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
       },
-    ]);
-  }, [hedgingData]);
+    ])
+  }, [hedgingData])
 
-  console.log(list, 'list');
+  console.log(list, 'list')
   const onAddForwardHedging = () => {
     setList((prevState) => {
       return [
@@ -109,50 +101,50 @@ export default function Index() {
           balanceAmount: '',
           forwardSalesContract: null,
         },
-      ];
-    });
-  };
+      ]
+    })
+  }
 
   const saveHedgingData = (name, value, index = 0) => {
     // const name = name
     // const value = value
-    console.log(name, value, 'Dsdff');
+    console.log(name, value, 'Dsdff')
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
             [name]: value,
-          };
+          }
         }
-        return obj;
-      });
-      return newState;
-    });
-  };
+        return obj
+      })
+      return newState
+    })
+  }
 
   const saveDate = (value, name, index) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveHedgingData(name, text, index);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveHedgingData(name, text, index)
+  }
 
   const uploadDocument = async (e) => {
     // console.log(e, "response data")
-    let fd = new FormData();
-    fd.append('document', e.target.files[0]);
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
-    };
+    }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,
@@ -160,12 +152,12 @@ export default function Index() {
         {
           headers: headers,
         },
-      );
+      )
       // console.log(response.data.data, 'response data123')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data;
+        return response.data.data
       } else {
         // dispatch(getCustomClearanceFailed(response.data.data))
         // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -179,41 +171,41 @@ export default function Index() {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
-  };
+  }
 
   const uploadDocument1 = async (e, index) => {
     // console.log(uploadDocument(e), 'function call')
-    const doc = await uploadDocument(e);
+    const doc = await uploadDocument(e)
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
             ...obj,
             forwardSalesContract: doc,
-          };
+          }
         }
-        return obj;
-      });
-      return newState;
-    });
+        return obj
+      })
+      return newState
+    })
     // setList(doc1 => {
     //   return { ...doc1, {forwardSalesContract: doc }}
     // })
-  };
+  }
 
-  const [cancel, setCancel] = useState(false);
+  const [cancel, setCancel] = useState(false)
 
   const handleCancel = () => {
-    setCancel(true);
-  };
+    setCancel(true)
+  }
 
   const handleClose = (index) => {
-    console.log(index, 'forward Hedging');
-    let tempArr = [...list];
-    tempArr[index].forwardSalesContract = null;
-    setList(tempArr);
+    console.log(index, 'forward Hedging')
+    let tempArr = [...list]
+    tempArr[index].forwardSalesContract = null
+    setList(tempArr)
     // setList([...list, { ...list[index], forwardSalesContract: null }])
-  };
+  }
 
   // const onAddClick = () => {
   //   setList([
@@ -236,20 +228,20 @@ export default function Index() {
   //   ])
   // }
 
-  const [editInput, setEditInput] = useState(true);
+  const [editInput, setEditInput] = useState(true)
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false);
+      setEditInput(false)
     } else {
-      setEditInput(true);
+      setEditInput(true)
     }
-  };
+  }
 
   const handleSave = () => {
-    let hedgingObj = [...list];
+    let hedgingObj = [...list]
 
-    hedgingObj.balanceAmount = list.bookedAmount;
+    hedgingObj.balanceAmount = list.bookedAmount
 
     // let fd = new FormData()
     // fd.append('forwardHedgingId', hedgingData?._id)
@@ -258,130 +250,130 @@ export default function Index() {
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
-    };
-    let task = 'save';
-    dispatch(UpdateForwardHedging({ obj, task }));
-  };
-  console.log(list, 'listlistlistlist');
+    }
+    let task = 'save'
+    dispatch(UpdateForwardHedging({ obj, task }))
+  }
+  console.log(list, 'listlistlistlist')
   const validation = () => {
-    let isOk = true;
+    let isOk = true
     for (let i = 0; i < list.length; i++) {
       if (
         list[i].bankName === null ||
         list[i].bankName === undefined ||
         list[i].bankName === ''
       ) {
-        let toastMessage = `Please enter bank name ${i} `;
+        let toastMessage = `Please enter bank name ${i} `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].currency === null ||
         list[i].currency === undefined ||
         list[i].currency === ''
       ) {
-        let toastMessage = `Please enter currency ${i}`;
+        let toastMessage = `Please enter currency ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].bookedRate === null ||
         list[i].bookedRate === undefined ||
         list[i].bookedRate === ''
       ) {
-        let toastMessage = `Please enter booked Rate ${i}`;
+        let toastMessage = `Please enter booked Rate ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].bookedAmount === null ||
         list[i].bookedAmount === undefined ||
         list[i].bookedAmount === ''
       ) {
-        let toastMessage = `Please enter booked Amount ${i}`;
+        let toastMessage = `Please enter booked Amount ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].validityFrom === null ||
         list[i].validityFrom === undefined ||
         list[i].validityFrom === ''
       ) {
-        let toastMessage = `Please enter validity From ${i}`;
+        let toastMessage = `Please enter validity From ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].validityTo === null ||
         list[i].validityTo === undefined ||
         list[i].validityTo === ''
       ) {
-        let toastMessage = `Please enter validity To ${i}`;
+        let toastMessage = `Please enter validity To ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].validityTo === null ||
         list[i].validityTo === undefined ||
         list[i].validityTo === ''
       ) {
-        let toastMessage = `Please enter validity To ${i}`;
+        let toastMessage = `Please enter validity To ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
       if (
         list[i].forwardSalesContract === null ||
         list[i].forwardSalesContract === undefined ||
         list[i].forwardSalesContract === ''
       ) {
-        let toastMessage = `Please add forward Sale Contract ${i}`;
+        let toastMessage = `Please add forward Sale Contract ${i}`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
     }
-    return isOk;
-  };
+    return isOk
+  }
   const handleSubmit = () => {
     if (validation()) {
-      let hedgingObj = [...list];
+      let hedgingObj = [...list]
 
       // hedgingObj.balanceAmount = list.bookedAmount
-      console.log(hedgingObj, 'dasd');
+      console.log(hedgingObj, 'dasd')
 
       let obj = {
         forwardHedgingId: hedgingData?._id,
         detail: hedgingObj,
-      };
-      let task = 'submit';
-      dispatch(UpdateForwardHedging({ obj, task }));
-      router.push(`/track-shipment`);
+      }
+      let task = 'submit'
+      dispatch(UpdateForwardHedging({ obj, task }))
+      router.push(`/track-shipment`)
     }
-  };
-  console.log(list[0]?.item?.bookedRate, 'list');
+  }
+  console.log(list[0]?.item?.bookedRate, 'list')
 
   return (
     <>
@@ -415,7 +407,7 @@ export default function Index() {
                       <button
                         className={styles.add_btn}
                         onClick={() => {
-                          onAddForwardHedging();
+                          onAddForwardHedging()
                         }}
                       >
                         <span className={styles.add_sign}>+</span>Add
@@ -504,14 +496,14 @@ export default function Index() {
                                 ...isFieldInFocus,
                                 bookedRate: true,
                               }),
-                                (e.target.type = 'number');
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
                                 bookedRate: false,
                               }),
-                                (e.target.type = 'text');
+                                (e.target.type = 'text')
                             }}
                             name="bookedRate"
                             onWheel={(event) => event.currentTarget.blur()}
@@ -519,10 +511,10 @@ export default function Index() {
                               isFieldInFocus.bookedRate
                                 ? item.bookedRate
                                 : `${item.currency} ` + item.bookedRate
-                                ? Number(item.bookedRate)?.toLocaleString(
+                                  ? Number(item.bookedRate)?.toLocaleString(
                                     item.currency == 'INR' ? 'en-IN' : 'en-US',
                                   )
-                                : ''
+                                  : ''
                             }
                             onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -555,14 +547,14 @@ export default function Index() {
                                 ...isFieldInFocus,
                                 bookedAmount: true,
                               }),
-                                (e.target.type = 'number');
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus({
                                 ...isFieldInFocus,
                                 bookedAmount: false,
                               }),
-                                (e.target.type = 'text');
+                                (e.target.type = 'text')
                             }}
                             name="bookedAmount"
                             // value={item.bookedAmount}
@@ -570,9 +562,9 @@ export default function Index() {
                               isFieldInFocus.bookedAmount
                                 ? item.bookedAmount
                                 : `${item.currency} ` +
-                                  Number(item.bookedAmount)?.toLocaleString(
-                                    item.currency == 'INR' ? 'en-IN' : 'en-US',
-                                  )
+                                Number(item.bookedAmount)?.toLocaleString(
+                                  item.currency == 'INR' ? 'en-IN' : 'en-US',
+                                )
                             }
                             onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -653,8 +645,8 @@ export default function Index() {
                             {item.currency}{' '}
                             {item?.bookedAmount
                               ? Number(item?.bookedAmount)?.toLocaleString(
-                                  item.currency == 'INR' ? 'en-IN' : 'en-US',
-                                )
+                                item.currency == 'INR' ? 'en-IN' : 'en-US',
+                              )
                               : ''}
                           </span>
                         </div>
@@ -746,84 +738,84 @@ export default function Index() {
                             border="0"
                           >
                             <thead>
-                              <tr>
-                                <th>
-                                  DOCUMENT NAME{' '}
-                                  <img
-                                    className={`${styles.sort_image} mb-1`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th>
-                                  FORMAT{' '}
-                                  <img
-                                    className={`${styles.sort_image} mb-1`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th>
-                                  DOCUMENT DATE{' '}
-                                  <img
-                                    className={`${styles.sort_image} mb-1`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th width="30%">ACTION</th>
-                              </tr>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`${styles.sort_image} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <img
+                                  className={`${styles.sort_image} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`${styles.sort_image} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th width="30%">ACTION</th>
+                            </tr>
                             </thead>
                             <tbody>
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  Forward Sales Contract
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
-                                </td>
-                                <td>
-                                  {item?.forwardSalesContract ? (
-                                    item?.forwardSalesContract?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xls') ||
-                                    item?.forwardSalesContract?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                      <img
-                                        src="/static/excel.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : item?.forwardSalesContract?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                      item?.forwardSalesContract?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.docx') ? (
-                                      <img
-                                        src="/static/doc.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : (
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    )
-                                  ) : null}
-                                </td>
-                                <td className={styles.doc_row}>
-                                  {item?.forwardSalesContract == null
-                                    ? ''
-                                    : moment(
-                                        item?.forwardSalesContract.date,
-                                      ).format('DD-MM-YYYY , h:mm a ')}
-                                </td>
-                                <td>
-                                  {/* <div className={styles.uploadBtnWrapper}>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Forward Sales Contract
+                                <strong className="text-danger ml-1">
+                                  *
+                                </strong>
+                              </td>
+                              <td>
+                                {item?.forwardSalesContract ? (
+                                  item?.forwardSalesContract?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xls') ||
+                                  item?.forwardSalesContract?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.xlsx') ? (
+                                    <img
+                                      src="/static/excel.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : item?.forwardSalesContract?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.doc') ||
+                                  item?.forwardSalesContract?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.docx') ? (
+                                    <img
+                                      src="/static/doc.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  ) : (
+                                    <img
+                                      src="/static/pdf.svg"
+                                      className="img-fluid"
+                                      alt="Pdf"
+                                    />
+                                  )
+                                ) : null}
+                              </td>
+                              <td className={styles.doc_row}>
+                                {item?.forwardSalesContract == null
+                                  ? ''
+                                  : moment(
+                                    item?.forwardSalesContract.date,
+                                  ).format('DD-MM-YYYY , h:mm a ')}
+                              </td>
+                              <td>
+                                {/* <div className={styles.uploadBtnWrapper}>
                                 <button className={`${styles.uploadDoc} btn`}>
                                   Upload
                                 </button>
@@ -833,25 +825,25 @@ export default function Index() {
                                   name="myfile"
                                 />
                               </div> */}
-                                  {item &&
-                                  item?.forwardSalesContract == null ? (
-                                    <>
-                                      <div className={styles.uploadBtnWrapper}>
-                                        <input
-                                          type="file"
-                                          name="myfile"
-                                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                          onChange={(e) =>
-                                            uploadDocument1(e, index)
-                                          }
-                                        />
-                                        <button
-                                          className={`${styles.button_upload} btn`}
-                                        >
-                                          Upload
-                                        </button>
-                                      </div>
-                                      {/* <div className={styles.uploadBtnWrapper}>
+                                {item &&
+                                item?.forwardSalesContract == null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name="myfile"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) =>
+                                          uploadDocument1(e, index)
+                                        }
+                                      />
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                    {/* <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -862,34 +854,34 @@ export default function Index() {
                                   Upload
                                 </button>
                                 </div> */}
-                                    </>
-                                  ) : (
-                                    <div
-                                      className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                    >
+                                  </>
+                                ) : (
+                                  <div
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                  >
                                       <span>
                                         {
                                           item?.forwardSalesContract
                                             ?.originalName
                                         }
                                       </span>
-                                      <img
-                                        className={`${styles.close_image} image_arrow`}
-                                        src="/static/close.svg"
-                                        onClick={() => handleClose(index)}
-                                        alt="Close"
-                                      />{' '}
-                                    </div>
-                                  )}
-                                </td>
-                              </tr>
+                                    <img
+                                      className={`${styles.close_image} image_arrow`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleClose(index)}
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+                              </td>
+                            </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
                   </>
-                );
+                )
               })}
             </div>
 
@@ -909,5 +901,5 @@ export default function Index() {
         />
       </div>
     </>
-  );
+  )
 }

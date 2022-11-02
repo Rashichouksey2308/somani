@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { Form } from 'react-bootstrap';
-import styles from './index.module.scss';
-import _get from 'lodash/get';
-import { addPrefixSymbol } from 'utils/helper';
+import React from 'react'
+import { Form } from 'react-bootstrap'
+import styles from './index.module.scss'
+import _get from 'lodash/get'
+import { addPrefixSymbol } from 'utils/helper'
 
 const Index = ({
   termsheetDetails,
@@ -18,7 +17,7 @@ const Index = ({
   onChangeCha,
 }) => {
   // const [otherTermConditions, setOtherTermConditions] = useState({})
-  console.log(otherTermConditions, 'otherTermConditions');
+  console.log(otherTermConditions, 'otherTermConditions')
 
   return (
     <div className={`${styles.main} main`}>
@@ -813,7 +812,7 @@ const Index = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

@@ -1,26 +1,23 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col, Modal } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import UploadOther from '../UploadOther';
-import DateCalender from '../DateCalender';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action';
-import { useSelector } from 'react-redux';
-import _get from 'lodash/get';
-import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper';
-import { toast } from 'react-toastify';
-import { checkNan } from '../../utils/helper';
-import { ViewDocument,previewDocument } from '../../redux/ViewDoc/action';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import UploadOther from '../UploadOther'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
+import _get from 'lodash/get'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
+import { toast } from 'react-toastify'
+import { checkNan } from '../../utils/helper'
+import { previewDocument } from '../../redux/ViewDoc/action'
 // import { set } from 'lodash'
-import {
-  GetAllCustomClearance,
-  UploadCustomDoc,
-} from '../../redux/CustomClearance&Warehousing/action';
-export default function Index({
+import { GetAllCustomClearance, } from '../../redux/CustomClearance&Warehousing/action'
+
+export default function Index ({
   customData,
   OrderId,
   uploadDoc,
@@ -28,25 +25,25 @@ export default function Index({
   componentId,
 }) {
   const isShipmentTypeBULK =
-    _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk';
+    _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const [isFieldInFocus2, setIsFieldInFocus2] = useState({
     invoiceValue: false,
     invoiceQuantity: false,
     conversionRate: false,
-  });
+  })
 
-  const [saveContactTable, setContactTable] = useState(false);
-  const [totalBl, setTotalBl] = useState(0);
-  const [isFieldInFocus, setIsFieldInFocus] = useState([]);
-  const { customClearance } = useSelector((state) => state.Custom);
+  const [saveContactTable, setContactTable] = useState(false)
+  const [totalBl, setTotalBl] = useState(0)
+  const [isFieldInFocus, setIsFieldInFocus] = useState([])
+  const { customClearance } = useSelector((state) => state.Custom)
 
   useEffect(() => {
-    let id = sessionStorage.getItem('customId');
-    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
-  }, []);
+    let id = sessionStorage.getItem('customId')
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+  }, [])
 
   const [billOfEntryData, setBillOfEntryData] = useState([
     {
@@ -80,35 +77,35 @@ export default function Index({
       document2: null,
       document3: null,
     },
-  ]);
+  ])
 
-  console.log(dutyData,'billOfEntryFor')
+  console.log(dutyData, 'billOfEntryFor')
 
   const totalCustomDuty = (index) => {
-    let number = 0;
+    let number = 0
     dutyData[index]?.forEach((val) => {
-      number += Number(val.amount);
-    });
+      number += Number(val.amount)
+    })
     //console.log(totalCustomDuty, 'totalCustomDuty')
     if (number) {
-      return number;
+      return number
     }
-  };
+  }
 
   const uploadDoc1 = async (e, index) => {
-    let name = e.target.name;
-    let docs = await uploadDoc(e);
+    let name = e.target.name
+    let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
-    let newInput = [...billOfEntryData];
-    newInput[index][name] = docs;
-    setBillOfEntryData([...newInput]);
-  };
+    let newInput = [...billOfEntryData]
+    newInput[index][name] = docs
+    setBillOfEntryData([...newInput])
+  }
 
   const getDoc = (payload) => {
-    console.log(payload, 'payload');
-    console.log(customData,"customData")
-    
+    console.log(payload, 'payload')
+    console.log(customData, 'customData')
+
     dispatch(
       previewDocument({
         path: payload,
@@ -117,319 +114,319 @@ export default function Index({
 
         // orderId: documentsFetched._id,
       }),
-    );
-  };
+    )
+  }
 
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name, index) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveBillOfEntryData(name, text, index);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveBillOfEntryData(name, text, index)
+  }
   const saveBoeDetaiDate = (value, name, index) => {
     // console.log(value, name, 'save date')
     // const namesplit = name?.split('.')
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveBillOfEntryData(name, text, index);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveBillOfEntryData(name, text, index)
+  }
 
   const saveBillOfEntryData = (name, value, index) => {
-    const newInput = [...billOfEntryData];
+    const newInput = [...billOfEntryData]
 
-    const namesplit = name.split('.');
+    const namesplit = name.split('.')
 
     namesplit.length > 1
       ? (newInput[index][namesplit[0]][namesplit[1]] = value)
-      : (newInput[index][name] = value);
+      : (newInput[index][name] = value)
 
-    let conversion = 0;
+    let conversion = 0
 
     if (name == 'boeDetails.invoiceValue') {
       conversion = checkNan(
         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
-          removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
-      );
-      newInput[index]['boeDetails']['accessibleValue'] = conversion;
+        removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
+      newInput[index]['boeDetails']['accessibleValue'] = conversion
     }
 
-    setBillOfEntryData([...newInput]);
-  };
+    setBillOfEntryData([...newInput])
+  }
   const conversionRateChange = (name, value, index) => {
-    const newInput = [...billOfEntryData];
-    newInput[index]['boeDetails']['conversionRate'] = value;
-    console.log(newInput, 'newInput');
-    let conversion = 0;
+    const newInput = [...billOfEntryData]
+    newInput[index]['boeDetails']['conversionRate'] = value
+    console.log(newInput, 'newInput')
+    let conversion = 0
     if (name == 'boeDetails.conversionRate') {
       conversion = checkNan(
         removePrefixOrSuffix(newInput[index]?.boeDetails?.invoiceValue) *
-          removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
-      );
+        removePrefixOrSuffix(newInput[index]?.boeDetails?.conversionRate),
+      )
     }
-    newInput[index]['boeDetails']['accessibleValue'] = conversion;
-    setBillOfEntryData([...newInput]);
-  };
+    newInput[index]['boeDetails']['accessibleValue'] = conversion
+    setBillOfEntryData([...newInput])
+  }
 
-  const [pfCheckBox, setPfCheckBox] = useState(true);
+  const [pfCheckBox, setPfCheckBox] = useState(true)
 
   const handlePfCheckBox = (e, index) => {
-    const newInput = [...billOfEntryData];
-    newInput[index].pdBond = !newInput[index].pdBond;
-    setBillOfEntryData([...newInput]);
+    const newInput = [...billOfEntryData]
+    newInput[index].pdBond = !newInput[index].pdBond
+    setBillOfEntryData([...newInput])
     // setPfCheckBox(!pfCheckBox)
-  };
+  }
 
-  const [dutyData, setDutyData] = useState([]);
+  const [dutyData, setDutyData] = useState([])
 
   const handleDutyChange = (name, value, index2, index) => {
     // console.log(name,value,index,"name,value")
-    const newInput = [...dutyData];
-    newInput[index][index2][name] = value;
-    setDutyData([...newInput]);
-  };
+    const newInput = [...dutyData]
+    newInput[index][index2][name] = value
+    setDutyData([...newInput])
+  }
 
   const setActions = (index2, val, index) => {
-    const newInput = [...dutyData];
-    newInput[index][index2].actions = val;
-    setDutyData([...newInput]);
-  };
+    const newInput = [...dutyData]
+    newInput[index][index2].actions = val
+    setDutyData([...newInput])
+  }
   const onFiledFocus = (index2, e, index) => {
-    const newInput = [...dutyData];
-    newInput[index][index2].value = true;
+    const newInput = [...dutyData]
+    newInput[index][index2].value = true
 
-    setDutyData([...newInput]);
-  };
+    setDutyData([...newInput])
+  }
 
   const onFiledBlur = (index2, e, index) => {
-    const newInput = [...dutyData];
-    newInput[index][index2].value = false;
+    const newInput = [...dutyData]
+    newInput[index][index2].value = false
 
-    setDutyData([...newInput]);
-  };
+    setDutyData([...newInput])
+  }
 
   const handleDeleteRow = (index2, index) => {
-    const newInput = [...dutyData];
-    let a = newInput[index];
-    console.log(a,"sssssss",index2)
-    a.splice(index2 , 1);
-    console.log(a,"232323")
-    setDutyData([...newInput]);
-  };
+    const newInput = [...dutyData]
+    let a = newInput[index]
+    console.log(a, 'sssssss', index2)
+    a.splice(index2, 1)
+    console.log(a, '232323')
+    setDutyData([...newInput])
+  }
 
   const removeDoc = (name, index) => {
-    const newInput = [...billOfEntryData];
-    newInput[index][name] = null;
-    setBillOfEntryData([...newInput]);
-  };
+    const newInput = [...billOfEntryData]
+    newInput[index][name] = null
+    setBillOfEntryData([...newInput])
+  }
 
   const addMoredutyDataRows = (index) => {
-    const newInput = [...dutyData];
+    const newInput = [...dutyData]
     newInput[index].push({
       percentage: '',
       duty: '',
       amount: '',
       action: false,
       value: false,
-    });
-    console.log(newInput,"newInput")
-    setDutyData([...newInput]);
-  };
+    })
+    console.log(newInput, 'newInput')
+    setDutyData([...newInput])
+  }
 
   const handleSubmit = async () => {
-    let isOk = true;
+    let isOk = true
     for (let i = 0; i < billOfEntryData.length; i++) {
       if (billOfEntryData[i].boeNumber === '') {
-        let toastMessage = 'BOE NUMBER CANNOT BE EMPTY';
+        let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (
         billOfEntryData[i].boeDate === null ||
         billOfEntryData[i].boeDate === ''
       ) {
-        let toastMessage = 'BOE DATE CANNOT BE EMPTY';
+        let toastMessage = 'BOE DATE CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.currency === '') {
-        let toastMessage = 'CURRENCY CANNOT BE EMPTY';
+        let toastMessage = 'CURRENCY CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.currency === '') {
-        let toastMessage = 'CURRENCY CANNOT BE EMPTY';
+        let toastMessage = 'CURRENCY CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.invoiceNumber === '') {
-        let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY';
+        let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.invoiceDate === '') {
-        let toastMessage = 'INVOICE DATE CANNOT BE EMPTY';
+        let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.invoiceQuantity === '') {
-        let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY';
+        let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.invoiceValue === '') {
-        let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY';
+        let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].boeDetails.conversionRate === '') {
-        let toastMessage = 'COVERSION RATE CANNOT BE EMPTY';
+        let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (
         billOfEntryData[i].boeDetails.invoiceQuantity >
         customData?.order?.quantity
       ) {
         let toastMessage =
-          'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY';
+          'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].document1 === null) {
         let toastMessage = `please upload Boe ${
           billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
-        }`;
+        }`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       } else if (billOfEntryData[i].document2 === null) {
-        let toastMessage = 'please upload Duty Paid Challan ';
+        let toastMessage = 'please upload Duty Paid Challan '
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        isOk = false;
-        break;
+        isOk = false
+        break
       }
 
       if (billOfEntryData[i].pdBond) {
         if (billOfEntryData[i].document3 === null) {
-          let toastMessage = 'please upload PD Bond ';
+          let toastMessage = 'please upload PD Bond '
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          isOk = false;
-          break;
+          isOk = false
+          break
         }
       }
     }
     if (isOk) {
-      let tempData = [...billOfEntryData];
+      let tempData = [...billOfEntryData]
       for (let i = 0; i < tempData.length; i++) {
         tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
           billOfEntryData[i]?.boeDetails?.conversionRate,
-        );
+        )
         tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
           billOfEntryData[i]?.boeDetails?.invoiceQuantity,
-        );
+        )
         tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
           billOfEntryData[i]?.boeDetails?.invoiceValue,
-        );
-        tempData[i].duty = dutyData[i];
+        )
+        tempData[i].duty = dutyData[i]
       }
 
-      const billOfEntry = { billOfEntry: tempData };
+      const billOfEntry = { billOfEntry: tempData }
 
-      const fd = new FormData();
-      fd.append('customClearanceId', customData?._id);
-      fd.append('billOfEntry', JSON.stringify(billOfEntry));
+      const fd = new FormData()
+      fd.append('customClearanceId', customData?._id)
+      fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
-      let task = 'submit';
+      let task = 'submit'
 
-      await dispatch(UpdateCustomClearance({ fd, task }));
-      let id = sessionStorage.getItem('customId');
-      await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
-      setComponentId(componentId + 1);
+      await dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
+      await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+      setComponentId(componentId + 1)
     }
-  };
+  }
 
   const handleSave = async () => {
-    let tempData = [...billOfEntryData];
+    let tempData = [...billOfEntryData]
     for (let i = 0; i < tempData.length; i++) {
       tempData[i].boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData[i]?.boeDetails?.conversionRate,
-      );
+      )
       tempData[i].boeDetails.invoiceQuantity = removePrefixOrSuffix(
         billOfEntryData[i]?.boeDetails?.invoiceQuantity,
-      );
+      )
       tempData[i].boeDetails.invoiceValue = removePrefixOrSuffix(
         billOfEntryData[i]?.boeDetails?.invoiceValue,
-      );
-      tempData[i].duty = dutyData[i];
+      )
+      tempData[i].duty = dutyData[i]
     }
-    const billOfEntry = { billOfEntry: tempData };
-    const fd = new FormData();
-    fd.append('customClearanceId', customData?._id);
-    fd.append('billOfEntry', JSON.stringify(billOfEntry));
+    const billOfEntry = { billOfEntry: tempData }
+    const fd = new FormData()
+    fd.append('customClearanceId', customData?._id)
+    fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
-    let task = 'save';
+    let task = 'save'
 
-    await dispatch(UpdateCustomClearance({ fd, task }));
-  };
+    await dispatch(UpdateCustomClearance({ fd, task }))
+  }
 
   // fuction to prevent negative values in input
   const preventMinus = (e) => {
     if (e.code === 'Minus') {
-      e.preventDefault();
+      e.preventDefault()
     }
-  };
+  }
 
   useEffect(() => {
     if (customData) {
-      let total = 0;
-      let data = customData?.order?.transit?.BL?.billOfLanding;
+      let total = 0
+      let data = customData?.order?.transit?.BL?.billOfLanding
       if (data && data?.length > 0) {
         for (let i = 0; i <= data.length - 1; i++) {
-          total = total + Number(data[i].blQuantity);
+          total = total + Number(data[i].blQuantity)
         }
       }
-      setTotalBl(total);
+      setTotalBl(total)
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
-      console.log('billOfEntryFor' , ' is this running?');
-      let data = _get(customData, 'billOfEntry.billOfEntry', [{}]);
-      let tempArray = [];
-      let duty11 = [];
+      console.log('billOfEntryFor', ' is this running?')
+      let data = _get(customData, 'billOfEntry.billOfEntry', [{}])
+      let tempArray = []
+      let duty11 = []
 
       data.forEach((val, index) => {
         tempArray.push({
           boeAssessment: val?.boeAssessment,
           pdBond: val?.pdBond || false,
-          billOfEntryFor: val?.billOfEntryFor ? val?.billOfEntryFor  : customData.order.termsheet.transactionDetails.billOfEntity ,
+          billOfEntryFor: val?.billOfEntryFor ? val?.billOfEntryFor : customData.order.termsheet.transactionDetails.billOfEntity,
           boeNumber: val?.boeNumber,
           boeDate: val?.boeDate,
 
@@ -451,22 +448,22 @@ export default function Index({
           document1: val?.document1 ?? null,
           document2: val?.document2 ?? null,
           document3: val?.document3 ?? null,
-        });
+        })
 
-        duty11.push(JSON.parse(JSON.stringify(val.duty)));
-      });
+        duty11.push(JSON.parse(JSON.stringify(val.duty)))
+      })
 
-      setDutyData([...duty11]);
-      setBillOfEntryData([...tempArray]);
+      setDutyData([...duty11])
+      setBillOfEntryData([...tempArray])
     }
-  }, [customData]);
+  }, [customData])
 
   const getIndex = (index) => {
-    return index + 1;
-  };
+    return index + 1
+  }
 
   const addNewRow = () => {
-    console.log('SDfsdfs');
+    console.log('SDfsdfs')
     setBillOfEntryData([
       ...billOfEntryData,
       {
@@ -501,7 +498,7 @@ export default function Index({
         document2: null,
         document3: null,
       },
-    ]);
+    ])
 
     setDutyData([
       ...dutyData,
@@ -514,16 +511,16 @@ export default function Index({
           value: false,
         },
       ],
-    ]);
-  };
+    ])
+  }
 
   const deleteNewRow = (index) => {
     setBillOfEntryData([
       ...billOfEntryData.slice(0, index),
       ...billOfEntryData.slice(index + 1),
-    ]);
-    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)]);
-  };
+    ])
+    setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+  }
 
   return (
     <>
@@ -578,7 +575,7 @@ export default function Index({
                       <div className={`d-flex `}>
                         <button
                           onClick={(e) => {
-                            addNewRow();
+                            addNewRow()
                           }}
                           className={`${styles.add_btn} text-center mr-0`}
                           style={{ paddingBottom: '12px' }}
@@ -636,7 +633,7 @@ export default function Index({
                                       'boeAssessment',
                                       'Provisional',
                                       index,
-                                    );
+                                    )
                                   }}
                                   // name="group1"
                                   type={type}
@@ -652,7 +649,7 @@ export default function Index({
                                       'boeAssessment',
                                       'Final',
                                       index,
-                                    );
+                                    )
                                   }}
                                   // name="group1"
                                   type={type}
@@ -715,7 +712,7 @@ export default function Index({
                                 Home Consumption
                               </option>
                               <option value="Into-Bond">Into-Bond</option>
-                              <option value="EX-Bond">EX-Bond </option>
+                              <option value="EX-Bond">EX-Bond</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -806,14 +803,14 @@ export default function Index({
                               '',
                             )
                               ? Number(
-                                  _get(
-                                    customData,
-                                    'order.transit.BL.billOfLanding[0].blQuantity',
-                                    '',
-                                  ),
-                                )?.toLocaleString('en-IN', {
-                                  maximumFractionDigits: 2,
-                                })
+                                _get(
+                                  customData,
+                                  'order.transit.BL.billOfLanding[0].blQuantity',
+                                  '',
+                                ),
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                              })
                               : ''}{' '}
                             {customData?.order?.unitOfQuantity?.toUpperCase()}
                           </span>
@@ -897,12 +894,12 @@ export default function Index({
                             ) === ''
                               ? ''
                               : moment(
-                                  _get(
-                                    customData,
-                                    'order.transit.IGM.igmDetails[0].igmFiling',
-                                    '',
-                                  ),
-                                ).format('DD-MM-YYYY')}
+                                _get(
+                                  customData,
+                                  'order.transit.IGM.igmDetails[0].igmFiling',
+                                  '',
+                                ),
+                              ).format('DD-MM-YYYY')}
                           </span>
                         </div>
                         {_get(
@@ -939,12 +936,12 @@ export default function Index({
                                   '',
                                 )
                                   ? moment(
-                                      _get(
-                                        customData,
-                                        'order.transit.CIMS.cimsDetails[0].circDate',
-                                        '',
-                                      ),
-                                    ).format('DD-MM-YYYY')
+                                    _get(
+                                      customData,
+                                      'order.transit.CIMS.cimsDetails[0].circDate',
+                                      '',
+                                    ),
+                                  ).format('DD-MM-YYYY')
                                   : ''}
                               </span>
                             </div>
@@ -1043,21 +1040,21 @@ export default function Index({
                                 ...isFieldInFocus2,
                                 invoiceQuantity: true,
                               }),
-                                (e.target.type = 'number');
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus2({
                                 ...isFieldInFocus2,
                                 invoiceQuantity: false,
                               }),
-                                (e.target.type = 'text');
+                                (e.target.type = 'text')
                             }}
                             value={
                               isFieldInFocus2.invoiceQuantity
                                 ? val?.boeDetails?.invoiceQuantity
                                 : val?.boeDetails?.invoiceQuantity == 0
-                                ? ''
-                                : Number(
+                                  ? ''
+                                  : Number(
                                     val?.boeDetails?.invoiceQuantity,
                                   )?.toLocaleString('en-IN') +
                                   ' ' +
@@ -1100,21 +1097,21 @@ export default function Index({
                                 ...isFieldInFocus2,
                                 invoiceValue: true,
                               }),
-                                (e.target.type = 'number');
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus2({
                                 ...isFieldInFocus2,
                                 invoiceValue: false,
                               }),
-                                (e.target.type = 'text');
+                                (e.target.type = 'text')
                             }}
                             value={
                               isFieldInFocus2.invoiceValue
                                 ? val?.boeDetails?.invoiceValue
                                 : val?.boeDetails?.invoiceValue == 0
-                                ? ''
-                                : `USD` +
+                                  ? ''
+                                  : `USD` +
                                   ' ' +
                                   Number(
                                     val?.boeDetails?.invoiceValue,
@@ -1157,21 +1154,21 @@ export default function Index({
                                 ...isFieldInFocus2,
                                 conversionRate: true,
                               }),
-                                (e.target.type = 'number');
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
                               setIsFieldInFocus2({
                                 ...isFieldInFocus2,
                                 conversionRate: false,
                               }),
-                                (e.target.type = 'text');
+                                (e.target.type = 'text')
                             }}
                             value={
                               isFieldInFocus2.conversionRate
                                 ? val?.boeDetails?.conversionRate
                                 : val?.boeDetails?.conversionRate == 0
-                                ? ''
-                                : `INR` +
+                                  ? ''
+                                  : `INR` +
                                   ' ' +
                                   Number(
                                     val?.boeDetails?.conversionRate,
@@ -1231,10 +1228,10 @@ export default function Index({
                               val?.boeDetails?.accessibleValue == 'INR 0'
                                 ? ''
                                 : addPrefixOrSuffix(
-                                    val?.boeDetails?.accessibleValue,
-                                    'INR',
-                                    'front',
-                                  )
+                                  val?.boeDetails?.accessibleValue,
+                                  'INR',
+                                  'front',
+                                )
                             }
                             onKeyDown={(evt) =>
                               ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -1328,179 +1325,180 @@ export default function Index({
                               border="0"
                             >
                               <thead>
-                                <tr>
-                                  <th>S.NO.</th>
-                                  <th>DUTY</th>
-                                  <th>AMOUNT</th>
-                                  <th>PERCENTAGE</th>
-                                  <th>ACTION</th>
-                                </tr>
+                              <tr>
+                                <th>S.NO.</th>
+                                <th>DUTY</th>
+                                <th>AMOUNT</th>
+                                <th>PERCENTAGE</th>
+                                <th>ACTION</th>
+                              </tr>
                               </thead>
                               <tbody>
-                                {dutyData[index]?.length > 0 &&
-                                  dutyData[index].map((duty, index2) => (
-                                    <tr key={index2} className="table_row">
-                                      {!duty.actions ? (
-                                        <>
-                                          <td className={styles.doc_name}>
-                                            {getIndex(index2)}
-                                          </td>
-                                          <td>{duty.duty}</td>
-                                          <td>
-                                            {duty.amount
-                                              ? `${'INR'} ${Number(
+                              {dutyData[index]?.length > 0 &&
+                                dutyData[index].map((duty, index2) => (
+                                  <tr key={index2} className="table_row">
+                                    {!duty.actions ? (
+                                      <>
+                                        <td className={styles.doc_name}>
+                                          {getIndex(index2)}
+                                        </td>
+                                        <td>{duty.duty}</td>
+                                        <td>
+                                          {duty.amount
+                                            ? `${'INR'} ${Number(
+                                              duty.amount,
+                                            )?.toLocaleString('en-IN')}  `
+                                            : ''}
+                                        </td>
+                                        <td>
+                                          {duty.percentage
+                                            ? `${Number(
+                                              duty?.percentage,
+                                            )?.toFixed()} ${'%'}`
+                                            : ''}
+                                        </td>
+                                      </>
+                                    ) : (
+                                      <>
+                                        {' '}
+                                        <td className={styles.doc_name}>
+                                          {getIndex(index2)}
+                                        </td>
+                                        <td>
+                                          <select
+                                            name="duty"
+                                            value={duty.duty}
+                                            onChange={(e) =>
+                                              handleDutyChange(
+                                                e.target.name,
+                                                e.target.value,
+                                                index2,
+                                                index,
+                                              )
+                                            }
+                                            disabled={!duty.actions}
+                                            className={`${styles.dutyDropdown} input`}
+                                          >
+                                            <option>Select an option</option>
+
+                                            <option value="BCD">BCD</option>
+                                            <option value="IGST">IGST</option>
+                                          </select>
+                                        </td>
+                                        <td>
+                                          <input
+                                            onFocus={(e) => {
+                                              onFiledFocus(index2, e, index)
+                                              // setIsFieldInFocus(true),
+                                              e.target.type = 'number'
+                                            }}
+                                            onBlur={(e) => {
+                                              onFiledBlur(index2, e, index)
+                                              // setIsFieldInFocus(false),
+                                              e.target.type = 'text'
+                                            }}
+                                            type="text"
+                                            className={`${styles.dutyDropdown} input`}
+                                            name="amount"
+                                            // value={val.amount}
+                                            value={
+                                              duty.value
+                                                ? duty.amount
+                                                : `${'INR'}  ` +
+                                                Number(
                                                   duty.amount,
-                                                )?.toLocaleString('en-IN')}  `
-                                              : ''}
-                                          </td>
-                                          <td>
-                                            {duty.percentage
-                                              ? `${Number(
-                                                  duty?.percentage,
-                                                )?.toFixed()} ${'%'}`
-                                              : ''}
-                                          </td>
-                                        </>
-                                      ) : (
-                                        <>
-                                          {' '}
-                                          <td className={styles.doc_name}>
-                                            {getIndex(index2)}
-                                          </td>
-                                          <td>
-                                            <select
-                                              name="duty"
-                                              value={duty.duty}
-                                              onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
-                                              }
-                                              disabled={!duty.actions}
-                                              className={`${styles.dutyDropdown} input`}
-                                            >
-                                              <option>Select an option</option>
-
-                                              <option value="BCD">BCD</option>
-                                              <option value="IGST">IGST</option>
-                                            </select>
-                                          </td>
-                                          <td>
-                                            <input
-                                              onFocus={(e) => {
-                                                onFiledFocus(index2, e, index);
-                                                // setIsFieldInFocus(true),
-                                                e.target.type = 'number';
-                                              }}
-                                              onBlur={(e) => {
-                                                onFiledBlur(index2, e, index);
-                                                // setIsFieldInFocus(false),
-                                                e.target.type = 'text';
-                                              }}
-                                              type="text"
-                                              className={`${styles.dutyDropdown} input`}
-                                              name="amount"
-                                              // value={val.amount}
-                                              value={
-                                                duty.value
-                                                  ? duty.amount
-                                                  : `${'INR'}  ` +
-                                                    Number(
-                                                      duty.amount,
-                                                    )?.toLocaleString('en-IN')
-                                              }
-                                              disabled={!duty.actions}
-                                              onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
-                                              }
-                                            />
-                                          </td>
-                                          <td>
-                                            <input
-                                              className={`${styles.dutyDropdown} input`}
-                                              onFocus={(e) => {
-                                                onFiledFocus(index2, e, index);
-                                                // setIsFieldInFocus(true),
-                                                e.target.type = 'number';
-                                              }}
-                                              onBlur={(e) => {
-                                                onFiledBlur(index2, e, index);
-                                                // setIsFieldInFocus(false),
-                                                e.target.type = 'text';
-                                              }}
-                                              type="text"
-                                              value={
-                                                duty.value
-                                                  ? duty.percentage
-                                                  : Number(
-                                                      duty.percentage,
-                                                    ).toFixed(2) + `${'%'}`
-                                              }
-                                              name="percentage"
-                                              // value={val.percentage}
-                                              onChange={(e) =>
-                                                handleDutyChange(
-                                                  e.target.name,
-                                                  e.target.value,
-                                                  index2,
-                                                  index,
-                                                )
-                                              }
-                                            />
-                                          </td>{' '}
-                                        </>
-                                      )}
-
-                                      <td>
-                                        <div>
-                                          {!duty.actions ? (
-                                            <img
-                                              src="/static/mode_edit.svg"
-                                              className={`${styles.edit_image} mr-3`}
-                                              onClick={() => {
-                                                setActions(index2, true, index);
-                                              }}
-                                            />
-                                          ) : (
-                                            <>
-                                              <img
-                                                src="/static/save-3.svg"
-                                                className={`${styles.edit_image} mr-3`}
-                                                alt="save"
-                                                onClick={(e) => {
-                                                  setActions(
-                                                    index2,
-                                                    false,
-                                                    index,
-                                                  );
-                                                }}
-                                              />
-                                            </>
-                                          )}
-                                          <img
-                                            src="/static/delete 2.svg"
-                                            className={`${styles.edit_image} p-0 border-0 img-fluid`}
-                                            style={{ cursor: 'pointer' }}
-                                            alt="delete"
-                                            onClick={() =>
-                                              handleDeleteRow(index2, index)
+                                                )?.toLocaleString('en-IN')
+                                            }
+                                            disabled={!duty.actions}
+                                            onChange={(e) =>
+                                              handleDutyChange(
+                                                e.target.name,
+                                                e.target.value,
+                                                index2,
+                                                index,
+                                              )
                                             }
                                           />
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  ))}
+                                        </td>
+                                        <td>
+                                          <input
+                                            className={`${styles.dutyDropdown} input`}
+                                            onFocus={(e) => {
+                                              onFiledFocus(index2, e, index)
+                                              // setIsFieldInFocus(true),
+                                              e.target.type = 'number'
+                                            }}
+                                            onBlur={(e) => {
+                                              onFiledBlur(index2, e, index)
+                                              // setIsFieldInFocus(false),
+                                              e.target.type = 'text'
+                                            }}
+                                            type="text"
+                                            value={
+                                              duty.value
+                                                ? duty.percentage
+                                                : Number(
+                                                duty.percentage,
+                                              ).toFixed(2) + `${'%'}`
+                                            }
+                                            name="percentage"
+                                            // value={val.percentage}
+                                            onChange={(e) =>
+                                              handleDutyChange(
+                                                e.target.name,
+                                                e.target.value,
+                                                index2,
+                                                index,
+                                              )
+                                            }
+                                          />
+                                        </td>
+                                        {' '}
+                                      </>
+                                    )}
+
+                                    <td>
+                                      <div>
+                                        {!duty.actions ? (
+                                          <img
+                                            src="/static/mode_edit.svg"
+                                            className={`${styles.edit_image} mr-3`}
+                                            onClick={() => {
+                                              setActions(index2, true, index)
+                                            }}
+                                          />
+                                        ) : (
+                                          <>
+                                            <img
+                                              src="/static/save-3.svg"
+                                              className={`${styles.edit_image} mr-3`}
+                                              alt="save"
+                                              onClick={(e) => {
+                                                setActions(
+                                                  index2,
+                                                  false,
+                                                  index,
+                                                )
+                                              }}
+                                            />
+                                          </>
+                                        )}
+                                        <img
+                                          src="/static/delete 2.svg"
+                                          className={`${styles.edit_image} p-0 border-0 img-fluid`}
+                                          style={{ cursor: 'pointer' }}
+                                          alt="delete"
+                                          onClick={() =>
+                                            handleDeleteRow(index2, index)
+                                          }
+                                        />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
-                            <hr className="mt-0" />
+                            <hr className="mt-0"/>
                             <div className="d-flex justify-content-between align-items-center mx-4 ">
                               <div className="d-flex align-items-center">
                                 <div className={`${styles.label} text`}>
@@ -1516,7 +1514,7 @@ export default function Index({
                               <div
                                 className={`${styles.add_row} d-flex `}
                                 onClick={(e) => {
-                                  addMoredutyDataRows(index);
+                                  addMoredutyDataRows(index)
                                 }}
                               >
                                 <span>+</span>
@@ -1538,7 +1536,7 @@ export default function Index({
                                 key={indexbl}
                                 className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                               >
-                                <Form.Check aria-label="option 1" />
+                                <Form.Check aria-label="option 1"/>
                                 <div className={`${styles.label} text ml-4`}>
                                   BL Number{' '}
                                   <strong className="text-danger ml-n1">
@@ -1576,8 +1574,8 @@ export default function Index({
                                 <span className={styles.value}>
                                   {bl?.blQuantity
                                     ? Number(bl?.blQuantity)?.toLocaleString(
-                                        'en-In',
-                                      )
+                                      'en-In',
+                                    )
                                     : ''}{' '}
                                   {customData?.order?.unitOfQuantity.toUpperCase()}
                                 </span>
@@ -1586,18 +1584,18 @@ export default function Index({
                                 className="col-lg-3 col-md-4 col-sm-6 text-center"
                                 style={{ top: '40px' }}
                               >
-                                {console.log(bl,"blbl")}
+                                {console.log(bl, 'blbl')}
                                 <img
                                   src="/static/preview.svg"
                                   className={`${styles.previewImg} img-fluid ml-n4`}
                                   alt="Preview"
                                   onClick={(e) => {
-                                    getDoc(bl?.blDoc?.path);
+                                    getDoc(bl?.blDoc?.path)
                                   }}
                                 />
                               </div>
                             </>
-                          );
+                          )
                         })}
                       </div>
                       <hr></hr>
@@ -1625,135 +1623,218 @@ export default function Index({
                           border="0"
                         >
                           <thead>
-                            <tr>
-                              <th width="35%">
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_img} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>ACTION</th>
-                            </tr>
+                          <tr>
+                            <th width="35%">
+                              DOCUMENT NAME{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              FORMAT{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              DOCUMENT DATE{' '}
+                              <img
+                                className={`${styles.sort_img} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>ACTION</th>
+                          </tr>
                           </thead>
                           <tbody>
-                            <tr className="table_row">
-                              {val.boeAssessment === 'Final' ? (
-                                <td className={styles.doc_name}>
-                                  BOE Final
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
-                                </td>
-                              ) : (
-                                <td className={styles.doc_name}>
-                                  BOE Provisional
-                                  <strong className="text-danger ml-1">
-                                    *
-                                  </strong>
-                                </td>
-                              )}
-                              <td>
-                                {val.document1 ? (
-                                  val.document1?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                  val.document1?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : val.document1?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    val.document1?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  )
-                                ) : null}
+                          <tr className="table_row">
+                            {val.boeAssessment === 'Final' ? (
+                              <td className={styles.doc_name}>
+                                BOE Final
+                                <strong className="text-danger ml-1">
+                                  *
+                                </strong>
                               </td>
-                              <td className={styles.doc_row}>
-                                {val.document1 === null
-                                  ? ''
-                                  : moment(val?.document1?.date).format(
-                                      'DD-MM-YYYY, h:mm a',
-                                    )}
+                            ) : (
+                              <td className={styles.doc_name}>
+                                BOE Provisional
+                                <strong className="text-danger ml-1">
+                                  *
+                                </strong>
                               </td>
-
-                              <td>
-                                {val.document1 === null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="document1"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) => uploadDoc1(e, index)}
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                  </>
+                            )}
+                            <td>
+                              {val.document1 ? (
+                                val.document1?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.xls') ||
+                                val.document1?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.xlsx') ? (
+                                  <img
+                                    src="/static/excel.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                ) : val.document1?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.doc') ||
+                                val.document1?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.docx') ? (
+                                  <img
+                                    src="/static/doc.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>{val?.document1?.originalName}</span>
-                                    <img
-                                      onClick={() => removeDoc('document1')}
-                                      className={`${styles.close_image} image_arrow`}
-                                      src="/static/close.svg"
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
+                                  <img
+                                    src="/static/pdf.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                )
+                              ) : null}
+                            </td>
+                            <td className={styles.doc_row}>
+                              {val.document1 === null
+                                ? ''
+                                : moment(val?.document1?.date).format(
+                                  'DD-MM-YYYY, h:mm a',
                                 )}
-                              </td>
-                            </tr>
+                            </td>
+
+                            <td>
+                              {val.document1 === null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="document1"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDoc1(e, index)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
+                                  <span>{val?.document1?.originalName}</span>
+                                  <img
+                                    onClick={() => removeDoc('document1')}
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Duty Paid Challan
+                              <strong className="text-danger ml-1">*</strong>
+                            </td>
+                            <td>
+                              {val.document2 ? (
+                                val.document2?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.xls') ||
+                                val.document2?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.xlsx') ? (
+                                  <img
+                                    src="/static/excel.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                ) : val.document2?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.doc') ||
+                                val.document2?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.docx') ? (
+                                  <img
+                                    src="/static/doc.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                ) : (
+                                  <img
+                                    src="/static/pdf.svg"
+                                    className="img-fluid"
+                                    alt="Pdf"
+                                  />
+                                )
+                              ) : null}
+                            </td>
+                            <td className={styles.doc_row}>
+                              {val.document2 === null
+                                ? ''
+                                : moment(val?.document2?.date).format(
+                                  'DD-MM-YYYY, h:mm a',
+                                )}
+                            </td>
+
+                            <td>
+                              {val?.document2 === null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="document2"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDoc1(e, index)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                </>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                >
+                                  <span>{val?.document2?.originalName}</span>
+                                  <img
+                                    onClick={() =>
+                                      removeDoc('document2', index)
+                                    }
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                          {val?.pdBond ? (
                             <tr className="table_row">
                               <td className={styles.doc_name}>
-                                Duty Paid Challan
-                                <strong className="text-danger ml-1">*</strong>
+                                PD Bond
+                                <strong className="text-danger ml-0">
+                                  *
+                                </strong>
                               </td>
                               <td>
-                                {val.document2 ? (
-                                  val.document2?.originalName
+                                {val?.document3 ? (
+                                  val.document3?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xls') ||
-                                  val.document2?.originalName
+                                  val.document3?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xlsx') ? (
                                     <img
@@ -1761,12 +1842,12 @@ export default function Index({
                                       className="img-fluid"
                                       alt="Pdf"
                                     />
-                                  ) : val.document2?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    val.document2?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
+                                  ) : val.document3?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.doc') ||
+                                  val.document3?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.docx') ? (
                                     <img
                                       src="/static/doc.svg"
                                       className="img-fluid"
@@ -1782,20 +1863,19 @@ export default function Index({
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
-                                {val.document2 === null
+                                {val.document3 === null
                                   ? ''
-                                  : moment(val?.document2?.date).format(
-                                      'DD-MM-YYYY, h:mm a',
-                                    )}
+                                  : moment(val.document3.date).format(
+                                    'DD-MM-YYYY, h:mm a',
+                                  )}
                               </td>
-
                               <td>
-                                {val?.document2 === null ? (
+                                {val.document3 === null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         type="file"
-                                        name="document2"
+                                        name="document3"
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc1(e, index)}
                                       />
@@ -1810,10 +1890,12 @@ export default function Index({
                                   <div
                                     className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
-                                    <span>{val?.document2?.originalName}</span>
+                                      <span>
+                                        {val?.document3?.originalName}
+                                      </span>
                                     <img
                                       onClick={() =>
-                                        removeDoc('document2', index)
+                                        removeDoc('document3', index)
                                       }
                                       className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
@@ -1823,98 +1905,14 @@ export default function Index({
                                 )}
                               </td>
                             </tr>
-                            {val?.pdBond ? (
-                              <tr className="table_row">
-                                <td className={styles.doc_name}>
-                                  PD Bond
-                                  <strong className="text-danger ml-0">
-                                    *
-                                  </strong>
-                                </td>
-                                <td>
-                                  {val?.document3 ? (
-                                    val.document3?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xls') ||
-                                    val.document3?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.xlsx') ? (
-                                      <img
-                                        src="/static/excel.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : val.document3?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.doc') ||
-                                      val.document3?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.docx') ? (
-                                      <img
-                                        src="/static/doc.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    ) : (
-                                      <img
-                                        src="/static/pdf.svg"
-                                        className="img-fluid"
-                                        alt="Pdf"
-                                      />
-                                    )
-                                  ) : null}
-                                </td>
-                                <td className={styles.doc_row}>
-                                  {val.document3 === null
-                                    ? ''
-                                    : moment(val.document3.date).format(
-                                        'DD-MM-YYYY, h:mm a',
-                                      )}
-                                </td>
-                                <td>
-                                  {val.document3 === null ? (
-                                    <>
-                                      <div className={styles.uploadBtnWrapper}>
-                                        <input
-                                          type="file"
-                                          name="document3"
-                                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                          onChange={(e) => uploadDoc1(e, index)}
-                                        />
-                                        <button
-                                          className={`${styles.button_upload} btn`}
-                                        >
-                                          Upload
-                                        </button>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <div
-                                      className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                    >
-                                      <span>
-                                        {val?.document3?.originalName}
-                                      </span>
-                                      <img
-                                        onClick={() =>
-                                          removeDoc('document3', index)
-                                        }
-                                        className={`${styles.close_image} image_arrow`}
-                                        src="/static/close.svg"
-                                        alt="Close"
-                                      />{' '}
-                                    </div>
-                                  )}
-                                </td>
-                              </tr>
-                            ) : null}
+                          ) : null}
                           </tbody>
                         </table>
                       </div>
                     </div>
                   </div>
                 </>
-              );
+              )
             })}
           <div className="">
             <UploadOther
@@ -1931,5 +1929,5 @@ export default function Index({
         />
       </div>
     </>
-  );
+  )
 }

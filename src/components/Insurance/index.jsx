@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
+import React from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
 
 const index = () => {
   return (
@@ -116,7 +116,7 @@ const index = () => {
                   </Col>
                   <Col className="mt-4" md={4}>
                     <div className="d-flex">
-                      <DateCalender labelName="Expected time of Dispatch" />
+                      <DateCalender labelName="Expected time of Dispatch"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -190,7 +190,7 @@ const index = () => {
                   </Col>
                   <Col className="mb-4 mt-4" md={2}>
                     <div className="d-flex">
-                      <DateCalender labelName="Insurance from" />
+                      <DateCalender labelName="Insurance from"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -201,7 +201,7 @@ const index = () => {
 
                   <Col className="mb-4 mt-4" md={2}>
                     <div className="d-flex">
-                      <DateCalender labelName="Insurance to" />
+                      <DateCalender labelName="Insurance to"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -396,7 +396,7 @@ const index = () => {
                   </Col>
                   <Col className="mt-4" md={4}>
                     <div className="d-flex">
-                      <DateCalender labelName="Expected time of Dispatch" />
+                      <DateCalender labelName="Expected time of Dispatch"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -470,7 +470,7 @@ const index = () => {
                   </Col>
                   <Col className="mb-4 mt-4" md={2}>
                     <div className="d-flex">
-                      <DateCalender labelName=" Insurance from" />
+                      <DateCalender labelName=" Insurance from"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -481,7 +481,7 @@ const index = () => {
 
                   <Col className="mb-4 mt-4" md={2}>
                     <div className="d-flex">
-                      <DateCalender labelName="Insurance to" />
+                      <DateCalender labelName="Insurance to"/>
                       <img
                         className={`${styles.calanderIcon} image_arrow img-fluid`}
                         src="/static/caldericon.svg"
@@ -695,80 +695,80 @@ const index = () => {
               border="0"
             >
               <thead>
-                <tr>
-                  <th>DOCUMENT NAME</th>
-                  <th>FORMAT</th>
-                  <th>DOCUMENT DATE</th>
-                  <th>ACTION</th>
-                </tr>
+              <tr>
+                <th>DOCUMENT NAME</th>
+                <th>FORMAT</th>
+                <th>DOCUMENT DATE</th>
+                <th>ACTION</th>
+              </tr>
               </thead>
               <tbody>
-                <tr className="table_row">
-                  <td className={`${styles.doc_name}`}>
-                    Policy Document - Marine
-                  </td>
-                  <td>
+              <tr className="table_row">
+                <td className={`${styles.doc_name}`}>
+                  Policy Document - Marine
+                </td>
+                <td>
+                  <img
+                    src="/static/pdf.svg"
+                    className="img-fluid"
+                    alt="Pdf"
+                  />
+                </td>
+                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                <td>
+                  <div className="d-flex">
+                    <input className={`${styles.file_field}`} type="file"/>
                     <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
+                      className={`${styles.close_image} image_arrow img-fluid`}
+                      src="/static/close.svg"
+                      alt="close"
                     />
-                  </td>
-                  <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                  <td>
-                    <div className="d-flex">
-                      <input className={`${styles.file_field}`} type="file" />
-                      <img
-                        className={`${styles.close_image} image_arrow img-fluid`}
-                        src="/static/close.svg"
-                        alt="close"
-                      />
-                    </div>
-                  </td>
-                </tr>
-                <tr className="table_row">
-                  <td className={`${styles.doc_name}`}>
-                    Policy Document - Marine
-                  </td>
-                  <td>
-                    <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
-                    />
-                  </td>
-                  <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                  <td>
-                    {' '}
-                    <button className={`${styles.button_upload} btn`}>
-                      Upload
-                    </button>
-                  </td>
-                </tr>
+                  </div>
+                </td>
+              </tr>
+              <tr className="table_row">
+                <td className={`${styles.doc_name}`}>
+                  Policy Document - Marine
+                </td>
+                <td>
+                  <img
+                    src="/static/pdf.svg"
+                    className="img-fluid"
+                    alt="Pdf"
+                  />
+                </td>
+                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                <td>
+                  {' '}
+                  <button className={`${styles.button_upload} btn`}>
+                    Upload
+                  </button>
+                </td>
+              </tr>
 
-                <tr className="table_row">
-                  <td className={`${styles.doc_name}`}>Invoice</td>
-                  <td>
-                    <img
-                      src="/static/pdf.svg"
-                      className="img-fluid"
-                      alt="Pdf"
-                    />
-                  </td>
-                  <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                  <td>
-                    {' '}
-                    <button className={`${styles.button_upload} btn`}>
-                      Upload
-                    </button>
-                  </td>
-                </tr>
+              <tr className="table_row">
+                <td className={`${styles.doc_name}`}>Invoice</td>
+                <td>
+                  <img
+                    src="/static/pdf.svg"
+                    className="img-fluid"
+                    alt="Pdf"
+                  />
+                </td>
+                <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                <td>
+                  {' '}
+                  <button className={`${styles.button_upload} btn`}>
+                    Upload
+                  </button>
+                </td>
+              </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  );
-};
-export default index;
+  )
+}
+export default index

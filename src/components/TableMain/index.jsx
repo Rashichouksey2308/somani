@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { GettingAllInsurance } from 'redux/insurance/action';
-import { Router } from 'next/router';
-import _get from 'lodash/get';
-import moment from 'moment/moment';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import { GettingAllInsurance } from 'redux/insurance/action'
+import _get from 'lodash/get'
+import moment from 'moment/moment'
 
-function Index({
+function Index ({
   tableName,
   pageType,
   isStatus,
@@ -16,21 +15,19 @@ function Index({
 
   handleEditRoute,
 }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  let d = new Date();
+  let d = new Date()
 
-  const { insuranceResponse } = useSelector((state) => state.insurance);
-
-  
+  const { insuranceResponse } = useSelector((state) => state.insurance)
 
   useEffect(() => {
-    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`));
-  }, [dispatch, currentPage]);
+    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
+  }, [dispatch, currentPage])
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -38,27 +35,26 @@ function Index({
         GettingAllInsurance(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GettingAllInsurance(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
-const  getStatus = (value)=>{
-  if(value?.quotationRequest?.insuranceType=="Marine Insurance"){
-   return moment(value?.marineInsurance?.insuranceTo).isBefore(moment())
-  }else{
-   
-    return moment(value?.storageInsurance?.insuranceTo).isBefore(moment()) 
   }
-    
-                      
-}
+  const getStatus = (value) => {
+    if (value?.quotationRequest?.insuranceType == 'Marine Insurance') {
+      return moment(value?.marineInsurance?.insuranceTo).isBefore(moment())
+    } else {
+
+      return moment(value?.storageInsurance?.insuranceTo).isBefore(moment())
+    }
+
+  }
   return (
     <div className={`${styles.datatable} border datatable card`}>
       <div
@@ -75,9 +71,9 @@ const  getStatus = (value)=>{
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return;
+                return
               } else {
-                setCurrentPage((prevState) => prevState - 1);
+                setCurrentPage((prevState) => prevState - 1)
               }
             }}
             href="#"
@@ -96,7 +92,7 @@ const  getStatus = (value)=>{
                 currentPage + 1 <
                 Math.ceil(insuranceResponse?.totalCount / 7)
               ) {
-                setCurrentPage((prevState) => prevState + 1);
+                setCurrentPage((prevState) => prevState + 1)
               }
             }}
             href="#"
@@ -119,123 +115,123 @@ const  getStatus = (value)=>{
             border="0"
           >
             <thead>
-              <tr className="table_row">
-                <th>
-                  ORDER ID{' '}
-                  <img
-                    className={`mb-1`}
-                    src="/static/icons8-sort-24.svg"
-                    alt="Sort icon"
-                    onClick={() => handleSort()}
-                  />{' '}
-                </th>
-                <th>
-                  BUYER NAME{' '}
-                  <img
-                    className={`mb-1`}
-                    src="/static/icons8-sort-24.svg"
-                    alt="Sort icon"
-                  />{' '}
-                </th>
-                <th>COMMODITY</th>
-                <th>{pageType}</th>
-                {/* {isVesselHeader ? (
+            <tr className="table_row">
+              <th>
+                ORDER ID{' '}
+                <img
+                  className={`mb-1`}
+                  src="/static/icons8-sort-24.svg"
+                  alt="Sort icon"
+                  onClick={() => handleSort()}
+                />{' '}
+              </th>
+              <th>
+                BUYER NAME{' '}
+                <img
+                  className={`mb-1`}
+                  src="/static/icons8-sort-24.svg"
+                  alt="Sort icon"
+                />{' '}
+              </th>
+              <th>COMMODITY</th>
+              <th>{pageType}</th>
+              {/* {isVesselHeader ? (
                   <th>VESSEL NAME</th>
                 ) : (
                   <th>INSURANCE TYPE</th>
                 )} */}
-                <th>{dateHeading}</th>
+              <th>{dateHeading}</th>
 
-                {isStatus ? (
-                  <th>
-                    STATUS{' '}
-                    <img
-                      className={`mb-1`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />
-                  </th>
-                ) : (
-                  <th>PAYMENT STATUS</th>
-                )}
-                <th>ACTION</th>
-              </tr>
+              {isStatus ? (
+                <th>
+                  STATUS{' '}
+                  <img
+                    className={`mb-1`}
+                    src="/static/icons8-sort-24.svg"
+                    alt="Sort icon"
+                  />
+                </th>
+              ) : (
+                <th>PAYMENT STATUS</th>
+              )}
+              <th>ACTION</th>
+            </tr>
             </thead>
             <tbody>
-              {insuranceResponse &&
-                insuranceResponse?.data?.map((insured, index) => (
-                  <tr key={index} className="table_row">
-                    <td>{insured?.order?.orderId}</td>
-                    <td
-                      className={styles.buyerName}
-                      onClick={() => {
-                        handleRoute(insured);
-                      }}
-                    >
-                      {insured?.company?.companyName}
-                    </td>
-                    <td>{insured?.order?.commodity}</td>
-                    <td>{insured?.quotationRequest?.insuranceType}</td>
-                    <td>
-                      {
-                        insured?.quotationRequest?.insuranceType=="Marine Insurance"?
+            {insuranceResponse &&
+              insuranceResponse?.data?.map((insured, index) => (
+                <tr key={index} className="table_row">
+                  <td>{insured?.order?.orderId}</td>
+                  <td
+                    className={styles.buyerName}
+                    onClick={() => {
+                      handleRoute(insured)
+                    }}
+                  >
+                    {insured?.company?.companyName}
+                  </td>
+                  <td>{insured?.order?.commodity}</td>
+                  <td>{insured?.quotationRequest?.insuranceType}</td>
+                  <td>
+                    {
+                      insured?.quotationRequest?.insuranceType == 'Marine Insurance' ?
                         moment(
                           insured?.marineInsurance?.insuranceTo,
-                        ).format('DD-MM-YYYY'):
-                        insured?.quotationRequest?.insuranceType=="Storage Insurance"?
-                        moment(
-                          insured?.storageInsurance?.insuranceTo,
-                        ).format('DD-MM-YYYY'):
+                        ).format('DD-MM-YYYY') :
+                        insured?.quotationRequest?.insuranceType == 'Storage Insurance' ?
                           moment(
-                          insured?.storageInsurance?.insuranceTo,
-                        ).format('DD-MM-YYYY')
+                            insured?.storageInsurance?.insuranceTo,
+                          ).format('DD-MM-YYYY') :
+                          moment(
+                            insured?.storageInsurance?.insuranceTo,
+                          ).format('DD-MM-YYYY')
 
-                        // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
-                        //   'T',
-                        // )[0]
-                      }
-                    </td>
-                    
-                    {
-                      getStatus(insured)
-                     ? (
-                      <td>
+                      // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
+                      //   'T',
+                      // )[0]
+                    }
+                  </td>
+
+                  {
+                    getStatus(insured)
+                      ? (
+                        <td>
                         <span
                           className={`${styles.status} ${styles.rejected}`}
                         ></span>{' '}
-                        Expired
-                      </td>
-                    ) : (
-                      <td>
+                          Expired
+                        </td>
+                      ) : (
+                        <td>
                         <span
                           className={`${styles.status} ${styles.approved}`}
                         ></span>{' '}
-                        Active
-                      </td>
-                    )}
-                    <td>
-                      {_get(
-                        insured,
-                        'quotationRequest.quotationRequestSubmitted',
-                        false,
-                      ) && (
-                        <span onClick={() => handleEditRoute(insured)}>
+                          Active
+                        </td>
+                      )}
+                  <td>
+                    {_get(
+                      insured,
+                      'quotationRequest.quotationRequestSubmitted',
+                      false,
+                    ) && (
+                      <span onClick={() => handleEditRoute(insured)}>
                           <img
                             className={`${styles.edit_image} img-fluid mr-3`}
                             src="/static/mode_edit.svg"
                             alt="edit"
                           />
                         </span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                    )}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

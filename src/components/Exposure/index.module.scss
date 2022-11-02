@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .card {
   //box-shadow: 0px 3px 12px #E5E7ED;
   border: 1px solid #d2d7e5;
@@ -7,6 +8,7 @@
   @include respond(phone) {
     margin-bottom: 15px;
   }
+
   .header {
     font-weight: bold;
     font-size: 18px;
@@ -22,11 +24,13 @@
       padding: 14px 15px;
     }
   }
+
   .hr {
     margin: 0px;
     width: 100%;
     border-top: 2px solid rgb(242 243 244);
   }
+
   .body {
     padding-top: 2rem;
     display: flex;
@@ -35,17 +39,20 @@
     @include respond(md-desktop) {
       padding: 15px;
     }
+
     .progress_container {
       margin-top: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       width: 70%;
+
       .container {
         height: 9px;
         background-color: #e4ecf7;
         border-radius: 2px;
       }
+
       .barCompleted {
         height: 9px;
         background-color: #2884de;
@@ -53,6 +60,7 @@
         width: 80%;
       }
     }
+
     .percent {
       text-align: right;
       font-size: 23px;
@@ -73,10 +81,12 @@
         font-size: 15px;
       }
     }
+
     .total {
       &:first-child {
         border-top: none;
       }
+
       margin-bottom: 1.2rem;
       font-size: 14px;
       padding-top: 25px;
@@ -86,23 +96,28 @@
       justify-content: center;
       align-items: flex-end;
       border-top: 1px solid rgba(112, 112, 112, 0.1);
+
       .totalText {
         width: fit-content;
         display: flex;
+
         span {
           margin-bottom: -0.35rem;
           font-weight: bold;
         }
       }
+
       .dotted {
         flex: 1;
         margin-left: 0.5rem;
         margin-right: 0.5rem;
         border-bottom: 2.5px dotted #8492a6;
       }
+
       .value {
         width: fit-content;
         display: flex;
+
         span {
           font-size: 18px;
           line-height: 23px;
@@ -113,6 +128,7 @@
     }
   }
 }
+
 .bar {
   position: relative;
   height: 9px;

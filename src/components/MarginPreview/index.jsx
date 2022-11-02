@@ -1,38 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './index.module.scss';
-import { Row, Col, Container, Card } from 'react-bootstrap';
-import Paginatebar from '../Paginatebar';
-import TermsheetPopUp from '../TermsheetPopUp';
-import Router from 'next/router';
-import { Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPageName } from 'redux/userData/action';
-import { setDynamicName } from 'redux/userData/action';
-import { setDynamicOrder } from 'redux/userData/action';
-import { GetMarginMoney } from 'redux/marginMoney/action';
-import _get from 'lodash/get';
-import moment from 'moment';
-import MarginBar from '../MarginBar';
-import { addPrefixOrSuffix } from 'utils/helper';
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
+import React, { useEffect, useRef, useState } from 'react'
+import styles from './index.module.scss'
+import { Card, Col, Row } from 'react-bootstrap'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDynamicName, setDynamicOrder, setPageName } from 'redux/userData/action'
+import { GetMarginMoney } from 'redux/marginMoney/action'
+import _get from 'lodash/get'
+import moment from 'moment'
+import MarginBar from '../MarginBar'
+import { addPrefixOrSuffix } from 'utils/helper'
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
 
-function Index() {
-  const toPrint = useRef();
-  const dispatch = useDispatch();
+function Index () {
+  const toPrint = useRef()
+  const dispatch = useDispatch()
 
-  const { margin } = useSelector((state) => state.marginMoney);
+  const { margin } = useSelector((state) => state.marginMoney)
 
-  const marginData = _get(margin, 'data.data[0]', {});
+  const marginData = _get(margin, 'data.data[0]', {})
 
   useEffect(() => {
-    let id = sessionStorage.getItem('marginId');
-    dispatch(GetMarginMoney({ orderId: id }));
+    let id = sessionStorage.getItem('marginId')
+    dispatch(GetMarginMoney({ orderId: id }))
 
-    dispatch(setPageName('margin-money'));
-    dispatch(setDynamicName(marginData?.company?.companyName));
-    dispatch(setDynamicOrder(marginData?.order?.orderId));
-  }, [dispatch]);
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(marginData?.company?.companyName))
+    dispatch(setDynamicOrder(marginData?.order?.orderId))
+  }, [dispatch])
 
   let tempArr = [
     {
@@ -43,17 +38,17 @@ function Index() {
         { subhead: '3. Unit Price', val: 'USD 243/MT' },
       ],
     },
-  ];
+  ]
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   const openbar = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const close = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const exportPDF = () => {
     //  let margins = [
     //    10,
@@ -65,7 +60,7 @@ function Index() {
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
-          <td valign="top" style={{paddingTop:'30px'}}>
+          <td valign="top" style={{ paddingTop: '30px' }}>
             <table
               width="100%"
               bgColor="#D8EAFF"
@@ -102,7 +97,7 @@ function Index() {
                       {marginData?.order?.orderId}
                     </span>
                   </span>
-                  <br />
+                  <br/>
                   <span
                     style={{
                       fontSize: '20px',
@@ -152,7 +147,7 @@ function Index() {
                     {' '}
                     <span></span>
                   </span>
-                  <br />
+                  <br/>
                   <span
                     style={{
                       fontSize: '20px',
@@ -330,8 +325,8 @@ function Index() {
                         >
                           USD{' '}
                           {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -520,12 +515,12 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                )
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                               : 0,
                             '%',
                             '',
@@ -577,7 +572,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -626,8 +621,8 @@ function Index() {
                           }}
                         >
                           {marginData?.numberOfPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ??
+                              minimumFractionDigits: 2, maximumFractionDigits: 2,
+                            }) ??
                             0}
                         </p>
                       </td>
@@ -748,8 +743,8 @@ function Index() {
                         >
                           USD{' '}
                           {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -807,8 +802,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -866,8 +861,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -925,8 +920,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -985,8 +980,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1045,8 +1040,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1105,8 +1100,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1165,8 +1160,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1225,15 +1220,15 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
                     <tr>
                       <td
                         align="left"
-                        style={{ borderRight: '2px solid #cad6e64d', borderBottom:'2px solid #cad6e64d'}}
+                        style={{ borderRight: '2px solid #cad6e64d', borderBottom: '2px solid #cad6e64d' }}
                       >
                         <p
                           style={{
@@ -1268,7 +1263,7 @@ function Index() {
                           </span>
                         </p>
                       </td>
-                      <td align="left" style={{borderBottom:'2px solid #cad6e64d'}}>
+                      <td align="left" style={{ borderBottom: '2px solid #cad6e64d' }}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1285,8 +1280,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1349,8 +1344,8 @@ function Index() {
                             height="13"
                           /> {' '}
                           {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
+                            minimumFractionDigits: 2, maximumFractionDigits: 2,
+                          }) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -1592,17 +1587,17 @@ function Index() {
           </td>
         </tr>
       </table>
-    );
+    )
     // const doc = new jsPDF('p', 'pt', [1000, 1000])
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
-        doc.save('MarginMoney.pdf');
+        doc.save('MarginMoney.pdf')
       },
       // margin:margins,
       autoPaging: 'text',
-    });
-  };
+    })
+  }
 
   return (
     <>
@@ -1675,137 +1670,137 @@ function Index() {
                   <th>Margin Money</th>
                 </tr>
                 <tbody>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>A</span>
-                      <span className={`ml-2`}>Quantity</span>
-                    </td>
-                    <td className={`${styles.good} good`}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.quantity
-                          ? marginData?.order?.quantity
-                          : 0,
-                        'MT',
-                        '',
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>B</span>
-                      <span className={`ml-2`}>Unit Price</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      USD{' '}
-                      {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>C</span>
-                      <span className={`ml-2`}>Conversion Rate</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {marginData?.conversionRate}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>D</span>
-                      <span className={`ml-2`}>Usance Interest (%)</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.commercials
-                          ?.usanceInterestPercetage,
-                        '%',
-                        '',
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>E</span>
-                      <span className={`ml-2`}>Trade Margin</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.commercials
-                          ?.tradeMarginPercentage,
-                        '%',
-                        '',
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>F</span>
-                      <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance?.toLocaleString(
-                              'en-In',
-                              {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              },
-                            )
-                          : 0,
-                        '%',
-                        '',
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>G</span>
-                      <span className={`ml-2`}>Margin Money (%)</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>A</span>
+                    <span className={`ml-2`}>Quantity</span>
+                  </td>
+                  <td className={`${styles.good} good`}>
+                    {addPrefixOrSuffix(
+                      marginData?.order?.quantity
+                        ? marginData?.order?.quantity
+                        : 0,
+                      'MT',
+                      '',
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>B</span>
+                    <span className={`ml-2`}>Unit Price</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    USD{' '}
+                    {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>C</span>
+                    <span className={`ml-2`}>Conversion Rate</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {marginData?.conversionRate}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>D</span>
+                    <span className={`ml-2`}>Usance Interest (%)</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {addPrefixOrSuffix(
+                      marginData?.order?.termsheet?.commercials
+                        ?.usanceInterestPercetage,
+                      '%',
+                      '',
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>E</span>
+                    <span className={`ml-2`}>Trade Margin</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {addPrefixOrSuffix(
+                      marginData?.order?.termsheet?.commercials
+                        ?.tradeMarginPercentage,
+                      '%',
+                      '',
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>F</span>
+                    <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {addPrefixOrSuffix(
+                      marginData?.order?.tolerance
+                        ? marginData?.order?.tolerance?.toLocaleString(
+                          'en-In',
+                          {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          },
+                        )
+                        : 0,
+                      '%',
+                      '',
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>G</span>
+                    <span className={`ml-2`}>Margin Money (%)</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {addPrefixOrSuffix(
+                      marginData?.order?.termsheet?.transactionDetails
+                        ?.marginMoney
+                        ? marginData?.order?.termsheet?.transactionDetails
                           ?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails
-                              ?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>H</span>
-                      <span className={`ml-2`}>No. of PDC's</span>
-                    </td>
-                    <td className={`${styles.good} `}>
-                      {marginData?.numberOfPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
+                        : 0,
+                      '%',
+                      '',
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>H</span>
+                    <span className={`ml-2`}>No. of PDC's</span>
+                  </td>
+                  <td className={`${styles.good} `}>
+                    {marginData?.numberOfPDC?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>I</span>
-                      <span className={`ml-2`}>Additional PDC’s</span>
-                    </td>
-                    <td className={`${styles.highlight} satisfactory`}>
-                      {/* {marginData?.additionalPDC} */}
-                    </td>
-                  </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>I</span>
+                    <span className={`ml-2`}>Additional PDC’s</span>
+                  </td>
+                  <td className={`${styles.highlight} satisfactory`}>
+                    {/* {marginData?.additionalPDC} */}
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}></span>
-                      <span className={`ml-2`}></span>
-                    </td>
-                    <td></td>
-                  </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}></span>
+                    <span className={`ml-2`}></span>
+                  </td>
+                  <td></td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -1822,183 +1817,183 @@ function Index() {
                   <th></th>
                 </tr>
                 <tbody>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>J</span>
-                      <span className={`ml-2`}>Order Value</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>J</span>
+                    <span className={`ml-2`}>Order Value</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (A*B)
                       </span>
-                    </td>
-                    <td>
-                      USD{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>K</span>
-                      <span className={`ml-2`}>Order Value (INR)</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                  </td>
+                  <td>
+                    USD{' '}
+                    {marginData?.calculation?.orderValue?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>K</span>
+                    <span className={`ml-2`}>Order Value (INR)</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (J*C)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>L</span>
-                      <span className={`ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.orderValueInINR?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>L</span>
+                    <span className={`ml-2`}>
                         Usance Interest (%) for 90 days (INR)
                       </span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (K*D*90)/365
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>M</span>
-                      <span className={`ml-2`}>Trade Margin (INR)</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.usanceInterest?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>M</span>
+                    <span className={`ml-2`}>Trade Margin (INR)</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (K*E)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>N</span>
-                      <span className={`ml-2`}>Gross Order Value (INR)</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.tradeMargin?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>N</span>
+                    <span className={`ml-2`}>Gross Order Value (INR)</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (K+L+M)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.grossOrderValue?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>O</span>
-                      <span className={`ml-2`}>Tolerance Value (INR)</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>O</span>
+                    <span className={`ml-2`}>Tolerance Value (INR)</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (N*F)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>P</span>
-                      <span className={`ml-2`}>Total Order Value (INR)</span>
-                      <span className={`${styles.formula} text1 ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.toleranceValue?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>P</span>
+                    <span className={`ml-2`}>Total Order Value (INR)</span>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (N+O)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.totalOrderValue?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
 
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>Q</span>
-                      <span className={`ml-2`}>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>Q</span>
+                    <span className={`ml-2`}>
                         Provisional Unit Price Per Ton (INR)
                       </span>{' '}
-                      <span className={`${styles.formula} text1 ml-2`}>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (N/A)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}>R</span>
-                      <span className={`ml-2`}>Margin Money (INR)</span>{' '}
-                      <span className={`${styles.formula} text1 ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}>R</span>
+                    <span className={`ml-2`}>Margin Money (INR)</span>{' '}
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (P*G)
                       </span>
-                    </td>
-                    <td>
-                      ₹{' '}
-                      {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='pb-4 border-bottom'>
-                      <span className={`${styles.sno} text1`}>S</span>
-                      <span className={`ml-2`}>
+                  </td>
+                  <td>
+                    ₹{' '}
+                    {marginData?.calculation?.marginMoney?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="pb-4 border-bottom">
+                    <span className={`${styles.sno} text1`}>S</span>
+                    <span className={`ml-2`}>
                         Total SPDC Amount Req. (INR)
                       </span>{' '}
-                      <span className={`${styles.formula} text1 ml-2`}>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (P-R)
                       </span>
-                    </td>
-                    <td className='pb-4 border-bottom'>
-                      ₹{' '}
-                      {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='pt-4'>
-                      <span className={`${styles.sno} text1`}>T</span>
-                      <span className={`ml-2`}>
+                  </td>
+                  <td className="pb-4 border-bottom">
+                    ₹{' '}
+                    {marginData?.calculation?.totalSPDC?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
+                <tr>
+                  <td className="pt-4">
+                    <span className={`${styles.sno} text1`}>T</span>
+                    <span className={`ml-2`}>
                         Amount per SPDC (INR){' '}
                       </span>{' '}
-                      <span className={`${styles.formula} text1 ml-2`}>
+                    <span className={`${styles.formula} text1 ml-2`}>
                         (S/H)
                       </span>
-                    </td>
-                    <td className='pt-4'>
-                      ₹{' '}
-                      {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
-                       minimumFractionDigits: 2, maximumFractionDigits: 2,
-                      }) ?? 0}
-                    </td>
-                  </tr>
+                  </td>
+                  <td className="pt-4">
+                    ₹{' '}
+                    {marginData?.calculation?.amountPerSPDC?.toLocaleString('en-In', {
+                      minimumFractionDigits: 2, maximumFractionDigits: 2,
+                    }) ?? 0}
+                  </td>
+                </tr>
 
-                  {/* <tr className={`${styles.bordertop} border_color`}>
+                {/* <tr className={`${styles.bordertop} border_color`}>
                     <td>
                       <span className={`${styles.sno}`}>T</span>
                       <span className={`ml-2`}>
@@ -2079,13 +2074,13 @@ function Index() {
                         0}
                     </td>
                   </tr> */}
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno} text1`}></span>
-                      <span className={`ml-2`}></span>
-                    </td>
-                    <td></td>
-                  </tr>
+                <tr>
+                  <td>
+                    <span className={`${styles.sno} text1`}></span>
+                    <span className={`ml-2`}></span>
+                  </td>
+                  <td></td>
+                </tr>
                 </tbody>
               </table>
             </div>
@@ -2099,7 +2094,7 @@ function Index() {
         rightButtonTitle={'Send to Buyer'}
       />
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

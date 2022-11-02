@@ -1,19 +1,15 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col, Modal } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import UploadOther from '../UploadOther';
-import DateCalender from '../DateCalender';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import Image from 'next/image';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import DateCalender from '../DateCalender'
+import Image from 'next/image'
 
-export default function Index({}) {
-  const [serviceType, setServiceType] = useState('goods');
-  const [radioBtn, setRadioBtn] = useState('domestic');
+export default function Index ({}) {
+  const [serviceType, setServiceType] = useState('goods')
+  const [radioBtn, setRadioBtn] = useState('domestic')
 
   return (
     <>
@@ -1131,68 +1127,68 @@ export default function Index({}) {
                             border="0"
                           >
                             <thead>
-                              <tr>
-                                <th>
-                                  DOCUMENT NAME{' '}
-                                  <Image
-                                    width="14px"
-                                    height="14px"
-                                    className={`${styles.sort_img}`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th>
-                                  FORMAT{' '}
-                                  <Image
-                                    width="14px"
-                                    height="14px"
-                                    className={`${styles.sort_img}`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th>
-                                  DOCUMENT DATE{' '}
-                                  <Image
-                                    width="14px"
-                                    height="14px"
-                                    className={`${styles.sort_img}`}
-                                    src="/static/icons8-sort-24.svg"
-                                    alt="Sort icon"
-                                  />
-                                </th>
-                                <th>ACTION</th>
-                              </tr>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <Image
+                                  width="14px"
+                                  height="14px"
+                                  className={`${styles.sort_img}`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <Image
+                                  width="14px"
+                                  height="14px"
+                                  className={`${styles.sort_img}`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <Image
+                                  width="14px"
+                                  height="14px"
+                                  className={`${styles.sort_img}`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
                             </thead>
                             <tbody>
-                              <tr className="table_row">
-                                <td>
-                                  Purchase Invoice
-                                  <strong className="text-danger">*</strong>
-                                </td>
-                                <td>
+                            <tr className="table_row">
+                              <td>
+                                Purchase Invoice
+                                <strong className="text-danger">*</strong>
+                              </td>
+                              <td>
+                                <Image
+                                  width="57px"
+                                  height="25px"
+                                  src="/static/pdf.svg"
+                                  className={`${styles.pdfImage} img-fluid`}
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td>28-02-2022,5:30 PM</td>
+                              <td>
+                                {' '}
+                                <div className={`${styles.delete_image}`}>
                                   <Image
-                                    width="57px"
-                                    height="25px"
-                                    src="/static/pdf.svg"
-                                    className={`${styles.pdfImage} img-fluid`}
-                                    alt="Pdf"
+                                    src="/static/delete.svg"
+                                    width="40px"
+                                    height="40px"
+                                    alt="Bin"
                                   />
-                                </td>
-                                <td>28-02-2022,5:30 PM</td>
-                                <td>
-                                  {' '}
-                                  <div className={`${styles.delete_image}`}>
-                                    <Image
-                                      src="/static/delete.svg"
-                                      width="40px"
-                                      height="40px"
-                                      alt="Bin"
-                                    />
-                                  </div>
-                                </td>
-                              </tr>
+                                </div>
+                              </td>
+                            </tr>
                             </tbody>
                           </table>
                         </div>
@@ -1272,8 +1268,8 @@ export default function Index({}) {
             </div>
           </div>
         </div>
-        <SaveBar rightBtn="Submit" />
+        <SaveBar rightBtn="Submit"/>
       </div>
     </>
-  );
+  )
 }

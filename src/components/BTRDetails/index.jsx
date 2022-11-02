@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Col, Row } from 'reactstrap';
-import LabelDetails from '../LabelDetails';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Button, Col, Row } from 'reactstrap'
+import LabelDetails from '../LabelDetails'
 
 const BTRDetails = (props) => {
-  let { selected } = props;
+  let { selected } = props
   return (
     <div>
       <div className="card-box card">
@@ -293,11 +293,11 @@ const BTRDetails = (props) => {
         </Row>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BTRDetails;
+export default BTRDetails
 
 BTRDetails.propTypes = {
   selected: PropTypes.object,
-};
+}

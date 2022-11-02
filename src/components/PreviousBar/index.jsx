@@ -1,11 +1,10 @@
-import Router from 'next/router';
-import React from 'react';
-import styles from './index.module.scss';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
-function index(props) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+function index (props) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -26,7 +25,7 @@ function index(props) {
         <span>Next</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default index;
+export default index

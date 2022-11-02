@@ -1,74 +1,72 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import DateCalender from '../DateCalender';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
-import { UpdateInspection } from 'redux/Inspections/action';
-import moment from 'moment';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import DateCalender from '../DateCalender'
+import 'react-datepicker/dist/react-datepicker.css'
+import { useDispatch } from 'react-redux'
+import { UpdateInspection } from 'redux/Inspections/action'
+import moment from 'moment'
+import { toast } from 'react-toastify'
 
-export default function Index({ inspectionData, setDate,vendor }) {
-  const dispatch = useDispatch();
-  const [lastDate, setlastDate] = useState(new Date());
+export default function Index ({ inspectionData, setDate, vendor }) {
+  const dispatch = useDispatch()
+  const [lastDate, setlastDate] = useState(new Date())
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date())
 
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false)
 
-  const [appointmentData, setAppointmentData] = useState();
+  const [appointmentData, setAppointmentData] = useState()
   console.log(
     inspectionData?.thirdPartyAppointment?.dateOfAppointment,
     'inspectionData',
-  );
-  console.log(vendor,"vendor")
+  )
+  console.log(vendor, 'vendor')
   useEffect(() => {
-    let add=[]
-    let pincode=[]
-     let newAddress=[]
-    if(vendor){
-        // add = vendor?.field23.split(",")
-        //    newAddress=[]
-        //   add.forEach((val,index)=>{
-        //     if(index<add.length-1){
-        //       newAddress.push(val)
-        //     }
-        //   })
-        // pincode =   add[add.length-1].split("-")
-        //   console.log(add,"dfdfsdfdsf",pincode)
+    let add = []
+    let pincode = []
+    let newAddress = []
+    if (vendor) {
+      // add = vendor?.field23.split(",")
+      //    newAddress=[]
+      //   add.forEach((val,index)=>{
+      //     if(index<add.length-1){
+      //       newAddress.push(val)
+      //     }
+      //   })
+      // pincode =   add[add.length-1].split("-")
+      //   console.log(add,"dfdfsdfdsf",pincode)
     }
-     
 
     setAppointmentData({
       name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
       dateOfAppointment:
-        inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
         fullAddress:
           inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
         addressType:
-          inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode|| "",
-        country: inspectionData?.thirdPartyAppointment?.address?.country ,
-      },
-    });
-    setAddressData({
-      name: inspectionData?.thirdPartyAppointment?.name|| vendor?.field4,
-      dateOfAppointment:
-        inspectionData?.thirdPartyAppointment?.dateOfAppointment,
-      address: {
-        fullAddress:
-          inspectionData?.thirdPartyAppointment?.address?.fullAddress ||   vendor?.field23,
-        addressType:
-          inspectionData?.thirdPartyAppointment?.address?.addressType,
-        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode|| "",
+        inspectionData?.thirdPartyAppointment?.address?.addressType,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
         country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
-    });
-  }, [inspectionData,vendor]);
+    })
+    setAddressData({
+      name: inspectionData?.thirdPartyAppointment?.name || vendor?.field4,
+      dateOfAppointment:
+      inspectionData?.thirdPartyAppointment?.dateOfAppointment,
+      address: {
+        fullAddress:
+          inspectionData?.thirdPartyAppointment?.address?.fullAddress || vendor?.field23,
+        addressType:
+        inspectionData?.thirdPartyAppointment?.address?.addressType,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode || '',
+        country: inspectionData?.thirdPartyAppointment?.address?.country,
+      },
+    })
+  }, [inspectionData, vendor])
   // console.log(appointmentData, 'appointmentData')
 
   // console.log(
@@ -80,19 +78,19 @@ export default function Index({ inspectionData, setDate,vendor }) {
     name: '',
     dateOfAppointment: '',
     address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
-  });
+  })
 
   const saveAppointmentData = (name, value) => {
-    let newInput = { ...appointmentData };
-    newInput[name] = value;
-    setAppointmentData(newInput);
-  };
+    let newInput = { ...appointmentData }
+    newInput[name] = value
+    setAppointmentData(newInput)
+  }
 
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveAppointmentData(name, text);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveAppointmentData(name, text)
+  }
 
   const handleEdit = () => {
     setAddressData({
@@ -104,118 +102,118 @@ export default function Index({ inspectionData, setDate,vendor }) {
         pinCode: appointmentData?.address?.pinCode,
         country: appointmentData?.address?.country,
       },
-    });
-    setIsEdit(true);
-  };
+    })
+    setIsEdit(true)
+  }
 
   const handleEditInput = (name, value) => {
-    const newInput = { ...addressData };
-    const namesplit = name.split('.');
+    const newInput = { ...addressData }
+    const namesplit = name.split('.')
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
-    console.log(newInput, 'newInput');
-    setAddressData({ ...newInput });
-  };
+      : (newInput[name] = value)
+    console.log(newInput, 'newInput')
+    setAddressData({ ...newInput })
+  }
 
   const handleEditCancel = () => {
-    setIsEdit(false);
+    setIsEdit(false)
     setAddressData({
       ...addressData,
       address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
-    });
-  };
+    })
+  }
 
   const handleOnAdd = () => {
-    console.log(addressData, 'addressData');
+    console.log(addressData, 'addressData')
     if (
       addressData.address.addressType === '' ||
       addressData.address.addressType == undefined
     ) {
-      let toastMessage = 'Please add address Type';
+      let toastMessage = 'Please add address Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       addressData.address.fullAddress === '' ||
       addressData.address.fullAddress == undefined
     ) {
-      let toastMessage = 'Please add address';
+      let toastMessage = 'Please add address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       addressData.address.pinCode === '' ||
       addressData.address.pinCode == undefined
     ) {
-      let toastMessage = 'Please add pin Code';
+      let toastMessage = 'Please add pin Code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       addressData.address.country === '' ||
       addressData.address.country == undefined
     ) {
-      let toastMessage = 'Please add country';
+      let toastMessage = 'Please add country'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
-    setAppointmentData(addressData);
-    setIsEdit(false);
-  };
+    setAppointmentData(addressData)
+    setIsEdit(false)
+  }
 
   const validation = () => {
-    let toastMessage = '';
+    let toastMessage = ''
     if (appointmentData.name == '' || appointmentData.name == undefined) {
-      toastMessage = 'NAME IS MANDATORY';
+      toastMessage = 'NAME IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage });
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   const handleSave = () => {
-    console.log('SAvee');
-    const fd = new FormData();
-    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
-    fd.append('inspectionId', inspectionData?._id);
+    console.log('SAvee')
+    const fd = new FormData()
+    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
+    fd.append('inspectionId', inspectionData?._id)
 
-    let task = 'save';
-    dispatch(UpdateInspection({ fd, task }));
-  };
+    let task = 'save'
+    dispatch(UpdateInspection({ fd, task }))
+  }
 
   const handleSubmit = () => {
-    if (!validation()) <return></return>;
-    console.log('SAvee');
-    const fd = new FormData();
-    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData));
-    fd.append('inspectionId', inspectionData?._id);
+    if (!validation()) <return></return>
+    console.log('SAvee')
+    const fd = new FormData()
+    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
+    fd.append('inspectionId', inspectionData?._id)
 
-    let task = 'submit';
-    dispatch(UpdateInspection({ fd, task }));
-  };
+    let task = 'submit'
+    dispatch(UpdateInspection({ fd, task }))
+  }
   const emptyData = () => {
-    const temp = { ...appointmentData };
-    temp.address.fullAddress = '';
-    temp.address.addressType = '';
-    temp.address.pinCode = '';
-    temp.address.country = '';
-    setAppointmentData({ ...temp });
-  };
+    const temp = { ...appointmentData }
+    temp.address.fullAddress = ''
+    temp.address.addressType = ''
+    temp.address.pinCode = ''
+    temp.address.country = ''
+    setAppointmentData({ ...temp })
+  }
   console.log(
     appointmentData?.dateOfAppointment,
     'oment(appointmentData?.dateOfAppointment).toDate()',
-  );
+  )
   return (
     <>
       <div
@@ -326,12 +324,12 @@ export default function Index({ inspectionData, setDate,vendor }) {
                         src="/static/mode_edit.svg"
                         alt="edit"
                         onClick={() => {
-                          handleEdit();
+                          handleEdit()
                         }}
                       />
                       <img
                         onClick={() => {
-                          emptyData();
+                          emptyData()
                         }}
                         src="/static/delete.svg"
                         className={`${styles.delete_image} mr-3`}
@@ -360,7 +358,7 @@ export default function Index({ inspectionData, setDate,vendor }) {
         />
       </div>
     </>
-  );
+  )
 }
 
 const editData = (
@@ -384,13 +382,13 @@ const editData = (
               value={addressData?.address?.addressType}
               onChange={(e) => {
                 // setAddressType(e.target.value)
-                handleEditInput(e.target.name, e.target.value);
+                handleEditInput(e.target.name, e.target.value)
               }}
             >
               <option>Select an option</option>
               <option value="Registered Office">Registered Office</option>
-              <option value="Branch">Branch </option>
-              <option value="Supplier Address">Supplier Address </option>
+              <option value="Branch">Branch</option>
+              <option value="Supplier Address">Supplier Address</option>
             </select>
             <Form.Label
               className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -412,7 +410,7 @@ const editData = (
             name="address.fullAddress"
             defaultValue={addressData?.address?.fullAddress}
             onChange={(e) => {
-              handleEditInput(e.target.name, e.target.value);
+              handleEditInput(e.target.name, e.target.value)
             }}
           />
           <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -429,7 +427,7 @@ const editData = (
             name="address.pinCode"
             defaultValue={addressData?.address?.pinCode}
             onChange={(e) => {
-              handleEditInput(e.target.name, e.target.value);
+              handleEditInput(e.target.name, e.target.value)
             }}
           />
           <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -451,7 +449,7 @@ const editData = (
             name="address.country"
             defaultValue={addressData?.address?.country}
             onChange={(e) => {
-              handleEditInput(e.target.name, e.target.value);
+              handleEditInput(e.target.name, e.target.value)
             }}
           />
           <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -479,5 +477,5 @@ const editData = (
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

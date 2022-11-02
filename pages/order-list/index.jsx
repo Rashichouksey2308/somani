@@ -1,93 +1,86 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetOrders } from '../../src/redux/registerBuyer/action';
-import { setPageName, setDynamicName } from '../../src/redux/userData/action';
-import _get from 'lodash/get';
-import { GetCreditLimit } from '../../src/redux/companyDetail/action';
-import moment from 'moment';
-import {
-  GetAllBuyer,
-  GetAllOrders,
-  GetBuyer,
-} from '../../src/redux/registerBuyer/action';
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action'
+import { setDynamicName, setPageName } from '../../src/redux/userData/action'
+import _get from 'lodash/get'
+import { GetCompanyDetails, GetCreditLimit } from '../../src/redux/companyDetail/action'
+import moment from 'moment'
 
-function Index() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch();
+function Index () {
+  const [currentPage, setCurrentPage] = useState(0)
+  const dispatch = useDispatch()
 
-  const { singleOrder } = useSelector((state) => state.buyer);
-
+  const { singleOrder } = useSelector((state) => state.buyer)
 
   useEffect(() => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
+    let companyIDnewOrder = sessionStorage.getItem('companyID')
 
     dispatch(
       GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`),
-    );
-  }, [dispatch, currentPage]);
+    )
+  }, [dispatch, currentPage])
 
   useEffect(() => {
-    dispatch(setPageName('leads'));
+    dispatch(setPageName('leads'))
     dispatch(
       setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')),
-    );
-  }, [dispatch, singleOrder]);
+    )
+  }, [dispatch, singleOrder])
 
-  let compId = _get(singleOrder, 'data[0].company._id', '');
+  let compId = _get(singleOrder, 'data[0].company._id', '')
 
   const handleRouteNewOrder = () => {
     sessionStorage.setItem(
       'companyID',
       _get(singleOrder, 'data[0].company._id', ''),
-    );
-    dispatch(GetOrders(`?company=${compId}`));
-    dispatch(GetCreditLimit({ companyId: compId }));
+    )
+    dispatch(GetOrders(`?company=${compId}`))
+    dispatch(GetCreditLimit({ companyId: compId }))
     setTimeout(() => {
-      Router.push('/new-order');
-    }, 1000);
-  };
+      Router.push('/new-order')
+    }, 1000)
+  }
 
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderID', buyer._id);
-    sessionStorage.setItem('company', buyer.company._id);
+    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('company', buyer.company._id)
 
-    sessionStorage.setItem('company', buyer.company._id);
+    sessionStorage.setItem('company', buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
-      dispatch(GetCompanyDetails({ company: buyer.company._id }));
-      Router.push('/review');
+      dispatch(GetCompanyDetails({ company: buyer.company._id }))
+      Router.push('/review')
     }
     if (buyer.queue === 'ReviewQueue') {
-      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }));
-      Router.push('/review/id');
+      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+      Router.push('/review/id')
     }
-  };
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
-    let companyIDnewOrder = sessionStorage.getItem('companyID');
+    let companyIDnewOrder = sessionStorage.getItem('companyID')
     if (sorting == -1) {
       dispatch(
         GetOrders(
           `?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetOrders(
           `?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <>
@@ -226,9 +219,9 @@ function Index() {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return;
+                      return
                     } else {
-                      setCurrentPage((prevState) => prevState - 1);
+                      setCurrentPage((prevState) => prevState - 1)
                     }
                   }}
                   href="#"
@@ -247,7 +240,7 @@ function Index() {
                       currentPage + 1 <
                       Math.ceil(singleOrder?.totalCount / 7)
                     ) {
-                      setCurrentPage((prevState) => prevState + 1);
+                      setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
                   href="#"
@@ -270,71 +263,71 @@ function Index() {
                   border="0"
                 >
                   <thead>
-                    <tr className="table_row">
-                      <th>
-                        ORDER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                          onClick={() => handleSort()}
-                        />
-                      </th>
-                      <th>COMMODITY</th>
-                      <th>CREATED BY</th>
-                      <th>CREATED ON</th>
-                      <th>STATUS</th>
-                    </tr>
+                  <tr className="table_row">
+                    <th>
+                      ORDER ID{' '}
+                      <img
+                        className={`mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        onClick={() => handleSort()}
+                      />
+                    </th>
+                    <th>COMMODITY</th>
+                    <th>CREATED BY</th>
+                    <th>CREATED ON</th>
+                    <th>STATUS</th>
+                  </tr>
                   </thead>
                   <tbody>
-                    {singleOrder &&
-                      singleOrder?.data?.map((buyer, index) => (
-                        <tr
-                          key={index}
-                          className={`${styles.table_row} table_row`}
+                  {singleOrder &&
+                    singleOrder?.data?.map((buyer, index) => (
+                      <tr
+                        key={index}
+                        className={`${styles.table_row} table_row`}
+                      >
+                        <td>
+                          {buyer?.orderId
+                            ? buyer?.orderId
+                            : buyer?.applicationId}
+                        </td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => {
+                            handleRoute(buyer)
+                          }}
                         >
-                          <td>
-                            {buyer?.orderId
-                              ? buyer?.orderId
-                              : buyer?.applicationId}
-                          </td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => {
-                              handleRoute(buyer);
-                            }}
-                          >
-                            {buyer?.commodity}
-                          </td>
-                          <td>{buyer?.createdBy?.fName}</td>
+                          {buyer?.commodity}
+                        </td>
+                        <td>{buyer?.createdBy?.fName}</td>
 
-                          <td>
-                            {moment(buyer?.createdAt?.split('T')[0]).format(
-                              'DD-MM-YYYY',
-                            )}
-                          </td>
-                          <td>
+                        <td>
+                          {moment(buyer?.createdAt?.split('T')[0]).format(
+                            'DD-MM-YYYY',
+                          )}
+                        </td>
+                        <td>
                             <span
                               className={`${styles.status} ${
                                 buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
+                                    ? styles.review
+                                    : buyer.queue === 'CreditQueue'
+                                      ? styles.approved
+                                      : styles.rejected
                               }`}
                             ></span>
 
-                            {buyer.queue === 'Rejected'
-                              ? 'Rejected'
-                              : buyer.queue === 'ReviewQueue'
+                          {buyer.queue === 'Rejected'
+                            ? 'Rejected'
+                            : buyer.queue === 'ReviewQueue'
                               ? 'Review'
                               : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      ))}
+                                ? 'Approved'
+                                : 'Rejected'}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -343,7 +336,7 @@ function Index() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

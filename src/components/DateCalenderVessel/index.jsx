@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import styles from './index.module.scss';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import styles from './index.module.scss'
+import moment from 'moment'
 
 const Index = ({
   labelName,
@@ -18,21 +18,21 @@ const Index = ({
   maxDate,
   reset,
 }) => {
-  const [startDate, setStartDate] = useState(null);
-  const [lastDate, setlastDate] = useState();
+  const [startDate, setStartDate] = useState(null)
+  const [lastDate, setlastDate] = useState()
 
   useEffect(() => {
     if (startFrom) {
-      console.log('in start DAte');
-      setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
+      console.log('in start DAte')
+      setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
     } else {
-      setlastDate(new Date());
+      setlastDate(new Date())
     }
-  }, [startFrom]);
+  }, [startFrom])
   useEffect(() => {
-    setStartDate(null);
-  }, [reset]);
-  console.log(defaultDate, 'lastDate', startDate);
+    setStartDate(null)
+  }, [reset])
+  console.log(defaultDate, 'lastDate', startDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
     <>
@@ -48,17 +48,17 @@ const Index = ({
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
           onKeyDown={(e) => {
-            e.preventDefault();
+            e.preventDefault()
           }}
           portalId="root-portal"
           className={`${styles.input_field} input form-control ${
             small ? styles.input_small : ''
           }`}
           onChange={(startDate) => {
-            setStartDate(startDate);
-            saveDate(startDate, name, index);
+            setStartDate(startDate)
+            saveDate(startDate, name, index)
             if (setStartDateFrom) {
-              setStartDateFrom(startDate, name);
+              setStartDateFrom(startDate, name)
             }
           }}
           minDate={lastDate}
@@ -73,7 +73,7 @@ const Index = ({
         ) : null}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

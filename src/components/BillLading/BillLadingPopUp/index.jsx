@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const index = () => {
   return (
@@ -30,7 +30,7 @@ const index = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default index;
+export default index

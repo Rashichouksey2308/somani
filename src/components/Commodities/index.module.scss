@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .card {
   // width: 406px;
   // height: 401px;
@@ -10,6 +11,7 @@
   @include respond(phone) {
     margin-bottom: 15px;
   }
+
   .header {
     background-color: rgb(0 0 0 / 0%);
     border-bottom: none;
@@ -26,6 +28,7 @@
       padding: 14px 15px;
     }
   }
+
   .body {
     display: flex;
     justify-content: space-around;
@@ -45,6 +48,7 @@
     @include respond(phone) {
       max-height: none;
     }
+
     .wrapper {
       display: flex;
       justify-content: flex-start;
@@ -68,6 +72,7 @@
         align-items: center;
         padding-left: 0px;
       }
+
       .graph {
         width: 70%;
         height: 90%;
@@ -82,6 +87,7 @@
           color: #2884de;
           padding: 12px 13px;
         }
+
         .bar {
           background-color: #2884de;
           position: absolute;

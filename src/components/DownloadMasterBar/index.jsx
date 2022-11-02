@@ -1,9 +1,7 @@
-import Router from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
-function Index({ btnName, handleSave, rightBtn, rightBtnClick }) {
+function Index ({ btnName, handleSave, rightBtn, rightBtnClick }) {
   return (
     <div className={`${styles.root} cta_bar`}>
       <div className={styles.btn_file}>
@@ -15,7 +13,7 @@ function Index({ btnName, handleSave, rightBtn, rightBtnClick }) {
         />
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

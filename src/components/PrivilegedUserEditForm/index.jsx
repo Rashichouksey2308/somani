@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 
-import '../../assets/css/components/privilegedUserForm.css';
+import '../../assets/css/components/privilegedUserForm.css'
 
 const PrivilegedUserEditForm = (props) => {
   let {
     editable,
     userTypeList,
     data: { name, email, phoneNo, userType },
-  } = props;
+  } = props
   return (
     <div className="container bg-color formSection priviledUserForm">
       <Form>
@@ -89,13 +89,13 @@ const PrivilegedUserEditForm = (props) => {
         </Row>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default PrivilegedUserEditForm;
+export default PrivilegedUserEditForm
 
 PrivilegedUserEditForm.proptype = {
   data: PropTypes.object,
   editable: PropTypes.bool,
   userTypeList: PropTypes.array,
-};
+}

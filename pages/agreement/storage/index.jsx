@@ -1,53 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
-import PaginateBar from '../../../src/components/Paginatebar';
-import _get from 'lodash/get';
-import { useDispatch, useSelector } from 'react-redux';
-import { GettingAllInsurance } from '../../../src/redux/insurance/action';
-import moment from 'moment';
-import { CovertvaluefromtoCR } from '../../../src/utils/helper';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
-import Router from 'next/router';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import PaginateBar from '../../../src/components/Paginatebar'
+import _get from 'lodash/get'
+import { useDispatch, useSelector } from 'react-redux'
+import { GettingAllInsurance } from '../../../src/redux/insurance/action'
+import moment from 'moment'
+import { CovertvaluefromtoCR } from '../../../src/utils/helper'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../../src/redux/userData/action'
+import Router from 'next/router'
+import Modal from 'react-bootstrap/Modal'
 
-function Index() {
-  const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+function Index () {
+  const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
   const handlePopup = () => {
-    setShow(true);
-  };
+    setShow(true)
+  }
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId');
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
-  }, [dispatch]);
+    let id = sessionStorage.getItem('letterId')
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
+  }, [dispatch])
 
-  const { insuranceResponse } = useSelector((state) => state.insurance);
+  const { insuranceResponse } = useSelector((state) => state.insurance)
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {});
+  let insuranceData = _get(insuranceResponse, 'data[0]', {})
 
-  dispatch(setPageName('insurance Request Letter'));
+  dispatch(setPageName('insurance Request Letter'))
   dispatch(
     setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
-  );
-  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
+  )
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ]);
+  ])
   const [insuranceAdd, setinsuranceAdd] = useState([
     {
       insurance: '',
     },
-  ]);
+  ])
 
   const addMoreRows = (val) => {
 
@@ -57,16 +53,16 @@ function Index() {
         {
           emailID: '',
         },
-      ]);
+      ])
     } else {
       setinsuranceAdd([
         ...insuranceAdd,
         {
           insurance: '',
         },
-      ]);
+      ])
     }
-  };
+  }
   return (
     <>
       <div className="container-fluid p-0">
@@ -394,32 +390,32 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {insuranceData?.order?.generic?.buyer?.name} ,{' '}
-                            <br></br>{' '}
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].fullAddress',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].state',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.addresses[0].country',
-                              '',
-                            )}{' '}
-                            <br></br>
-                            {_get(
-                              insuranceData,
-                              'order.generic.buyer.gstin',
-                              '',
-                            )}{' '}
-                            <br></br>
+                    {insuranceData?.order?.generic?.buyer?.name} ,{' '}
+                    <br></br>{' '}
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].fullAddress',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].state',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.addresses[0].country',
+                      '',
+                    )}{' '}
+                    <br></br>
+                    {_get(
+                      insuranceData,
+                      'order.generic.buyer.gstin',
+                      '',
+                    )}{' '}
+                    <br></br>
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -653,12 +649,12 @@ function Index() {
                           </div>
                           <hr></hr>
                         </>
-                      );
+                      )
                     })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows('insurance');
+                        addMoreRows('insurance')
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -716,7 +712,7 @@ function Index() {
                               />
                             </div>
                           </>
-                        );
+                        )
                       })}
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
@@ -726,8 +722,8 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                       
-                        addMoreRows('email');
+
+                        addMoreRows('email')
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -824,7 +820,7 @@ function Index() {
         </Modal.Body>
       </Modal>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

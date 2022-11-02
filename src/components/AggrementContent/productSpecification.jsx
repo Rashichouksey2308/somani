@@ -1,128 +1,128 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import * as XLSX from 'xlsx';
-function Index(props) {
-  const [excelData, setExcelData] = useState(null);
-  const [excelFile, setExcelFile] = useState(null);
-  const [addressList, setAddressList] = useState([]);
-  const [value, setValue] = useState('');
-  const [editField, setEditField] = useState(false);
-  const [doc, setdoc] = useState({ attachDoc: '' });
-  console.log(excelData, 'excelData', excelFile);
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import * as XLSX from 'xlsx'
+
+function Index (props) {
+  const [excelData, setExcelData] = useState(null)
+  const [excelFile, setExcelFile] = useState(null)
+  const [addressList, setAddressList] = useState([])
+  const [value, setValue] = useState('')
+  const [editField, setEditField] = useState(false)
+  const [doc, setdoc] = useState({ attachDoc: '' })
+  console.log(excelData, 'excelData', excelFile)
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
-      let temp = [];
+      let temp = []
       addressList.forEach((val) => {
-        temp.push(val.value);
-      });
+        temp.push(val.value)
+      })
       let data = {
         addressList: temp,
         excelData: excelFile || [],
-      };
-      props.sendData('Product Specifications', data);
+      }
+      props.sendData('Product Specifications', data)
     }
     if (props.submitData == true && props.active == 'Product Specifications') {
-      let temp = [];
+      let temp = []
       addressList.forEach((val) => {
-        temp.push(val.value);
-      });
+        temp.push(val.value)
+      })
       let data = {
         addressList: temp,
         excelData: excelFile || [],
-      };
+      }
 
-      props.updateData('Product Specifications', data);
+      props.updateData('Product Specifications', data)
     }
 
     // setSupplierState({...supplierState,multiParty:props.multiPart})
-  }, [props.saveData, props.submitData]);
+  }, [props.saveData, props.submitData])
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Product')) {
-        console.log('herer23123');
+        console.log('herer23123')
 
-        let savedData = JSON.parse(sessionStorage.getItem('Product'));
-        let temp = [];
+        let savedData = JSON.parse(sessionStorage.getItem('Product'))
+        let temp = []
         savedData.list.forEach((val, index) => {
-          temp.push({ value: val, action: false });
-        });
-        setExcelFile(savedData.excel);
-        setAddressList(temp);
+          temp.push({ value: val, action: false })
+        })
+        setExcelFile(savedData.excel)
+        setAddressList(temp)
       } else {
-        let temp = [];
+        let temp = []
         props?.data?.comments.forEach((val, index) => {
-          temp.push({ value: val, action: false });
-        });
-        setExcelFile(props?.data?.specificationTable);
-        setAddressList(temp);
+          temp.push({ value: val, action: false })
+        })
+        setExcelFile(props?.data?.specificationTable)
+        setAddressList(temp)
       }
     }
-  }, [props]);
+  }, [props])
   const handleEditAddressInput = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          console.log(obj.action, 'obj.action');
-          return { ...obj, action: !obj.action };
+          console.log(obj.action, 'obj.action')
+          return { ...obj, action: !obj.action }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const handleAddressInput = () => {
-    setAddressList([...addressList, { value: value, action: false }]);
-  };
+    setAddressList([...addressList, { value: value, action: false }])
+  }
   const handleInput = (val, index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, value: val };
+          return { ...obj, value: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const handleFile = (e) => {
-    let selectedFile = e.target.files[0];
+    let selectedFile = e.target.files[0]
     if (selectedFile) {
-      console.log(selectedFile.type, 'test');
-      let reader = new FileReader();
-      reader.readAsArrayBuffer(selectedFile);
+      console.log(selectedFile.type, 'test')
+      let reader = new FileReader()
+      reader.readAsArrayBuffer(selectedFile)
       reader.onload = (e) => {
-        setExcelData(e.target.result);
-      };
+        setExcelData(e.target.result)
+      }
     } else {
-      console.log('please select file');
+      console.log('please select file')
     }
-  };
-  console.log(excelData, 'test1234', excelFile);
-  console.log(excelFile, 'file');
+  }
+  console.log(excelData, 'test1234', excelFile)
+  console.log(excelFile, 'file')
 
   useEffect(() => {
     if (excelData !== null) {
-      const workbook = XLSX.read(excelData, { type: 'buffer' });
-      const workSheetName = workbook.SheetNames[0];
-      const workSheet = workbook.Sheets[workSheetName];
-      const data = XLSX.utils.sheet_to_json(workSheet);
-      console.log(data, '11');
-      setExcelFile(data);
+      const workbook = XLSX.read(excelData, { type: 'buffer' })
+      const workSheetName = workbook.SheetNames[0]
+      const workSheet = workbook.Sheets[workSheetName]
+      const data = XLSX.utils.sheet_to_json(workSheet)
+      console.log(data, '11')
+      setExcelFile(data)
     }
-  }, [excelData]);
+  }, [excelData])
 
   return (
     <>
@@ -134,7 +134,7 @@ function Index(props) {
               placeholder={``}
               className="input"
               onChange={(e) => {
-                setValue(e.target.value);
+                setValue(e.target.value)
               }}
               value={value}
             />
@@ -143,8 +143,8 @@ function Index(props) {
               src="/static/add-btn.svg"
               alt="add button"
               onClick={() => {
-                handleAddressInput();
-                setValue('');
+                handleAddressInput()
+                setValue('')
               }}
             ></img>
           </div>
@@ -184,7 +184,7 @@ function Index(props) {
             <div className={`${styles.file_text}`}>
               <span>
                 <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES
-                ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
+                ARE ALLOWED <br/> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
             {excelFile?.length > 0 ? (
@@ -192,11 +192,11 @@ function Index(props) {
                 className={`${styles.excel_close}
              d-flex align-items-center justify-content-center ml-auto`}
                 onClick={() => {
-                  setExcelFile(null);
-                  setExcelData(null);
+                  setExcelFile(null)
+                  setExcelData(null)
                 }}
               >
-                <img src="/static/close-b.svg" alt="Close" />
+                <img src="/static/close-b.svg" alt="Close"/>
               </div>
             ) : null}
           </div>
@@ -240,7 +240,7 @@ function Index(props) {
                       name="bankName"
                       value={val.value}
                       onChange={(e) => {
-                        handleInput(e.target.value, index);
+                        handleInput(e.target.value, index)
                       }}
                       className="input"
                       readOnly={val.action}
@@ -254,7 +254,7 @@ function Index(props) {
                           src="/static/mode_edit.svg"
                           alt="edit button"
                           onClick={() => {
-                            handleEditAddressInput(index);
+                            handleEditAddressInput(index)
                           }}
                         ></img>
                       ) : (
@@ -263,7 +263,7 @@ function Index(props) {
                           className={`${styles.image} ml-4 mr-3`}
                           alt="save"
                           onClick={(e) => {
-                            handleEditAddressInput(index);
+                            handleEditAddressInput(index)
                           }}
                         />
                       )}
@@ -272,18 +272,18 @@ function Index(props) {
                         className="img-fluid"
                         alt="delete"
                         onClick={() => {
-                          onAddressRemove(index);
+                          onAddressRemove(index)
                         }}
                       ></img>
                     </div>
                   </div>
                 </>
-              );
+              )
             })}
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

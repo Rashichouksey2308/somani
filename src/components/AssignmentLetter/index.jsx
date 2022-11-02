@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import _get from 'lodash/get';
-import moment from 'moment';
-import Router from 'next/router';
-function Index(props) {
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import _get from 'lodash/get'
+import moment from 'moment'
+import Router from 'next/router'
+
+function Index (props) {
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -34,27 +34,27 @@ function Index(props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
+  })
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'));
+        const data = JSON.parse(sessionStorage.getItem('preview'))
 
         setData({
           seller: data?.seller,
@@ -89,27 +89,27 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        });
+        })
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-        console.log(data, 'data22222');
-        let exe;
-        let dat = '';
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+        console.log(data, 'data22222')
+        let exe
+        let dat = ''
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
-            exe = val.place;
+            exe = val.place
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
             }
           }
-        });
-        let comment = [];
+        })
+        let comment = []
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Assignment Letter') {
-            comment.push(val.comment);
+            comment.push(val.comment)
           }
-        });
-        console.log(dat, exe, 'exedasa');
+        })
+        console.log(dat, exe, 'exedasa')
 
         setData({
           seller: data?.seller?.name,
@@ -167,44 +167,43 @@ function Index(props) {
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
           priceOfGoods: data?.order?.perUnitPrice,
-        });
+        })
       }
     }
-  }, [props]);
+  }, [props])
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {assignmentSupplier(data,props.preview)}
-       {props.preview !== "LETTER" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
+        {assignmentSupplier(data, props.preview)}
+        {props.preview !== 'LETTER' ? (
+          <>
+            <div
+              className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+            >
+              <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      props.setPreviewValue("LETTER");
+                      Router.push('agreement/preview')
+                      props.setPreviewValue('LETTER')
                     }}
                   >
                     Preview
                   </span>
-                </div>
-                <div className={styles.reject}>
-                  <span>Save</span>
-                </div>
-                <div className={styles.approve}>
-                  <span>Submit</span>
-                </div>
               </div>
-            </>
-          ) : null}
-    <>
-      {/* Assignment Letter pdf download code start */}
-      {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
+              <div className={styles.reject}>
+                <span>Save</span>
+              </div>
+              <div className={styles.approve}>
+                <span>Submit</span>
+              </div>
+            </div>
+          </>
+        ) : null}
+        <>
+          {/* Assignment Letter pdf download code start */}
+          {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
           <td valign='top' style={{padding:'20px'}}>
             <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
@@ -711,34 +710,34 @@ function Index(props) {
           </td>
         </tr>
       </table> */}
-      {/* Assignment Letter pdf download code end */}
+          {/* Assignment Letter pdf download code end */}
 
-      <div className={`${styles.root}`}>
-        <div className={`${styles.content} card border_color shadow-none`}>
-          {assignmentSupplier(data)}
-          <div
-            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
-          >
-            <div className={`${styles.approve} mr-3`}>
-              <span>Preview</span>
-            </div>
-            <div className={styles.reject}>
-              <span>Save</span>
-            </div>
-            <div className={styles.approve}>
-              <span>Submit</span>
+          <div className={`${styles.root}`}>
+            <div className={`${styles.content} card border_color shadow-none`}>
+              {assignmentSupplier(data)}
+              <div
+                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
+              >
+                <div className={`${styles.approve} mr-3`}>
+                  <span>Preview</span>
+                </div>
+                <div className={styles.reject}>
+                  <span>Save</span>
+                </div>
+                <div className={styles.approve}>
+                  <span>Submit</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       </div>
-    </>
-     </div>
-     </div>
-  );
+    </div>
+  )
 }
 
-export default Index;
-const assignmentSupplier = (data,preview) => {
+export default Index
+const assignmentSupplier = (data, preview) => {
   return (
     <>
       <div className="card-body">
@@ -925,7 +924,7 @@ const assignmentSupplier = (data,preview) => {
                 <ol>
                   {data.specComment.length > 0 &&
                     data.specComment.map((val, index) => {
-                      return <li>{val}</li>;
+                      return <li>{val}</li>
                     })}
                 </ol>
               </>
@@ -1041,8 +1040,8 @@ const assignmentSupplier = (data,preview) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 // const assignment=()=>{
 //   return(
 //     <div className={`${styles.card_body} card-body `}>

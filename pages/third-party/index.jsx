@@ -1,68 +1,64 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import ThirdPartyInspection from '../../src/components/ThirdPartyInspection';
-import PlotInspection from '../../src/components/PlotInspection';
-import Appointment from '../../src/components/Appointment';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import _get from 'lodash/get';
-import { GetAllInspection } from '../../src/redux/Inspections/action';
-import Router from 'next/router';
-import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
-import { getVendors } from '../../src/redux/masters/action';
-function Index() {
-  const dispatch = useDispatch();
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
+import PlotInspection from '../../src/components/PlotInspection'
+import Appointment from '../../src/components/Appointment'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import _get from 'lodash/get'
+import { GetAllInspection } from '../../src/redux/Inspections/action'
+import Router from 'next/router'
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
+import { getVendors } from '../../src/redux/masters/action'
 
-  const [darkMode, setDarkMode] = useState(false);
-  const [lastModified, setlastModified] = useState('');
+function Index () {
+  const dispatch = useDispatch()
 
-     useEffect(() => {
-    dispatch(getVendors())
-   
-  }, []);
-   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
+  const [darkMode, setDarkMode] = useState(false)
+  const [lastModified, setlastModified] = useState('')
+
   useEffect(() => {
-    let id = sessionStorage.getItem('inspectionId');
-    dispatch(GetAllInspection(`?inspectionId=${id}`));
-  }, [dispatch]);
+    dispatch(getVendors())
+
+  }, [])
+  const { getVendorsMasterData } = useSelector((state) => state.MastersData)
+  useEffect(() => {
+    let id = sessionStorage.getItem('inspectionId')
+    dispatch(GetAllInspection(`?inspectionId=${id}`))
+  }, [dispatch])
   const { allInspection, modifiedDate } = useSelector(
     (state) => state.Inspection,
-  );
+  )
   useEffect(() => {
     if (window) {
       setlastModified(
         modifiedDate || localStorage.getItem('inceptionlastmodified'),
-      );
+      )
     }
-  }, [modifiedDate]);
+  }, [modifiedDate])
 
-  let inspectionData = _get(allInspection, 'data[0]', {});
+  let inspectionData = _get(allInspection, 'data[0]', {})
   useEffect(() => {
-    dispatch(setPageName('inception2'));
-    dispatch(setDynamicName(_get(inspectionData, 'company.companyName')));
-    dispatch(setDynamicOrder(_get(inspectionData, 'order.orderId')));
-  }, [inspectionData]);
+    dispatch(setPageName('inception2'))
+    dispatch(setDynamicName(_get(inspectionData, 'company.companyName')))
+    dispatch(setDynamicOrder(_get(inspectionData, 'order.orderId')))
+  }, [inspectionData])
 
-
-  const [addTPI, setAddTPI] = useState([{}]);
+  const [addTPI, setAddTPI] = useState([{}])
 
   const setDate = (date) => {
-   
-    setlastModified(date);
-  };
+
+    setlastModified(date)
+  }
   const handleBreadcrumbClick = (value) => {
-    dispatch(getBreadcrumbValues({ upperTabs: value }));
-  };
+    dispatch(getBreadcrumbValues({ upperTabs: value }))
+  }
   useEffect(() => {
-    dispatch(getBreadcrumbValues({ upperTabs: 'Appointment' }));
-  }, []);
+    dispatch(getBreadcrumbValues({ upperTabs: 'Appointment' }))
+  }, [])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -201,6 +197,7 @@ function Index() {
         </div>
       </div>
     </>
-  );
+  )
 }
-export default Index;
+
+export default Index

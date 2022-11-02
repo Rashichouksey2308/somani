@@ -1,74 +1,70 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetLcModule } from 'redux/lcModule/action';
-import Filter from '../Filter';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../redux/userData/action';
-import { SearchLeads } from 'redux/buyerProfile/action';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule } from 'redux/lcModule/action'
+import Filter from '../Filter'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../redux/userData/action'
+import { SearchLeads } from 'redux/buyerProfile/action'
 
-function Index() {
-  const dispatch = useDispatch();
+function Index () {
+  const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const [serachterm, setSearchTerm] = useState('');
+  const [serachterm, setSearchTerm] = useState('')
 
-  const { searchedLeads } = useSelector((state) => state.order);
+  const { searchedLeads } = useSelector((state) => state.order)
 
-  const { lcModule } = useSelector((state) => state.lc);
+  const { lcModule } = useSelector((state) => state.lc)
 
   useEffect(() => {
-    dispatch(GetLcModule(`?page=${currentPage}&limit=7`));
-  }, [currentPage, dispatch]);
+    dispatch(GetLcModule(`?page=${currentPage}&limit=7`))
+  }, [currentPage, dispatch])
 
   const handleRoute = (lc) => {
-    sessionStorage.setItem('lcCompanyId', lc.company._id);
-    dispatch(GetLcModule(`?company=${lc.company._id}`));
-    dispatch(setDynamicName(lc?.company?.companyName));
+    sessionStorage.setItem('lcCompanyId', lc.company._id)
+    dispatch(GetLcModule(`?company=${lc.company._id}`))
+    dispatch(setDynamicName(lc?.company?.companyName))
 
-    Router.push('/lc-module');
-  };
+    Router.push('/lc-module')
+  }
   useEffect(() => {
-    dispatch(setPageName('lc'));
-    dispatch(setDynamicName(null));
-    dispatch(setDynamicOrder(null));
-  }, []);
+    dispatch(setPageName('lc'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
+  }, [])
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
 
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetLcModule(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetLcModule(`?company=${id}`))
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
     if (sorting == -1) {
       dispatch(
         GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetLcModule(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -109,7 +105,7 @@ function Index() {
               </div>
             )}
           </div>
-          <Filter />
+          <Filter/>
 
           {/* <a href="#" className={`${styles.filterList} filterList `}>
           Bhutani Traders
@@ -120,7 +116,7 @@ function Index() {
             className={styles.createBtn}
             style={{ position: 'absolute', right: 25 }}
             onClick={() => {
-              Router.push('/letter-table/letter-application');
+              Router.push('/letter-table/letter-application')
             }}
           >
             Create
@@ -142,9 +138,9 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return;
+                    return
                   } else {
-                    setCurrentPage((prevState) => prevState - 1);
+                    setCurrentPage((prevState) => prevState - 1)
                   }
                 }}
                 href="#"
@@ -160,7 +156,7 @@ function Index() {
               <a
                 onClick={() => {
                   if (currentPage + 1 < Math.ceil(lcModule?.totalCount / 10)) {
-                    setCurrentPage((prevState) => prevState + 1);
+                    setCurrentPage((prevState) => prevState + 1)
                   }
                 }}
                 href="#"
@@ -183,41 +179,41 @@ function Index() {
                 border="0"
               >
                 <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="./static/icons8-sort-24.svg "
-                        alt="Sort icon"
-                        onClick={() => handleSort()}
-                      />
-                    </th>
-                    <th>BUYER NAME</th>
-                    <th>CREATED BY</th>
-                    <th>STATUS</th>
-                  </tr>
+                <tr className="table_row">
+                  <th>
+                    ORDER ID{' '}
+                    <img
+                      className={`mb-1`}
+                      src="./static/icons8-sort-24.svg "
+                      alt="Sort icon"
+                      onClick={() => handleSort()}
+                    />
+                  </th>
+                  <th>BUYER NAME</th>
+                  <th>CREATED BY</th>
+                  <th>STATUS</th>
+                </tr>
                 </thead>
                 <tbody>
-                  {lcModule &&
-                    lcModule?.data?.map((lc, index) => (
-                      <tr key={index} className="table_row">
-                        <td>{lc?.order?.orderId}</td>
-                        <td
-                          className={styles.buyerName}
-                          onClick={() => handleRoute(lc)}
-                        >
-                          {lc?.company?.companyName}
-                        </td>
-                        <td>RM-Sales</td>
-                        <td>
+                {lcModule &&
+                  lcModule?.data?.map((lc, index) => (
+                    <tr key={index} className="table_row">
+                      <td>{lc?.order?.orderId}</td>
+                      <td
+                        className={styles.buyerName}
+                        onClick={() => handleRoute(lc)}
+                      >
+                        {lc?.company?.companyName}
+                      </td>
+                      <td>RM-Sales</td>
+                      <td>
                           <span
                             className={`${styles.status} ${styles.review}`}
                           ></span>
-                          Pending
-                        </td>
-                      </tr>
-                    ))}
+                        Pending
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -225,6 +221,7 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default Index;
+
+export default Index

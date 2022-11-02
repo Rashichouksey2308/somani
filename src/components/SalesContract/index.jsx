@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import GrowInput from '../GrowInput'
 
-function Index() {
-  const [active, setActive] = useState('Seller');
+function Index () {
+  const [active, setActive] = useState('Seller')
   const changeActiveValue = (val, index) => {
-    console.log(val, 'val');
-    setActive(val);
+    console.log(val, 'val')
+    setActive(val)
     // showContent()
-    let tempArr = sideBar;
+    let tempArr = sideBar
     for (let i = 0; i < tempArr.length; i++) {
       if (i == index) {
-        tempArr[i].state = 'current';
+        tempArr[i].state = 'current'
       } else {
-        tempArr[i].state = 'default';
+        tempArr[i].state = 'default'
       }
     }
-    console.log(tempArr, 'name');
-    setSidebar(tempArr);
-  };
+    console.log(tempArr, 'name')
+    setSidebar(tempArr)
+  }
 
   const [sideBar, setSidebar] = useState([
     { name: 'Seller', state: 'current', value: 'Seller' },
@@ -44,7 +44,7 @@ function Index() {
     { name: 'Total Order Value', state: 'default', value: 'Total Order Value' },
     { name: 'Discharge Port', state: 'default', value: 'Discharge Port' },
     { name: 'Loading Port', state: 'default', value: 'Loading Port' },
-  ]);
+  ])
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.sidebar} card card-body`}>
@@ -60,7 +60,7 @@ function Index() {
                     row.state == 'current' ? styles.selected : null
                   }  d-flex justify-content-between align-items-center`}
                   onClick={(e) => {
-                    changeActiveValue(row.name, index);
+                    changeActiveValue(row.name, index)
                   }}
                 >
                   <img
@@ -79,7 +79,7 @@ function Index() {
                 />
               </div>
             </>
-          );
+          )
         })}
       </div>
       <div className={`${styles.content} card`}>
@@ -129,13 +129,13 @@ function Index() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index
 const seller = () => {
-  return <div className="card-body"></div>;
-};
+  return <div className="card-body"></div>
+}
 const sales = (active) => {
   return (
     <div className="card-body">
@@ -181,7 +181,7 @@ const sales = (active) => {
         <Col md={4}>
           <p className={`text-align-center`}>
             Date:
-            <GrowInput placeholder={`31.08.2021`} />
+            <GrowInput placeholder={`31.08.2021`}/>
           </p>
         </Col>
       </Row>
@@ -193,7 +193,7 @@ const sales = (active) => {
           {/* <Col md={4} className={styles.col}><p>1.</p> <p>2. Seller</p></Col> */}
           <Col md={12}>
             <p>
-              <GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`} />
+              <GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`}/>
             </p>
             <p>
               <GrowInput
@@ -265,7 +265,7 @@ const sales = (active) => {
         </Col>
         <Col md={8}>
           <p>
-            <GrowInput placeholder={`31.08.2021`} />
+            <GrowInput placeholder={`31.08.2021`}/>
           </p>
         </Col>
       </Row>
@@ -287,41 +287,41 @@ const sales = (active) => {
               <th>Guaranteed</th>
             </tr>
             <tbody>
-              <tr>
-                <td>Mn</td>
-                <td>44.5 PCT</td>
-                <td>43.0 PCT</td>
-              </tr>
-              <tr>
-                <td>SiO2</td>
-                <td>8.0 PCT</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>Al2O3</td>
-                <td>7.6 PCT</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>Fe</td>
-                <td>5.0 PCT</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>P</td>
-                <td>0.11 PCT</td>
-                <td>0.13 PCT</td>
-              </tr>
-              <tr>
-                <td>K2O</td>
-                <td>0.90 PCT</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>Size 5-75mm (at loading)</td>
-                <td>90 PCT</td>
-                <td>-</td>
-              </tr>
+            <tr>
+              <td>Mn</td>
+              <td>44.5 PCT</td>
+              <td>43.0 PCT</td>
+            </tr>
+            <tr>
+              <td>SiO2</td>
+              <td>8.0 PCT</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Al2O3</td>
+              <td>7.6 PCT</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Fe</td>
+              <td>5.0 PCT</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>P</td>
+              <td>0.11 PCT</td>
+              <td>0.13 PCT</td>
+            </tr>
+            <tr>
+              <td>K2O</td>
+              <td>0.90 PCT</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Size 5-75mm (at loading)</td>
+              <td>90 PCT</td>
+              <td>-</td>
+            </tr>
             </tbody>
           </table>
           <p>
@@ -345,10 +345,10 @@ const sales = (active) => {
             />
           </p>
           <p>
-            <GrowInput placeholder={`ORIGIN: GABON`} />
+            <GrowInput placeholder={`ORIGIN: GABON`}/>
           </p>
           <p>
-            <GrowInput placeholder={`PACKING: IN BULK.`} />
+            <GrowInput placeholder={`PACKING: IN BULK.`}/>
           </p>
         </Col>
       </Row>
@@ -370,7 +370,7 @@ const sales = (active) => {
         </Col>
         <Col md={8}>
           <p>
-            <GrowInput placeholder={`Visakhapatnam Port, India`} />
+            <GrowInput placeholder={`Visakhapatnam Port, India`}/>
           </p>
         </Col>
       </Row>
@@ -380,7 +380,7 @@ const sales = (active) => {
         </Col>
         <Col md={8}>
           <p>
-            <GrowInput placeholder={`Owendo, Gabon`} />
+            <GrowInput placeholder={`Owendo, Gabon`}/>
           </p>
         </Col>
       </Row>
@@ -420,11 +420,11 @@ const sales = (active) => {
           <p>
             <p>
               {' '}
-              Latest date of shipment: <GrowInput placeholder={`31.10.2021`} />
+              Latest date of shipment: <GrowInput placeholder={`31.10.2021`}/>
             </p>
             <p>
               {' '}
-              Partial shipment - <GrowInput placeholder={`Allowed1`} />
+              Partial shipment - <GrowInput placeholder={`Allowed1`}/>
             </p>
           </p>
         </Col>
@@ -442,9 +442,9 @@ const sales = (active) => {
               <li>
                 <p>
                   The Buyer shall pay for entire cargo within{' '}
-                  <GrowInput placeholder={`90 days`} />
-                  from the date of <GrowInput placeholder={`B/L`} />
-                  or <GrowInput placeholder={`60 days`} /> from the date of
+                  <GrowInput placeholder={`90 days`}/>
+                  from the date of <GrowInput placeholder={`B/L`}/>
+                  or <GrowInput placeholder={`60 days`}/> from the date of
                   discharge of vessel at discharge port, whichever is earlier.
                   The Buyer shall make full payment of the material to be lifted
                   through TT remittance. The Seller shall release the part
@@ -460,12 +460,12 @@ const sales = (active) => {
               <li>
                 <p>
                   The material shall be stored at{' '}
-                  <GrowInput placeholder={`Visakhapatnam Port`} />, India for
+                  <GrowInput placeholder={`Visakhapatnam Port`}/>, India for
                   which the cost of such Rent, Claim, and penalty shall be fully
                   borne by the End User. Upon release of payment for the value
                   of each B/L Quantity Release Order from the Lending Bank shall
                   be sent to the CMA Agent,{' '}
-                  <GrowInput placeholder={` Dr. Amin Controllers Pvt. Ltd. `} />{' '}
+                  <GrowInput placeholder={` Dr. Amin Controllers Pvt. Ltd. `}/>{' '}
                   within one banking day.
                 </p>
               </li>
@@ -511,15 +511,15 @@ const sales = (active) => {
             <ol type="A">
               <li>
                 <p>
-                  <GrowInput placeholder={'Marine Insurance'} />: Seller will
+                  <GrowInput placeholder={'Marine Insurance'}/>: Seller will
                   provide Marine Insurance as received from Shipper
                 </p>
               </li>
 
               <li>
                 <p>
-                  <GrowInput placeholder={'Stock Insurance'} />: The Buyer will
-                  arrange insurance for <GrowInput placeholder={'110 %'} /> of
+                  <GrowInput placeholder={'Stock Insurance'}/>: The Buyer will
+                  arrange insurance for <GrowInput placeholder={'110 %'}/> of
                   the cargo value at discharge port, valid at all times covering
                   All Risk including Fire, Burglary and Act of God (AOG). The
                   cargo shall be insured by the Buyer at its own cost for the
@@ -543,7 +543,7 @@ const sales = (active) => {
           <p>
             <p>
               All demurrage/despatch for discharge port to be settled directly
-              between <GrowInput placeholder={`Shipper , Vessel Owner agent`} />{' '}
+              between <GrowInput placeholder={`Shipper , Vessel Owner agent`}/>{' '}
               and End User with no liability upon the Seller whatsoever.
             </p>
           </p>
@@ -597,9 +597,9 @@ const sales = (active) => {
                   In the event of the failure of the Buyer to make timely
                   payment as agreed to in terms of the Clause Payment Terms
                   hereinabove, the Buyer shall pay the overdue interest{' '}
-                  <GrowInput placeholder={`@ 18% p.a`} />. to the Seller for
+                  <GrowInput placeholder={`@ 18% p.a`}/>. to the Seller for
                   each day of delay. However, the delay in making the payment
-                  shall in no event exceed <GrowInput placeholder={`15`} /> days
+                  shall in no event exceed <GrowInput placeholder={`15`}/> days
                   beyond the due date of making the payment as specified
                   hereinabove.
                 </p>
@@ -608,7 +608,7 @@ const sales = (active) => {
                 <p>
                   However, in the eventuality of BUYER failing to pay for and/or
                   take delivery as per Clause Payment Terms beyond{' '}
-                  <GrowInput placeholder={`15`} /> days of the due date, the
+                  <GrowInput placeholder={`15`}/> days of the due date, the
                   SELLER shall have the absolute right to dispose off the
                   material, on terms and conditions as may be deemed fit by the
                   Seller, to any other party at full risk, responsibility and
@@ -691,7 +691,7 @@ const sales = (active) => {
                 <p>
                   The BUYER unconditionally agrees to abide by a collateral
                   management agreement by and among{' '}
-                  <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`} />{' '}
+                  <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`}/>{' '}
                   (“Collateral Manager”), Financing Bank (“Bank”) and
                   <GrowInput
                     placeholder={`Indo International Trading FZCO`}
@@ -717,7 +717,7 @@ const sales = (active) => {
                   purchase of the Goods by SELLER; and (ii) the collateral
                   manager appointed by the Bank shall keep the Goods in its
                   custody at a facility leased by the BUYER at Storage facility
-                  at <GrowInput placeholder={`Visakhapatnam Port.`} /> , India.
+                  at <GrowInput placeholder={`Visakhapatnam Port.`}/> , India.
                   For this purpose, BUYER unconditionally agrees that whenever
                   collateral manager takes BUYER’s permission to keep the Goods
                   at the Storage facility which facility is under BUYER’s
@@ -776,7 +776,7 @@ const sales = (active) => {
               </li>
               <li>
                 <p>
-                  Within <GrowInput placeholder={`seven (7)`} /> days of receipt
+                  Within <GrowInput placeholder={`seven (7)`}/> days of receipt
                   of the statement of accounts, as prepared by SELLER, if BUYER
                   does not provide any comment on the statement of accounts,
                   then such statement of accounts shall deem to be accepted by
@@ -900,10 +900,10 @@ const sales = (active) => {
           </p>
           <p>SELLER</p>
           <p>
-            <GrowInput placeholder={`Mr. Devesh Jain`} />
+            <GrowInput placeholder={`Mr. Devesh Jain`}/>
           </p>
           <p>
-            <GrowInput placeholder={`Indo International Trading FZCO`} />
+            <GrowInput placeholder={`Indo International Trading FZCO`}/>
           </p>
           <p>
             <GrowInput
@@ -912,24 +912,24 @@ const sales = (active) => {
           </p>
           <p>
             {' '}
-            Email <GrowInput placeholder={`iit@indoins.com`} />
+            Email <GrowInput placeholder={`iit@indoins.com`}/>
           </p>
           <p>BUYER </p>
           <p>
-            <GrowInput placeholder={`Ms. Bhawana Jain,`} />
+            <GrowInput placeholder={`Ms. Bhawana Jain,`}/>
           </p>
           <p>
-            <GrowInput placeholder={`Indo German International Pvt. Ltd.`} />
+            <GrowInput placeholder={`Indo German International Pvt. Ltd.`}/>
           </p>
           <p>
-            <GrowInput placeholder={`8B, Sagar Apartments, 6 Tilak Marg,`} />
+            <GrowInput placeholder={`8B, Sagar Apartments, 6 Tilak Marg,`}/>
           </p>
           <p>
-            <GrowInput placeholder={`New Delhi-110001, India.,`} />
+            <GrowInput placeholder={`New Delhi-110001, India.,`}/>
           </p>
           <p>
             {' '}
-            Email :<GrowInput placeholder={`bhawanajain@somanigroup.com`} />
+            Email :<GrowInput placeholder={`bhawanajain@somanigroup.com`}/>
           </p>
         </Col>
       </Row>
@@ -1164,16 +1164,16 @@ const sales = (active) => {
         <Col md={6}>
           <p>SELLER</p>
           <p>
-            <GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`} />
+            <GrowInput placeholder={`INDO INTERNATIONAL TRADING FZCO`}/>
           </p>
         </Col>
         <Col md={6}>
           <p>BUYER</p>
           <p>
-            <GrowInput placeholder={`INDO GERMAN INTERNATIONAL PVT. LTD`} />
+            <GrowInput placeholder={`INDO GERMAN INTERNATIONAL PVT. LTD`}/>
           </p>
         </Col>
       </Row>
     </div>
-  );
-};
+  )
+}

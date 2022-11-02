@@ -1,67 +1,64 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styles from './index.module.scss'
 
-import {
-  showSidebar,
-  hideSidebar,
-} from '../../redux/toggleState/Action/action';
-import { sidebar } from 'redux/toggleState/Reducer/reducer';
-import { logoutUser } from 'redux/authentication/actions';
-import { ChangeTheme, setTheme } from 'redux/userData/action';
-import { settingMobile } from '/redux/toggleState/Action/action';
+import { hideSidebar, showSidebar, } from '../../redux/toggleState/Action/action'
+import { logoutUser } from 'redux/authentication/actions'
+import { ChangeTheme, setTheme } from 'redux/userData/action'
+import { settingMobile } from '/redux/toggleState/Action/action'
 
-function Index() {
-  const dispatch = useDispatch();
-  let a = false;
+function Index () {
+  const dispatch = useDispatch()
+  let a = false
 
   useEffect(() => {
-    dispatch(setTheme());
-  }, [dispatch]);
+    dispatch(setTheme())
+  }, [dispatch])
 
   useEffect(() => {
     if (window !== undefined) {
       let px_ratio =
         window.devicePixelRatio ||
-        window.screen.availWidth / document.documentElement.clientWidth;
+        window.screen.availWidth / document.documentElement.clientWidth
       window.addEventListener('resize', () => {
-        function isZooming() {
+        function isZooming () {
           let newPx_ratio =
             window.devicePixelRatio ||
-            window.screen.availWidth / document.documentElement.clientWidth;
+            window.screen.availWidth / document.documentElement.clientWidth
           if (newPx_ratio != px_ratio) {
-            return true;
+            return true
           } else {
             if (document.body.clientWidth <= 1199) {
               // console.log('yes')
-              dispatch(settingMobile(true));
-              dispatch(hideSidebar());
+              dispatch(settingMobile(true))
+              dispatch(hideSidebar())
             } else {
-              dispatch(settingMobile(false));
-              dispatch(showSidebar());
+              dispatch(settingMobile(false))
+              dispatch(showSidebar())
             }
-            return false;
+            return false
           }
         }
-        isZooming();
-      });
+
+        isZooming()
+      })
     }
-  }, [dispatch]);
-  useEffect(() => {}, []);
+  }, [dispatch])
+  useEffect(() => {}, [])
 
   // console.log(darkMode,"darkMode")
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const darkMode = useSelector((state) => state.user.isDark);
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const darkMode = useSelector((state) => state.user.isDark)
   const handleOpen = () => {
     if (!sidebar) {
-      dispatch(showSidebar(true));
+      dispatch(showSidebar(true))
     } else {
-      dispatch(hideSidebar(false));
+      dispatch(hideSidebar(false))
     }
-  };
+  }
   const changeDarkMode = () => {
-    dispatch(ChangeTheme());
+    dispatch(ChangeTheme())
     // let isLight= document.body.classList.contains(
     //                     'light-mode'
     //                    );
@@ -85,7 +82,7 @@ function Index() {
     //                     setDarkMode(false)
     //                     localStorage.setItem("darkMode",false)
     //                    }
-  };
+  }
   // console.log(darkMode,"darkmode123")
 
   return (
@@ -100,12 +97,12 @@ function Index() {
             onClick={() => handleOpen()}
           >
             <a href="#">
-              <img src="/static/menu.svg" alt="Logo1" className="img-fluid" />
+              <img src="/static/menu.svg" alt="Logo1" className="img-fluid"/>
             </a>
           </div>
           <div className={`${styles.logo} ${`flex-grow-1`}`}>
             <a href="#">
-              <img src="/static/logo.svg" alt="Logo" className="img-fluid" />
+              <img src="/static/logo.svg" alt="Logo" className="img-fluid"/>
             </a>
           </div>
         </div>
@@ -122,7 +119,7 @@ function Index() {
               type="checkbox"
               checked={darkMode}
               onChange={(e) => {
-                changeDarkMode(e);
+                changeDarkMode(e)
               }}
             />
             <span className={`${styles.slider} ${styles.round}`}></span>
@@ -138,7 +135,7 @@ function Index() {
         <ul className={`${styles.header_icon} d-none d-md-inline-block`}>
           <li>
             <a href="#">
-              <img src="/static/chat.svg" alt="chat" className="img-fluid" />
+              <img src="/static/chat.svg" alt="chat" className="img-fluid"/>
             </a>
           </li>
           <li>
@@ -186,7 +183,7 @@ function Index() {
               className="dropdown-item"
               role="button"
               onClick={() => {
-                dispatch(logoutUser());
+                dispatch(logoutUser())
               }}
             >
               Logout
@@ -195,7 +192,7 @@ function Index() {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Index;
+export default Index

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Button,
   Card,
@@ -10,38 +10,38 @@ import {
   InputGroup,
   InputGroupAddon,
   Label,
-} from 'reactstrap';
-import { toast } from 'react-toastify';
-import $ from 'jquery';
+} from 'reactstrap'
+import { toast } from 'react-toastify'
+import $ from 'jquery'
 
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as sessionActions from '../../redux/authentication/actions';
-import '../../assets/css/components/changePassword.css';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as sessionActions from '../../redux/authentication/actions'
+import '../../assets/css/components/changePassword.css'
 
 class UserProfile extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor (props, context) {
+    super(props, context)
     this.state = {
       recent_password: '',
       new_password: '',
       confirm_password: '',
       type: 'password',
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.showHide = this.showHide.bind(this);
-    this.passwordAlert = this.passwordAlert.bind(this);
+    }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.showHide = this.showHide.bind(this)
+    this.passwordAlert = this.passwordAlert.bind(this)
   }
 
-  handleChange(e) {
-    e.preventDefault();
-    let state = { ...this.state };
-    state[e.target.name] = e.target.value;
-    this.setState({ ...state });
+  handleChange (e) {
+    e.preventDefault()
+    let state = { ...this.state }
+    state[e.target.name] = e.target.value
+    this.setState({ ...state })
   }
 
-  passwordAlert() {
+  passwordAlert () {
     toast.error('Password Not Match', {
       position: 'bottom-center',
       autoClose: 1200,
@@ -49,10 +49,10 @@ class UserProfile extends React.Component {
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
-    });
+    })
   }
 
-  newPasswordAlert() {
+  newPasswordAlert () {
     toast.error('Choose a new password', {
       position: 'bottom-center',
       autoClose: 1200,
@@ -60,47 +60,47 @@ class UserProfile extends React.Component {
       closeOnClick: true,
       pauseOnHover: false,
       draggable: true,
-    });
+    })
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    const { new_password, confirm_password, recent_password } = this.state;
+    e.preventDefault()
+    const { new_password, confirm_password, recent_password } = this.state
     if (recent_password === new_password) {
-      this.newPasswordAlert();
+      this.newPasswordAlert()
     }
     if (new_password !== confirm_password) {
-      this.passwordAlert();
+      this.passwordAlert()
     } else {
-      this.props.actions.resetpassword(this.state);
-      e.preventDefault();
+      this.props.actions.resetpassword(this.state)
+      e.preventDefault()
       this.setState({
         recent_password: '',
         new_password: '',
         confirm_password: '',
-      });
+      })
     }
-  };
+  }
 
-  componentDidMount() {
+  componentDidMount () {
     $('#confirm_password').bind('cut copy paste', function (e) {
-      e.preventDefault();
-    });
+      e.preventDefault()
+    })
 
     $('#new_password').bind('cut copy paste', function (e) {
-      e.preventDefault();
-    });
+      e.preventDefault()
+    })
   }
 
   showHide = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
     this.setState({
       type: this.state.type === 'input' ? 'password' : 'input',
-    });
-  };
+    })
+  }
 
-  render() {
+  render () {
     return (
       <React.Fragment>
         <div className="reset_page">
@@ -136,7 +136,7 @@ class UserProfile extends React.Component {
                     </span>
                   </InputGroupAddon>
                 </InputGroup>
-                <br />
+                <br/>
                 <FormGroup>
                   <Label for="examplePassword">Confirm Password</Label>
                   <Input
@@ -156,14 +156,14 @@ class UserProfile extends React.Component {
           </Card>
         </div>
       </React.Fragment>
-    );
+    )
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators(sessionActions, dispatch),
-  };
+  }
 }
 
-export default connect(null, mapDispatchToProps)(UserProfile);
+export default connect(null, mapDispatchToProps)(UserProfile)

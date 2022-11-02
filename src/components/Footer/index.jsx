@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from './index.module.scss';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
-export default function index() {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
-  const isMobile = useSelector((state) => state.sidebar.isMobile);
+export default function index () {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
     <div
       className={`${styles.main_container} ${
@@ -19,5 +19,5 @@ export default function index() {
         </span>
       </div>
     </div>
-  );
+  )
 }

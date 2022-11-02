@@ -1,4 +1,5 @@
 @import '../styles/Core/config';
+
 .card {
   margin-bottom: 24px;
   border-radius: 8px;
@@ -7,6 +8,7 @@
   @include respond(phone) {
     margin-bottom: 15px;
   }
+
   .header {
     font-size: 18px;
     line-height: 23px;
@@ -20,11 +22,13 @@
       padding: 15px;
     }
   }
+
   .hr {
     margin: 0px;
     width: 100%;
     border-top: 2px solid rgb(242 243 244);
   }
+
   .body {
     display: flex;
     justify-content: space-between;
@@ -38,6 +42,7 @@
     @include respond(md-desktop) {
       padding: 15px;
     }
+
     .leads {
       //   width: 30%;
       height: 100%;
@@ -48,6 +53,7 @@
         display: block;
         text-align: center;
       }
+
       .leadsSub {
         width: 58px;
         height: 58px;
@@ -68,6 +74,7 @@
           width: 40px;
           height: 40px;
         }
+
         .image {
           width: 21px;
           height: 28px;
@@ -78,6 +85,7 @@
           }
         }
       }
+
       .lead_headContainer {
         margin-right: 1rem;
         margin-left: 1rem;
@@ -96,6 +104,7 @@
         @include respond(sm-phone) {
           margin: 5px 0 0 0;
         }
+
         .lead_header {
           font-weight: bold;
           font-size: 15px;
@@ -117,6 +126,7 @@
             font-size: 10px;
           }
         }
+
         .lead_value {
           font-weight: bold;
           font-size: 28px;
@@ -135,20 +145,24 @@
           }
         }
       }
+
       //  @media screen and (min-width: 1380) {
       //         width: 40%;
       //  }
     }
+
     .verticalLine {
       height: 50px;
       width: 4px;
       border-left: 2px solid #f2f5f9;
     }
+
     .lead_headContainer {
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
+
       .lead_header {
         font-weight: bold;
         font-size: 15px;
@@ -170,6 +184,7 @@
           font-size: 10px;
         }
       }
+
       .lead_value {
         font-weight: bold;
         font-size: 28px;

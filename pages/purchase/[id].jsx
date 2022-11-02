@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import Image from 'next/image';
-import Purchase from '../../src/components/Purchase';
+import React from 'react'
+import styles from './index.module.scss'
+import Image from 'next/image'
+import Purchase from '../../src/components/Purchase'
 
-function Index() {
+function Index () {
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -135,7 +135,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <Purchase />
+                    <Purchase/>
                   </div>
                 </div>
               </div>
@@ -144,6 +144,7 @@ function Index() {
         </div>
       </div>
     </>
-  );
+  )
 }
-export default Index;
+
+export default Index

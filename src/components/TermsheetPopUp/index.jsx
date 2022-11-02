@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-  Form,
-} from 'react-bootstrap';
-import styles from './index.module.scss';
+import React, { useState } from 'react'
+import { Col, Form, FormControl, Modal, Row, } from 'react-bootstrap'
+import styles from './index.module.scss'
 
-function Index(props) {
-  const [email, setEmail] = useState('');
+function Index (props) {
+  const [email, setEmail] = useState('')
   return (
     <Modal
       show={props.open}
@@ -31,7 +22,7 @@ function Index(props) {
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
           <Col md={6} className={`${styles.left} `}>
-            <img src="/static/icons8-whatsapp.svg" className={`mb-3`} />
+            <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
 
             <div className="d-flex justify-content-center mb-3">
               <select className={`${styles.dropDown} bor`}>
@@ -52,19 +43,19 @@ function Index(props) {
             </div>
           </Col>
           <Col md={6} className={`${styles.right}`}>
-            <img src="/static/icons8-email-open-48.png" className="mb-3" />
+            <img src="/static/icons8-email-open-48.png" className="mb-3"/>
             <Form.Control
               type="text"
               id="inputPassword5"
               aria-describedby="passwordHelpBlock"
               className="mb-3"
               onChange={(e) => {
-                props.setEmail(e.target.value);
+                props.setEmail(e.target.value)
               }}
             />
             <div
               onClick={(e) => {
-                props.shareEmail();
+                props.shareEmail()
               }}
               className={`${styles.button} d-flex justify-content-center align-content-center`}
             >
@@ -77,7 +68,7 @@ function Index(props) {
       </div> */}
       </Modal.Body>
     </Modal>
-  );
+  )
 }
 
-export default Index;
+export default Index

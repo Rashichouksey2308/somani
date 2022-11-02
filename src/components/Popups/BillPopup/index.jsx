@@ -1,17 +1,8 @@
-import React from 'react';
-import {
-  Modal,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-  FormControl,
-  Form,
-} from 'react-bootstrap';
-import styles from './index.module.scss';
+import React from 'react'
+import { Modal, } from 'react-bootstrap'
+import styles from './index.module.scss'
 
-function index(props) {
+function index (props) {
   return (
     <Modal
       show={false}
@@ -26,7 +17,7 @@ function index(props) {
           id="contained-modal-title-vcenter"
           className={`${styles.title}  d-flex justify-content-between align-items-center`}
         >
-          <div className={`${styles.blue}`}>BL Details </div>
+          <div className={`${styles.blue}`}>BL Details</div>
           <div>
             <span>Commodity: </span>Iron{' '}
           </div>
@@ -76,7 +67,7 @@ function index(props) {
         </div>
       </Modal.Body>
     </Modal>
-  );
+  )
 }
 
-export default index;
+export default index

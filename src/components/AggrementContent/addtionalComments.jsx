@@ -1,44 +1,43 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import moment from 'moment';
-function Index(props) {
-  const [addressList, setAddressList] = useState([]);
-  const [value, setValue] = useState('');
-  const [isAssignment, setIsAssignment] = useState('');
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
 
+function Index (props) {
+  const [addressList, setAddressList] = useState([])
+  const [value, setValue] = useState('')
+  const [isAssignment, setIsAssignment] = useState('')
 
   const changeEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, isEdit: !obj.isEdit };
+          return { ...obj, isEdit: !obj.isEdit }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   useEffect(() => {
     if (window) {
-     
-      if (sessionStorage.getItem('add')) {
-        let savedData = JSON.parse(sessionStorage.getItem('add'));
-        let temp = [];
 
-        setAddressList(savedData);
+      if (sessionStorage.getItem('add')) {
+        let savedData = JSON.parse(sessionStorage.getItem('add'))
+        let temp = []
+
+        setAddressList(savedData)
         savedData.forEach((val) => {
           if (val.name == 'Assignment Letter') {
-            setIsAssignment('Assignment Letter');
+            setIsAssignment('Assignment Letter')
           }
-        });
+        })
       } else {
-        let temp = [];
+        let temp = []
         props.data?.comments.forEach((val) => {
           temp.push({
             name: val.agreementName,
@@ -48,39 +47,39 @@ function Index(props) {
             monthOfLoadingCargo: val.monthOfLoadingCargo || '',
 
             isEdit: false,
-          });
+          })
           if (val.agreementName == 'Assignment Letter') {
-            setIsAssignment('Assignment Letter');
+            setIsAssignment('Assignment Letter')
           }
-        });
-        setAddressList(temp);
+        })
+        setAddressList(temp)
       }
     }
-  }, [props]);
+  }, [props])
 
   useEffect(() => {
     if (props.saveData == true && props.active == 'Additional Comments') {
       let data = {
         addressList: addressList,
-      };
-      props.sendData('Additional Comments', data);
+      }
+      props.sendData('Additional Comments', data)
     }
     if (props.submitData == true && props.active == 'Additional Comments') {
       let data = {
         addressList: addressList,
-      };
+      }
 
-      props.updateData('Additional Comments', data);
+      props.updateData('Additional Comments', data)
     }
 
     // setSupplierState({...supplierState,multiParty:props.multiPart})
-  }, [props.saveData, props.submitData]);
+  }, [props.saveData, props.submitData])
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ]);
-  };
+    ])
+  }
 
   const addMoreRows = () => {
     setAddressList([
@@ -94,63 +93,62 @@ function Index(props) {
 
         actions: 'false',
       },
-    ]);
-  };
+    ])
+  }
   const handleRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const handleChangeInput = (name, value, index) => {
- 
 
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name]: value };
+          return { ...obj, [name]: value }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const onEditRemove = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' };
+          return { ...obj, actions: 'true' }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const onEdit = (index) => {
     setAddressList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'false' };
+          return { ...obj, actions: 'false' }
         }
         // 👇️ otherwise return object as is
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const getFiled = () => {
-    let isPresent = false;
+    let isPresent = false
     addressList.forEach((val, index) => {
-    
+
       if (val.name == 'Assignment Letter') {
-        isPresent = true;
+        isPresent = true
       }
-    });
+    })
 
     if (isPresent) {
       return (
@@ -158,11 +156,11 @@ function Index(props) {
           <td></td>
           <td></td>
         </>
-      );
+      )
     } else {
-      return <></>;
+      return <></>
     }
-  };
+  }
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -186,27 +184,27 @@ function Index(props) {
                     {/* <th width="15%" className="border-0 generic_th">
                       Date of Execution
                     </th> */}
-                   
-                      <>
-                        <th width="20%" className="border-0 generic_th">
-                          Month of loading of Cargo
-                          <strong className="text-danger">*</strong>
-                        </th>
-                        <th width="15%" className="border-0 generic_th">
-                          Date of Contract between Shipper and Buyer
-                        </th>
-                      </>
-                  
+
+                    <>
+                      <th width="20%" className="border-0 generic_th">
+                        Month of loading of Cargo
+                        <strong className="text-danger">*</strong>
+                      </th>
+                      <th width="15%" className="border-0 generic_th">
+                        Date of Contract between Shipper and Buyer
+                      </th>
+                    </>
+
                     <th width="10%" className="border-0 generic_th">
                       Actions
                     </th>
                   </tr>
                   <tbody>
-                    {addressList?.length > 0 &&
-                      addressList?.map((val, index) => {
-                        return (
-                          <>
-                            {val.actions == 'true'  ?
+                  {addressList?.length > 0 &&
+                    addressList?.map((val, index) => {
+                      return (
+                        <>
+                          {val.actions == 'true' ?
                             (
                               <tr key={index}>
                                 <td>{val?.name}</td>
@@ -214,7 +212,7 @@ function Index(props) {
                                 {/* <td>{val?.dateOfExecution ? moment(val?.dateOfExecution).format('DD-MM-YYYY') : '' }</td> */}
                                 <td>{val?.monthOfLoadingCargo}</td>
 
-                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : '' }</td>
+                                <td>{val?.dateOfContract ? moment(val?.dateOfContract).format('DD-MM-YYYY') : ''}</td>
 
                                 <td className={`d-flex`}>
                                   <img
@@ -229,7 +227,7 @@ function Index(props) {
                                   ></img>
                                 </td>
                               </tr>
-                            )  : (
+                            ) : (
                               <tr key={index}>
                                 <td>
                                   <select
@@ -242,7 +240,7 @@ function Index(props) {
                                         e.target.value,
                                         index,
                                       ),
-                                        setIsAssignment(e.target.value);
+                                        setIsAssignment(e.target.value)
                                     }}
                                   >
                                     <option>Select an option</option>
@@ -282,7 +280,7 @@ function Index(props) {
                                         e.target.name,
                                         e.target.value,
                                         index,
-                                      );
+                                      )
                                     }}
                                   />
                                 </td>
@@ -322,7 +320,7 @@ function Index(props) {
                                               e.target.name,
                                               e.target.value,
                                               index,
-                                            );
+                                            )
                                           }}
                                         >
                                           <option value="">
@@ -365,14 +363,14 @@ function Index(props) {
                                         <DateCalender
                                           name="dateOfContract"
                                           saveDate={(val, name, index) => {
-                                            handleChangeInput(name, val, index);
+                                            handleChangeInput(name, val, index)
                                           }}
                                           defaultDate={
                                             val.dateOfContract == null
                                               ? null
                                               : moment(
-                                                  val.dateOfContract,
-                                                ).toDate()
+                                                val.dateOfContract,
+                                              ).toDate()
                                           }
                                           // // small={true}
                                           index={index}
@@ -387,8 +385,8 @@ function Index(props) {
                                   </>
                                 ) : (
                                   <>
-                                  <td></td>
-                                  <td></td>
+                                    <td></td>
+                                    <td></td>
                                   </>
                                 )}
                                 <td className={`d-flex`}>
@@ -405,15 +403,15 @@ function Index(props) {
                                 </td>
                               </tr>
                             )}
-                          </>
-                        );
-                      })}
+                        </>
+                      )
+                    })}
                   </tbody>
                 </table>
                 <div
                   className={`${styles.addMoreRows}`}
                   onClick={(e) => {
-                    addMoreRows();
+                    addMoreRows()
                   }}
                 >
                   <span>+</span> Add more rows
@@ -425,7 +423,7 @@ function Index(props) {
         <div></div>
       </div>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

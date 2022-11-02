@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
 const index = () => {
   return (
@@ -28,14 +28,14 @@ const index = () => {
               id="bgVideoUpload"
               accept="video/mp4, .mkv"
               onChange={(e) => {
-                handleMultimediaChange(e);
+                handleMultimediaChange(e)
               }}
             />
           </div>
 
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
             <div className={styles.image_card} style={{ marginTop: 19 }}>
-              <img className={styles.image_delete} src="/static/delete.svg" />
+              <img className={styles.image_delete} src="/static/delete.svg"/>
             </div>
           </div>
           <hr className={styles.hr_line}></hr>
@@ -53,19 +53,19 @@ const index = () => {
               id="bgVideoUpload"
               accept="video/mp4, .mkv"
               onChange={(e) => {
-                handleMultimediaChange(e);
+                handleMultimediaChange(e)
               }}
             />
           </div>
           <hr className={styles.hr_line}></hr>
           <div className={`${styles.add_document} col-md-12`}>
-            <img className={styles.add_image} src="/static/Group 550.svg" />
+            <img className={styles.add_image} src="/static/Group 550.svg"/>
             <p className={styles.add_para}>Add More Documents</p>
           </div>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default index;
+export default index

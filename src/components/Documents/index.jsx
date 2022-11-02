@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
 // import { settingDocument } from 'redux/registerBuyer/action'
-import { useDispatch } from 'react-redux';
 
 const Index = ({
   saveDocument,
@@ -17,13 +16,13 @@ const Index = ({
   removeDoc,
   addTypeOfDoc,
   documentApi,
-  
+
 }) => {
   const [list, setList] = useState([
     { typeDocument: 'Certificate', attachDoc: 'false' },
-  ]);
- console.log(documentApi,"documentApi")
-  const [name, setName] = useState(null);
+  ])
+  console.log(documentApi, 'documentApi')
+  const [name, setName] = useState(null)
 
   // const onAddDoc = (index) => {
   //   setList([
@@ -36,7 +35,7 @@ const Index = ({
   //   ])
   // }
 
-  const [secondDocName, setSecondDocName] = useState(null);
+  const [secondDocName, setSecondDocName] = useState(null)
 
   return (
     <div className={`${styles.main} border_color`}>
@@ -60,22 +59,22 @@ const Index = ({
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         name="1"
                         onChange={(e) => {
-                          addTypeOfDoc(e.target.value, index);
+                          addTypeOfDoc(e.target.value, index)
                         }}
                       >
                         <option>Select an option</option>
-                        {documentApi?.filter((val,index)=>{
-                          if(val.Sub_Module=="Leads"){
+                        {documentApi?.filter((val, index) => {
+                          if (val.Sub_Module == 'Leads') {
                             return val
                           }
-                        })?.map((val,index)=>{
-                          return(
+                        })?.map((val, index) => {
+                          return (
                             <option value={`${val.Document_Name}`}>
-                             {val.Document_Name}
-                           </option>
+                              {val.Document_Name}
+                            </option>
                           )
                         })}
-                       
+
                       </select>
                       <img
                         className={`${styles.arrow} image_arrow img-fluid`}
@@ -98,8 +97,8 @@ const Index = ({
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
-                            console.log('Addddoc');
-                            addDoc(e.target.files[0], index);
+                            console.log('Addddoc')
+                            addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
                           style={{ width: '106px', height: '55px' }}
@@ -138,14 +137,14 @@ const Index = ({
                         src="/static/delete.svg"
                         alt="Delete"
                         onClick={() => {
-                          deleteData(index);
+                          deleteData(index)
                         }}
                       />
                     </div>
                   </div>
                   <hr className={`${styles.hr_line} border_color`}></hr>
                 </>
-              );
+              )
             })}
 
           {/* {list &&
@@ -296,7 +295,7 @@ const Index = ({
             <p
               className={`${styles.add_para} d-flex align-items-center`}
               onClick={(e) => {
-                onAddDoc();
+                onAddDoc()
               }}
             >
               <img
@@ -310,7 +309,7 @@ const Index = ({
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

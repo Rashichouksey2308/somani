@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
-import DateCalender from '../DateCalender';
-import PreviewBar from '../PreviewBar';
-import Router from 'next/router';
-import { addPrefixOrSuffix, checkNan } from '../../utils/helper';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Form, Row } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import Router from 'next/router'
+import { checkNan } from '../../utils/helper'
 
-function Index({
+function Index ({
   saveLcData,
   lcComments,
   lcDocuments,
@@ -31,30 +30,30 @@ function Index({
   name,
   port
 }) {
-  console.log(lcModuleData, 'lcCondition12234');
-  const [editStren, setEditStren] = useState(false);
-  const [edit, setEdit] = useState(false);
+  console.log(lcModuleData, 'lcCondition12234')
+  const [editStren, setEditStren] = useState(false)
+  const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     currencyCode: false,
     tolerance: false,
-  });
+  })
 
   const saveDate = (value, name) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    saveLcData(name, text);
-  };
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveLcData(name, text)
+  }
 
   const routeChange = () => {
-    Router.push('letter-amend/id');
-  };
-  const [lcComment, setLcComment] = useState('');
-  const [docComment, setDocComment] = useState('');
+    Router.push('letter-amend/id')
+  }
+  const [lcComment, setLcComment] = useState('')
+  const [docComment, setDocComment] = useState('')
   const getSn = (index) => {
-    let a = index;
-    return `${a + 1}.`;
-  };
- console.log(lcData?.drawee,"lcData?.drawee")
+    let a = index
+    return `${a + 1}.`
+  }
+  console.log(lcData?.drawee, 'lcData?.drawee')
   return (
     <>
       {' '}
@@ -96,7 +95,7 @@ function Index({
                           <select
                             name="formOfDocumentaryCredit"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.formOfDocumentaryCredit}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -129,7 +128,7 @@ function Index({
                           value={lcData?.applicableRules}
                           type="text"
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -163,7 +162,7 @@ function Index({
                           name="placeOfExpiry"
                           value={lcData?.placeOfExpiry}
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -178,13 +177,13 @@ function Index({
                           <select
                             name="lcIssuingBank"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={
                               lcData?.lcIssuingBank
                                 ? lcData?.lcIssuingBank
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.lcOpeningBank
+                                  ?.transactionDetails?.lcOpeningBank
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -218,7 +217,7 @@ function Index({
                           <select
                             name="applicant"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.applicant}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -258,7 +257,7 @@ function Index({
                               : lcModuleData?.order?.supplierName
                           }
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -278,28 +277,28 @@ function Index({
                               ...isFieldInFocus,
                               currencyCode: true,
                             }),
-                              (e.target.type = 'number');
+                              (e.target.type = 'number')
                           }}
                           onBlur={(e) => {
                             setIsFieldInFocus({
                               ...isFieldInFocus,
                               currencyCode: false,
                             }),
-                              (e.target.type = 'text');
+                              (e.target.type = 'text')
                           }}
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
                               : `${lcModuleData?.order?.orderCurrency} ` +
-                                Number(
-                                  lcData?.currecyCodeAndAmountValue,
-                                ).toLocaleString(
-                                  lcModuleData?.order?.orderCurrency?.toLowerCase() ===
-                                    'inr'
-                                    ? 'en-In'
-                                    : undefined,
-                                  { maximumFractionDigits: 2 },
-                                )
+                              Number(
+                                lcData?.currecyCodeAndAmountValue,
+                              ).toLocaleString(
+                                lcModuleData?.order?.orderCurrency?.toLowerCase() ===
+                                'inr'
+                                  ? 'en-In'
+                                  : undefined,
+                                { maximumFractionDigits: 2 },
+                              )
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(
@@ -308,7 +307,7 @@ function Index({
                           // )}
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -329,14 +328,14 @@ function Index({
                               ...isFieldInFocus,
                               tolerance: true,
                             }),
-                              (e.target.type = 'number');
+                              (e.target.type = 'number')
                           }}
                           onBlur={(e) => {
                             setIsFieldInFocus({
                               ...isFieldInFocus,
                               tolerance: false,
                             }),
-                              (e.target.type = 'text');
+                              (e.target.type = 'text')
                           }}
                           value={
                             isFieldInFocus.tolerance
@@ -344,21 +343,21 @@ function Index({
                                 ? lcData?.tolerancePercentage
                                 : lcModuleData?.order?.tolerance
                               : '+/- ' +
-                                checkNan(
-                                  Number(
-                                    lcData?.tolerancePercentage
-                                      ? lcData?.tolerancePercentage
-                                      : lcModuleData?.order?.tolerance,
-                                  ),
-                                ) +
-                                ` %`
+                              checkNan(
+                                Number(
+                                  lcData?.tolerancePercentage
+                                    ? lcData?.tolerancePercentage
+                                    : lcModuleData?.order?.tolerance,
+                                ),
+                              ) +
+                              ` %`
                           }
                           // value={addPrefixOrSuffix(
                           //   lcData?.tolerancePercentage,
                           //   '%',
                           // )}
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -373,7 +372,7 @@ function Index({
                           <select
                             name="creditAvailablewith"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.creditAvailablewith}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -405,7 +404,7 @@ function Index({
                           <select
                             name="creditAvailableBy"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.creditAvailableBy}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -448,7 +447,7 @@ function Index({
                               <select
                                 name="atSight"
                                 onChange={(e) => {
-                                  saveLcData(e.target.name, e.target.value);
+                                  saveLcData(e.target.name, e.target.value)
                                 }}
                                 value={lcData?.atSight}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -497,7 +496,7 @@ function Index({
                               name="numberOfDays"
                               value={lcData?.numberOfDays}
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -517,7 +516,7 @@ function Index({
                           name="drawee"
                           value={lcData?.drawee}
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -534,7 +533,7 @@ function Index({
                           name="deferredPayment"
                           value={lcData?.deferredPayment}
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                         />
                         <label
@@ -548,13 +547,13 @@ function Index({
                           <select
                             name="partialShipment"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={
                               lcData?.partialShipment
                                 ? lcData?.partialShipment
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.partShipmentAllowed
+                                  ?.transactionDetails?.partShipmentAllowed
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
@@ -564,7 +563,7 @@ function Index({
 
                             <option value="Yes">Allowed</option>
                             <option value="No">Not Allowed</option>
-                             <option value="Conditional">Conditional</option>
+                            <option value="Conditional">Conditional</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -584,7 +583,7 @@ function Index({
                           <select
                             name="transhipments"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={lcData?.transhipments}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -617,7 +616,7 @@ function Index({
                             name="shipmentForm"
                             value={lcData?.shipmentForm}
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                           />
                           <label
@@ -644,10 +643,10 @@ function Index({
                               lcData?.portOfLoading
                                 ? lcData?.portOfLoading
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.loadPort
+                                  ?.transactionDetails?.loadPort
                             }
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                           />
                           <label
@@ -663,31 +662,31 @@ function Index({
                           <select
                             name="portOfDischarge"
                             onChange={(e) => {
-                              saveLcData(e.target.name, e.target.value);
+                              saveLcData(e.target.name, e.target.value)
                             }}
                             value={
                               lcData?.portOfDischarge
                                 ? lcData.portOfDischarge
                                 : lcModuleData?.order?.termsheet
-                                    ?.transactionDetails?.portOfDischarge
+                                  ?.transactionDetails?.portOfDischarge
                             }
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option selected >
+                            <option selected>
                               Select an option
                             </option>
-                             
-                              {port.filter((val,index)=>{
-                            if(val.Country.toLowerCase()=="india"){
-                              return val
-                            }
-                          }).map((val,index)=>{
-                            return(
-                              <option value={`${val.Port_Name},${val.Country}`}>
-                            {val.Port_Name},{val.Country}
-                            </option>
-                            )
-                          })}
+
+                            {port.filter((val, index) => {
+                              if (val.Country.toLowerCase() == 'india') {
+                                return val
+                              }
+                            }).map((val, index) => {
+                              return (
+                                <option value={`${val.Port_Name},${val.Country}`}>
+                                  {val.Port_Name},{val.Country}
+                                </option>
+                              )
+                            })}
                           </select>
 
                           <label
@@ -726,7 +725,7 @@ function Index({
                           name="DescriptionOfGoods"
                           value={lcData?.DescriptionOfGoods}
                           onChange={(e) => {
-                            saveLcData(e.target.name, e.target.value);
+                            saveLcData(e.target.name, e.target.value)
                           }}
                           style={{ height: '103px' }}
                         />
@@ -782,7 +781,7 @@ function Index({
                           rows={3}
                           readOnly={!comment.action}
                           onChange={(e) => {
-                            lcDocEdit(e.target.value, index);
+                            lcDocEdit(e.target.value, index)
                           }}
                         />
                         <div className="mt-3">
@@ -792,7 +791,7 @@ function Index({
                               className={`${styles.image} ml-4`}
                               alt="edit"
                               onClick={(e) => {
-                                editLcDocComments(!comment.action, index);
+                                editLcDocComments(!comment.action, index)
                               }}
                             />
                           ) : (
@@ -801,7 +800,7 @@ function Index({
                               className={`${styles.image} ml-4`}
                               alt="edit"
                               onClick={(e) => {
-                                editLcDocComments(!comment.action, index);
+                                editLcDocComments(!comment.action, index)
                               }}
                             />
                           )}
@@ -811,7 +810,7 @@ function Index({
                             className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
-                              deleteLcDoc(index);
+                              deleteLcDoc(index)
                             }}
                           />
                         </div>
@@ -885,24 +884,24 @@ function Index({
                               border="0"
                             >
                               <tbody>
-                                <tr className="table_row">
-                                  {excelFile &&
-                                    excelFile.length > 0 &&
-                                    Object.keys(excelFile[0]).map(
-                                      (val, index) => (
-                                        <th key={index}>{val}</th>
-                                      ),
-                                    )}
-                                </tr>
+                              <tr className="table_row">
                                 {excelFile &&
                                   excelFile.length > 0 &&
-                                  excelFile.map((item, index) => (
-                                    <tr>
-                                      {Object.values(item).map((value, id) => (
-                                        <td key={id}>{value}</td>
-                                      ))}
-                                    </tr>
-                                  ))}
+                                  Object.keys(excelFile[0]).map(
+                                    (val, index) => (
+                                      <th key={index}>{val}</th>
+                                    ),
+                                  )}
+                              </tr>
+                              {excelFile &&
+                                excelFile.length > 0 &&
+                                excelFile.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
                               </tbody>
                             </table>
                           </div>
@@ -924,7 +923,7 @@ function Index({
                           rows={3}
                           readOnly={!comment.action}
                           onChange={(e) => {
-                            lcConditionEdit(e.target.value, index);
+                            lcConditionEdit(e.target.value, index)
                           }}
                         />
                         <div className="mt-3">
@@ -934,7 +933,7 @@ function Index({
                               className={`${styles.image} ml-4`}
                               alt="edit"
                               onClick={(e) => {
-                                editLcComments(!comment.action, index);
+                                editLcComments(!comment.action, index)
                               }}
                             />
                           ) : (
@@ -943,7 +942,7 @@ function Index({
                               className={`${styles.image} ml-4`}
                               alt="edit"
                               onClick={(e) => {
-                                editLcComments(!comment.action, index);
+                                editLcComments(!comment.action, index)
                               }}
                             />
                           )}
@@ -953,7 +952,7 @@ function Index({
                             className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
-                              deleteLcCondition(index);
+                              deleteLcCondition(index)
                             }}
                           />
                         </div>
@@ -983,7 +982,7 @@ function Index({
                                   : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC.'
                               }
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -998,7 +997,7 @@ function Index({
                               <select
                                 name="confirmationInstructions"
                                 onChange={(e) => {
-                                  saveLcData(e.target.name, e.target.value);
+                                  saveLcData(e.target.name, e.target.value)
                                 }}
                                 value={lcData?.confirmationInstructions}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -1006,7 +1005,7 @@ function Index({
                                 <option selected disabled>
                                   Select an option
                                 </option>
-                                <option value="May Add">May Add </option>
+                                <option value="May Add">May Add</option>
                                 <option value="Confirm">Confirm</option>
 
                                 <option value="Without">Without</option>
@@ -1054,7 +1053,7 @@ function Index({
                               <select
                                 name="reimbursingBank"
                                 onChange={(e) => {
-                                  saveLcData(e.target.name, e.target.value);
+                                  saveLcData(e.target.name, e.target.value)
                                 }}
                                 value={lcData?.reimbursingBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
@@ -1087,7 +1086,7 @@ function Index({
                               <select
                                 name="adviceThroughBank"
                                 onChange={(e) => {
-                                  saveLcData(e.target.name, e.target.value);
+                                  saveLcData(e.target.name, e.target.value)
                                 }}
                                 value={lcData?.adviceThroughBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
@@ -1124,7 +1123,7 @@ function Index({
                               name="secondAdvisingBank"
                               value={lcData?.secondAdvisingBank}
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -1141,7 +1140,7 @@ function Index({
                               name="requestedConfirmationParty"
                               value={lcData?.requestedConfirmationParty}
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -1164,7 +1163,7 @@ function Index({
                                   : 'ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT'
                               }
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -1187,7 +1186,7 @@ function Index({
                                   : 'THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS).............. UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS'
                               }
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -1208,7 +1207,7 @@ function Index({
                               name="senderToReceiverInformation"
                               value={lcData?.senderToReceiverInformation}
                               onChange={(e) => {
-                                saveLcData(e.target.name, e.target.value);
+                                saveLcData(e.target.name, e.target.value)
                               }}
                             />
                             <label
@@ -1229,7 +1228,7 @@ function Index({
       </div>
       {/* <PreviewBar leftButtonClick={routeChange} /> */}
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

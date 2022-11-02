@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="42450adf-49d6-448f-95f4-e25a99539819" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.prettierrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/jsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_document.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-user/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-user/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-user/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-user/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-user/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-user/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-user/user.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-user/user.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-vendor/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-vendor/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-new-vendor/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-new-vendor/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-supplier/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-supplier/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/add-supplier/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/add-supplier/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement-table/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement-table/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement-table/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement-table/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement-table/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement-table/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement-table/inspection.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement-table/inspection.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/OrderID/[order].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/OrderID/[order].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/OrderID/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/OrderID/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/both-type/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/both-type/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/both-type/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/both-type/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/storage/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/storage/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/agreement/storage/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/agreement/storage/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/amend-letter/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/amend-letter/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/bill-of-entry/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/bill-of-entry/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/bill-of-entry/billofentry.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/bill-of-entry/billofentry.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/bill-of-entry/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/bill-of-entry/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/bill-of-entry/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/bill-of-entry/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/commodity/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/commodity/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/commodity/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/commodity/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/credit-queue/creditqueue.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/credit-queue/creditqueue.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/credit-queue/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/credit-queue/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/credit-queue/insurance/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/credit-queue/insurance/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/credit-table/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/credit-table/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/credit-table/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/credit-table/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/delivery-preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/delivery-preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/forward-hedging/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/forward-hedging/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/forward-table/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/forward-table/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/forward-table/inspection.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/forward-table/inspection.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/generic-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/generic-list/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/generic-list/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/generic-list/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/order-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/order-list/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/generic/order-list/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/generic/order-list/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/inspection/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inspection/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/inspection/inspection.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/inspection/inspection.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance-renew/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance-renew/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/form/both/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/form/both/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/form/both/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/form/both/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/form/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/form/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/form/insurance.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/form/insurance.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/insurance/indextable.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/insurance/indextable.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/lc-module/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/lc-module/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/lc-module/lc-application/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/lc-module/lc-application/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leads/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/leads/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leads/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/leads/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leads/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/pages/leads/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leads/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/leads/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leads/register.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/pages/leads/register.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-credit/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-credit/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-credit/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-credit/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-credit/lc-create/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-credit/lc-create/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-credit/letter.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-credit/letter.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-table/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-table/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-table/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-table/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-table/letter-amend/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-table/letter-amend/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-table/letter-amend/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-table/letter-amend/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/letter-table/letter-application/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/letter-table/letter-application/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/lifting-details/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/lifting-details/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/loading/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/loading/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/loading/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/loading/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/loi-preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/loi-preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/margin-money/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/margin-money/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/margin-money/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/margin-money/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/margin-money/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/margin-money/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/margin-preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/margin-preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/masters/users/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/masters/users/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/masters/users/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/masters/users/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/new-order/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/new-order/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/order-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/order-list/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/order-list/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/order-list/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/payment/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/payment/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/payment/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/payment/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/payment/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/payment/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/payment/payment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/payment/payment.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/purchase/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/purchase/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/purchase/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/purchase/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review-profile/[profile].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review-profile/[profile].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review-profile/profile.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review-profile/profile.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review-queue/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review-queue/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review-queue/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review-queue/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review/[profile].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/[profile].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review/profile.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/profile.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/review/reviewqueue.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/review/reviewqueue.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/revised-margin-preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/revised-margin-preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/revised-margin-preview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/revised-margin-preview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/supplier/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/supplier/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/supplier/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/supplier/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/termsheet-preview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/termsheet-preview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/termsheet/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/termsheet/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/termsheet/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/termsheet/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/termsheet/order-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/termsheet/order-list/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/termsheet/order-list/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/termsheet/order-list/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/third-party/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/third-party/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/third-party/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/third-party/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/track-shipment/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/track-shipment/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/track-shipment/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/track-shipment/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/transit/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transit/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/transit/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transit/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/transit/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transit/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/transit/transit.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transit/transit.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vendors/add-new-vendor/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vendors/add-new-vendor/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vendors/add-new-vendor/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vendors/add-new-vendor/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vendors/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vendors/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vendors/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vendors/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vessel-nomination/[id].jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vessel-nomination/[id].jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vessel-nomination/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vessel-nomination/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vessel-nomination/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vessel-nomination/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vessel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vessel/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/vessel/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/vessel/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Bold.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Bold.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Bold_new.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Bold_new.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Medium.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Medium.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Medium_new.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue-Medium_new.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/HelveticaNeue_new.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/HelveticaNeue_new.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Accordion - menu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Accordion - menu.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Agreement&amp;LCModule.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Agreement&amp;LCModule.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Component 147 – 2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Component 147 – 2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 1240.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 1240.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 3254.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 3254.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 3255.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 3255.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 3256.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 3256.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 546.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 546.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 550.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 550.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Group 58.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Group 58.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/LoadingTransit&amp;Unloading.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/LoadingTransit&amp;Unloading.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Masters.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Masters.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/Path 3369.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/Path 3369.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/PaymentsInvoicing&amp;Delivery.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/PaymentsInvoicing&amp;Delivery.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/access-time.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/access-time.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/accordion_close_black.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/accordion_close_black.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/active.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/active.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/add-3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/add-3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/add-btn.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/add-btn.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/add.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/add.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/agreement.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/agreement.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/approved.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/approved.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/arrow-down-red.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/arrow-down-red.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/arrow-right.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/arrow-right.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/arrow-up-green.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/arrow-up-green.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/arrow_drop_down-3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/arrow_drop_down-3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/average.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/average.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/blacklisted.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/blacklisted.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/blue-eye.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/blue-eye.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/bookmark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/bookmark.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/box-open.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/box-open.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/browse.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/browse.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/caldericon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/caldericon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/cancel-3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/cancel-3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/chat.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/chat.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/check-2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/check-2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/check.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/check.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/clipboard-list.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/clipboard-list.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/close-2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/close-2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/close-b.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/close-b.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/close-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/close-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/close.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/close.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/commodity.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/commodity.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/credit-queue.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/credit-queue.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/currnet.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/currnet.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/custom-clearance-warehouse.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/custom-clearance-warehouse.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/danger.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/danger.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/dark.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/dark.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/darktick.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/darktick.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/dashboard-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/dashboard-icon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/delete 2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/delete 2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/delete.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/delete.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/doc.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/doc.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/done.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/done.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/drive_file.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/drive_file.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/equal-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/equal-icon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/excel.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/excel.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/expand.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/expand.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/eye.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/eye.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/file_download.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/file_download.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/file_upload.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/file_upload.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/filter.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/filter.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/filter_alt.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/filter_alt.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/forward-hedging.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/forward-hedging.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/gauge.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/gauge.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/generic.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/generic.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/gl.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/gl.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/groups.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/groups.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/hold-white.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/hold-white.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/home.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/home.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/icon file copy.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/icon file copy.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/icons8-sort-24.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/icons8-sort-24.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/icons8-whatsapp.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/icons8-whatsapp.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/inactive.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/inactive.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/info-circle-red.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/info-circle-red.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/info-circle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/info-circle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/inputDropDown.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/inputDropDown.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/inspection.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/inspection.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/insurance-company.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/insurance-company.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/insurance.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/insurance.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/keyboard_arrow_right-3 2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/keyboard_arrow_right-3 2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/keyboard_arrow_right-3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/keyboard_arrow_right-3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/lc-module.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/lc-module.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/leads-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/leads-icon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/light.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/light.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/login-logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/login-logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/logo.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/loss.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/loss.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/margin-money.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/margin-money.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/menu.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/menu.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/mode_edit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/mode_edit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/needle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/needle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/noTrend.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/noTrend.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/notice.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/notice.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/notifications.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/notifications.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/others.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/others.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/pdf.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/pdf.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/pending.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/pending.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/pending2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/pending2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/preview.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/preview.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/profit.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/profit.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/refresh.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/refresh.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/review-queue.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/review-queue.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/save-3.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/save-3.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/search-blue.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/search-blue.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/search-grey.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/search-grey.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/search.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/search.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/settings.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/settings.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/share.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/share.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/star.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/star.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/status-icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/status-icon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/term-sheets.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/term-sheets.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/toggle.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/toggle.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/track-shipments.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/track-shipments.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/transit-details.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/transit-details.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-green-311.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-green-311.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-green-312.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-green-312.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-green-321.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-green-321.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-orange-121.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-orange-121.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-orange-212.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-orange-212.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-orange-333.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-orange-333.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-red-113.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-red-113.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-red-123.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-red-123.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/trend-red-213.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/trend-red-213.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/triangle-alert.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/triangle-alert.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/updated-successfully.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/updated-successfully.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/upload.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/upload.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/user-roles.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/user-roles.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/users.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/users.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/vendors.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/vendors.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/vessel-nomination.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/vessel-nomination.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/white-arrow.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/white-arrow.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scanner.js" beforeDir="false" afterPath="$PROJECT_DIR$/scanner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/A2S_Sales_Contract/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/A2S_Sales_Contract/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/A2S_Sales_Contract/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/A2S_Sales_Contract/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewInternal/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewInternal/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewInternal/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewInternal/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewUser/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewUser/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewUser/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewUser/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddVendor/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddVendor/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddVendor/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddVendor/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdditionalComment/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdditionalComment/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdditionalComment/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdditionalComment/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AdditionalComment/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdditionalComment/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddressSupplier/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddressSupplier/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddressSupplier/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddressSupplier/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/addtionalComments.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/addtionalComments.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/associateBuyer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/associateBuyer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/buyer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/buyer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/cha.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/cha.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/cma.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/cma.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/finance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/finance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/manufecture.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/manufecture.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/placeOfExecutition.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/placeOfExecutition.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/productSpecification.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/productSpecification.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/seller.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/seller.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/shipping.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/shipping.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/stevedore.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/stevedore.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AggrementContent/thirdparty.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AggrementContent/thirdparty.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AgreementSales/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AgreementSales/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AgreementSales/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AgreementSales/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AmendLetter/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AmendLetter/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AmendLetter/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AmendLetter/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ApplicationLC/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ApplicationLC/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ApplicationLC/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ApplicationLC/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Appointment/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Appointment/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Appointment/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Appointment/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ApproveBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ApproveBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ApproveBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ApproveBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AssignmentLetter/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AssignmentLetter/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AssignmentLetter/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AssignmentLetter/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AssociateshipAgreement/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AssociateshipAgreement/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AssociateshipAgreement/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AssociateshipAgreement/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BTRDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BTRDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillLading/BillLadingPopUp/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillLading/BillLadingPopUp/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillLading/BillLadingPopUp/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillLading/BillLadingPopUp/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillLading/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillLading/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillLading/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillLading/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/DischargeCargo/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/DischargeCargo/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/DischargeCargo/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/DischargeCargo/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/Warehouse/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/Warehouse/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/Warehouse/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/Warehouse/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntry/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntry/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntryTableMain/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntryTableMain/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BillOfEntryTableMain/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BillOfEntryTableMain/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Breadcrum/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Breadcrum/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Breadcrum/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Breadcrum/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CAM/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CAM/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CAM/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CAM/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CIMS/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CIMS/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CIMS/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CIMS/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Commodities/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Commodities/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Commodities/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Commodities/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommonSave/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonSave/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommonSave/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommonSave/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyDetails/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyDetails/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyProfile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyProfile/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyProfile/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyProfile/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyProfile/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyProfile/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyReviewProfile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyReviewProfile/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompanyReviewProfile/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompanyReviewProfile/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompilanceLigitation/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompilanceLigitation/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CompilanceLigitation/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CompilanceLigitation/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Countries/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Countries/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Countries/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Countries/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Credit/addressComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Credit/addressComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Credit/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Credit/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Credit/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Credit/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CustomForm/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomForm/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DateCalender/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DateCalender/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DateCalender/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DateCalender/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DateCalenderVessel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DateCalenderVessel/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DateCalenderVessel/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DateCalenderVessel/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DealerDetail/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DealerDetail/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DealerListing/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DealerListing/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeliveryOrder/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeliveryOrder/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeliveryOrder/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeliveryOrder/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeliveryPreview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeliveryPreview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeliveryPreview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeliveryPreview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Documents/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Documents/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Documents/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Documents/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Documents/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Documents/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Documents/input.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Documents/input.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DoughnutChart/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DoughnutChart/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DoughnutChart/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DoughnutChart/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DownloadBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DownloadBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DownloadBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DownloadBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DownloadMasterBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DownloadMasterBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DownloadMasterBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DownloadMasterBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ErrorBoundary/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ErrorBoundary/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Exposure/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Exposure/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Exposure/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Exposure/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Filter/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filter/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Filter/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filter/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ForgotPassword/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ForgotPassword/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ForwardHedging/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ForwardHedging/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ForwardHedging/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ForwardHedging/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GST/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GST/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GST/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GST/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GrowInput/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GrowInput/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IGM/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IGM/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IGM/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IGM/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InspectionDocument/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InspectionDocument/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InspectionDocument/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InspectionDocument/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Insurance/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Insurance/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Insurance/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Insurance/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InsuranceDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InsuranceDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InsuranceDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InsuranceDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCAmendBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCAmendBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCAmendBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCAmendBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCredit/ShareBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCredit/ShareBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCredit/ShareBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCredit/ShareBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCredit/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCredit/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LCredit/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LCredit/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcApplication/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcApplication/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcApplication/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcApplication/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcModule/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcModule/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LcModule/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LcModule/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Leads/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Leads/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Leads/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Leads/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Leads/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Leads/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterCredit/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterCredit/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterCredit/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterCredit/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/LetterPreview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/LetterPreview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/LetterPreview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/LetterPreview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/SavePreviewBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/SavePreviewBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/SavePreviewBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/SavePreviewBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LetterIndermity/indexPreview.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LetterIndermity/indexPreview.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LiftingDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LiftingDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LiftingDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LiftingDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LigitationsTable/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LigitationsTable/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LigitationsTable/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LigitationsTable/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LigitationsTable/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LigitationsTable/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Loader/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Loader/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Loader/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Loader/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginMain/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginMain/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginMain/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginMain/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginPreview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginPreview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MarginPreview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarginPreview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MutilSelect/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MutilSelect/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MutilSelect/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MutilSelect/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewOrder/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewOrder/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewOrder/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewOrder/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewShipmentDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewShipmentDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NewShipmentDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NewShipmentDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Order/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Order/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Order/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Order/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Order/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Order/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderProfile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderProfile/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderProfile/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderProfile/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderReview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderReview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OrderReview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OrderReview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OtherTerms/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OtherTerms/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/OtherTerms/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/OtherTerms/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Paginatebar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Paginatebar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Paginatebar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Paginatebar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PaymentTableMain/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PaymentTableMain/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PaymentTableMain/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PaymentTableMain/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PlaceOrder/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlaceOrder/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PlaceOrder/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlaceOrder/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PlotInspection/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlotInspection/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PlotInspection/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlotInspection/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popups/BillPopup/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popups/BillPopup/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popups/BillPopup/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popups/BillPopup/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popups/DeliveryPopup/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popups/DeliveryPopup/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popups/DeliveryPopup/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popups/DeliveryPopup/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviewBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviewBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviewBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviewBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviousBar/SubmitBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviousBar/SubmitBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviousBar/SubmitBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviousBar/SubmitBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviousBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviousBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PreviousBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PreviousBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PrivilegedUserEditForm/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PrivilegedUserEditForm/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Purchase/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Purchase/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Purchase/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Purchase/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/QPA/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QPA/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/QPA/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QPA/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Recommendations/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Recommendations/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Recommendations/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Recommendations/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Register/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Register/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReleaseOrder/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReleaseOrder/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReleaseOrder/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReleaseOrder/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RenewInsurance/SubmitBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RenewInsurance/SubmitBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RenewInsurance/SubmitBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RenewInsurance/SubmitBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RenewInsurance/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RenewInsurance/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RenewInsurance/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RenewInsurance/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewProfile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewProfile/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewProfile/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewProfile/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewProfile/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewProfile/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/BalanceSheet/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/BalanceSheet/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/CashFlow/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/CashFlow/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/IncomeStatement/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/IncomeStatement/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/OpenCharges/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/OpenCharges/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/Peer/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/Peer/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/Ratios/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/Ratios/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueFinancials/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/AuditorDeatils/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/AuditorDeatils/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/AuditorsDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/AuditorsDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/CompanyDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/CompanyDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/CreditRatings/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/CreditRatings/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/ShareHoldingPattern/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/ShareHoldingPattern/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReviewQueueProfile/profile.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReviewQueueProfile/profile.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RevisedMargin/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RevisedMargin/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RevisedMargin/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RevisedMargin/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SalesAgreement/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SalesAgreement/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SalesAgreement/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SalesAgreement/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SalesAgreement/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SalesAgreement/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SalesContract/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SalesContract/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SalesContract/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SalesContract/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SaveBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SaveBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SaveBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SaveBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ShipmentDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShipmentDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ShipmentDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ShipmentDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Sidebar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Sidebar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TPAIGI/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TPAIGI/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TPAIGI/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TPAIGI/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TPASeller/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TPASeller/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TPASeller/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TPASeller/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TableMain/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TableMain/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TableMain/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TableMain/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermDetails/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermDetails/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermDetails/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermDetails/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheet/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheet/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheet/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheet/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheet/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheet/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheetMain/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheetMain/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheetMain/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheetMain/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheetPreview/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheetPreview/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheetPreview/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheetPreview/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermSheetPreview/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermSheetPreview/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Terms/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Terms/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Terms/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Terms/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermsheetPopUp/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermsheetPopUp/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TermsheetPopUp/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TermsheetPopUp/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ThirdPartyInspection/ThirdPartyPopUp/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ThirdPartyInspection/ThirdPartyPopUp/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ThirdPartyInspection/ThirdPartyPopUp/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ThirdPartyInspection/ThirdPartyPopUp/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ThirdPartyInspection/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ThirdPartyInspection/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ThirdPartyInspection/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ThirdPartyInspection/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UploadDocument/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadDocument/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UploadDocument/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadDocument/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UploadOther/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadOther/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UploadOther/index.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadOther/index.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UploadOther/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadOther/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserProfile/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserProfile/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Vessel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Vessel/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Vessel/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Vessel/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VesselSaveBar/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VesselSaveBar/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VesselSaveBar/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VesselSaveBar/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VesselTable/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VesselTable/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VesselTable/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VesselTable/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/styles/Core/_root.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/styles/Core/_root.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/styles/Core/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/styles/Core/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/CustomClearance&amp;Warehousing/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ForwardHedging/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ForwardHedging/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ForwardHedging/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ForwardHedging/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ForwardHedging/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ForwardHedging/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/GetPanGst/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/GetPanGst/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/GetPanGst/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/GetPanGst/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/GetPanGst/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/GetPanGst/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Inspections/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Inspections/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Inspections/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Inspections/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Inspections/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Inspections/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Lifting/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Lifting/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Lifting/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Lifting/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Lifting/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Lifting/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Loaders/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Loaders/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Loaders/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Loaders/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/Loaders/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/Loaders/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/TransitDetails/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/TransitDetails/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/TransitDetails/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/TransitDetails/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/TransitDetails/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/TransitDetails/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ViewDoc/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ViewDoc/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ViewDoc/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ViewDoc/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/ViewDoc/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/ViewDoc/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/analytics/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/analytics/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/analytics/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/analytics/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/analytics/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/analytics/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/authentication/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/authentication/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/authentication/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/authentication/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/authentication/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/authentication/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/breadcrumb/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/breadcrumb/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/breadcrumb/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/breadcrumb/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/breadcrumb/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/breadcrumb/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/buyerProfile/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/buyerProfile/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/buyerProfile/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/buyerProfile/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/buyerProfile/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/buyerProfile/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/companyDetail/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/companyDetail/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/companyDetail/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/companyDetail/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/companyDetail/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/companyDetail/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/creditQueueUpdate/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/creditQueueUpdate/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/creditQueueUpdate/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/creditQueueUpdate/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/creditQueueUpdate/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/creditQueueUpdate/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/generic/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/generic/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/generic/actionsType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/generic/actionsType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/generic/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/generic/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/insurance/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/insurance/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/insurance/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/insurance/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/insurance/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/insurance/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/lcModule/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/lcModule/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/lcModule/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/lcModule/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/lcModule/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/lcModule/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/marginMoney/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/marginMoney/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/marginMoney/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/marginMoney/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/marginMoney/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/marginMoney/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/masters/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/masters/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/masters/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/masters/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/masters/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/masters/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/mcaReport/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/mcaReport/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/mcaReport/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/mcaReport/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/mcaReport/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/mcaReport/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/newOrder/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/newOrder/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/newOrder/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/newOrder/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/newOrder/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/newOrder/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/permissionManagement/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/permissionManagement/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/permissionManagement/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/permissionManagement/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/permissionManagement/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/permissionManagement/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/privilegedUserManagement/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/privilegedUserManagement/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/privilegedUserManagement/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/privilegedUserManagement/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/privilegedUserManagement/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/privilegedUserManagement/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/registerBuyer/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/registerBuyer/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/registerBuyer/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/registerBuyer/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/registerBuyer/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/registerBuyer/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/release&amp;DeliveryOrder/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/shareDoc/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/shareDoc/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/shareDoc/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/shareDoc/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/shareDoc/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/shareDoc/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/supplier/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/supplier/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/supplier/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/supplier/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/supplier/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/supplier/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/toggleState/Action/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/toggleState/Action/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/toggleState/Action/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/toggleState/Action/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/toggleState/Reducer/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/toggleState/Reducer/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userData/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userData/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userData/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userData/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userData/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userData/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userManagement/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userManagement/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userManagement/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userManagement/actions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/userManagement/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/userManagement/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/vessel/action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/vessel/action.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/vessel/actionType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/vessel/actionType.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/vessel/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/vessel/reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/authentication.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/authentication.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/axiosConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/axiosConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/endpoints.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/endpoints.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helper.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Gzsjfpzosc7XumlGoCqoukoJoN" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;/Users/nishantbhadana/Documents/Code/sg-web-app/node_modules/standard&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/nishantbhadana/Documents/Code/sg-web-app/node_modules/prettier&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="42450adf-49d6-448f-95f4-e25a99539819" name="Changes" comment="" />
+      <created>1667402884220</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667402884220</updated>
+      <workItem from="1667402887655" duration="829000" />
+      <workItem from="1667404297398" duration="434000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import Router from 'next/router';
-import AddVendor from '../../../src/components/AddVendor';
+import React from 'react'
+import styles from './index.module.scss'
+import { Card } from 'react-bootstrap'
+import Router from 'next/router'
+import AddVendor from '../../../src/components/AddVendor'
 
-function Index() {
+function Index () {
   return (
     <Card className={`${styles.card} container-fluid`}>
       <div className="m-2">
@@ -36,10 +36,10 @@ function Index() {
             </button>
           </div>
         </Card.Header>
-        <AddVendor />
+        <AddVendor/>
       </div>
     </Card>
-  );
+  )
 }
 
-export default Index;
+export default Index

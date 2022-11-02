@@ -1,14 +1,12 @@
-import Router from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import styles from './index.module.scss';
+import React from 'react'
+import styles from './index.module.scss'
 
-function Index({ handleSave, rightBtn, rightBtnClick }) {
+function Index ({ handleSave, rightBtn, rightBtnClick }) {
   return (
     <div className={`${styles.root} cta_bar`}>
       <div
         onClick={() => {
-          handleSave();
+          handleSave()
         }}
         className={`${styles.reject} ml-3`}
       >
@@ -17,13 +15,13 @@ function Index({ handleSave, rightBtn, rightBtnClick }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          rightBtnClick();
+          rightBtnClick()
         }}
       >
         <span>{rightBtn}</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index

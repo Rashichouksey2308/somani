@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styles from './index.module.scss';
-import { Row, Col } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import _get from 'lodash/get';
-import moment from 'moment';
-import Router from 'next/router';
-function Index(props) {
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
+import _get from 'lodash/get'
+import moment from 'moment'
+import Router from 'next/router'
+
+function Index (props) {
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -34,27 +34,27 @@ function Index(props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
+  })
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
+        return '7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
+        return '8B, SAGAR, 6 TILAK MARG, DELHI, NEW DELHI, 110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'));
+        const data = JSON.parse(sessionStorage.getItem('preview'))
 
         setData({
           seller: data?.seller,
@@ -89,27 +89,27 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        });
+        })
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-        console.log(data, 'data22222');
-        let exe;
-        let dat = '';
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+        console.log(data, 'data22222')
+        let exe
+        let dat = ''
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'QPA') {
-            exe = val.place;
+            exe = val.place
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
             }
           }
-        });
-        let comment = [];
+        })
+        let comment = []
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'QPA') {
-            comment.push(val.comment);
+            comment.push(val.comment)
           }
-        });
-        console.log(dat, exe, 'exedasa');
+        })
+        console.log(dat, exe, 'exedasa')
 
         setData({
           seller: data?.seller?.name,
@@ -196,45 +196,44 @@ function Index(props) {
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
           storagePlot:
-            data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-        });
+          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+        })
       }
     }
-  }, [props]);
+  }, [props])
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {qpa(data,props.preview,)}
-         {props.preview !== "Sales" ? (
-            <>
-              <div
-                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
-              >
-                <div className={`${styles.approve} mr-3`}>
+        {qpa(data, props.preview,)}
+        {props.preview !== 'Sales' ? (
+          <>
+            <div
+              className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
+            >
+              <div className={`${styles.approve} mr-3`}>
                   <span
                     onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data));
-                     
+                      sessionStorage.setItem('preview', JSON.stringify(data))
 
-                      Router.push('agreement/preview');
-                      props.setPreviewValue("QPA");
+                      Router.push('agreement/preview')
+                      props.setPreviewValue('QPA')
                     }}
                   >
                     Preview
                   </span>
-                </div>
-                <div className={styles.reject}>
-                  <span>Save</span>
-                </div>
-                <div className={styles.approve}>
-                  <span>Submit</span>
-                </div>
               </div>
-            </>
-          ) : null}
-    <>
-      {/* Undertaking 1 pdf download code start */}
-      {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
+              <div className={styles.reject}>
+                <span>Save</span>
+              </div>
+              <div className={styles.approve}>
+                <span>Submit</span>
+              </div>
+            </div>
+          </>
+        ) : null}
+        <>
+          {/* Undertaking 1 pdf download code start */}
+          {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
           <td valign='top' style={{padding:'20px'}}>
             <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
@@ -1027,49 +1026,49 @@ function Index(props) {
           </td>
         </tr>
       </table> */}
-      {/* Undertaking 1 pdf download code end */}
+          {/* Undertaking 1 pdf download code end */}
 
-      <div className={`${styles.root}`}>
-        <div className={`${styles.content} card border_color shadow-none`}>
-          {qpa(data)}
-          <div
-            className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
-          >
-            <div className={`${styles.approve} mr-3`}>
-              <span>Preview</span>
-            </div>
-            <div className={styles.reject}>
-              <span>Save</span>
-            </div>
-            <div className={styles.approve}>
-              <span>Submit</span>
+          <div className={`${styles.root}`}>
+            <div className={`${styles.content} card border_color shadow-none`}>
+              {qpa(data)}
+              <div
+                className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3`}
+              >
+                <div className={`${styles.approve} mr-3`}>
+                  <span>Preview</span>
+                </div>
+                <div className={styles.reject}>
+                  <span>Save</span>
+                </div>
+                <div className={styles.approve}>
+                  <span>Submit</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       </div>
-    </>
-     </div>
-     </div>
-  );
+    </div>
+  )
 }
 
-export default Index;
-const qpa = (data,preview,) => {
+export default Index
+const qpa = (data, preview,) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-       {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                QPA No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+      {preview ? (
+        <div className={`${styles.inputsContainer2} border_black`}>
+          <Row className={`${styles.row} ${styles.last}`}>
+            <Col md={7} className={`${styles.left} border_black`}>
+              QPA No.:{' '}
+              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+            </Col>
+            <Col md={5} className={styles.right}>
+              Date: {moment(new Date()).format('DD-MM-YYYY')}
+            </Col>
+          </Row>
+        </div>
+      ) : null}
       <p className="text-center text_sales">
         {' '}
         <strong>Quadripartite Agreement</strong>
@@ -1472,7 +1471,7 @@ const qpa = (data,preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  );
+                  )
                 })}
             </ol>
           </Col>
@@ -1510,7 +1509,7 @@ const qpa = (data,preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  );
+                  )
                 })}
             </ol>
           </Col>
@@ -1548,7 +1547,7 @@ const qpa = (data,preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  );
+                  )
                 })}
             </ol>
           </Col>
@@ -1621,13 +1620,13 @@ const qpa = (data,preview,) => {
           <p className="text_sales w-50 text-center m-0">(Buyer)</p>
         </Col>
         <Col md={12} className={`d-flex justify-content-around`}>
-          <div className='w-50 text-center'>{data.seller}</div>
-          <div className='w-50 text-center'>{data.buyer}</div>
+          <div className="w-50 text-center">{data.seller}</div>
+          <div className="w-50 text-center">{data.buyer}</div>
         </Col>
       </div>
     </div>
-  );
-};
+  )
+}
 // const qpa1 = () => {
 //   return (
 //     <div className={`${styles.card_body} card-body `}>

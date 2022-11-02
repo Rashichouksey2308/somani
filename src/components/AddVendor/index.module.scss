@@ -1,11 +1,13 @@
 /*-----Dashboard Tab------*/
 @import '../styles/Core/config';
+
 .dashboardTab {
   margin-bottom: 105px;
 
   @include respond(phone) {
     margin-bottom: 105px;
   }
+
   .tabHeader {
     padding: 25px 30px 30px;
     @include respond(lg-desktop) {
@@ -17,18 +19,22 @@
     @include respond(phone) {
       padding: 15px;
     }
+
     .title {
       font-size: 34px;
       font-weight: bold;
       line-height: 41px;
       margin: 0;
       text-transform: lowercase;
+
       &:first-letter {
         text-transform: uppercase;
       }
+
       &:first-line {
         text-transform: capitalize;
       }
+
       @include respond(lg-desktop) {
         font-size: 24px;
         line-height: 1.4;
@@ -39,6 +45,7 @@
       @include respond(phone) {
         font-size: 18px;
       }
+
       span {
         @include respond(phone) {
           font-size: 13px;
@@ -46,6 +53,7 @@
           padding-left: 0px;
         }
       }
+
       img {
         width: 13px;
         height: 21px;
@@ -60,6 +68,7 @@
       }
     }
   }
+
   .tabContent {
     margin: 28px;
     @include respond(lg-desktop) {
@@ -71,6 +80,7 @@
     @include respond(phone) {
       margin: 15px;
     }
+
     .backgroundMain {
       .vessel_card {
         border-radius: 6px;
@@ -95,6 +105,7 @@
         .main {
           border-radius: 6px;
         }
+
         .dashboard_form {
           padding: 20px 35px 25px 40px;
 
@@ -102,6 +113,7 @@
             //background: #FFFFFF;
             border: 2px solid #cad6e6;
             border-radius: 9px;
+
             .vessel_card {
               padding: 0px 35px 0px 35px;
 
@@ -115,6 +127,7 @@
                   border-bottom: none;
                   height: 80px;
                   padding: 25px 35px !important;
+
                   .heading {
                     color: #3687e8;
                     font-weight: bold;
@@ -204,6 +217,7 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+
               &::before {
                 top: 51%;
                 left: 0;
@@ -214,6 +228,7 @@
                 position: absolute;
                 transform: translateY(-50%);
               }
+
               @include respond(lg-desktop) {
                 top: 15px;
                 font-size: 14px;
@@ -225,6 +240,7 @@
             .phone_card {
               display: flex;
               flex-wrap: nowrap;
+
               .code_phone {
                 border-top-right-radius: 0px;
                 border-bottom-right-radius: 0px;
@@ -240,6 +256,7 @@
                 }
               }
             }
+
             .line {
               border: 3px solid #d9dde8;
             }
@@ -257,9 +274,11 @@
               letter-spacing: 0.19px;
               padding: 13px 30px 13px 17px;
               border: 1px solid #0000001f;
+
               &:invalid + label {
                 transform: translateY(0);
               }
+
               &:focus {
                 & + label {
                   transform: translateY(-30px);
@@ -268,6 +287,7 @@
                   }
                 }
               }
+
               @include respond(lg-desktop) {
                 height: 45px;
                 font-size: 15px;
@@ -284,9 +304,11 @@
                 transform: translate(-61px, -22px);
               }
             }
+
             .input_field {
               border-top-left-radius: 0px;
               border-bottom-left-radius: 0px;
+
               &:focus {
                 & + label {
                   transform: translate(-61px, -30px);
@@ -301,6 +323,7 @@
       }
     }
   }
+
   .btn_container {
     overflow: hidden;
     position: relative;
@@ -315,6 +338,7 @@
       cursor: pointer;
       position: absolute;
     }
+
     margin-top: 10px;
   }
 
@@ -362,6 +386,7 @@
     justify-content: center;
     margin-left: 1rem;
   }
+
   .button2 {
     padding: 25px 35px !important;
     cursor: pointer;
@@ -374,6 +399,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .remark_field {
     background: #c3c3c31f;
     border: 1px solid #0000001f;
@@ -381,6 +407,7 @@
     margin-bottom: 2rem !important;
   }
 }
+
 .address_card {
   border: 1px solid #0000001f;
   border-radius: 9px;
@@ -427,6 +454,7 @@
       border-radius: 3px;
     }
   }
+
   .cancel_btn {
     color: #3687e8;
     text-transform: capitalize;
@@ -452,6 +480,7 @@
       border-radius: 3px;
     }
   }
+
   .sign_head {
     text-align: right;
     letter-spacing: 0.19px;
@@ -464,6 +493,7 @@
       font-weight: normal;
     }
   }
+
   .address_values {
     padding-left: 18px;
 
@@ -489,6 +519,7 @@
         //color: #111111;
         text-transform: capitalize;
       }
+
       .phone_number {
         text-decoration: underline;
         letter-spacing: 0.19px;
@@ -496,6 +527,7 @@
         font-weight: 500;
       }
     }
+
     .view_btn {
       padding-top: 3px;
       padding-left: 15px;
@@ -505,6 +537,7 @@
     }
   }
 }
+
 .datatable {
   border-radius: 6px;
   padding: 0px;
@@ -513,9 +546,11 @@
     width: 100%;
     display: table;
     table-layout: fixed;
+
     .table_scroll_inner {
       display: table-cell;
       overflow-x: auto;
+
       .table {
         th {
           font-size: 15px;
@@ -526,12 +561,14 @@
           border: none;
           text-transform: uppercase;
           white-space: nowrap;
+
           &:first-child {
             padding-left: 35px;
             @include respond(sm-desktop) {
               padding-left: 15px;
             }
           }
+
           @include respond(lg-desktop) {
             height: 50px;
             font-size: 14px;
@@ -544,10 +581,12 @@
             font-size: 12px;
           }
         }
+
         tr {
           &:last-child {
             border-bottom: none;
           }
+
           td {
             font-size: 19px;
             font-weight: 500;
@@ -557,12 +596,14 @@
             opacity: 0.7;
             white-space: nowrap;
             vertical-align: middle;
+
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
                 padding-left: 15px;
               }
             }
+
             @include respond(lg-desktop) {
               font-size: 15px;
               line-height: 1.3;
@@ -581,11 +622,13 @@
               font-size: 19px;
               line-height: 24px;
             }
+
             .checkBox {
               transform: scale(1.5);
             }
           }
         }
+
         .dropDown {
           background: transparent;
           border: none;
@@ -594,6 +637,7 @@
     }
   }
 }
+
 .add_row {
   text-align: center;
   font-size: 18px;
@@ -606,11 +650,13 @@
     margin-right: 15px;
   }
 }
+
 .head_container {
   border-bottom: 2px solid #cad6e6;
   padding: 25px 35px !important;
   height: 80px;
   cursor: pointer;
+
   .dropDown {
     border: 1px solid #0000001f;
     border-radius: 4px;
@@ -631,6 +677,7 @@
       line-height: 18px;
     }
   }
+
   .dropDown_label {
     letter-spacing: 0.53px;
     font-weight: 500;
@@ -646,6 +693,7 @@
       font-size: 10px;
     }
   }
+
   .heading {
     color: #3687e8;
     font-weight: bold;
@@ -653,6 +701,7 @@
     text-transform: capitalize;
     line-height: 27px;
   }
+
   .min_heading {
     letter-spacing: 0.53px;
     color: #00000080;
@@ -660,6 +709,7 @@
     line-height: 17px;
     font-weight: 500;
   }
+
   span {
     font-size: 45px;
     color: #3687e8;
@@ -670,6 +720,7 @@
     }
   }
 }
+
 img {
   &.arrow2 {
     width: 13px !important;
@@ -677,6 +728,7 @@ img {
     height: 38px;
     position: absolute;
     pointer-events: none;
+
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {
       display: none;
@@ -684,20 +736,24 @@ img {
     }
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
   pointer-events: none;
+
   input[type='date']::-webkit-inner-spin-button,
   input[type='date']::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
 }
+
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -718,6 +774,7 @@ img {
     padding: 5px;
   }
 }
+
 .delete_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -735,14 +792,17 @@ img {
     height: 25px;
   }
 }
+
 .dashboard_form {
   padding: 25px 35px !important;
+
   .card_heading {
     //color: #111111;
     font-size: 20px;
     font-weight: bold;
     line-height: 25px;
   }
+
   div {
     // flex-wrap: wrap;
   }
@@ -758,6 +818,7 @@ img {
     .search_image {
       margin-left: -40px;
     }
+
     .approve {
       cursor: pointer;
       width: 260px;
@@ -781,6 +842,7 @@ img {
         font-size: 12px;
       }
     }
+
     .phone {
       .label_heading {
         left: 90px;
@@ -789,9 +851,11 @@ img {
           transform: translate(-61px, -22px);
         }
       }
+
       .input_field {
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
+
         &:focus {
           & + label {
             transform: translate(-61px, -30px);
@@ -802,9 +866,11 @@ img {
         }
       }
     }
+
     .phone_card {
       display: flex;
       flex-wrap: nowrap;
+
       .code_phone {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
@@ -820,6 +886,7 @@ img {
         }
       }
     }
+
     .uploadBtnWrapper {
       overflow: hidden;
       position: relative;
@@ -856,6 +923,7 @@ img {
         line-height: 1.3;
       }
     }
+
     .label_heading {
       top: 22px;
       left: 30px;
@@ -873,6 +941,7 @@ img {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
       &::before {
         top: 51%;
         left: 0;
@@ -883,6 +952,7 @@ img {
         position: absolute;
         transform: translateY(-50%);
       }
+
       @include respond(lg-desktop) {
         top: 15px;
         font-size: 14px;
@@ -890,6 +960,7 @@ img {
         transform: translateY(-22px);
       }
     }
+
     .input_field {
       font-size: 20px;
       height: 60px;
@@ -903,9 +974,11 @@ img {
       letter-spacing: 0.19px;
       padding: 13px 30px 13px 17px;
       border: 1px solid #0000001f;
+
       &:invalid + label {
         transform: translateY(0);
       }
+
       &:focus {
         & + label {
           transform: translateY(-30px);
@@ -914,6 +987,7 @@ img {
           }
         }
       }
+
       @include respond(lg-desktop) {
         height: 45px;
         font-size: 15px;
@@ -924,22 +998,26 @@ img {
         padding: 0px 12px;
       }
     }
+
     .address_field {
       height: 120px;
     }
   }
 }
+
 .plus_add {
   margin-top: 10px;
   margin-left: -60px;
   width: 36px;
   height: 36px;
 }
+
 .comment_para {
   border: 1px solid #0000001f;
   border-radius: 4px;
   padding: 25px 30px 25px 30px;
   margin-top: 35px;
+
   .comment {
     letter-spacing: 0.19px;
     //color: #111111;
@@ -947,6 +1025,7 @@ img {
     line-height: 25px;
   }
 }
+
 .dashboard_form {
   padding: 10px 10px 0px 20px;
   //margin: 15px;
@@ -962,6 +1041,7 @@ img {
       line-height: 1.3;
     }
   }
+
   .strength {
     text-decoration: underline;
     letter-spacing: 0.63px;
@@ -971,11 +1051,13 @@ img {
     text-transform: capitalize;
     padding: 25px 0px 25px 0px;
   }
+
   .comment_para {
     border: 1px solid #0000001f;
     border-radius: 4px;
     padding: 25px 30px 25px 30px;
     margin-top: 35px;
+
     .comment {
       letter-spacing: 0.19px;
       //color: #111111;
@@ -1008,6 +1090,7 @@ img {
       line-height: 15px;
     }
   }
+
   .comment_field {
     height: 135px;
     width: 1300px;
@@ -1023,6 +1106,7 @@ img {
     margin-left: -10px;
   }
 }
+
 .plus_field {
   margin-left: 15px;
 }
@@ -1030,6 +1114,7 @@ img {
 .labelSelect {
   background: none !important;
 }
+
 .calanderIcon {
   margin-left: -40px;
   margin-top: 15px;
@@ -1043,6 +1128,7 @@ img {
     margin-left: -33px;
   }
 }
+
 .radio_form {
   //padding-top: 30px;
   .radio_group {
@@ -1050,6 +1136,7 @@ img {
     @include respond(phone) {
       justify-content: space-between;
     }
+
     .radio {
       font-size: 20px;
       color: #111111;
@@ -1059,6 +1146,7 @@ img {
       @include respond(lg-desktop) {
         padding-right: 15px;
       }
+
       input {
         width: 15px;
         height: 15px;
@@ -1076,6 +1164,7 @@ img {
         //     font-size: 12px;
         // }
       }
+
       // @include respond(xl-desktop) {
       //     padding-right: 0px;
 
@@ -1096,6 +1185,7 @@ img {
         font-size: 15px;
         padding-right: 0px;
       }
+
       label {
         white-space: nowrap;
         @include respond(lg-desktop) {
@@ -1116,6 +1206,7 @@ img {
       }
     }
   }
+
   .sub_heading {
     font-size: 16px;
     line-height: 17px;
@@ -1153,6 +1244,7 @@ img {
     -webkit-appearance: none;
   }
 }
+
 .sort_img {
   @include respond(lg-desktop) {
     width: 12px;
@@ -1173,9 +1265,11 @@ img {
   letter-spacing: 0.19px;
   padding: 13px 30px 13px 17px;
   border: 1px solid #0000001f;
+
   &:invalid + label {
     transform: translateY(0);
   }
+
   &:focus {
     & + label {
       transform: translateY(-30px);
@@ -1184,12 +1278,14 @@ img {
       }
     }
   }
+
   @include respond(lg-desktop) {
     height: 45px;
     font-size: 15px;
     line-height: 1.3;
   }
 }
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -1206,6 +1302,7 @@ img {
   appearance: none;
   // position: relative;
 }
+
 .img_arrow {
   transform: translateY(30%);
   top: 30%;
@@ -1218,6 +1315,7 @@ img {
     -webkit-appearance: none;
   }
 }
+
 .footer_heading {
   font-size: 14px;
   line-height: 17px;
@@ -1226,7 +1324,7 @@ img {
 
   span {
     text-align: right;
-   
+
     color: #283756;
     opacity: 0.6;
   }

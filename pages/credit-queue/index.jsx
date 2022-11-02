@@ -1,86 +1,75 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './creditqueue.module.scss';
-import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  GetAllBuyer,
-  GetAllOrders,
-  GetBuyer,
-} from '../../src/redux/registerBuyer/action';
-import { GetCompanyDetails } from '../../src/redux/companyDetail/action';
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import { GetDocuments } from '../../src/redux/creditQueueUpdate/action';
-import Filter from '../../src/components/Filter';
-import Loader from '../../src/components/Loader';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './creditqueue.module.scss'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetAllBuyer, GetAllOrders, } from '../../src/redux/registerBuyer/action'
+import { GetCompanyDetails } from '../../src/redux/companyDetail/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import Filter from '../../src/components/Filter'
+import Loader from '../../src/components/Loader'
 
-function Index() {
-  const [serachterm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch();
+function Index () {
+  const [serachterm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
+  const dispatch = useDispatch()
 
   const { allBuyerList, gettingAllBuyerList } = useSelector(
     (state) => state.buyer,
-  );
-  const { searchedLeads } = useSelector((state) => state.order);
-
+  )
+  const { searchedLeads } = useSelector((state) => state.order)
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Leads');
-      sessionStorage.setItem('loadedSubPage', `Credit Queue`);
-      sessionStorage.setItem('openList', 1);
+      sessionStorage.setItem('loadedPage', 'Leads')
+      sessionStorage.setItem('loadedSubPage', `Credit Queue`)
+      sessionStorage.setItem('openList', 1)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     dispatch(
       GetAllBuyer(`?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}`),
-    );
-  }, [dispatch, currentPage]);
+    )
+  }, [dispatch, currentPage])
 
   useEffect(() => {
-    dispatch(setPageName('credit-queue'));
-    dispatch(setDynamicName(null));
-    dispatch(setDynamicOrder(null));
-  });
+    dispatch(setPageName('credit-queue'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
+  })
 
   const handleRoute = async (buyer) => {
-  
-  
-    Router.push('/review');
+
+    Router.push('/review')
     if (buyer.queue === 'CreditQueue') {
-      sessionStorage.setItem('orderID', buyer._id);
-      sessionStorage.setItem('companyID', buyer.company._id);
-      await dispatch(GetAllOrders({ orderId: buyer._id }));
+      sessionStorage.setItem('orderID', buyer._id)
+      sessionStorage.setItem('companyID', buyer.company._id)
+      await dispatch(GetAllOrders({ orderId: buyer._id }))
       //dispatch(GetDocuments({order: buyer._id}))
-      await dispatch(GetCompanyDetails({ company: buyer.company._id }));
+      await dispatch(GetCompanyDetails({ company: buyer.company._id }))
     }
-  };
+  }
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`;
-    setSearchTerm(query);
+    const query = `${e.target.value}`
+    setSearchTerm(query)
     if (query.length >= 3) {
-      dispatch(SearchLeads(query));
+      dispatch(SearchLeads(query))
     }
-  };
+  }
 
   const handleFilteredData = (e) => {
-    setSearchTerm('');
-    const id = `${e.target.id}`;
-    dispatch(GetAllBuyer(`?company=${id}`));
-  };
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllBuyer(`?company=${id}`))
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -88,22 +77,22 @@ function Index() {
         GetAllBuyer(
           `?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetAllBuyer(
           `?page=${currentPage}&queue=${'CreditQueue'}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <>
       {gettingAllBuyerList ? (
-        <Loader />
+        <Loader/>
       ) : (
         <div className="container-fluid p-0 border-0">
           <div className={styles.container_inner}>
@@ -144,7 +133,7 @@ function Index() {
                   </div>
                 )}
               </div>
-              <Filter />
+              <Filter/>
               {/* <a href="#" className={`${styles.filterList} filterList `}>
             Ramesh Shetty
             <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -261,9 +250,9 @@ function Index() {
                   <a
                     onClick={() => {
                       if (currentPage === 0) {
-                        return;
+                        return
                       } else {
-                        setCurrentPage((prevState) => prevState - 1);
+                        setCurrentPage((prevState) => prevState - 1)
                       }
                     }}
                     href="#"
@@ -282,7 +271,7 @@ function Index() {
                         currentPage + 1 <
                         Math.ceil(allBuyerList?.data?.totalCount / 7)
                       ) {
-                        setCurrentPage((prevState) => prevState + 1);
+                        setCurrentPage((prevState) => prevState + 1)
                       }
                     }}
                     href="#"
@@ -305,70 +294,70 @@ function Index() {
                     border="0"
                   >
                     <thead>
-                      <tr className={`${styles.table_row} table_row`}>
-                        <th>
-                          CUSTOMER ID
-                          <img
-                            className={`mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            onClick={() => handleSort()}
-                          />
-                        </th>
-                        <th>BUYER NAME</th>
-                        <th>CREATED BY</th>
-                        <th>USERNAME</th>
-                        <th>EXISTING CUSTOMER</th>
-                        <th>STATUS</th>
-                        <th>CAM SHEET</th>
-                      </tr>
+                    <tr className={`${styles.table_row} table_row`}>
+                      <th>
+                        CUSTOMER ID
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                          onClick={() => handleSort()}
+                        />
+                      </th>
+                      <th>BUYER NAME</th>
+                      <th>CREATED BY</th>
+                      <th>USERNAME</th>
+                      <th>EXISTING CUSTOMER</th>
+                      <th>STATUS</th>
+                      <th>CAM SHEET</th>
+                    </tr>
                     </thead>
                     <tbody>
-                      {allBuyerList &&
-                        allBuyerList.data?.data?.map((buyer, index) => (
-                          <tr
-                            key={index}
-                            className={`${styles.table_row} table_row`}
+                    {allBuyerList &&
+                      allBuyerList.data?.data?.map((buyer, index) => (
+                        <tr
+                          key={index}
+                          className={`${styles.table_row} table_row`}
+                        >
+                          <td>
+                            {buyer.company.customerId
+                              ? buyer.company.customerId
+                              : buyer.company.temporaryCustomerId}
+                          </td>
+                          <td
+                            className={styles.buyerName}
+                            onClick={() => handleRoute(buyer)}
                           >
-                            <td>
-                              {buyer.company.customerId
-                                ? buyer.company.customerId
-                                : buyer.company.temporaryCustomerId}
-                            </td>
-                            <td
-                              className={styles.buyerName}
-                              onClick={() => handleRoute(buyer)}
-                            >
-                              {buyer.company.companyName}
-                            </td>
-                            <td>
-                              {buyer.createdBy.userRole
-                                ? buyer.createdBy.userRole
-                                : 'RM'}
-                            </td>
-                            <td>{buyer.createdBy.fName}</td>
-                            <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
-                            <td>
+                            {buyer.company.companyName}
+                          </td>
+                          <td>
+                            {buyer.createdBy.userRole
+                              ? buyer.createdBy.userRole
+                              : 'RM'}
+                          </td>
+                          <td>{buyer.createdBy.fName}</td>
+                          <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
+                          <td>
                               <span
                                 className={`${styles.status} ${styles.approved}`}
                               ></span>
-                              {buyer.queue === 'ReviewQueue'
-                                ? 'Review'
-                                : 'CreditQueue'
+                            {buyer.queue === 'ReviewQueue'
+                              ? 'Review'
+                              : 'CreditQueue'
                                 ? 'Approved'
                                 : 'Rejected'}
-                            </td>
-                            <td>
-                              <img
-                                src="/static/preview.svg"
-                                className={`${styles.eye_icon}`}
-                                alt="Preview"
-                                onClick={() => {
-                                  handleRoute(buyer);
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        ))}
+                          </td>
+                          <td>
+                            <img
+                              src="/static/preview.svg"
+                              className={`${styles.eye_icon}`}
+                              alt="Preview"
+                              onClick={() => {
+                                handleRoute(buyer)
+                              }}
+                            />
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -378,6 +367,7 @@ function Index() {
         </div>
       )}
     </>
-  );
+  )
 }
-export default Index;
+
+export default Index

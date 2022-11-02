@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import Contract from '../../../src/components/A2S_Sales_Contract';
-import QPA from '../../../src/components/QPA';
-import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement';
-import TPASeller from '../../../src/components/TPASeller';
-import TPAIGI from '../../../src/components/TPAIGI';
-import DownloadBar from '../../../src/components/DownloadBar';
-import AssignmentLetter from '../../../src/components/AssignmentLetter';
-import moment from 'moment';
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-function index() {
+import React, { useEffect, useState } from 'react'
+import Contract from '../../../src/components/A2S_Sales_Contract'
+import QPA from '../../../src/components/QPA'
+import AssociateshipAgreement from '../../../src/components/AssociateshipAgreement'
+import TPASeller from '../../../src/components/TPASeller'
+import TPAIGI from '../../../src/components/TPAIGI'
+import DownloadBar from '../../../src/components/DownloadBar'
+import AssignmentLetter from '../../../src/components/AssignmentLetter'
+import moment from 'moment'
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
+
+function index () {
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -38,49 +39,47 @@ function index() {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  });
-  const [preview,setPreview]=useState("")
+  })
+  const [preview, setPreview] = useState('')
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
       }
     }
-  };
+  }
   useEffect(() => {
     if (window) {
-      const data = JSON.parse(sessionStorage.getItem('genericSelected'));
-      
+      const data = JSON.parse(sessionStorage.getItem('genericSelected'))
+
       const data2 = sessionStorage.getItem('agreementPreview')
       setPreview(data2)
-    
-      let exe;
-      let dat = '';
+
+      let exe
+      let dat = ''
       data?.placeOfExecution?.execution?.forEach((val, index) => {
         if (val.agreementName == 'Sales Agreement') {
-          exe = val.place;
+          exe = val.place
           if (val.dateOfExecution) {
-            dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
+            dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
           }
         }
-      });
-      let comment = [];
+      })
+      let comment = []
       data?.additionalComments?.comments?.forEach((val, index) => {
         if (val.agreementName == 'Sales Agreement') {
-          comment.push(val.comment);
+          comment.push(val.comment)
         }
-      });
-
-     
+      })
 
       setData({
         seller: data?.seller?.name,
@@ -125,52 +124,53 @@ function index() {
         unitOfQuantity: data?.order?.unitOfQuantity,
         unitOfValue: data?.order?.unitOfValue,
         curr: data?.order?.orderCurrency,
-      });
+      })
     }
-  }, []);
+  }, [])
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [800, 1200]);
-    let toPrint=toPdf(data)
-    if(preview=="Sales"){
-      toPrint=toPdf(data)
+    const doc = new jsPDF('p', 'pt', [800, 1200])
+    let toPrint = toPdf(data)
+    if (preview == 'Sales') {
+      toPrint = toPdf(data)
     }
-    if(preview=="QPA"){
-      toPrint=qpaPrint(data)
+    if (preview == 'QPA') {
+      toPrint = qpaPrint(data)
     }
-    if(preview=="ASSO"){
-      toPrint=associateshipPrint(data)
+    if (preview == 'ASSO') {
+      toPrint = associateshipPrint(data)
     }
-     if(preview=="UNDERTAKING1"){
-      toPrint=undertakingPrint(data)
+    if (preview == 'UNDERTAKING1') {
+      toPrint = undertakingPrint(data)
     }
-     if(preview=="UNDERTAKING2"){
-      toPrint=undertaking2Print(data)
+    if (preview == 'UNDERTAKING2') {
+      toPrint = undertaking2Print(data)
     }
-    if(preview=="TPASELLER"){
-      toPrint=sellerPrint(data)
+    if (preview == 'TPASELLER') {
+      toPrint = sellerPrint(data)
     }
-    if(preview=="TPAIGI"){
-      toPrint=igiPrint(data)
+    if (preview == 'TPAIGI') {
+      toPrint = igiPrint(data)
     }
-    if(preview=="LETTER"){
-      toPrint=letterPrint(data)
+    if (preview == 'LETTER') {
+      toPrint = letterPrint(data)
     }
     doc.html(ReactDOMServer.renderToString(toPrint()), {
       callback: function (doc) {
-        doc.save('SalesAgreements.pdf');
+        doc.save('SalesAgreements.pdf')
       },
       // margin:margins,
       autoPaging: 'text',
-    });
-  };
+    })
+  }
   return (
     <>
-      {preview=="Sales"?<Contract preview={true} />:null}
-      {preview=="QPA"?<QPA preview={true} />:null}
-      {preview=="TPASELLER"?<TPASeller preview={true} />:null}
-      {preview=="TPAIGI"?<TPAIGI preview={true} />:null}
-      {preview=="LETTER"?<AssignmentLetter preview={true} />:null}
-      {preview=="ASSO" ||preview=="UNDERTAKING1"||preview=="UNDERTAKING2"?<AssociateshipAgreement preview={true} type={preview}/>:null}  
+      {preview == 'Sales' ? <Contract preview={true}/> : null}
+      {preview == 'QPA' ? <QPA preview={true}/> : null}
+      {preview == 'TPASELLER' ? <TPASeller preview={true}/> : null}
+      {preview == 'TPAIGI' ? <TPAIGI preview={true}/> : null}
+      {preview == 'LETTER' ? <AssignmentLetter preview={true}/> : null}
+      {preview == 'ASSO' || preview == 'UNDERTAKING1' || preview == 'UNDERTAKING2' ? <AssociateshipAgreement
+        preview={true} type={preview}/> : null}
 
       <DownloadBar
         downLoadButtonName={`Download`}
@@ -182,10 +182,10 @@ function index() {
         // handleApprove={routeChange}
       />
     </>
-  );
+  )
 }
 
-export default index;
+export default index
 
 const toPdf = (data) => {
   return (
@@ -921,7 +921,7 @@ const toPdf = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -1305,8 +1305,8 @@ const toPdf = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -1400,12 +1400,12 @@ const toPdf = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -1531,8 +1531,8 @@ const toPdf = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -2050,7 +2050,7 @@ const toPdf = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -2138,7 +2138,7 @@ const toPdf = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -2208,8 +2208,8 @@ const toPdf = (data) => {
         </td>
       </tr>
     </table>
-  );
-};
+  )
+}
 const associateshipPrint = (data) => {
   return (
     <table
@@ -2944,7 +2944,7 @@ const associateshipPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -3328,8 +3328,8 @@ const associateshipPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -3423,12 +3423,12 @@ const associateshipPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -3554,8 +3554,8 @@ const associateshipPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -4073,7 +4073,7 @@ const associateshipPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -4161,7 +4161,7 @@ const associateshipPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -4231,8 +4231,8 @@ const associateshipPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
-};
+  )
+}
 const undertakingPrint = (data) => {
   return (
     <table
@@ -4967,7 +4967,7 @@ const undertakingPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -5351,8 +5351,8 @@ const undertakingPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -5446,12 +5446,12 @@ const undertakingPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -5577,8 +5577,8 @@ const undertakingPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -6096,7 +6096,7 @@ const undertakingPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -6184,7 +6184,7 @@ const undertakingPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -6254,8 +6254,8 @@ const undertakingPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
-};
+  )
+}
 const undertaking2Print = (data) => {
   return (
     <table
@@ -6990,7 +6990,7 @@ const undertaking2Print = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -7374,8 +7374,8 @@ const undertaking2Print = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -7469,12 +7469,12 @@ const undertaking2Print = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -7600,8 +7600,8 @@ const undertaking2Print = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -8119,7 +8119,7 @@ const undertaking2Print = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -8207,7 +8207,7 @@ const undertaking2Print = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -8277,8 +8277,8 @@ const undertaking2Print = (data) => {
         </td>
       </tr>
     </table>
-  );
-};
+  )
+}
 const letterPrint = (data) => {
   return (
     <table
@@ -9013,7 +9013,7 @@ const letterPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -9397,8 +9397,8 @@ const letterPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -9492,12 +9492,12 @@ const letterPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -9623,8 +9623,8 @@ const letterPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -10142,7 +10142,7 @@ const letterPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -10230,7 +10230,7 @@ const letterPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -10300,8 +10300,8 @@ const letterPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
-};
+  )
+}
 const qpaPrint = (data) => {
   return (
     <table
@@ -11036,7 +11036,7 @@ const qpaPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -11420,8 +11420,8 @@ const qpaPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -11515,12 +11515,12 @@ const qpaPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -11646,8 +11646,8 @@ const qpaPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -12165,7 +12165,7 @@ const qpaPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -12253,7 +12253,7 @@ const qpaPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -12323,7 +12323,7 @@ const qpaPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
+  )
 }
 const sellerPrint = (data) => {
   return (
@@ -13059,7 +13059,7 @@ const sellerPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -13443,8 +13443,8 @@ const sellerPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -13538,12 +13538,12 @@ const sellerPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -13669,8 +13669,8 @@ const sellerPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -14188,7 +14188,7 @@ const sellerPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -14276,7 +14276,7 @@ const sellerPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -14346,7 +14346,7 @@ const sellerPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
+  )
 }
 const igiPrint = (data) => {
   return (
@@ -15082,7 +15082,7 @@ const igiPrint = (data) => {
                   </li>
                 </ol>
               </td>
-            </tr> 
+            </tr>
             <tr>
               <td
                 style={{
@@ -15466,8 +15466,8 @@ const igiPrint = (data) => {
                   resolution) under the Insolvency &amp; Bankruptcy Code, 2016
                   or an order has been made by the appropriate authority for
                   winding up of the Buyer.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   In the event that conditions of Force Majeure continue so that
                   the Buyer's obligations remain suspended for a period or
                   periods amounting in aggregate to sixty (60) days in any
@@ -15561,12 +15561,12 @@ const igiPrint = (data) => {
                   serious damage to or breakdown of the transmission system
                   connecting to the Buyer's warehouse or the like or any other
                   cause which may be beyond the control of the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   The force Majeure declared by the Manufacturer/shipper shall
                   be applicable to the Seller.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   No event described in this Clause shall constitute a Force
                   Majeure event with respect to the Buyer's obligation to pay
                   for any product loaded at loading place in transit to the
@@ -15692,8 +15692,8 @@ const igiPrint = (data) => {
                   subject to Laws of India. The seat of the arbitration will be
                   Singapore and the proceedings shall be conducted in English
                   language.
-                  <br />
-                  <br />
+                  <br/>
+                  <br/>
                   Notwithstanding the aforesaid, the parties agree and affirm
                   that relief available under Section 9 of the Indian
                   Arbitration Act, 1996 (as amended) shall be available to the
@@ -16211,7 +16211,7 @@ const igiPrint = (data) => {
                       <ol type="1">
                         {data?.addComm?.length > 0 &&
                           data?.addComm?.map((val, index) => {
-                            return <li key={index}>{val}</li>;
+                            return <li key={index}>{val}</li>
                           })}
                       </ol>
                     </>
@@ -16299,7 +16299,7 @@ const igiPrint = (data) => {
                           >
                             {val}
                           </li>
-                        );
+                        )
                       })}
                   </ol>
                 </>
@@ -16369,5 +16369,5 @@ const igiPrint = (data) => {
         </td>
       </tr>
     </table>
-  );
+  )
 }

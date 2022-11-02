@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react';
-import styles from './index.module.scss';
-import { Card } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import { ViewDocument } from 'redux/ViewDoc/action';
+import React from 'react'
+import styles from './index.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import moment from 'moment'
+import { ViewDocument } from 'redux/ViewDoc/action'
 // import {GetBuyer} from '../../redux/registerBuyer/action'
-import { CovertvaluefromtoCR } from '../../utils/helper';
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
-function Index() {
+function Index () {
   // useEffect(() => {
   //   const orderId = sessionStorage.getItem('orderId')
   //   const companyId = sessionStorage.getItem('company')
   //   dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
   // }, [dispatch])
 
-  const { buyerList } = useSelector((state) => state.buyer);
-  console.log(buyerList, 'this is buyer list');
+  const { buyerList } = useSelector((state) => state.buyer)
+  console.log(buyerList, 'this is buyer list')
 
   return (
     <div className={`${styles.wrapper} card border_color`}>
@@ -60,8 +59,8 @@ function Index() {
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
             : buyerList?.order?.unitOfValue == 'Million'
-            ? 'Mn'
-            : buyerList?.order?.unitOfValue,
+              ? 'Mn'
+              : buyerList?.order?.unitOfValue,
         )}
         {fields('Supplier Name', buyerList?.order?.supplierName, false)}
         {fields('Country Of Origin', buyerList?.order?.countryOfOrigin, false)}
@@ -85,16 +84,16 @@ function Index() {
                 val?.path,
               )}
             </>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index
 const fields = (head, value, isButton, value2, value3) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -117,5 +116,5 @@ const fields = (head, value, isButton, value2, value3) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}

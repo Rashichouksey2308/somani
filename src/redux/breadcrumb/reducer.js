@@ -1,4 +1,4 @@
-import * as types from './actionType';
+import * as types from './actionType'
 
 const initialState = {
   breadCrumbData: {
@@ -11,32 +11,32 @@ const initialState = {
   unit: 'inr',
   sideBarMain: '',
   subsideBarMain: '',
-};
+}
 
-function BreadcrumbReducer(state = initialState, action) {
+function BreadcrumbReducer (state = initialState, action) {
   switch (action.type) {
     case types.GET_BREADCRUMB_DATA:
       return {
         ...state,
         breadCrumbData: action.payload,
-      };
+      }
 
     case types.SET_CURRENCY:
       return {
         ...state,
         currency: action.payload,
-      };
+      }
     case types.SET_UNIT:
       return {
         ...state,
         unit: action.payload,
-      };
+      }
     case types.SIDEBAR:
       return {
         ...state,
         sideBarMain: action.payload.sideBarMain,
         subsideBarMain: action.payload.subsideBarMain,
-      };
+      }
 
     case types.CLEAR_BREADCRUMB_DATA:
       return {
@@ -47,10 +47,10 @@ function BreadcrumbReducer(state = initialState, action) {
           companyName: '',
           upperTabs: '',
         },
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default BreadcrumbReducer;
+export default BreadcrumbReducer

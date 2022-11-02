@@ -2,103 +2,87 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import RevisedMargin from '../../src/components/RevisedMargin';
-import { Form } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import _get from 'lodash/get';
-import UploadOther from '../../src/components/UploadOther';
-import DownloadBar from '../../src/components/DownloadBar';
-import Router from 'next/router';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  UpdateMarginMoney,
-  GetMarginMoney,
-  RevisedMarginMoney,
-} from '../../src/redux/marginMoney/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../src/redux/userData/action';
-import {
-  addPrefixOrSuffix,
-  checkNan,
-  convertValue,
-  gSTINValidation,
-} from '../../src/utils/helper';
-import { GetAllOrders } from '../../src/redux/registerBuyer/action';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import RevisedMargin from '../../src/components/RevisedMargin'
+import { Form } from 'react-bootstrap'
+import { toast } from 'react-toastify'
+import _get from 'lodash/get'
+import UploadOther from '../../src/components/UploadOther'
+import DownloadBar from '../../src/components/DownloadBar'
+import Router from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetMarginMoney, RevisedMarginMoney, UpdateMarginMoney, } from '../../src/redux/marginMoney/action'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import { addPrefixOrSuffix, checkNan, convertValue, gSTINValidation, } from '../../src/utils/helper'
+import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
-import jsPDF from 'jspdf';
-import ReactDOMServer from 'react-dom/server';
-import moment from 'moment';
-import {
-  getBanks,
-  getBranches,
-  getInternalCompanies,
-} from '../../src/redux/masters/action';
-function Index() {
-  const dispatch = useDispatch();
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
+import moment from 'moment'
+import { getBanks, getInternalCompanies, } from '../../src/redux/masters/action'
 
-  const [darkMode, setDarkMode] = useState(false);
+function Index () {
+  const dispatch = useDispatch()
+
+  const [darkMode, setDarkMode] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     conversion: false,
     noOfPdcs: false,
-  });
+  })
   const [bankDetails, setBankDetails] = useState({
     address: '',
     bank: '',
     branch: '',
     ifsc: '',
-  });
+  })
   useEffect(() => {
-    dispatch(getBanks());
-    dispatch(getInternalCompanies());
-  }, []);
-  const { getBanksMasterData } = useSelector((state) => state.MastersData);
-  const { getBranchesMasterData } = useSelector((state) => state.MastersData);
+    dispatch(getBanks())
+    dispatch(getInternalCompanies())
+  }, [])
+  const { getBanksMasterData } = useSelector((state) => state.MastersData)
+  const { getBranchesMasterData } = useSelector((state) => state.MastersData)
   const { getInternalCompaniesMasterData } = useSelector(
     (state) => state.MastersData,
-  );
-  const { margin } = useSelector((state) => state.marginMoney);
+  )
+  const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
-  const { orderList } = useSelector((state) => state.buyer);
+  const { orderList } = useSelector((state) => state.buyer)
 
-  const marginData = _get(margin, 'data.data[0]', '');
+  const marginData = _get(margin, 'data.data[0]', '')
 
-  let id = sessionStorage.getItem('marginId');
+  let id = sessionStorage.getItem('marginId')
 
-  const [unit, setUnit] = useState({ value: 'Crores' });
-  const [coversionUnit, setCoversionUnit] = useState(10000000);
+  const [unit, setUnit] = useState({ value: 'Crores' })
+  const [coversionUnit, setCoversionUnit] = useState(10000000)
 
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
     false,
-  );
+  )
 
   useEffect(() => {
-    let id = sessionStorage.getItem('marginId');
+    let id = sessionStorage.getItem('marginId')
 
-    dispatch(GetMarginMoney({ orderId: id }));
-    dispatch(GetAllOrders({ orderId: id }));
-    dispatch(setPageName('margin-money'));
-    dispatch(setDynamicName(marginData?.company?.companyName));
-    dispatch(setDynamicOrder(marginData?.order?.orderId));
-  }, [dispatch, marginData?.company?.companyName]);
+    dispatch(GetMarginMoney({ orderId: id }))
+    dispatch(GetAllOrders({ orderId: id }))
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(marginData?.company?.companyName))
+    dispatch(setDynamicOrder(marginData?.order?.orderId))
+  }, [dispatch, marginData?.company?.companyName])
 
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
       localStorage.getItem('darkMode') == true
     ) {
-      setDarkMode(true);
+      setDarkMode(true)
     } else {
-      setDarkMode(false);
+      setDarkMode(false)
     }
-  }, []);
+  }, [])
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
@@ -115,17 +99,16 @@ function Index() {
     tolerance: marginData?.order?.tolerance || '',
     marginMoney:
       marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
-  });
-
+  })
 
   const saveForCalculation = (name, value) => {
-    const newInput = { ...forCalculation };
-    newInput[name] = value;
-   
-    setForCalculation(newInput);
-    getData2();
-    getRevisedData2();
-  };
+    const newInput = { ...forCalculation }
+    newInput[name] = value
+
+    setForCalculation(newInput)
+    getData2()
+    getRevisedData2()
+  }
 
   const [finalCal, setFinalCal] = useState({
     orderValue: '',
@@ -140,7 +123,7 @@ function Index() {
     marginMoney: '',
     totalSPDC: '',
     amountPerSPDC: '',
-  });
+  })
 
   const getData = () => {
     setForCalculation({
@@ -151,56 +134,55 @@ function Index() {
       conversionRate: marginData?.conversionRate,
       perUnitPrice: marginData?.order?.perUnitPrice,
       usanceInterestPercentage:
-        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
       numberOfPDC: marginData?.numberOfPDC,
       tradeMarginPercentage:
-        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
       tolerance: marginData?.order?.tolerance,
       marginMoney:
-        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-    });
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+    })
     let orderValue = parseFloat(
       Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-    ).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculation.conversionRate),
-    ).toFixed(2); //K
+    ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
-    ).toFixed(2); //L
+      365,
+    ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2); //N
+    ).toFixed(2) //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-    ).toFixed(2); //O
+    ).toFixed(2) //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2); //P
+    ).toFixed(2) //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculation.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
-    ).toFixed(2); //R
+      Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2); //S
+    ).toFixed(2) //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
-    ).toFixed(2); //T
-
+    ).toFixed(2) //T
 
     setFinalCal({
       orderValue: orderValue,
@@ -215,52 +197,51 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    });
-  };
+    })
+  }
 
   const getData2 = () => {
     let orderValue = parseFloat(
       Number(forCalculation.quantity) * Number(forCalculation.perUnitPrice),
-    ).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculation.conversionRate),
-    ).toFixed(2); //K
+    ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
-    ).toFixed(2); //L
+      365,
+    ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2); //N
+    ).toFixed(2) //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculation.tolerance / 100),
-    ).toFixed(2); //O
+    ).toFixed(2) //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2); //P
+    ).toFixed(2) //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculation.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
-    ).toFixed(2); //R
+      Number(Number(forCalculation.marginMoney) / 100),
+    ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2); //S
+    ).toFixed(2) //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculation.numberOfPDC),
-    ).toFixed(2); //T
-
+    ).toFixed(2) //T
 
     setFinalCal({
       orderValue: orderValue,
@@ -275,73 +256,70 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    });
-  };
+    })
+  }
 
   useEffect(() => {
-    getData2();
-  }, [forCalculation]);
+    getData2()
+  }, [forCalculation])
 
   useEffect(() => {
-    getData();
-  }, [marginData]);
+    getData()
+  }, [marginData])
   const routeChange = () => {
-    Router.push('/margin-preview');
-  };
+    Router.push('/margin-preview')
+  }
 
-  const [invoiceData, setInvoiceData] = useState({});
-  const [branchOptions, setBranchOptions] = useState([]);
+  const [invoiceData, setInvoiceData] = useState({})
+  const [branchOptions, setBranchOptions] = useState([])
 
   const saveData = (name, value, name2, value2, value3) => {
-    const newInput = { ...invoiceData };
-    newInput.branch = value3;
-    newInput.branchAddress = value;
-    newInput.IFSCcode = value2;
-  
-    setInvoiceData({ ...newInput });
-  };
+    const newInput = { ...invoiceData }
+    newInput.branch = value3
+    newInput.branchAddress = value
+    newInput.IFSCcode = value2
+
+    setInvoiceData({ ...newInput })
+  }
   const savedataRevised = (name, value, name2, value2, value3) => {
-    const newInput = { ...invoiceDataRevised };
-    newInput.branch = value3;
-    newInput.branchAddress = value;
-    newInput.IFSCcode = value2;
-    
-    setInvoiceDataRevised({ ...newInput });
-  };
+    const newInput = { ...invoiceDataRevised }
+    newInput.branch = value3
+    newInput.branchAddress = value
+    newInput.IFSCcode = value2
+
+    setInvoiceDataRevised({ ...newInput })
+  }
   const saveInvoiceData = (name, value) => {
-   
-    const newInput = { ...invoiceData };
 
-    newInput[name] = value;
+    const newInput = { ...invoiceData }
 
-   
+    newInput[name] = value
 
     if (invoiceData?.isConsigneeSameAsBuyer == true) {
       if (name == 'buyerName') {
-        let a = 'consigneeName';
-        newInput[a] = value;
+        let a = 'consigneeName'
+        newInput[a] = value
       }
       if (name == 'buyerGSTIN') {
-        let a = 'consigneeGSTIN';
-        newInput[a] = value;
+        let a = 'consigneeGSTIN'
+        newInput[a] = value
       }
       if (name == 'buyerAddress') {
-        let a = 'consigneeAddress';
-        newInput[a] = value;
+        let a = 'consigneeAddress'
+        newInput[a] = value
       }
     }
 
-    setInvoiceData({ ...newInput });
-  };
+    setInvoiceData({ ...newInput })
+  }
 
-  
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
     state: 'DELHI',
     address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
     GSTIN: '07AAACS8253L1Z0',
-  };
+  }
 
   let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
@@ -350,72 +328,72 @@ function Index() {
     address:
       'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
     GSTIN: '24AAACI3028D1Z8',
-  };
+  }
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
     state: '',
     address: '',
-  });
+  })
 
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       // setChangeImporterData({ ...emergent });
-      const newInput = { ...invoiceData };
-      newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
+      const newInput = { ...invoiceData }
+      newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       // newInput['branchOffice'] = emergent.branch;
       // newInput['importerGSTIN'] = emergent.GSTIN;
       // newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceData({ ...newInput });
+      setInvoiceData({ ...newInput })
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
       // setChangeImporterData({ ...indoGerman });
-      const newInput = { ...invoiceData };
-      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
+      const newInput = { ...invoiceData }
+      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       // newInput['branchOffice'] = indoGerman.branch;
       // newInput['importerGSTIN'] = indoGerman.GSTIN;
       // newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceData({ ...newInput });
+      setInvoiceData({ ...newInput })
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
 
       if (val.Company_Name == value) {
-        return val;
+        return val
       }
-    });
-   
-    setBranchOptions(filter);
-  };
+    })
+
+    setBranchOptions(filter)
+  }
 
   const changeImporter = (e) => {
-   
+
     if (e.target.name == 'branchOffice') {
-      changeImporterData.branch = e.target.value;
-      const newInput = { ...invoiceData };
-      newInput['branchOffice'] = e.target.value;
-      setChangeImporterData({ ...changeImporterData });
-      setInvoiceData({ ...newInput });
+      changeImporterData.branch = e.target.value
+      const newInput = { ...invoiceData }
+      newInput['branchOffice'] = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'companyAddress') {
-      const newInput = { ...invoiceData };
-      changeImporterData.address = e.target.value;
-      newInput['companyAddress'] = e.target.value;
-      setChangeImporterData({ ...changeImporterData });
-      setInvoiceData({ ...newInput });
+      const newInput = { ...invoiceData }
+      changeImporterData.address = e.target.value
+      newInput['companyAddress'] = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
     if (e.target.name == 'importerGSTIN') {
-      const newInput = { ...invoiceData };
-      changeImporterData.GSTIN = e.target.value;
-      newInput['importerGSTIN'] = e.target.value;
-      setChangeImporterData({ ...changeImporterData });
-      setInvoiceData({ ...newInput });
+      const newInput = { ...invoiceData }
+      changeImporterData.GSTIN = e.target.value
+      newInput['importerGSTIN'] = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+      setInvoiceData({ ...newInput })
     }
-  };
+  }
 
   const setSame = (val) => {
     if (val == true) {
@@ -424,60 +402,60 @@ function Index() {
         consigneeName: invoiceData.buyerName,
         consigneeGSTIN: invoiceData.buyerGSTIN,
         consigneeAddress: invoiceData.buyerAddress,
-      });
+      })
     } else {
       setInvoiceData({
         ...invoiceData,
         consigneeName: '',
         consigneeGSTIN: '',
         consigneeAddress: '',
-      });
+      })
     }
-  };
+  }
   const validate = () => {
     if (
       invoiceData.buyerName === null ||
       invoiceData.buyerName === undefined ||
       invoiceData.buyerName === ''
     ) {
-      let toastMessage = 'Please add buyer name';
+      let toastMessage = 'Please add buyer name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.buyerGSTIN === null ||
       invoiceData.buyerGSTIN === undefined ||
       invoiceData.buyerGSTIN === ''
     ) {
-      let toastMessage = 'Please add buyer gstin';
+      let toastMessage = 'Please add buyer gstin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.buyerAddress === null ||
       invoiceData.buyerAddress === undefined ||
       invoiceData.buyerAddress === ''
     ) {
-      let toastMessage = 'Please add buyer address';
+      let toastMessage = 'Please add buyer address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.consigneeName === null ||
       invoiceData.consigneeName === undefined ||
       invoiceData.consigneeName === ''
     ) {
-      let toastMessage = 'Please add consignee Name';
+      let toastMessage = 'Please add consignee Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.consigneeGSTIN === null ||
@@ -485,135 +463,135 @@ function Index() {
       invoiceData.consigneeGSTIN === '' ||
       !gSTINValidation(invoiceData.consigneeGSTIN)
     ) {
-      let toastMessage = 'Please add A VALID consignee gstin';
+      let toastMessage = 'Please add A VALID consignee gstin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.consigneeAddress === null ||
       invoiceData.consigneeAddress === undefined ||
       invoiceData.consigneeAddress === ''
     ) {
-      let toastMessage = 'Please add consignee address';
+      let toastMessage = 'Please add consignee address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.importerName === null ||
       invoiceData.importerName === undefined ||
       invoiceData.importerName === ''
     ) {
-      let toastMessage = 'Please add importer name';
+      let toastMessage = 'Please add importer name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.branchOffice === null ||
       invoiceData.branchOffice === undefined ||
       invoiceData.branchOffice === ''
     ) {
-      let toastMessage = 'Please add branch Office';
+      let toastMessage = 'Please add branch Office'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.companyAddress === null ||
       invoiceData.companyAddress === undefined ||
       invoiceData.companyAddress === ''
     ) {
-      let toastMessage = 'Please add company Address';
+      let toastMessage = 'Please add company Address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.importerGSTIN === null ||
       invoiceData.importerGSTIN === undefined ||
       invoiceData.importerGSTIN === ''
     ) {
-      let toastMessage = 'Please add importer GSTIN';
+      let toastMessage = 'Please add importer GSTIN'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.bankName === null ||
       invoiceData.bankName === undefined ||
       invoiceData.bankName === ''
     ) {
-      let toastMessage = 'Please add bank Name';
+      let toastMessage = 'Please add bank Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.branch === null ||
       invoiceData.branch === undefined ||
       invoiceData.branch === ''
     ) {
-      let toastMessage = 'Please add branch';
+      let toastMessage = 'Please add branch'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.branch === null ||
       invoiceData.branch === undefined ||
       invoiceData.branch === ''
     ) {
-      let toastMessage = 'Please add branch';
+      let toastMessage = 'Please add branch'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.branchAddress === null ||
       invoiceData.branchAddress === undefined ||
       invoiceData.branchAddress === ''
     ) {
-      let toastMessage = 'Please add branch Address';
+      let toastMessage = 'Please add branch Address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.IFSCcode === null ||
       invoiceData.IFSCcode === undefined ||
       invoiceData.IFSCcode === ''
     ) {
-      let toastMessage = 'Please add  IFSC code';
+      let toastMessage = 'Please add  IFSC code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (
       invoiceData.accountNo === null ||
       invoiceData.accountNo === undefined ||
       invoiceData.accountNo === ''
     ) {
-      let toastMessage = 'Please add  account No';
+      let toastMessage = 'Please add  account No'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
   const handleUpdate = async () => {
     if (validate()) {
       let obj = {
@@ -643,42 +621,41 @@ function Index() {
           perUnitPrice: forCalculation.perUnitPrice,
           orderValue: finalCal.orderValue,
         },
-      };
+      }
 
-      dispatch(UpdateMarginMoney(obj));
+      dispatch(UpdateMarginMoney(obj))
     }
-  };
+  }
 
   // RevisedMargin Money New Calculation
 
   const [forCalculationRevised, setforCalculationRevised] = useState({
 
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
-      status: marginData?.status,
-      quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : marginData?.order?.quantity,
-      additionalPDC: marginData?.additionalPDC,
-      conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate ,
-      perUnitPrice: marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice : marginData?.order?.perUnitPrice,
-      usanceInterestPercentage:
-        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
-      numberOfPDC: marginData?.numberOfPDC,
-      tradeMarginPercentage:
-        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
-      tolerance: marginData?.order?.tolerance,
-      marginMoney:
-        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-      
-  });
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    status: marginData?.status,
+    quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : marginData?.order?.quantity,
+    additionalPDC: marginData?.additionalPDC,
+    conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate,
+    perUnitPrice: marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice : marginData?.order?.perUnitPrice,
+    usanceInterestPercentage:
+    marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+    numberOfPDC: marginData?.numberOfPDC,
+    tradeMarginPercentage:
+    marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+    tolerance: marginData?.order?.tolerance,
+    marginMoney:
+    marginData?.order?.termsheet?.transactionDetails?.marginMoney,
 
+  })
 
   const saveforCalculationRevised = (name, value) => {
-    const newInput = { ...forCalculationRevised };
-    newInput[name] = value;
+    const newInput = { ...forCalculationRevised }
+    newInput[name] = value
 
-    setforCalculationRevised(newInput);
-    getDataRevised();
-    getRevisedData2();
-  };
+    setforCalculationRevised(newInput)
+    getDataRevised()
+    getRevisedData2()
+  }
 
   const [finalCalRevised, setfinalCalRevised] = useState({
     orderValue: '',
@@ -693,70 +670,68 @@ function Index() {
     marginMoney: '',
     totalSPDC: '',
     amountPerSPDC: '',
-  });
+  })
 
-  
   const getDataRevised2 = () => {
     setforCalculationRevised({
       isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
       status: marginData?.status,
       quantity: marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.quantity : marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
-      conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate ,
+      conversionRate: marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.conversionRate : marginData?.conversionRate,
       perUnitPrice: marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice ? marginData?.revisedMarginMoney?.revisedCommodityDetails?.perUnitPrice : marginData?.order?.perUnitPrice,
       usanceInterestPercentage:
-        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
       numberOfPDC: marginData?.numberOfPDC,
       tradeMarginPercentage:
-        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
       tolerance: marginData?.order?.tolerance,
       marginMoney:
-        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
-    });
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+    })
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-        Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+      Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculationRevised.conversionRate),
-    ).toFixed(2); //K
+    ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
-    ).toFixed(2); //L
+      365,
+    ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2); //N
+    ).toFixed(2) //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
-    ).toFixed(2); //O
+    ).toFixed(2) //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2); //P
+    ).toFixed(2) //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2); //R
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2); //S
+    ).toFixed(2) //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
-    ).toFixed(2); //T
+    ).toFixed(2) //T
 
-  
     setfinalCalRevised({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -770,54 +745,53 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    });
-  };
+    })
+  }
 
   const getDataRevised = () => {
     let orderValue = parseFloat(
       Number(forCalculationRevised.quantity) *
-        Number(forCalculationRevised.perUnitPrice),
-    ).toFixed(2); //J
-    let orderValueCurrency = 'USD';
+      Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
       Number(orderValue) * Number(forCalculationRevised.conversionRate),
-    ).toFixed(2); //K
+    ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
         (forCalculationRevised.isUsanceInterestIncluded
           ? Number(forCalculationRevised.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
-    ).toFixed(2); //L
+      365,
+    ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
-    ).toFixed(2); //M
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
-    ).toFixed(2); //N
+    ).toFixed(2) //N
     let toleranceValue = parseFloat(
       Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
-    ).toFixed(2); //O
+    ).toFixed(2) //O
     let totalOrderValue = parseFloat(
       Number(grossOrderValue) + Number(toleranceValue),
-    ).toFixed(2); //P
+    ).toFixed(2) //P
     let provisionalUnitPricePerTon = parseFloat(
       Number(grossOrderValue) / Number(forCalculationRevised.quantity),
-    ).toFixed(2); //Q
+    ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculationRevised.marginMoney) / 100),
-    ).toFixed(2); //R
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
-    ).toFixed(2); //S
+    ).toFixed(2) //S
     let amountPerSPDC = parseFloat(
       Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
-    ).toFixed(2); //T
+    ).toFixed(2) //T
 
-  
     setfinalCalRevised({
       orderValue: orderValue,
       orderValueCurrency: orderValueCurrency,
@@ -831,21 +805,21 @@ function Index() {
       marginMoney: marginMoney,
       totalSPDC: totalSPDC,
       amountPerSPDC: amountPerSPDC,
-    });
-  };
+    })
+  }
 
   const [revisedCalc, setRevisedCalc] = useState({
     additionalAmountPerPDC:
-      marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
     revisedNetOrderValue:
-      marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
     marginMoney: marginData?.calculation?.marginMoney,
     revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
     marginMoneyReceived:
-      marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
     marginMoneyPayable:
-      marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
-  });
+    marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+  })
 
   const [calcRevised, setCalcRevised] = useState({
     additionalAmountPerPDC: '',
@@ -854,115 +828,115 @@ function Index() {
     revisedMarginMoney: '',
     marginMoneyReceived: '',
     marginMoneyPayable: '',
-  });
+  })
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
-    buyerName:  '',
+    buyerName: '',
     buyerGSTIN: '',
     buyerAddress:
-       '',
+      '',
     isConsigneeSameAsBuyer:
-     "",
+      '',
     consigneeName:
       '',
     consigneeGSTIN:
-       '',
+      '',
     consigneeAddress:
-     '',
+      '',
     importerName:
-     
+
       '',
     branchOffice:
-     '',
+      '',
     companyAddress:
-       '',
+      '',
     importerGSTIN:
-       '',
-    bankName:  '',
+      '',
+    bankName: '',
     branch:
-      
+
       '',
     branchAddress:
       '',
     IFSCcode: '',
-    accountNo:  '',
-  });
-  
+    accountNo: '',
+  })
+
   useEffect(() => {
-    if(marginData) {
+    if (marginData) {
       setInvoiceDataRevised({
-           buyerName: marginData?.company?.companyName || '',
-    buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress:
-      marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer:
-      marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
-    consigneeName:
-      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN:
-      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress:
-      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
-    importerName:
-      marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
-      marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-        ?.toUpperCase()
-        ?.replace(/ *\([^)]*\) */g, '') ||
-      '',
-    branchOffice:
-      marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
-    companyAddress:
-      marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
-    importerGSTIN:
-      marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
-    bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
-    branch:
-      marginData?.revisedMarginMoney?.invoiceDetail?.branch ||
-      'Connaught Place, DELHI',
-    branchAddress:
-      marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
-    IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
-    accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
+        buyerName: marginData?.company?.companyName || '',
+        buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+        buyerAddress:
+          marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+        isConsigneeSameAsBuyer:
+        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+        consigneeName:
+          marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+        consigneeGSTIN:
+          marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+        consigneeAddress:
+          marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+        importerName:
+          marginData?.revisedMarginMoney?.invoiceDetail?.importerName ||
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '') ||
+          '',
+        branchOffice:
+          marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+        companyAddress:
+          marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+        importerGSTIN:
+          marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+        bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
+        branch:
+          marginData?.revisedMarginMoney?.invoiceDetail?.branch ||
+          'Connaught Place, DELHI',
+        branchAddress:
+          marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+        IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
+        accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
       })
     }
-  },[marginData])
+  }, [marginData])
 
   const getRevisedData = () => {
     setRevisedCalc({
       additionalAmountPerPDC:
-        marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+      marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
       revisedNetOrderValue:
-        marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+      marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
       marginMoney: marginData?.calculation?.marginMoney,
       revisedMarginMoney:
-        marginData?.revisedMarginMoney?.calculation?.marginMoney,
+      marginData?.revisedMarginMoney?.calculation?.marginMoney,
       marginMoneyReceived:
-        marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+      marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
       marginMoneyPayable:
-        marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
-    });
+      marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+    })
 
     // T calculation
-    let additionalAmountPerPDC = 
-    isNaN(
-      Number(
-      (Number(finalCalRevised?.totalSPDC) -
-        Number(marginData?.calculation?.totalSPDC)) /
+    let additionalAmountPerPDC =
+      isNaN(
+        Number(
+          (Number(finalCalRevised?.totalSPDC) -
+            Number(marginData?.calculation?.totalSPDC)) /
+          Number(forCalculationRevised.additionalPDC),
+        ).toFixed(2)
+      ) ? 0 : Number(
+        (Number(finalCalRevised?.totalSPDC) -
+          Number(marginData?.calculation?.totalSPDC)) /
         Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2)
-    )?0:Number(
-      (Number(finalCalRevised?.totalSPDC) -
-        Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2);
+      ).toFixed(2)
     // u calculation
     let revisedNetOrderValueNew = Number(
-     Number(finalCalRevised?.totalOrderValue) -
-        Number(marginData?.calculation?.totalOrderValue),
-    ).toFixed(2);
-  
-    let marginMoneyRevised = marginData?.calculation?.marginMoney;
-    let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney);
+      Number(finalCalRevised?.totalOrderValue) -
+      Number(marginData?.calculation?.totalOrderValue),
+    ).toFixed(2)
+
+    let marginMoneyRevised = marginData?.calculation?.marginMoney
+    let revisedMarginMoneyNew = Number(finalCalRevised?.marginMoney)
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -971,28 +945,27 @@ function Index() {
       revisedMarginMoney: revisedMarginMoneyNew,
       marginMoneyReceived: '',
       marginMoneyPayable: '',
-    });
-  };
+    })
+  }
 
   const getRevisedData2 = () => {
     let additionalAmountPerPDC = Number(
       (Number(finalCalRevised?.totalSPDC) -
         Number(marginData?.calculation?.totalSPDC)) /
-        Number(forCalculationRevised.additionalPDC),
-    ).toFixed(2);
+      Number(forCalculationRevised.additionalPDC),
+    ).toFixed(2)
 
-   
     let revisedNetOrderValueNew = Number(
       Number(
         finalCalRevised?.totalOrderValue
       ) - Number(marginData?.calculation?.totalOrderValue),
-    ).toFixed(2);
+    ).toFixed(2)
     let marginMoneyRevised = Number(
       marginData?.calculation?.marginMoney,
-    ).toFixed(2);
+    ).toFixed(2)
     let revisedMarginMoneyNew = Number(
       finalCalRevised?.marginMoney
-    );
+    )
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -1001,16 +974,15 @@ function Index() {
       revisedMarginMoney: revisedMarginMoneyNew,
       marginMoneyReceived: '',
       marginMoneyPayable: '',
-    });
-  };
+    })
+  }
 
   const saveInvoiceDataRevisedRevised = (name, value) => {
-    const newInput = { ...invoiceDataRevised };
-    newInput[name] = value;
+    const newInput = { ...invoiceDataRevised }
+    newInput[name] = value
 
-
-    setInvoiceDataRevised({ ...newInput });
-  };
+    setInvoiceDataRevised({ ...newInput })
+  }
 
   const setSameRevised = (val) => {
     if (val == true) {
@@ -1019,16 +991,16 @@ function Index() {
         consigneeName: invoiceDataRevised.buyerName,
         consigneeGSTIN: invoiceDataRevised.buyerGSTIN,
         consigneeAddress: invoiceDataRevised.buyerAddress,
-      });
+      })
     } else {
       setInvoiceDataRevised({
         ...invoiceDataRevised,
         consigneeName: '',
         consigneeGSTIN: '',
         consigneeAddress: '',
-      });
+      })
     }
-  };
+  }
 
   const handleUpdateRevisedMarginMoney = () => {
     let obj = {
@@ -1059,7 +1031,7 @@ function Index() {
           orderValue: finalCalRevised.orderValue,
         }
       },
-      
+
       // conversionRate: forCalculationRevised.conversionRate,
       isUsanceInterestIncluded:
         forCalculationRevised.isUsanceInterestIncluded || true,
@@ -1068,31 +1040,31 @@ function Index() {
       //   perUnitPrice: forCalculationRevised.perUnitPrice,
       //   orderValue: finalCalRevised.orderValue,
       // },
-    };
+    }
 
-    dispatch(RevisedMarginMoney(obj));
-  };
+    dispatch(RevisedMarginMoney(obj))
+  }
 
   const saveOrderData = (name, value) => {
-    const newInput = { ...unit };
-    newInput[name] = value;
+    const newInput = { ...unit }
+    newInput[name] = value
 
-    setUnit(newInput);
-  };
+    setUnit(newInput)
+  }
 
   const coversionUnitHandler = (val) => {
-    let unit = 10000000;
+    let unit = 10000000
     if (val === 'Lakh') {
-      unit = 100000;
+      unit = 100000
     }
     if (val === 'Million') {
-      unit = 1000000;
+      unit = 1000000
     }
     if (val === 'Crores') {
-      unit = 10000000;
+      unit = 10000000
     }
-    setCoversionUnit(unit);
-  };
+    setCoversionUnit(unit)
+  }
 
   const exportPDF = () => {
     //  let margins = [
@@ -1142,7 +1114,7 @@ function Index() {
                       {marginData?.order?.orderId}
                     </span>
                   </span>
-                  <br />
+                  <br/>
                   <span
                     style={{
                       fontSize: '20px',
@@ -1192,7 +1164,7 @@ function Index() {
                     {' '}
                     <span></span>
                   </span>
-                  <br />
+                  <br/>
                   <span
                     style={{
                       fontSize: '20px',
@@ -1560,12 +1532,12 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                )
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                               : 0,
                             '%',
                             '',
@@ -1617,7 +1589,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -2586,17 +2558,17 @@ function Index() {
           </td>
         </tr>
       </table>
-    );
+    )
     // const doc = new jsPDF('p', 'pt', [1000, 1000])
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('sample.pdf')
       },
       // margin:margins,
       autoPaging: 'text',
-    });
-  };
+    })
+  }
 
   const exportPDFReviced = () => {
     //  let margins = [
@@ -2644,7 +2616,7 @@ function Index() {
                       }}
                     ></span>
                   </span>
-                  <br />
+                  <br/>
                   <span
                     style={{
                       fontSize: '20px',
@@ -3202,12 +3174,12 @@ function Index() {
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
                               ? marginData?.order?.tolerance?.toLocaleString(
-                                  'en-In',
-                                  {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  },
-                                )
+                                'en-In',
+                                {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                },
+                              )
                               : 0,
                             '%',
                             '',
@@ -3285,7 +3257,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -3308,7 +3280,7 @@ function Index() {
                             marginData?.order?.termsheet?.transactionDetails
                               ?.marginMoney
                               ? marginData?.order?.termsheet?.transactionDetails
-                                  ?.marginMoney
+                                ?.marginMoney
                               : 0,
                             '%',
                             '',
@@ -4672,19 +4644,19 @@ function Index() {
           </td>
         </tr>
       </table>
-    );
+    )
     // const doc = new jsPDF('p', 'pt', 'a4')
-    const doc = new jsPDF('p', 'pt', [1500, 1500]);
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
-        doc.save('sample.pdf');
+        doc.save('sample.pdf')
       },
       // margin:margins,
       autoPaging: 'text',
-    });
-  };
+    })
+  }
 
-  const [active, setActive] = useState('Margin Money');
+  const [active, setActive] = useState('Margin Money')
 
   useEffect(() => {
     if (marginData) {
@@ -4711,31 +4683,31 @@ function Index() {
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
         accountNo: marginData?.invoiceDetail?.accountNo || '123456',
-      });
+      })
     }
     if (getInternalCompaniesMasterData) {
       let filter = getInternalCompaniesMasterData.filter((val, index) => {
-        
+
         if (
           val.Company_Name?.toLowerCase() ==
-            marginData?.invoiceDetail?.importerName?.toLowerCase() ||
+          marginData?.invoiceDetail?.importerName?.toLowerCase() ||
           val.Company_Name?.toLowerCase() ==
-            marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
-              ?.toUpperCase()
-              ?.replace(/ *\([^)]*\) */g, '')
-              .toLowerCase()
+          marginData?.order?.termsheet?.otherTermsAndConditions?.buyer?.bank
+            ?.toUpperCase()
+            ?.replace(/ *\([^)]*\) */g, '')
+            .toLowerCase()
         ) {
-          return val;
+          return val
         }
-      });
-      
-      setBranchOptions(filter);
+      })
+
+      setBranchOptions(filter)
     }
-    
-  }, [marginData, getInternalCompaniesMasterData]);
+
+  }, [marginData, getInternalCompaniesMasterData])
 
   useEffect(() => {
-    getRevisedData();
+    getRevisedData()
 
     setInvoiceDataRevised({
       buyerName: marginData?.company?.companyName || '',
@@ -4744,7 +4716,7 @@ function Index() {
       buyerAddress:
         marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
       isConsigneeSameAsBuyer:
-        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+      marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
       consigneeName:
         marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
       consigneeGSTIN:
@@ -4769,22 +4741,22 @@ function Index() {
         marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
       IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
       accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
-    });
-  }, [marginData]);
+    })
+  }, [marginData])
 
   useEffect(() => {
-    getRevisedData2();
-  }, [revisedCalc]);
+    getRevisedData2()
+  }, [revisedCalc])
   // ? revisedCalc.additionalAmountPerPDC
   //           : 0,
 
   useEffect(() => {
-    getDataRevised2();
-  }, [marginData]);
+    getDataRevised2()
+  }, [marginData])
 
   useEffect(() => {
-    getDataRevised();
-  }, [forCalculationRevised]);
+    getDataRevised()
+  }, [forCalculationRevised])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -4929,7 +4901,7 @@ function Index() {
                               name="unitOfQuantity"
                               onChange={(e) => {
                                 saveOrderData(e.target.name, e.target.value),
-                                  coversionUnitHandler(e.target.value);
+                                  coversionUnitHandler(e.target.value)
                               }}
                             >
                               <option disabled>Select</option>
@@ -5057,23 +5029,23 @@ function Index() {
                                     ...isFieldInFocus,
                                     conversion: true,
                                   }),
-                                    (e.target.type = 'number');
+                                    (e.target.type = 'number')
                                 }}
                                 onBlur={(e) => {
                                   setIsFieldInFocus({
                                     ...isFieldInFocus,
                                     conversion: false,
                                   }),
-                                    (e.target.type = 'text');
+                                    (e.target.type = 'text')
                                 }}
                                 value={
                                   isFieldInFocus.conversion
                                     ? forCalculation?.conversionRate
                                     : checkNan(
-                                        Number(forCalculation?.conversionRate),
-                                      )?.toLocaleString('en-In', {
-                                        maximumFractionDigits: 2,
-                                      })
+                                      Number(forCalculation?.conversionRate),
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    })
                                 }
                                 // value={forCalculation?.conversionRate}
                                 className={`${styles.input_field} input form-control`}
@@ -5276,21 +5248,21 @@ function Index() {
                                     ...isFieldInFocus,
                                     noOfPdcs: true,
                                   }),
-                                    (e.target.type = 'number');
+                                    (e.target.type = 'number')
                                 }}
                                 onBlur={(e) => {
                                   setIsFieldInFocus({
                                     ...isFieldInFocus,
                                     noOfPdcs: false,
                                   }),
-                                    (e.target.type = 'text');
+                                    (e.target.type = 'text')
                                 }}
                                 value={
                                   isFieldInFocus.noOfPdcs
                                     ? forCalculation?.numberOfPDC
                                     : checkNan(
-                                        Number(forCalculation?.numberOfPDC),
-                                      )?.toLocaleString('en-In')
+                                      Number(forCalculation?.numberOfPDC),
+                                    )?.toLocaleString('en-In')
                                 }
                                 onChange={(e) =>
                                   saveForCalculation(
@@ -5889,12 +5861,12 @@ function Index() {
                                         setInvoiceData({
                                           ...invoiceData,
                                           isConsigneeSameAsBuyer: true,
-                                        });
+                                        })
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   true,
                                         // )
-                                        setSame(true);
+                                        setSame(true)
                                       }}
                                       name="group1"
                                       type={type}
@@ -5912,8 +5884,8 @@ function Index() {
                                         setInvoiceData({
                                           ...invoiceData,
                                           isConsigneeSameAsBuyer: false,
-                                        });
-                                        setSame(false);
+                                        })
+                                        setSame(false)
                                       }}
                                       name="group1"
                                       type={type}
@@ -6065,60 +6037,57 @@ function Index() {
                                           if (
                                             val.Branch == e.target.value &&
                                             val.Company_Name?.toLowerCase() ==
-                                              invoiceData?.importerName?.toLowerCase()
+                                            invoiceData?.importerName?.toLowerCase()
                                           ) {
-                                            return val;
+                                            return val
                                           }
                                         },
-                                      );
-                                    
-                                     
-                                    if (filter.length > 0) {
-                                      const newInput = { ...invoiceData };
-                                      changeImporterData.address =
-                                        filter[0].Address;
-                                      newInput['companyAddress'] =
-                                        filter[0].Address;
-                                     
-                                        changeImporterData.GSTIN =
-                                        filter[0].GSTIN;
-                                      newInput['importerGSTIN'] =
-                                        filter[0].GSTIN;
-                                     
-                                      newInput['branchAddress'] =
-                                        filter[0]?.Branch_Address || "";
-                                      changeImporterData.branchAddress =
-                                        filter[0]?.Branch_Address || "";
-                                       
-                                        newInput['IFSCcode'] =
-                                        filter[0]?.IFSC || "";
-                                      changeImporterData.IFSCcode =
-                                        filter[0]?.IFSC || "";
-                                      
-                                        newInput['accountNo'] =
-                                        filter[0]?.Account_No || "";
-                                      changeImporterData.accountNo =
-                                        filter[0]?.Account_No || "";
+                                      )
 
-                                    
-                                     
+                                    if (filter.length > 0) {
+                                      const newInput = { ...invoiceData }
+                                      changeImporterData.address =
+                                        filter[0].Address
+                                      newInput['companyAddress'] =
+                                        filter[0].Address
+
+                                      changeImporterData.GSTIN =
+                                        filter[0].GSTIN
+                                      newInput['importerGSTIN'] =
+                                        filter[0].GSTIN
+
+                                      newInput['branchAddress'] =
+                                        filter[0]?.Branch_Address || ''
+                                      changeImporterData.branchAddress =
+                                        filter[0]?.Branch_Address || ''
+
+                                      newInput['IFSCcode'] =
+                                        filter[0]?.IFSC || ''
+                                      changeImporterData.IFSCcode =
+                                        filter[0]?.IFSC || ''
+
+                                      newInput['accountNo'] =
+                                        filter[0]?.Account_No || ''
+                                      changeImporterData.accountNo =
+                                        filter[0]?.Account_No || ''
+
                                       newInput['branch'] =
-                                        filter[0]?.Branch_Type || "";
+                                        filter[0]?.Branch_Type || ''
                                       changeImporterData.branch =
-                                        filter[0]?.Branch_Type || "";
-                                      
-                                       newInput['bankName'] =
-                                        filter[0]?.Bank_Name || "";
+                                        filter[0]?.Branch_Type || ''
+
+                                      newInput['bankName'] =
+                                        filter[0]?.Bank_Name || ''
                                       changeImporterData.bankName =
-                                        filter[0]?.Bank_Name || "";
-                                     
-                                       newInput['branchOffice'] = e.target.value;
-                                       changeImporterData.branch =
-                                         e.target.value
-                                        setChangeImporterData({
+                                        filter[0]?.Bank_Name || ''
+
+                                      newInput['branchOffice'] = e.target.value
+                                      changeImporterData.branch =
+                                        e.target.value
+                                      setChangeImporterData({
                                         ...changeImporterData,
-                                      });
-                                      setInvoiceData({ ...newInput });
+                                      })
+                                      setInvoiceData({ ...newInput })
                                     }
                                   }}
                                 >
@@ -6128,7 +6097,7 @@ function Index() {
                                       <option value={val.Branch}>
                                         {val.Branch}
                                       </option>
-                                    );
+                                    )
                                   })}
                                   {/* <option value="SURAT">{'SURAT'}</option>
                                   <option value="DELHI">DELHI</option> */}
@@ -6201,7 +6170,7 @@ function Index() {
                             >
                               <div className="d-flex">
                                 <input
-                                 type="text"
+                                  type="text"
                                   id="Code"
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -6211,7 +6180,7 @@ function Index() {
                                     saveInvoiceData(
                                       e.target.name,
                                       e.target.value,
-                                    );
+                                    )
                                     // let filter = getBanksMasterData.filter(
                                     //   (val, index) => {
                                     //     if (val.name == e.target.value) {
@@ -6219,7 +6188,7 @@ function Index() {
                                     //     }
                                     //   },
                                     // );
-                                    
+
                                     // dispatch(getBranches(filter[0].code));
                                   }}
                                 >
@@ -6254,17 +6223,17 @@ function Index() {
                             >
                               <div className="d-flex">
                                 <input
-                                type="text"
+                                  type="text"
                                   id="Code"
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   value={invoiceData?.branch}
                                   onChange={(e) => {
-                                  saveInvoiceData(
+                                    saveInvoiceData(
                                       e.target.name,
                                       e.target.value,
-                                    );
+                                    )
                                     // let filter = getBranchesMasterData.filter(
                                     //   (val, index) => {
                                     //     if (val.BRANCH == e.target.value) {
@@ -6468,6 +6437,7 @@ function Index() {
         handleApprove={routeChange}
       /> */}
     </>
-  );
+  )
 }
-export default Index;
+
+export default Index

@@ -1,95 +1,86 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import styles from './index.module.scss';
-import Router from 'next/router';
-import _get from 'lodash/get';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetOrders } from '../../../src/redux/registerBuyer/action';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
-import { GetTermsheet } from '../../../src/redux/buyerProfile/action';
-import moment from 'moment';
-import Loader from '../../../src/components/Loader/index';
+import React, { useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import styles from './index.module.scss'
+import Router from 'next/router'
+import _get from 'lodash/get'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../../src/redux/userData/action'
+import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
+import moment from 'moment'
+import Loader from '../../../src/components/Loader/index'
 
-function Index() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const dispatch = useDispatch();
+function Index () {
+  const [currentPage, setCurrentPage] = useState(0)
+  const dispatch = useDispatch()
 
-  const { singleOrder } = useSelector((state) => state.buyer);
-  const { termsheet, gettingTermsheet } = useSelector((state) => state.order);
-
-
+  const { singleOrder } = useSelector((state) => state.buyer)
+  const { termsheet, gettingTermsheet } = useSelector((state) => state.order)
 
   useEffect(() => {
-    let Id = sessionStorage.getItem('termsheetId');
-    dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`));
-  }, [dispatch]);
+    let Id = sessionStorage.getItem('termsheetId')
+    dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`))
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(
       setPageName(
         _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
       ),
-    );
-  }, [singleOrder, termsheet]);
+    )
+  }, [singleOrder, termsheet])
 
   useEffect(() => {
-    dispatch(setDynamicOrder(null));
-  }, []);
+    dispatch(setDynamicOrder(null))
+  }, [])
   useEffect(() => {
-    dispatch(setPageName('termsheet'));
+    dispatch(setPageName('termsheet'))
     dispatch(
       setDynamicName(
         _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
       ),
-    );
-  }, [dispatch, singleOrder, termsheet]);
+    )
+  }, [dispatch, singleOrder, termsheet])
 
   const handleRoute = async (term, index) => {
 
-  
-  
-    await dispatch(GetTermsheet(`?termsheetId=${term._id}`));
-    sessionStorage.setItem('termID', term._id);
+    await dispatch(GetTermsheet(`?termsheetId=${term._id}`))
+    sessionStorage.setItem('termID', term._id)
 
-    sessionStorage.setItem('termOrdID', term?.order._id);
+    sessionStorage.setItem('termOrdID', term?.order._id)
 
     Router.push({
       pathname: '/termsheet/[id]',
       query: { id: 'id' },
-    });
-  };
+    })
+  }
 
-  const [sorting, setSorting] = useState(1);
+  const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
-    let Id = sessionStorage.getItem('termsheetId');
+    let Id = sessionStorage.getItem('termsheetId')
     if (sorting == -1) {
       dispatch(
         GetTermsheet(
           `?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(1);
+      )
+      setSorting(1)
     } else if (sorting == 1) {
       dispatch(
         GetTermsheet(
           `?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`,
         ),
-      );
-      setSorting(-1);
+      )
+      setSorting(-1)
     }
-  };
+  }
 
   return (
     <>
       {gettingTermsheet ? (
-        <Loader />
+        <Loader/>
       ) : (
         <div className={`${styles.container} container-fluid p-0 border-0`}>
           <div className={styles.leads_inner}>
@@ -218,9 +209,9 @@ function Index() {
                   <a
                     onClick={() => {
                       if (currentPage === 0) {
-                        return;
+                        return
                       } else {
-                        setCurrentPage((prevState) => prevState - 1);
+                        setCurrentPage((prevState) => prevState - 1)
                       }
                     }}
                     href="#"
@@ -239,7 +230,7 @@ function Index() {
                         currentPage + 1 <
                         Math.ceil(termsheet?.totalCount / 10)
                       ) {
-                        setCurrentPage((prevState) => prevState + 1);
+                        setCurrentPage((prevState) => prevState + 1)
                       }
                     }}
                     href="#"
@@ -262,104 +253,104 @@ function Index() {
                     border="0"
                   >
                     <thead>
-                      <tr className="table_row">
-                        <th>
-                          ORDER ID{' '}
-                          <img
-                            className={`mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            onClick={() => handleSort()}
-                          />
-                        </th>
-                        <th>COMMODITY</th>
-                        <th>CREATED BY</th>
-                        <th>ORDER CREATED DATE</th>
-                        <th>STATUS</th>
-                        <th>PREVIEW</th>
-                      </tr>
+                    <tr className="table_row">
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                          onClick={() => handleSort()}
+                        />
+                      </th>
+                      <th>COMMODITY</th>
+                      <th>CREATED BY</th>
+                      <th>ORDER CREATED DATE</th>
+                      <th>STATUS</th>
+                      <th>PREVIEW</th>
+                    </tr>
                     </thead>
                     {termsheet &&
                       termsheet?.data?.map((term, index) => (
                         <tbody Key={index}>
-                          <tr className="table_row">
-                            <td
-                              className={`${styles.first}`}
-                              onClick={() => handleRoute(term, index)}
-                            >
-                              {term?.order?.orderId
-                                ? term?.order?.orderId
-                                : term?.order?.applicationId}
-                            </td>
-                            <td
-                              className={`${styles.buyerName}`}
-                              onClick={() => handleRoute(term, index)}
-                            >
-                              {term?.order?.commodity}
-                            </td>
+                        <tr className="table_row">
+                          <td
+                            className={`${styles.first}`}
+                            onClick={() => handleRoute(term, index)}
+                          >
+                            {term?.order?.orderId
+                              ? term?.order?.orderId
+                              : term?.order?.applicationId}
+                          </td>
+                          <td
+                            className={`${styles.buyerName}`}
+                            onClick={() => handleRoute(term, index)}
+                          >
+                            {term?.order?.commodity}
+                          </td>
 
-                            <td>
-                              {term?.createdBy?.userRole
-                                ? term?.createdBy?.userRole
-                                : 'RM'}{' '}
-                            </td>
-                            <td>
-                              {term?.order?.existingCustomer
-                                ? moment(term?.order?.createdAt).format(
-                                    'DD-MM-YYYY',
-                                  )
-                                : term?.order?.cam?.approvedAt
+                          <td>
+                            {term?.createdBy?.userRole
+                              ? term?.createdBy?.userRole
+                              : 'RM'}{' '}
+                          </td>
+                          <td>
+                            {term?.order?.existingCustomer
+                              ? moment(term?.order?.createdAt).format(
+                                'DD-MM-YYYY',
+                              )
+                              : term?.order?.cam?.approvedAt
                                 ? moment(term?.order?.cam?.approvedAt).format(
-                                    'DD-MM-YYYY',
-                                  )
+                                  'DD-MM-YYYY',
+                                )
                                 : ''}
-                            </td>
-                            <td>
+                          </td>
+                          <td>
                               <span
                                 className={`${styles.status} ${
                                   term?.order?.queue === 'Rejected'
                                     ? styles.rejected
                                     : term?.order?.queue === 'ReviewQueue'
-                                    ? styles.review
-                                    : term?.order?.queue === 'CreditQueue'
-                                    ? styles.approved
-                                    : styles.rejected
+                                      ? styles.review
+                                      : term?.order?.queue === 'CreditQueue'
+                                        ? styles.approved
+                                        : styles.rejected
                                 }`}
                               ></span>
-                              {term?.status}
-                              {/* {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                            {term?.status}
+                            {/* {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
                           ? 'Review'
                           : term?.order?.queue === 'CreditQueue'
                             ? 'Approved'
                             : 'Rejected'} */}
-                            </td>
-                            <td>
-                              {term.status === 'Approved' ? (
-                                <img
-                                  src="/static/preview.svg"
-                                  className="img-fluid"
-                                  alt="Preview"
-                                  onClick={() => {
-                                    sessionStorage.setItem('termID', term._id);
-                                    sessionStorage.setItem(
-                                      'termOrdID',
-                                      term?.order._id,
-                                    );
-                                    dispatch(
-                                      GetTermsheet(
-                                        `?company=${term.company._id}`,
-                                      ),
-                                    );
-                                 
-                                    dispatch(
-                                      setDynamicName(term.order.orderId),
-                                    );
-                                    // dispatch(setDynamicOrder(term))
-                                    Router.push('/termsheet-preview');
-                                  }}
-                                />
-                              ) : null}
-                            </td>
-                          </tr>
+                          </td>
+                          <td>
+                            {term.status === 'Approved' ? (
+                              <img
+                                src="/static/preview.svg"
+                                className="img-fluid"
+                                alt="Preview"
+                                onClick={() => {
+                                  sessionStorage.setItem('termID', term._id)
+                                  sessionStorage.setItem(
+                                    'termOrdID',
+                                    term?.order._id,
+                                  )
+                                  dispatch(
+                                    GetTermsheet(
+                                      `?company=${term.company._id}`,
+                                    ),
+                                  )
+
+                                  dispatch(
+                                    setDynamicName(term.order.orderId),
+                                  )
+                                  // dispatch(setDynamicOrder(term))
+                                  Router.push('/termsheet-preview')
+                                }}
+                              />
+                            ) : null}
+                          </td>
+                        </tr>
                         </tbody>
                       ))}
                   </table>
@@ -370,7 +361,7 @@ function Index() {
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

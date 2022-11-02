@@ -1,61 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import LcApplication from '../../../src/components/LcApplication';
-import PreviewBar from '../../../src/components/PreviewBar';
-import Router, { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  GetLcModule,
-  UpdateLcModule,
-} from '../../../src/redux/lcModule/action';
-import { removePrefixOrSuffix } from '../../../src/utils/helper';
-import { settingSidebar } from 'redux/breadcrumb/action';
-import _get from 'lodash/get';
-import { toast } from 'react-toastify';
-import {
-  setPageName,
-  setDynamicName,
-  setDynamicOrder,
-} from '../../../src/redux/userData/action';
-import { getPorts,getCountries,getCommodities,getDocuments } from '../../../src/redux/masters/action';
-function Index() {
-  const dispatch = useDispatch();
-  const router = useRouter();
+import React, { useEffect, useState } from 'react'
+import LcApplication from '../../../src/components/LcApplication'
+import PreviewBar from '../../../src/components/PreviewBar'
+import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule, UpdateLcModule, } from '../../../src/redux/lcModule/action'
+import { removePrefixOrSuffix } from '../../../src/utils/helper'
+import { settingSidebar } from 'redux/breadcrumb/action'
+import _get from 'lodash/get'
+import { toast } from 'react-toastify'
+import { setDynamicName, setDynamicOrder, setPageName, } from '../../../src/redux/userData/action'
+import { getPorts } from '../../../src/redux/masters/action'
 
-  const { lcModule } = useSelector((state) => state.lc);
+function Index () {
+  const dispatch = useDispatch()
+  const router = useRouter()
 
-  const lcModuleData = _get(lcModule, 'data[0]', {});
+  const { lcModule } = useSelector((state) => state.lc)
 
-  const [excelFile, setExcelFile] = useState(null);
+  const lcModuleData = _get(lcModule, 'data[0]', {})
+
+  const [excelFile, setExcelFile] = useState(null)
   useEffect(() => {
-    let id = sessionStorage.getItem('lcOrder');
-    dispatch(GetLcModule(`?lcModuleId=${id}`));
-  }, [dispatch]);
-   useEffect(() => {
+    let id = sessionStorage.getItem('lcOrder')
+    dispatch(GetLcModule(`?lcModuleId=${id}`))
+  }, [dispatch])
+  useEffect(() => {
     // dispatch(getCountries())
-    dispatch(getPorts());
+    dispatch(getPorts())
     // dispatch(getCommodities())
     // dispatch(getDocuments())
-    
-  }, []);
-   const { getPortsMasterData } = useSelector((state) => state.MastersData);
-  const [lcData, setLcData] = useState();
+
+  }, [])
+  const { getPortsMasterData } = useSelector((state) => state.MastersData)
+  const [lcData, setLcData] = useState()
   useEffect(() => {
-    dispatch(setPageName('Lc'));
-  
+    dispatch(setPageName('Lc'))
+
     dispatch(
       setDynamicName(
         _get(lcModule, 'data[0].company.companyName', 'Company Name'),
       ),
-    );
+    )
     dispatch(
       setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')),
-    );
-  }, [lcModuleData]);
+    )
+  }, [lcModuleData])
 
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
-        lcModuleData?.lcApplication?.formOfDocumentaryCredit,
+      lcModuleData?.lcApplication?.formOfDocumentaryCredit,
       applicableRules: lcModuleData?.lcApplication?.applicableRules,
       dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
@@ -82,7 +76,7 @@ function Index() {
       partialShipment: lcModuleData?.lcApplication?.partialShipment
         ? lcModuleData?.lcApplication?.partialShipment
         : lcModuleData?.order?.termsheet?.transactionDetails
-            ?.partShipmentAllowed,
+          ?.partShipmentAllowed,
       transhipments: lcModuleData?.lcApplication?.transhipments,
       shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
       portOfLoading: lcModuleData?.lcApplication?.portOfLoading
@@ -106,7 +100,7 @@ function Index() {
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
       requestedConfirmationParty:
-        lcModuleData?.lcApplication?.requestedConfirmationParty,
+      lcModuleData?.lcApplication?.requestedConfirmationParty,
       charges: lcModuleData?.lcApplication?.charges
         ? lcModuleData?.lcApplication?.charges
         : 'ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT',
@@ -114,115 +108,113 @@ function Index() {
         ? lcModuleData?.lcApplication?.instructionToBank
         : 'THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS)..............UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS',
       senderToReceiverInformation:
-        lcModuleData?.lcApplication?.senderToReceiverInformation,
+      lcModuleData?.lcApplication?.senderToReceiverInformation,
       documentaryCreditNumber:
-        lcModuleData?.lcApplication?.documentaryCreditNumber,
+      lcModuleData?.lcApplication?.documentaryCreditNumber,
       dateOfIssue: lcModuleData?.lcApplication?.dateOfIssue,
       dateOfAmendment: lcModuleData?.lcApplication?.dateOfAmendment,
       numberOfAmendment: lcModuleData?.lcApplication?.numberOfAmendment,
-    });
+    })
     setExcelFile(
       _get(
         lcModule,
         'data[0].order.generic.productSpecifications.specificationTable',
         [],
       ),
-    );
-  }, [lcModuleData, lcModule]);
-
-
+    )
+  }, [lcModuleData, lcModule])
 
   const saveLcData = (name, value) => {
-    const newInput = { ...lcData };
-    newInput[name] = value;
+    const newInput = { ...lcData }
+    newInput[name] = value
     if (name == 'atSight' && value == 'AT SIGHT') {
-      newInput.numberOfDays = '';
+      newInput.numberOfDays = ''
     }
-  
-    setLcData(newInput);
-  };
 
-  const [currentComment, setCurrentComment] = useState('');
+    setLcData(newInput)
+  }
+
+  const [currentComment, setCurrentComment] = useState('')
   const [lcDocuments, setLcDocuments] = useState(
     lcModuleData?.documentRequired,
-  );
+  )
   const [lcComments, setLcComments] = useState(
     lcModuleData?.additionalConditions,
-  );
+  )
   const [lcCondition, setLcCondition] = useState(
     lcModuleData?.additionalConditions,
-  );
+  )
 
-  const [currentComment2, setCurrentComment2] = useState('');
+  const [currentComment2, setCurrentComment2] = useState('')
 
   const addCommentArr = (lcComment) => {
-    let newArr = [...lcComments];
-    newArr.push(lcComment);
-    setLcComments(newArr);
-  };
+    let newArr = [...lcComments]
+    newArr.push(lcComment)
+    setLcComments(newArr)
+  }
 
   const addComment = (val) => {
-    setCurrentComment(val);
-  };
+    setCurrentComment(val)
+  }
   const addDocArr = () => {
     if (currentComment == '') {
-      let toastMessage = 'Comment cannot be empty';
+      let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return
       }
     }
-    setLcDocuments([...lcDocuments, { value: currentComment, action: false }]);
-    setCurrentComment('');
-  };
+    setLcDocuments([...lcDocuments, { value: currentComment, action: false }])
+    setCurrentComment('')
+  }
   const deleteLcDoc = (index) => {
     setLcDocuments([
       ...lcDocuments.slice(0, index),
       ...lcDocuments.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const lcDocEdit = (val, index) => {
     setLcDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, value: val };
+          return { ...obj, value: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
 
   const editLcDocComments = (val, index) => {
     setLcDocuments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, action: val };
+          return { ...obj, action: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   //condition
   const addConditionComment = (val) => {
-  
-    setCurrentComment2(val);
-  };
+
+    setCurrentComment2(val)
+  }
   const addConditionArr = (index) => {
 
     if (currentComment2 == '') {
-      let toastMessage = 'Comment cannot be empty';
+      let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return
       }
     }
-    setLcComments([...lcComments, { value: currentComment2, action: false }]);
+    setLcComments([...lcComments, { value: currentComment2, action: false }])
     //   setLcComments(prevState => {
     //   const newState = prevState.map((obj ,i)=> {
 
@@ -235,67 +227,67 @@ function Index() {
 
     //   return newState;
     // });
-    setCurrentComment2('');
-  };
+    setCurrentComment2('')
+  }
   const deleteLcCondition = (index) => {
     setLcComments([
       ...lcComments.slice(0, index),
       ...lcComments.slice(index + 1),
-    ]);
-  };
+    ])
+  }
   const lcConditionEdit = (val, index) => {
 
     setLcComments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, value: val };
+          return { ...obj, value: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
   const editLcComments = (val, index) => {
     setLcComments((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, action: val };
+          return { ...obj, action: val }
         }
 
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
-  };
+      return newState
+    })
+  }
 
   useEffect(() => {
-    let commentLcArr = [];
+    let commentLcArr = []
     lcModuleData?.additionalConditions?.forEach((element) => {
-      commentLcArr.push({ value: element, action: false });
-    });
-    setLcComments(commentLcArr);
+      commentLcArr.push({ value: element, action: false })
+    })
+    setLcComments(commentLcArr)
 
-    let docLcArr = [];
+    let docLcArr = []
     lcModuleData?.documentRequired?.forEach((element) => {
-      docLcArr.push({ value: element, action: false });
-    });
-    setLcDocuments(docLcArr);
-  }, [lcModuleData]);
+      docLcArr.push({ value: element, action: false })
+    })
+    setLcDocuments(docLcArr)
+  }, [lcModuleData])
 
   const checkValidation = () => {
-  
-    let toastMessage;
+
+    let toastMessage
     if (
       lcData.formOfDocumentaryCredit == '' ||
       lcData.formOfDocumentaryCredit == undefined
     ) {
-      toastMessage = 'Please Select Form Of Documentary Credit';
+      toastMessage = 'Please Select Form Of Documentary Credit'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     // if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
@@ -307,132 +299,132 @@ function Index() {
     // }
 
     if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
-      toastMessage = 'Please add  Date Of Expiry';
+      toastMessage = 'Please add  Date Of Expiry'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.placeOfExpiry === '' || lcData.placeOfExpiry == undefined) {
-      toastMessage = 'Please add Place Of Expiry';
+      toastMessage = 'Please add Place Of Expiry'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.applicant === '' || lcData.applicant == undefined) {
-      toastMessage = 'Please Select Applicant';
+      toastMessage = 'Please Select Applicant'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.beneficiary === '' || lcData.beneficiary == undefined) {
-      toastMessage = 'Please add Beneficiary';
+      toastMessage = 'Please add Beneficiary'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.currecyCodeAndAmountValue === '' ||
       lcData.currecyCodeAndAmountValue == undefined
     ) {
-      toastMessage = 'Please add Currency Code Amount';
+      toastMessage = 'Please add Currency Code Amount'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.tolerancePercentage === '' ||
       lcData.tolerancePercentage == undefined
     ) {
-      toastMessage = 'Please add Tolerance Percentage';
+      toastMessage = 'Please add Tolerance Percentage'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.creditAvailablewith === '' ||
       lcData.creditAvailablewith == undefined
     ) {
-      toastMessage = 'Please select Credit Available With';
+      toastMessage = 'Please select Credit Available With'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.creditAvailableBy === '' ||
       lcData.creditAvailableBy == undefined
     ) {
-      toastMessage = 'Please select Credit Available By';
+      toastMessage = 'Please select Credit Available By'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.atSight === '' || lcData.atSight == undefined) {
-      toastMessage = 'Please select DRAFT AT';
+      toastMessage = 'Please select DRAFT AT'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.atSight == 'SPECIFY') {
       if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
-        toastMessage = 'Please add number of Days';
+        toastMessage = 'Please add number of Days'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          return false;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          return false
         }
       }
     }
     if (lcData.partialShipment === '' || lcData.partialShipment == undefined) {
-      toastMessage = 'Please select  Partial Shipment';
+      toastMessage = 'Please select  Partial Shipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.transhipments === '' || lcData.transhipments == undefined) {
-      toastMessage = 'Please select  Transhipment';
+      toastMessage = 'Please select  Transhipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.shipmentForm === '' || lcData.shipmentForm == undefined) {
-      toastMessage = 'Please select  shipment Form';
+      toastMessage = 'Please select  shipment Form'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.portOfLoading === '' || lcData.portOfLoading == undefined) {
-      toastMessage = 'Please select  port Of Loading';
+      toastMessage = 'Please select  port Of Loading'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcData.portOfDischarge === '' || lcData.portOfDischarge == undefined) {
-      toastMessage = 'Please select  port Of Discharge';
+      toastMessage = 'Please select  port Of Discharge'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.latestDateOfShipment === '' ||
       lcData.latestDateOfShipment == undefined
     ) {
-      toastMessage = 'Please select latest Date Of Shipment';
+      toastMessage = 'Please select latest Date Of Shipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
 
@@ -440,44 +432,44 @@ function Index() {
       lcData.DescriptionOfGoods === '' ||
       lcData.DescriptionOfGoods == undefined
     ) {
-      toastMessage = 'Please add Description Of Goods';
+      toastMessage = 'Please add Description Of Goods'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcDocuments.length <= 0) {
-      toastMessage = 'Please add DOCUMENT REQUIRED';
+      toastMessage = 'Please add DOCUMENT REQUIRED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (lcComments.length <= 0) {
-      toastMessage = 'Please add ADDITIONAL CONDITIONS';
+      toastMessage = 'Please add ADDITIONAL CONDITIONS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.presentaionPeriod === '' ||
       lcData.presentaionPeriod == undefined
     ) {
-      toastMessage = 'Please add presentaion Period';
+      toastMessage = 'Please add presentaion Period'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.confirmationInstructions === '' ||
       lcData.confirmationInstructions == undefined
     ) {
-      toastMessage = 'Please add confirmation Instructions';
+      toastMessage = 'Please add confirmation Instructions'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     // if (lcData.reimbursingBank === '' || lcData.reimbursingBank == undefined) {
@@ -491,10 +483,10 @@ function Index() {
       lcData.adviceThroughBank === '' ||
       lcData.adviceThroughBank == undefined
     ) {
-      toastMessage = 'Please select  advice Through Bank';
+      toastMessage = 'Please select  advice Through Bank'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     // if (
@@ -508,62 +500,62 @@ function Index() {
     //   }
     // }
     if (lcData.charges === '' || lcData.charges == undefined) {
-      toastMessage = 'Please select charges';
+      toastMessage = 'Please select charges'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
     if (
       lcData.instructionToBank === '' ||
       lcData.instructionToBank == undefined
     ) {
-      toastMessage = 'Please add instruction To Bank';
+      toastMessage = 'Please add instruction To Bank'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        return false;
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
       }
     }
-    return true;
-  };
+    return true
+  }
   const handleLcSave = async () => {
     if (checkValidation()) {
-      let comment = [];
+      let comment = []
       if (lcComments.length > 0) {
         lcComments.forEach((val, index) => {
-          comment.push(val.value);
-        });
+          comment.push(val.value)
+        })
       }
-      let doc = [];
+      let doc = []
       if (lcDocuments.length > 0) {
         lcDocuments.forEach((val, index) => {
-          doc.push(val.value);
-        });
+          doc.push(val.value)
+        })
       }
-      let lcObj = { ...lcData };
+      let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
         lcData?.currecyCodeAndAmountValue,
-      );
+      )
       lcObj.tolerancePercentage = removePrefixOrSuffix(
         lcData?.tolerancePercentage,
-      );
+      )
       let obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
-      };
-      
-      let code = await dispatch(UpdateLcModule({ obj: obj }));
+      }
+
+      let code = await dispatch(UpdateLcModule({ obj: obj }))
       if (code == 200) {
         sessionStorage.setItem(
           'VesselCompany',
           _get(lcModule, 'data[0].company._id', ''),
-        );
+        )
         sessionStorage.setItem(
           'VesselId',
           _get(lcModule, 'data[0].order.vessel', ''),
-        );
+        )
         dispatch(
           settingSidebar(
             'Agreement & LC Module',
@@ -571,46 +563,46 @@ function Index() {
             'Vessel Nomination',
             '2',
           ),
-        );
-        router.push(`/vessel`);
+        )
+        router.push(`/vessel`)
       }
     }
-  };
+  }
 
   const changeRoute = () => {
     if (checkValidation()) {
-      let comment = [];
+      let comment = []
       if (lcComments.length > 0) {
         lcComments.forEach((val, index) => {
-          comment.push(val.value);
-        });
+          comment.push(val.value)
+        })
       }
-      let doc = [];
+      let doc = []
       if (lcDocuments.length > 0) {
         lcDocuments.forEach((val, index) => {
-          doc.push(val.value);
-        });
+          doc.push(val.value)
+        })
       }
-      let task = 'preview';
-      let lcObj = { ...lcData };
+      let task = 'preview'
+      let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
         lcData?.currecyCodeAndAmountValue,
-      );
+      )
       lcObj.tolerancePercentage = removePrefixOrSuffix(
         lcData?.tolerancePercentage,
-      );
+      )
       let obj = {
         lcApplication: { ...lcObj },
         additionalConditions: [...comment],
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
-      };
-      dispatch(UpdateLcModule({ obj: obj, task: task }));
-      dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`));
-      sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc);
+      }
+      dispatch(UpdateLcModule({ obj: obj, task: task }))
+      dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`))
+      sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc)
       // Router.push('/letter-table/letter-amend/id')
     }
-  };
+  }
   return (
     <>
       <LcApplication
@@ -636,9 +628,9 @@ function Index() {
         port={getPortsMasterData}
         name={_get(lcModule, 'data[0].company.companyName', '')}
       />
-      <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
+      <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute}/>
     </>
-  );
+  )
 }
 
-export default Index;
+export default Index

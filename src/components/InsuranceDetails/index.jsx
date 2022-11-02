@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
+import React from 'react'
+import styles from './index.module.scss'
+import { Col, Row } from 'react-bootstrap'
 
 const Index = ({ headerName }) => {
   return (
@@ -139,7 +139,7 @@ const Index = ({ headerName }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

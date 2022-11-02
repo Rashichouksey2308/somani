@@ -1,54 +1,53 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './index.module.scss';
-import { Form, Row, Col } from 'react-bootstrap';
-import SaveBar from '../SaveBar';
-import DateCalender from '../DateCalender';
-import API from '../../utils/endpoints';
-import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
-import Axios from 'axios';
-import UploadOther from '../UploadOther';
-import _get from 'lodash/get';
-import { checkNan } from 'utils/helper';
-import moment from 'moment';
+import React, { useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import SaveBar from '../SaveBar'
+import DateCalender from '../DateCalender'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
+import UploadOther from '../UploadOther'
+import _get from 'lodash/get'
+import { checkNan } from 'utils/helper'
+import moment from 'moment'
 
-export default function Index(props) {
-  console.log(props.liftingData, '97111');
-  const [editInput, setEditInput] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
-  const [currentOrder, setCurrentOrder] = useState('');
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+export default function Index (props) {
+  console.log(props.liftingData, '97111')
+  const [editInput, setEditInput] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
+  const [currentOrder, setCurrentOrder] = useState('')
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false);
+      setEditInput(false)
     } else {
-      setEditInput(true);
+      setEditInput(true)
     }
-  };
-  let orderid = _get(props, 'ReleaseOrderData.data[0].order._id', '');
+  }
+  let orderid = _get(props, 'ReleaseOrderData.data[0].order._id', '')
   const saveDate2 = (value, name, index, index2) => {
-    const d = new Date(value);
-    let text = d.toISOString();
-    props.handleChange(name, value, index, index2);
-  };
- 
+    const d = new Date(value)
+    let text = d.toISOString()
+    props.handleChange(name, value, index, index2)
+  }
+
   const uploadDoc = async (e, type, index1, index2) => {
-    console.log(e, 'response data');
-    let fd = new FormData();
-    fd.append('document', e.target.files[0]);
+    console.log(e, 'response data')
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
-    };
+    }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,
@@ -56,12 +55,12 @@ export default function Index(props) {
         {
           headers: headers,
         },
-      );
-      console.log(response.data.data, 'response data123');
+      )
+      console.log(response.data.data, 'response data123')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
-        props.handleChange(type, response.data.data, index1, index2);
-        return response.data.data;
+        props.handleChange(type, response.data.data, index1, index2)
+        return response.data.data
 
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -77,22 +76,22 @@ export default function Index(props) {
       // if (!toast.isActive(toastMessage.toUpperCase())) {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
     }
-  };
+  }
 
-  console.log(props.liftingData, 'props.liftingData');
+  console.log(props.liftingData, 'props.liftingData')
   const checkAvail = (value) => {
-    let returned = false;
+    let returned = false
     const filtered = props.liftingData.filter((item) => {
-      return item.deliveryOrder === value;
-    });
+      return item.deliveryOrder === value
+    })
     if (filtered.length > 0) {
-      returned = true;
+      returned = true
     }
-    return returned;
-  };
+    return returned
+  }
   const getIndex = (index) => {
-    return index + 1;
-  };
+    return index + 1
+  }
   return (
     <>
       {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -149,10 +148,10 @@ export default function Index(props) {
                   {/* //margin ,aoneu */}
                   <span className={styles.value}>
                     {_get(
-                      props.ReleaseOrderData,
-                      'data[0].invoiceDetail.consigneeName',
-                      '',
-                    ) ||
+                        props.ReleaseOrderData,
+                        'data[0].invoiceDetail.consigneeName',
+                        '',
+                      ) ||
                       _get(
                         props.ReleaseOrderData,
                         'data[0].company.companyName',
@@ -164,7 +163,8 @@ export default function Index(props) {
             </div>
           </div>
           <div className={`${styles.wrapper} border_color card`}>
-            <div className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}>
+            <div
+              className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`}>
               <h2 className="mr-auto">Delivery Order</h2>
               <div className={`${styles.form_group}`}>
                 <div className="d-flex position-relative">
@@ -172,7 +172,7 @@ export default function Index(props) {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     value={currentOrder}
                     onChange={(e) => {
-                      setCurrentOrder(e.target.value);
+                      setCurrentOrder(e.target.value)
                     }}
                   >
                     <option disabled value="">
@@ -188,7 +188,7 @@ export default function Index(props) {
                           >
                             {val?.deliveryOrderNumber}
                           </option>
-                        );
+                        )
                       },
                     )}
                   </select>
@@ -205,8 +205,8 @@ export default function Index(props) {
                   <button
                     className={styles.add_btn}
                     onClick={(e) => {
-                      setCurrentOrder('');
-                      props.addNewLifting(currentOrder);
+                      setCurrentOrder('')
+                      props.addNewLifting(currentOrder)
                     }}
                   >
                     <span className={styles.add_sign}>+</span>Add
@@ -217,7 +217,7 @@ export default function Index(props) {
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
-              console.log(val, 'Lifting Add ');
+              console.log(val, 'Lifting Add ')
               return (
                 <div className={`${styles.main} card border_color`}>
                   <div
@@ -293,7 +293,7 @@ export default function Index(props) {
                                     <div className={`d-flex `}>
                                       <button
                                         onClick={(e) => {
-                                          props.addNewSubLifting(index);
+                                          props.addNewSubLifting(index)
                                         }}
                                         className={`${styles.add_btn} text-center mr-0`}
                                         style={{ paddingBottom: '12px' }}
@@ -303,22 +303,22 @@ export default function Index(props) {
                                         </span>
                                         Add
                                       </button>
-                                     
-                                       { index2 > 0 ? ( 
-                                          <button
-                                             onClick={() => props.deleteNewRow(index, index2)}
-                                            className={`${styles.add_btn} border-danger text-danger`}
-                                          >
-                                            <img
-                                              src="/static/delete.svg"
-                                              className="ml-1 mt-n1"
-                                              width={13}
-                                              alt="delete"
-                                            />{' '}
-                                            Delete
-                                          </button>
-                                       ) : null
-                                      } 
+
+                                      {index2 > 0 ? (
+                                        <button
+                                          onClick={() => props.deleteNewRow(index, index2)}
+                                          className={`${styles.add_btn} border-danger text-danger`}
+                                        >
+                                          <img
+                                            src="/static/delete.svg"
+                                            className="ml-1 mt-n1"
+                                            width={13}
+                                            alt="delete"
+                                          />{' '}
+                                          Delete
+                                        </button>
+                                      ) : null
+                                      }
                                     </div>
                                   </>
                                 )}
@@ -335,13 +335,13 @@ export default function Index(props) {
                                           startDate,
                                           name,
                                           index,
-                                        );
+                                        )
                                         saveDate2(
                                           startDate,
                                           name,
                                           index,
                                           index2,
-                                        );
+                                        )
                                       }}
                                       index={index}
                                       index2={index2}
@@ -373,23 +373,23 @@ export default function Index(props) {
                                     }
                                     onFocus={(e) => {
                                       setIsFieldInFocus(true),
-                                        (e.target.type = 'number');
+                                        (e.target.type = 'number')
                                     }}
                                     onBlur={(e) => {
                                       setIsFieldInFocus(false),
-                                        (e.target.type = 'text');
+                                        (e.target.type = 'text')
                                     }}
                                     value={
                                       isFieldInFocus
                                         ? val2.liftingQuant
                                         : Number(
-                                            val2.liftingQuant,
-                                          )?.toLocaleString('en-IN') +
-                                          ` ${_get(
-                                            props,
-                                            'data.data[0].order.unitOfQuantity',
-                                            '',
-                                          )}`
+                                          val2.liftingQuant,
+                                        )?.toLocaleString('en-IN') +
+                                        ` ${_get(
+                                          props,
+                                          'data.data[0].order.unitOfQuantity',
+                                          '',
+                                        )}`
                                     }
                                     name="liftingQuant"
                                     onChange={(e) => {
@@ -398,7 +398,7 @@ export default function Index(props) {
                                         e.target.value,
                                         index,
                                         index2,
-                                      );
+                                      )
                                     }}
                                   />
                                   <label
@@ -442,7 +442,7 @@ export default function Index(props) {
                                               e.target.value,
                                               index,
                                               index2,
-                                            );
+                                            )
                                           }}
                                         />
                                         <Form.Check
@@ -464,7 +464,7 @@ export default function Index(props) {
                                               e.target.value,
                                               index,
                                               index2,
-                                            );
+                                            )
                                           }}
                                         />
                                       </div>
@@ -490,7 +490,7 @@ export default function Index(props) {
                                           e.target.value,
                                           index,
                                           index2,
-                                        );
+                                        )
                                       }}
                                     />
                                     <label
@@ -523,7 +523,7 @@ export default function Index(props) {
                                         e.target.value,
                                         index,
                                         index2,
-                                      );
+                                      )
                                     }}
                                   />
                                   <label
@@ -548,7 +548,7 @@ export default function Index(props) {
                                         e.target.value,
                                         index,
                                         index2,
-                                      );
+                                      )
                                     }}
                                   />
                                   <label
@@ -573,7 +573,7 @@ export default function Index(props) {
                                         e.target.value,
                                         index,
                                         index2,
-                                      );
+                                      )
                                     }}
                                   />
                                   <label
@@ -596,156 +596,49 @@ export default function Index(props) {
                                     border="0"
                                   >
                                     <thead>
-                                      <tr>
-                                        <th>
-                                          DOCUMENT NAME{' '}
-                                          <img
-                                            className={`${styles.sort_image} mb-1`}
-                                            src="/static/icons8-sort-24.svg"
-                                            alt="Sort icon"
-                                          />
-                                        </th>
-                                        <th>
-                                          FORMAT{' '}
-                                          <img
-                                            className={`${styles.sort_image} mb-1`}
-                                            src="/static/icons8-sort-24.svg"
-                                            alt="Sort icon"
-                                          />
-                                        </th>
-                                        <th>
-                                          DOCUMENT DATE{' '}
-                                          <img
-                                            className={`${styles.sort_image} mb-1`}
-                                            src="/static/icons8-sort-24.svg"
-                                            alt="Sort icon"
-                                          />
-                                        </th>
-                                        <th>ACTION</th>
-                                      </tr>
+                                    <tr>
+                                      <th>
+                                        DOCUMENT NAME{' '}
+                                        <img
+                                          className={`${styles.sort_image} mb-1`}
+                                          src="/static/icons8-sort-24.svg"
+                                          alt="Sort icon"
+                                        />
+                                      </th>
+                                      <th>
+                                        FORMAT{' '}
+                                        <img
+                                          className={`${styles.sort_image} mb-1`}
+                                          src="/static/icons8-sort-24.svg"
+                                          alt="Sort icon"
+                                        />
+                                      </th>
+                                      <th>
+                                        DOCUMENT DATE{' '}
+                                        <img
+                                          className={`${styles.sort_image} mb-1`}
+                                          src="/static/icons8-sort-24.svg"
+                                          alt="Sort icon"
+                                        />
+                                      </th>
+                                      <th>ACTION</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                      {val2.modeOfTransportation !== '' && (
-                                        <tr className="table_row">
-                                          <td className={styles.doc_name}>
-                                            {val2.modeOfTransportation}{' '}
-                                            <strong className="text-danger">
-                                              *
-                                            </strong>
-                                          </td>
-                                          <td>
-                                            {val2?.LRorRRDoc?.originalName ? (
-                                              val2?.LRorRRDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.xls') ||
-                                              val2?.LRorRRDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.xlsx') ? (
-                                                <img
-                                                  src="/static/excel.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
-                                              ) : val2?.LRorRRDoc?.originalName
-                                                  ?.toLowerCase()
-                                                  .endsWith('.doc') ||
-                                                val2?.LRorRRDoc?.originalName
-                                                  ?.toLowerCase()
-                                                  .endsWith('.docx') ? (
-                                                <img
-                                                  src="/static/doc.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
-                                              ) : (
-                                                <img
-                                                  src="/static/pdf.svg"
-                                                  className="img-fluid"
-                                                  alt="Pdf"
-                                                />
-                                              )
-                                            ) : null}
-                                          </td>
-                                          <td className={styles.doc_row}>
-                                            {val2?.LRorRRDoc?.date
-                                              ? moment(
-                                                  val2?.LRorRRDoc?.date,
-                                                ).format('DD-MM-YYYY, h:mm A')
-                                              : ''}
-                                          </td>
-
-                                          <td colSpan="2">
-                                            <div
-                                              className={
-                                                styles.uploadBtnWrapper
-                                              }
-                                            >
-                                              {val2?.LRorRRDoc?.originalName ? (
-                                                <div
-                                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                                >
-                                                  <span>
-                                                    {
-                                                      val2?.LRorRRDoc
-                                                        ?.originalName
-                                                    }
-                                                  </span>
-                                                  <img
-                                                    className={`${styles.close_image} ml-2 image_arrow`}
-                                                    src="/static/close.svg"
-                                                    onClick={() =>
-                                                      props.removeLiftinDoc(
-                                                        'lr',
-                                                        index,
-                                                        index2,
-                                                      )
-                                                    }
-                                                    alt="Close"
-                                                  />{' '}
-                                                </div>
-                                              ) : (
-                                                <div
-                                                  className={
-                                                    styles.uploadBtnWrapper
-                                                  }
-                                                >
-                                                  <input
-                                                    id="document3"
-                                                    onChange={(e) =>
-                                                      uploadDoc(
-                                                        e,
-                                                        'LRorRRDoc',
-                                                        index,
-                                                        index2,
-                                                      )
-                                                    }
-                                                    type="file"
-                                                    name="myfile"
-                                                  />
-                                                  <button
-                                                    className={`${styles.upload_btn} btn`}
-                                                  >
-                                                    Upload
-                                                  </button>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </td>
-                                        </tr>
-                                      )}
+                                    {val2.modeOfTransportation !== '' && (
                                       <tr className="table_row">
                                         <td className={styles.doc_name}>
-                                          E-Way Bill{' '}
+                                          {val2.modeOfTransportation}{' '}
                                           <strong className="text-danger">
                                             *
                                           </strong>
                                         </td>
                                         <td>
-                                          {val2?.eWayBillDoc?.originalName ? (
-                                            val2?.eWayBillDoc?.originalName
+                                          {val2?.LRorRRDoc?.originalName ? (
+                                            val2?.LRorRRDoc?.originalName
                                               ?.toLowerCase()
                                               .endsWith('.xls') ||
-                                            val2?.eWayBillDoc?.originalName
+                                            val2?.LRorRRDoc?.originalName
                                               ?.toLowerCase()
                                               .endsWith('.xlsx') ? (
                                               <img
@@ -753,12 +646,12 @@ export default function Index(props) {
                                                 className="img-fluid"
                                                 alt="Pdf"
                                               />
-                                            ) : val2?.eWayBillDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.doc') ||
-                                              val2?.eWayBillDoc?.originalName
-                                                ?.toLowerCase()
-                                                .endsWith('.docx') ? (
+                                            ) : val2?.LRorRRDoc?.originalName
+                                              ?.toLowerCase()
+                                              .endsWith('.doc') ||
+                                            val2?.LRorRRDoc?.originalName
+                                              ?.toLowerCase()
+                                              .endsWith('.docx') ? (
                                               <img
                                                 src="/static/doc.svg"
                                                 className="img-fluid"
@@ -774,63 +667,170 @@ export default function Index(props) {
                                           ) : null}
                                         </td>
                                         <td className={styles.doc_row}>
-                                          {val2?.eWayBillDoc?.date
+                                          {val2?.LRorRRDoc?.date
                                             ? moment(
-                                                val2?.eWayBillDoc?.date,
-                                              ).format('DD-MM-YYYY, h:mm A')
+                                              val2?.LRorRRDoc?.date,
+                                            ).format('DD-MM-YYYY, h:mm A')
                                             : ''}
                                         </td>
 
                                         <td colSpan="2">
-                                          {val2?.eWayBillDoc?.originalName ? (
-                                            <div
-                                              className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                            >
+                                          <div
+                                            className={
+                                              styles.uploadBtnWrapper
+                                            }
+                                          >
+                                            {val2?.LRorRRDoc?.originalName ? (
+                                              <div
+                                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                              >
+                                                  <span>
+                                                    {
+                                                      val2?.LRorRRDoc
+                                                        ?.originalName
+                                                    }
+                                                  </span>
+                                                <img
+                                                  className={`${styles.close_image} ml-2 image_arrow`}
+                                                  src="/static/close.svg"
+                                                  onClick={() =>
+                                                    props.removeLiftinDoc(
+                                                      'lr',
+                                                      index,
+                                                      index2,
+                                                    )
+                                                  }
+                                                  alt="Close"
+                                                />{' '}
+                                              </div>
+                                            ) : (
+                                              <div
+                                                className={
+                                                  styles.uploadBtnWrapper
+                                                }
+                                              >
+                                                <input
+                                                  id="document3"
+                                                  onChange={(e) =>
+                                                    uploadDoc(
+                                                      e,
+                                                      'LRorRRDoc',
+                                                      index,
+                                                      index2,
+                                                    )
+                                                  }
+                                                  type="file"
+                                                  name="myfile"
+                                                />
+                                                <button
+                                                  className={`${styles.upload_btn} btn`}
+                                                >
+                                                  Upload
+                                                </button>
+                                              </div>
+                                            )}
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    )}
+                                    <tr className="table_row">
+                                      <td className={styles.doc_name}>
+                                        E-Way Bill{' '}
+                                        <strong className="text-danger">
+                                          *
+                                        </strong>
+                                      </td>
+                                      <td>
+                                        {val2?.eWayBillDoc?.originalName ? (
+                                          val2?.eWayBillDoc?.originalName
+                                            ?.toLowerCase()
+                                            .endsWith('.xls') ||
+                                          val2?.eWayBillDoc?.originalName
+                                            ?.toLowerCase()
+                                            .endsWith('.xlsx') ? (
+                                            <img
+                                              src="/static/excel.svg"
+                                              className="img-fluid"
+                                              alt="Pdf"
+                                            />
+                                          ) : val2?.eWayBillDoc?.originalName
+                                            ?.toLowerCase()
+                                            .endsWith('.doc') ||
+                                          val2?.eWayBillDoc?.originalName
+                                            ?.toLowerCase()
+                                            .endsWith('.docx') ? (
+                                            <img
+                                              src="/static/doc.svg"
+                                              className="img-fluid"
+                                              alt="Pdf"
+                                            />
+                                          ) : (
+                                            <img
+                                              src="/static/pdf.svg"
+                                              className="img-fluid"
+                                              alt="Pdf"
+                                            />
+                                          )
+                                        ) : null}
+                                      </td>
+                                      <td className={styles.doc_row}>
+                                        {val2?.eWayBillDoc?.date
+                                          ? moment(
+                                            val2?.eWayBillDoc?.date,
+                                          ).format('DD-MM-YYYY, h:mm A')
+                                          : ''}
+                                      </td>
+
+                                      <td colSpan="2">
+                                        {val2?.eWayBillDoc?.originalName ? (
+                                          <div
+                                            className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                          >
                                               <span>
                                                 {
                                                   val2?.eWayBillDoc
                                                     ?.originalName
                                                 }
                                               </span>
-                                              <img
-                                                className={`${styles.close_image} ml-2 image_arrow`}
-                                                src="/static/close.svg"
-                                                onClick={() =>
-                                                  props.removeLiftinDoc(
-                                                    'eway',
-                                                    index,
-                                                    index2,
-                                                  )
-                                                }
-                                                alt="Close"
-                                              />{' '}
-                                            </div>
-                                          ) : (
-                                            <div
-                                              className={
-                                                styles.uploadBtnWrapper
+                                            <img
+                                              className={`${styles.close_image} ml-2 image_arrow`}
+                                              src="/static/close.svg"
+                                              onClick={() =>
+                                                props.removeLiftinDoc(
+                                                  'eway',
+                                                  index,
+                                                  index2,
+                                                )
                                               }
+                                              alt="Close"
+                                            />{' '}
+                                          </div>
+                                        ) : (
+                                          <div
+                                            className={
+                                              styles.uploadBtnWrapper
+                                            }
+                                          >
+                                            <input
+                                              id="document3"
+                                              onChange={(e) =>
+                                                uploadDoc(
+                                                  e,
+                                                  'eWayBillDoc',
+                                                  index,
+                                                  index2,
+                                                )
+                                              }
+                                              type="file"
+                                              name="myfile"
+                                            />
+                                            <button
+                                              className={`${styles.upload_btn} btn`}
                                             >
-                                              <input
-                                                id="document3"
-                                                onChange={(e) =>
-                                                  uploadDoc(
-                                                    e,
-                                                    'eWayBillDoc',
-                                                    index,
-                                                    index2,
-                                                  )
-                                                }
-                                                type="file"
-                                                name="myfile"
-                                              />
-                                              <button
-                                                className={`${styles.upload_btn} btn`}
-                                              >
-                                                Upload
-                                              </button>
+                                              Upload
+                                            </button>
 
-                                              {/* <input type="file" name="myfile2" 
+                                            {/* <input type="file" name="myfile2"
                                    onChange={(e)=>{
 
                                     uploadDoc(e,"eWayBillDoc",index1,index2)
@@ -842,10 +842,10 @@ export default function Index(props) {
                                   >
                                     Upload
                                   </button> */}
-                                            </div>
-                                          )}
-                                        </td>
-                                      </tr>
+                                          </div>
+                                        )}
+                                      </td>
+                                    </tr>
                                     </tbody>
                                   </table>
                                 </div>
@@ -857,11 +857,11 @@ export default function Index(props) {
                   </div> */}
                           </div>
                         </div>
-                      );
+                      )
                     })}
                   </div>
                 </div>
-              );
+              )
             })}
 
           <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
@@ -880,5 +880,5 @@ export default function Index(props) {
         {/* </div> */}
       </div>
     </>
-  );
+  )
 }

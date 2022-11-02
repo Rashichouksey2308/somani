@@ -1,108 +1,106 @@
-import React, { useState, useEffect } from 'react';
-import styles from './index.module.scss';
-import { Row, Col, Form } from 'react-bootstrap';
-import GrowInput from '../GrowInput';
-import Buyer from '../AggrementContent/buyer';
-import AssociateBuyer from '../AggrementContent/associateBuyer';
-import CHA from '../AggrementContent/cha';
-import CMA from '../AggrementContent/cma';
-import Finance from '../AggrementContent/finance';
-import Manufecture from '../AggrementContent/manufecture';
-import ProductSpecification from '../AggrementContent/productSpecification';
-import AddtionalComments from '../AggrementContent/addtionalComments';
-import PlaceOfExecutition from '../AggrementContent/placeOfExecutition';
+import React, { useEffect, useState } from 'react'
+import styles from './index.module.scss'
+import { Form } from 'react-bootstrap'
+import Buyer from '../AggrementContent/buyer'
+import AssociateBuyer from '../AggrementContent/associateBuyer'
+import CHA from '../AggrementContent/cha'
+import CMA from '../AggrementContent/cma'
+import Finance from '../AggrementContent/finance'
+import Manufecture from '../AggrementContent/manufecture'
+import ProductSpecification from '../AggrementContent/productSpecification'
+import AddtionalComments from '../AggrementContent/addtionalComments'
+import PlaceOfExecutition from '../AggrementContent/placeOfExecutition'
 
-import Shipping from '../AggrementContent/shipping';
-import Seller from '../AggrementContent/seller';
+import Shipping from '../AggrementContent/shipping'
+import Seller from '../AggrementContent/seller'
 
-import Stevedore from '../AggrementContent/stevedore';
-import Thirdparty from '../AggrementContent/thirdparty';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateGenericData } from '../../redux/generic/actionsType';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { cssNumber } from 'jquery';
-import API from '../../../src/utils/endpoints';
-import Cookies from 'js-cookie';
-import Axios from 'axios';
-import _get from 'lodash/get';
-import { forEach } from 'lodash';
-import { getVendors,getBranches,getInternalCompanies,getPincodes } from '../../redux/masters/action';
-function Index(props) {
-  const dispatch = useDispatch();
+import Stevedore from '../AggrementContent/stevedore'
+import Thirdparty from '../AggrementContent/thirdparty'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateGenericData } from '../../redux/generic/actionsType'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import API from '../../../src/utils/endpoints'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
+import _get from 'lodash/get'
+import { getInternalCompanies, getVendors } from '../../redux/masters/action'
 
-  console.log(props.genericData, 'sales');
+function Index (props) {
+  const dispatch = useDispatch()
 
-  const [apiData, setApiData] = useState([]);
-  const [active, setActive] = useState('Product Specifications');
-  const [multiPart, setMultiPart] = useState(false);
-  const [multiPartValue, setMultiPartValue] = useState('Manufacturer');
-  const [saveData, setSaveData] = useState(false);
-  const [submitData, setSubmitData] = useState(false);
-  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
-  const [sameAsCHA, setSameAsCHA] = useState(true);
-  const { companyData } = useSelector((state) => state.companyDetails);
-  const { orderList } = useSelector((state) => state.buyer);
-  console.log(companyData, 'companyData', orderList);
+  console.log(props.genericData, 'sales')
+
+  const [apiData, setApiData] = useState([])
+  const [active, setActive] = useState('Product Specifications')
+  const [multiPart, setMultiPart] = useState(false)
+  const [multiPartValue, setMultiPartValue] = useState('Manufacturer')
+  const [saveData, setSaveData] = useState(false)
+  const [submitData, setSubmitData] = useState(false)
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true)
+  const [sameAsCHA, setSameAsCHA] = useState(true)
+  const { companyData } = useSelector((state) => state.companyDetails)
+  const { orderList } = useSelector((state) => state.buyer)
+  console.log(companyData, 'companyData', orderList)
   useEffect(() => {
     if (window) {
-      props.setDate(localStorage.getItem('timeGenericUpdated'));
+      props.setDate(localStorage.getItem('timeGenericUpdated'))
     }
-  });
-       useEffect(() => {
-     dispatch(getVendors())
-    
-    dispatch(getInternalCompanies())
-   
-  }, []);
-   const { getVendorsMasterData } = useSelector((state) => state.MastersData);
-   const { getBanksMasterData } = useSelector((state) => state.MastersData);
-    const { getBranchesMasterData } = useSelector((state) => state.MastersData);
-  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData);
-    const changeActiveValue = (val, index) => {
-    setActive(val);
-    showContent();
-    setSaveData(false);
+  })
+  useEffect(() => {
+    dispatch(getVendors())
 
-    let tempArr = sideBar;
+    dispatch(getInternalCompanies())
+
+  }, [])
+  const { getVendorsMasterData } = useSelector((state) => state.MastersData)
+  const { getBanksMasterData } = useSelector((state) => state.MastersData)
+  const { getBranchesMasterData } = useSelector((state) => state.MastersData)
+  const { getInternalCompaniesMasterData } = useSelector((state) => state.MastersData)
+  const changeActiveValue = (val, index) => {
+    setActive(val)
+    showContent()
+    setSaveData(false)
+
+    let tempArr = sideBar
     for (let i = 0; i < tempArr.length; i++) {
       if (i == index) {
         if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
-          tempArr[i].state = 'current';
-          tempArr[i].image = '/static/currnet.svg';
+          tempArr[i].state = 'current'
+          tempArr[i].image = '/static/currnet.svg'
         }
       } else {
         if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
-          tempArr[i].state = 'default';
-          tempArr[i].image = '/static/Group 3256.svg';
+          tempArr[i].state = 'default'
+          tempArr[i].image = '/static/Group 3256.svg'
         }
       }
     }
-    console.log(tempArr, 'name');
-    setSidebar(tempArr);
-    setIsSideBarOpen(false);
-    setSideStateToLocal(val);
-   };
+    console.log(tempArr, 'name')
+    setSidebar(tempArr)
+    setIsSideBarOpen(false)
+    setSideStateToLocal(val)
+  }
 
   // useEffect(() => {
   //   changeActiveValue(active)
   // }, [active])
 
   const uploadDoc = async (e) => {
-    console.log(e, 'response data');
-    let fd = new FormData();
-    fd.append('document', e.target.files[0]);
+    console.log(e, 'response data')
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
 
-    let cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
       'Access-Control-Allow-Origin': '*',
-    };
+    }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,
@@ -110,12 +108,12 @@ function Index(props) {
         {
           headers: headers,
         },
-      );
-      console.log(response.data.data, 'dischargeOfCargo2');
+      )
+      console.log(response.data.data, 'dischargeOfCargo2')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data;
+        return response.data.data
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
@@ -132,348 +130,348 @@ function Index(props) {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
-  };
+  }
   const addressValidation = (type, data, check = true) => {
-    console.log(type, data, 'type,data');
+    console.log(type, data, 'type,data')
     if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
+          let toastMessage = 'Please add gstin'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          return false;
+          return false
         }
         if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
+          let toastMessage = 'Please add state'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          return false;
+          return false
         }
       }
       if (data.city === '' || data.city == undefined) {
-        let toastMessage = 'Please add city';
+        let toastMessage = 'Please add city'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        return false;
+        return false
       }
     }
     if (data.addressType === '' || data.addressType == undefined) {
-      let toastMessage = 'Please add address Type';
+      let toastMessage = 'Please add address Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (data.fullAddress === '' || data.fullAddress == undefined) {
-      let toastMessage = 'Please add address';
+      let toastMessage = 'Please add address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (data.pinCode === '' || data.pinCode == undefined) {
-      let toastMessage = 'Please add pin Code';
+      let toastMessage = 'Please add pin Code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (data.country === '' || data.country == undefined) {
-      let toastMessage = 'Please add Country';
+      let toastMessage = 'Please add Country'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
   const addressValidation2 = (type, data, check = true) => {
-    console.log(type, data, 'type,data');
+    console.log(type, data, 'type,data')
     if (data.addressType === '' || data.addressType == undefined) {
-      let toastMessage = 'Please add address Type';
+      let toastMessage = 'Please add address Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (data.fullAddress === '' || data.fullAddress == undefined) {
-      let toastMessage = 'Please add address';
+      let toastMessage = 'Please add address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
     if (data.pinCode === '' || data.pinCode == undefined) {
-      let toastMessage = 'Please add pin Code';
+      let toastMessage = 'Please add pin Code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return false;
+      return false
     }
 
     if (type == 'Branch') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin';
+          let toastMessage = 'Please add gstin'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          return false;
+          return false
         }
         if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state';
+          let toastMessage = 'Please add state'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
-          return false;
+          return false
         }
       }
       if (data.city === '' || data.city == undefined) {
-        let toastMessage = 'Please add city';
+        let toastMessage = 'Please add city'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        return false;
+        return false
       }
     }
 
-    return true;
-  };
+    return true
+  }
   const setInitialSideBar = () => {
-    let temp = [...sideBar];
-    console.log(props?.genericData, 'props?.genericData');
+    let temp = [...sideBar]
+    console.log(props?.genericData, 'props?.genericData')
     if (props?.genericData) {
       if (props?.genericData?.supplier?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Supplier') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.supplier?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Supplier') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.seller?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Seller') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.seller?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Seller') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.buyer?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.buyer?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Buyer') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.financingBank?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.financingBank?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Financing Bank') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.CMA?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.CMA?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'CMA') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.CHA?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.CHA?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'CHA') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.stevedore?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.stevedore?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Stevedore') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.shippingLine?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.shippingLine?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Shipping Line') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.deliveryTerms?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.deliveryTerms?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Delivery Terms') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.productSpecifications?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Product Specifications') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.productSpecifications?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Product Specifications') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.additionalComments?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Additional Comments') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.additionalComments?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Additional Comments') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.placeOfExecution?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Place of Execution') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.placeOfExecution?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Place of Execution') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.associateBuyer?.isSubmitted == true) {
         temp.forEach((val, index) => {
           if (val.name == 'Associate Buyer') {
-            val.state = 'complete';
-            val.image = '/static/done.svg';
+            val.state = 'complete'
+            val.image = '/static/done.svg'
           }
-        });
+        })
       }
       if (props?.genericData?.associateBuyer?.isSubmitted == false) {
         temp.forEach((val, index) => {
           if (val.name == 'Associate Buyer') {
-            val.state = 'pending';
-            val.image = '/static/pending2.svg';
+            val.state = 'pending'
+            val.image = '/static/pending2.svg'
           }
-        });
+        })
       }
     }
-    setSidebar([...temp]);
-  };
+    setSidebar([...temp])
+  }
   useEffect(() => {
-    setInitialSideBar();
-  }, [props.genericData]);
+    setInitialSideBar()
+  }, [props.genericData])
   const setSideStateToLocal = (val = null) => {
-    sessionStorage.setItem('genericSide', JSON.stringify(sideBar));
-    sessionStorage.setItem('setgenActive', val);
-  };
+    sessionStorage.setItem('genericSide', JSON.stringify(sideBar))
+    sessionStorage.setItem('setgenActive', val)
+  }
 
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('genericSide')) {
-        setSidebar(JSON.parse(sessionStorage.getItem('genericSide')));
-        setActive(sessionStorage.getItem('setgenActive'));
+        setSidebar(JSON.parse(sessionStorage.getItem('genericSide')))
+        setActive(sessionStorage.getItem('setgenActive'))
       }
     }
-  }, []);
+  }, [])
 
   const showContent = (active) => {
     if (active == 'Buyer') {
@@ -490,7 +488,7 @@ function Index(props) {
           addressValidation={addressValidation}
           internal={getInternalCompaniesMasterData}
         />
-      );
+      )
     }
     if (active == 'Associate Buyer') {
       return (
@@ -512,7 +510,7 @@ function Index(props) {
               ?.companyDetail?.registeredAddress
           }
         />
-      );
+      )
     }
     if (active == 'Seller') {
       return (
@@ -526,7 +524,7 @@ function Index(props) {
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
         />
-      );
+      )
     }
     if (active == 'CHA') {
       return (
@@ -541,7 +539,7 @@ function Index(props) {
           uploadDoc={uploadDoc}
           vendor={getVendorsMasterData[3]}
         />
-      );
+      )
     }
     if (active == 'CMA') {
       return (
@@ -557,7 +555,7 @@ function Index(props) {
           termsheet={props?.genericData?.order?.termsheet}
           vendor={getVendorsMasterData[1]}
         />
-      );
+      )
     }
     if (active == 'Supplier') {
       return (
@@ -575,7 +573,7 @@ function Index(props) {
           addressValidation={addressValidation}
           addressValidation2={addressValidation2}
         />
-      );
+      )
     }
     if (active == 'Shipping Line') {
       return (
@@ -587,7 +585,7 @@ function Index(props) {
           active={active}
           data={props?.genericData?.shippingLine}
         />
-      );
+      )
     }
     if (active == 'Financing Bank') {
       return (
@@ -599,7 +597,7 @@ function Index(props) {
           active={active}
           data={props?.genericData?.financingBank}
         />
-      );
+      )
     }
     if (active == 'Stevedore') {
       return (
@@ -617,7 +615,7 @@ function Index(props) {
           sameAsCHA={sameAsCHA}
           vendor={getVendorsMasterData[4]}
         />
-      );
+      )
     }
     if (active == 'Delivery Terms') {
       return (
@@ -629,7 +627,7 @@ function Index(props) {
           active={active}
           data={props?.genericData?.deliveryTerms}
         />
-      );
+      )
     }
     if (active == 'Product Specifications') {
       return (
@@ -641,7 +639,7 @@ function Index(props) {
           active={active}
           data={props?.genericData?.productSpecifications}
         />
-      );
+      )
     }
     if (active == 'Additional Comments') {
       return (
@@ -653,7 +651,7 @@ function Index(props) {
           active={active}
           data={props?.genericData?.additionalComments}
         />
-      );
+      )
     }
     if (active == 'Place of Execution') {
       return (
@@ -665,9 +663,9 @@ function Index(props) {
           active={active}
           data={props?.genericData?.placeOfExecution}
         />
-      );
+      )
     }
-  };
+  }
   const [sideBar, setSidebar] = useState([
     {
       name: 'Product Specifications',
@@ -747,102 +745,102 @@ function Index(props) {
       value: 'Additional Comments',
       image: '/static/Group 3256.svg',
     },
-  ]);
+  ])
   const onLeftChange = () => {
-    let tempArr = sideBar;
+    let tempArr = sideBar
     for (let i = 0; i < tempArr.length; i++) {
       if (tempArr[i].name == active) {
         if (i != 0) {
-          tempArr[i].state = 'default';
+          tempArr[i].state = 'default'
           if (
             tempArr[i].state != 'pending' &&
             tempArr[i].state != 'complete' &&
             tempArr[i].state != 'default'
           ) {
-            tempArr[i].image = '/static/Group 3256.svg';
+            tempArr[i].image = '/static/Group 3256.svg'
           }
-          let a = i - 1;
-          console.log(a, 'tempArr[a]234');
-          tempArr[a].state = 'current';
+          let a = i - 1
+          console.log(a, 'tempArr[a]234')
+          tempArr[a].state = 'current'
           if (
             tempArr[i].state != 'pending' &&
             tempArr[i].state != 'complete' &&
             tempArr[i].state != 'default'
           ) {
-            tempArr[a].image = '/static/currnet.svg';
+            tempArr[a].image = '/static/currnet.svg'
           }
-          setActive(tempArr[a].name);
+          setActive(tempArr[a].name)
         }
       }
     }
-    console.log('aasdaa', tempArr);
-    setSidebar(tempArr);
-    setSideStateToLocal(active);
-  };
+    console.log('aasdaa', tempArr)
+    setSidebar(tempArr)
+    setSideStateToLocal(active)
+  }
   const onRightChange = () => {
-    console.log('RIGHT');
-    let tempArr = [...sideBar];
-    console.log(tempArr, '987789');
+    console.log('RIGHT')
+    let tempArr = [...sideBar]
+    console.log(tempArr, '987789')
     if (active !== 'Additional Comments') {
       for (let i = 0; i < tempArr.length; i++) {
-        console.log(tempArr[i], '987');
+        console.log(tempArr[i], '987')
         if (tempArr[i].name == active) {
           if (i != tempArr.length) {
-            tempArr[i].state = 'default';
+            tempArr[i].state = 'default'
             if (
               tempArr[i].state != 'pending' &&
               tempArr[i].state != 'complete' &&
               tempArr[i].state != 'default'
             ) {
-              tempArr[i].image = '/static/Group 3256.svg';
+              tempArr[i].image = '/static/Group 3256.svg'
             }
-            console.log(tempArr[i].state, 'tempArr[a]');
-            let a = i + 1;
-            console.log(a, 'tempArr[a]234');
+            console.log(tempArr[i].state, 'tempArr[a]')
+            let a = i + 1
+            console.log(a, 'tempArr[a]234')
 
-            tempArr[a].state = 'current';
+            tempArr[a].state = 'current'
             if (
               tempArr[i].state != 'pending' &&
               tempArr[i].state != 'complete' &&
               tempArr[i].state != 'default'
             ) {
-              tempArr[a].image = '/static/currnet.svg';
+              tempArr[a].image = '/static/currnet.svg'
             }
 
-            setActive(tempArr[a].name);
-            break;
+            setActive(tempArr[a].name)
+            break
           }
         }
       }
-      console.log('aasdaa', tempArr);
-      setSidebar([...tempArr]);
-      setSideStateToLocal(active);
+      console.log('aasdaa', tempArr)
+      setSidebar([...tempArr])
+      setSideStateToLocal(active)
     }
-  };
-  console.log(sideBar, 'sideBar');
+  }
+  console.log(sideBar, 'sideBar')
 
   const onSave = () => {
-    setSaveData(true);
-  };
+    setSaveData(true)
+  }
   const onSubmit = () => {
-    setSubmitData(true);
-  };
+    setSubmitData(true)
+  }
 
   const updateData = async (key, data) => {
-    let toastMessage = '';
-    let dataToSend = {};
-    console.log('this13', data, key);
+    let toastMessage = ''
+    let dataToSend = {}
+    console.log('this13', data, key)
 
     if (key == 'Supplier') {
       data.list.forEach((val, index) => {
-        delete val['actions'];
-        delete val['addnew'];
-        val.document = {};
-      });
+        delete val['actions']
+        delete val['addnew']
+        val.document = {}
+      })
       data.multiList.forEach((val, index) => {
-        delete val['document'];
-        val.document = {};
-      });
+        delete val['document']
+        val.document = {}
+      })
       dataToSend = {
         genericId: props.genericData?._id,
         supplier: {
@@ -861,7 +859,7 @@ function Index(props) {
           multiPartyName: data.supplierState.multiPartyName,
           isSubmitted: true,
         },
-      };
+      }
 
       let dataToSend2 = {
         name: data.supplierState.name,
@@ -877,87 +875,87 @@ function Index(props) {
         multiParty: data.supplierState.multiParty,
         multiPartyName: data.supplierState.multiPartyName,
         multiPartyAddresses: data.multiList,
-      };
-      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2))
 
       if (
         dataToSend.supplier.name == '' ||
         dataToSend.supplier.name == undefined
       ) {
-        toastMessage = `Please add supplier name  `;
+        toastMessage = `Please add supplier name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.shortName == '' ||
         dataToSend.supplier.shortName == undefined
       ) {
-        toastMessage = `Please add short Name  `;
+        toastMessage = `Please add short Name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.bankDetails.accountNo == '' ||
         dataToSend.supplier.bankDetails.accountNo == undefined
       ) {
-        toastMessage = `Please add account number `;
+        toastMessage = `Please add account number `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.bankDetails.bankName == '' ||
         dataToSend.supplier.bankDetails.bankName == undefined
       ) {
-        toastMessage = `Please add bank name `;
+        toastMessage = `Please add bank name `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.bankDetails.swiftCode == '' ||
         dataToSend.supplier.bankDetails.swiftCode == undefined
       ) {
-        toastMessage = `Please add swift code `;
+        toastMessage = `Please add swift code `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.addresses.length <= 0 ||
         dataToSend.supplier.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.supplier.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.supplier.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.supplier.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -967,86 +965,86 @@ function Index(props) {
           console.log(
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].designation ==
-              '' ||
+            '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].email == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            10 ||
             dataToSend.supplier.authorisedSignatoryDetails[i].phoneNo.length >
-              10
+            10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'Seller') {
@@ -1060,33 +1058,33 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
-      };
-      console.log(dataToSend, 'dataToSend');
+      }
+      console.log(dataToSend, 'dataToSend')
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Seller', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Seller', JSON.stringify(dataToSend2))
 
       if (dataToSend.seller.name == '' || dataToSend.seller.name == undefined) {
-        toastMessage = `Please add seller name  `;
+        toastMessage = `Please add seller name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.seller.shortName == '' ||
         dataToSend.seller.shortName == undefined
       ) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add short name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1094,22 +1092,22 @@ function Index(props) {
         dataToSend.seller.addresses.length <= 0 ||
         dataToSend.seller.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.seller.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.seller.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1122,18 +1120,18 @@ function Index(props) {
           if (
             dataToSend?.seller?.authorisedSignatoryDetails[i]?.document == 'new'
           ) {
-            toastMessage = `Please add authorised Signatory Details document `;
+            toastMessage = `Please add authorised Signatory Details document `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              break;
+              })
+              setSubmitData(false)
+              break
             }
           }
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.seller.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -1143,83 +1141,83 @@ function Index(props) {
           console.log(
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.seller.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].designation == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].email == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            10 ||
             dataToSend.seller.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'Buyer') {
@@ -1228,40 +1226,40 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
-          gstin:data.gstin,
-          pan:data.pan,
+          gstin: data.gstin,
+          pan: data.pan,
 
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
-        gstin:data.gstin,
-          pan:data.pan,
+        gstin: data.gstin,
+        pan: data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2))
       if (dataToSend.buyer.name == '' || dataToSend.buyer.name == undefined) {
-        toastMessage = `Please add buyer name  `;
+        toastMessage = `Please add buyer name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.buyer.branch == '' ||
         dataToSend.buyer.branch == undefined
       ) {
-        toastMessage = `Please add branch Name`;
+        toastMessage = `Please add branch Name`
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1269,25 +1267,25 @@ function Index(props) {
         dataToSend.buyer.addresses.length <= 0 ||
         dataToSend.buyer.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.buyer.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.buyer.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.buyer.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -1297,87 +1295,87 @@ function Index(props) {
           console.log(
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].designation == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].email == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            10 ||
             dataToSend.buyer.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'Financing Bank') {
-      console.log(data.financeData, 'finan');
+      console.log(data.financeData, 'finan')
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -1385,39 +1383,39 @@ function Index(props) {
           branch: data.financeData.branchName,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.financeData.name,
         branchName: data.financeData.branchName,
-      };
-      sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Finance', JSON.stringify(dataToSend2))
       if (
         dataToSend.financingBank.name == '' ||
         dataToSend.financingBank.name == undefined
       ) {
-        toastMessage = `Please add name `;
+        toastMessage = `Please add name `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.financingBank.branch == '' ||
         dataToSend.financingBank.branch == undefined
       ) {
-        toastMessage = `Please add branch name  `;
+        toastMessage = `Please add branch name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
-      console.log(dataToSend, 'dataToSend');
+      console.log(dataToSend, 'dataToSend')
     }
     if (key == 'CMA') {
-      console.log(data.cmaData, 'data.cmaData');
+      console.log(data.cmaData, 'data.cmaData')
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -1429,7 +1427,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
@@ -1437,33 +1435,33 @@ function Index(props) {
         designatedStorageArea: data.cmaData.designatedStorageArea,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Cma', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Cma', JSON.stringify(dataToSend2))
       if (dataToSend.CMA.name == '' || dataToSend.CMA.name == undefined) {
-        toastMessage = `Please add CMA name  `;
+        toastMessage = `Please add CMA name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.CMA.shortName == '' ||
         dataToSend.CMA.shortName == undefined
       ) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add short name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (dataToSend.CMA.gstin == '' || dataToSend.CMA.gstin == undefined) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add short name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1471,36 +1469,36 @@ function Index(props) {
         dataToSend.CMA.designatedStorageArea == '' ||
         dataToSend.CMA.designatedStorageArea == undefined
       ) {
-        toastMessage = `Please add designated Storage Area  `;
+        toastMessage = `Please add designated Storage Area  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend?.CMA?.addresses?.length <= 0 ||
         dataToSend?.CMA?.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend?.CMA?.authorisedSignatoryDetails?.length <= 0 ||
         dataToSend?.CMA?.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.CMA.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -1510,82 +1508,82 @@ function Index(props) {
           console.log(
             dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].designation == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].email == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
             dataToSend.CMA.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'CHA') {
@@ -1600,7 +1598,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.chaState.name,
         shortName: data.chaState.shortName,
@@ -1608,33 +1606,33 @@ function Index(props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Cha', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Cha', JSON.stringify(dataToSend2))
       if (dataToSend.CHA.name == '' || dataToSend.CHA.name == undefined) {
-        toastMessage = `Please add CHA name  `;
+        toastMessage = `Please add CHA name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.CHA.shortName == '' ||
         dataToSend.CHA.shortName == undefined
       ) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add short name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (dataToSend.CHA.gstin == '' || dataToSend.CHA.gstin == undefined) {
-        toastMessage = `Please add gstin name  `;
+        toastMessage = `Please add gstin name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1642,25 +1640,25 @@ function Index(props) {
         dataToSend.CHA.addresses.length <= 0 ||
         dataToSend.CHA.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.CHA.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.CHA.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.CHA.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -1670,82 +1668,82 @@ function Index(props) {
           console.log(
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].designation == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].email == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo.length < 10 ||
             dataToSend.CHA.authorisedSignatoryDetails[i].phoneNo.length > 10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'Stevedore') {
@@ -1760,7 +1758,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
@@ -1768,40 +1766,40 @@ function Index(props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-      console.log('Stevedore', dataToSend);
+      }
+      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2))
+      console.log('Stevedore', dataToSend)
       if (
         dataToSend.stevedore.name == '' ||
         dataToSend.stevedore.name == undefined
       ) {
-        toastMessage = `Please add stevedore name  `;
+        toastMessage = `Please add stevedore name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.stevedore.shortName == '' ||
         dataToSend.stevedore.shortName == undefined
       ) {
-        toastMessage = `Please add short name  `;
+        toastMessage = `Please add short name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.stevedore.gstin == '' ||
         dataToSend.stevedore.gstin == undefined
       ) {
-        toastMessage = `Please add gstin `;
+        toastMessage = `Please add gstin `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1809,25 +1807,25 @@ function Index(props) {
         dataToSend.stevedore.addresses.length <= 0 ||
         dataToSend.stevedore.addresses == undefined
       ) {
-        toastMessage = `Please add address `;
+        toastMessage = `Please add address `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend.stevedore.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.stevedore.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.stevedore.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -1837,91 +1835,91 @@ function Index(props) {
           console.log(
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo,
             'dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo',
-          );
+          )
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].name == undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details name of ${i} `;
+            toastMessage = `Please add authorised Signatory Details name of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].designation ==
-              '' ||
+            '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].designation ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+            toastMessage = `Please add authorised Signatory Details designation of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].email == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].email ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details email of ${i} `;
+            toastMessage = `Please add authorised Signatory Details email of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo == '' ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo ==
-              undefined
+            undefined
           ) {
-            toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+            toastMessage = `Please add authorised Signatory Details phone of ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
           if (
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length <
-              10 ||
+            10 ||
             dataToSend.stevedore.authorisedSignatoryDetails[i].phoneNo.length >
-              10
+            10
           ) {
-            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+            toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
             if (!toast.isActive(toastMessage.toUpperCase())) {
               toast.error(toastMessage.toUpperCase(), {
                 toastId: toastMessage,
-              });
-              setSubmitData(false);
-              error = true;
-              return;
+              })
+              setSubmitData(false)
+              error = true
+              return
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
     }
     if (key == 'Shipping Line') {
-      console.log('this14');
+      console.log('this14')
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -1930,27 +1928,27 @@ function Index(props) {
           gstin: data.shippingData.gstin,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.shippingData.name,
         vesselName: data.shippingData.vesselName,
         gstin: data.shippingData.gstin,
-      };
-      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2))
       if (
         dataToSend.shippingLine.name == '' ||
         dataToSend.shippingLine.name == undefined
       ) {
-        toastMessage = `Please add shipping name  `;
+        toastMessage = `Please add shipping name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
     }
     if (key == 'Delivery Terms') {
-      console.log('this14', data);
+      console.log('this14', data)
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -1960,35 +1958,35 @@ function Index(props) {
           cheque: data.listContact,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         deliveryTerm: data.deliveryData,
         monthOfLoadingCargo: data.monthOfLoadingCargo,
         paymentTerms: data.paymentTerms,
         cheque: data.listContact,
-      };
+      }
 
-      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2));
+      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
       if (
         dataToSend?.deliveryTerms?.deliveryTerm == '' ||
         dataToSend?.deliveryTerms?.deliveryTerm == undefined
       ) {
-        toastMessage = `Please select delivery Terms  `;
+        toastMessage = `Please select delivery Terms  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
       if (
         dataToSend?.deliveryTerms?.paymentTerms == '' ||
         dataToSend?.deliveryTerms?.paymentTerms == undefined
       ) {
-        toastMessage = `Please select payment Terms  `;
+        toastMessage = `Please select payment Terms  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
@@ -1996,17 +1994,17 @@ function Index(props) {
         dataToSend?.deliveryTerms?.monthOfLoadingCargo == '' ||
         dataToSend?.deliveryTerms?.monthOfLoadingCargo == undefined
       ) {
-        toastMessage = `Please select month Of Loading Cargo  `;
+        toastMessage = `Please select month Of Loading Cargo  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
     }
 
     if (key == 'Product Specifications') {
-      console.log('this14');
+      console.log('this14')
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -2014,11 +2012,11 @@ function Index(props) {
           specificationTable: data?.excelData,
           isSubmitted: true,
         },
-      };
+      }
       sessionStorage.setItem(
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
-      );
+      )
       // if (
       //   dataToSend.productSpecifications.comments.length <= 0 ||
       //   dataToSend.productSpecifications.comments == undefined
@@ -2034,16 +2032,16 @@ function Index(props) {
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined
       ) {
-        toastMessage = `Please add product specification `;
+        toastMessage = `Please add product specification `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
     }
     if (key == 'Additional Comments') {
-      let list = [];
+      let list = []
       data.addressList.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -2053,9 +2051,9 @@ function Index(props) {
           monthOfLoadingCargo: val.monthOfLoadingCargo || '',
 
           isSubmitted: true,
-        });
-      });
-      console.log('this14', list);
+        })
+      })
+      console.log('this14', list)
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
@@ -2063,50 +2061,50 @@ function Index(props) {
 
           isSubmitted: true,
         },
-      };
-      sessionStorage.setItem('add', JSON.stringify(data.addressList));
+      }
+      sessionStorage.setItem('add', JSON.stringify(data.addressList))
       if (list.length <= 0 || list == undefined) {
-        toastMessage = `Please add comment `;
+        toastMessage = `Please add comment `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
     }
     if (key == 'Place of Execution') {
-      console.log('this14', data.list);
+      console.log('this14', data.list)
 
-      let list = [];
+      let list = []
       data.list.forEach((val, index) => {
         list.push({
           agreementName: val.name,
           place: val.execution,
           dateOfExecution: val.dateOfExecution,
           isSubmitted: true,
-        });
-      });
+        })
+      })
       dataToSend = {
         genericId: props.genericData?._id,
 
         placeOfExecution: {
           execution: list,
         },
-      };
-      sessionStorage.setItem('exe', JSON.stringify(data.list));
+      }
+      sessionStorage.setItem('exe', JSON.stringify(data.list))
       if (list.length <= 0 || list == undefined) {
-        toastMessage = `Please add place of execution `;
+        toastMessage = `Please add place of execution `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
     }
     if (key == 'Associate Buyer') {
-      console.log('this14');
+      console.log('this14')
 
-      console.log(data.associate, 'data.associate');
+      console.log(data.associate, 'data.associate')
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -2118,16 +2116,16 @@ function Index(props) {
           authorisedSignatoryDetails: data?.list,
           isSubmitted: true,
         },
-      };
+      }
       let dataToSend2 = {
         branchName: data.associate.branchName,
         shortName: data.associate.shortName,
         gstin: data.associate.gstin,
         addresses: data.address,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk');
+      }
+      sessionStorage.setItem('Associate', JSON.stringify(dataToSend2))
+      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk')
       // if (
       //   dataToSend.associateBuyer.branch == '' ||
       //   dataToSend.associateBuyer.branch == undefined
@@ -2144,28 +2142,28 @@ function Index(props) {
         dataToSend.associateBuyer.gstin == '' ||
         dataToSend.associateBuyer.gstin == undefined
       ) {
-        toastMessage = `Please add gstin  `;
+        toastMessage = `Please add gstin  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
 
       console.log(
         data.companyAddress.fullAddress,
         'data.companyAddress.fullAddress',
-      );
+      )
       if (data.companyAddress.fullAddress == '') {
         if (
           dataToSend.associateBuyer.addresses.length <= 0 ||
           dataToSend.associateBuyer.addresses == undefined
         ) {
-          toastMessage = `Please add address `;
+          toastMessage = `Please add address `
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            setSubmitData(false);
-            return;
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            return
           }
         }
       }
@@ -2174,14 +2172,14 @@ function Index(props) {
         dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 ||
         dataToSend.associateBuyer.authorisedSignatoryDetails == undefined
       ) {
-        toastMessage = `Please add authorised Signatory Details `;
+        toastMessage = `Please add authorised Signatory Details `
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          setSubmitData(false);
-          return;
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          return
         }
       }
-      let error = false;
+      let error = false
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0) {
         for (
           let i = 0;
@@ -2195,21 +2193,21 @@ function Index(props) {
             console.log(
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,
               'dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo',
-            );
+            )
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
-                '' ||
+              '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].name ==
-                undefined
+              undefined
             ) {
-              toastMessage = `Please add authorised Signatory Details name of ${i} `;
+              toastMessage = `Please add authorised Signatory Details name of ${i} `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                error = true;
-                return;
+                })
+                setSubmitData(false)
+                error = true
+                return
               }
             }
             if (
@@ -2218,46 +2216,46 @@ function Index(props) {
               dataToSend.associateBuyer.authorisedSignatoryDetails[i]
                 .designation == undefined
             ) {
-              toastMessage = `Please add authorised Signatory Details designation of ${i} `;
+              toastMessage = `Please add authorised Signatory Details designation of ${i} `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                error = true;
-                return;
+                })
+                setSubmitData(false)
+                error = true
+                return
               }
             }
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
-                '' ||
+              '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].email ==
-                undefined
+              undefined
             ) {
-              toastMessage = `Please add authorised Signatory Details email of ${i} `;
+              toastMessage = `Please add authorised Signatory Details email of ${i} `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                error = true;
-                return;
+                })
+                setSubmitData(false)
+                error = true
+                return
               }
             }
             if (
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
-                '' ||
+              '' ||
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo ==
-                undefined
+              undefined
             ) {
-              toastMessage = `Please add authorised Signatory Details phone of ${i} `;
+              toastMessage = `Please add authorised Signatory Details phone of ${i} `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                error = true;
-                return;
+                })
+                setSubmitData(false)
+                error = true
+                return
               }
             }
             if (
@@ -2266,24 +2264,24 @@ function Index(props) {
               dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo
                 .length > 10
             ) {
-              toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `;
+              toastMessage = `Please add valid phone of authorised Signatory Details  ${i} `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                error = true;
-                return;
+                })
+                setSubmitData(false)
+                error = true
+                return
               }
             }
           }
         }
       }
       if (error) {
-        return;
+        return
       }
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0) {
-        let isDoc = true;
+        let isDoc = true
         for (
           let i = 0;
           i < dataToSend.associateBuyer.authorisedSignatoryDetails.length;
@@ -2297,52 +2295,52 @@ function Index(props) {
               dataToSend.associateBuyer.authorisedSignatoryDetails[i]
                 .document == 'new'
             ) {
-              toastMessage = `Please add document `;
+              toastMessage = `Please add document `
               if (!toast.isActive(toastMessage.toUpperCase())) {
                 toast.error(toastMessage.toUpperCase(), {
                   toastId: toastMessage,
-                });
-                setSubmitData(false);
-                isDoc = false;
-                break;
+                })
+                setSubmitData(false)
+                isDoc = false
+                break
               }
             }
           }
         }
         if (isDoc == false) {
-          return;
+          return
         }
       }
     }
 
-    console.log('this15');
-    let timestamp = await dispatch(updateGenericData(dataToSend, 'Submitted'));
-    console.log(timestamp, 'timestamp');
+    console.log('this15')
+    let timestamp = await dispatch(updateGenericData(dataToSend, 'Submitted'))
+    console.log(timestamp, 'timestamp')
     if (timestamp == 500) {
-      return;
+      return
     }
-    props.setDate(timestamp);
-    localStorage.setItem('timeGenericUpdated', timestamp);
-    setSubmitData(false);
-    let tempArr = sideBar;
+    props.setDate(timestamp)
+    localStorage.setItem('timeGenericUpdated', timestamp)
+    setSubmitData(false)
+    let tempArr = sideBar
     tempArr.forEach((val, index) => {
       if (val.value == key) {
-        tempArr[index].state = 'complete';
-        tempArr[index].image = '/static/done.svg';
+        tempArr[index].state = 'complete'
+        tempArr[index].image = '/static/done.svg'
         if (key !== 'Additional Comments') {
-          let a = index + 1;
-          tempArr[a].state = 'current';
-          tempArr[a].image = '/static/currnet.svg';
+          let a = index + 1
+          tempArr[a].state = 'current'
+          tempArr[a].image = '/static/currnet.svg'
 
-          setActive(tempArr[a].name);
+          setActive(tempArr[a].name)
         }
       }
-    });
+    })
 
-    setSidebar([...tempArr]);
+    setSidebar([...tempArr])
 
-    setSideStateToLocal(key);
-  };
+    setSideStateToLocal(key)
+  }
   // const sendData = (key, data) => {
   //   console.log(data, 'sendData')
   //   let dataToSend = {}
@@ -2490,19 +2488,19 @@ function Index(props) {
   //   setSideStateToLocal(key)
   // }
   const sendData = async (key, data) => {
-    let toastMessage = '';
-    let dataToSend = {};
+    let toastMessage = ''
+    let dataToSend = {}
 
     if (key == 'Supplier') {
       data.list.forEach((val, index) => {
-        delete val['actions'];
-        delete val['addnew'];
-        val.document = {};
-      });
+        delete val['actions']
+        delete val['addnew']
+        val.document = {}
+      })
       data.multiList.forEach((val, index) => {
-        delete val['document'];
-        val.document = {};
-      });
+        delete val['document']
+        val.document = {}
+      })
       dataToSend = {
         genericId: props.genericData?._id,
         supplier: {
@@ -2521,7 +2519,7 @@ function Index(props) {
           multiPartyAddresses: data.multiList,
           isSubmitted: false,
         },
-      };
+      }
 
       let dataToSend2 = {
         name: data.supplierState.name,
@@ -2538,8 +2536,8 @@ function Index(props) {
         multiPartyName: data.supplierState.multiPartyName,
 
         multiPartyAddresses: data.multiList,
-      };
-      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend2))
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -2552,15 +2550,15 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
-      };
-      console.log(dataToSend, 'dataToSend');
+      }
+      console.log(dataToSend, 'dataToSend')
       let dataToSend2 = {
         name: 'Indo Intertrade Ag',
         shortName: data.sellerData.shortName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Seller', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Seller', JSON.stringify(dataToSend2))
     }
     if (key == 'Buyer') {
       dataToSend = {
@@ -2568,25 +2566,25 @@ function Index(props) {
         buyer: {
           name: data.buyerData.name,
           branch: data.buyerData.branchName,
-          gstin:data.gstin,
-          pan:data.pan,
+          gstin: data.gstin,
+          pan: data.pan,
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.buyerData.name,
         branchName: data.buyerData.branchName,
-        gstin:data.gstin,
-        pan:data.pan,
+        gstin: data.gstin,
+        pan: data.pan,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend2))
     }
     if (key == 'Financing Bank') {
-      console.log(data.financeData, 'finan');
+      console.log(data.financeData, 'finan')
       dataToSend = {
         genericId: props.genericData?._id,
         financingBank: {
@@ -2594,15 +2592,15 @@ function Index(props) {
           branch: data.financeData.branchName,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.financeData.name,
         branchName: data.financeData.branchName,
-      };
-      sessionStorage.setItem('Finance', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Finance', JSON.stringify(dataToSend2))
     }
     if (key == 'CMA') {
-      console.log(data.cmaData, 'data.cmaData');
+      console.log(data.cmaData, 'data.cmaData')
       dataToSend = {
         genericId: props.genericData?._id,
         CMA: {
@@ -2614,7 +2612,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.cmaData.name,
         shortName: data.cmaData.shortName,
@@ -2622,8 +2620,8 @@ function Index(props) {
         shortName: data.cmaData.gstin,
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Cma', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Cma', JSON.stringify(dataToSend2))
     }
     if (key == 'CHA') {
       dataToSend = {
@@ -2637,7 +2635,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.chaState.name,
         shortName: data.chaState.shortName,
@@ -2645,8 +2643,8 @@ function Index(props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Cha', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Cha', JSON.stringify(dataToSend2))
     }
     if (key == 'Stevedore') {
       dataToSend = {
@@ -2660,7 +2658,7 @@ function Index(props) {
           authorisedSignatoryDetails: data.list,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.seteveState.name,
         shortName: data.seteveState.shortName,
@@ -2668,12 +2666,12 @@ function Index(props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2));
-      console.log('Stevedore', dataToSend);
+      }
+      sessionStorage.setItem('Stevedore', JSON.stringify(dataToSend2))
+      console.log('Stevedore', dataToSend)
     }
     if (key == 'Shipping Line') {
-      console.log('this14');
+      console.log('this14')
       dataToSend = {
         genericId: props.genericData?._id,
         shippingLine: {
@@ -2682,16 +2680,16 @@ function Index(props) {
           gstin: data.shippingData.gstin,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         name: data.shippingData.name,
         vesselName: data.shippingData.vesselName,
         gstin: data.shippingData.gstin,
-      };
-      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2));
+      }
+      sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2))
     }
     if (key == 'Delivery Terms') {
-      console.log('this14', data);
+      console.log('this14', data)
       dataToSend = {
         genericId: props.genericData?._id,
         deliveryTerms: {
@@ -2701,18 +2699,18 @@ function Index(props) {
           cheque: data.listContact,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         deliveryTerm: data.deliveryData,
         monthOfLoadingCargo: data.monthOfLoadingCargo,
         paymentTerms: data.paymentTerms,
         cheque: data.listContact,
-      };
+      }
 
-      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2));
+      sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
     }
     if (key == 'Product Specifications') {
-      console.log('this14');
+      console.log('this14')
       dataToSend = {
         genericId: props.genericData?._id,
         productSpecifications: {
@@ -2720,14 +2718,14 @@ function Index(props) {
           specificationTable: data?.excelData,
           isSubmitted: false,
         },
-      };
+      }
       sessionStorage.setItem(
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
-      );
+      )
     }
     if (key == 'Additional Comments') {
-      let list = [];
+      let list = []
       data.addressList.forEach((val, index) => {
         list.push({
           agreementName: val.name,
@@ -2737,42 +2735,42 @@ function Index(props) {
           monthOfLoadingCargo: val.monthOfLoadingCargo || '',
 
           isSubmitted: false,
-        });
-      });
-      console.log('this14', list);
+        })
+      })
+      console.log('this14', list)
       dataToSend = {
         genericId: props.genericData?._id,
         additionalComments: {
           comments: list,
         },
-      };
-      sessionStorage.setItem('add', JSON.stringify(data.addressList));
+      }
+      sessionStorage.setItem('add', JSON.stringify(data.addressList))
     }
     if (key == 'Place of Execution') {
-      console.log('this14', data.list);
+      console.log('this14', data.list)
 
-      let list = [];
+      let list = []
       data.list.forEach((val, index) => {
         list.push({
           agreementName: val.name,
           place: val.execution,
           dateOfExecution: val.dateOfExecution,
           isSubmitted: false,
-        });
-      });
+        })
+      })
       dataToSend = {
         genericId: props.genericData?._id,
 
         placeOfExecution: {
           execution: list,
         },
-      };
-      sessionStorage.setItem('exe', JSON.stringify(data.list));
+      }
+      sessionStorage.setItem('exe', JSON.stringify(data.list))
     }
     if (key == 'Associate Buyer') {
-      console.log('this14');
+      console.log('this14')
 
-      console.log(data.associate, 'data.associate');
+      console.log(data.associate, 'data.associate')
       dataToSend = {
         genericId: props.genericData?._id,
 
@@ -2784,28 +2782,28 @@ function Index(props) {
           authorisedSignatoryDetails: data?.list,
           isSubmitted: false,
         },
-      };
+      }
       let dataToSend2 = {
         branchName: data.associate.branchName,
         shortName: data.associate.shortName,
         gstin: data.associate.gstin,
         addresses: data.address,
         authorisedSignatoryDetails: data.list,
-      };
-      sessionStorage.setItem('Associate', JSON.stringify(dataToSend2));
-      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk');
+      }
+      sessionStorage.setItem('Associate', JSON.stringify(dataToSend2))
+      console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk')
     }
 
-    console.log('this15');
-    let timestamp = await dispatch(updateGenericData(dataToSend, 'Saved'));
-    console.log(timestamp, 'timestamp');
+    console.log('this15')
+    let timestamp = await dispatch(updateGenericData(dataToSend, 'Saved'))
+    console.log(timestamp, 'timestamp')
     if (timestamp == 500) {
-      return;
+      return
     }
-    setSaveData(false);
+    setSaveData(false)
     // props.setDate(timestamp)
     // localStorage.setItem('timeGenericUpdated', timestamp)
-    setSubmitData(false);
+    setSubmitData(false)
     // let tempArr = sideBar
     // tempArr.forEach((val, index) => {
     //   if (val.value == key) {
@@ -2823,15 +2821,15 @@ function Index(props) {
 
     // setSidebar([...tempArr])
 
-    setSideStateToLocal(key);
-  };
+    setSideStateToLocal(key)
+  }
   const onShowSideBar = () => {
-    setIsSideBarOpen(true);
-  };
+    setIsSideBarOpen(true)
+  }
 
   useEffect(() => {
-    setMultiPart(props.genericData?.supplier?.multiParty);
-  }, [props.genericData]);
+    setMultiPart(props.genericData?.supplier?.multiParty)
+  }, [props.genericData])
 
   return (
     <div className={`${styles.root}`}>
@@ -2852,7 +2850,7 @@ function Index(props) {
                     row.state == 'current' ? styles.selected : null
                   }  d-flex justify-content-between align-items-center`}
                   onClick={(e) => {
-                    changeActiveValue(row.name, index);
+                    changeActiveValue(row.name, index)
                   }}
                 >
                   <img src={row.image}></img>
@@ -2865,7 +2863,7 @@ function Index(props) {
                 />
               </div>
             </>
-          );
+          )
         })}
       </div>
 
@@ -2887,7 +2885,7 @@ function Index(props) {
                 href="#"
                 className={`${styles.arrow} ${`rightArrow`}`}
                 onClick={() => {
-                  onShowSideBar();
+                  onShowSideBar()
                 }}
               >
                 <img
@@ -2917,7 +2915,7 @@ function Index(props) {
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
                       onChange={() => {
-                        setMultiPart(true);
+                        setMultiPart(true)
                       }}
                       checked={multiPart == true ? true : false}
                     />
@@ -2936,7 +2934,7 @@ function Index(props) {
                       id="flexRadioDefault2"
                       checked={multiPart == false ? true : false}
                       onChange={() => {
-                        setMultiPart(false);
+                        setMultiPart(false)
                       }}
                     />
                     <label
@@ -2957,7 +2955,7 @@ function Index(props) {
                       }  ${styles.customSelect} input  form-control`}
                       name="countryOfOrigin"
                       onChange={(e) => {
-                        setMultiPartValue(e.target.value);
+                        setMultiPartValue(e.target.value)
                       }}
                       disabled={multiPart == true ? '' : 'disable'}
                       value={multiPartValue}
@@ -2986,7 +2984,7 @@ function Index(props) {
                     type="checkbox"
                     checked={sameAsCHA ? 'checked' : ''}
                     onChange={(e) => {
-                      setSameAsCHA(!sameAsCHA);
+                      setSameAsCHA(!sameAsCHA)
                     }}
                   ></input>
                   <span className={`${styles.slider} ${styles.round}`}></span>
@@ -2998,7 +2996,7 @@ function Index(props) {
               href="#"
               className={`${styles.arrow} ${`leftArrow`}`}
               onClick={() => {
-                onLeftChange();
+                onLeftChange()
               }}
             >
               {' '}
@@ -3012,7 +3010,7 @@ function Index(props) {
               href="#"
               className={`${styles.arrow} ${`rightArrow`}`}
               onClick={() => {
-                onRightChange();
+                onRightChange()
               }}
             >
               <img
@@ -3036,7 +3034,7 @@ function Index(props) {
           <div
             className={styles.reject}
             onClick={(e) => {
-              onSave();
+              onSave()
             }}
           >
             <span>Save</span>
@@ -3044,7 +3042,7 @@ function Index(props) {
           <div
             className={styles.approve}
             onClick={(e) => {
-              onSubmit();
+              onSubmit()
             }}
           >
             <span>Submit</span>
@@ -3052,7 +3050,7 @@ function Index(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Index;
+export default Index
