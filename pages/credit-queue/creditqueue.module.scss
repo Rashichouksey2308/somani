@@ -257,6 +257,9 @@
   border-radius: 8px;
   border: 1px solid #d2d7e5;
   box-shadow: 0 3px 12px #e5e7ed;
+  @include respond(lg-desktop) {
+    margin-bottom: 20px;
+  }
   .boxInner {
     width: 40%;
     padding: 21px 24px;
@@ -572,6 +575,10 @@
           border-radius: 50%;
           display: inline-block;
           vertical-align: middle;
+          @include respond(lg-desktop) {
+            width: 12px;
+            height: 12px;
+          }
         }
         .approved {
           background: #26dd73;
@@ -581,6 +588,11 @@
         }
         .review {
           background: #ffce00;
+        }
+        .eye_icon {
+          @include respond(lg-desktop) {
+            width: 20px;
+          }
         }
       }
     }

@@ -19,7 +19,15 @@ export default function Index(props) {
     sessionStorage.setItem('balanceQuantity',Number(val.Quantity));
     Router.push('/delivery-preview');
   };
-  console.log(props.releaseOrderData, 'tempArr');
+  console.log(props.deliveryOrder, 'tempArr');
+  let boe = _get(
+    props,
+    'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry',
+  [],
+  )
+  const boeTotalQuantity = boe?.reduce((accumulator, object) => {
+    return accumulator + Number(object.boeDetails.invoiceQuantity);
+  }, 0);
 
   return (
     <>
@@ -69,13 +77,7 @@ export default function Index(props) {
                       Invoice Quantity{' '}
                     </div>
                     <span className={styles.value}>
-                      {Number(
-                        _get(
-                          props,
-                          'ReleaseOrder.data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-                          '',
-                        ),
-                      )?.toLocaleString('en-In', {
+                      {Number(boeTotalQuantity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
                       {_get(
@@ -270,7 +272,7 @@ export default function Index(props) {
                                 style={{ marginTop: '-40px' }}
                               >
                                 <div
-                                  className={`${styles.form_group} ml-n2 col-lg-6 col-md-6`}
+                                  className={`${styles.form_group} col-lg-5 col-md-5`}
                                 >
                                   <div className={`${styles.label} text`}>
                                     Status
@@ -310,8 +312,7 @@ export default function Index(props) {
                                   </div>
                                 ) : (
                                   <div
-                                    className={`${styles.form_group} col-lg-6`}
-                                    style={{ marginLeft: '-30px' }}
+                                    className={`${styles.form_group} col-md-7`}
                                   >
                                     <img
                                       src="/static/mode_edit.svg"
@@ -333,7 +334,7 @@ export default function Index(props) {
 
                                     {props.releaseOrderData.length > 1 && (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2 mr-2`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {

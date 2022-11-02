@@ -6,10 +6,8 @@ const initialState = {
 };
 
 function GenericReducer(state = initialState, action) {
-  console.log(action.type, '988');
   switch (action.type) {
     case types.GET_GENERIC_SUCCESS: {
-      console.log('hereh18');
       return {
         ...state,
         allGeneric: action.payload,

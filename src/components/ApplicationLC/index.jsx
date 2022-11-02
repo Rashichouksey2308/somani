@@ -701,13 +701,11 @@ console.log(lcModuleData,"lcModuleData")
                                   textTransform: 'uppercase',
                                 }}
                               >
-                                {addPrefixOrSuffix(
+                               USD{' '} {
                                   lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                                     ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
-                                    : 0,
-                                  'USD',
-                                  '',
-                                )}
+                                    : 0
+                                  }
                               </p>
                             </td>
                           </tr>
@@ -2547,13 +2545,18 @@ const getIndex=(index)=>{
                             <span>CURRENCY CODE &amp; AMOUNT</span>
                           </td>
                           <td className="term_para">
-                            {addPrefixOrSuffix(
+                            {/* {addPrefixOrSuffix(
                               lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                                 ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
                                 : 0,
                               'USD',
                               '',
-                            )}
+                            )} */}
+                             USD{' '} {
+                                  lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                    ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()
+                                    : 0
+                                  }
                           </td>
                         </tr>
                       ) : (
@@ -3040,7 +3043,7 @@ const getIndex=(index)=>{
                               78{' '}
                             </span>
                             <span>
-                              INSTRUCTIONS TO PAYING / ACCEPTING /<br />
+                              INSTRUCTIONS TO PAYING / ACCEPTING /
                               NEGOTIATING BANK
                             </span>
                           </td>

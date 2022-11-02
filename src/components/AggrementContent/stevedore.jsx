@@ -367,10 +367,10 @@ function Index(props) {
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
     if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'Fatima Yannoulis'
+      val?.name == 'Bhawana Jain' ||
+      val?.name == 'Vipin Kumar' ||
+      val?.name == 'Devesh Jain' ||
+      val?.name == 'Fatima Yannoulis'
     ) {
       let temp = [...options];
       temp.push(val.name);
@@ -1106,10 +1106,10 @@ function Index(props) {
                                     </>
                                   ) : (
                                     <>
-                                      {val.name == 'Vipin Kumar' ||
-                                      val.name == 'Bhawana Jain' ||
-                                      val.name == 'Devesh Jain' ||
-                                      val.name == 'Fatima Yannoulis' ? (
+                                      {val?.name == 'Vipin Kumar' ||
+                                      val?.name == 'Bhawana Jain' ||
+                                      val?.name == 'Devesh Jain' ||
+                                      val?.name == 'Fatima Yannoulis' ? (
                                         <>
                                           <select
                                             value={val.name}

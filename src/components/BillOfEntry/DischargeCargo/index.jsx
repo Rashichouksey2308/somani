@@ -819,7 +819,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                       {!shipmentTypeBulk && (
                         <td>
                           {bl?.blQuantity
-                            ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                            ? Number(bl.containerDetails.numberOfContainers)?.toLocaleString('en-In')
                             : ''}{' '}
                           {/* {customData?.order?.unitOfQuantity} */}
                         </td>

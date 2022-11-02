@@ -6,10 +6,7 @@ import DateCalender from '../DateCalender';
 import moment from 'moment';
 
 const index = ({ orderDetail, saveShipmentData, shipment,port }) => {
-  console.log(shipment, 'ship[');
-  // const {shipmentDetail}= orderDetail;
-
-  // console.log(orderDetail, 'THIS IS ORDER DETAIL')
+ 
 
   const saveDate = (value, name) => {
     const d = new Date(value);
@@ -30,8 +27,7 @@ const index = ({ orderDetail, saveShipmentData, shipment,port }) => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
   };
-  console.log(dateStartFrom.laycan, 'dateStartFrom');
-  console.log(orderDetail?.shipmentDetail, 'ravindra');
+  
   return (
     <div
       className={`${styles.main} card vessel_card border_color border-bottom`}

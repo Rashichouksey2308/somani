@@ -120,7 +120,7 @@ function VerifyingGstFailed() {
 export const UpdateCam =
   (payload, message) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
-    console.log(payload.status, 'payload');
+
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -134,10 +134,10 @@ export const UpdateCam =
           headers: headers,
         },
       );
-      console.log(response.data.code, 'response');
+
       if (response.data.code === 200) {
         dispatch(updatingCamSuccess(response.data.data));
-        console.log(response.data.code, 'response.data.data.order');
+
         sessionStorage.setItem('termsheetId', response.data.data.order._id);
         sessionStorage.setItem(
           'termID',
@@ -174,7 +174,7 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-    console.log('here in getDocuments');
+
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     let headers = {
       authorization: jwtAccessToken,
@@ -266,7 +266,6 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     Axios.post(`${API.corebaseUrl}${API.addDocuments}`, payload, {
       headers: headers,
     }).then((response) => {
-      console.log(response, 'response add docu');
       if (response.data.code === 200) {
         dispatch(addingDocumentsSuccess(response.data.data));
         dispatch(GetDocuments(`?order=${id}`));

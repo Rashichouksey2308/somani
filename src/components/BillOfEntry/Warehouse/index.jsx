@@ -183,7 +183,7 @@ console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wa
                       CMA Name<strong className="text-danger">*</strong>
                     </div>
                     <span className={styles.value}>
-                      Dr. Amin Controllers Private Limited
+                     {_get(customData, 'order.generic.CMA.name',"")}
                     </span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
@@ -191,7 +191,7 @@ console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wa
                       Storage Address
                     </div>
                     <span className={styles.value}>
-                      New Dolphin Yard, Visakhapatnam Port
+                      {_get(customData,"order.insurance.quotationRequest.storageDetails.storagePlotAddress","")} {" "} {_get(customData,"order.insurance.quotationRequest.storageDetails.placeOfStorage","")}
                     </span>
                   </div>
                   <div
@@ -237,7 +237,7 @@ console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wa
                       }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Quantity<strong className="text-danger">*</strong>
+                      BL Qty<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div

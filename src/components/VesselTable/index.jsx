@@ -14,7 +14,7 @@ import _get from 'lodash/get';
 
 function Index() {
   const { singleOrder } = useSelector((state) => state.buyer);
-  console.log(singleOrder, 'singleOrder');
+;
   const [edit, setEdit] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();

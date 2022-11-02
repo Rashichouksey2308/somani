@@ -67,10 +67,7 @@ export const GetAllInspection =
     dispatch(setIsLoading());
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-    console.log(
-      `${API.corebaseUrl}${API.getVessel}`,
-      `API.corebaseUrl{API.getVessel}`,
-    );
+   
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     let headers = {
@@ -163,7 +160,6 @@ export const UpdateInspection =
       dispatch(setIsLoading());
       let cookie = Cookies.get('SOMANI');
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-      console.log(payload.task, 'payload Third party23');
 
       let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
       var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
@@ -175,12 +171,11 @@ export const UpdateInspection =
           headers: headers,
         },
       );
-      console.log(response, 'response');
+
       if (response.data.code === 200) {
         let toastMessage = 'UPDATED SUCCESSFULLY';
-        console.log(payload.task, 'payload.task');
+
         if (payload.task == 'save') {
-          console.log(payload.task, 'payload.task213132');
           toastMessage = 'Saved Successfully';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {

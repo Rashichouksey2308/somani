@@ -32,7 +32,6 @@ export function getGeneric() {
 }
 
 export function getGenericSuccess(payload) {
-  console.log(payload, 987);
   return {
     type: types.GET_GENERIC_SUCCESS,
     payload: payload,
@@ -48,7 +47,7 @@ export function submitGenericFailed(payload) {
 export const updateGenericData =
   (payload, message) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
-    console.log(payload, 'updateGenericData');
+
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -72,7 +71,7 @@ export const updateGenericData =
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        console.log(response.data.timestamp, 'responsesdasd');
+
         dispatch(setNotLoading());
         return response.data.timestamp;
       } else {
@@ -98,7 +97,6 @@ export const updateGenericData =
 
 export const getGenericData = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  console.log(payload, 'updateGenericData');
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -116,7 +114,6 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
       },
     );
     if (response.data.code === 200) {
-      console.log(response.data.data.data, 'data');
       dispatch(getGenericSuccess(response.data.data.data));
       dispatch(setNotLoading());
       return response.data.data;

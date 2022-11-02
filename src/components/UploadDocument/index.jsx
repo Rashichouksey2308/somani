@@ -24,7 +24,7 @@ const Index = ({
     }
     uploadDocument1(e);
   };
-  console.log(containerList, vesselCertificate, 'docName');
+
   const handleClose = (e) => {
     if (e === 'Vessel Certificate') {
       setVesselCertificate(null);
@@ -37,7 +37,7 @@ const Index = ({
   return (
     <div className={`${styles.main} border_color card`}>
       <div
-        className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+        className={`${styles.head_container} border_color head_container d-flex align-items-center justify-content-between`}
         data-toggle="collapse"
         data-target="#upload"
         aria-expanded="true"
