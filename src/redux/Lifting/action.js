@@ -59,10 +59,6 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    `API.corebaseUrl{API.getVessel}`,
-  );
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   let headers = {
@@ -138,7 +134,7 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
 export const UpdateLiftingData =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading());
-    console.log('sending');
+
     let cookie = Cookies.get('SOMANI');
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 

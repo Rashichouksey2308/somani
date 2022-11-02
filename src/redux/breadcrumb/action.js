@@ -8,7 +8,7 @@ import { GetCompanyDetails } from 'redux/companyDetail/action';
 
 export const getBreadcrumbValues = (payload) => (dispatch, getState) => {
   const prevValues = getState().Breadcrumb.breadCrumbData;
-  console.log(prevValues, 'rahul');
+
   dispatch({
     type: types.GET_BREADCRUMB_DATA,
     payload: {
@@ -50,7 +50,6 @@ export function setUnit(payload) {
   };
 }
 export function setSidebar(payload) {
-  console.log(payload, '97899789');
   return {
     type: types.SIDEBAR,
     payload,
@@ -59,13 +58,13 @@ export function setSidebar(payload) {
 
 export const settingCurrency = (payload) => (dispatch, getState) => {
   localStorage.setItem('currency', payload);
-  console.log(payload, 'currency');
+
   dispatch(setCurrency(payload));
 };
 
 export const settingUnit = (payload) => (dispatch, getState) => {
   localStorage.setItem('unit', payload);
-  console.log(payload, 'currency');
+
   dispatch(setUnit(payload));
 };
 export const gettingCurrency = (payload) => (dispatch, getState) => {
@@ -90,6 +89,6 @@ export const settingSidebar =
     sessionStorage.setItem('subsideBarMain', subsideBarMain);
     sessionStorage.setItem('loadedSubPage', loadedSubPage);
     sessionStorage.setItem('openList', openList);
-    console.log({ sideBarMain, subsideBarMain }, 'ideBarMain}');
+
     dispatch(setSidebar({ sideBarMain, subsideBarMain }));
   };

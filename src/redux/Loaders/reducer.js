@@ -5,7 +5,6 @@ const initialState = {
 };
 
 function LoadReducer(state = initialState, action) {
-  console.log(action.payload, 'SET_UNIT');
   switch (action.type) {
     case types.IS_LOADING:
       return {

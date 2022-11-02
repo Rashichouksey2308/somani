@@ -57,7 +57,7 @@ function Index({
   country,
   port
 }) {
-  console.log(partShipmentAllowed, 'partShipmentAllowed');
+
   const [orderValueinFocus, setOrderValueInFocus] = useState(false);
 
   const dispatch = useDispatch();
@@ -71,16 +71,16 @@ function Index({
   };
 
   const uploadDocHandler1 = (e) => {
-    console.log(uploadDocHandler(e), 'vesselDocUpload');
+   
   };
 
   const handleClose = (e) => {
     setVesselCertificate(null);
   };
 
-  console.log(isFieldInFocus, 'containerExcel', list);
 
-  console.log(vesselData, 'vesselData');
+
+ 
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -115,7 +115,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-                console.log(val, 'vesselMApping');
+              
                 return (
                   <div
                     key={index}

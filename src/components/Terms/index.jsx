@@ -33,7 +33,7 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
           className={`${styles.submit_btn} submit_btn`}
           disabled={creatingBuyer}
           onClick={() => {
-            console.log('here');
+          
             submitData();
           }}
         >
