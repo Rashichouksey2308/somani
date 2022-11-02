@@ -27,6 +27,8 @@ function Index() {
   useEffect(() => {
     if (id) {
       dispatch(GetSupplier(`?supplierId=${id}`))
+    } else{
+      dispatch(ClearSupplier())
     }
   }, [id])
 
@@ -45,7 +47,15 @@ function Index() {
   }
 
   useEffect(() => {
-    setFormData(supplierData?.supplierProfile)
+    setFormData(supplierData?.supplierProfile ?? {
+      supplierName: '',
+      constitution: '',
+      incorporationDate: '',
+      countryOfIncorporation: '',
+      nationalIdentificationNumber: '',
+      website: '',
+      status: ""
+    })
     setKeyAddData(supplierData?.keyAddress ?? [])
     setPerson(supplierData.contactPerson ?? [])
     setDetail(supplierData?.shareHoldersDetails ?? [])
@@ -658,7 +668,7 @@ function Index() {
       if (id) {
         dispatch(UpdateSupplier(apiData));
       } else {
-        dispatch(CreateSupplier())
+        dispatch(CreateSupplier(apiData))
       }
       // console.log('apidata', apiData)
     }
@@ -2074,13 +2084,13 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="mt-4 ml-2 mr-2 mb-5">
-            {/* <InspectionDocument
+          {/* <div className="mt-4 ml-2 mr-2 mb-5">
+            <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
             // uploadDocument1={uploadDocument1}
-            /> */}
-          </div>
+            />
+          </div> */}
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
       </div>
