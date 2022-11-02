@@ -33,10 +33,11 @@ export default function Index({
 }) {
   let transId = _get(TransitDetails, `data[0]`, '');
 
+ 
   const dispatch = useDispatch();
   const router = useRouter();
 
-  console.log(TransitDetails, 'TransitDetails');
+ 
 
   let shipmentTypeBulk =
     _get(
@@ -99,7 +100,7 @@ export default function Index({
     ],
     document: null,
   });
- 
+
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),
@@ -107,31 +108,7 @@ export default function Index({
   });
 
   const [orderData, setOrderData] = useState();
-  // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
 
-  // const calculateBalaceQuantity = () => {
-  //   let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-  // _get(
-  //   TransitDetails,
-  //   'data[0].BL.billOfLanding',
-  //   [],
-  // ).forEach((item) => {
-  // balanceQuantity = balanceQuantity - item.blQuantity
-  // })
-
-  // igmList.igmDetails.forEach((item) => {
-  //   item.blNumber.forEach((item2) => {
-  //     balanceQuantity = balanceQuantity - item2.blQuantity
-  //   })
-  // })
-  //   if (balanceQuantity > 0) {
-  //     const toastMessage = 'IGM can not exceed to gross BL quantity'
-  //     if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //     }
-  //   }
-  //   return balanceQuantity
-  // }
 
   const checkRemainingBalance = () => {
     let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
@@ -210,13 +187,13 @@ export default function Index({
         }
       }
     }
-    // console.log(name, text, index,'igmOnChange')
+  
     let newData = { ...igmList };
     newData.igmDetails[index][name] = text;
     setIgmList(newData);
   };
   const saveDate = (value, name, index) => {
-    // console.log(value, name, 'save date')
+
     const d = new Date(value);
     let text = d.toISOString();
     onChangeIgm(name, text, index);
@@ -287,27 +264,7 @@ export default function Index({
     setIgmList(tempArray);
   };
 
-  // useEffect(() => {
-  //   if( _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`, '') == "INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
-  //     console.log("herehre")
-  //     setConsigneeName('indoGerman')
-  //     setConsigneeInfo({
-  //       name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
-  //       branch: 'DELHI',
-  //       address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
-  //     })
-  //   }
-  //    if( _get(TransitDetails, `data[0].order.marginMoney.invoiceDetail.importerName`, '')=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
-  //     setConsigneeName('EMERGENT')
-  //     setConsigneeInfo({
-  //       name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
-  //       branch: 'VIZAG',
-  //       address:
-  //         '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
-  //     })
-  //   }
-
-  // },[TransitDetails])
+ 
  
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
@@ -330,7 +287,7 @@ export default function Index({
       setConsigneeName('');
     }
   };
-
+ 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
@@ -457,14 +414,14 @@ export default function Index({
       setIgmList(tempArray);
     }
   };
-
+ 
 
   const onDocumentSelect = async (e, index) => {
-
+    
     const docData = await docUploadFunction(e);
-    // const name = e.target.id
+    
     let temparray = { ...igmList };
-    // console.log(temparray, docData, 'temparray')
+   
     temparray.igmDetails[index].document = docData;
     setIgmList(temparray);
   };
@@ -507,7 +464,7 @@ export default function Index({
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
     };
-    
+   
     let fd = new FormData();
     fd.append('igm', JSON.stringify(igmDetails));
     fd.append('transitId', transId._id);
@@ -533,7 +490,9 @@ export default function Index({
       router.push(`/forward-hedging`);
     }
   };
-
+ const getIndex=(index)=>{
+  return index=index+1
+ }
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -768,7 +727,7 @@ export default function Index({
             </div>
           </div>
           {igmList.igmDetails.map((item, index) => {
-           
+          
             return (
               <div
                 key={index}
@@ -777,7 +736,7 @@ export default function Index({
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading} mb-0`}>IGM</h3>
+                  <h3 className={`${styles.heading} mb-0`}>IGM {getIndex(index)}</h3>
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>
                       Balance Quantity:

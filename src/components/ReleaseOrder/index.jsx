@@ -29,14 +29,22 @@ export default function Index({
   useEffect(() => {
     setorderId(_get(ReleaseOrderData, 'data[0].order._id', ''));
   }, [ReleaseOrderData]);
-  let InvoiceQuantity = _get(
+  // let InvoiceQuantity =  _get(
+  //   ReleaseOrderData,
+  //   'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
+  //   0,
+  // );
+ let boe = _get(
     ReleaseOrderData,
-    'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-    0,
-  );
+    'data[0].order.customClearance.billOfEntry.billOfEntry',
+   [],
+  )
+  const boeTotalQuantity = boe?.reduce((accumulator, object) => {
+    return accumulator + Number(object.boeDetails.invoiceQuantity);
+  }, 0);
 
   const [editInput, setEditInput] = useState(true);
-  const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity);
+  const [netBalanceQuantity, setNetBalanceQuantity] = useState(boeTotalQuantity);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   console.log(releaseDetail, 'releaseDetail');
@@ -191,7 +199,7 @@ export default function Index({
   };
   console.log(netBalanceQuantity, 'val2');
   const getData = () => {
-    let value = InvoiceQuantity;
+    let value = boeTotalQuantity;
     releaseDetail.forEach((item) => {
       value = value - item.netQuantityReleased;
     });
@@ -259,9 +267,8 @@ export default function Index({
         releaseDetail[i]?.netQuantityReleased == '' ||
         releaseDetail[i]?.netQuantityReleased == null
       ) {
-        toastMessage = `please provide a value for net quantity release in release order no ${
-          i + 1
-        }  `;
+        toastMessage = `please provide a value for net quantity release in release order no ${i + 1
+          }  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -332,13 +339,7 @@ export default function Index({
                       Invoice Quantity
                     </div>
                     <span className={styles.value}>
-                      {Number(
-                        _get(
-                          ReleaseOrderData,
-                          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-                          0,
-                        ),
-                      )?.toLocaleString('en-In', {
+                      {Number(boeTotalQuantity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
                       {_get(
@@ -446,13 +447,13 @@ export default function Index({
                               isFieldInFocus
                                 ? item.netQuantityReleased
                                 : Number(
-                                    item.netQuantityReleased,
-                                  )?.toLocaleString('en-IN') +
-                                  ` ${_get(
-                                    ReleaseOrderData,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                  item.netQuantityReleased,
+                                )?.toLocaleString('en-IN') +
+                                ` ${_get(
+                                  ReleaseOrderData,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                )}`
                             }
                             className={`${styles.input_field} input form-control`}
                             onKeyDown={(evt) =>
@@ -460,9 +461,9 @@ export default function Index({
                               evt.preventDefault()
                             }
 
-                            // onKeyDown={(evt) =>
-                            //   evt.key === 'e' && evt.preventDefault()
-                            // }
+                          // onKeyDown={(evt) =>
+                          //   evt.key === 'e' && evt.preventDefault()
+                          // }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}

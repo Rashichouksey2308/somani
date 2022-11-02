@@ -50,9 +50,29 @@ export default function Index({
     if (data.length > 0) {
       // data[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
       setCimsDetails(data);
+    }else{
+      setCimsDetails(
+        [
+    {
+      vesselName: '',
+      quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
+      circNumber: '',
+      circDate: '',
+      cimsCharges: '',
+      paymentBy: _get(
+          TransitDetails,
+          'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+          '',
+        ),
+      coalImportRegistrationDoc: null,
+      cimsPaymentReceiptDoc: null,
+    },
+  ]
+      )
     }
   }, [TransitDetails]);
-
+  console.log(TransitDetails,"TransitDetails")
+  console.log(cimsDetails,"xxxxzxc")
   // useEffect(() => {
   //   let temp = [...cimsDetails]
   //   temp[0].quantity = _get(TransitDetails, 'data[0].order.quantity', '')
@@ -538,22 +558,12 @@ export default function Index({
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
-                        <option disabled defaultChecked>
+                        <option  checked>
                           Select an option
                         </option>
-                        <option
-                          value={_get(
-                            TransitDetails,
-                            'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                            '',
-                          )}
-                        >
-                          {_get(
-                            TransitDetails,
-                            'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-                            '',
-                          )}
-                        </option>
+                        <option value={"Indo German International Private Limited (IGPL)"}>Indo German International Private Limited (IGPL)</option>
+                        <option value={"Emergent Industrial Solutions Limited (EISL)"}>Emergent Industrial Solutions Limited (EISL)</option>
+                      
                         <option value="Buyer">Buyer</option>
                       </select>
                       <label
