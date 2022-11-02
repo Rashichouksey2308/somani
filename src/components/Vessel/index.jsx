@@ -71,7 +71,7 @@ function Index({
   };
 
   const uploadDocHandler1 = (e) => {
-   
+    uploadDocHandler(e)
   };
 
   const handleClose = (e) => {

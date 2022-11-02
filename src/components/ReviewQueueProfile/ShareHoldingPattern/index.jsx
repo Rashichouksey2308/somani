@@ -91,7 +91,7 @@ function Index({ shareHolding }) {
   // const top
 
   const prefrenceValues = shareHolding?.filter((item) => {
-    return !item.type === 'EquityShares1Member';
+    return item.type !== 'EquityShares1Member';
   });
   const topprefrencesShareNo = [];
   let topprefrencesShareName = [];

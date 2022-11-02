@@ -128,6 +128,7 @@ export default {
 
   //supplier
   supplier: '/supplier',
+  supplierDoc: '/supplier/supplier-document',
   //preview
   preview: '/document/access/preview',
 
