@@ -8,12 +8,12 @@ import DateCalender from '../../src/components/DateCalender';
 import InspectionDocument from '../../src/components/InspectionDocument';
 import { setPageName, setDynamicName } from '../../src/redux/userData/action';
 import SaveBar from '../../src/components/SaveBar';
-import { UpdateSupplier } from '../../src/redux/supplier/action';
+
 import Image from 'next/image';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import { GetSupplier, ClearSupplier } from 'redux/supplier/action';
+import { GetSupplier, ClearSupplier, UpdateSupplier, CreateSupplier } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 
@@ -654,7 +654,12 @@ function Index() {
       // apiData.bussinessSummary.push(business);
       // apiData.commoditiesTraded.push(commodity);
       // apiData.additionalInformation.push({info});
-      dispatch(UpdateSupplier(apiData));
+
+      if (id) {
+        dispatch(UpdateSupplier(apiData));
+      } else {
+        dispatch(CreateSupplier())
+      }
       // console.log('apidata', apiData)
     }
   };
@@ -662,9 +667,9 @@ function Index() {
 
   const handleSendForApproval = () => {
 
-   sessionStorage.removeItem('supplier');
-   dispatch(ClearSupplier())
-  let  toastMessage = `request sent for approval`;
+    sessionStorage.removeItem('supplier');
+    dispatch(ClearSupplier())
+    let toastMessage = `request sent for approval`;
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
@@ -1039,7 +1044,7 @@ function Index() {
                     >
                       <div className="d-flex">
                         <DateCalender
-                        defaultDate ={formData?.incorporationDate ?? ''}
+                          defaultDate={formData?.incorporationDate ?? ''}
                           saveDate={saveDate}
                           saveQuotationData={saveQuotationData}
                           labelName="Incorporation Date"
