@@ -7,7 +7,7 @@ import moment from 'moment';
 import { CovertvaluefromtoCR } from '../../utils/helper';
 
 function Index(props) {
-
+  console.log(props,"props")
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -176,7 +176,7 @@ function Index(props) {
             props.preview,
             CovertvaluefromtoCR,
           )}
-          {!props.preview ? (
+          {props.preview !== "Sales" ? (
             <>
               <div
                 className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
@@ -188,7 +188,7 @@ function Index(props) {
                      
 
                       Router.push('agreement/preview');
-                      props.setPreviewValue(true);
+                      props.setPreviewValue("Sales");
                     }}
                   >
                     Preview

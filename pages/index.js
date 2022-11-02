@@ -1,25 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import RepoSearch from 'features/repoSearch/RepoSearch';
-import { useRouter } from 'next/router';
-import { createStore } from 'store';
-import { getReposAsync } from 'features/repoSearch/repoSearchSlice';
-import DoughnutChart from '../src/components/DoughnutChart';
-import Leads from '../src/components/Leads';
-import styles from './index.module.scss';
-import Commodities from '../src/components/Commodities';
-import Exposure from '../src/components/Exposure';
-import Countries from '../src/components/Countries';
+
 import 'bootstrap/dist/css/bootstrap.css';
-import Footer from '../src/components/Footer';
-import { Container, Row, Col, Card } from 'react-bootstrap';
-import TermsheetPopUp from '../src/components/TermsheetPopUp';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPageName } from '../src/redux/userData/action';
+
+import Commodities from '../src/components/Commodities';
+import Countries from '../src/components/Countries';
+import DoughnutChart from '../src/components/DoughnutChart';
+import Exposure from '../src/components/Exposure';
+import Leads from '../src/components/Leads';
 import Popup from '../src/components/Popups/BillPopup/index';
+import { createStore } from 'store';
 import { getAnalystData } from '../src/redux/analytics/actions';
+import { setPageName } from '../src/redux/userData/action';
+import styles from './index.module.scss';
+
 const IndexPage = () => {
-  const router = useRouter();
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.user.isDark);
   const {
@@ -30,9 +26,8 @@ const IndexPage = () => {
     customerSummary,
     exposureSummary,
     totalOrigin,
-    totalCustomer,
   } = useSelector((state) => state.analytics);
-  
+
   useEffect(() => {
     dispatch(setPageName('dashboard'));
   });
@@ -46,7 +41,7 @@ const IndexPage = () => {
       sessionStorage.setItem('openList', ``);
     }
   }, []);
- 
+
   return (
     <>
       <Popup />
@@ -110,14 +105,12 @@ const IndexPage = () => {
                         <h3 className={`heading`}>
                           BL Date{' '}
                           <img
-                            className={`${
-                              darkMode ? styles.noRotate : styles.rotate
-                            } img-fluid`}
-                            src={`${
-                              darkMode
-                                ? `/static/white-arrow.svg`
-                                : `/static/keyboard_arrow_right-3.svg`
-                            }`}
+                            className={`${darkMode ? styles.noRotate : styles.rotate
+                              } img-fluid`}
+                            src={`${darkMode
+                              ? `/static/white-arrow.svg`
+                              : `/static/keyboard_arrow_right-3.svg`
+                              }`}
                             // src="/static/keyboard_arrow_right-3.svg"
                             alt="arrow right"
                           />
@@ -138,7 +131,7 @@ const IndexPage = () => {
                         <span>Showing Page 1 out of 1</span>
                         <a
                           href="#"
-                          className={`${styles.arrow} ${`leftArrow`} arrow`}
+                          className={`${styles.arrow} leftArrow arrow`}
                         >
                           {' '}
                           <img
@@ -149,7 +142,7 @@ const IndexPage = () => {
                         </a>
                         <a
                           href="#"
-                          className={`${styles.arrow} ${`rightArrow`} arrow`}
+                          className={`${styles.arrow} rightArrow arrow`}
                         >
                           <img
                             src="/static/keyboard_arrow_right-3.svg"
@@ -177,48 +170,7 @@ const IndexPage = () => {
                               <th>DUE AMOUNT</th>
                             </tr>
                           </thead>
-                          {/* <tbody>
-                            <tr className="table_row">
-                              <td>124621</td>
-                              <td className={`${styles.buyerName} buyerName`}>
-                                Bhutani Traders
-                              </td>
-                              <td>Iron</td>
-                              <td>12/05/2022</td>
-                              <td>7</td>
-                              <td>₹ 3,45,000</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>124621</td>
-                              <td className={`${styles.buyerName} buyerName`}>
-                                Bhutani Traders
-                              </td>
-                              <td>Iron</td>
-                              <td>12/05/2022</td>
-                              <td>7</td>
-                              <td>₹ 3,45,000</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>124621</td>
-                              <td className={`${styles.buyerName} buyerName`}>
-                                Bhutani Traders
-                              </td>
-                              <td>Iron</td>
-                              <td>12/05/2022</td>
-                              <td>7</td>
-                              <td>₹ 3,45,000</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>124621</td>
-                              <td className={`${styles.buyerName} buyerName`}>
-                                Bhutani Traders
-                              </td>
-                              <td>Iron</td>
-                              <td>12/05/2022</td>
-                              <td>7</td>
-                              <td>₹ 3,45,000</td>
-                            </tr>
-                          </tbody> */}
+
                         </table>
                       </div>
                     </div>
@@ -235,7 +187,6 @@ const IndexPage = () => {
 
 export async function getStaticProps() {
   const store = createStore();
-  await store.dispatch(getReposAsync('python'));
 
   return {
     props: {
