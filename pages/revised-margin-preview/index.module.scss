@@ -71,12 +71,19 @@
     // background: #d8eaff;
     // border: 1px solid #d2d7e5;
     padding: 18px 36px 13px 36px;
+    @include respond(lg-desktop) {
+      min-height: 100px;
+      margin-bottom: 20px;
+    }
     @include respond(phone) {
       height: auto;
       padding: 15px;
     }
     .row {
       min-height: 95px;
+      @include respond(lg-desktop) {
+        min-height: auto;
+      }
     }
     .left {
       // margin-top: 42px;
@@ -90,6 +97,10 @@
           font-weight: 500;
           line-height: 25px;
           margin-right: 7px;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
+          }
         }
         .termValue {
           font-size: 20px;
@@ -97,6 +108,10 @@
           font-weight: normal;
           line-height: 24px;
           opacity: 0.7;
+          @include respond(lg-desktop) {
+            font-size: 15px;
+            line-height: 1.3;
+          }
         }
       }
     }
@@ -105,6 +120,10 @@
       // color: #3687e8;
       font-weight: bold;
       line-height: 41px;
+      @include respond(lg-desktop) {
+        font-size: 24px;
+        line-height: 1.3;
+      }
       @include respond(phone) {
         text-align: center;
       }
@@ -156,6 +175,11 @@
               width: 50%;
               padding-left: 35px;
             }
+            @include respond(lg-desktop) {
+              height: 60px;
+              font-size: 20px;
+              line-height: 1.3;
+            }
           }
           td {
             font-size: 20px;
@@ -169,12 +193,20 @@
               width: 50%;
               padding-left: 35px;
             }
+            @include respond(lg-desktop) {
+              font-size: 15px;
+              line-height: 1.3;
+            }
             .sno {
               font-weight: bold;
               font-size: 20px;
               line-height: 25px;
               color: #111111;
               opacity: 0.7;
+              @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+              }
             }
             .formula {
               font-weight: bold;
@@ -182,6 +214,10 @@
               line-height: 25px;
               color: #111111;
               opacity: 0.7;
+              @include respond(lg-desktop) {
+                font-size: 15px;
+                line-height: 1.3;
+              }
             }
             &.good {
               font-weight: bold;

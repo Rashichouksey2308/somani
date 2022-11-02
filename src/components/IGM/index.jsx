@@ -67,21 +67,9 @@ export default function Index({
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
-      consigneeName: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.importerName`,
-        '',
-      ),
-      consigneeBranch: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.branch`,
-        '',
-      ),
-      consigneeAddress: _get(
-        TransitDetails,
-        `data.data[0].order.marginMoney.invoiceDetail.buyerAddress`,
-        '',
-      ),
+      consigneeName: "",
+      consigneeBranch: "",
+      consigneeAddress: "",
     },
     igmDetails: [
       {
@@ -297,30 +285,21 @@ export default function Index({
             `data[0].IGM.shipmentDetails.consigneeName`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.importerName`,
-          ),
+          "",
         branch:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeBranch`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.branch`,
-          ),
+          "",
         address:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeAddress`,
             '',
           ) ||
-          _get(
-            TransitDetails,
-            `data[0].order.marginMoney.invoiceDetail.consigneeAddress`,
-          ),
+          "",
       });
 
       if (

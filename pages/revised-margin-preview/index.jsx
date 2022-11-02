@@ -50,7 +50,7 @@ function Index() {
     let element = (
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
-          <td valign="top">
+          <td valign="top" style={{paddingTop:'30px'}}>
             <table
               width="100%"
               bgColor="#D8EAFF"
@@ -254,7 +254,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '23px 15px 11px 35px',
+                            padding: '30px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -282,7 +282,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             float: 'left',
-                            padding: '23px 15px 11px 24px',
+                            padding: '30px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -306,7 +306,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '23px 15px 11px 24px',
+                            padding: '30px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -408,7 +408,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -436,7 +436,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -451,7 +451,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 20px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -472,7 +472,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -500,7 +500,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -522,7 +522,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -550,7 +550,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -578,7 +578,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -600,7 +600,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -628,7 +628,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -656,7 +656,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -682,7 +682,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -714,7 +714,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -742,7 +742,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -767,7 +767,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -798,7 +798,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -826,7 +826,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -843,7 +843,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -866,7 +866,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 35px',
+                            padding: '11px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -895,7 +895,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'bold',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -912,7 +912,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 38px 24px',
+                            padding: '11px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -921,6 +921,11 @@ function Index() {
                           })} */}
                         </p>
                       </td>
+                    </tr>
+                    <tr>
+                      <td height='20' style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td height='20' style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td height='20'></td>
                     </tr>
                     <tr>
                       <td
@@ -962,7 +967,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '23px 15px 11px 35px',
+                            padding: '30px 15px 11px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -998,7 +1003,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '23px 15px 11px 24px',
+                            padding: '30px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -1017,7 +1022,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '23px 15px 11px 24px',
+                            padding: '30px 15px 11px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -1736,7 +1741,7 @@ function Index() {
                     <tr>
                       <td
                         align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
+                        style={{ borderRight: '2px solid #cad6e64d', borderBottom:'2px solid #cad6e64d'}}
                       >
                         <p
                           style={{
@@ -1746,7 +1751,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: 'normal',
                             float: 'left',
-                            padding: '11px 15px 11px 35px',
+                            padding: '11px 15px 30px 35px',
                             marginBottom: '0',
                           }}
                         >
@@ -1774,7 +1779,7 @@ function Index() {
 
                       <td
                         align="left"
-                        style={{ borderRight: '2px solid #cad6e64d' }}
+                        style={{ borderRight: '2px solid #cad6e64d', borderBottom:'2px solid #cad6e64d'}}
                       >
                         <p
                           style={{
@@ -1783,7 +1788,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 11px 24px',
+                            padding: '11px 15px 30px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -1798,7 +1803,7 @@ function Index() {
                           ) ?? 0}
                         </p>
                       </td>
-                      <td align="left">
+                      <td align="left" style={{borderBottom:'2px solid #cad6e64d'}}>
                         <p
                           style={{
                             fontSize: '20px',
@@ -1806,7 +1811,7 @@ function Index() {
                             lineHeight: '24px',
                             fontWeight: '500',
                             float: 'left',
-                            padding: '11px 15px 11px 24px',
+                            padding: '11px 15px 30px 24px',
                             marginBottom: '0',
                           }}
                         >
@@ -1821,6 +1826,11 @@ function Index() {
                           ) ?? 0}
                         </p>
                       </td>
+                    </tr>
+                    <tr>
+                      <td height='20' style={{borderRight: '2px solid #cad6e64d'}}></td>
+                      <td height='20' style={{borderRight: '2px solid #cad6e64d'}}></td>
+                      <td height='20'></td>
                     </tr>
                     <tr>
                       <td
@@ -2299,6 +2309,11 @@ function Index() {
                         </p>
                       </td>
                     </tr>
+                    <tr>
+                      <td height='20' style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td height='20' style={{ borderRight: '2px solid #cad6e64d' }}></td>
+                      <td height='20'></td>
+                    </tr>
                   </table>
                 </td>
               </tr>
@@ -2589,6 +2604,11 @@ function Index() {
                       })} */}
                     </td>
                   </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -2607,21 +2627,21 @@ function Index() {
                 </tr>
                 <tbody>
                   <tr>
-                    <td>
+                    <td className='pt-4'>
                       <span className={`${styles.sno} text1`}>J</span>
                       <span className={`ml-2`}>Order Value</span>
                       <span className={`${styles.formula} text1 ml-2`}>
                         (A*B)
                       </span>
                     </td>
-                    <td>
+                    <td className='pt-4'>
                       USD{' '}
                       {marginData?.revisedMarginMoney?.revisedCalculation?.orderValue?.toLocaleString(
                         'en-EN',
                         {minimumFractionDigits: 2, maximumFractionDigits: 2 },
                       ) ?? 0}
                     </td>
-                    <td>
+                    <td className='pt-4'>
                       USD{' '}
                       {marginData?.calculation?.orderValue?.toLocaleString(
                         'en-EN',
@@ -2820,7 +2840,7 @@ function Index() {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td className='pb-4'>
                       <span className={`${styles.sno} text1`}>S</span>
                       <span className={`ml-2`}>
                         Total SPDC Amount Req. (INR)
@@ -2829,14 +2849,14 @@ function Index() {
                         (P-R)
                       </span>
                     </td>
-                    <td>
+                    <td className='pb-4'>
                       ₹{' '}
                       {marginData?.revisedMarginMoney?.revisedCalculation?.totalSPDC?.toLocaleString(
                         'en-In',
                         { minimumFractionDigits:2, maximumFractionDigits: 2 },
                       ) ?? 0}
                     </td>
-                    <td>
+                    <td className='pb-4'>
                       ₹{' '}
                       {marginData?.calculation?.totalSPDC?.toLocaleString(
                         'en-In',
@@ -2845,6 +2865,11 @@ function Index() {
                     </td>
                   </tr>
                   <tr className={`${styles.bordertop} border_color`}>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
                     <td>
                       <span className={`${styles.sno} text1`}>T</span>
                       <span className={`ml-2`}>
@@ -2964,6 +2989,11 @@ function Index() {
                       ) ?? 0}
                     </td>
                     <td>-</td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>

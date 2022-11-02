@@ -31,10 +31,8 @@ export const phoneValidation = (phone) => {
 export const gSTINValidation = (gstin) => {
   var regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
   if (gstin.toUpperCase().match(regex)) {
-    console.log('trueGstinValidation');
     return true;
   } else {
-    console.log('falseGstinValidation');
     return false;
   }
 };
@@ -44,22 +42,9 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   return newValue;
 };
 
-// Number.prototype.toFixedNoRounding = function (n) {
-//   const reg = new RegExp('^-?\\d+(?:\\.\\d{0,' + n + '})?', 'g')
-//   const a = this.toString().match(reg)[0]
-//   const dot = a.indexOf('.')
-//   if (dot === -1) {
-//     // integer, insert decimal dot and pad up zeros
-//     return a + '.' + '0'.repeat(n)
-//   }
-//   const b = n - (a.length - dot) + 1
-//   return b > 0 ? a + '0'.repeat(b) : a
-// }
-
 export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
   let newValue = Number(value / coversionRate);
   if (value === 0) {
-    // console.log(, 'invalid value')
     return 0;
   }
   if (!newValue) {
@@ -82,7 +67,6 @@ export const isInTheFuture = (date) => {
 };
 
 export const handleCurrencyOrder = (unitOfValue, value) => {
-  console.log(unitOfValue, value, 'orderData12');
   if (unitOfValue === 'Crores') {
     return Number(value) * 10000000;
   } else if (unitOfValue === 'Million') {
@@ -100,7 +84,6 @@ export const addPrefixOrSuffix = (
   where = 'null',
   showINR = 'false',
 ) => {
-  console.log(unitOfValue, type, 'type');
   if (where == 'front') {
     if (type != undefined) {
       if (unitOfValue == '') {
@@ -110,11 +93,9 @@ export const addPrefixOrSuffix = (
       let symbol = type;
       if (type == 'INR' || 'RUPEE') {
         symbol = 'INR';
-        console.log(symbol, 'symbol');
       }
       if (type == 'USD') {
         symbol = 'USD';
-        console.log(symbol, 'symbol');
       }
 
       if (type == 'EUR') {

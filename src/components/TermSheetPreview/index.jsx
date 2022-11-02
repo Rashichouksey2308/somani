@@ -24,7 +24,7 @@ function Index() {
 
   const { termsheet } = useSelector((state) => state.order);
 
-  console.log(termsheet, 'termsheet213');
+ 
   let Id = sessionStorage.getItem('termID');
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
@@ -291,16 +291,10 @@ function Index() {
         autoPaging: 'text',
       },
     );
-    console.log(doc, 'doc');
+    
   };
   const exportPDF2 = () => {
-    //  let margins = [
-    //    10,
-    //    10,
-    //    10,
-    //    10
-
-    //  ];
+ 
 
     const doc = new jsPDF('p', 'pt', [1500, 1600]);
     doc.addFileToVFS(
@@ -326,12 +320,12 @@ function Index() {
     //     autoPaging: 'text',
     //   },
     // )
-    console.log(doc, 'doc');
+   
   };
   const shareEmail = async (email) => {
-    console.log(email, 'setEmail');
+   
     let doc = exportPDF2();
-    console.log(doc, 'doc');
+    
     let formData = new FormData();
     formData.append('document1', '');
     formData.append('data', {
@@ -597,7 +591,7 @@ function Index() {
                     {filteredValue('Storage of Goods')
                       ? filteredValue('Storage of Goods')
                       : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
-                          .match(/\((.*)\)/)
+                          ?.match(/\((.*)\)/)
                           ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                   </li>
                 </ul>
@@ -660,7 +654,7 @@ function Index() {
                           'paymentDueDate.daysFromBlDate',
                         )} days from the date of Bill of Lading, whichever is earlier.`}
                   </li>
-                  {console.log(termsheet, 'HARSH')}
+                
                 </ul>
               </Col>
             </Row>
@@ -1572,8 +1566,7 @@ const toPrintPdf = (
   additionalComments,
   otherTermConditions,
 ) => {
-  console.log('Check PDFFF otherTermConditions::::', otherTermConditions);
-  console.log('Check PDFFF::::', termsheetDetails, 'ldwfsdf');
+ 
   const filteredValue = (commentType) => {
     let filteredComments = additionalComments?.filter(
       (comment) => comment.additionalCommentType === commentType,
@@ -4888,7 +4881,7 @@ const toPrintPdf2 = (
   additionalComments,
   otherTermConditions,
 ) => {
-  console.log(termsheetDetails, 'ldwfsdf');
+
   return `  <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>

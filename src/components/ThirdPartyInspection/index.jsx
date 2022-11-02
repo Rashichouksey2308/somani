@@ -28,7 +28,7 @@ export default function Index({ addButton }) {
   const { allInspection } = useSelector((state) => state.Inspection);
 
   const [inspectionData, setInspectionData2] = useState({});
-  console.log(inspectionData, 'inspectionData')
+ 
 
   useEffect(() => {
     setInspectionData2(_get(allInspection, 'data[0]', {}));
@@ -120,12 +120,12 @@ export default function Index({ addButton }) {
     dischargeCertificateOfWeightStatus:
       inspectionData?.thirdPartyInspection?.dischargeCertificateOfWeightStatus,
   });
-  console.log(inspectionDetails, 'inspectionDetails')
+
 
   useEffect(() => {
 
     let typeOfPort = inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort
-    console.log(inspectionDetails, typeOfPort, inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy, 'inspectionDetails1')
+  
 
     setInspectionData({
       dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy ? inspectionData?.thirdPartyInspection?.dischargePortInspection : typeOfPort === 'Both' ? true : typeOfPort === 'Discharge Port' ? true : false,
@@ -739,7 +739,7 @@ export default function Index({ addButton }) {
         }
 
         if (noError2 == false) {
-          console.log('secondlastelse');
+         
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -814,7 +814,7 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (noError3 == false) {
-          console.log('lastelse');
+         
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 
@@ -1009,7 +1009,7 @@ export default function Index({ addButton }) {
         }
 
         if (noError2 == false) {
-          console.log('secondlastelse');
+      
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
           // fd.append('loadPortInspection', portType.loadPortInspection)
@@ -1073,7 +1073,7 @@ export default function Index({ addButton }) {
           return (noError3 = true);
         }
         if (noError3 == false) {
-          console.log('lastelse');
+       
           let fd = new FormData();
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails));
 

@@ -24,7 +24,7 @@ function Index({
 
   const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  // console.log(moment(insured?.marineInsurance?.insuranceTo).toDate().isBefore(moment()), 'INSURANCE RESPONSE')
+  
 
   useEffect(() => {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`));
@@ -53,7 +53,7 @@ const  getStatus = (value)=>{
   if(value?.quotationRequest?.insuranceType=="Marine Insurance"){
    return moment(value?.marineInsurance?.insuranceTo).isBefore(moment())
   }else{
-    console.log(moment(),"xxxzxc")
+   
     return moment(value?.storageInsurance?.insuranceTo).isBefore(moment()) 
   }
     
@@ -195,7 +195,7 @@ const  getStatus = (value)=>{
                         // )[0]
                       }
                     </td>
-                    {console.log(insured?.quotationRequest?.insuranceType,"ssdsds")}
+                    
                     {
                       getStatus(insured)
                      ? (

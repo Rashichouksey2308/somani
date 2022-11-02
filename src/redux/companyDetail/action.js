@@ -106,7 +106,7 @@ export const GetCompanyDetails =
       dispatch(getComanyDetails());
       let cookie = Cookies.get('SOMANI');
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-      console.log(payload.company, 'getDetails payload2');
+
       let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
       var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
 
@@ -117,7 +117,7 @@ export const GetCompanyDetails =
           headers: headers,
         },
       );
-      console.log(response, 'conpanu saasd');
+
       if (response.data.code === 200) {
         dispatch(getComanyDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
@@ -288,20 +288,13 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
       if (response.data.code === 200) {
         dispatch(getCaseDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
-        console.log(
-          response?.data.data.caseDetails.pdfDocumentsLink[0],
-          'litigationresponse',
-        );
+
         if (response?.data.data.caseDetails.pdfDocumentsLink.length < 1) {
           let toastMessage = 'Document Not Available';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
         } else {
-          console.log(
-            response?.data.data.caseDetails.pdfDocumentsLink[0],
-            'litigationresponse',
-          );
           window.open(
             response?.data.data.caseDetails.pdfDocumentsLink[0],
             '_blank',

@@ -159,9 +159,9 @@ function Index() {
   const [subCategory, setsubCategory] = useState(null);
   const [index12, setIndex] = useState('');
   const side = useSelector((state) => state.breadcrumb);
-  console.log(side, 'subsideBarMain');
+ 
   useEffect(() => {
-    console.log('aaasqqaq');
+    
     if (window) {
       sessionStorage.setItem(
         'sideBarMain',
@@ -188,11 +188,7 @@ function Index() {
   }, []);
   useEffect(() => {
     if (window) {
-      console.log(
-        'changed',
-        sessionStorage.getItem('sideBarMain'),
-        sessionStorage.getItem('subsideBarMain'),
-      );
+    
 
       setcategory(sessionStorage.getItem('sideBarMain'));
       setsubCategory(sessionStorage.getItem('subsideBarMain'));
@@ -206,21 +202,12 @@ function Index() {
     }
   }, [Router.asPath]);
 
-  // useEffect(() => {
-  //     const onHashChangeStart = (url) => {
-  //         console.log(`Path changing to ${url}`);
-  //     };
+ 
 
-  //       Router.events.on("hashChangeStart", onHashChangeStart);
 
-  //     return () => {
-  //         Router.events.off("hashChangeStart", onHashChangeStart);
-  //     };
-  // }, [Router.events]);
 
-  console.log(subCategory, 'opne');
   const handleOpen = (val, index, from) => {
-    console.log(val, 'val233');
+  
     if (from == 'main') {
       sessionStorage.setItem('sideBarMain', val);
       sessionStorage.setItem('subsideBarMain', null);
@@ -239,15 +226,13 @@ function Index() {
     }
   };
 
-  console.log(category, subCategory, 'sub');
+
 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const openList = useSelector((state) => state.sidebar.openList);
 
   const isMobile = useSelector((state) => state.sidebar.isMobile);
-  //   console.log(isMobile,"isMobile123")
-  //   console.log("sidebar",)
-  // console.log(tempArr,"yem")
+
   return (
     <>
       {isMobile ? (
@@ -365,7 +350,7 @@ function Index() {
                     className={`${styles.header} ${className1}`}
                     onClick={(e) => {
                       handleOpen(val.main, index, 'main');
-                      console.log('router', val.route);
+                    
 
                       if (val.route !== '') {
                         Router.push(val.route);
@@ -417,7 +402,7 @@ function Index() {
                                     : null
                                 }`}
                                 onClick={() => {
-                                  console.log(other, 'sidebarRoyte1');
+                                 
                                   handleOpen(other.name, index2, '');
                                   Router.push(other.route);
                                 }}

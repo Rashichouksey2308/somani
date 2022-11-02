@@ -21,7 +21,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch();
 
   const { documentsFetched } = useSelector((state) => state.review);
-console.log(documentsFetched,"documentsFetched")
+
   const [editInput, setEditInput] = useState(true);
 
   const [manualDocModule, setManualDocModule] = useState(true);
@@ -43,7 +43,7 @@ console.log(documentsFetched,"documentsFetched")
       receiver: ""
     }
   })
-  console.log(sharedDoc, 'sharedDoc')
+
 
   const [open, setOpen] = useState(false);
 
@@ -94,7 +94,7 @@ console.log(documentsFetched,"documentsFetched")
       })
       .map((obj) => ({ ...obj, moving: false }));
 
-    // console.log(tempArray, 'dltDoc2')
+   
     setFilteredDoc(tempArray);
   }, [orderid, documentsFetched]);
 
@@ -108,10 +108,10 @@ console.log(documentsFetched,"documentsFetched")
   const DocDlt = (index) => {
     let tempArray = filteredDoc;
     tempArray.splice(index, 1);
-    console.log(tempArray, index, 'dltDoc');
+   
     setFilteredDoc(tempArray);
   };
-  // console.log(filteredDoc, 'dltDoc1')
+ 
 
   const handleNewDocModule = (e) => {
     if (e.target.value === 'others') {
@@ -193,7 +193,7 @@ console.log(documentsFetched,"documentsFetched")
       if (data?.code == 200) {
         close()
       }
-      console.table(tempArr)
+    
     } else {
       let toastMessage = 'please provide a valid email';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -203,7 +203,7 @@ console.log(documentsFetched,"documentsFetched")
 
 
   };
-  console.log(sharedDoc, 'handleShareDoc');
+ 
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
