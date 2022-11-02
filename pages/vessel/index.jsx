@@ -489,7 +489,7 @@ export default function Home() {
     const name = e.target.id;
     let value = e.target.value;
     
-    if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
+    if (name.trim() === 'yearOfBuilt' && value.length !== 4) {
       let toastMessage = 'provide a valid year';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
