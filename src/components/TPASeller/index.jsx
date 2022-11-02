@@ -95,7 +95,8 @@ function Index(props) {
           associateBuyerAuthorized:data?.associateBuyerAuthorized,
           buyerEmail:data?.buyerEmail,
           supplierEmail:data?.buyerEmail,
-          endBuyer:data.endBuyer
+          endBuyer:data.endBuyer,
+          supplier: data?.supplier,
 
 
 
@@ -176,8 +177,16 @@ function Index(props) {
             'associateBuyer.authorisedSignatoryDetails',
             [],
           ),
-          buyerEmail: '',
-          supplierEmail: '',
+          buyerEmail:_get(
+            data,
+            'buyer.authorisedSignatoryDetails',
+            [],
+          ) ,
+          supplierEmail: _get(
+            data,
+            'supplier.authorisedSignatoryDetails',
+            [],
+          ) ,
           financialBank: '',
           financialAddress: '',
           endBuyer: data.company.companyName,
@@ -636,19 +645,7 @@ const tripartiteAgreement = (data,preview) => {
   return (
     <>
       <div className="card-body">
-         {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                TRIPARTITE AGREEMENT No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+       
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -858,7 +855,13 @@ const tripartiteAgreement = (data,preview) => {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.supplierEmailId}
+             
+                <ol>
+                  {data?.supplierEmail?.length > 0 &&
+                    data?.supplierEmail?.map((val, index) => {
+                       return <li>{val.email}</li>;
+                    })}
+                </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -896,14 +899,21 @@ const tripartiteAgreement = (data,preview) => {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerEmail}
+              
+                <ol>
+                  {data?.buyerEmail?.length > 0 &&
+                    data?.buyerEmail?.map((val, index) => {
+                      return <li>{val.email}</li>;
+                    })}
+                </ol>
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start`} >
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`} >
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>

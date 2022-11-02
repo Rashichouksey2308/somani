@@ -97,8 +97,9 @@ function Index(props) {
           supplierAddress:data?.supplierAddress,
           financialAddress:data?.financialAddress,
           designatedStorageArea:data.designatedStorageArea,
-          cmaAuthorized:data.cmaAuthorized
-         
+          cmaAuthorized:data.cmaAuthorized,
+          financialBank: data?.financialBank,
+          supplier: data?.supplier,
 
 
         });
@@ -1160,19 +1161,7 @@ export default Index;
 const tpaSeller = (data,preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-      {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                TRIPARTITE AGREEMENT No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+    
       <p className="text-center text_sales">
         {' '}
         <strong>TRIPARTITE AGREEMENT</strong>

@@ -114,26 +114,9 @@ function Index(props) {
           cmaAddress:data?.cmaAddress,
           vessel:data?.vessel,
           storagePlot:data?.storagePlot,
-          cmaAuthorized:data?.cmaAuthorized
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-         
-
-        });
+          cmaAuthorized:data?.cmaAuthorized,
+           priceOfGoods: data?.perUnitPrice,
+       });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
         console.log(data, 'data22222');
@@ -240,6 +223,7 @@ function Index(props) {
           loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
            storagePlot:
             data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+             priceOfGoods: data?.order?.perUnitPrice,
           
         });
       }
@@ -6503,14 +6487,14 @@ const associateShip = (data,preview,setPreviewValue) => {
               {data.supplierAddress?.pinCode}
             </Col>
           </Row>
-          <Row className={`${styles.row} border_black`}>
+          {/* <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
             <Col md={7} className={styles.right}>
               {''}
             </Col>
-          </Row>
+          </Row> */}
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Quantity of Goods in MT
@@ -6526,7 +6510,7 @@ const associateShip = (data,preview,setPreviewValue) => {
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+             {'INR '} {data.priceOfGoods}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6571,14 +6555,14 @@ const associateShip = (data,preview,setPreviewValue) => {
               {data.loadingCargo}
             </Col>
           </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
+          {/* <Row className={`${styles.row} ${styles.last}`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Date of Sales Contract between Supplier and Buyer
             </Col>
             <Col md={7} className={styles.right}>
               {''}
             </Col>
-          </Row>
+          </Row> */}
         </div>
         <p className=" text_sales">
           {' '}

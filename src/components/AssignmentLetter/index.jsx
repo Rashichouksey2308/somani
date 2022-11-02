@@ -767,19 +767,7 @@ const assignmentSupplier = (data,preview) => {
   return (
     <>
       <div className="card-body">
-        {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                Assignment Letter No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+      
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -925,7 +913,7 @@ const assignmentSupplier = (data,preview) => {
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`}>
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
@@ -987,7 +975,7 @@ const assignmentSupplier = (data,preview) => {
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
-              })}
+              })} %
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

@@ -1086,19 +1086,7 @@ export default Index;
 const qpa = (data,preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-       {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                QPA No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+     
       <p className="text-center text_sales">
         {' '}
         <strong>Quadripartite Agreement</strong>
@@ -1608,7 +1596,7 @@ const qpa = (data,preview) => {
             Quantity
           </Col>
           <Col md={7} className={styles.right}>
-            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
+            {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
