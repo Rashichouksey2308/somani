@@ -2092,7 +2092,7 @@ function Index() {
             // uploadDocument1={uploadDocument1}
             />
           </div> */}
-          <div className="mt-4 ml-2 mr-2 mb-5">
+          {/* <div className="mt-4 ml-2 mr-2 mb-5">
             <div
               className={`${styles.upload_main} vessel_card border_color upload_main`}
             >
@@ -2167,8 +2167,8 @@ function Index() {
                             <td className={styles.doc_row}>
                               {/* {lcDoc && lcDoc?.lcDraftDoc?.lastModifiedDate
                                 ? moment(d).format('DD-MM-YYYY,HH:mm A')
-                                : ''} */}
-                            </td>
+                              //  : ''} */}
+                            {/*</td>
                             <td colSpan={2}>
                               {false && lcDoc.lcDraftDoc === null ? (
                                 <>
@@ -2376,7 +2376,7 @@ function Index() {
                                   </option>
                                 </>
                               )} */}
-                              {module === 'LeadOnboarding&OrderApproval' ? (
+                              {/*{module === 'LeadOnboarding&OrderApproval' ? (
                                 <>
                                   {' '}
                                   <option value="" disabled>
@@ -2563,7 +2563,7 @@ function Index() {
                           >
                             Upload
                           </button> */}
-                        <Form.Group className={`${styles.form_group}`}>
+                        {/*<Form.Group className={`${styles.form_group}`}>
                           <input
                             id="otherDocName"
                             onChange={(e) =>
@@ -2624,7 +2624,7 @@ function Index() {
                             alt="Search"
                           />
                         </div> */}
-                        <div
+                        {/*<div
                           className={`d-flex align-items-center ${styles.searchBarContainer} `}
                         >
                           <img
@@ -2958,15 +2958,15 @@ function Index() {
                               />
                             </td>
                           </tr> */}
-                        </tbody>
+                        {/*</tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
               {/* {open ? <TermsheetPopUp close={close} open={open} istermsheet shareEmail={handleShareDoc} setEmail={(e) => setSharedDoc({ ...sharedDoc, data: { ...sharedDoc.data, receiver: e } })} /> : null} */}
-            </div>
-          </div>
+            {/*</div>
+          </div> */}
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} rightBtnClick={() => { handleSendForApproval() }} />
       </div>
