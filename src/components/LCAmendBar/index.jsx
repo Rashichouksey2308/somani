@@ -1,10 +1,10 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
 
-function index ({ barName, openbar, download }) {
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+function index({ barName, openbar, download }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
     <div
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
@@ -14,15 +14,15 @@ function index ({ barName, openbar, download }) {
         className={styles.reject}
         onClick={() => {
           if (download) {
-            download()
+            download();
           }
         }}
       >
         <span>{barName}</span>
         <img
-          src='/static/file_download.svg'
-          className='img-fluid'
-          alt='FileDownload'
+          src="/static/file_download.svg"
+          className="img-fluid"
+          alt="FileDownload"
         />
       </div>
       <div className={styles.navigate}>
@@ -30,20 +30,20 @@ function index ({ barName, openbar, download }) {
         <div style={{ color: '#66708559' }}> | </div>
         <div className={styles.button} />
         <span className={styles.zoom}>80%</span>
-        <img src='/static/add-3.svg' className='img-fluid' alt='Add' />
+        <img src="/static/add-3.svg" className="img-fluid" alt="Add" />
         <div style={{ color: '#66708559' }}> |</div>
-        <img src='/static/expand.svg' className='img-fluid' alt='Expand' />
+        <img src="/static/expand.svg" className="img-fluid" alt="Expand" />
       </div>
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          openbar()
+          openbar();
         }}
       >
         <span>Share</span>
       </div>
     </div>
-  )
+  );
 }
 
-export default index
+export default index;

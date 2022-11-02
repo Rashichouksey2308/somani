@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action'
-import _get from 'lodash/get'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action';
+import _get from 'lodash/get';
 
-function Index ({
+function Index({
   tableName,
   pageType,
   isStatus,
@@ -13,19 +13,19 @@ function Index ({
   handleRoute,
   handleEditRoute,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const { allCustomClearance } = useSelector((state) => state.Custom)
+  const { allCustomClearance } = useSelector((state) => state.Custom);
 
-  console.log(allCustomClearance, 'INSURANCE RESPONSE')
+  console.log(allCustomClearance, 'INSURANCE RESPONSE');
 
   useEffect(() => {
-    dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllCustomClearance(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -33,17 +33,17 @@ function Index ({
         GetAllCustomClearance(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(1)
+      );
+      setSorting(1);
     } else if (sorting == 1) {
       dispatch(
         GetAllCustomClearance(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(-1)
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className={`${styles.datatable} border datatable card`}>
@@ -61,9 +61,9 @@ function Index ({
           <a
             onClick={() => {
               if (currentPage === 0) {
-                return
+                return;
               } else {
-                setCurrentPage((prevState) => prevState - 1)
+                setCurrentPage((prevState) => prevState - 1);
               }
             }}
             href="#"
@@ -82,7 +82,7 @@ function Index ({
                 currentPage + 1 <
                 Math.ceil(allCustomClearance?.totalCount / 7)
               ) {
-                setCurrentPage((prevState) => prevState + 1)
+                setCurrentPage((prevState) => prevState + 1);
               }
             }}
             href="#"
@@ -105,87 +105,87 @@ function Index ({
             border="0"
           >
             <thead>
-            <tr className="table_row">
-              <th>
-                ORDER ID{' '}
-                <img
-                  className={`mb-1`}
-                  src="/static/icons8-sort-24.svg"
-                  alt="Sort icon"
-                  onClick={() => handleSort()}
-                />{' '}
-              </th>
-              <th>BUYER NAME</th>
-              <th>COMMODITY</th>
-              <th>VESSEL NAME</th>
-              <th>{pageType}</th>
-              {/* {isVesselHeader ? (
-                  <th>VESSEL NAME</th>
-                ) : (
-                  <th>INSURANCE TYPE</th>
-                )} */}
-              <th>{dateHeading}</th>
-
-              {isStatus ? (
+              <tr className="table_row">
                 <th>
-                  STATUS{' '}
+                  ORDER ID{' '}
                   <img
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
-                  />
+                    onClick={() => handleSort()}
+                  />{' '}
                 </th>
-              ) : (
-                <th>PAYMENT STATUS</th>
-              )}
-              <th>ACTION</th>
-            </tr>
+                <th>BUYER NAME</th>
+                <th>COMMODITY</th>
+                <th>VESSEL NAME</th>
+                <th>{pageType}</th>
+                {/* {isVesselHeader ? (
+                  <th>VESSEL NAME</th>
+                ) : (
+                  <th>INSURANCE TYPE</th>
+                )} */}
+                <th>{dateHeading}</th>
+
+                {isStatus ? (
+                  <th>
+                    STATUS{' '}
+                    <img
+                      className={`mb-1`}
+                      src="/static/icons8-sort-24.svg"
+                      alt="Sort icon"
+                    />
+                  </th>
+                ) : (
+                  <th>PAYMENT STATUS</th>
+                )}
+                <th>ACTION</th>
+              </tr>
             </thead>
             <tbody>
-            {allCustomClearance &&
-              allCustomClearance?.data?.map((insured, index) => (
-                <tr key={index} className="table_row">
-                  <td>{insured?.order?.orderId}</td>
-                  <td
-                    className={styles.buyerName}
-                    onClick={() => {
-                      handleRoute(insured)
-                    }}
-                  >
-                    {insured?.company?.companyName}
-                  </td>
-                  <td>{insured?.order?.commodity}</td>
-                  <td>
-                    {_get(
-                      insured,
-                      'order.vessel.vessels[0].vesselInformation[0].name',
-                      '',
-                    )}
-                  </td>
-                  <td></td>
-                  <td>
-                    {_get(
-                      insured,
-                      'billOfEntry.billOfEntry[0].boeDate',
-                      '',
-                    )?.slice(0, 10)}
-                  </td>
-                  <td>
+              {allCustomClearance &&
+                allCustomClearance?.data?.map((insured, index) => (
+                  <tr key={index} className="table_row">
+                    <td>{insured?.order?.orderId}</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => {
+                        handleRoute(insured);
+                      }}
+                    >
+                      {insured?.company?.companyName}
+                    </td>
+                    <td>{insured?.order?.commodity}</td>
+                    <td>
+                      {_get(
+                        insured,
+                        'order.vessel.vessels[0].vesselInformation[0].name',
+                        '',
+                      )}
+                    </td>
+                    <td></td>
+                    <td>
+                      {_get(
+                        insured,
+                        'billOfEntry.billOfEntry[0].boeDate',
+                        '',
+                      )?.slice(0, 10)}
+                    </td>
+                    <td>
                       <span
                         className={`${styles.status} ${styles.review}`}
                       ></span>
-                    On-Hold
-                  </td>
-                  <td onClick={() => handleRoute(insured)}>
-                    <img
-                      className={`${styles.edit_image} mr-3`}
-                      src="/static/mode_edit.svg"
-                      alt="edit"
-                    />
-                  </td>
-                </tr>
-              ))}
-            {/* <tr className="table_row">
+                      On-Hold
+                    </td>
+                    <td onClick={() => handleRoute(insured)}>
+                      <img
+                        className={`${styles.edit_image} mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              {/* <tr className="table_row">
                 <td>124621</td>
                 <td
                   className={styles.buyerName}
@@ -346,7 +346,7 @@ function Index ({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

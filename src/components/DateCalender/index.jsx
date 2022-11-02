@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import styles from './index.module.scss'
-import moment from 'moment'
+import React, { useEffect, useRef, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from './index.module.scss';
+import moment from 'moment';
 
 const Index = ({
   labelName,
@@ -21,40 +21,40 @@ const Index = ({
   ref,
   noDate,
 }) => {
-  console.log(reset, 'resetReview')
-  const [startDate, setStartDate] = useState(null)
-  const [lastDate, setlastDate] = useState(null)
-  const [maxDate1, setMaxDate] = useState(null)
+  console.log(reset, 'resetReview');
+  const [startDate, setStartDate] = useState(null);
+  const [lastDate, setlastDate] = useState(null);
+  const [maxDate1, setMaxDate] = useState(null);
 
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (startFrom == 'noLimit') {
-      setlastDate(null)
+      setlastDate(null);
     } else {
       if (startFrom) {
-        console.log('in start DAte')
-        setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
+        console.log('in start DAte');
+        setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate());
       } else {
-        setlastDate(new Date())
+        setlastDate(new Date());
       }
     }
-  }, [startFrom])
+  }, [startFrom]);
   useEffect(() => {
     if (maxDate) {
-      setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate())
+      setMaxDate(moment(maxDate, 'DD-MM-YYYY').toDate());
     }
-  }, [maxDate])
-  console.log(startFrom, 'startFrom')
-  console.log(maxDate1, 'maxDate', labelName)
+  }, [maxDate]);
+  console.log(startFrom, 'startFrom');
+  console.log(maxDate1, 'maxDate', labelName);
 
   useEffect(() => {
     if (reset) {
-      setStartDate(null)
+      setStartDate(null);
     }
-  }, [reset])
+  }, [reset]);
 
-  console.log('sdasdasda', defaultDate)
+  console.log('sdasdasda', defaultDate);
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
     <>
@@ -71,17 +71,17 @@ const Index = ({
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
           onKeyDown={(e) => {
-            e.preventDefault()
+            e.preventDefault();
           }}
           portalId="root-portal"
           className={`${styles.input_field} input form-control ${
             small ? styles.input_small : ''
           }`}
           onChange={(startDate) => {
-            setStartDate(startDate)
-            saveDate(startDate, name, index)
+            setStartDate(startDate);
+            saveDate(startDate, name, index);
             if (setStartDateFrom) {
-              setStartDateFrom(startDate, name)
+              setStartDateFrom(startDate, name);
             }
           }}
           minDate={lastDate}
@@ -93,13 +93,12 @@ const Index = ({
           <label className={`${styles.label_heading} label_heading`}>
             {labelName}
 
-            {!isRequired ? <strong className="text-danger">*</strong> : ''
-            }
+            {!isRequired ? <strong className="text-danger">*</strong> : ''}
           </label>
         ) : null}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

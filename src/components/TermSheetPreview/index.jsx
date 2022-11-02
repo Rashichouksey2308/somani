@@ -1,263 +1,267 @@
-import React, { useEffect, useRef, useState } from 'react'
-import styles from './index.module.scss'
-import { Card, Col, Form, Row } from 'react-bootstrap'
-import Paginatebar from '../Paginatebar'
-import TermsheetPopUp from '../TermsheetPopUp'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetTermsheet, sharingTermsheetEmail } from 'redux/buyerProfile/action'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../redux/userData/action'
-import moment from 'moment'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
-import _get from 'lodash/get'
+import React, { useEffect, useRef, useState } from 'react';
+import styles from './index.module.scss';
+import { Card, Col, Form, Row } from 'react-bootstrap';
+import Paginatebar from '../Paginatebar';
+import TermsheetPopUp from '../TermsheetPopUp';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetTermsheet, sharingTermsheetEmail } from 'redux/buyerProfile/action';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../redux/userData/action';
+import moment from 'moment';
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import _get from 'lodash/get';
 
-function Index () {
-  const toPrint = useRef()
+function Index() {
+  const toPrint = useRef();
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { termsheet } = useSelector((state) => state.order)
+  const { termsheet } = useSelector((state) => state.order);
 
-  let Id = sessionStorage.getItem('termID')
-  let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id')
+  let Id = sessionStorage.getItem('termID');
+  let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id');
 
   useEffect(() => {
-    dispatch(GetTermsheet(`?termsheetId=${Id}`))
-  }, [dispatch, Id])
+    dispatch(GetTermsheet(`?termsheetId=${Id}`));
+  }, [dispatch, Id]);
 
   useEffect(() => {
-    dispatch(setPageName('termsheet'))
+    dispatch(setPageName('termsheet'));
     dispatch(
       setDynamicName(
         _get(termsheet, 'data[0].company.companyName', 'Order Id'),
       ),
-    )
+    );
     dispatch(
       setDynamicOrder(
         orderId !== 'Order Id'
           ? orderId
           : _get(termsheet, 'data[0].order.applicationId', 'Order Id'),
       ),
-    )
-  }, [dispatch, termsheet])
+    );
+  }, [dispatch, termsheet]);
 
-  const [termsheetDetails, setTermsheetDetails] = useState({})
-  const [otherTermConditions, setOtherTermConditions] = useState({})
-  const [additionalComments, setAdditionalComments] = useState(null)
-  const date = new Date()
+  const [termsheetDetails, setTermsheetDetails] = useState({});
+  const [otherTermConditions, setOtherTermConditions] = useState({});
+  const [additionalComments, setAdditionalComments] = useState(null);
+  const date = new Date();
 
   useEffect(() => {
     {
       termsheet &&
-      termsheet?.data?.map((sheet) =>
-        setTermsheetDetails({
-          termsheetId: sheet?._id,
-          commodityDetails: {
-            unitOfQuantity: sheet?.order?.unitOfQuantity,
-            orderCurrency: sheet?.order?.orderCurrency,
-            quantity: sheet?.order?.quantity,
-            perUnitPrice: sheet?.order?.perUnitPrice,
-            commodity: sheet?.order?.commodity,
-            tolerance: sheet?.order?.tolerance,
-          },
-          transactionDetails: {
-            lcValue: sheet?.transactionDetails?.lcValue,
-            lcCurrency: sheet?.transactionDetails?.lcValue,
-            marginMoney: sheet?.transactionDetails?.marginMoney,
-            lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-            incoTerms: sheet?.transactionDetails?.incoTerms,
-            loadPort: sheet?.transactionDetails?.loadPort,
-            countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
-            shipmentType: sheet?.transactionDetails?.shipmentType,
-            partShipmentAllowed:
-            sheet?.transactionDetails?.partShipmentAllowed,
-            portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
-            billOfEntity: sheet?.transactionDetails?.billOfEntity,
-            thirdPartyInspectionReq:
-            sheet?.transactionDetails?.thirdPartyInspectionReq,
-            storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
-          },
-          paymentDueDate: {
-            computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
-            daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
-            daysFromVesselDischargeDate:
-            sheet?.paymentDueDate?.daysFromVesselDischargeDate,
-          },
-          commercials: {
-            tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
-            lcOpeningValue: sheet?.commercials?.lcOpeningValue,
-            lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-            lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-            lcOpeningChargesPercentage:
-            sheet?.commercials?.lcOpeningChargesPercentage,
-            usanceInterestPercetage:
-            sheet?.commercials?.usanceInterestPercetage,
-            overDueInterestPerMonth:
-            sheet?.commercials?.overDueInterestPerMonth,
-            exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
-            forexHedging: sheet?.commercials?.forexHedging,
-            otherTermsAndConditions:
-            sheet?.commercials?.otherTermsAndConditions,
-            version: sheet?.commercials?.version,
-          },
-        }),
-      )
+        termsheet?.data?.map((sheet) =>
+          setTermsheetDetails({
+            termsheetId: sheet?._id,
+            commodityDetails: {
+              unitOfQuantity: sheet?.order?.unitOfQuantity,
+              orderCurrency: sheet?.order?.orderCurrency,
+              quantity: sheet?.order?.quantity,
+              perUnitPrice: sheet?.order?.perUnitPrice,
+              commodity: sheet?.order?.commodity,
+              tolerance: sheet?.order?.tolerance,
+            },
+            transactionDetails: {
+              lcValue: sheet?.transactionDetails?.lcValue,
+              lcCurrency: sheet?.transactionDetails?.lcValue,
+              marginMoney: sheet?.transactionDetails?.marginMoney,
+              lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
+              incoTerms: sheet?.transactionDetails?.incoTerms,
+              loadPort: sheet?.transactionDetails?.loadPort,
+              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
+              shipmentType: sheet?.transactionDetails?.shipmentType,
+              partShipmentAllowed:
+                sheet?.transactionDetails?.partShipmentAllowed,
+              portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
+              billOfEntity: sheet?.transactionDetails?.billOfEntity,
+              thirdPartyInspectionReq:
+                sheet?.transactionDetails?.thirdPartyInspectionReq,
+              storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
+            },
+            paymentDueDate: {
+              computationOfDueDate: sheet?.paymentDueDate?.computationOfDueDate,
+              daysFromBlDate: sheet?.paymentDueDate?.daysFromBlDate,
+              daysFromVesselDischargeDate:
+                sheet?.paymentDueDate?.daysFromVesselDischargeDate,
+            },
+            commercials: {
+              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
+              lcOpeningValue: sheet?.commercials?.lcOpeningValue,
+              lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
+              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
+              lcOpeningChargesPercentage:
+                sheet?.commercials?.lcOpeningChargesPercentage,
+              usanceInterestPercetage:
+                sheet?.commercials?.usanceInterestPercetage,
+              overDueInterestPerMonth:
+                sheet?.commercials?.overDueInterestPerMonth,
+              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
+              forexHedging: sheet?.commercials?.forexHedging,
+              otherTermsAndConditions:
+                sheet?.commercials?.otherTermsAndConditions,
+              version: sheet?.commercials?.version,
+            },
+          }),
+        );
     }
-  }, [termsheet])
+  }, [termsheet]);
 
   const filteredValue = (commentType) => {
     let filteredComments = additionalComments?.filter(
       (comment) => comment.additionalCommentType === commentType,
-    )
+    );
 
-    return filteredComments?.[0]?.comment
-  }
+    return filteredComments?.[0]?.comment;
+  };
 
   useEffect(() => {
     termsheet?.data?.forEach((sheets) => {
-      setAdditionalComments(sheets.additionalComments)
-    })
-  }, [termsheet])
+      setAdditionalComments(sheets.additionalComments);
+    });
+  }, [termsheet]);
   useEffect(() => {
     {
       termsheet &&
-      termsheet?.data?.forEach((sheet, index) => {
-        setOtherTermConditions({
-          buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
-          chaOrstevedoringCharges: {
-            customClearingCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.customClearingCharges,
-            wharfaceCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.wharfaceCharges,
-            pollutionCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.pollutionCharges,
-            royalyAndPenaltyCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.royalyAndPenaltyCharges,
-            tarpaulinCoverageCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.tarpaulinCoverageCharges,
-            wheighmentAndWeighmentSurveyCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.wheighmentAndWeighmentSurveyCharges,
-            draughtSurveyCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.draughtSurveyCharges,
-            boatingWhileDraughtSurveyCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.boatingWhileDraughtSurveyCharges,
-            hmcCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.hmcCharges,
-            securityCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.securityCharges,
-            piotRentalAndStorageCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.piotRentalAndStorageCharges,
-            bondingOfCargoCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.bondingOfCargoCharges,
-            exBondDocumentationCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.exBondDocumentationCharges,
-            transferOfOwnershipCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.transferOfOwnershipCharges,
-            customsBondOfficerOvertimeCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.customsBondOfficerOvertimeCharges,
-            grabHireCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.grabHireCharges,
-            craneHireCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.craneHireCharges,
-            handlingLosses:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.handlingLosses,
-            insuranceCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.insuranceCharges,
-            waterSprinklingCharges:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
-              ?.waterSprinklingCharges,
-            others:
-            sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
-          },
-          lcOpeningCharges: {
-            lcOpeningCharges:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.lcOpeningCharges,
-            lcAmendmentCost:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.lcAmendmentCost,
-            cmaFeesIncludingSupervisionAndSurvey:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.cmaFeesIncludingSupervisionAndSurvey,
-            bankDoIssuanceCharges:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.bankDoIssuanceCharges,
-            remmittanceCharges:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.remmittanceCharges,
-            usanceInterest:
-            sheet?.otherTermsAndConditions?.lcOpeningCharges
-              ?.usanceInterest,
-          },
-          otherCharges: {
-            demurrageOrDetentionChargesOfVessel:
-            sheet?.otherTermsAndConditions?.otherCharges
-              ?.demurrageOrDetentionChargesOfVessel,
-            transportationCharges:
-            sheet?.otherTermsAndConditions?.otherCharges
-              ?.transportationCharges,
-            wagonHaulageCharges:
-            sheet?.otherTermsAndConditions?.otherCharges
-              ?.wagonHaulageCharges,
-            thirdPartyInspectionCharges:
-            sheet?.otherTermsAndConditions?.otherCharges
-              ?.thirdPartyInspectionCharges,
-            hedgingCharges:
-            sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
-            anyOtherCostIncurredOnBehalfOfBuyer:
-            sheet?.otherTermsAndConditions?.otherCharges
-              ?.anyOtherCostIncurredOnBehalfOfBuyer,
-          },
-          dutyAndTaxes: {
-            customsDutyWithAllGovtCess:
-            sheet?.otherTermsAndConditions?.dutyAndTaxes
-              ?.customsDutyWithAllGovtCess,
-            igstWithCess:
-            sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
-            cimsCharges:
-            sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
-            taxCollectedatSource:
-            sheet?.otherTermsAndConditions?.dutyAndTaxes
-              ?.taxCollectedatSource,
-          },
-          insurance: {
-            marineInsurance:
-            sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
-            storageInsurance:
-            sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
-          },
-        })
-      })
+        termsheet?.data?.forEach((sheet, index) => {
+          setOtherTermConditions({
+            buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
+            chaOrstevedoringCharges: {
+              customClearingCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.customClearingCharges,
+              wharfaceCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.wharfaceCharges,
+              pollutionCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.pollutionCharges,
+              royalyAndPenaltyCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.royalyAndPenaltyCharges,
+              tarpaulinCoverageCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.tarpaulinCoverageCharges,
+              wheighmentAndWeighmentSurveyCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.wheighmentAndWeighmentSurveyCharges,
+              draughtSurveyCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.draughtSurveyCharges,
+              boatingWhileDraughtSurveyCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.boatingWhileDraughtSurveyCharges,
+              hmcCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.hmcCharges,
+              securityCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.securityCharges,
+              piotRentalAndStorageCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.piotRentalAndStorageCharges,
+              bondingOfCargoCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.bondingOfCargoCharges,
+              exBondDocumentationCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.exBondDocumentationCharges,
+              transferOfOwnershipCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.transferOfOwnershipCharges,
+              customsBondOfficerOvertimeCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.customsBondOfficerOvertimeCharges,
+              grabHireCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.grabHireCharges,
+              craneHireCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.craneHireCharges,
+              handlingLosses:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.handlingLosses,
+              insuranceCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.insuranceCharges,
+              waterSprinklingCharges:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges
+                  ?.waterSprinklingCharges,
+              others:
+                sheet?.otherTermsAndConditions?.chaOrstevedoringCharges?.others,
+            },
+            lcOpeningCharges: {
+              lcOpeningCharges:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.lcOpeningCharges,
+              lcAmendmentCost:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.lcAmendmentCost,
+              cmaFeesIncludingSupervisionAndSurvey:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.cmaFeesIncludingSupervisionAndSurvey,
+              bankDoIssuanceCharges:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.bankDoIssuanceCharges,
+              remmittanceCharges:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.remmittanceCharges,
+              usanceInterest:
+                sheet?.otherTermsAndConditions?.lcOpeningCharges
+                  ?.usanceInterest,
+            },
+            otherCharges: {
+              demurrageOrDetentionChargesOfVessel:
+                sheet?.otherTermsAndConditions?.otherCharges
+                  ?.demurrageOrDetentionChargesOfVessel,
+              transportationCharges:
+                sheet?.otherTermsAndConditions?.otherCharges
+                  ?.transportationCharges,
+              wagonHaulageCharges:
+                sheet?.otherTermsAndConditions?.otherCharges
+                  ?.wagonHaulageCharges,
+              thirdPartyInspectionCharges:
+                sheet?.otherTermsAndConditions?.otherCharges
+                  ?.thirdPartyInspectionCharges,
+              hedgingCharges:
+                sheet?.otherTermsAndConditions?.otherCharges?.hedgingCharges,
+              anyOtherCostIncurredOnBehalfOfBuyer:
+                sheet?.otherTermsAndConditions?.otherCharges
+                  ?.anyOtherCostIncurredOnBehalfOfBuyer,
+            },
+            dutyAndTaxes: {
+              customsDutyWithAllGovtCess:
+                sheet?.otherTermsAndConditions?.dutyAndTaxes
+                  ?.customsDutyWithAllGovtCess,
+              igstWithCess:
+                sheet?.otherTermsAndConditions?.dutyAndTaxes?.igstWithCess,
+              cimsCharges:
+                sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
+              taxCollectedatSource:
+                sheet?.otherTermsAndConditions?.dutyAndTaxes
+                  ?.taxCollectedatSource,
+            },
+            insurance: {
+              marineInsurance:
+                sheet?.otherTermsAndConditions?.insurance?.marineInsurance,
+              storageInsurance:
+                sheet?.otherTermsAndConditions?.insurance?.storageInsurance,
+            },
+          });
+        });
     }
-  }, [termsheet])
+  }, [termsheet]);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const openbar = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
   const close = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
   const exportPDF = () => {
     //  let margins = [
     //    10,
@@ -267,7 +271,7 @@ function Index () {
 
     //  ];
 
-    const doc = new jsPDF('p', 'pt', [1500, 2150])
+    const doc = new jsPDF('p', 'pt', [1500, 2150]);
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(
@@ -279,17 +283,15 @@ function Index () {
       ),
       {
         callback: function (doc) {
-          doc.save('TransactionSummary.pdf')
+          doc.save('TransactionSummary.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    )
-
-  }
+    );
+  };
   const exportPDF2 = () => {
-
-    const doc = new jsPDF('p', 'pt', [1500, 1600])
+    const doc = new jsPDF('p', 'pt', [1500, 1600]);
     doc.addFileToVFS(
       'Termsheet.pdf',
       toPrintPdf2(
@@ -299,8 +301,8 @@ function Index () {
         otherTermConditions,
         filteredValue,
       ),
-    )
-    return doc.getFileFromVFS('Termsheet.pdf')
+    );
+    return doc.getFileFromVFS('Termsheet.pdf');
     // doc.html(
     //   ReactDOMServer.renderToString(
     //     toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),
@@ -313,23 +315,21 @@ function Index () {
     //     autoPaging: 'text',
     //   },
     // )
-
-  }
+  };
   const shareEmail = async (email) => {
+    let doc = exportPDF2();
 
-    let doc = exportPDF2()
-
-    let formData = new FormData()
-    formData.append('document1', '')
+    let formData = new FormData();
+    formData.append('document1', '');
     formData.append('data', {
       subject: 'this is subject',
       text: 'this is text',
       receiver: email,
-    })
+    });
 
-    await dispatch(sharingTermsheetEmail(formData))
-    setOpen(false)
-  }
+    await dispatch(sharingTermsheetEmail(formData));
+    setOpen(false);
+  };
   return (
     <>
       <div className={`${styles.root_container}  `} ref={toPrint}>
@@ -507,8 +507,8 @@ function Index () {
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                     {termsheetDetails?.transactionDetails?.lcValue
                       ? Number(
-                        termsheetDetails?.transactionDetails?.lcValue,
-                      )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+                          termsheetDetails?.transactionDetails?.lcValue,
+                        )?.toLocaleString('en-IN', { maximumFractionDigits: 2 })
                       : ''}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
@@ -584,8 +584,8 @@ function Index () {
                     {filteredValue('Storage of Goods')
                       ? filteredValue('Storage of Goods')
                       : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
-                        ?.match(/\((.*)\)/)
-                        ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
+                          ?.match(/\((.*)\)/)
+                          ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                   </li>
                 </ul>
               </Col>
@@ -627,27 +627,26 @@ function Index () {
                     {filteredValue('Deliveries/Due Date/Payment')
                       ? filteredValue('Deliveries/Due Date/Payment')
                       : termsheetDetails?.paymentDueDate
-                        ?.computationOfDueDate === 'DaysfromBLDate'
-                        ? `${_get(
+                          ?.computationOfDueDate === 'DaysfromBLDate'
+                      ? `${_get(
                           termsheetDetails,
                           'paymentDueDate.daysFromBlDate',
                         )} days from the date of Bill of Lading.`
-                        : termsheetDetails?.paymentDueDate
+                      : termsheetDetails?.paymentDueDate
                           ?.computationOfDueDate ===
                         'DaysfromVesselDischargeDate'
-                          ? `${_get(
-                            termsheetDetails,
-                            'paymentDueDate.daysFromVesselDischargeDate',
-                          )} days from the discharge date of vessel/container(s) at discharge port.`
-                          : `${_get(
-                            termsheetDetails,
-                            'paymentDueDate.daysFromVesselDischargeDate',
-                          )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
-                            termsheetDetails,
-                            'paymentDueDate.daysFromBlDate',
-                          )} days from the date of Bill of Lading, whichever is earlier.`}
+                      ? `${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromVesselDischargeDate',
+                        )} days from the discharge date of vessel/container(s) at discharge port.`
+                      : `${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromVesselDischargeDate',
+                        )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
+                          termsheetDetails,
+                          'paymentDueDate.daysFromBlDate',
+                        )} days from the date of Bill of Lading, whichever is earlier.`}
                   </li>
-
                 </ul>
               </Col>
             </Row>
@@ -695,11 +694,11 @@ function Index () {
                     {' '}
                     {termsheetDetails.commercials?.tradeMarginPercentage
                       ? Number(
-                        termsheetDetails.commercials?.tradeMarginPercentage,
-                      )?.toLocaleString('en-IN', {
-                        maximumFractionDigits: 2,
-                        minimumFractionDigits: 2,
-                      })
+                          termsheetDetails.commercials?.tradeMarginPercentage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })
                       : ''}
                     %{' '}
                   </li>
@@ -715,23 +714,23 @@ function Index () {
                     {' '}
                     {termsheetDetails.commercials?.lcOpeningChargesPercentage
                       ? Number(
-                      termsheetDetails.commercials
-                        ?.lcOpeningChargesPercentage,
-                    )?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + '%'
+                          termsheetDetails.commercials
+                            ?.lcOpeningChargesPercentage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
                       : ''}{' '}
                   </li>
                   <li>
                     {' '}
                     {termsheetDetails.commercials?.usanceInterestPercetage
                       ? Number(
-                      termsheetDetails.commercials?.usanceInterestPercetage,
-                    )?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + '%'
+                          termsheetDetails.commercials?.usanceInterestPercetage,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
                       : ''}
                     {/* {termsheetDetails.commercials?.usanceInterestPercetage}% */}
                   </li>
@@ -739,11 +738,11 @@ function Index () {
                     {' '}
                     {termsheetDetails.commercials?.overDueInterestPerMonth
                       ? Number(
-                      termsheetDetails.commercials?.overDueInterestPerMonth,
-                    )?.toLocaleString('en-IN', {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    }) + '%'
+                          termsheetDetails.commercials?.overDueInterestPerMonth,
+                        )?.toLocaleString('en-IN', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }) + '%'
                       : ''}
                     {/* {termsheetDetails.commercials?.overDueInterestPerMonth}% */}
                   </li>
@@ -1545,13 +1544,13 @@ function Index () {
         leftButtonTitle="Transaction Summary"
       />
       {open ? (
-        <TermsheetPopUp close={close} open={open} shareEmail={shareEmail}/>
+        <TermsheetPopUp close={close} open={open} shareEmail={shareEmail} />
       ) : null}
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
 
 const toPrintPdf = (
   data,
@@ -1559,14 +1558,13 @@ const toPrintPdf = (
   additionalComments,
   otherTermConditions,
 ) => {
-
   const filteredValue = (commentType) => {
     let filteredComments = additionalComments?.filter(
       (comment) => comment.additionalCommentType === commentType,
-    )
+    );
 
-    return filteredComments?.[0]?.comment
-  }
+    return filteredComments?.[0]?.comment;
+  };
   return (
     <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -1608,7 +1606,7 @@ const toPrintPdf = (
                       {_get(data, 'data[0].order.orderId', '')}
                     </span>
                   </span>
-                  <br/>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1656,7 +1654,7 @@ const toPrintPdf = (
                 <td valign="top" align="right" width="33%">
                   {' '}
                   <span></span>
-                  <br/>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1942,8 +1940,8 @@ const toPrintPdf = (
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
                           {termsheetDetails?.transactionDetails?.lcValue
                             ? Number(
-                              termsheetDetails?.transactionDetails?.lcValue,
-                            )?.toLocaleString('en-In')
+                                termsheetDetails?.transactionDetails?.lcValue,
+                              )?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
@@ -2493,8 +2491,8 @@ const toPrintPdf = (
                           {filteredValue('Storage of Goods')
                             ? filteredValue('Storage of Goods')
                             : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
-                              .match(/\((.*)\)/)
-                              ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
+                                .match(/\((.*)\)/)
+                                ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                         </p>
                       </td>
                     </tr>
@@ -2566,25 +2564,25 @@ const toPrintPdf = (
                           {filteredValue('Deliveries/Due Date/Payment')
                             ? filteredValue('Deliveries/Due Date/Payment')
                             : termsheetDetails?.paymentDueDate
-                              ?.computationOfDueDate === 'DaysfromBLDate'
-                              ? `${_get(
+                                ?.computationOfDueDate === 'DaysfromBLDate'
+                            ? `${_get(
                                 termsheetDetails,
                                 'paymentDueDate.daysFromBlDate',
                               )} days from the date of Bill of Lading.`
-                              : termsheetDetails?.paymentDueDate
+                            : termsheetDetails?.paymentDueDate
                                 ?.computationOfDueDate ===
                               'DaysfromVesselDischargeDate'
-                                ? `${_get(
-                                  termsheetDetails,
-                                  'paymentDueDate.daysFromVesselDischargeDate',
-                                )} days from the discharge date of vessel/container(s) at discharge port.`
-                                : `${_get(
-                                  termsheetDetails,
-                                  'paymentDueDate.daysFromVesselDischargeDate',
-                                )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
-                                  termsheetDetails,
-                                  'paymentDueDate.daysFromBlDate',
-                                )} days from the date of Bill of Lading, whichever is earlier.`}
+                            ? `${_get(
+                                termsheetDetails,
+                                'paymentDueDate.daysFromVesselDischargeDate',
+                              )} days from the discharge date of vessel/container(s) at discharge port.`
+                            : `${_get(
+                                termsheetDetails,
+                                'paymentDueDate.daysFromVesselDischargeDate',
+                              )} days from the discharge date of vessel/container(s) at discharge port or ${_get(
+                                termsheetDetails,
+                                'paymentDueDate.daysFromBlDate',
+                              )} days from the date of Bill of Lading, whichever is earlier.`}
                         </p>
                       </td>
                     </tr>
@@ -2655,12 +2653,12 @@ const toPrintPdf = (
                         >
                           {termsheetDetails.commercials?.tradeMarginPercentage
                             ? Number(
-                            termsheetDetails.commercials
-                              ?.tradeMarginPercentage,
-                          )?.toLocaleString('en-IN', {
-                            maximumFractionDigits: 2,
-                            minimumFractionDigits: 2,
-                          }) + ' %'
+                                termsheetDetails.commercials
+                                  ?.tradeMarginPercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) + ' %'
                             : ''}
                         </p>
                       </td>
@@ -2712,9 +2710,9 @@ const toPrintPdf = (
                             : ''}{' '}
                           {termsheetDetails.commercials?.lcOpeningChargesUnit
                             ? Number(
-                              termsheetDetails.commercials
-                                ?.lcOpeningChargesUnit,
-                            )?.toLocaleString('en-In')
+                                termsheetDetails.commercials
+                                  ?.lcOpeningChargesUnit,
+                              )?.toLocaleString('en-In')
                             : ''}
                         </p>
                       </td>
@@ -2764,12 +2762,12 @@ const toPrintPdf = (
                           {termsheetDetails.commercials
                             ?.lcOpeningChargesPercentage
                             ? Number(
-                              termsheetDetails.commercials
-                                ?.lcOpeningChargesPercentage,
-                            )?.toLocaleString('en-IN', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
+                                termsheetDetails.commercials
+                                  ?.lcOpeningChargesPercentage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
                             : ''}
                           %{' '}
                         </p>
@@ -2820,12 +2818,12 @@ const toPrintPdf = (
                           {' '}
                           {termsheetDetails.commercials?.usanceInterestPercetage
                             ? Number(
-                              termsheetDetails.commercials
-                                ?.usanceInterestPercetage,
-                            )?.toLocaleString('en-IN', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
+                                termsheetDetails.commercials
+                                  ?.usanceInterestPercetage,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
                             : ''}
                           %
                         </p>
@@ -2876,12 +2874,12 @@ const toPrintPdf = (
                           {' '}
                           {termsheetDetails.commercials?.overDueInterestPerMonth
                             ? Number(
-                              termsheetDetails.commercials
-                                ?.overDueInterestPerMonth,
-                            )?.toLocaleString('en-IN', {
-                              maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
-                            })
+                                termsheetDetails.commercials
+                                  ?.overDueInterestPerMonth,
+                              )?.toLocaleString('en-IN', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
                             : ''}
                           %
                         </p>
@@ -3035,15 +3033,15 @@ const toPrintPdf = (
         </tr>
         <tr>
           <td valign="top" align="left">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <table
               width="100%"
               bgColor="#FFFFFF"
@@ -4855,7 +4853,7 @@ const toPrintPdf = (
                     for discharge of goods &amp; Customs clearance can be filed
                     by {otherTermConditions?.buyer?.bank} or its nominated
                     person.
-                    <br/>
+                    <br />
                     <span style={{ color: 'red' }}>*</span> GST charges extra
                     wherever applicable
                   </p>
@@ -4866,15 +4864,14 @@ const toPrintPdf = (
         </tr>
       </table>
     </>
-  )
-}
+  );
+};
 const toPrintPdf2 = (
   data,
   termsheetDetails,
   additionalComments,
   otherTermConditions,
 ) => {
-
   return `  <>
       <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
@@ -7721,5 +7718,5 @@ const toPrintPdf2 = (
           </td>
         </tr>
       </table>
-    </>`
-}
+    </>`;
+};

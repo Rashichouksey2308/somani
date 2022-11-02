@@ -1,20 +1,20 @@
-import React from 'react'
-import styles from './index.module.scss'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import styles from './index.module.scss';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 
 const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
-  const { creatingBuyer } = useSelector((state) => state.buyer)
-  const router = useRouter()
+  const { creatingBuyer } = useSelector((state) => state.buyer);
+  const router = useRouter();
   return (
     <div className={`${darkMode ? styles.mainDark : styles.main} `}>
       <div className={`${styles.term_container} align-items-start`}>
         <input
           className={`${styles.check_box} mt-2`}
-          type='checkbox'
+          type="checkbox"
           checked={termsCheck}
           onChange={chanegTermsCheck}
-          name='check1'
+          name="check1"
         />
 
         <label className={`${styles.term_para} term_para`}>
@@ -33,13 +33,13 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
           className={`${styles.submit_btn} submit_btn`}
           disabled={creatingBuyer}
           onClick={() => {
-            submitData()
+            submitData();
           }}
         >
           Submit
         </button>
       </div>
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

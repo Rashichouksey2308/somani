@@ -1,59 +1,59 @@
-import React, { useEffect, useState } from 'react'
-import history from '../../history'
+import React, { useEffect, useState } from 'react';
+import history from '../../history';
 
-import { Card, CardBody, Col, Row } from 'reactstrap'
-import CartTitle from '../CartTitle'
-import { Tab, Tabs } from 'react-bootstrap'
+import { Card, CardBody, Col, Row } from 'reactstrap';
+import CartTitle from '../CartTitle';
+import { Tab, Tabs } from 'react-bootstrap';
 
-import Information from '../Informatin'
-import Branch from '../Branch'
+import Information from '../Informatin';
+import Branch from '../Branch';
 
-import { fetchQueryParams } from '../../utils/comman'
-import Loader from '../Loader'
+import { fetchQueryParams } from '../../utils/comman';
+import Loader from '../Loader';
 
-import get from 'lodash/get'
+import get from 'lodash/get';
 
-const _ = { get }
+const _ = { get };
 
-function DetailPage (props) {
-  const { elements } = props
-  const [key, setKey] = useState('detail')
+function DetailPage(props) {
+  const { elements } = props;
+  const [key, setKey] = useState('detail');
 
   useEffect(() => {
-    const queryParams = props.query
+    const queryParams = props.query;
     if (queryParams === '') {
-      history.push(`/dealer/list`)
+      history.push(`/dealer/list`);
     } else {
-      const params = fetchQueryParams(props.query)
-      setKey(params.tab)
+      const params = fetchQueryParams(props.query);
+      setKey(params.tab);
       if (params.tab === 'detail') {
-        props.handleSingleDealerFetch(params.dealerId)
+        props.handleSingleDealerFetch(params.dealerId);
       } else {
-        props.handleDealerBranchFetch(params.dealerId)
+        props.handleDealerBranchFetch(params.dealerId);
       }
     }
-  }, [])
+  }, []);
 
   const handleSelectTab = (tab) => {
-    setKey(tab)
-    const params = fetchQueryParams(props.query)
-    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${tab}`)
-    props.handleDealerBranchFetch(params.dealerId)
-  }
+    setKey(tab);
+    const params = fetchQueryParams(props.query);
+    history.push(`/dealer/detail?dealerId=${params.dealerId}&tab=${tab}`);
+    props.handleDealerBranchFetch(params.dealerId);
+  };
 
   const handleToCreateForm = () => {
-    const queryParams = props.query
+    const queryParams = props.query;
     if (queryParams !== '') {
-      history.push(`/dealer/create-branch${queryParams}`)
+      history.push(`/dealer/create-branch${queryParams}`);
     } else {
-      history.push(`/dealer/list`)
+      history.push(`/dealer/list`);
     }
-  }
+  };
   return (
     <React.Fragment>
       {props.dealerDataStatus !== false ? <Loader /> : null}
       {props.dealerBranchDataStatus !== false ? <Loader /> : null}
-      <div className='hideSearch'>
+      <div className="hideSearch">
         <Row>
           <Col sm={12}>
             <CartTitle
@@ -69,21 +69,21 @@ function DetailPage (props) {
             />
           </Col>
         </Row>
-        <Card className='mb-3'>
-          <CardBody className='px-0 px-lg-1 py-0 py-lg-1'>
-            <Row className='custom-tab'>
+        <Card className="mb-3">
+          <CardBody className="px-0 px-lg-1 py-0 py-lg-1">
+            <Row className="custom-tab">
               <Col sm={12}>
                 <Tabs
-                  id='tab-id'
+                  id="tab-id"
                   activeKey={key}
                   onSelect={(k) => handleSelectTab(k)}
                 >
                   <Tab
-                    eventKey='detail'
+                    eventKey="detail"
                     title={_.get(
                       elements,
                       'dealerDetailElements.tabDetailElement',
-                      'Details'
+                      'Details',
                     )}
                   >
                     <Information
@@ -94,11 +94,11 @@ function DetailPage (props) {
                     />
                   </Tab>
                   <Tab
-                    eventKey='branch'
+                    eventKey="branch"
                     title={_.get(
                       elements,
                       'dealerDetailElements.tabBranchElement',
-                      'Branch'
+                      'Branch',
                     )}
                   >
                     <Branch
@@ -114,7 +114,7 @@ function DetailPage (props) {
         </Card>
       </div>
     </React.Fragment>
-  )
+  );
 }
 
-export default DetailPage
+export default DetailPage;

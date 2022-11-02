@@ -1,71 +1,72 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import Filter from '../../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { getGenericData } from '../../../src/redux/generic/actionsType'
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import Filter from '../../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGenericData } from '../../../src/redux/generic/actionsType';
 
-import { setDynamicName, setPageName, } from '../../../src/redux/userData/action'
+import {
+  setDynamicName,
+  setPageName,
+} from '../../../src/redux/userData/action';
 
-function Index (props) {
+function Index(props) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
+  const [genData, setData] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [sorting, setSorting] = useState(1);
 
-  const [currentPage, setCurrentPage] = useState(0)
-  const dispatch = useDispatch()
-  const [genData, setData] = useState([])
-  const [total, setTotal] = useState([])
-  const [sorting, setSorting] = useState(1)
-
-  const { generic } = useSelector((state) => state?.generic?.allGeneric)
+  const { generic } = useSelector((state) => state?.generic?.allGeneric);
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
-      sessionStorage.setItem('loadedSubPage', `Generic`)
-      sessionStorage.setItem('openList', 2)
+      sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
+      sessionStorage.setItem('loadedSubPage', `Generic`);
+      sessionStorage.setItem('openList', 2);
     }
-  }, [])
+  }, []);
   useEffect(() => {
-    dispatch(setPageName('generic'))
-    dispatch(setDynamicName(null))
-  })
+    dispatch(setPageName('generic'));
+    dispatch(setDynamicName(null));
+  });
   useEffect(() => {
-    getDate()
-  }, [currentPage, dispatch])
+    getDate();
+  }, [currentPage, dispatch]);
 
   const getDate = async () => {
-    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`))
-    setData(data?.data)
-    setTotal(data?.totalCount)
-  }
+    let data = await dispatch(getGenericData(`?page=${currentPage}&limit=7`));
+    setData(data?.data);
+    setTotal(data?.totalCount);
+  };
   const handleSort = async () => {
     if (sorting == -1) {
       let data = await dispatch(
         getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      )
-      setData(data?.data)
-      setTotal(data?.totalCount)
-      setSorting(1)
+      );
+      setData(data?.data);
+      setTotal(data?.totalCount);
+      setSorting(1);
     } else if (sorting == 1) {
       let data = await dispatch(
         getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      )
-      setData(data?.data)
-      setTotal(data?.totalCount)
-      setSorting(-1)
+      );
+      setData(data?.data);
+      setTotal(data?.totalCount);
+      setSorting(-1);
     }
-  }
+  };
 
   const handleRoute = (term) => {
-
-    sessionStorage.setItem('genericSelected', JSON.stringify(term))
-    sessionStorage.setItem('genericID', term.order.orderId)
-    Router.push('/generic')
+    sessionStorage.setItem('genericSelected', JSON.stringify(term));
+    sessionStorage.setItem('genericID', term.order.orderId);
+    Router.push('/generic');
 
     //  dispatch(setDynamicName(null))
     // Router.push('/lc-module')
-  }
+  };
 
   return (
     <>
@@ -92,7 +93,7 @@ function Index (props) {
                 />
               </div>
             </div>
-            <Filter/>
+            <Filter />
           </div>
 
           {/*leads table*/}
@@ -110,9 +111,9 @@ function Index (props) {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return
+                      return;
                     } else {
-                      setCurrentPage((prevState) => prevState - 1)
+                      setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
                   href="#"
@@ -128,7 +129,7 @@ function Index (props) {
                 <a
                   onClick={() => {
                     if (currentPage + 1 < Math.ceil(total / 10)) {
-                      setCurrentPage((prevState) => prevState + 1)
+                      setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
@@ -151,37 +152,37 @@ function Index (props) {
                   border="0"
                 >
                   <thead>
-                  <tr className="table_row">
-                    <th>
-                      ORDER ID{' '}
-                      <img
-                        onClick={() => handleSort()}
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                      />
-                    </th>
+                    <tr className="table_row">
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          onClick={() => handleSort()}
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                        />
+                      </th>
 
-                    <th>COMPANY NAME</th>
-                    <th>COMMODITY</th>
-                    <th>CUSTOMER ID</th>
-                  </tr>
+                      <th>COMPANY NAME</th>
+                      <th>COMMODITY</th>
+                      <th>CUSTOMER ID</th>
+                    </tr>
                   </thead>
                   <tbody>
-                  {genData?.length > 0 &&
-                    genData?.map((term, index) => (
-                      <tr Key={index} className="table_row">
-                        <td>{term?.order?.orderId ?? ''}</td>
-                        <td
-                          className={`${styles.buyerName}`}
-                          onClick={() => handleRoute(term)}
-                        >
-                          {term?.company.companyName}
-                        </td>
+                    {genData?.length > 0 &&
+                      genData?.map((term, index) => (
+                        <tr Key={index} className="table_row">
+                          <td>{term?.order?.orderId ?? ''}</td>
+                          <td
+                            className={`${styles.buyerName}`}
+                            onClick={() => handleRoute(term)}
+                          >
+                            {term?.company.companyName}
+                          </td>
 
-                        <td>{term?.order?.commodity ?? ''}</td>
-                        <td>{term?.company?.customerId ?? ''}</td>
-                        {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                        {/* <td>
+                          <td>{term?.order?.commodity ?? ''}</td>
+                          <td>{term?.company?.customerId ?? ''}</td>
+                          {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
+                          {/* <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
                             ? styles.review
@@ -197,8 +198,8 @@ function Index (props) {
                             ? 'Approved'
                             : 'Rejected'}
                       </td> */}
-                      </tr>
-                    ))}
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -207,7 +208,7 @@ function Index (props) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

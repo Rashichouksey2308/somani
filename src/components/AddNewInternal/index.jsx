@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import DateCalender from '../DateCalender'
-import Image from 'next/image'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import DateCalender from '../DateCalender';
+import Image from 'next/image';
 
-function Index () {
+function Index() {
   const [addRow, setAddRow] = useState([
     {
       compName: '',
       branchName: '',
     },
-  ])
+  ]);
   const handleDelete = (index) => {
-    setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)])
-  }
+    setAddRow([...addRow.slice(0, index), ...addRow.slice(index + 1)]);
+  };
   const onAddRow = () => {
     setAddRow([
       ...addRow,
@@ -23,8 +23,8 @@ function Index () {
         compName: '',
         branchName: '',
       },
-    ])
-  }
+    ]);
+  };
   return (
     <div className={`${styles.backgroundMain}`}>
       <div className={`${styles.vessel_card} border_color`}>
@@ -264,14 +264,14 @@ function Index () {
                               className={`${styles.add_image} `}
                               alt="Add button"
                               onClick={(e) => {
-                                onAddRow()
+                                onAddRow();
                               }}
                             />
                             {/* ) } */}
                           </div>
                         </div>
                       </>
-                    )
+                    );
                   })}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -361,7 +361,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Date of Joining"/>
+                    <DateCalender labelName="Date of Joining" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -376,7 +376,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Last Working Day"/>
+                    <DateCalender labelName="Last Working Day" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -391,7 +391,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Activation Date"/>
+                    <DateCalender labelName="Activation Date" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -406,7 +406,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Deactivation Date"/>
+                    <DateCalender labelName="Deactivation Date" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -439,7 +439,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Blocked From"/>
+                    <DateCalender labelName="Blocked From" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -454,7 +454,7 @@ function Index () {
                   className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                 >
                   <div className="d-flex">
-                    <DateCalender labelName="Blocked Till"/>
+                    <DateCalender labelName="Blocked Till" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
                       <Image
                         width="22px"
@@ -509,114 +509,114 @@ function Index () {
                       border="0"
                     >
                       <thead>
-                      <tr>
-                        <th>
-                          DOCUMENT NAME{' '}
-                          <Image
-                            width="14px"
-                            height="14px"
-                            className={`${styles.sort_img}`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          FORMAT{' '}
-                          <Image
-                            width="14px"
-                            height="14px"
-                            className={`${styles.sort_img}`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          DOCUMENT DATE{' '}
-                          <Image
-                            width="14px"
-                            height="14px"
-                            className={`${styles.sort_img}`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          UPLOADED BY{' '}
-                          <Image
-                            width="14px"
-                            height="14px"
-                            className={`${styles.sort_img}`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>ACTION</th>
-                      </tr>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <Image
+                              width="14px"
+                              height="14px"
+                              className={`${styles.sort_img}`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <Image
+                              width="14px"
+                              height="14px"
+                              className={`${styles.sort_img}`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE{' '}
+                            <Image
+                              width="14px"
+                              height="14px"
+                              className={`${styles.sort_img}`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            UPLOADED BY{' '}
+                            <Image
+                              width="14px"
+                              height="14px"
+                              className={`${styles.sort_img}`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>ACTION</th>
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>PAN</td>
-                        <td>
-                          <Image
-                            width="57px"
-                            height="25px"
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
-                        </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td>John Doe</td>
-                        <td>
-                          <img
-                            className={`${styles.edit_image} img-fluid`}
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>GST Certificate</td>
-                        <td>
-                          <Image
-                            width="57px"
-                            height="25px"
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
-                        </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td>John Doe</td>
-                        <td>
-                          <img
-                            className={`${styles.edit_image} img-fluid`}
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </td>
-                      </tr>
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>Board Resolution</td>
-                        <td>
-                          <Image
-                            width="57px"
-                            height="25px"
-                            src="/static/pdf.svg"
-                            className={`${styles.pdfImage} img-fluid`}
-                            alt="Pdf"
-                          />
-                        </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                        <td>John Doe</td>
-                        <td>
-                          <img
-                            className={`${styles.edit_image} img-fluid`}
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
-                        </td>
-                      </tr>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>PAN</td>
+                          <td>
+                            <Image
+                              width="57px"
+                              height="25px"
+                              src="/static/pdf.svg"
+                              className={`${styles.pdfImage} img-fluid`}
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
+                        </tr>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>GST Certificate</td>
+                          <td>
+                            <Image
+                              width="57px"
+                              height="25px"
+                              src="/static/pdf.svg"
+                              className={`${styles.pdfImage} img-fluid`}
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
+                        </tr>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>Board Resolution</td>
+                          <td>
+                            <Image
+                              width="57px"
+                              height="25px"
+                              src="/static/pdf.svg"
+                              className={`${styles.pdfImage} img-fluid`}
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td>John Doe</td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid`}
+                              src="/static/mode_edit.svg"
+                              alt="Edit"
+                            />
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
@@ -627,7 +627,7 @@ function Index () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

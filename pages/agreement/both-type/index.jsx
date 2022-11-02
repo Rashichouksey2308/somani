@@ -1,74 +1,77 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Col, Form, Row } from 'react-bootstrap'
-import PaginateBar from '../../../src/components/Paginatebar'
-import jsPDF from 'jspdf'
-import ReactDOMServer from 'react-dom/server'
-import _get from 'lodash/get'
-import Modal from 'react-bootstrap/Modal'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Col, Form, Row } from 'react-bootstrap';
+import PaginateBar from '../../../src/components/Paginatebar';
+import jsPDF from 'jspdf';
+import ReactDOMServer from 'react-dom/server';
+import _get from 'lodash/get';
+import Modal from 'react-bootstrap/Modal';
 
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from '../../../src/redux/insurance/action'
-import moment from 'moment'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../../src/redux/userData/action'
-import Router from 'next/router'
-import { convertValue } from '../../../src/utils/helper'
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from '../../../src/redux/insurance/action';
+import moment from 'moment';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../../src/redux/userData/action';
+import Router from 'next/router';
+import { convertValue } from '../../../src/utils/helper';
 
-function Index () {
-  const dispatch = useDispatch()
+function Index() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('letterId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('letterId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handlePopup = () => {
-    setShow(true)
-  }
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+    setShow(true);
+  };
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
-  ])
+  ]);
   const [insuranceAdd, setinsuranceAdd] = useState([
     {
       insurance: '',
     },
-  ])
+  ]);
 
   const addMoreRows = (val) => {
-
     if (val == 'email') {
       setEmailAdd([
         ...emailAdd,
         {
           emailID: '',
         },
-      ])
+      ]);
     } else {
       setinsuranceAdd([
         ...insuranceAdd,
         {
           insurance: '',
         },
-      ])
+      ]);
     }
-  }
-  dispatch(setPageName('insurance Request Letter'))
+  };
+  dispatch(setPageName('insurance Request Letter'));
   dispatch(
     setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
-  )
-  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+  );
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1850])
+    const doc = new jsPDF('p', 'pt', [1500, 1850]);
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -207,8 +210,8 @@ function Index () {
                             }}
                           >
                             Dear Sir/Madam,
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             As discussed, please note the detail of Cargo as
                             under:
                           </p>
@@ -1093,20 +1096,20 @@ function Index () {
                             }}
                           >
                             Thanks &amp; Best Regards
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Vipin Rajput
-                            <br/>
+                            <br />
                             Manager Accounts
-                            <br/>
+                            <br />
                             Indo German International Private Limited
-                            <br/>
+                            <br />
                             8-B, Sagar, 6-Tilak Marg,
-                            <br/>
+                            <br />
                             New Delhi-110001
-                            <br/>
+                            <br />
                             Mobile No - 9312251303
-                            <br/>
+                            <br />
                             Email ID - vipinrajput@gmail.com
                           </p>
                         </td>
@@ -1121,13 +1124,13 @@ function Index () {
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('sample.pdf');
         },
         // margin:margins,
         autoPaging: 'text',
       },
-    )
-  }
+    );
+  };
   return (
     <>
       <div className="container-fluid p-0">
@@ -1137,7 +1140,7 @@ function Index () {
           <div className={`${styles.head_header} align-items-center`}>
             <div
               onClick={(e) => {
-                Router.push('/insurance/form')
+                Router.push('/insurance/form');
               }}
               style={{ cursor: 'pointer' }}
             >
@@ -1479,11 +1482,7 @@ function Index () {
                       '',
                     )}{' '}
                     <br></br>
-                    {_get(
-                      insuranceData,
-                      'order.generic.buyer.gstin',
-                      '',
-                    )}
+                    {_get(insuranceData, 'order.generic.buyer.gstin', '')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1718,12 +1717,12 @@ function Index () {
                           </div>
                           <hr></hr>
                         </>
-                      )
+                      );
                     })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows('insurance')
+                        addMoreRows('insurance');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1781,7 +1780,7 @@ function Index () {
                               />
                             </div>
                           </>
-                        )
+                        );
                       })}
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
@@ -1791,8 +1790,7 @@ function Index () {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-
-                        addMoreRows('email')
+                        addMoreRows('email');
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -1889,7 +1887,7 @@ function Index () {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

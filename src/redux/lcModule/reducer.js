@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   gettingLc: false,
@@ -8,90 +8,90 @@ const initialState = {
   updatingLcAmendment: false,
   updatingLcAmendmentResponse: null,
   updatingAmendment: false,
-  updatingAmendmentResponse: null
-}
+  updatingAmendmentResponse: null,
+};
 
-function LcModuleReducer (state = initialState, action) {
+function LcModuleReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_LC_MODULE:
       return {
         ...state,
         gettingLc: true,
-        lcModule: null
-      }
+        lcModule: null,
+      };
     case types.GET_LC_MODULE_SUCCESS:
       return {
         ...state,
         gettingLc: false,
-        lcModule: action.payload
-      }
+        lcModule: action.payload,
+      };
     case types.GET_LC_MODULE_FAILED:
       return {
         ...state,
         gettingLc: false,
-        lcModule: null
-      }
+        lcModule: null,
+      };
 
     case types.UPDATE_LC_MODULE:
       return {
         ...state,
         updatingLc: true,
-        updatingLcResponse: null
-      }
+        updatingLcResponse: null,
+      };
     case types.UPDATE_LC_MODULE_SUCCESS:
       return {
         ...state,
         updatingLc: false,
-        updatingLcResponse: action.payload
-      }
+        updatingLcResponse: action.payload,
+      };
     case types.UPDATE_LC_MODULE_FAILED:
       return {
         ...state,
         updatingLc: false,
-        updatingLcResponse: null
-      }
+        updatingLcResponse: null,
+      };
 
     case types.UPDATE_LC_AMENDMENT:
       return {
         ...state,
         updatingLcAmendment: true,
-        updatingLcAmendmentResponse: null
-      }
+        updatingLcAmendmentResponse: null,
+      };
     case types.UPDATE_LC_AMENDMENT_SUCCESS:
       return {
         ...state,
         updatingLcAmendment: false,
-        updatingLcAmendmentResponse: action.payload
-      }
+        updatingLcAmendmentResponse: action.payload,
+      };
     case types.UPDATE_LC_AMENDMENT_FAILED:
       return {
         ...state,
         updatingLcAmendment: false,
-        updatingLcAmendmentResponse: null
-      }
+        updatingLcAmendmentResponse: null,
+      };
 
     case types.UPDATE_LC_AMENDMENT_POST:
       return {
         ...state,
         updatingAmendment: true,
-        updatingAmendmentResponse: null
-      }
+        updatingAmendmentResponse: null,
+      };
     case types.UPDATE_LC_AMENDMENT_POST_SUCCESS:
       return {
         ...state,
         updatingAmendment: false,
-        updatingAmendmentResponse: action.payload
-      }
+        updatingAmendmentResponse: action.payload,
+      };
     case types.UPDATE_LC_AMENDMENT_POST_FAILED:
       return {
         ...state,
         updatingAmendment: false,
-        updatingAmendmentResponse: null
-      }
+        updatingAmendmentResponse: null,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default LcModuleReducer
+export default LcModuleReducer;

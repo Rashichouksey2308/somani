@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   gettingLiftingData: false,
@@ -6,65 +6,65 @@ const initialState = {
   getLiftingData: false,
   liftingData: null,
   updatingLiftingData: false,
-  updatingLiftingDataResponse: null
-}
+  updatingLiftingDataResponse: null,
+};
 
-function LiftingReducer (state = initialState, action) {
+function LiftingReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_LIFTING_DATA:
       return {
         ...state,
         getLiftingData: true,
-        liftingData: null
-      }
+        liftingData: null,
+      };
     case types.GET_LIFTING_DATA_SUCCESS:
       return {
         ...state,
         getLiftingData: false,
-        liftingData: action.payload
-      }
+        liftingData: action.payload,
+      };
     case types.GET_LIFTING_DATA_FAILED:
       return {
         ...state,
         getLiftingData: false,
-        liftingData: null
-      }
+        liftingData: null,
+      };
     case types.GET_ALL_LIFTING_DATA:
       return {
         ...state,
-        gettingLiftingData: true
-      }
+        gettingLiftingData: true,
+      };
     case types.GET_ALL_LIFTING_DATA_SUCCESS:
       return {
         ...state,
         gettingLiftingData: false,
-        allLiftingData: action.payload
-      }
+        allLiftingData: action.payload,
+      };
     case types.GET_ALL_LIFTING_DATA_FAILED:
       return {
         ...state,
-        gettingLiftingData: false
-      }
+        gettingLiftingData: false,
+      };
     case types.UPDATE_LIFTING_DATA:
       return {
         ...state,
-        updatingLiftingData: true
-      }
+        updatingLiftingData: true,
+      };
     case types.UPDATE_LIFTING_DATA_SUCCESS:
       return {
         ...state,
         updatingLiftingData: false,
-        updatingLiftingDataResponse: action.payload
-      }
+        updatingLiftingDataResponse: action.payload,
+      };
     case types.UPDATE_LIFTING_DATA_FAILED:
       return {
         ...state,
-        updatingLiftingData: false
-      }
+        updatingLiftingData: false,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default LiftingReducer
+export default LiftingReducer;

@@ -1,23 +1,27 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import TermSheetMain from '../../src/components/TermSheetMain'
-import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import TermSheetMain from '../../src/components/TermSheetMain';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../src/redux/userData/action';
 
 const Index = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setPageName('termsheet'))
-    dispatch(setDynamicName(null))
-    dispatch(setDynamicOrder(null))
-  })
+    dispatch(setPageName('termsheet'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  });
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Leads')
-      sessionStorage.setItem('loadedSubPage', `Termsheet`)
-      sessionStorage.setItem('openList', 1)
+      sessionStorage.setItem('loadedPage', 'Leads');
+      sessionStorage.setItem('loadedSubPage', `Termsheet`);
+      sessionStorage.setItem('openList', 1);
     }
-  }, [])
-  return <TermSheetMain />
-}
+  }, []);
+  return <TermSheetMain />;
+};
 
-export default Index
+export default Index;

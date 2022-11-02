@@ -1,64 +1,64 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import styles from './index.module.scss'
-import 'bootstrap/dist/css/bootstrap.css'
-import { loginUser } from 'redux/authentication/actions'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from './index.module.scss';
+import 'bootstrap/dist/css/bootstrap.css';
+import { loginUser } from 'redux/authentication/actions';
 
-function Index (props) {
-  const dispatch = useDispatch()
-  const loggingoutUser = useSelector((state) => state.auth.loggingUserOut)
+function Index(props) {
+  const dispatch = useDispatch();
+  const loggingoutUser = useSelector((state) => state.auth.loggingUserOut);
 
   useEffect(() => {
     if (loggingoutUser) {
-      props.login()
+      props.login();
     } else {
       //display error msg
     }
-  }, [loggingoutUser])
+  }, [loggingoutUser]);
   const [loginDetails, setLoginDetails] = useState({
     email: '',
     password: '',
-  })
-  const [showPassword, setShowPassword] = useState(false)
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const onShowPasswordHandler = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const onInputDataHandler = (e) => {
-    const credentials = { ...loginDetails }
-    credentials[e.target.name] = e.target.value
-    setLoginDetails(credentials)
-  }
+    const credentials = { ...loginDetails };
+    credentials[e.target.name] = e.target.value;
+    setLoginDetails(credentials);
+  };
 
   const onSubmitHandler = async (e) => {
     //e.preventDefault();
 
     const encodedString = Buffer.from(
       `${loginDetails.email.trim()}:${loginDetails.password.trim()}`,
-    ).toString('base64')
+    ).toString('base64');
     await dispatch(
       loginUser({
         credentials: encodedString,
       }),
-    )
-  }
+    );
+  };
 
   const listener = (event) => {
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-      event.preventDefault()
-      onSubmitHandler()
+      event.preventDefault();
+      onSubmitHandler();
     }
-  }
+  };
 
   useEffect(() => {
-    document.addEventListener('keydown', listener)
+    document.addEventListener('keydown', listener);
     return () => {
-      document.removeEventListener('keydown', listener)
-    }
-  }, [loginDetails])
+      document.removeEventListener('keydown', listener);
+    };
+  }, [loginDetails]);
 
   return (
     <>
@@ -122,7 +122,7 @@ function Index (props) {
                     type={showPassword ? 'text' : 'password'}
                     name="password"
                     onChange={(e) => {
-                      onInputDataHandler(e)
+                      onInputDataHandler(e);
                     }}
                     className={`${styles.formControl} ${styles.input} input form-control`}
                     required
@@ -158,8 +158,8 @@ function Index (props) {
                 <button
                   className={`${styles.signin} btn btn-primary btn-block`}
                   onClick={(e) => {
-                    e.preventDefault()
-                    onSubmitHandler()
+                    e.preventDefault();
+                    onSubmitHandler();
                   }}
                 >
                   Sign in
@@ -181,7 +181,7 @@ function Index (props) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

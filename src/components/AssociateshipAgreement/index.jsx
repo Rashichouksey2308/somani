@@ -1,17 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Col, Row } from 'react-bootstrap'
-import GrowInput from '../GrowInput'
-import _get from 'lodash/get'
-import moment from 'moment'
-import Router from 'next/router'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Col, Row } from 'react-bootstrap';
+import GrowInput from '../GrowInput';
+import _get from 'lodash/get';
+import moment from 'moment';
+import Router from 'next/router';
 
-function Index (props) {
-  console.log(props.type, 'adadf')
-  const [active, setActive] = useState('none')
+function Index(props) {
+  console.log(props.type, 'adadf');
+  const [active, setActive] = useState('none');
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -40,27 +40,27 @@ function Index (props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  })
+  });
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001'
+        return '7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001';
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001'
+        return '8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001';
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016'
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016';
       }
     }
-  }
+  };
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'))
+        const data = JSON.parse(sessionStorage.getItem('preview'));
 
         setData({
           seller: data?.seller,
@@ -95,27 +95,27 @@ function Index (props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        })
+        });
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
-        console.log(data, 'data22222')
-        let exe
-        let dat = ''
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+        console.log(data, 'data22222');
+        let exe;
+        let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            exe = val.place
+            exe = val.place;
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
             }
           }
-        })
-        let comment = []
+        });
+        let comment = [];
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'Sales Agreement') {
-            comment.push(val.comment)
+            comment.push(val.comment);
           }
-        })
-        console.log(dat, exe, 'exedasa')
+        });
+        console.log(dat, exe, 'exedasa');
 
         setData({
           seller: data?.seller?.name,
@@ -201,13 +201,12 @@ function Index (props) {
             'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba',
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: '',
-        })
+        });
       }
     }
-  }, [props])
+  }, [props]);
   return (
     <>
-
       {/* Agreement pdf download code start */}
       {/* <table width='800px' bgColor='#ffffff' cellPadding='0' style={{fontFamily:'Times New Roman, Times, serif', border:'1px solid #d9dde8', marginBottom:'20px', color:'#000000'}} cellSpacing='0' border='0'>
         <tr>
@@ -2873,42 +2872,45 @@ function Index (props) {
 
       <div className={`${styles.root}`}>
         <div className={`${styles.content} card border_color shadow-none`}>
-          {props.preview == '' ? <div
-            className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
-            data-toggle="collapse"
-            data-target="#cashFlowStatement"
-            aria-expanded="true"
-            aria-controls="cashFlowStatement"
-          >
-            <div className={`d-flex `}>
-              <h2
-                className={`mb-0 mr-4 ${
-                  active == 'none' ? styles.underLine : null
-                }`}
-                onClick={() => setActive('none')}
-              >
-                {' '}
-                Agreement
-              </h2>
-              <h2
-                className={`mb-0 mr-4 ${
-                  active == 'one' ? styles.underLine : null
-                }`}
-                onClick={() => setActive('one')}
-              >
-                {' '}
-                Undertaking 1
-              </h2>
-              <h2
-                className={`mb-0  ${active == 'tow' ? styles.underLine : null}`}
-                onClick={() => setActive('tow')}
-              >
-                {' '}
-                Undertaking 2
-              </h2>
-            </div>
+          {props.preview == '' ? (
+            <div
+              className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
+              data-toggle="collapse"
+              data-target="#cashFlowStatement"
+              aria-expanded="true"
+              aria-controls="cashFlowStatement"
+            >
+              <div className={`d-flex `}>
+                <h2
+                  className={`mb-0 mr-4 ${
+                    active == 'none' ? styles.underLine : null
+                  }`}
+                  onClick={() => setActive('none')}
+                >
+                  {' '}
+                  Agreement
+                </h2>
+                <h2
+                  className={`mb-0 mr-4 ${
+                    active == 'one' ? styles.underLine : null
+                  }`}
+                  onClick={() => setActive('one')}
+                >
+                  {' '}
+                  Undertaking 1
+                </h2>
+                <h2
+                  className={`mb-0  ${
+                    active == 'tow' ? styles.underLine : null
+                  }`}
+                  onClick={() => setActive('tow')}
+                >
+                  {' '}
+                  Undertaking 2
+                </h2>
+              </div>
 
-            {/* <div
+              {/* <div
                       className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
                     >
                     
@@ -2928,31 +2930,26 @@ function Index (props) {
                         />
                       </a>
                     </div> */}
-          </div> : null}
-          {props.preview == '' ?
-
-            active == 'none'
+            </div>
+          ) : null}
+          {props.preview == ''
+            ? active == 'none'
               ? associateShip(data, props.preview, props.setPreviewValue)
               : active == 'one'
-                ? underTaking1(data, props.preview, props.setPreviewValue)
-                : underTaking2(data, props.preview, props.setPreviewValue)
-
-            :
-            props.type == 'ASSO'
-              ? associateShip(data, props.preview, props.setPreviewValue)
-              : props.type == 'UNDERTAKING1'
-                ? underTaking1(data, props.preview, props.setPreviewValue)
-                : underTaking2(data, props.preview, props.setPreviewValue)
-          }
-
-
+              ? underTaking1(data, props.preview, props.setPreviewValue)
+              : underTaking2(data, props.preview, props.setPreviewValue)
+            : props.type == 'ASSO'
+            ? associateShip(data, props.preview, props.setPreviewValue)
+            : props.type == 'UNDERTAKING1'
+            ? underTaking1(data, props.preview, props.setPreviewValue)
+            : underTaking2(data, props.preview, props.setPreviewValue)}
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
 
 const assignmentSupplier = (props) => {
   return (
@@ -3208,8 +3205,8 @@ const assignmentSupplier = (props) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const tripartiteAgreement = () => {
   return (
     <>
@@ -3463,8 +3460,8 @@ const tripartiteAgreement = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const salesContract = () => {
   return (
     <>
@@ -4481,8 +4478,8 @@ Andhra Pradesh, 530016 India
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const tpaSeller = () => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
@@ -5076,11 +5073,11 @@ const tpaSeller = () => {
         </Col>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const associateShip = (data, preview, setPreviewValue) => {
-  console.log(data, 'data')
+  console.log(data, 'data');
   return (
     <>
       <div className="card-body" style={{ minHeight: 'auto', flex: 'none' }}>
@@ -5485,7 +5482,7 @@ const associateShip = (data, preview, setPreviewValue) => {
                   &amp; Sale basis as per delivery terms mentioned in Schedule
                   I. IGI shall file the Bill of Entry in its name and the
                   Associate Buyer shall arrange to clear the cargo at the port.
-                  <br/>
+                  <br />
                   In case the shipment is under Form A-1 the same shall be
                   arranged by the Associate Buyer on or before the customs
                   clearance.
@@ -5563,7 +5560,7 @@ const associateShip = (data, preview, setPreviewValue) => {
                 {' '}
                 <p className="text_sales">
                   <strong>Safekeeping and Security of the Goods: </strong>
-                  <br/>
+                  <br />
                   Proper safekeeping and security of Goods shall be the
                   responsibility of the Associate Buyer. The Associate Buyer
                   shall provide round the clock security guards at the Storage
@@ -6576,16 +6573,16 @@ const associateShip = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-                  <span
-                    onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data))
+              <span
+                onClick={(e) => {
+                  sessionStorage.setItem('preview', JSON.stringify(data));
 
-                      Router.push('agreement/preview')
-                      setPreviewValue('ASSO')
-                    }}
-                  >
-                    Preview
-                  </span>
+                  Router.push('agreement/preview');
+                  setPreviewValue('ASSO');
+                }}
+              >
+                Preview
+              </span>
             </div>
             <div className={styles.reject}>
               <span>Save</span>
@@ -6597,8 +6594,8 @@ const associateShip = (data, preview, setPreviewValue) => {
         </>
       ) : null}
     </>
-  )
-}
+  );
+};
 
 // const sales=()=>{
 //   return(
@@ -7137,7 +7134,10 @@ const associateShip = (data, preview, setPreviewValue) => {
 const underTaking1 = (data, preview, setPreviewValue) => {
   return (
     <>
-      <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
+      <div
+        className={`${styles.cardBody} card-body pt-3`}
+        style={{ minHeight: 'auto', flex: '0 0 auto' }}
+      >
         {preview ? (
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
@@ -7160,7 +7160,10 @@ const underTaking1 = (data, preview, setPreviewValue) => {
         <p className="text-center text_sales">
           {' '}
           <span>To:</span>{' '}
-          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <strong>
+            Indo German International Private Limited, 7A, Sagar Apartments, 6,
+            Tilak Marg, New Delhi
+          </strong>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -7178,22 +7181,20 @@ const underTaking1 = (data, preview, setPreviewValue) => {
           <li>
             <p className="text_sales">
               That as requested by us, the Supplier shall sell the Goods to{' '}
-              <strong>Indo</strong> and{' '}
-              <strong>Indo</strong> will establish Letter of
-              Credit in favour of the Supplier and make payment to the Supplier
-              for the Goods. <strong>Indo</strong> shall sell
-              the Goods to Seller and Seller shall sell the same to the Associate
-              Buyer in terms of the said Associateship Agreement. The Sales
-              Contract and the Associateship Agreement shall jointly be referred
-              to as “Contracts”.
+              <strong>Indo</strong> and <strong>Indo</strong> will establish
+              Letter of Credit in favour of the Supplier and make payment to the
+              Supplier for the Goods. <strong>Indo</strong> shall sell the Goods
+              to Seller and Seller shall sell the same to the Associate Buyer in
+              terms of the said Associateship Agreement. The Sales Contract and
+              the Associateship Agreement shall jointly be referred to as
+              “Contracts”.
             </p>
           </li>
           <li>
             <p className="text_sales">
               That the present Undertaking is being executed in pursuance of the
-              Contracts being entered into by{' '}
-              <strong>Indo</strong> and Seller on our
-              request. It is pertinent to mention that the terms of the
+              Contracts being entered into by <strong>Indo</strong> and Seller
+              on our request. It is pertinent to mention that the terms of the
               Associateship Agreement be read as a part of this Undertaking.
             </p>
           </li>
@@ -7225,22 +7226,24 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  That we will not intimate the bankers to stop the payment of the
-                  aforesaid cheques delivered to Seller under any circumstances.
+                  That we will not intimate the bankers to stop the payment of
+                  the aforesaid cheques delivered to Seller under any
+                  circumstances.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  That, we have duly complied with the Positive Payment Service as
-                  per RBI circular dated 25th September 2020 by intimating our
-                  bank about the details of the post-dated cheques issued to
+                  That, we have duly complied with the Positive Payment Service
+                  as per RBI circular dated 25th September 2020 by intimating
+                  our bank about the details of the post-dated cheques issued to
                   Seller.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  That, we shall not close the account from which the cheques have
-                  been issued without the prior permission of Seller in writing.
+                  That, we shall not close the account from which the cheques
+                  have been issued without the prior permission of Seller in
+                  writing.
                 </p>
               </li>
               <li>
@@ -7251,19 +7254,19 @@ const underTaking1 = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  That, we, further undertake not to bring into effect any change
-                  in the Authorized Signatories without taking prior written
-                  consent of Seller or to do anything which makes the above
-                  cheques/claim of Seller redundant.
+                  That, we, further undertake not to bring into effect any
+                  change in the Authorized Signatories without taking prior
+                  written consent of Seller or to do anything which makes the
+                  above cheques/claim of Seller redundant.
                 </p>
               </li>
             </ul>
           </li>
           <li>
             <p className="text_sales">
-              We further confirm that we are very much aware of the liability that
-              has accrued on us by way of the Associateship Agreement by virtue of
-              which Seller has agreed to import the Goods.
+              We further confirm that we are very much aware of the liability
+              that has accrued on us by way of the Associateship Agreement by
+              virtue of which Seller has agreed to import the Goods.
             </p>
           </li>
           <li>
@@ -7278,8 +7281,8 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             <p className="text_sales">
               The calculation of the Post-dated Cheques is based on the contract
               value, any additional amounts, if payable by us will be paid
-              upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot Rental,
-              Wharfage etc. to be borne and paid by us directly.
+              upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot
+              Rental, Wharfage etc. to be borne and paid by us directly.
             </p>
           </li>
           <li>
@@ -7481,16 +7484,16 @@ const underTaking1 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-                  <span
-                    onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data))
+              <span
+                onClick={(e) => {
+                  sessionStorage.setItem('preview', JSON.stringify(data));
 
-                      Router.push('agreement/preview')
-                      setPreviewValue('UNDERTAKING1')
-                    }}
-                  >
-                    Preview
-                  </span>
+                  Router.push('agreement/preview');
+                  setPreviewValue('UNDERTAKING1');
+                }}
+              >
+                Preview
+              </span>
             </div>
             <div className={styles.reject}>
               <span>Save</span>
@@ -7502,12 +7505,15 @@ const underTaking1 = (data, preview, setPreviewValue) => {
         </>
       ) : null}
     </>
-  )
-}
+  );
+};
 const underTaking2 = (data, preview, setPreviewValue) => {
   return (
     <>
-      <div className={`${styles.cardBody} card-body pt-3`} style={{ minHeight: 'auto', flex: '0 0 auto' }}>
+      <div
+        className={`${styles.cardBody} card-body pt-3`}
+        style={{ minHeight: 'auto', flex: '0 0 auto' }}
+      >
         {preview ? (
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
@@ -7530,7 +7536,10 @@ const underTaking2 = (data, preview, setPreviewValue) => {
         <p className="text-center text_sales">
           {' '}
           <span>To:</span>{' '}
-          <strong>Indo German International Private Limited, 7A, Sagar Apartments, 6, Tilak Marg, New Delhi</strong>
+          <strong>
+            Indo German International Private Limited, 7A, Sagar Apartments, 6,
+            Tilak Marg, New Delhi
+          </strong>
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -7540,7 +7549,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
         </p>
         <p className="text_sales">
           {' '}
-          We being the Associate Buyer, do solemnly affirm and undertake as under:
+          We being the Associate Buyer, do solemnly affirm and undertake as
+          under:
         </p>
         <ol type="1">
           <li>
@@ -7553,33 +7563,34 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             <p className="text_sales">
               That we have requested{' '}
               <strong>Indo German International Private Limited</strong>
-              (“IGI/ Seller”) to import on our behalf the Goods and sell the same
-              to us on stock and sale basis as per Associateship Agreement. We
-              confirm and undertake that all the terms &amp; conditions of the
-              Sales Contract entered into between{' '}
-              <strong>Indo</strong> and the Supplier
-              (hereinafter referred to as “Sales Contract”) are acceptable and
-              binding on us.
+              (“IGI/ Seller”) to import on our behalf the Goods and sell the
+              same to us on stock and sale basis as per Associateship Agreement.
+              We confirm and undertake that all the terms &amp; conditions of
+              the Sales Contract entered into between <strong>Indo</strong> and
+              the Supplier (hereinafter referred to as “Sales Contract”) are
+              acceptable and binding on us.
             </p>
           </li>
           <li>
             <p className="text_sales">
               That the price indicated in the Sales Contract is neither
               under-invoiced nor over-invoiced and is as per prevailing
-              international rates for the above-mentioned item and is at par with
-              prices at which item of similar quality being imported into India.
+              international rates for the above-mentioned item and is at par
+              with prices at which item of similar quality being imported into
+              India.
             </p>
           </li>
           <li>
             <p className="text_sales">
               We undertake to ensure that the item to be shipped by the Supplier
-              shall be strictly as per description &amp; quality indicated in the
-              Sales Contract notwithstanding the inspection report/ quality
-              certificate/ Survey report furnished by the Supplier for the subject
-              consignment. We shall be held solely liable and responsible for all
-              consequences arising out of variation between item/quality/quantity
-              contracted for &amp; actually shipped and we undertake to indemnify
-              and hold harmless Indo/Seller in this regard at all times.
+              shall be strictly as per description &amp; quality indicated in
+              the Sales Contract notwithstanding the inspection report/ quality
+              certificate/ Survey report furnished by the Supplier for the
+              subject consignment. We shall be held solely liable and
+              responsible for all consequences arising out of variation between
+              item/quality/quantity contracted for &amp; actually shipped and we
+              undertake to indemnify and hold harmless Indo/Seller in this
+              regard at all times.
             </p>
           </li>
           <li>
@@ -7609,22 +7620,24 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  That we will not intimate the bankers to stop the payment of the
-                  aforesaid cheques delivered to Seller under any circumstances.
+                  That we will not intimate the bankers to stop the payment of
+                  the aforesaid cheques delivered to Seller under any
+                  circumstances.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  That, we have duly complied with the Positive Payment Service as
-                  per RBI circular dated 25th September 2020 by intimating our
-                  bank about the details of the post-dated cheques issued to
+                  That, we have duly complied with the Positive Payment Service
+                  as per RBI circular dated 25th September 2020 by intimating
+                  our bank about the details of the post-dated cheques issued to
                   Seller.
                 </p>
               </li>
               <li>
                 <p className="text_sales">
-                  That, we shall not close the account from which the cheques have
-                  been issued without the prior permission of Seller in writing.
+                  That, we shall not close the account from which the cheques
+                  have been issued without the prior permission of Seller in
+                  writing.
                 </p>
               </li>
               <li>
@@ -7635,19 +7648,19 @@ const underTaking2 = (data, preview, setPreviewValue) => {
               </li>
               <li>
                 <p className="text_sales">
-                  That, we, further undertake not to bring into effect any change
-                  in the Authorized Signatories without taking prior written
-                  consent of Seller or to do anything which makes the above
-                  cheques/claim of Seller redundant.
+                  That, we, further undertake not to bring into effect any
+                  change in the Authorized Signatories without taking prior
+                  written consent of Seller or to do anything which makes the
+                  above cheques/claim of Seller redundant.
                 </p>
               </li>
             </ul>
           </li>
           <li>
             <p className="text_sales">
-              We further confirm that we are very much aware of the liability that
-              has accrued on us by way of the Associateship Agreement by virtue of
-              which Seller has agreed to import the Goods.
+              We further confirm that we are very much aware of the liability
+              that has accrued on us by way of the Associateship Agreement by
+              virtue of which Seller has agreed to import the Goods.
             </p>
           </li>
           <li>
@@ -7662,8 +7675,8 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             <p className="text_sales">
               The calculation of the Post-dated Cheques is based on the contract
               value, any additional amounts, if payable by us will be paid
-              upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot Rental,
-              Wharfage etc. to be borne and paid by us directly.
+              upfront. Further, Actual Stevedoring/CHA, Port Charges, Plot
+              Rental, Wharfage etc. to be borne and paid by us directly.
             </p>
           </li>
           <li>
@@ -7865,16 +7878,16 @@ const underTaking2 = (data, preview, setPreviewValue) => {
             className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
           >
             <div className={`${styles.approve} mr-3`}>
-                  <span
-                    onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data))
+              <span
+                onClick={(e) => {
+                  sessionStorage.setItem('preview', JSON.stringify(data));
 
-                      Router.push('agreement/preview')
-                      setPreviewValue('UNDERTAKING2')
-                    }}
-                  >
-                    Preview
-                  </span>
+                  Router.push('agreement/preview');
+                  setPreviewValue('UNDERTAKING2');
+                }}
+              >
+                Preview
+              </span>
             </div>
             <div className={styles.reject}>
               <span>Save</span>
@@ -7886,5 +7899,5 @@ const underTaking2 = (data, preview, setPreviewValue) => {
         </>
       ) : null}
     </>
-  )
-}
+  );
+};

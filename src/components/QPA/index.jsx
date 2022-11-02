@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Col, Row } from 'react-bootstrap'
-import _get from 'lodash/get'
-import moment from 'moment'
-import Router from 'next/router'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Col, Row } from 'react-bootstrap';
+import _get from 'lodash/get';
+import moment from 'moment';
+import Router from 'next/router';
 
-function Index (props) {
+function Index(props) {
   const [data, setData] = useState({
     seller: '',
     buyer: '',
@@ -34,27 +34,27 @@ function Index (props) {
     unitOfValue: '',
     curr: '',
     specComment: '',
-  })
+  });
   const getAddress = (buyer) => {
     if (buyer.name == 'Indo German International Private Limited') {
       if (buyer.branch == 'Delhi') {
-        return '7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001'
+        return '7A , SAGAR APARTMENTS, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
       } else {
-        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016'
+        return 'Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016';
       }
     }
     if (buyer.name == 'Emergent Industrial Solution Limited') {
       if (buyer.branch == 'Delhi') {
-        return '8B, SAGAR, 6 TILAK MARG, DELHI, NEW DELHI, 110001'
+        return '8B, SAGAR, 6 TILAK MARG, DELHI, NEW DELHI, 110001';
       } else {
-        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016'
+        return '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, Akkayyapalem,Visakhapatnam, Andhra Pradesh, 530016';
       }
     }
-  }
+  };
   useEffect(() => {
     if (window) {
       if (props.preview) {
-        const data = JSON.parse(sessionStorage.getItem('preview'))
+        const data = JSON.parse(sessionStorage.getItem('preview'));
 
         setData({
           seller: data?.seller,
@@ -89,27 +89,27 @@ function Index (props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        })
+        });
       } else {
-        const data = JSON.parse(sessionStorage.getItem('genericSelected'))
-        console.log(data, 'data22222')
-        let exe
-        let dat = ''
+        const data = JSON.parse(sessionStorage.getItem('genericSelected'));
+        console.log(data, 'data22222');
+        let exe;
+        let dat = '';
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == 'QPA') {
-            exe = val.place
+            exe = val.place;
             if (val.dateOfExecution) {
-              dat = moment(val.dateOfExecution).format('DD-MM-YYYY')
+              dat = moment(val.dateOfExecution).format('DD-MM-YYYY');
             }
           }
-        })
-        let comment = []
+        });
+        let comment = [];
         data?.additionalComments?.comments?.forEach((val, index) => {
           if (val.agreementName == 'QPA') {
-            comment.push(val.comment)
+            comment.push(val.comment);
           }
-        })
-        console.log(dat, exe, 'exedasa')
+        });
+        console.log(dat, exe, 'exedasa');
 
         setData({
           seller: data?.seller?.name,
@@ -196,31 +196,31 @@ function Index (props) {
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           vessel: data?.shippingLine?.vesselName,
           storagePlot:
-          data?.order?.termsheet?.transactionDetails?.portOfDischarge,
-        })
+            data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+        });
       }
     }
-  }, [props])
+  }, [props]);
   return (
     <div className={`${styles.root}`}>
       <div className={`${styles.content} card border_color shadow-none`}>
-        {qpa(data, props.preview,)}
+        {qpa(data, props.preview)}
         {props.preview !== 'Sales' ? (
           <>
             <div
               className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`}
             >
               <div className={`${styles.approve} mr-3`}>
-                  <span
-                    onClick={(e) => {
-                      sessionStorage.setItem('preview', JSON.stringify(data))
+                <span
+                  onClick={(e) => {
+                    sessionStorage.setItem('preview', JSON.stringify(data));
 
-                      Router.push('agreement/preview')
-                      props.setPreviewValue('QPA')
-                    }}
-                  >
-                    Preview
-                  </span>
+                    Router.push('agreement/preview');
+                    props.setPreviewValue('QPA');
+                  }}
+                >
+                  Preview
+                </span>
               </div>
               <div className={styles.reject}>
                 <span>Save</span>
@@ -1049,11 +1049,11 @@ function Index (props) {
         </>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
-const qpa = (data, preview,) => {
+export default Index;
+const qpa = (data, preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
       {preview ? (
@@ -1089,7 +1089,7 @@ const qpa = (data, preview,) => {
       </p>
       <p className="text-center text_sales">And</p>
       <p className="text_sales">
-        <strong>Associate Buyer</strong>, as detailed in{' '}&nbsp;
+        <strong>Associate Buyer</strong>, as detailed in &nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “
         <strong>Associate Buyer</strong>”, which expression shall, where subject
         and content allow or admit, be deemed to include its successors, legal
@@ -1098,7 +1098,7 @@ const qpa = (data, preview,) => {
       <p className="text-center text_sales">And</p>
 
       <p className="text_sales">
-        <strong>Stevedore</strong>(s), as detailed in{' '}&nbsp;
+        <strong>Stevedore</strong>(s), as detailed in &nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “
         <strong>Stevedore/CHA</strong>”, which expression shall, where subject
         and content allow or admit, be deemed to include its successors, legal
@@ -1106,7 +1106,7 @@ const qpa = (data, preview,) => {
       </p>
       <p className="text-center text_sales">And</p>
       <p className="text_sales">
-        <strong>CMA Agent</strong> (s), as detailed in{' '}&nbsp;
+        <strong>CMA Agent</strong> (s), as detailed in &nbsp;
         <strong>Schedule I</strong> hereof (hereinafter referred to as the “
         <strong>CMA Agent</strong>”, which expression shall, where subject and
         content allow or admit, be deemed to include its successors, legal
@@ -1119,10 +1119,10 @@ const qpa = (data, preview,) => {
         and the Associate Buyer.
       </p>
       <p className="text_sales">
-        WHEREAS <b>{data.shortbuyer}</b>&nbsp;has appointed the Stevedore for handling
-        the vessel as detailed in <strong>Schedule I</strong> at Discharge Port.
-        The complete details of vessel, Discharge port and the plot allotted to{' '}
-        <b>{data.shortbuyer}</b>are mentioned at Schedule I.
+        WHEREAS <b>{data.shortbuyer}</b>&nbsp;has appointed the Stevedore for
+        handling the vessel as detailed in <strong>Schedule I</strong> at
+        Discharge Port. The complete details of vessel, Discharge port and the
+        plot allotted to <b>{data.shortbuyer}</b>are mentioned at Schedule I.
       </p>
 
       <p className=" text_sales">
@@ -1137,9 +1137,9 @@ const qpa = (data, preview,) => {
         <li>
           <p className=" text_sales">
             {' '}
-            The Goods shall be stored at the Plot allotted to{' '}&nbsp;
+            The Goods shall be stored at the Plot allotted to &nbsp;
             <b>{data.shortbuyer}</b> by the Discharge Port authorities and shall
-            be kept under the control and custody of CHA on behalf of{' '}&nbsp;
+            be kept under the control and custody of CHA on behalf of &nbsp;
             <b>{data.shortbuyer}</b>. All dispatches from the plot shall be done
             by CHA solely on the basis of Written Delivery Orders issued by{' '}
             <b>{data.shortbuyer}</b>.{' '}
@@ -1239,7 +1239,7 @@ const qpa = (data, preview,) => {
             security of Goods shall be the joint and several responsibilities of
             the Associate Buyer and Stevedore. The Associate Buyer and Stevedore
             shall provide round the clock security guards at the Storage Plot
-            allotted at Discharge Port, where Goods shall be stored. {' '}
+            allotted at Discharge Port, where Goods shall be stored.{' '}
             <b>{data.shortbuyer}</b> shall in no way be responsible or liable
             for any loss or damage to the Goods for any reason whatsoever
             including shortage, theft or mix up.
@@ -1250,7 +1250,7 @@ const qpa = (data, preview,) => {
             {' '}
             Bill of Entry to be filed in the name <b>{data.shortbuyer}</b>.
             Payment of customs duty, IGST, energy cess, Wharfage, CIMS and all
-            other statutory charges shall be paid by the Associate Buyer to {' '}
+            other statutory charges shall be paid by the Associate Buyer to{' '}
             <b>{data.shortbuyer}</b> in advance at the time of Custom Clearance.
             The Associate Buyer shall pay Port Charges directly to port or
             through the Stevedore who will take care of the payments to Port and
@@ -1295,18 +1295,17 @@ const qpa = (data, preview,) => {
         <li>
           <p className=" text_sales">
             The Associate Buyer will arrange comprehensive storage insurance
-            against all risks for <strong>110</strong> of
-            the value of goods. The insurance policy will indicate{' '}
-            <b>{data.shortbuyer}</b> or its nominated Bank (as per{' '}
-            <b>{data.shortbuyer}</b>'s discretion), as sole beneficiary. The
-            Associate Buyer shall inform Stevedore the details of the goods for
-            which <b>{data.shortbuyer}</b>/IGI's nominated Bank shall be the
-            beneficiary for the entire insured value of such pledged goods as
-            per the B/L, quantity kept in the custody of CHA/Stevedore. In case
-            of any claim on insurance company the same shall be claimed and
-            pursued till realization by the Associate Buyer at its sole cost and
-            the Associate Buyer shall indemnify Stevedore and IGI against all
-            risks.
+            against all risks for <strong>110</strong> of the value of goods.
+            The insurance policy will indicate <b>{data.shortbuyer}</b> or its
+            nominated Bank (as per <b>{data.shortbuyer}</b>'s discretion), as
+            sole beneficiary. The Associate Buyer shall inform Stevedore the
+            details of the goods for which <b>{data.shortbuyer}</b>/IGI's
+            nominated Bank shall be the beneficiary for the entire insured value
+            of such pledged goods as per the B/L, quantity kept in the custody
+            of CHA/Stevedore. In case of any claim on insurance company the same
+            shall be claimed and pursued till realization by the Associate Buyer
+            at its sole cost and the Associate Buyer shall indemnify Stevedore
+            and IGI against all risks.
           </p>
         </li>
         <li>
@@ -1471,7 +1470,7 @@ const qpa = (data, preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  )
+                  );
                 })}
             </ol>
           </Col>
@@ -1509,7 +1508,7 @@ const qpa = (data, preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  )
+                  );
                 })}
             </ol>
           </Col>
@@ -1547,7 +1546,7 @@ const qpa = (data, preview,) => {
                         Designation- <span>{val.designation}</span>
                       </div>
                     </li>
-                  )
+                  );
                 })}
             </ol>
           </Col>
@@ -1625,8 +1624,8 @@ const qpa = (data, preview,) => {
         </Col>
       </div>
     </div>
-  )
-}
+  );
+};
 // const qpa1 = () => {
 //   return (
 //     <div className={`${styles.card_body} card-body `}>

@@ -1,8 +1,8 @@
-import React from 'react'
-import DeliveryPreview from '../../src/components/DeliveryPreview'
+import React from 'react';
+import DeliveryPreview from '../../src/components/DeliveryPreview';
 
 const Index = () => {
-  return <DeliveryPreview />
-}
+  return <DeliveryPreview />;
+};
 
-export default Index
+export default Index;

@@ -1,32 +1,32 @@
-import * as types from './actions'
+import * as types from './actions';
 
 const initialState = {
   allGeneric: [],
-  selectedGeneric: []
-}
+  selectedGeneric: [],
+};
 
-function GenericReducer (state = initialState, action) {
+function GenericReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_GENERIC_SUCCESS: {
       return {
         ...state,
-        allGeneric: action.payload
-      }
+        allGeneric: action.payload,
+      };
     }
     case types.SUBMIT_GENERIC:
       return {
-        ...state
-      }
+        ...state,
+      };
     case types.SUBMIT_GENERIC_SUCCESS: {
       return {
-        ...state
-      }
+        ...state,
+      };
     }
 
     case types.SUBMIT_GENERIC_FAILED: {
       return {
-        ...state
-      }
+        ...state,
+      };
     }
     // case types.GET_GENERIC:
     //   return {
@@ -41,8 +41,8 @@ function GenericReducer (state = initialState, action) {
     // }
 
     default:
-      return state
+      return state;
   }
 }
 
-export default GenericReducer
+export default GenericReducer;

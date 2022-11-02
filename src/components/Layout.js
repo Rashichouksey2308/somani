@@ -1,58 +1,58 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
-import Navbar from './NavBar'
-import Sidebar from './Sidebar'
-import Breadcrum from './Breadcrum'
-import Footer from './Footer'
-import styles from './index.module.scss'
-import Login from '../components/Login'
-import { useDispatch, useSelector } from 'react-redux'
-import Cookies from 'js-cookie'
-import Loader from '../components/Loader'
-import { validateToken } from '../redux/authentication/actions'
-import { ErrorBoundary } from '../components/ErrorBoundary'
+import React, { useEffect, useState } from 'react';
+import Navbar from './NavBar';
+import Sidebar from './Sidebar';
+import Breadcrum from './Breadcrum';
+import Footer from './Footer';
+import styles from './index.module.scss';
+import Login from '../components/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import Loader from '../components/Loader';
+import { validateToken } from '../redux/authentication/actions';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 // import 'react-pro-sidebar/dist/css/styles.css';
-import router from 'next/router'
+import router from 'next/router';
 
-function Layout ({ children }) {
-  const [isQuery, setQuery] = useState(null)
-  const [isLogin, setIsLogin] = useState(false)
-  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
-  const isMobile = useSelector((state) => state.sidebar.isMobile)
+function Layout({ children }) {
+  const [isQuery, setQuery] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar);
+  const isMobile = useSelector((state) => state.sidebar.isMobile);
 
-  const dispatch = useDispatch()
-  const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin)
+  const dispatch = useDispatch();
+  const isuserLoggedin = useSelector((state) => state.auth.isuserLoggedin);
 
   useEffect(() => {
-    const isuserlogged = Cookies.get('SOMANI')
+    const isuserlogged = Cookies.get('SOMANI');
     //dispatch(validateToken())
 
-    setIsLogin(isuserlogged)
+    setIsLogin(isuserlogged);
 
     if (isLogin) {
-      dispatch(validateToken())
+      dispatch(validateToken());
     }
-  }, [isuserLoggedin, isLogin])
+  }, [isuserLoggedin, isLogin]);
 
   useEffect(() => {
-    const doMagic = () => {}
+    const doMagic = () => {};
 
-    router.events.on('routeChangeStart', doMagic) // add listener
+    router.events.on('routeChangeStart', doMagic); // add listener
     router.events.on('routeChangeComplete', (url, { shallow }) => {
-      setQuery(router.asPath)
-    })
+      setQuery(router.asPath);
+    });
     return () => {
-      router.events.off('routeChangeStart', doMagic) // remove listener
-    }
-  }, [])
+      router.events.off('routeChangeStart', doMagic); // remove listener
+    };
+  }, []);
 
   return (
     <>
       {isLogin ? (
         <div className={styles.root_Container}>
           <div className={styles.navContainer}>
-            <Navbar/>
+            <Navbar />
           </div>
           <div className={styles.wrapper}>
             {isMobile ? (
@@ -62,7 +62,7 @@ function Layout ({ children }) {
                 }  `}
               >
                 {/* <Sidebar />  */}
-                <Sidebar/>
+                <Sidebar />
               </div>
             ) : (
               <div
@@ -71,7 +71,7 @@ function Layout ({ children }) {
                 }  `}
               >
                 {/* <Sidebar />  */}
-                <Sidebar/>
+                <Sidebar />
               </div>
             )}
 
@@ -82,11 +82,11 @@ function Layout ({ children }) {
               ${isMobile ? styles.no_sidebar_mobile : null}
               `}
             >
-              <Loader/>
+              <Loader />
               <ErrorBoundary>
-                <Breadcrum isQuery={isQuery}/>
+                <Breadcrum isQuery={isQuery} />
                 {children}
-                <Footer/>
+                <Footer />
               </ErrorBoundary>
 
               {/* <TermSheetPreview /> */}
@@ -96,10 +96,10 @@ function Layout ({ children }) {
         </div>
       ) : (
         // <Loader />
-        <Login/>
+        <Login />
       )}
     </>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

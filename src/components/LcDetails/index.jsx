@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
-import DateCalender from '../DateCalender'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
+import DateCalender from '../DateCalender';
 
-export default function Index () {
-  const [editInput, setEditInput] = useState(true)
-  const [darkMode, setDarkMode] = useState(false)
+export default function Index() {
+  const [editInput, setEditInput] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
-      setEditInput(false)
+      setEditInput(false);
     } else {
-      setEditInput(true)
+      setEditInput(true);
     }
-  }
+  };
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -207,63 +207,63 @@ export default function Index () {
                         border="0"
                       >
                         <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />{' '}
-                          </th>
-                          <th width="30%">ACTION</th>
-                        </tr>
+                          <tr>
+                            <th>
+                              DOCUMENT NAME{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              FORMAT{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              DOCUMENT DATE{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />{' '}
+                            </th>
+                            <th width="30%">ACTION</th>
+                          </tr>
                         </thead>
                         <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            LC Copy
-                            <strong className="text-danger ml-0">
-                              *
-                            </strong>{' '}
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className="img-fluid"
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>
-                            28-02-2022,5:30 PM
-                          </td>
-                          <td colSpan={2}>
-                            <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile"/>
-                              <button
-                                className={`${styles.upload_button} btn`}
-                              >
-                                Upload
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              LC Copy
+                              <strong className="text-danger ml-0">
+                                *
+                              </strong>{' '}
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              28-02-2022,5:30 PM
+                            </td>
+                            <td colSpan={2}>
+                              <div className={styles.uploadBtnWrapper}>
+                                <input type="file" name="myfile" />
+                                <button
+                                  className={`${styles.upload_button} btn`}
+                                >
+                                  Upload
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -303,9 +303,9 @@ export default function Index () {
                           />
                           <p className={styles.drop_para}>
                             Drop Files here or
-                            <br/>
+                            <br />
                             <div className={styles.uploadBtnWrapper}>
-                              <input type="file" name="myfile"/>
+                              <input type="file" name="myfile" />
                               <a href="#">Browse</a>
                             </div>
                           </p>
@@ -354,7 +354,7 @@ export default function Index () {
                           />
                         </Form.Group>
                         <div className={styles.uploadBtnWrapper}>
-                          <input type="file" name="myfile"/>
+                          <input type="file" name="myfile" />
                           <button
                             className={`${styles.upload_button} btn`}
                             disabled={editInput}
@@ -407,122 +407,122 @@ export default function Index () {
                         border="0"
                       >
                         <thead>
-                        <tr>
-                          <th>
-                            DOCUMENT NAME{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            FORMAT{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            DOCUMENT DATE{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>
-                            UPLOADED BY{' '}
-                            <img
-                              className={`${styles.sort_image} mb-1`}
-                              src="/static/icons8-sort-24.svg"
-                              alt="Sort icon"
-                            />
-                          </th>
-                          <th>STATUS</th>
-                          <th>ACTION</th>
-                        </tr>
+                          <tr>
+                            <th>
+                              DOCUMENT NAME{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              FORMAT{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              DOCUMENT DATE{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>
+                              UPLOADED BY{' '}
+                              <img
+                                className={`${styles.sort_image} mb-1`}
+                                src="/static/icons8-sort-24.svg"
+                                alt="Sort icon"
+                              />
+                            </th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                          </tr>
                         </thead>
                         <tbody>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            Insurance Quotation
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>
-                            28-02-2022,5:30 PM
-                          </td>
-                          <td className={styles.doc_row}>John Doe</td>
-                          <td>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Insurance Quotation
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              28-02-2022,5:30 PM
+                            </td>
+                            <td className={styles.doc_row}>John Doe</td>
+                            <td>
                               <span
                                 className={`${styles.status} ${styles.approved}`}
                               ></span>
-                            Verified
-                          </td>
-                          <td colSpan="2">
-                            <img
-                              src="/static/delete.svg"
-                              className={`${styles.delete_image} img-fluid mr-3`}
-                              alt="Bin"
-                            />
-                            <img
-                              src="/static/upload.svg"
-                              className="img-fluid mr-3"
-                              alt="Share"
-                            />
-                            <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} img-fluid mr-3`}
-                              alt="Share"
-                            />
-                          </td>
-                        </tr>
-                        <tr className="table_row">
-                          <td className={styles.doc_name}>
-                            Container No. List
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className={`${styles.pdfImage} img-fluid`}
-                              alt="Pdf"
-                            />
-                          </td>
-                          <td className={styles.doc_row}>
-                            28-02-2022,5:30 PM
-                          </td>
-                          <td className={styles.doc_row}>John Doe</td>
-                          <td>
+                              Verified
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Share"
+                              />
+                            </td>
+                          </tr>
+                          <tr className="table_row">
+                            <td className={styles.doc_name}>
+                              Container No. List
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className={`${styles.pdfImage} img-fluid`}
+                                alt="Pdf"
+                              />
+                            </td>
+                            <td className={styles.doc_row}>
+                              28-02-2022,5:30 PM
+                            </td>
+                            <td className={styles.doc_row}>John Doe</td>
+                            <td>
                               <span
                                 className={`${styles.status} ${styles.approved}`}
                               ></span>
-                            Verified
-                          </td>
-                          <td colSpan="2">
-                            <img
-                              src="/static/delete.svg"
-                              className={`${styles.delete_image} img-fluid mr-3`}
-                              alt="Bin"
-                            />
-                            <img
-                              src="/static/upload.svg"
-                              className="img-fluid mr-3"
-                              alt="Share"
-                            />
-                            <img
-                              src="/static/drive_file.svg"
-                              className={`${styles.edit_image} img-fluid mr-3`}
-                              alt="Edit"
-                            />
-                          </td>
-                        </tr>
+                              Verified
+                            </td>
+                            <td colSpan="2">
+                              <img
+                                src="/static/delete.svg"
+                                className={`${styles.delete_image} img-fluid mr-3`}
+                                alt="Bin"
+                              />
+                              <img
+                                src="/static/upload.svg"
+                                className="img-fluid mr-3"
+                                alt="Share"
+                              />
+                              <img
+                                src="/static/drive_file.svg"
+                                className={`${styles.edit_image} img-fluid mr-3`}
+                                alt="Edit"
+                              />
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -532,9 +532,9 @@ export default function Index () {
             </div>
           </div>
 
-          <SaveBar rightBtn="Submit"/>
+          <SaveBar rightBtn="Submit" />
         </div>
       </div>
     </>
-  )
+  );
 }

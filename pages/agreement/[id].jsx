@@ -1,8 +1,8 @@
-import React from 'react'
-import LetterCredit from '../../src/components/LetterCredit'
+import React from 'react';
+import LetterCredit from '../../src/components/LetterCredit';
 
 const Index = () => {
-  return <LetterCredit />
-}
+  return <LetterCredit />;
+};
 
-export default Index
+export default Index;

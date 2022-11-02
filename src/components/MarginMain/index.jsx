@@ -1,66 +1,66 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action'
-import { SearchLeads } from 'redux/buyerProfile/action'
-import Filter from '../Filter'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action';
+import { SearchLeads } from 'redux/buyerProfile/action';
+import Filter from '../Filter';
+import moment from 'moment';
 
-function Index () {
-  const [currentPage, setCurrentPage] = useState(0)
+function Index() {
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { searchedLeads } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order);
 
-  const { marginMoneyResponse } = useSelector((state) => state.marginMoney)
+  const { marginMoneyResponse } = useSelector((state) => state.marginMoney);
   // console.log(marginMoneyResponse, 'THIS IS MARGIN MONEY RESPONSE')
 
   useEffect(() => {
-    dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllMarginMoney(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetAllMarginMoney(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllMarginMoney(`?company=${id}`));
+  };
 
   const handleRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
-    sessionStorage.setItem('marginId', margin?.order?._id)
-    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    sessionStorage.setItem('marginId', margin?.order?._id);
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
-    Router.push('/margin-money/id')
-  }
+    Router.push('/margin-money/id');
+  };
 
   const handlePreviewRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
     if (margin.revisedMarginMoney.isActive !== true) {
-      sessionStorage.setItem('marginId', margin?.order?._id)
-      dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+      sessionStorage.setItem('marginId', margin?.order?._id);
+      dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
-      Router.push('/margin-preview')
+      Router.push('/margin-preview');
     } else {
-      sessionStorage.setItem('marginId', margin?.order?._id)
-      dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+      sessionStorage.setItem('marginId', margin?.order?._id);
+      dispatch(GetMarginMoney({ orderId: margin?.order?._id }));
 
-      Router.push('/revised-margin-preview')
+      Router.push('/revised-margin-preview');
     }
-  }
+  };
 
   return (
     <>
@@ -104,7 +104,7 @@ function Index () {
                 </div>
               )}
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -131,9 +131,9 @@ function Index () {
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
-                      return
+                      return;
                     } else {
-                      setCurrentPage((prevState) => prevState - 1)
+                      setCurrentPage((prevState) => prevState - 1);
                     }
                   }}
                   href="#"
@@ -152,7 +152,7 @@ function Index () {
                       currentPage + 1 <
                       Math.ceil(marginMoneyResponse?.totalCount / 7)
                     ) {
-                      setCurrentPage((prevState) => prevState + 1)
+                      setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
@@ -175,73 +175,73 @@ function Index () {
                   border="0"
                 >
                   <thead>
-                  <tr className="table_row table_row_head">
-                    <th>ORDER ID</th>
-                    <th>BUYER NAME</th>
-                    <th>EXISTING CUSTOMER</th>
-                    <th>CREATED ON</th>
-                    <th>STATUS</th>
-                    <th>PREVIEW</th>
-                  </tr>
+                    <tr className="table_row table_row_head">
+                      <th>ORDER ID</th>
+                      <th>BUYER NAME</th>
+                      <th>EXISTING CUSTOMER</th>
+                      <th>CREATED ON</th>
+                      <th>STATUS</th>
+                      <th>PREVIEW</th>
+                    </tr>
                   </thead>
                   {marginMoneyResponse?.data?.map((margin, index) => (
                     <tbody key={index}>
-                    <tr className="table_row">
-                      <td>
-                        {margin?.order?.orderId
-                          ? margin?.order?.orderId
-                          : margin?.order?.applicationId}
-                      </td>
-                      <td
-                        className={styles.buyerName}
-                        onClick={() => {
-                          handleRoute(margin)
-                        }}
-                      >
-                        {margin?.company?.companyName}
-                      </td>
-                      <td>
-                        {margin?.order?.existingCustomer ? 'Yes' : 'No'}
-                      </td>
-                      <td>
-                        {' '}
-                        {moment(margin?.createdAt?.split('T')[0]).format(
-                          'DD-MM-yyyy',
-                        )}
-                      </td>
-                      <td>
+                      <tr className="table_row">
+                        <td>
+                          {margin?.order?.orderId
+                            ? margin?.order?.orderId
+                            : margin?.order?.applicationId}
+                        </td>
+                        <td
+                          className={styles.buyerName}
+                          onClick={() => {
+                            handleRoute(margin);
+                          }}
+                        >
+                          {margin?.company?.companyName}
+                        </td>
+                        <td>
+                          {margin?.order?.existingCustomer ? 'Yes' : 'No'}
+                        </td>
+                        <td>
+                          {' '}
+                          {moment(margin?.createdAt?.split('T')[0]).format(
+                            'DD-MM-yyyy',
+                          )}
+                        </td>
+                        <td>
                           <span
                             className={`${styles.status} ${
                               margin.status === 'Pending'
                                 ? styles.review
                                 : margin.status === 'Rejected'
-                                  ? styles.review
-                                  : margin.status === 'Approved'
-                                    ? styles.approved
-                                    : styles.rejected
+                                ? styles.review
+                                : margin.status === 'Approved'
+                                ? styles.approved
+                                : styles.rejected
                             }`}
                           ></span>
 
-                        {margin?.status === 'Pending'
-                          ? 'Pending'
-                          : margin.status === 'Rejected'
+                          {margin?.status === 'Pending'
+                            ? 'Pending'
+                            : margin.status === 'Rejected'
                             ? 'Rejected'
                             : margin.status === 'Approved'
-                              ? 'Approved'
-                              : 'Rejected'}
-                      </td>
-                      <td>
-                        <img
-                          src="/static/preview.svg"
-                          className="img-fluid"
-                          alt="Preview"
-                          onClick={() => {
-                            handlePreviewRoute(margin)
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    {/* <tr className="table_row">
+                            ? 'Approved'
+                            : 'Rejected'}
+                        </td>
+                        <td>
+                          <img
+                            src="/static/preview.svg"
+                            className="img-fluid"
+                            alt="Preview"
+                            onClick={() => {
+                              handlePreviewRoute(margin);
+                            }}
+                          />
+                        </td>
+                      </tr>
+                      {/* <tr className="table_row">
                       <td>124621</td>
                       <td
                         className={styles.buyerName}
@@ -366,7 +366,7 @@ function Index () {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

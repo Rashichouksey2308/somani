@@ -1,63 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
-import { GetAllTransitDetails, GetTransitDetails, } from '../../src/redux/TransitDetails/action'
-import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../src/redux/userData/action';
+import {
+  GetAllTransitDetails,
+  GetTransitDetails,
+} from '../../src/redux/TransitDetails/action';
+import { useDispatch, useSelector } from 'react-redux';
+import _get from 'lodash/get';
 
-function Index () {
-  const [serachterm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(0)
-  const { searchedLeads } = useSelector((state) => state.order)
+function Index() {
+  const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const { searchedLeads } = useSelector((state) => state.order);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { allTransitDetails, TransitDetails } = useSelector(
     (state) => state.TransitDetails,
-  )
+  );
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
-      sessionStorage.setItem('loadedSubPage', `Transit Details`)
-      sessionStorage.setItem('openList', 3)
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Transit Details`);
+      sessionStorage.setItem('openList', 3);
     }
-  }, [])
+  }, []);
   useEffect(() => {
-    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
   useEffect(() => {
-    dispatch(setPageName('transit'))
-    dispatch(setDynamicName(null))
+    dispatch(setPageName('transit'));
+    dispatch(setDynamicName(null));
 
-    dispatch(setDynamicOrder(null))
-  })
+    dispatch(setDynamicOrder(null));
+  });
 
   const handleRoute = (transaction) => {
-    let id = transaction._id
-    sessionStorage.setItem('ObjId', transaction.order._id)
-    sessionStorage.setItem('transId', id)
-    dispatch(GetTransitDetails(`?transitId=${id}`))
-    Router.push('/transit/id')
-  }
+    let id = transaction._id;
+    sessionStorage.setItem('ObjId', transaction.order._id);
+    sessionStorage.setItem('transId', id);
+    dispatch(GetTransitDetails(`?transitId=${id}`));
+    Router.push('/transit/id');
+  };
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetTransitDetails(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetTransitDetails(`?company=${id}`));
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -65,17 +72,17 @@ function Index () {
         GetAllTransitDetails(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(1)
+      );
+      setSorting(1);
     } else if (sorting == 1) {
       dispatch(
         GetAllTransitDetails(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(-1)
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -124,7 +131,7 @@ function Index () {
               </div>
             )}
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -217,9 +224,9 @@ function Index () {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -238,7 +245,7 @@ function Index () {
                     currentPage + 1 <
                     Math.ceil(allTransitDetails?.totalCount / 7)
                   ) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -261,69 +268,69 @@ function Index () {
                 border="0"
               >
                 <thead>
-                <tr className="table_row border_color">
-                  <th>
-                    ORDER ID{' '}
-                    <img
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                      onClick={() => handleSort()}
-                    />{' '}
-                  </th>
-                  <th>COMMODITY</th>
-                  <th>BUYER NAME</th>
-                  <th>VESSEL NAME</th>
-                  <th>
-                    SURRENDERED
-                    <img
-                      style={{ marginLeft: '5px' }}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />{' '}
-                  </th>
-                  <th>ACTION</th>
-                </tr>
+                  <tr className="table_row border_color">
+                    <th>
+                      ORDER ID{' '}
+                      <img
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                        onClick={() => handleSort()}
+                      />{' '}
+                    </th>
+                    <th>COMMODITY</th>
+                    <th>BUYER NAME</th>
+                    <th>VESSEL NAME</th>
+                    <th>
+                      SURRENDERED
+                      <img
+                        style={{ marginLeft: '5px' }}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />{' '}
+                    </th>
+                    <th>ACTION</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {_get(allTransitDetails, 'data', []).map(
-                  (transaction, index) => {
-                    return (
-                      <tr key={index} className="table_row border_color">
-                        <td>{_get(transaction, 'order.orderId', '')}</td>
-                        <td
-                          className={`${styles.buyerName}`}
-                          onClick={() => handleRoute(transaction)}
-                        >
-                          {_get(transaction, 'order.commodity', '')}
-                        </td>
-                        <td>
-                          {_get(transaction, 'company.companyName', '')}
-                        </td>
-                        <td>
-                          {_get(
-                            transaction,
-                            'order.vessel.vessels[0].vesselInformation[0].name',
-                            '',
-                          )}
-                        </td>
-                        <td>
+                  {_get(allTransitDetails, 'data', []).map(
+                    (transaction, index) => {
+                      return (
+                        <tr key={index} className="table_row border_color">
+                          <td>{_get(transaction, 'order.orderId', '')}</td>
+                          <td
+                            className={`${styles.buyerName}`}
+                            onClick={() => handleRoute(transaction)}
+                          >
+                            {_get(transaction, 'order.commodity', '')}
+                          </td>
+                          <td>
+                            {_get(transaction, 'company.companyName', '')}
+                          </td>
+                          <td>
+                            {_get(
+                              transaction,
+                              'order.vessel.vessels[0].vesselInformation[0].name',
+                              '',
+                            )}
+                          </td>
+                          <td>
                             <span
                               className={`${styles.status} ${styles.review}`}
                             ></span>
-                          Yes
-                        </td>
-                        <td>
-                          <img
-                            className={`${styles.edit_image} img-fluid mr-3`}
-                            src="/static/mode_edit.svg"
-                            alt="edit"
-                            onClick={() => handleRoute(transaction)}
-                          />
-                        </td>
-                      </tr>
-                    )
-                  },
-                )}
+                            Yes
+                          </td>
+                          <td>
+                            <img
+                              className={`${styles.edit_image} img-fluid mr-3`}
+                              src="/static/mode_edit.svg"
+                              alt="edit"
+                              onClick={() => handleRoute(transaction)}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    },
+                  )}
                 </tbody>
               </table>
             </div>
@@ -331,7 +338,7 @@ function Index () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

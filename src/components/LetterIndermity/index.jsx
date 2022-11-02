@@ -1,22 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import Router from 'next/router'
-import { useDispatch } from 'react-redux'
-import _get from 'lodash/get'
-import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
-import Image from 'next/image'
-import { UpdateTransitDetails } from '../../redux/TransitDetails/action'
-import { toast } from 'react-toastify'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
+import _get from 'lodash/get';
+import SavePreviewBar from '../LetterIndermity/SavePreviewBar';
+import Image from 'next/image';
+import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
+import { toast } from 'react-toastify';
+import moment from 'moment';
 
-function Index ({ TransitDetails }) {
+function Index({ TransitDetails }) {
   console.log(
     '🚀 ~ file: index.jsx ~ line 21 ~ Index ~ TransitDetails',
     TransitDetails,
-  )
-  const dispatch = useDispatch()
-  let transId = _get(TransitDetails, `data[0]`, '')
+  );
+  const dispatch = useDispatch();
+  let transId = _get(TransitDetails, `data[0]`, '');
   const [billsofLanding, setBillsofLanding] = useState([
     {
       blnumber: 'BL-1',
@@ -30,7 +30,7 @@ function Index ({ TransitDetails }) {
           .blDate,
       ).format('DD MMMM YYYY'),
     },
-  ])
+  ]);
 
   const [loi, setLOI] = useState({
     loiIssueDate: new Date(),
@@ -41,17 +41,17 @@ function Index ({ TransitDetails }) {
       name: '',
       designation: '',
     },
-  })
+  });
   const changeDesignation = (value) => {
-    let temp = { ...loi }
-    temp.authorizedSignatory.designation = value
-    setLOI({ ...loi })
-  }
+    let temp = { ...loi };
+    temp.authorizedSignatory.designation = value;
+    setLOI({ ...loi });
+  };
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].LOI.billOfLanding', []).length > 0) {
-      setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []))
+      setBillsofLanding(_get(TransitDetails, 'data[0].LOI.billOfLanding', []));
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   const onAddClick = () => {
     setBillsofLanding([
@@ -68,10 +68,10 @@ function Index ({ TransitDetails }) {
             .blDate,
         ).format('DD MMMM YYYY'),
       },
-    ])
-  }
+    ]);
+  };
   useEffect(() => {
-    let existingData = _get(TransitDetails, `data[0].LOI`, {})
+    let existingData = _get(TransitDetails, `data[0].LOI`, {});
     if (existingData?.authorizedSignatory) {
       setLOI({
         loiIssueDate: new Date(),
@@ -82,23 +82,23 @@ function Index ({ TransitDetails }) {
           name: existingData.authorizedSignatory.name,
           designation: existingData.authorizedSignatory.designation,
         },
-      })
+      });
     }
-  }, [TransitDetails])
-  const [bolArray, setBolArray] = useState([])
+  }, [TransitDetails]);
+  const [bolArray, setBolArray] = useState([]);
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
-      setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+      setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []));
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   const SetAuthorisedSignatoryHanlder = (e) => {
     if (e.target.value == '') {
-      setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } })
+      setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } });
     } else {
       if (e.target.value.toLowerCase() === 'bhawana jain') {
-        console.log(e.target.value.toLowerCase(), 'Bhawana Jain')
+        console.log(e.target.value.toLowerCase(), 'Bhawana Jain');
 
         setLOI({
           ...loi,
@@ -106,20 +106,20 @@ function Index ({ TransitDetails }) {
             name: 'Bhawana Jain',
             designation: 'Vice President Finance & Accounts',
           },
-        })
+        });
       }
       if (e.target.value.toLowerCase() === 'vipin kumar') {
-        console.log('Vipin Kumar')
+        console.log('Vipin Kumar');
         setLOI({
           ...loi,
           authorizedSignatory: {
             name: 'Vipin Kumar',
             designation: 'Manager Accounts',
           },
-        })
+        });
       }
       if (e.target.value.toLowerCase() === 'devesh jain') {
-        console.log('Devesh Jain')
+        console.log('Devesh Jain');
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -127,11 +127,11 @@ function Index ({ TransitDetails }) {
               name: 'Devesh Jain',
               designation: 'Director',
             },
-          }
-        })
+          };
+        });
       }
       if (e.target.value.toLowerCase() === 'fatima yannoulis') {
-        console.log('Fatima Yannoulis')
+        console.log('Fatima Yannoulis');
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -139,8 +139,8 @@ function Index ({ TransitDetails }) {
               name: 'Fatima Yannoulis',
               designation: 'Chief Financial Officer',
             },
-          }
-        })
+          };
+        });
       }
     }
 
@@ -162,85 +162,85 @@ function Index ({ TransitDetails }) {
     // }
     // console.log(e.target.value, tempArray.authorizedSignatory, "billsofLanding")
     // setLOI(tempArray)
-  }
+  };
 
   const BolDropDown = (e, index) => {
-    console.log(e.target.value, 'onclclc')
-    let temp = [...billsofLanding]
+    console.log(e.target.value, 'onclclc');
+    let temp = [...billsofLanding];
 
-    let text = e.target.value
-    let thenum = text.match(/\d+/)[0]
+    let text = e.target.value;
+    let thenum = text.match(/\d+/)[0];
 
     if (Number(thenum) <= 0) {
-      thenum = 0
+      thenum = 0;
     } else {
-      thenum = Number(Number(thenum) - 1)
+      thenum = Number(Number(thenum) - 1);
     }
-    console.log(thenum, 'indexindex')
-    temp[index].blnumber = e.target.value
+    console.log(thenum, 'indexindex');
+    temp[index].blnumber = e.target.value;
 
     temp[index].date = moment(
       _get(TransitDetails, 'data[0].BL.billOfLanding', [new Date()])[thenum]
         .blDate,
-    ).format('DD MMMM YYYY')
+    ).format('DD MMMM YYYY');
     temp[index].loadingPort = _get(
       TransitDetails,
       'data[0].order.portOfDischarge',
       '',
-    ).toUpperCase()
-    setBillsofLanding([...temp])
-  }
+    ).toUpperCase();
+    setBillsofLanding([...temp]);
+  };
 
   const OnAddHandler = () => {
-    let tempArray = billsofLanding
+    let tempArray = billsofLanding;
     tempArray.push({
       blnumber: '',
       loadingPort: '',
       date: '',
-    })
-    setBillsofLanding(tempArray)
-  }
+    });
+    setBillsofLanding(tempArray);
+  };
   const onDeleteClick = (index) => {
     setBillsofLanding([
       ...billsofLanding.slice(0, index),
       ...billsofLanding.slice(index + 1),
-    ])
-  }
+    ]);
+  };
 
   const isOptionAvailable = (elem, index) => {
-    let returned = false
+    let returned = false;
     const filtered = billsofLanding.filter((item) => {
-      return item.blnumber === elem
-    })
+      return item.blnumber === elem;
+    });
     if (filtered.length > 0) {
-      returned = true
+      returned = true;
     }
-    return returned
-  }
+    return returned;
+  };
 
   const saveData = () => {
     if (loi.authorizedSignatory.name === '') {
-      let toastMessage = 'PLEase select authorized signatory'
+      let toastMessage = 'PLEase select authorized signatory';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     }
 
-    sessionStorage.setItem('transitPId', transId._id)
+    sessionStorage.setItem('transitPId', transId._id);
     // const billOfLanding = [...bolList]
-    const LOI = { ...loi }
-    LOI.billOfLanding = billsofLanding
-    console.log(LOI, 'LOI111')
-    let fd = new FormData()
-    fd.append('loi', JSON.stringify(LOI))
-    fd.append('transitId', transId._id)
-    let task = 'submit'
-    dispatch(UpdateTransitDetails({ fd, task }))
+    const LOI = { ...loi };
+    LOI.billOfLanding = billsofLanding;
+    console.log(LOI, 'LOI111');
+    let fd = new FormData();
+    fd.append('loi', JSON.stringify(LOI));
+    fd.append('transitId', transId._id);
+    let task = 'submit';
+    dispatch(UpdateTransitDetails({ fd, task }));
     //console.log(fd, bol, 'filteredVessel')
 
-    Router.push('/loi-preview')
-  }
+    Router.push('/loi-preview');
+  };
 
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
@@ -248,9 +248,9 @@ function Index ({ TransitDetails }) {
         <div className={`${styles.heading} d-flex justify-content-end`}>
           <p>
             <span className={`${styles.title} `}>INDO GERMAN</span>
-            <br/>
+            <br />
             <span>INTERNATIONAL (P) LTD.</span>
-            <br/>
+            <br />
             CIN No.: U74899DL1 994PTC063676
           </p>
         </div>
@@ -259,7 +259,7 @@ function Index ({ TransitDetails }) {
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
             DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
             LADING.
-            <hr/>
+            <hr />
           </p>
         </div>
         <div
@@ -657,7 +657,7 @@ function Index ({ TransitDetails }) {
                 className="mt-2 pl-3 input"
                 value={loi.authorizedSignatory.designation}
                 onChange={(e) => {
-                  changeDesignation(e.target.value)
+                  changeDesignation(e.target.value);
                 }}
               ></input>
             </div>
@@ -670,27 +670,27 @@ function Index ({ TransitDetails }) {
           <div className={`${styles.inner} d-flex justify-content-between`}>
             <div>
               <strong>Joint Venture of</strong>
-              <br/>
+              <br />
               Thyssehkrupp Mannex GMBH
-              <br/>
+              <br />
               Essen
-              <br/>
+              <br />
               Germany
             </div>
             <div>
               Phones (91)-(1 1)-4315-8000, 237&2022, 2338-7413
-              <br/>
+              <br />
               Fax : (91) (1 1) 2378-2806
-              <br/>
+              <br />
               E-mail : indogerman@somanigroup.com
             </div>
             <div>
               <strong>Joint Venture of</strong>
-              <br/>
+              <br />
               Somani Group
-              <br/>
+              <br />
               New Delhi
-              <br/>
+              <br />
               lndia
             </div>
           </div>
@@ -704,7 +704,7 @@ function Index ({ TransitDetails }) {
         rightBtnClick={saveData}
       />
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

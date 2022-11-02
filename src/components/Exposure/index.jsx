@@ -1,11 +1,11 @@
-import React from 'react'
-import { Card } from 'react-bootstrap'
-import styles from './index.module.scss'
-import _get from 'lodash/get'
-import { checkNan } from 'utils/helper'
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import styles from './index.module.scss';
+import _get from 'lodash/get';
+import { checkNan } from 'utils/helper';
 
-function Index ({ data }) {
-  console.log(data, 'data')
+function Index({ data }) {
+  console.log(data, 'data');
   return (
     <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header} border_color heading_card`}>
@@ -24,9 +24,9 @@ function Index ({ data }) {
                       Number(
                         (Number(_get(data, '[0].totalUtilizedLimit', 0)) /
                           Number(_get(data, '[0].totalLimit', 0))) *
-                        100
-                      )
-                    )}%`
+                          100,
+                      ),
+                    )}%`,
                   }}
                 />
               </div>
@@ -44,8 +44,8 @@ function Index ({ data }) {
             Number(
               (Number(_get(data, '[0].totalUtilizedLimit', 0)) /
                 Number(_get(data, '[0].totalLimit', 0))) *
-              100
-            )
+                100,
+            ),
           )}{' '}
           %
         </div>
@@ -56,13 +56,13 @@ function Index ({ data }) {
           </div>
           <div className={styles.dotted} />
           <div className={styles.value}>
-            <span className='explore-value'>
+            <span className="explore-value">
               ₹{' '}
               {Number(_get(data, '[0].totalLimit', 0) / 1000000).toLocaleString(
                 'en-IN',
                 {
-                  maximumFractionDigits: 2
-                }
+                  maximumFractionDigits: 2,
+                },
               )}{' '}
               Cr
             </span>
@@ -74,14 +74,14 @@ function Index ({ data }) {
           </div>
           <div className={styles.dotted} />
           <div className={styles.value}>
-            <span className='explore-value'>
+            <span className="explore-value">
               ₹ {_get(data, '[0].totalUtilizedLimit', '')} Cr
             </span>
           </div>
         </div>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default Index
+export default Index;

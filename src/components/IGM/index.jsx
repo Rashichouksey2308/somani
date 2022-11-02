@@ -1,32 +1,32 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import SaveBar from '../SaveBar'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import SaveBar from '../SaveBar';
 // import InspectionDocument from '../InspectionDocument'
-import UploadOther from '../UploadOther'
-import DateCalender from '../DateCalender'
-import _get from 'lodash/get'
-import { useDispatch } from 'react-redux'
-import { UpdateTransitDetails, } from '../../redux/TransitDetails/action'
-import { number } from 'prop-types'
-import 'react-datepicker/dist/react-datepicker.css'
-import { checkNan, convertValue, } from '../../utils/helper'
-import moment from 'moment'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
-import { settingSidebar } from 'redux/breadcrumb/action'
+import UploadOther from '../UploadOther';
+import DateCalender from '../DateCalender';
+import _get from 'lodash/get';
+import { useDispatch } from 'react-redux';
+import { UpdateTransitDetails } from '../../redux/TransitDetails/action';
+import { number } from 'prop-types';
+import 'react-datepicker/dist/react-datepicker.css';
+import { checkNan, convertValue } from '../../utils/helper';
+import moment from 'moment';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { settingSidebar } from 'redux/breadcrumb/action';
 
-export default function Index ({
+export default function Index({
   isShipmentTypeBULK,
   TransitDetails,
   orderId,
   docUploadFunction,
 }) {
-  let transId = _get(TransitDetails, `data[0]`, '')
+  let transId = _get(TransitDetails, `data[0]`, '');
 
-  const dispatch = useDispatch()
-  const router = useRouter()
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   let shipmentTypeBulk =
     _get(
@@ -35,23 +35,23 @@ export default function Index ({
       '',
     ) === 'Bulk'
       ? true
-      : false
+      : false;
 
-  const [editInput, setEditInput] = useState(true)
+  const [editInput, setEditInput] = useState(true);
 
-  const [shipmentType, setShipmentType] = useState(true)
+  const [shipmentType, setShipmentType] = useState(true);
 
-  const [startBlDate, setBlDate] = useState(null)
+  const [startBlDate, setBlDate] = useState(null);
 
-  const [lastDate, setlastDate] = useState(new Date())
+  const [lastDate, setlastDate] = useState(new Date());
 
-  const [consigneeName, setConsigneeName] = useState('')
+  const [consigneeName, setConsigneeName] = useState('');
 
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
     address: '',
-  })
+  });
 
   const [igmList, setIgmList] = useState({
     shipmentType: '',
@@ -76,49 +76,49 @@ export default function Index ({
       },
     ],
     document: null,
-  })
+  });
 
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),
     quantity: '',
-  })
+  });
 
-  const [orderData, setOrderData] = useState()
+  const [orderData, setOrderData] = useState();
 
   const checkRemainingBalance = () => {
-    let balance = _get(TransitDetails, 'data[0].order.quantity', 0)
+    let balance = _get(TransitDetails, 'data[0].order.quantity', 0);
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balance = balance - item2.blQuantity
-      })
-    })
+        balance = balance - item2.blQuantity;
+      });
+    });
     if (balance < 0) {
-      let toastMessage = `igm cannot be greater than order quantity`
+      let toastMessage = `igm cannot be greater than order quantity`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
     }
-    return balance
-  }
+    return balance;
+  };
 
   useEffect(() => {
-    let NewArr = []
+    let NewArr = [];
     TransitDetails?.data?.forEach((element) => {
-      NewArr.push(element)
-    })
-    setOrderData(NewArr)
-  }, [TransitDetails])
+      NewArr.push(element);
+    });
+    setOrderData(NewArr);
+  }, [TransitDetails]);
 
   const partShipmentAllowed = _get(
     TransitDetails,
     'data[0].order.vessel.partShipmentAllowed',
     false,
-  )
+  );
 
   const onigmAdd = (index) => {
-    let a = index + 1
-    let tempArray = { ...igmList }
+    let a = index + 1;
+    let tempArray = { ...igmList };
     tempArray.igmDetails.push({
       vesselName:
         TransitDetails?.data[0]?.BL?.billOfLanding[a]?.vesselName ?? '',
@@ -138,9 +138,9 @@ export default function Index ({
           noOfContainers: 0,
         },
       ],
-    })
-    setIgmList(tempArray)
-  }
+    });
+    setIgmList(tempArray);
+  };
   const onDeleteClick = (index) => {
     // setIgmList({
     //     ...igmList.igmDetails.slice(0, index),
@@ -152,32 +152,31 @@ export default function Index ({
         ...igmList.igmDetails.slice(0, index),
         ...igmList.igmDetails.slice(index + 1),
       ],
-    })
-  }
+    });
+  };
   const onChangeIgm = (name, text, index) => {
     if (name === 'blQuantity') {
       if (checkRemainingBalance() < value) {
-        let toastMessage = `BL quantity cannot be greater than total order quantity`
+        let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
       }
     }
 
-    let newData = { ...igmList }
-    newData.igmDetails[index][name] = text
-    setIgmList(newData)
-  }
+    let newData = { ...igmList };
+    newData.igmDetails[index][name] = text;
+    setIgmList(newData);
+  };
   const saveDate = (value, name, index) => {
-
-    const d = new Date(value)
-    let text = d.toISOString()
-    onChangeIgm(name, text, index)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    onChangeIgm(name, text, index);
+  };
 
   const onChangeVessel = (e, index) => {
-    let VesselName = e.target.value
-    let filteredVessel = {}
+    let VesselName = e.target.value;
+    let filteredVessel = {};
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (
@@ -190,55 +189,55 @@ export default function Index ({
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
         (vessel, index) => {
           if (vessel.vesselInformation[0].name === VesselName) {
-            filteredVessel = vessel
+            filteredVessel = vessel;
           }
         },
-      )
+      );
     } else {
       filteredVessel = _get(
         TransitDetails,
         `data[0].order.vessel.vessels[0]`,
         {},
-      )
+      );
       let tempArray = _get(
         TransitDetails,
         `data[0].order.vessel.vessels[0].vesselInformation`,
         [],
-      )
+      );
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
-          filteredVessel.vesselInformation = [vessel]
+          filteredVessel.vesselInformation = [vessel];
         }
-      })
+      });
     }
 
-    const newArray = [...igmList]
-    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
-    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
+    const newArray = [...igmList];
+    newArray[index].vesselName = filteredVessel.vesselInformation[0].name;
+    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber;
     newArray[index].etaAtDischargePortFrom =
-      filteredVessel.transitDetails.EDTatLoadPort
+      filteredVessel.transitDetails.EDTatLoadPort;
     newArray[index].etaAtDischargePortTo =
-      filteredVessel.transitDetails.ETAatDischargePort
+      filteredVessel.transitDetails.ETAatDischargePort;
 
-    setIgmList(newArray)
-  }
+    setIgmList(newArray);
+  };
   const onAddBlNumber = (index, index2) => {
-    let newIgmList = { ...igmList }
+    let newIgmList = { ...igmList };
 
     newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
       quantity: '',
-    })
-    setIgmList(newIgmList)
-  }
+    });
+    setIgmList(newIgmList);
+  };
 
   const onRemoveBlNumber = (index, index2) => {
-    let tempArray = { ...igmList }
-    tempArray.igmDetails[index].blNumber.splice(index2, 1)
+    let tempArray = { ...igmList };
+    tempArray.igmDetails[index].blNumber.splice(index2, 1);
 
-    setIgmList(tempArray)
-  }
+    setIgmList(tempArray);
+  };
 
   const onChangeConsignee = (e) => {
     if (e.target.value === 'indoGerman') {
@@ -246,21 +245,21 @@ export default function Index ({
         name: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
         branch: 'DELHI',
         address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
-      })
-      setConsigneeName('indoGerman')
+      });
+      setConsigneeName('indoGerman');
     } else if (e.target.value === 'EMERGENT') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
         branch: 'VIZAG',
         address:
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
-      })
-      setConsigneeName('EMERGENT')
+      });
+      setConsigneeName('EMERGENT');
     } else {
-      setConsigneeInfo({ name: '', branch: '', address: '' })
-      setConsigneeName('')
+      setConsigneeInfo({ name: '', branch: '', address: '' });
+      setConsigneeName('');
     }
-  }
+  };
 
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
@@ -270,43 +269,40 @@ export default function Index ({
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeName`,
             '',
-          ) ||
-          '',
+          ) || '',
         branch:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeBranch`,
             '',
-          ) ||
-          '',
+          ) || '',
         address:
           _get(
             TransitDetails,
             `data[0].IGM.shipmentDetails.consigneeAddress`,
             '',
-          ) ||
-          '',
-      })
+          ) || '',
+      });
 
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
+          'EMERGENT INDUSTRIAL SOLUTIONS LIMITED' ||
         _get(
           TransitDetails,
           `data[0].order.marginMoney.invoiceDetail.importerName`,
         ) == 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
       ) {
-        setConsigneeName('EMERGENT')
+        setConsigneeName('EMERGENT');
       }
       if (
         _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
-        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
+          'INDO GERMAN INTERNATIONAL PRIVATE LIMITED' ||
         _get(
           TransitDetails,
           `data[0].order.marginMoney.invoiceDetail.importerName`,
         ) == 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
       ) {
-        setConsigneeName('indoGerman')
+        setConsigneeName('indoGerman');
       }
       let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
         {
@@ -337,24 +333,24 @@ export default function Index ({
             },
           ],
         },
-      ])
-      let tempArray = { ...igmList }
-      tempArray.igmDetails = [...existingData]
-      setIgmList(tempArray)
+      ]);
+      let tempArray = { ...igmList };
+      tempArray.igmDetails = [...existingData];
+      setIgmList(tempArray);
     }
-  }, [TransitDetails])
+  }, [TransitDetails]);
 
   const onChangeBlDropDown = (e) => {
-    const text = e.target.value
-    let [value, index, index2] = text?.split('-')
+    const text = e.target.value;
+    let [value, index, index2] = text?.split('-');
     if (value) {
       const filterData = _get(
         TransitDetails,
         'data[0].BL.billOfLanding',
         [],
       ).filter((item) => {
-        return item.blNumber === value
-      })
+        return item.blNumber === value;
+      });
 
       //     setIgmList(prevState => {
       //       return {
@@ -366,82 +362,81 @@ export default function Index ({
       //     ] }]
       // }
       // })
-      let tempArray = { ...igmList }
+      let tempArray = { ...igmList };
       tempArray.igmDetails[index].blNumber[index2].blDate =
-        filterData[0].blDate
+        filterData[0].blDate;
       tempArray.igmDetails[index].blNumber[index2].blNumber =
-        filterData[0].blNumber
+        filterData[0].blNumber;
       tempArray.igmDetails[index].blNumber[index2].blQuantity =
-        filterData[0].blQuantity
+        filterData[0].blQuantity;
       tempArray.igmDetails[index].blNumber[index2].noOfContainers =
-        filterData[0].containerDetails?.numberOfContainers
-      setIgmList(tempArray)
+        filterData[0].containerDetails?.numberOfContainers;
+      setIgmList(tempArray);
     }
-  }
+  };
 
   const onDocumentSelect = async (e, index) => {
+    const docData = await docUploadFunction(e);
 
-    const docData = await docUploadFunction(e)
+    let temparray = { ...igmList };
 
-    let temparray = { ...igmList }
-
-    temparray.igmDetails[index].document = docData
-    setIgmList(temparray)
-  }
+    temparray.igmDetails[index].document = docData;
+    setIgmList(temparray);
+  };
 
   const handleCloseDoc = (e, index) => {
-    let temparray = { ...igmList }
-    temparray.igmDetails[index].document = null
-    setIgmList(temparray)
-  }
+    let temparray = { ...igmList };
+    temparray.igmDetails[index].document = null;
+    setIgmList(temparray);
+  };
 
   const handleSave = () => {
-    const igmDetails = { ...igmList }
+    const igmDetails = { ...igmList };
     igmDetails.shipmentType = _get(
       TransitDetails,
       `data[0].order.vessel.vessels[0].shipmentType`,
       '',
-    )
+    );
     igmDetails.shipmentDetails = {
       consigneeName: consigneeInfo.name,
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
-    }
+    };
 
-    let fd = new FormData()
-    fd.append('igm', JSON.stringify(igmDetails))
-    fd.append('transitId', transId._id)
-    let task = 'save'
-    dispatch(UpdateTransitDetails({ fd, task }))
-  }
+    let fd = new FormData();
+    fd.append('igm', JSON.stringify(igmDetails));
+    fd.append('transitId', transId._id);
+    let task = 'save';
+    dispatch(UpdateTransitDetails({ fd, task }));
+  };
 
   const handleSubmit = async () => {
-    const igmDetails = { ...igmList }
+    const igmDetails = { ...igmList };
     igmDetails.shipmentType = _get(
       TransitDetails,
       `data[0].order.vessel.vessels[0].shipmentType`,
       '',
-    )
+    );
     igmDetails.shipmentDetails = {
       consigneeName: consigneeInfo.name,
       consigneeBranch: consigneeInfo.branch,
       consigneeAddress: consigneeInfo.address,
-    }
+    };
 
-    let fd = new FormData()
-    fd.append('igm', JSON.stringify(igmDetails))
-    fd.append('transitId', transId._id)
-    let task = 'submit'
-    let code = await dispatch(UpdateTransitDetails({ fd, task }))
+    let fd = new FormData();
+    fd.append('igm', JSON.stringify(igmDetails));
+    fd.append('transitId', transId._id);
+    let task = 'submit';
+    let code = await dispatch(UpdateTransitDetails({ fd, task }));
     if (code == true) {
       sessionStorage.setItem(
         'docFetchID',
         _get(TransitDetails, 'order._id', ''),
-      )
+      );
       sessionStorage.setItem(
         'headgingId',
         _get(TransitDetails, 'order.transit', ''),
-      )
+      );
       dispatch(
         settingSidebar(
           'Loading, Transit & Unloadinge',
@@ -449,13 +444,13 @@ export default function Index ({
           'Forward Hedging',
           '3',
         ),
-      )
-      router.push(`/forward-hedging`)
+      );
+      router.push(`/forward-hedging`);
     }
-  }
+  };
   const getIndex = (index) => {
-    return index = index + 1
-  }
+    return (index = index + 1);
+  };
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -527,11 +522,11 @@ export default function Index ({
                     BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                      {_get(
-                        TransitDetails,
-                        'data[0].order.quantity',
-                        '',
-                      )?.toLocaleString('en-IN')}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.quantity',
+                      '',
+                    )?.toLocaleString('en-IN')}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -690,7 +685,6 @@ export default function Index ({
             </div>
           </div>
           {igmList.igmDetails.map((item, index) => {
-
             return (
               <div
                 key={index}
@@ -699,7 +693,9 @@ export default function Index ({
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading} mb-0`}>IGM {getIndex(index)}</h3>
+                  <h3 className={`${styles.heading} mb-0`}>
+                    IGM {getIndex(index)}
+                  </h3>
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>
                       Balance Quantity:
@@ -759,26 +755,26 @@ export default function Index ({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation[0]?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
+                                TransitDetails,
+                                'data[0].order.vessel.vessels',
+                                [],
+                              ).map((vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation[0]?.name}
+                                  key={index}
+                                >
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
                             : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                                TransitDetails,
+                                'data[0].order.vessel.vessels[0].vesselInformation',
+                                [],
+                              ).map((vessel, index) => (
+                                <option value={vessel?.name} key={index}>
+                                  {vessel?.name}
+                                </option>
+                              ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -845,10 +841,9 @@ export default function Index ({
                       </div>
                     </div>
                   </div>
-                  <hr className="mt-4 mb-0 border_color"/>
+                  <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
                     {item.blNumber.map((blEntry, index2) => {
-
                       return (
                         <>
                           <div
@@ -859,7 +854,7 @@ export default function Index ({
                                 id="vesselName"
                                 onChange={(e) => {
                                   if (e.target.value !== 'select an option') {
-                                    onChangeBlDropDown(e)
+                                    onChangeBlDropDown(e);
                                   }
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
@@ -910,8 +905,8 @@ export default function Index ({
                                 <span className={styles.value}>
                                   {blEntry?.blDate
                                     ? moment(blEntry?.blDate).format(
-                                      'DD-MM-YYYY',
-                                    )
+                                        'DD-MM-YYYY',
+                                      )
                                     : ''}
                                 </span>
                               </div>
@@ -926,7 +921,9 @@ export default function Index ({
                                   </strong>
                                 </div>
                                 <span className={styles.value}>
-                                  <span className="mr-2">{blEntry?.blQuantity}{' '}</span>
+                                  <span className="mr-2">
+                                    {blEntry?.blQuantity}{' '}
+                                  </span>
                                   {_get(
                                     TransitDetails,
                                     'data[0].order.unitOfQuantity',
@@ -984,8 +981,8 @@ export default function Index ({
                                     <span className={styles.value}>
                                       {blEntry?.blDate
                                         ? moment(blEntry?.blDate).format(
-                                          'DD-MM-YYYY',
-                                        )
+                                            'DD-MM-YYYY',
+                                          )
                                         : ''}
                                     </span>
                                   </div>
@@ -1015,7 +1012,9 @@ export default function Index ({
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      <span className="mr-2">{blEntry?.blQuantity}</span>
+                                      <span className="mr-2">
+                                        {blEntry?.blQuantity}
+                                      </span>
                                       {_get(
                                         TransitDetails,
                                         'data[0].order.unitOfQuantity',
@@ -1055,7 +1054,7 @@ export default function Index ({
                             </>
                           )}
                         </>
-                      )
+                      );
                     })}
                   </div>
                 </div>
@@ -1068,123 +1067,123 @@ export default function Index ({
                       border="0"
                     >
                       <thead>
-                      <tr>
-                        <th>
-                          DOCUMENT NAME{' '}
-                          <img
-                            className={`${styles.sort_img} mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          FORMAT{' '}
-                          <img
-                            className={`${styles.sort_img} mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>
-                          DOCUMENT DATE
-                          <img
-                            className={`${styles.sort_img} mb-1 ml-2`}
-                            src="/static/icons8-sort-24.svg"
-                            alt="Sort icon"
-                          />
-                        </th>
-                        <th>ACTION</th>
-                      </tr>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_img} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_img} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE
+                            <img
+                              className={`${styles.sort_img} mb-1 ml-2`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>ACTION</th>
+                        </tr>
                       </thead>
                       <tbody>
-                      <tr className="table_row">
-                        <td className={styles.doc_name}>
-                          IGM Copy
-                          <strong className="text-danger ml-0">*</strong>
-                        </td>
-                        <td>
-                          {item?.document ? (
-                            item?.document?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xls') ||
-                            item?.document?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xlsx') ? (
-                              <img
-                                src="/static/excel.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            ) : item?.document?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.doc') ||
-                            item?.document?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.docx') ? (
-                              <img
-                                src="/static/doc.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            ) : (
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            )
-                          ) : null}
-                        </td>
-                        <td className={styles.doc_row}>
-                          {item?.document
-                            ? moment(item?.document?.Date).format(
-                              ' DD-MM-YYYY , h:mm a',
-                            )
-                            : ''}
-                        </td>
-                        <td>
-                          {item.document === null ? (
-                            <>
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  name={`blDoc`}
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => onDocumentSelect(e, index)}
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            IGM Copy
+                            <strong className="text-danger ml-0">*</strong>
+                          </td>
+                          <td>
+                            {item?.document ? (
+                              item?.document?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.xls') ||
+                              item?.document?.originalName
+                                ?.toLowerCase()
+                                .endsWith('.xlsx') ? (
+                                <img
+                                  src="/static/excel.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
                                 />
-                                <button
-                                  className={`${styles.upload_btn} btn`}
-                                >
-                                  Upload
-                                </button>
+                              ) : item?.document?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.doc') ||
+                                item?.document?.originalName
+                                  ?.toLowerCase()
+                                  .endsWith('.docx') ? (
+                                <img
+                                  src="/static/doc.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              ) : (
+                                <img
+                                  src="/static/pdf.svg"
+                                  className="img-fluid"
+                                  alt="Pdf"
+                                />
+                              )
+                            ) : null}
+                          </td>
+                          <td className={styles.doc_row}>
+                            {item?.document
+                              ? moment(item?.document?.Date).format(
+                                  ' DD-MM-YYYY , h:mm a',
+                                )
+                              : ''}
+                          </td>
+                          <td>
+                            {item.document === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name={`blDoc`}
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => onDocumentSelect(e, index)}
+                                  />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
+                                <span>{item.document?.originalName}</span>
+                                <img
+                                  className={`${styles.close_image} image_arrow`}
+                                  src="/static/close.svg"
+                                  onClick={(e) =>
+                                    handleCloseDoc('item.document', index)
+                                  }
+                                  alt="Close"
+                                />{' '}
                               </div>
-                            </>
-                          ) : (
-                            <div
-                              className={`${styles.certificate} text1 d-flex justify-content-between`}
-                            >
-                              <span>{item.document?.originalName}</span>
-                              <img
-                                className={`${styles.close_image} image_arrow`}
-                                src="/static/close.svg"
-                                onClick={(e) =>
-                                  handleCloseDoc('item.document', index)
-                                }
-                                alt="Close"
-                              />{' '}
-                            </div>
-                          )}
-                        </td>
-                      </tr>
+                            )}
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
           <div className="">
-            <UploadOther module="Loading-Transit-Unloading" orderid={orderId}/>
+            <UploadOther module="Loading-Transit-Unloading" orderid={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}
@@ -1199,5 +1198,5 @@ export default function Index ({
         />
       </div>
     </>
-  )
+  );
 }

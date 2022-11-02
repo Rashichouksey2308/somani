@@ -1,8 +1,8 @@
-import React from 'react'
-import Insurance from '../../../src/components/Insurance'
+import React from 'react';
+import Insurance from '../../../src/components/Insurance';
 
 const index = () => {
-  return <Insurance />
-}
+  return <Insurance />;
+};
 
-export default index
+export default index;

@@ -1,44 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import styles from './index.module.scss'
-import SaveBar from '../SaveBar'
-import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
-import { GetDelivery } from '../../redux/release&DeliveryOrder/action'
-import moment from 'moment/moment'
+import React, { useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import styles from './index.module.scss';
+import SaveBar from '../SaveBar';
+import { useDispatch, useSelector } from 'react-redux';
+import _get from 'lodash/get';
+import { GetDelivery } from '../../redux/release&DeliveryOrder/action';
+import moment from 'moment/moment';
 
-function Index () {
-  const dispatch = useDispatch()
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
+function Index() {
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   const handlePopup = () => {
-    setShow(true)
-  }
-  const [quantity, setQuantity] = useState(0)
-  const [balanceQuantity, setbalanceQuantity] = useState(0)
-  const [releasedQuantity, setreleasedQuantity] = useState(0)
-  const DeliveryNo = sessionStorage.getItem('dono')
+    setShow(true);
+  };
+  const [quantity, setQuantity] = useState(0);
+  const [balanceQuantity, setbalanceQuantity] = useState(0);
+  const [releasedQuantity, setreleasedQuantity] = useState(0);
+  const DeliveryNo = sessionStorage.getItem('dono');
 
-  const { ReleaseOrderData } = useSelector((state) => state.Release)
+  const { ReleaseOrderData } = useSelector((state) => state.Release);
 
   useEffect(() => {
-    getOrderData()
-  }, [])
+    getOrderData();
+  }, []);
   const getOrderData = async () => {
-    let id = sessionStorage.getItem('ROrderID')
-    let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
-    await dispatch(GetDelivery(`?deliveryId=${id}`))
-  }
+    let id = sessionStorage.getItem('ROrderID');
+    let orderid = _get(ReleaseOrderData, 'data[0].order._id', '');
+    await dispatch(GetDelivery(`?deliveryId=${id}`));
+  };
   useEffect(() => {
     if (ReleaseOrderData) {
       if (window) {
-        let temp = 0
-        _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach((val, index) => {
-          temp = Number(temp) + Number(val.netQuantityReleased)
-
-        })
-        setQuantity(temp)
+        let temp = 0;
+        _get(ReleaseOrderData, 'data[0].deliveryDetail').forEach(
+          (val, index) => {
+            temp = Number(temp) + Number(val.netQuantityReleased);
+          },
+        );
+        setQuantity(temp);
 
         let number = Number(
           _get(
@@ -46,22 +47,25 @@ function Index () {
             'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
             0,
           ),
-        )
+        );
 
-        const balance = sessionStorage.getItem('balanceQuantity')
+        const balance = sessionStorage.getItem('balanceQuantity');
 
-        setreleasedQuantity(balance)
-        setbalanceQuantity(Number(number) - Number(balance))
+        setreleasedQuantity(balance);
+        setbalanceQuantity(Number(number) - Number(balance));
       }
     }
-  }, [ReleaseOrderData])
+  }, [ReleaseOrderData]);
   return (
     <>
       <div className={`${styles.root} card container-fluid`}>
         <div className={`${styles.head}`}>
           <p className={`${styles.heading}`}>
-            {_get(ReleaseOrderData, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')?.replace(/ *\([^)]*\) */g, '')}
-
+            {_get(
+              ReleaseOrderData,
+              'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+              '',
+            )?.replace(/ *\([^)]*\) */g, '')}
           </p>
           <div className={`${styles.heading_addresses}`}>
             <p>7A, SAGAR APARTMENTS, 6-TILAK MARG, NEW DELHI-110001 </p>
@@ -82,11 +86,21 @@ function Index () {
           >
             <div className={`${styles.date} `}>
               <p>
-                DO.NO: <span
-                className={`${styles.bold}`}>{DeliveryNo} {' '} / {' '} {_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')}</span>
+                DO.NO:{' '}
+                <span className={`${styles.bold}`}>
+                  {DeliveryNo} /{' '}
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.shippingLine.vesselName',
+                    '',
+                  )}
+                </span>
               </p>
               <p>
-                DATE: <span className={`${styles.bold}`}>{moment().format('DD.MM.YYYY')}</span>
+                DATE:{' '}
+                <span className={`${styles.bold}`}>
+                  {moment().format('DD.MM.YYYY')}
+                </span>
               </p>
             </div>
             <div className={`${styles.validity}`}>
@@ -98,62 +112,108 @@ function Index () {
           <div className={`${styles.content}`}>
             <p>To:</p>
             <p className={`${styles.bold} ${styles.width} w-50`}>
-              {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !== '' ? _get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') : _get(ReleaseOrderData, 'data[0].order.generic.stevedore.name', '')},
-              <br></br>
-              {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !== '' ?
+              {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !==
+              ''
+                ? _get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '')
+                : _get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.stevedore.name',
+                    '',
+                  )}
+              ,<br></br>
+              {_get(ReleaseOrderData, 'data[0].order.generic.CHA.name', '') !==
+              '' ? (
                 <span>
-              {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].fullAddress', '')},
-                  {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].state', '')},
-                  {_get(ReleaseOrderData, 'data[0].order.generic.CHA.addresses[0].pinCode', '')}
- 
-              </span> :
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.CHA.addresses[0].fullAddress',
+                    '',
+                  )}
+                  ,
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.CHA.addresses[0].state',
+                    '',
+                  )}
+                  ,
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.CHA.addresses[0].pinCode',
+                    '',
+                  )}
+                </span>
+              ) : (
                 <span>
-              {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].fullAddress', '')},
-                  {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].state', '')},
-                  {_get(ReleaseOrderData, 'data[0].order.generic.stevedore.addresses[0].pinCode', '')}
- 
-              </span>
-              }
-
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.stevedore.addresses[0].fullAddress',
+                    '',
+                  )}
+                  ,
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.stevedore.addresses[0].state',
+                    '',
+                  )}
+                  ,
+                  {_get(
+                    ReleaseOrderData,
+                    'data[0].order.generic.stevedore.addresses[0].pinCode',
+                    '',
+                  )}
+                </span>
+              )}
             </p>
 
             <div>
-              {
-                _get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.authorisedSignatoryDetails', []).map((val, index) => {
-                  return (
-                    <>
-                      CC:{' '}
-                      <span className={`${styles.bold} ${styles.width2} `}>
-                     {val.name}, M/S {' '}{_get(ReleaseOrderData, 'data[0].company.companyName')},{_get(ReleaseOrderData, 'data[0].order.generic.associateBuyer.branch', '')}
-                     
+              {_get(
+                ReleaseOrderData,
+                'data[0].order.generic.associateBuyer.authorisedSignatoryDetails',
+                [],
+              ).map((val, index) => {
+                return (
+                  <>
+                    CC:{' '}
+                    <span className={`${styles.bold} ${styles.width2} `}>
+                      {val.name}, M/S{' '}
+                      {_get(ReleaseOrderData, 'data[0].company.companyName')},
+                      {_get(
+                        ReleaseOrderData,
+                        'data[0].order.generic.associateBuyer.branch',
+                        '',
+                      )}
                     </span>
-                    </>
-                  )
-                })
-              }
+                  </>
+                );
+              })}
             </div>
             <div>
               CC:{' '}
               <span className={`${styles.bold} ${styles.width2} `}>
-               {_get(ReleaseOrderData, 'data[0].order.generic.CMA.name', '')}, {_get(ReleaseOrderData, 'data[0].order.generic.CMA.addresses[0].state', '')}.
+                {_get(ReleaseOrderData, 'data[0].order.generic.CMA.name', '')},{' '}
+                {_get(
+                  ReleaseOrderData,
+                  'data[0].order.generic.CMA.addresses[0].state',
+                  '',
+                )}
+                .
               </span>
             </div>
             <p>
               Kind Attn.{' '}
-
-              {
-                _get(ReleaseOrderData, 'data[0].order.generic.stevedore.authorisedSignatoryDetails', []).map((val, index) => {
-                  return (
-                    <>
-                  
+              {_get(
+                ReleaseOrderData,
+                'data[0].order.generic.stevedore.authorisedSignatoryDetails',
+                [],
+              ).map((val, index) => {
+                return (
+                  <>
                     <span className={`${styles.bold} ${styles.width2} `}>
-                     {`${index !== 0 ? '/' : ''}${val.name} `}
-                     
+                      {`${index !== 0 ? '/' : ''}${val.name} `}
                     </span>
-                    </>
-                  )
-                })
-              }
+                  </>
+                );
+              })}
               {/* <span className={`${styles.bold} w-50`}>
                 Mr. N.A. Khan / Mr. Nabin Chand Boyed.
               </span> */}
@@ -163,7 +223,7 @@ function Index () {
               <p>
                 We hereby authorize you to deliver the quantity to{' '}
                 <span className={`${styles.bold}`}>
-                 {_get(ReleaseOrderData, 'data[0].company.companyName')},
+                  {_get(ReleaseOrderData, 'data[0].company.companyName')},
                 </span>{' '}
                 Vide <span className={`${styles.bold}`}>BL No. 1</span> dated{' '}
                 <span className={`${styles.bold}`}>18/03/2021</span> as per the
@@ -175,12 +235,29 @@ function Index () {
                 >
                   <span className={styles.head}>l) Material :</span>{' '}
                   <span className={`${styles.bold} `}>
-                    {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {' '}({_get(ReleaseOrderData, 'data[0].order.generic.shippingLine.vesselName', '')})
-                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress', ' ')}
-                    {_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage', '') !== ''
-                      ? `,${_get(ReleaseOrderData, 'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage', ' ')}` : ''
-                    }
-                    
+                    {_get(ReleaseOrderData, 'data[0].order.commodity', '')} (
+                    {_get(
+                      ReleaseOrderData,
+                      'data[0].order.generic.shippingLine.vesselName',
+                      '',
+                    )}
+                    )
+                    {_get(
+                      ReleaseOrderData,
+                      'data[0].order.insurance.quotationRequest.storageDetails.storagePlotAddress',
+                      ' ',
+                    )}
+                    {_get(
+                      ReleaseOrderData,
+                      'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
+                      '',
+                    ) !== ''
+                      ? `,${_get(
+                          ReleaseOrderData,
+                          'data[0].order.insurance.quotationRequest.storageDetails.placeOfStorage',
+                          ' ',
+                        )}`
+                      : ''}
                   </span>
                 </div>
                 <div
@@ -188,11 +265,13 @@ function Index () {
                 >
                   <span className={styles.head}>2) Quantity : </span>{' '}
                   <span className={`${styles.bold} `}>
-                    {releasedQuantity} {_get(
-                    ReleaseOrderData,
-                    'data[0].order.unitOfQuantity',
-                    '',
-                  ).toUpperCase()}s. {' '}{_get(ReleaseOrderData, 'data[0].order.commodity', '')}
+                    {releasedQuantity}{' '}
+                    {_get(
+                      ReleaseOrderData,
+                      'data[0].order.unitOfQuantity',
+                      '',
+                    ).toUpperCase()}
+                    s. {_get(ReleaseOrderData, 'data[0].order.commodity', '')}
                   </span>
                 </div>
                 <div
@@ -202,13 +281,16 @@ function Index () {
                   <span className={`${styles.bold} `}>
                     After delivery of material against this DO the balance Qty.
                     will be as under :
-                    <p>a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')} {' '}
-                      {balanceQuantity}
-                      {' '} {_get(
+                    <p>
+                      a) {_get(ReleaseOrderData, 'data[0].order.commodity', '')}{' '}
+                      {balanceQuantity}{' '}
+                      {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
                         '',
-                      ).toUpperCase()}s</p>
+                      ).toUpperCase()}
+                      s
+                    </p>
                   </span>
                 </div>
               </div>
@@ -218,7 +300,11 @@ function Index () {
             <p>
               For{' '}
               <span className={`${styles.bold}`}>
-                {_get(ReleaseOrderData, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')?.replace(/ *\([^)]*\) */g, '')}
+                {_get(
+                  ReleaseOrderData,
+                  'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                  '',
+                )?.replace(/ *\([^)]*\) */g, '')}
               </span>
             </p>
             <div>
@@ -231,10 +317,13 @@ function Index () {
         </div>
         <div className={`${styles.cc}`}>
           <p>
-            CC
-            : {_get(ReleaseOrderData, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')?.replace(/ *\([^)]*\) */g, '')},
-            VIZAG : Delivery
-            order file
+            CC :{' '}
+            {_get(
+              ReleaseOrderData,
+              'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+              '',
+            )?.replace(/ *\([^)]*\) */g, '')}
+            , VIZAG : Delivery order file
           </p>
           <p className={`${styles.bold} ${styles.extra_margin}`}>
             : Delivery order file
@@ -242,7 +331,7 @@ function Index () {
         </div>
       </div>
 
-      <SaveBar rightBtn={'Send For Approval'} rightBtnClick={handlePopup}/>
+      <SaveBar rightBtn={'Send For Approval'} rightBtnClick={handlePopup} />
 
       <Modal
         show={show}
@@ -386,7 +475,7 @@ function Index () {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        addMoreRows();
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -454,7 +543,7 @@ function Index () {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        addMoreRows();
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -550,7 +639,7 @@ function Index () {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

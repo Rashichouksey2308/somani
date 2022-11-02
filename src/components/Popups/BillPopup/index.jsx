@@ -1,35 +1,35 @@
-import React from 'react'
-import { Modal } from 'react-bootstrap'
-import styles from './index.module.scss'
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import styles from './index.module.scss';
 
-function index (props) {
+function index(props) {
   return (
     <Modal
       show={false}
-      size='lg'
-      aria-labelledby='contained-modal-title-vcenter'
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
       centered
       className={styles.wrapper}
       backdropClassName={styles.backdrop}
     >
       <Modal.Header className={styles.head}>
         <Modal.Title
-          id='contained-modal-title-vcenter'
+          id="contained-modal-title-vcenter"
           className={`${styles.title}  d-flex justify-content-between align-items-center`}
         >
           <div className={`${styles.blue}`}>BL Details</div>
           <div>
             <span>Commodity: </span>Iron{' '}
           </div>
-          <img src='/static/close-2.svg' />
+          <img src="/static/close-2.svg" />
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
         <table
           className={`${styles.table} table `}
-          cellPadding='0'
-          cellSpacing='0'
-          border='0'
+          cellPadding="0"
+          cellSpacing="0"
+          border="0"
         >
           <tr className={`border_color`}>
             <th>BL NUMBER</th>
@@ -67,7 +67,7 @@ function index (props) {
         </div>
       </Modal.Body>
     </Modal>
-  )
+  );
 }
 
-export default index
+export default index;

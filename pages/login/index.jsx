@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-function index () {
+function index() {
   // if(token){
   //   return <Redirect to ="/" />
   // }
@@ -113,7 +113,7 @@ function index () {
     //     </div>
     //   </div>
     // </div>
-  )
+  );
 }
 
-export default index
+export default index;

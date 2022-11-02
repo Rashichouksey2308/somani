@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import SaveBar from '../../SaveBar'
-import DateCalender from '../../DateCalender'
-import UploadOther from '../../UploadOther'
-import _get from 'lodash/get'
-import { GetAllCustomClearance, UpdateCustomClearance, } from '../../../redux/CustomClearance&Warehousing/action'
-import { useDispatch } from 'react-redux'
-import { toast } from 'react-toastify'
-import moment from 'moment'
-import { useRouter } from 'next/router'
-import { settingSidebar } from 'redux/breadcrumb/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import SaveBar from '../../SaveBar';
+import DateCalender from '../../DateCalender';
+import UploadOther from '../../UploadOther';
+import _get from 'lodash/get';
+import {
+  GetAllCustomClearance,
+  UpdateCustomClearance,
+} from '../../../redux/CustomClearance&Warehousing/action';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import { settingSidebar } from 'redux/breadcrumb/action';
 
-export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) {
-  console.log(customData, 'customData')
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const [editInput, setEditInput] = useState(true)
+export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
+  console.log(customData, 'customData');
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [editInput, setEditInput] = useState(true);
   const [warehouseDetails, setWarehouseDetails] = useState({
     wareHouseDetails: {
       quantity: '',
@@ -23,127 +26,132 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
       dateOfStorage: null,
     },
     document: null,
-  })
-  console.log(warehouseDetails?.wareHouseDetails?.quantity, ' warehouseDetails?.wareHouseDetails?.quantity')
+  });
+  console.log(
+    warehouseDetails?.wareHouseDetails?.quantity,
+    ' warehouseDetails?.wareHouseDetails?.quantity',
+  );
   useEffect(() => {
-    let data = _get(customData, 'warehouseDetails', {})
+    let data = _get(customData, 'warehouseDetails', {});
 
     let tempData = {
       wareHouseDetails: {
-        quantity: data?.wareHouseDetails?.quantity || customData?.dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity,
+        quantity:
+          data?.wareHouseDetails?.quantity ||
+          customData?.dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity,
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
       },
       document: data?.document || null,
-    }
-    setWarehouseDetails(tempData)
-  }, [customData])
-  console.log(warehouseDetails, 'warehouseDetails')
-  const [plotInspectionData, setPlotInspectionData] = useState('')
+    };
+    setWarehouseDetails(tempData);
+  }, [customData]);
+  console.log(warehouseDetails, 'warehouseDetails');
+  const [plotInspectionData, setPlotInspectionData] = useState('');
   const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
-    useState(false)
+    useState(false);
 
   const uploadDocument1 = (e) => {
-    const newUploadDoc1 = { ...plotInspectionData }
-    newUploadDoc1.plotInspectionReport = e.target.files[0]
+    const newUploadDoc1 = { ...plotInspectionData };
+    newUploadDoc1.plotInspectionReport = e.target.files[0];
 
-    setPlotInspectionData(newUploadDoc1)
-  }
+    setPlotInspectionData(newUploadDoc1);
+  };
 
   const handleClose = () => {
     // setPlotInspectionData((doc) => {
     //   return { ...doc, plotInspectionReport: null }
     // })
     setWarehouseDetails((prevState) => {
-      return { ...prevState, document: null }
-    })
-  }
+      return { ...prevState, document: null };
+    });
+  };
 
   const onChangeWarehouseDetails = (name, text) => {
-    let newData = { ...warehouseDetails }
-    newData.wareHouseDetails[name] = text
-    setWarehouseDetails(newData)
-  }
+    let newData = { ...warehouseDetails };
+    newData.wareHouseDetails[name] = text;
+    setWarehouseDetails(newData);
+  };
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    onChangeWarehouseDetails(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    onChangeWarehouseDetails(name, text);
+  };
 
   const onSaveDocument = async (e) => {
-    let name = e.target.id
-    let doc = await uploadDoc(e)
-    console.log(doc, 'doc')
+    let name = e.target.id;
+    let doc = await uploadDoc(e);
+    console.log(doc, 'doc');
     // onChangeWarehouseDetails('document', doc)
-    let tempData = { ...warehouseDetails }
-    tempData[name] = doc
-    setWarehouseDetails({ ...tempData })
-  }
+    let tempData = { ...warehouseDetails };
+    tempData[name] = doc;
+    setWarehouseDetails({ ...tempData });
+  };
   // console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = async () => {
-    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
+    let warehouseDetailpayload = warehouseDetails.wareHouseDetails;
     if (warehouseDetailpayload.quantity === '') {
-      let toastMessage = 'quantity CANNOT BE EMPTY  '
+      let toastMessage = 'quantity CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else if (warehouseDetailpayload.dateOfStorage === null) {
-      let toastMessage = 'DATE OF STORAGE  CANNOT BE EMPTY  '
+      let toastMessage = 'DATE OF STORAGE  CANNOT BE EMPTY  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-      return
+      return;
     } else {
-      console.log(warehouseDetailpayload, 'warehouseDetailpayload')
-      let fd = new FormData()
-      fd.append('warehouseDetails', JSON.stringify(warehouseDetails))
-      fd.append('customClearanceId', customData._id)
-      fd.append('document', warehouseDetails.document)
-      let task = 'submit'
-      let code = await dispatch(UpdateCustomClearance({ fd, task }))
-      let id = sessionStorage.getItem('customId')
-      await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+      console.log(warehouseDetailpayload, 'warehouseDetailpayload');
+      let fd = new FormData();
+      fd.append('warehouseDetails', JSON.stringify(warehouseDetails));
+      fd.append('customClearanceId', customData._id);
+      fd.append('document', warehouseDetails.document);
+      let task = 'submit';
+      let code = await dispatch(UpdateCustomClearance({ fd, task }));
+      let id = sessionStorage.getItem('customId');
+      await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
       if (code == 200) {
         sessionStorage.setItem(
           'ROrderID',
           _get(customData, 'order.delivery', ''),
-        )
-        sessionStorage.setItem('company', customData?.company?._id)
+        );
+        sessionStorage.setItem('company', customData?.company?._id);
         dispatch(
           settingSidebar('Payments, Invoicing & Delivery', null, null, 5),
-        )
-        router.push(`/payment/id`)
+        );
+        router.push(`/payment/id`);
       }
     }
-  }
+  };
 
   const handleSave = () => {
-    let fd = new FormData()
-    fd.append('warehouseDetails', JSON.stringify({ ...warehouseDetails }))
-    fd.append('customClearanceId', customData._id)
-    fd.append('document', warehouseDetails.document)
+    let fd = new FormData();
+    fd.append('warehouseDetails', JSON.stringify({ ...warehouseDetails }));
+    fd.append('customClearanceId', customData._id);
+    fd.append('document', warehouseDetails.document);
 
-    let task = 'save'
-    dispatch(UpdateCustomClearance({ fd, task }))
-  }
+    let task = 'save';
+    dispatch(UpdateCustomClearance({ fd, task }));
+  };
 
   const handleDropdown = (e) => {
     if ((e.target.value = 'Others')) {
-      setEditInput(!editInput)
+      setEditInput(!editInput);
     } else {
-      setEditInput(editInput)
+      setEditInput(editInput);
     }
-  }
+  };
 
   // fuction to prevent negative values in input
   const preventMinus = (e) => {
     if (e.code === 'Minus') {
-      e.preventDefault()
+      e.preventDefault();
     }
-  }
-  console.log(customData, 'warehouseDetails')
+  };
+  console.log(customData, 'warehouseDetails');
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -180,7 +188,7 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
                       CMA Name<strong className="text-danger">*</strong>
                     </div>
                     <span className={styles.value}>
-                     {_get(customData, 'order.generic.CMA.name', '')}
+                      {_get(customData, 'order.generic.CMA.name', '')}
                     </span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
@@ -188,7 +196,16 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
                       Storage Address
                     </div>
                     <span className={styles.value}>
-                      {_get(customData, 'order.insurance.quotationRequest.storageDetails.storagePlotAddress', '')} {' '} {_get(customData, 'order.insurance.quotationRequest.storageDetails.placeOfStorage', '')}
+                      {_get(
+                        customData,
+                        'order.insurance.quotationRequest.storageDetails.storagePlotAddress',
+                        '',
+                      )}{' '}
+                      {_get(
+                        customData,
+                        'order.insurance.quotationRequest.storageDetails.placeOfStorage',
+                        '',
+                      )}
                     </span>
                   </div>
                   <div
@@ -207,23 +224,25 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
                       onKeyPress={preventMinus}
                       onFocus={(e) => {
                         setIsWarehouseQuantityInFocus(true),
-                          (e.target.type = 'number')
+                          (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
                         setIsWarehouseQuantityInFocus(false),
-                          (e.target.type = 'text')
+                          (e.target.type = 'text');
                       }}
                       onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : warehouseDetails?.wareHouseDetails?.quantity == 0
-                          ||
-                          isNaN(warehouseDetails?.wareHouseDetails?.quantity) ||
-                          warehouseDetails?.wareHouseDetails?.quantity == undefined
-                          || warehouseDetails?.wareHouseDetails?.quantity == ''
-                            ? ''
-                            : Number(
+                          : warehouseDetails?.wareHouseDetails?.quantity == 0 ||
+                            isNaN(
+                              warehouseDetails?.wareHouseDetails?.quantity,
+                            ) ||
+                            warehouseDetails?.wareHouseDetails?.quantity ==
+                              undefined ||
+                            warehouseDetails?.wareHouseDetails?.quantity == ''
+                          ? ''
+                          : Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
                             )?.toLocaleString('en-IN') +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
@@ -246,9 +265,9 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
                           arrivalDate
                             ? moment(arrivalDate).format('DD-MM-YYYY')
                             : moment(
-                            customData?.dischargeOfCargo?.dischargeOfCargo
-                              ?.vesselArrivaldate,
-                          ).format('DD-MM-YYYY') ?? new Date()
+                                customData?.dischargeOfCargo?.dischargeOfCargo
+                                  ?.vesselArrivaldate,
+                              ).format('DD-MM-YYYY') ?? new Date()
                         }
                         defaultDate={
                           warehouseDetails?.wareHouseDetails?.dateOfStorage
@@ -274,7 +293,7 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
                           <input
                             id="document"
                             onChange={(e) => {
-                              onSaveDocument(e)
+                              onSaveDocument(e);
                             }}
                             type="file"
                             name="myfile"
@@ -324,5 +343,5 @@ export default function Index ({ OrderId, customData, uploadDoc, arrivalDate }) 
         />
       </div>
     </>
-  )
+  );
 }

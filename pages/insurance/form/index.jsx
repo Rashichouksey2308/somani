@@ -1,35 +1,42 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './insurance.module.scss'
-import { Col, Form, Row } from 'react-bootstrap'
-import SaveBar from '../../../src/components/SaveBar'
-import Router, { useRouter } from 'next/router'
-import DateCalender from '../../../src/components/DateCalender'
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance, UpdateQuotation, } from '../../../src/redux/insurance/action'
-import _get from 'lodash/get'
-import { removePrefixOrSuffix, } from '../../../src/utils/helper'
-import { toast } from 'react-toastify'
-import moment from 'moment'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../../src/redux/userData/action'
+import React, { useEffect, useState } from 'react';
+import styles from './insurance.module.scss';
+import { Col, Form, Row } from 'react-bootstrap';
+import SaveBar from '../../../src/components/SaveBar';
+import Router, { useRouter } from 'next/router';
+import DateCalender from '../../../src/components/DateCalender';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  GettingAllInsurance,
+  UpdateQuotation,
+} from '../../../src/redux/insurance/action';
+import _get from 'lodash/get';
+import { removePrefixOrSuffix } from '../../../src/utils/helper';
+import { toast } from 'react-toastify';
+import moment from 'moment';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../../src/redux/userData/action';
 
 const Index = () => {
-  const dispatch = useDispatch()
-  const router = useRouter()
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('quotationId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch, sumInsuredCalc])
+    let id = sessionStorage.getItem('quotationId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch, sumInsuredCalc]);
 
-  const { insuranceResponse } = useSelector((state) => state.insurance)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  const { insuranceResponse } = useSelector((state) => state.insurance);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
-  })
+  });
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
     expectedTimeOfArrival: '',
@@ -46,20 +53,20 @@ const Index = () => {
     sumInsured: insuranceData?.quotationRequest?.sumInsured
       ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
       : sumInsuredCalc,
-  })
+  });
 
   let sumInsuredCalc = parseFloat(
     ((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100,
-  )
+  );
 
   useEffect(() => {
-    dispatch(setPageName('insurance'))
+    dispatch(setPageName('insurance'));
     dispatch(
       setDynamicName(
         _get(insuranceData, 'company.companyName', 'Company Name'),
       ),
-    )
-    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+    );
+    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')));
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
@@ -91,38 +98,36 @@ const Index = () => {
       sumInsured: insuranceData?.quotationRequest?.sumInsured
         ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
         : sumInsuredCalc,
-    })
-  }, [insuranceData])
+    });
+  }, [insuranceData]);
 
   const saveQuotationData = (name, value) => {
-
-    const newInput = { ...quotationData }
-    const namesplit = name.split('.')
+    const newInput = { ...quotationData };
+    const namesplit = name.split('.');
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value)
-    setQuotationData(newInput)
-  }
+      : (newInput[name] = value);
+    setQuotationData(newInput);
+  };
 
   const saveDate = (value, name) => {
-
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveQuotationData(name, text)
-    setStartDate(value, name)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveQuotationData(name, text);
+    setStartDate(value, name);
+  };
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
-      .format('DD-MM-YYYY')
+      .format('DD-MM-YYYY');
     if (name == 'laycanFrom') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date })
+      setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
-  }
+  };
 
-  const [reset, setReset] = useState(false)
+  const [reset, setReset] = useState(false);
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
     setQuotationData({
@@ -139,18 +144,17 @@ const Index = () => {
         storagePlotAddress: '',
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured,
-    })
+    });
 
     setDateStartFrom({
       laycan: '',
       eta: '',
-    })
-    setReset(!reset)
-  }
+    });
+    setReset(!reset);
+  };
 
   const validation = () => {
-
-    let toastMessage = ''
+    let toastMessage = '';
     // if (
     //   quotationData.lossPayee == '' ||
     //   quotationData.lossPayee == 'Select an option' ||
@@ -166,37 +170,37 @@ const Index = () => {
       quotationData.laycanFrom == '' ||
       quotationData.laycanFrom == undefined
     ) {
-      toastMessage = 'Please add laycan From'
+      toastMessage = 'Please add laycan From';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return false;
       }
     }
     if (quotationData.laycanTo == '' || quotationData.laycanTo == undefined) {
-      toastMessage = 'Please add laycan to'
+      toastMessage = 'Please add laycan to';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return false;
       }
     }
     if (
       quotationData.expectedTimeOfDispatch == '' ||
       quotationData.expectedTimeOfDispatch == undefined
     ) {
-      toastMessage = 'Please add expected Time Of Dispatch '
+      toastMessage = 'Please add expected Time Of Dispatch ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return false;
       }
     }
     if (
       quotationData.expectedTimeOfArrival == '' ||
       quotationData.expectedTimeOfArrival == undefined
     ) {
-      toastMessage = 'Please add expected Time Of Arrival '
+      toastMessage = 'Please add expected Time Of Arrival ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return false;
       }
     }
     if (
@@ -204,10 +208,10 @@ const Index = () => {
       quotationData.sumInsured == undefined ||
       quotationData.sumInsured == null
     ) {
-      toastMessage = 'Please add sum Insured '
+      toastMessage = 'Please add sum Insured ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        return false;
       }
     }
     if (quotationData?.insuranceType == 'Storage Insurance') {
@@ -216,10 +220,10 @@ const Index = () => {
         quotationData.storageDetails.placeOfStorage == undefined ||
         quotationData.storageDetails.placeOfStorage == null
       ) {
-        toastMessage = 'Please select place Of Storage '
+        toastMessage = 'Please select place Of Storage ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -227,10 +231,10 @@ const Index = () => {
         quotationData.storageDetails.periodOfInsurance == undefined ||
         quotationData.storageDetails.periodOfInsurance == null
       ) {
-        toastMessage = 'Please add period Of Insurance   '
+        toastMessage = 'Please add period Of Insurance   ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
       if (
@@ -238,49 +242,49 @@ const Index = () => {
         quotationData.storageDetails.storagePlotAddress == undefined ||
         quotationData.storageDetails.storagePlotAddress == null
       ) {
-        toastMessage = 'Please add storage Plot Address  '
+        toastMessage = 'Please add storage Plot Address  ';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return false;
         }
       }
     }
-    return true
-  }
+    return true;
+  };
   const handleSave = async () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
-        let insuranceObj = { ...quotationData }
+        let insuranceObj = { ...quotationData };
         insuranceObj.sumInsured =
-          removePrefixOrSuffix(quotationData.sumInsured) * 10000000
+          removePrefixOrSuffix(quotationData.sumInsured) * 10000000;
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
-        }
-        let code = await dispatch(UpdateQuotation(obj))
+        };
+        let code = await dispatch(UpdateQuotation(obj));
       }
     } else {
-      let toastMessage = 'Insurance type is mandatory'
+      let toastMessage = 'Insurance type is mandatory';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
     }
-  }
+  };
 
   const changeRoute = () => {
     if (validation()) {
-      sessionStorage.setItem('letterId', insuranceData?._id)
+      sessionStorage.setItem('letterId', insuranceData?._id);
       if (quotationData.insuranceType == 'Marine Insurance') {
-        Router.push('/agreement/OrderID/id')
+        Router.push('/agreement/OrderID/id');
       } else if (quotationData.insuranceType == 'Storage Insurance') {
-        Router.push('/agreement/storage')
+        Router.push('/agreement/storage');
       } else {
-        Router.push('/agreement/both-type')
+        Router.push('/agreement/both-type');
       }
     }
-  }
+  };
 
-  const [insuranceType, setInsuranceType] = useState('Marine Insurance')
+  const [insuranceType, setInsuranceType] = useState('Marine Insurance');
 
   return (
     <>
@@ -303,7 +307,7 @@ const Index = () => {
             <div>
               <button
                 onClick={() => {
-                  clearAll()
+                  clearAll();
                 }}
                 className={`${styles.clear_btn} clear_btn`}
               >
@@ -337,8 +341,8 @@ const Index = () => {
                           saveQuotationData(
                             'insuranceType',
                             'Marine Insurance',
-                          )
-                          setInsuranceType('Marine Insurance')
+                          );
+                          setInsuranceType('Marine Insurance');
                         }}
                         id={`inline-${type}-1`}
                       />
@@ -358,8 +362,8 @@ const Index = () => {
                           saveQuotationData(
                             'insuranceType',
                             'Storage Insurance',
-                          )
-                          setInsuranceType('Storage Insurance')
+                          );
+                          setInsuranceType('Storage Insurance');
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -380,8 +384,8 @@ const Index = () => {
                           saveQuotationData(
                             'insuranceType',
                             'Marine & Storage Insurance',
-                          )
-                          setInsuranceType('Both')
+                          );
+                          setInsuranceType('Both');
                         }}
                         id={`inline-${type}-2`}
                       />
@@ -530,13 +534,13 @@ const Index = () => {
                                   saveQuotationData(
                                     e.target.name,
                                     e.target.value,
-                                  )
+                                  );
                                 }}
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
                                     : insuranceData?.order?.termsheet
-                                      ?.transactionDetails?.lcOpeningBank
+                                        ?.transactionDetails?.lcOpeningBank
                                 }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
@@ -549,9 +553,7 @@ const Index = () => {
                                 <option value="Zurcher Kantonal Bank,Zurich">
                                   Zurcher Kantonal Bank,Zurich
                                 </option>
-                                <option value="NA">
-                                  NA
-                                </option>
+                                <option value="NA">NA</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -575,7 +577,7 @@ const Index = () => {
                                   quotationData.laycanFrom
                                     ? quotationData.laycanFrom
                                     : insuranceData?.order?.shipmentDetail
-                                      ?.loadPort?.fromDate
+                                        ?.loadPort?.fromDate
                                 }
                                 labelName="Laycan from"
                               />
@@ -594,7 +596,7 @@ const Index = () => {
                                   quotationData.laycanTo
                                     ? quotationData.laycanTo
                                     : insuranceData?.order?.shipmentDetail
-                                      ?.loadPort?.toDate
+                                        ?.loadPort?.toDate
                                 }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
@@ -648,11 +650,11 @@ const Index = () => {
                             <input
                               onFocus={(e) => {
                                 setIsFieldInFocus(true),
-                                  (e.target.type = 'number')
+                                  (e.target.type = 'number');
                               }}
                               onBlur={(e) => {
                                 setIsFieldInFocus(false),
-                                  (e.target.type = 'text')
+                                  (e.target.type = 'text');
                               }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
@@ -667,17 +669,17 @@ const Index = () => {
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
                                   : Number(
-                                  quotationData?.sumInsured,
-                                )?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                }) + ` Cr`
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
                               }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(
                                   e.target.name,
                                   e.target.value,
-                                )
+                                );
                               }}
                               required
                             />
@@ -701,7 +703,7 @@ const Index = () => {
                             insuranceData?.quotationRequest?.additionalInfo
                           }
                           onChange={(e) => {
-                            saveQuotationData(e.target.name, e.target.value)
+                            saveQuotationData(e.target.name, e.target.value);
                           }}
                           className={`${styles.remark_field} input form-control`}
                           as
@@ -829,14 +831,14 @@ const Index = () => {
                                   saveQuotationData(
                                     e.target.name,
                                     e.target.value,
-                                  )
+                                  );
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 value={
                                   quotationData?.lossPayee
                                     ? quotationData?.lossPayee
                                     : insuranceData?.order?.termsheet
-                                      ?.transactionDetails?.lcOpeningBank
+                                        ?.transactionDetails?.lcOpeningBank
                                 }
                               >
                                 <option selected disabled>
@@ -851,9 +853,7 @@ const Index = () => {
                                 <option value="Zurcher Kantonal Bank,Zurich">
                                   Zurcher Kantonal Bank,Zurich
                                 </option>
-                                <option value="NA">
-                                  NA
-                                </option>
+                                <option value="NA">NA</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -948,11 +948,11 @@ const Index = () => {
                             <input
                               onFocus={(e) => {
                                 setIsFieldInFocus(true),
-                                  (e.target.type = 'number')
+                                  (e.target.type = 'number');
                               }}
                               onBlur={(e) => {
                                 setIsFieldInFocus(false),
-                                  (e.target.type = 'text')
+                                  (e.target.type = 'text');
                               }}
                               className={`${styles.input_field} input form-control`}
                               type="text"
@@ -961,10 +961,10 @@ const Index = () => {
                                 isFieldInFocus
                                   ? quotationData?.sumInsured
                                   : Number(
-                                  quotationData?.sumInsured,
-                                )?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                }) + ` Cr`
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
                               }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
@@ -1084,7 +1084,7 @@ const Index = () => {
                             insuranceData?.quotationRequest?.additionalInfo
                           }
                           onChange={(e) => {
-                            saveQuotationData(e.target.name, e.target.value)
+                            saveQuotationData(e.target.name, e.target.value);
                           }}
                           className={`${styles.remark_field} input form-control`}
                           as
@@ -1105,6 +1105,6 @@ const Index = () => {
         rightBtnClick={changeRoute}
       />
     </>
-  )
-}
-export default Index
+  );
+};
+export default Index;

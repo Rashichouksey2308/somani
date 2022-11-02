@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
-import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react';
+import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
 
 const Index = () => {
-  const { isOpen } = useSelector((state) => state.Load)
+  const { isOpen } = useSelector((state) => state.Load);
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto'
+      document.body.style.overflow = 'auto';
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <>
@@ -37,6 +37,6 @@ const Index = () => {
         </>
       ) : null}
     </>
-  )
-}
-export default Index
+  );
+};
+export default Index;

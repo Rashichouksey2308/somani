@@ -1,63 +1,67 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './inspection.module.scss'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAllForwardHedging, } from '../../src/redux/ForwardHedging/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import React, { useEffect, useState } from 'react';
+import styles from './inspection.module.scss';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetAllForwardHedging } from '../../src/redux/ForwardHedging/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../src/redux/userData/action';
 
-function Index () {
-  const dispatch = useDispatch()
+function Index() {
+  const dispatch = useDispatch();
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const [serachterm, setSearchTerm] = useState('')
+  const [serachterm, setSearchTerm] = useState('');
 
-  const { searchedLeads } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order);
 
-  const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
+  const { allForwardHedging } = useSelector((state) => state.ForwardHedging);
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
-      sessionStorage.setItem('loadedSubPage', `Forward Hedging`)
-      sessionStorage.setItem('openList', 3)
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Forward Hedging`);
+      sessionStorage.setItem('openList', 3);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    dispatch(setPageName('forward'))
-    dispatch(setDynamicName(null))
-    dispatch(setDynamicOrder(null))
-  }, [allForwardHedging])
+    dispatch(setPageName('forward'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  }, [allForwardHedging]);
 
   useEffect(() => {
-    dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7`))
-  }, [dispatch, currentPage])
+    dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7`));
+  }, [dispatch, currentPage]);
 
   const handleRoute = (list) => {
-    sessionStorage.setItem('headgingId', list._id)
-    dispatch(GetAllForwardHedging(`?forwardHedgingId=${list._id}`))
-    Router.push('/forward-hedging')
-  }
+    sessionStorage.setItem('headgingId', list._id);
+    dispatch(GetAllForwardHedging(`?forwardHedgingId=${list._id}`));
+    Router.push('/forward-hedging');
+  };
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetAllForwardHedging(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetAllForwardHedging(`?company=${id}`));
+  };
 
-  const [sorting, setSorting] = useState(1)
+  const [sorting, setSorting] = useState(1);
 
   const handleSort = () => {
     if (sorting == -1) {
@@ -65,17 +69,17 @@ function Index () {
         GetAllForwardHedging(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(1)
+      );
+      setSorting(1);
     } else if (sorting == 1) {
       dispatch(
         GetAllForwardHedging(
           `?page=${currentPage}&limit=7&createdAt=${sorting}`,
         ),
-      )
-      setSorting(-1)
+      );
+      setSorting(-1);
     }
-  }
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -116,7 +120,7 @@ function Index () {
               </div>
             )}
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -139,9 +143,9 @@ function Index () {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -160,7 +164,7 @@ function Index () {
                     currentPage + 1 <
                     Math.ceil(allForwardHedging?.totalCount / 7)
                   ) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -183,73 +187,73 @@ function Index () {
                 border="0"
               >
                 <thead>
-                <tr className="table_row">
-                  <th>
-                    ORDER ID{' '}
-                    <img
-                      className={`mb-1`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                      onClick={() => handleSort()}
-                    />{' '}
-                  </th>
-                  <th>BUYER NAME</th>
-                  <th>COMMODITY</th>
-                  <th>CLOSING DATE</th>
-                  <th>
-                    STATUS{' '}
-                    <img
-                      className={`mb-1`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />{' '}
-                  </th>
-                  <th>ACTION</th>
-                </tr>
+                  <tr className="table_row">
+                    <th>
+                      ORDER ID{' '}
+                      <img
+                        className={`mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                        onClick={() => handleSort()}
+                      />{' '}
+                    </th>
+                    <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
+                    <th>CLOSING DATE</th>
+                    <th>
+                      STATUS{' '}
+                      <img
+                        className={`mb-1`}
+                        src="/static/icons8-sort-24.svg"
+                        alt="Sort icon"
+                      />{' '}
+                    </th>
+                    <th>ACTION</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {allForwardHedging &&
-                  allForwardHedging?.data?.map((list, index) => (
-                    <tr key={index} className="table_row">
-                      <td>{list?.order?.orderId}</td>
-                      <td
-                        className={`${styles.buyerName}`}
-                        onClick={() => handleRoute(list)}
-                      >
-                        {list?.company?.companyName}
-                      </td>
-                      <td>{list?.order?.commodity} </td>
-                      <td></td>
-                      <td>
+                  {allForwardHedging &&
+                    allForwardHedging?.data?.map((list, index) => (
+                      <tr key={index} className="table_row">
+                        <td>{list?.order?.orderId}</td>
+                        <td
+                          className={`${styles.buyerName}`}
+                          onClick={() => handleRoute(list)}
+                        >
+                          {list?.company?.companyName}
+                        </td>
+                        <td>{list?.order?.commodity} </td>
+                        <td></td>
+                        <td>
                           <span
                             className={`${styles.status} ${
                               list.order.queue === 'Rejected'
                                 ? styles.rejected
                                 : list.order.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : list.order.queue === 'CreditQueue'
-                                    ? styles.approved
-                                    : styles.rejected
+                                ? styles.review
+                                : list.order.queue === 'CreditQueue'
+                                ? styles.approved
+                                : styles.rejected
                             }`}
                           ></span>
 
-                        {list.order.queue === 'Rejected'
-                          ? 'Rejected'
-                          : list.order.queue === 'ReviewQueue'
+                          {list.order.queue === 'Rejected'
+                            ? 'Rejected'
+                            : list.order.queue === 'ReviewQueue'
                             ? 'Review'
                             : list.order.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                      </td>
-                      <td>
-                        <img
-                          className={`${styles.edit_image} img-fluid mr-3`}
-                          src="/static/mode_edit.svg"
-                          alt="edit"
-                        />
-                      </td>
-                    </tr>
-                  ))}
+                            ? 'Approved'
+                            : 'Rejected'}
+                        </td>
+                        <td>
+                          <img
+                            className={`${styles.edit_image} img-fluid mr-3`}
+                            src="/static/mode_edit.svg"
+                            alt="edit"
+                          />
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -257,7 +261,7 @@ function Index () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

@@ -1,23 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 
-import 'bootstrap/dist/css/bootstrap.css'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.css';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Commodities from '../src/components/Commodities'
-import Countries from '../src/components/Countries'
-import DoughnutChart from '../src/components/DoughnutChart'
-import Exposure from '../src/components/Exposure'
-import Leads from '../src/components/Leads'
-import Popup from '../src/components/Popups/BillPopup/index'
-import { createStore } from 'store'
-import { getAnalystData } from '../src/redux/analytics/actions'
-import { setPageName } from '../src/redux/userData/action'
-import styles from './index.module.scss'
+import Commodities from '../src/components/Commodities';
+import Countries from '../src/components/Countries';
+import DoughnutChart from '../src/components/DoughnutChart';
+import Exposure from '../src/components/Exposure';
+import Leads from '../src/components/Leads';
+import Popup from '../src/components/Popups/BillPopup/index';
+import { createStore } from 'store';
+import { getAnalystData } from '../src/redux/analytics/actions';
+import { setPageName } from '../src/redux/userData/action';
+import styles from './index.module.scss';
 
 const IndexPage = () => {
-  const dispatch = useDispatch()
-  const darkMode = useSelector((state) => state.user.isDark)
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.user.isDark);
   const {
     orderSummary,
     leadSummary,
@@ -26,25 +26,25 @@ const IndexPage = () => {
     customerSummary,
     exposureSummary,
     totalOrigin,
-  } = useSelector((state) => state.analytics)
+  } = useSelector((state) => state.analytics);
 
   useEffect(() => {
-    dispatch(setPageName('dashboard'))
-  })
+    dispatch(setPageName('dashboard'));
+  });
   useEffect(() => {
-    dispatch(getAnalystData())
-  }, [])
+    dispatch(getAnalystData());
+  }, []);
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Dashboard')
-      sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', ``)
+      sessionStorage.setItem('loadedPage', 'Dashboard');
+      sessionStorage.setItem('loadedSubPage', null);
+      sessionStorage.setItem('openList', ``);
     }
-  }, [])
+  }, []);
 
   return (
     <>
-      <Popup/>
+      <Popup />
       <div className={`${styles.root_Container} background container-fluid`}>
         <div className={`${styles.head_Container} row`}>
           <div className={`${styles.dashboardPadding} col-lg-6`}>
@@ -70,10 +70,10 @@ const IndexPage = () => {
           <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
             <div className="row">
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
-                <Commodities data={commoditySummary}/>
+                <Commodities data={commoditySummary} />
               </div>
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
-                <Exposure data={exposureSummary}/>
+                <Exposure data={exposureSummary} />
               </div>
             </div>
           </div>
@@ -83,12 +83,12 @@ const IndexPage = () => {
                 <div
                   className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
                 >
-                  <Countries data={originSummary} total={totalOrigin}/>
+                  <Countries data={originSummary} total={totalOrigin} />
                 </div>
                 <div
                   className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
                 >
-                  <DoughnutChart customerSummary={customerSummary}/>
+                  <DoughnutChart customerSummary={customerSummary} />
                 </div>
               </div>
             </div>
@@ -105,11 +105,13 @@ const IndexPage = () => {
                         <h3 className={`heading`}>
                           BL Date{' '}
                           <img
-                            className={`${darkMode ? styles.noRotate : styles.rotate
+                            className={`${
+                              darkMode ? styles.noRotate : styles.rotate
                             } img-fluid`}
-                            src={`${darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/keyboard_arrow_right-3.svg`
+                            src={`${
+                              darkMode
+                                ? `/static/white-arrow.svg`
+                                : `/static/keyboard_arrow_right-3.svg`
                             }`}
                             // src="/static/keyboard_arrow_right-3.svg"
                             alt="arrow right"
@@ -161,16 +163,15 @@ const IndexPage = () => {
                           border="0"
                         >
                           <thead>
-                          <tr>
-                            <th>ORDER NO.</th>
-                            <th>BUYER NAME</th>
-                            <th>COMMODITY</th>
-                            <th>DUE DATE</th>
-                            <th>DAYS TO GO</th>
-                            <th>DUE AMOUNT</th>
-                          </tr>
+                            <tr>
+                              <th>ORDER NO.</th>
+                              <th>BUYER NAME</th>
+                              <th>COMMODITY</th>
+                              <th>DUE DATE</th>
+                              <th>DAYS TO GO</th>
+                              <th>DUE AMOUNT</th>
+                            </tr>
                           </thead>
-
                         </table>
                       </div>
                     </div>
@@ -182,17 +183,17 @@ const IndexPage = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export async function getStaticProps () {
-  const store = createStore()
+export async function getStaticProps() {
+  const store = createStore();
 
   return {
     props: {
       state: store.getState(),
     },
-  }
+  };
 }
 
-export default IndexPage
+export default IndexPage;

@@ -1,18 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import DateCalender from '../../components/DateCalenderVessel'
-import 'react-datepicker/dist/react-datepicker.css'
-import UploadDocument from '../UploadDocument'
-import UploadOther from '../UploadOther'
-import moment from 'moment'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import DateCalender from '../../components/DateCalenderVessel';
+import 'react-datepicker/dist/react-datepicker.css';
+import UploadDocument from '../UploadDocument';
+import UploadOther from '../UploadOther';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
 //import { set } from 'immer/dist/internal'
-import Router from 'next/router'
-import _get from 'lodash/get'
-import { toast } from 'react-toastify'
+import Router from 'next/router';
+import _get from 'lodash/get';
+import { toast } from 'react-toastify';
 
-function Index ({
+function Index({
   vesselData,
   vesselUpdatedAt,
   partShipmentAllowed,
@@ -50,28 +50,27 @@ function Index ({
   setOnFocus,
   setOnBlur,
   country,
-  port
+  port,
 }) {
+  const [orderValueinFocus, setOrderValueInFocus] = useState(false);
 
-  const [orderValueinFocus, setOrderValueInFocus] = useState(false)
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // useEffect(() => {
   //   dispatch(setPageName('vessel'))
   //   dispatch(setDynamicName(companyName))
   // })
   const getSn = (index) => {
-    let a = Number(index)
-    return a + 1
-  }
+    let a = Number(index);
+    return a + 1;
+  };
 
   const uploadDocHandler1 = (e) => {
-    uploadDocHandler(e)
-  }
+    uploadDocHandler(e);
+  };
 
   const handleClose = (e) => {
-    setVesselCertificate(null)
-  }
+    setVesselCertificate(null);
+  };
 
   return (
     <>
@@ -82,7 +81,7 @@ function Index ({
           >
             <img
               onClick={() => {
-                Router.push('/vessel-nomination')
+                Router.push('/vessel-nomination');
               }}
               style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
@@ -92,8 +91,7 @@ function Index ({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto text-right">
               <div className={`${styles.lastModified} text `}>
-                <div className="accordion_Text">Last Modified:</div>
-                {' '}
+                <div className="accordion_Text">Last Modified:</div>{' '}
                 {vesselUpdatedAt
                   ? moment(vesselUpdatedAt).format('DD-MM-YYYY,h:mm a')
                   : ''}
@@ -108,7 +106,6 @@ function Index ({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-
                 return (
                   <div
                     key={index}
@@ -154,7 +151,7 @@ function Index ({
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
-                                  onAddVessel()
+                                  onAddVessel();
                                 }}
                               >
                                 <span className={styles.add_sign}>+</span>Add
@@ -164,7 +161,7 @@ function Index ({
                               <button
                                 className={`${styles.add_btn} border-danger text-danger`}
                                 onClick={(e) => {
-                                  onDeleteVessel(index)
+                                  onDeleteVessel(index);
                                 }}
                               >
                                 <img
@@ -233,13 +230,13 @@ function Index ({
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
                             onFocus={(e) => {
-                              setOnFocus(index)
-                              e.target.type = 'number'
+                              setOnFocus(index);
+                              e.target.type = 'number';
                             }}
                             onBlur={(e) => {
-                              setOnBlur(index)
+                              setOnBlur(index);
 
-                              e.target.type = 'text'
+                              e.target.type = 'text';
                             }}
                             id="quantity"
                             className={`${styles.input_field} input form-control`}
@@ -249,14 +246,14 @@ function Index ({
                               isFieldInFocus[index]?.value
                                 ? val.quantity
                                 : Number(val.quantity)?.toLocaleString(
-                                  'en-IN',
-                                  { maximumFractionDigits: 2 },
-                                ) +
-                                ` ${_get(
-                                  vesselData,
-                                  'data[0].order.unitOfQuantity',
-                                  '',
-                                ).toUpperCase()}`
+                                    'en-IN',
+                                    { maximumFractionDigits: 2 },
+                                  ) +
+                                  ` ${_get(
+                                    vesselData,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  ).toUpperCase()}`
                             }
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -285,12 +282,12 @@ function Index ({
                           <input
                             onWheel={(event) => event.currentTarget.blur()}
                             onFocus={(e) => {
-                              setOrderValueInFocus(true)
-                              e.target.type = 'number'
+                              setOrderValueInFocus(true);
+                              e.target.type = 'number';
                             }}
                             onBlur={(e) => {
-                              setOrderValueInFocus(false)
-                              e.target.type = 'text'
+                              setOrderValueInFocus(false);
+                              e.target.type = 'text';
                             }}
                             id="orderValue"
                             type="text"
@@ -306,9 +303,9 @@ function Index ({
                               orderValueinFocus
                                 ? val.orderValue
                                 : Number(val.orderValue)?.toLocaleString(
-                                  'en-IN',
-                                  { maximumFractionDigits: 2 },
-                                )
+                                    'en-IN',
+                                    { maximumFractionDigits: 2 },
+                                  )
                             }
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -324,7 +321,7 @@ function Index ({
                         </div>
                       </div>
                     </div>
-                    <hr className="m-0 border_color"/>
+                    <hr className="m-0 border_color" />
                     <div className={`${styles.dashboard_form} card-body`}>
                       <h3 className={`${styles.sub_heading} mt-3`}>
                         Transit Details
@@ -348,7 +345,11 @@ function Index ({
                                 {val.countryOfOrigin}
                               </option> */}
                               {country.map((val, index) => {
-                                return <option value={val.Country}>{val.Country}</option>
+                                return (
+                                  <option value={val.Country}>
+                                    {val.Country}
+                                  </option>
+                                );
                               })}
                               {/* <option value="India">India</option>
                               <option value="Australia">Australia</option>
@@ -385,17 +386,21 @@ function Index ({
                               {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
                               </option> */}
-                              {port.filter((val, index) => {
-                                if (val.Country.toLowerCase() !== 'india') {
-                                  return val
-                                }
-                              }).map((val, index) => {
-                                return (
-                                  <option value={`${val.Port_Name},${val.Country}`}>
-                                    {val.Port_Name},{val.Country}
-                                  </option>
-                                )
-                              })}
+                              {port
+                                .filter((val, index) => {
+                                  if (val.Country.toLowerCase() !== 'india') {
+                                    return val;
+                                  }
+                                })
+                                .map((val, index) => {
+                                  return (
+                                    <option
+                                      value={`${val.Port_Name},${val.Country}`}
+                                    >
+                                      {val.Port_Name},{val.Country}
+                                    </option>
+                                  );
+                                })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -426,17 +431,21 @@ function Index ({
                               {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
                               </option> */}
-                              {port.filter((val, index) => {
-                                if (val.Country.toLowerCase() == 'india') {
-                                  return val
-                                }
-                              }).map((val, index) => {
-                                return (
-                                  <option value={`${val.Port_Name},${val.Country}`}>
-                                    {val.Port_Name},{val.Country}
-                                  </option>
-                                )
-                              })}
+                              {port
+                                .filter((val, index) => {
+                                  if (val.Country.toLowerCase() == 'india') {
+                                    return val;
+                                  }
+                                })
+                                .map((val, index) => {
+                                  return (
+                                    <option
+                                      value={`${val.Port_Name},${val.Country}`}
+                                    >
+                                      {val.Port_Name},{val.Country}
+                                    </option>
+                                  );
+                                })}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -563,7 +572,7 @@ function Index ({
                         </div>
                       </div>
                     </div>
-                    <hr className="m-0 border_color"/>
+                    <hr className="m-0 border_color" />
 
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
@@ -658,11 +667,11 @@ function Index ({
                                         value={
                                           vesselInfo.yearOfBuilt
                                             ? vesselInfo?.yearOfBuilt?.slice(
-                                              0,
-                                              4,
-                                            )
+                                                0,
+                                                4,
+                                              )
                                             : // moment(vesselInfo.yearOfBuilt).format("YYYY")
-                                            ''
+                                              ''
                                         }
                                         className={`${styles.input_field} input form-control`}
                                         type="number"
@@ -681,11 +690,11 @@ function Index ({
                                               2022,
                                               Number(e.target.value),
                                             ),
-                                          )
+                                          );
                                           onVesselInfoChangeHandlerForBulk(
                                             e,
                                             index,
-                                          )
+                                          );
                                         }}
                                         required
                                       />
@@ -742,7 +751,7 @@ function Index ({
                                         onVesselInfoChangeHandlerForBulk(
                                           e,
                                           index,
-                                        )
+                                        );
                                       }}
                                     />
                                     <label
@@ -853,7 +862,9 @@ function Index ({
                               className={`${styles.vessel_card} vessel_card`}
                             >
                               <div className="d-flex justify-content-end align-items-center">
-                                <h3 className={`${styles.sub_heading} mr-auto mt-3`}>
+                                <h3
+                                  className={`${styles.sub_heading} mr-auto mt-3`}
+                                >
                                   Vessel Information
                                 </h3>
                                 {index >= 0 ? (
@@ -861,10 +872,10 @@ function Index ({
                                     onClick={() => OnAddvesselInformation()}
                                     className={styles.add_btn}
                                   >
-                                    <span className={styles.add_sign}>+</span>Add
+                                    <span className={styles.add_sign}>+</span>
+                                    Add
                                   </button>
                                 ) : null}
-
 
                                 {index > 0 ? (
                                   <button
@@ -960,7 +971,7 @@ function Index ({
                                       newVessel.yearOfBuilt
                                         ? newVessel.yearOfBuilt?.slice(0, 4)
                                         : // moment(vesselInfo.yearOfBuilt).format("YYYY")
-                                        ''
+                                          ''
                                     }
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
@@ -977,11 +988,11 @@ function Index ({
                                       e.target.value = Math.max(
                                         0,
                                         Math.min(2022, Number(e.target.value)),
-                                      )
+                                      );
                                       onVesselInfoChangeHandlerForLiner(
                                         e,
                                         index,
-                                      )
+                                      );
                                     }}
                                     required
                                   />
@@ -995,7 +1006,7 @@ function Index ({
                             </div>
                           </div>
                         ))}
-                        <hr className="m-0 border_color"/>
+                        <hr className="m-0 border_color" />
                         <div className={`${styles.dashboard_form} card-body`}>
                           <h3 className={`${styles.sub_heading} mt-3`}>
                             Container Number(s)
@@ -1018,10 +1029,10 @@ function Index ({
                                         .toLocaleLowerCase()
                                         .endsWith('.xlsx')
                                     ) {
-                                      uploadDocHandler1(e)
+                                      uploadDocHandler1(e);
                                     } else {
                                       let toastMessage =
-                                        'only XLS files are allowed'
+                                        'only XLS files are allowed';
                                       if (
                                         !toast.isActive(
                                           toastMessage.toUpperCase(),
@@ -1030,7 +1041,7 @@ function Index ({
                                         toast.error(
                                           toastMessage.toUpperCase(),
                                           { toastId: toastMessage },
-                                        )
+                                        );
                                       }
                                     }
                                   }}
@@ -1060,14 +1071,14 @@ function Index ({
                                 *
                               </strong>
                               ONLY .XLS FILES ARE ALLOWED
-                              <br/> &amp; MAX FILE SIZE UP TO 50MB
+                              <br /> &amp; MAX FILE SIZE UP TO 50MB
                             </div>
                           </div>
                         </div>
                       </>
                     )}
                   </div>
-                )
+                );
               })}
 
             <UploadDocument
@@ -1089,7 +1100,7 @@ function Index ({
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

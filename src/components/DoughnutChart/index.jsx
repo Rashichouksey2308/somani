@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Card } from 'react-bootstrap'
-import { Doughnut } from 'react-chartjs-2'
-import { ArcElement, Chart } from 'chart.js'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Card } from 'react-bootstrap';
+import { Doughnut } from 'react-chartjs-2';
+import { ArcElement, Chart } from 'chart.js';
 
-function Index ({ customerSummary }) {
-  Chart.register(ArcElement)
+function Index({ customerSummary }) {
+  Chart.register(ArcElement);
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },
     { name: 'Jindal Group', value: '23', color: '#4CAF50' },
     { name: 'SR Steel', value: '23', color: '#EA3F3F' },
     { name: 'Tradex India Corporation', value: '45', color: '#2884DE' },
     { name: 'Metalco India', value: '34', color: '#FFCE00' },
-  ]
-  console.log(customerSummary, 'sssssss')
+  ];
+  console.log(customerSummary, 'sssssss');
   const [data, setData] = useState({
     labels: [],
     datasets: [
@@ -30,17 +30,17 @@ function Index ({ customerSummary }) {
         ],
       },
     ],
-  })
+  });
   useEffect(() => {
-    let tempData = []
-    let tempPoint = []
+    let tempData = [];
+    let tempPoint = [];
 
     if (customerSummary?.length > 0) {
       customerSummary.forEach((val, index) => {
-        console.log(val.total, 'qqqqqqq')
-        tempData.push(val?.company[0]?.companyName)
-        tempPoint.push(val.total)
-      })
+        console.log(val.total, 'qqqqqqq');
+        tempData.push(val?.company[0]?.companyName);
+        tempPoint.push(val.total);
+      });
       setData({
         labels: tempData,
         datasets: [
@@ -57,11 +57,11 @@ function Index ({ customerSummary }) {
             ],
           },
         ],
-      })
+      });
     }
-    console.log(tempData, tempPoint, 'ssssss')
-  }, [customerSummary])
-  console.log(data, 'datadatadata')
+    console.log(tempData, tempPoint, 'ssssss');
+  }, [customerSummary]);
+  console.log(data, 'datadatadata');
   // const data = {
   //   labels: [
   //     'Sail',
@@ -98,7 +98,7 @@ function Index ({ customerSummary }) {
     },
     responsive: false,
     cutout: 55,
-  }
+  };
   //   const options = {
   //        elements: {
   //       arc: {
@@ -155,11 +155,11 @@ function Index ({ customerSummary }) {
                     {val?.company[0]?.companyName}
                   </span>
                 </div>
-              )
+              );
             })}
         </div>
         <div className={`${styles.chart} col-sm-5`}>
-          <Doughnut data={data} options={options}/>
+          <Doughnut data={data} options={options} />
           <div className={`${styles.total_value} `}>
             {/* <span>₹ 24.00 Cr</span>
             <span className="mt-1">50%</span> */}
@@ -167,7 +167,7 @@ function Index ({ customerSummary }) {
         </div>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default Index
+export default Index;

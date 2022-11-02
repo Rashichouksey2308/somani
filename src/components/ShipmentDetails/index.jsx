@@ -1,31 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import DateCalender from '../DateCalender'
-import moment from 'moment'
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import styles from './index.module.scss';
+import DateCalender from '../DateCalender';
+import moment from 'moment';
 
 const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
-
   const saveDate = (value, name) => {
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveShipmentData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveShipmentData(name, text);
+  };
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
-  })
+  });
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
-      .format('DD-MM-YYYY')
+      .format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
-      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
-      setDateStartFrom({ ...dateStartFrom, eta: new_date })
+      setDateStartFrom({ ...dateStartFrom, eta: new_date });
     }
-  }
+  };
 
   return (
     <div
@@ -56,7 +55,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="shipmentType"
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
+                      saveShipmentData(e.target.name, e.target.value);
                     }}
                   >
                     {/* <option value="volvo">
@@ -220,26 +219,26 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     value={shipment?.portOfLoading}
                     name="portOfLoading"
                     onChange={(e) => {
-                      saveShipmentData(e.target.name, e.target.value)
+                      saveShipmentData(e.target.name, e.target.value);
                     }}
                   >
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option selected>
-                      Select an option
-                    </option>
-                    {port.filter((val, index) => {
-                      if (val.Country.toLowerCase() !== 'india') {
-                        return val
-                      }
-                    }).map((val, index) => {
-                      return (
-                        <option value={`${val.Port_Name},${val.Country}`}>
-                          {val.Port_Name},{val.Country}
-                        </option>
-                      )
-                    })}
+                    <option selected>Select an option</option>
+                    {port
+                      .filter((val, index) => {
+                        if (val.Country.toLowerCase() !== 'india') {
+                          return val;
+                        }
+                      })
+                      .map((val, index) => {
+                        return (
+                          <option value={`${val.Port_Name},${val.Country}`}>
+                            {val.Port_Name},{val.Country}
+                          </option>
+                        );
+                      })}
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
                   <Form.Label
@@ -260,7 +259,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default index;

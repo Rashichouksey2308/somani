@@ -7,14 +7,14 @@ $breakpointXL: 1200px;
 $breakpoints: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $breakpoints: map-merge(
-                (
-                        'breakpoint-xs': $breakpointXS,
-                        'breakpoint-sm': $breakpointSM,
-                        'breakpoint-md': $breakpointMD,
-                        'breakpoint-lg': $breakpointLG,
-                        'breakpoint-xl': $breakpointXL,
-                ),
-                $breakpoints
+  (
+    'breakpoint-xs': $breakpointXS,
+    'breakpoint-sm': $breakpointSM,
+    'breakpoint-md': $breakpointMD,
+    'breakpoint-lg': $breakpointLG,
+    'breakpoint-xl': $breakpointXL,
+  ),
+  $breakpoints
 );
 
 //fonts-size-phone

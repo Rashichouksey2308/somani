@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import GrowInput from '../GrowInput'
-import { Form } from 'react-bootstrap'
-import styles from './index.module.scss'
-import { toast } from 'react-toastify'
+import React, { useEffect, useState } from 'react';
+import GrowInput from '../GrowInput';
+import { Form } from 'react-bootstrap';
+import styles from './index.module.scss';
+import { toast } from 'react-toastify';
 
 const Index = ({
   setAdditionalComments,
@@ -11,119 +11,117 @@ const Index = ({
   termsheetDetails,
   otherTermConditions,
 }) => {
+  const [commentType, setCommentType] = useState('select an Option');
 
-  const [commentType, setCommentType] = useState('select an Option')
-
-  const [comment, setComment] = useState([])
-  const [text, setText] = useState('')
-  const [isCommentEditable, setIsCommentEditable] = useState({})
+  const [comment, setComment] = useState([]);
+  const [text, setText] = useState('');
+  const [isCommentEditable, setIsCommentEditable] = useState({});
   const [dueDateTextObject, setDueDateTextObject] = useState({
     dueDateTextOne: '',
     dueDateTextTwo: '',
-  })
+  });
 
-  const [days, setDays] = useState({ day1: '', day2: '' })
-  const [inputs, setInputs] = useState({ input1: '', input2: '', input3: '' })
+  const [days, setDays] = useState({ day1: '', day2: '' });
+  const [inputs, setInputs] = useState({ input1: '', input2: '', input3: '' });
   useEffect(() => {
     setDays({
       day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate,
       day2: termsheetDetails?.paymentDueDate?.daysFromBlDate,
-    })
+    });
     setInputs({
       input1: termsheetDetails?.transactionDetails?.portOfDischarge,
       input2: 'Dr. Amin',
       input3: 'IGM',
-    })
-  }, [termsheetDetails])
+    });
+  }, [termsheetDetails]);
 
-  const allcomment = []
+  const allcomment = [];
   useEffect(() => {
     additionalComments.map((comment, index) => {
-      setIsCommentEditable((prev) => ({ ...prev, [index]: false }))
-    })
-  }, [additionalComments])
+      setIsCommentEditable((prev) => ({ ...prev, [index]: false }));
+    });
+  }, [additionalComments]);
 
   const manageCommentEditable = (index) => {
     setIsCommentEditable((prev) => ({
       ...prev,
       [index]: !isCommentEditable[index],
-    }))
-  }
+    }));
+  };
 
   const getInputValue = (name, value) => {
-
     if (commentType == 'Deliveries/Due Date/Payment') {
       if (name == 'day1') {
-        setDays({ ...days, day1: value })
+        setDays({ ...days, day1: value });
       } else {
-        setDays({ ...days, day2: value })
+        setDays({ ...days, day2: value });
       }
     } else {
       if (name == 'input1') {
-        setInputs({ ...inputs, input1: value })
+        setInputs({ ...inputs, input1: value });
       } else if (name == 'input2') {
-        setInputs({ ...inputs, input2: value })
+        setInputs({ ...inputs, input2: value });
       } else {
-        setInputs({ ...inputs, input3: value })
+        setInputs({ ...inputs, input3: value });
       }
     }
-  }
+  };
   const textGenerator = () => {
     if (
       commentType == 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'Whicheverisearlier'
+        'Whicheverisearlier'
     ) {
-      let text = `${days.day2} ${dueDateTextObject.dueDateTextOne} ${days.day1} ${dueDateTextObject.dueDateTextTwo}`
-      return text
+      let text = `${days.day2} ${dueDateTextObject.dueDateTextOne} ${days.day1} ${dueDateTextObject.dueDateTextTwo}`;
+      return text;
     } else if (
       commentType == 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromVesselDischargeDate'
+        'DaysfromVesselDischargeDate'
     ) {
-      let text = `${days.day1} ${dueDateTextObject.dueDateTextOne}`
-      return text
+      let text = `${days.day1} ${dueDateTextObject.dueDateTextOne}`;
+      return text;
     } else if (
       commentType == 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromBLDate'
+        'DaysfromBLDate'
     ) {
-      let text = `${days.day2} ${dueDateTextObject.dueDateTextOne}`
-      return text
+      let text = `${days.day2} ${dueDateTextObject.dueDateTextOne}`;
+      return text;
     } else {
-      let text = `Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${inputs.input1}) under CMA with ${inputs.input2}. ${inputs.input3} and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.`
-      return text
+      let text = `Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${inputs.input1}) under CMA with ${inputs.input2}. ${inputs.input3} and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.`;
+      return text;
     }
-  }
+  };
 
-  const [newComment, setNewComment] = useState('')
+  const [newComment, setNewComment] = useState('');
   const addComment = (type) => {
     if (commentType !== 'Deliveries/Due Date/Payment') {
       if (newComment == '') {
-        let toastMessage = 'Comment Cannot Be Empty'
+        let toastMessage = 'Comment Cannot Be Empty';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          return
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+          return;
         }
       }
       let oldFilteredComments = additionalComments.filter(
         (comment) => comment.additionalCommentType === commentType,
-      )
+      );
 
       if (oldFilteredComments.length > 0) {
-        let toastMessage = 'Comment of same type already exists'
+        let toastMessage = 'Comment of same type already exists';
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
 
-          return
+          return;
         }
       } else {
         setAdditionalComments([
           ...additionalComments,
           { additionalCommentType: commentType, comment: newComment },
-        ])
-        setNewComment('')
-        return
+        ]);
+        setNewComment('');
+        return;
       }
     }
 
@@ -136,24 +134,24 @@ const Index = ({
           dueDateTextObject.dueDateTextOne == '' ||
           dueDateTextObject.dueDateTextTwo == ''
         ) {
-          let toastMessage = 'comment cannot be empty'
+          let toastMessage = 'comment cannot be empty';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), {
               toastId: toastMessage,
-            })
+            });
 
-            return
+            return;
           }
         }
       } else {
         if (dueDateTextObject.dueDateTextOne == '') {
-          let toastMessage = 'comment cannot be empty'
+          let toastMessage = 'comment cannot be empty';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), {
               toastId: toastMessage,
-            })
+            });
 
-            return
+            return;
           }
         }
       }
@@ -161,97 +159,97 @@ const Index = ({
 
     let filteredComments = additionalComments.filter(
       (comment) => comment.additionalCommentType === commentType,
-    )
+    );
     if (filteredComments.length > 0) {
-      let toastMessage = 'Comment of same type already exists'
+      let toastMessage = 'Comment of same type already exists';
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
 
-        return
+        return;
       }
     } else {
       setAdditionalComments([
         ...additionalComments,
         { additionalCommentType: commentType, comment: textGenerator() },
-      ])
+      ]);
       // setDays({ day1: '', day2: '' })
-      setInputs({ input1: '', input2: '', input3: '' })
+      setInputs({ input1: '', input2: '', input3: '' });
     }
-  }
+  };
   const deleteComment = (index) => {
     setAdditionalComments([
       ...additionalComments.slice(0, index),
       ...additionalComments.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const changeComment = (val, index) => {
-    let tempArr = additionalComments
+    let tempArr = additionalComments;
     tempArr.forEach((obj, i) => {
       if (i == index) {
-        obj.comment = val
+        obj.comment = val;
       }
-    })
-    setAdditionalComments(tempArr)
-  }
+    });
+    setAdditionalComments(tempArr);
+  };
 
   const dueDateTextHandler = (name, value) => {
     if (name === 'dueDateTextOne') {
-      setDueDateTextObject({ ...dueDateTextObject, dueDateTextOne: value })
+      setDueDateTextObject({ ...dueDateTextObject, dueDateTextOne: value });
     }
     if (name === 'dueDateTextTwo') {
-      setDueDateTextObject({ ...dueDateTextObject, dueDateTextTwo: value })
+      setDueDateTextObject({ ...dueDateTextObject, dueDateTextTwo: value });
     }
-  }
+  };
 
   useEffect(() => {
     if (commentType === 'Other terms and conditions') {
-      setNewComment('As per the Agreements executed between the parties.')
+      setNewComment('As per the Agreements executed between the parties.');
     } else if (commentType === 'Payment Reimbursement of Charges') {
       setNewComment(
         'All applicable charges to be paid by the buyer as and when they becomes due.',
-      )
+      );
     } else if (commentType === 'Storage of Goods') {
       setNewComment(
         `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable  Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank.slice(
           otherTermConditions?.buyer?.bank.length - 5,
           otherTermConditions?.buyer?.bank.length - 1,
         )}’s nominated party and all expenses/charges to be born and paid by the Buyer. `,
-      )
+      );
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'Whicheverisearlier'
+        'Whicheverisearlier'
     ) {
-      let tempDueDateObject = { ...dueDateTextObject }
+      let tempDueDateObject = { ...dueDateTextObject };
       tempDueDateObject.dueDateTextOne =
-        'days from the discharge date of vessel/container(s) at discharge port or'
+        'days from the discharge date of vessel/container(s) at discharge port or';
       tempDueDateObject.dueDateTextTwo =
-        'days from the date of Bill of Lading, whichever is earlier.'
-      setDueDateTextObject(tempDueDateObject)
+        'days from the date of Bill of Lading, whichever is earlier.';
+      setDueDateTextObject(tempDueDateObject);
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromVesselDischargeDate'
+        'DaysfromVesselDischargeDate'
     ) {
-      let tempDueDateObject = { ...dueDateTextObject }
+      let tempDueDateObject = { ...dueDateTextObject };
       tempDueDateObject.dueDateTextOne =
-        'days from the discharge date of vessel/container(s) at discharge port.'
+        'days from the discharge date of vessel/container(s) at discharge port.';
 
-      setDueDateTextObject(tempDueDateObject)
+      setDueDateTextObject(tempDueDateObject);
     } else if (
       commentType === 'Deliveries/Due Date/Payment' &&
       termsheetDetails?.paymentDueDate?.computationOfDueDate ===
-      'DaysfromBLDate'
+        'DaysfromBLDate'
     ) {
-      let tempDueDateObject = { ...dueDateTextObject }
+      let tempDueDateObject = { ...dueDateTextObject };
       tempDueDateObject.dueDateTextOne =
-        'days from the date of Bill of Lading.'
+        'days from the date of Bill of Lading.';
 
-      setDueDateTextObject(tempDueDateObject)
+      setDueDateTextObject(tempDueDateObject);
     } else {
-      setNewComment('')
+      setNewComment('');
     }
-  }, [commentType, termsheetDetails])
+  }, [commentType, termsheetDetails]);
 
   return (
     <div className={`${styles.main} vessel_card main`}>
@@ -282,20 +280,20 @@ const Index = ({
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
                       onChange={(e) => {
-                        setCommentType(e.target.value)
+                        setCommentType(e.target.value);
                         setDays({
                           day1: termsheetDetails?.paymentDueDate
                             ?.daysFromVesselDischargeDate,
                           day2: termsheetDetails?.paymentDueDate
                             ?.daysFromBlDate,
-                        })
+                        });
                         setInputs({
                           input1:
-                          termsheetDetails?.transactionDetails
-                            ?.portOfDischarge,
+                            termsheetDetails?.transactionDetails
+                              ?.portOfDischarge,
                           input2: 'Dr. Amin',
                           input3: 'IGM',
-                        })
+                        });
                       }}
                       required
                     >
@@ -332,7 +330,7 @@ const Index = ({
                       className="img-fluid"
                       alt="Add"
                       onClick={() => {
-                        addComment()
+                        addComment();
                       }}
                     />
                   )}
@@ -355,18 +353,18 @@ const Index = ({
                         </p>
                       )}
                       {termsheetDetails?.paymentDueDate
-                          ?.computationOfDueDate ===
+                        ?.computationOfDueDate ===
                         'DaysfromVesselDischargeDate' && (
-                          <p>
-                            {days.day1}
-                            <GrowInput
-                              name="dueDateTextOne"
-                              type="text"
-                              getValue={dueDateTextHandler}
-                              defaultValue={dueDateTextObject.dueDateTextOne}
-                            />
-                          </p>
-                        )}
+                        <p>
+                          {days.day1}
+                          <GrowInput
+                            name="dueDateTextOne"
+                            type="text"
+                            getValue={dueDateTextHandler}
+                            defaultValue={dueDateTextObject.dueDateTextOne}
+                          />
+                        </p>
+                      )}
                       {termsheetDetails?.paymentDueDate
                         ?.computationOfDueDate === 'Whicheverisearlier' && (
                         <p>
@@ -430,7 +428,7 @@ const Index = ({
 
                         value={newComment}
                         onChange={(e) => {
-                          setNewComment(e.target.value)
+                          setNewComment(e.target.value);
                         }}
                       />
                     </>
@@ -448,7 +446,7 @@ const Index = ({
 
                         value={newComment}
                         onChange={(e) => {
-                          setNewComment(e.target.value)
+                          setNewComment(e.target.value);
                         }}
                       />
                     </>
@@ -465,7 +463,7 @@ const Index = ({
 
                         value={newComment}
                         onChange={(e) => {
-                          setNewComment(e.target.value)
+                          setNewComment(e.target.value);
                         }}
                       />
                     </>
@@ -479,14 +477,14 @@ const Index = ({
           </div>
         </div>
 
-        <hr className="m-0 border_color"/>
+        <hr className="m-0 border_color" />
         <div className={`${styles.dashboard_form} card-body`}>
           <h3 className={`${styles.comment_heading} font-weight-medium`}>
             Comments
           </h3>
           {additionalComments &&
             additionalComments.map((comment, index) => {
-              const commentindex = isCommentEditable[index]
+              const commentindex = isCommentEditable[index];
               return (
                 <div
                   key={index}
@@ -518,7 +516,7 @@ const Index = ({
                         readOnly={!isCommentEditable[index]}
                         defaultValue={comment.comment}
                         onChange={(e) => {
-                          changeComment(e.target.value, index)
+                          changeComment(e.target.value, index);
                         }}
                       />
                       {!isCommentEditable[index] ? (
@@ -544,17 +542,17 @@ const Index = ({
                         className="img-fluid ml-2"
                         alt="Delete"
                         onClick={() => {
-                          deleteComment(index)
+                          deleteComment(index);
                         }}
                       />
                     </div>
                   </div>
                 </div>
-              )
+              );
             })}
         </div>
       </div>
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

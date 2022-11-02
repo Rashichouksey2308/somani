@@ -1,29 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import SaveBar from '../SaveBar'
-import _get from 'lodash/get'
-import Router from 'next/router'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import SaveBar from '../SaveBar';
+import _get from 'lodash/get';
+import Router from 'next/router';
 
-export default function Index (props) {
-  const [show, setShow] = useState(false)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+export default function Index(props) {
+  const [show, setShow] = useState(false);
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   const handleRoute = (val) => {
-    sessionStorage.setItem('dono', val.deliveryOrderNo)
+    sessionStorage.setItem('dono', val.deliveryOrderNo);
 
-    sessionStorage.setItem('balanceQuantity', Number(val.Quantity))
-    Router.push('/delivery-preview')
-  }
-  console.log(props.deliveryOrder, 'tempArr')
+    sessionStorage.setItem('balanceQuantity', Number(val.Quantity));
+    Router.push('/delivery-preview');
+  };
+  console.log(props.deliveryOrder, 'tempArr');
   let boe = _get(
     props,
     'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry',
     [],
-  )
+  );
   const boeTotalQuantity = boe?.reduce((accumulator, object) => {
-    return accumulator + Number(object.boeDetails.invoiceQuantity)
-  }, 0)
+    return accumulator + Number(object.boeDetails.invoiceQuantity);
+  }, 0);
 
   return (
     <>
@@ -188,11 +188,11 @@ export default function Index (props) {
                                     }
                                     onFocus={(e) => {
                                       setIsFieldInFocus(true),
-                                        (e.target.type = 'number')
+                                        (e.target.type = 'number');
                                     }}
                                     onBlur={(e) => {
                                       setIsFieldInFocus(false),
-                                        (e.target.type = 'text')
+                                        (e.target.type = 'text');
                                     }}
                                     type="text"
                                     // value={val.Quantity}
@@ -200,13 +200,13 @@ export default function Index (props) {
                                       isFieldInFocus
                                         ? val.Quantity
                                         : Number(val.Quantity)?.toLocaleString(
-                                          'en-IN',
-                                        ) +
-                                        ` ${_get(
-                                          props,
-                                          'ReleaseOrder.data[0].order.unitOfQuantity',
-                                          '',
-                                        )}`
+                                            'en-IN',
+                                          ) +
+                                          ` ${_get(
+                                            props,
+                                            'ReleaseOrder.data[0].order.unitOfQuantity',
+                                            '',
+                                          )}`
                                     }
                                     name="Quantity"
                                     onChange={(e) => {
@@ -214,7 +214,7 @@ export default function Index (props) {
                                         e.target.name,
                                         e.target.value,
                                         index,
-                                      )
+                                      );
                                     }}
                                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   />
@@ -233,8 +233,8 @@ export default function Index (props) {
                                   <span className={styles.value}>
                                     {val.Quantity
                                       ? Number(val.Quantity)?.toLocaleString(
-                                        'en-In',
-                                      )
+                                          'en-In',
+                                        )
                                       : ''}
                                   </span>
                                 </>
@@ -286,7 +286,7 @@ export default function Index (props) {
                                       className={`${styles.shareImg} ml-3`}
                                       alt="Save"
                                       onClick={(e) => {
-                                        props.onEdit(index, false)
+                                        props.onEdit(index, false);
                                       }}
                                     />
                                     <img
@@ -301,7 +301,7 @@ export default function Index (props) {
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
-                                          props.deleteNewDelivery(index)
+                                          props.deleteNewDelivery(index);
                                         }}
                                       />
                                     )}
@@ -315,7 +315,7 @@ export default function Index (props) {
                                       className={`${styles.shareImg}`}
                                       alt="Edit"
                                       onClick={(e) => {
-                                        props.onEdit(index, true)
+                                        props.onEdit(index, true);
                                       }}
                                     />
 
@@ -323,9 +323,7 @@ export default function Index (props) {
                                       src="/static/share.svg"
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
-                                      onClick={() =>
-                                        handleRoute(val)
-                                      }
+                                      onClick={() => handleRoute(val)}
                                     />
 
                                     {props.releaseOrderData.length > 1 && (
@@ -334,7 +332,7 @@ export default function Index (props) {
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
-                                          props.deleteNewDelivery(index)
+                                          props.deleteNewDelivery(index);
                                         }}
                                       />
                                     )}
@@ -343,7 +341,7 @@ export default function Index (props) {
                                       props.BalanceQuantity() > 0 && (
                                         <img
                                           onClick={(e) => {
-                                            props.addNewDelivery()
+                                            props.addNewDelivery();
                                           }}
                                           src="/static/add-btn.svg"
                                           className={`${styles.shareImg} border-0 p-0 ml-2 bg-transparent`}
@@ -355,7 +353,7 @@ export default function Index (props) {
                               </div>
                             </div>
                           </>
-                        )
+                        );
                       })}
                     </div>
                   </div>
@@ -552,7 +550,7 @@ export default function Index (props) {
         </Modal.Body>
       </Modal> */}
     </>
-  )
+  );
 }
 
 {

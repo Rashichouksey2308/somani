@@ -1,72 +1,75 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import TableMain from '../../src/components/TableMain'
-import Router from 'next/router'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { GettingAllInsurance } from '../../src/redux/insurance/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import TableMain from '../../src/components/TableMain';
+import Router from 'next/router';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { GettingAllInsurance } from '../../src/redux/insurance/action';
+import { SearchLeads } from '../../src/redux/buyerProfile/action';
+import {
+  setDynamicName,
+  setDynamicOrder,
+  setPageName,
+} from '../../src/redux/userData/action';
+import moment from 'moment';
 
-function Index () {
-  const dispatch = useDispatch()
+function Index() {
+  const dispatch = useDispatch();
 
-  let d = new Date()
+  let d = new Date();
 
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const { searchedLeads } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order);
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
 
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GettingAllInsurance(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GettingAllInsurance(`?company=${id}`));
+  };
 
   const changeRoute = (insured) => {
-    sessionStorage.setItem('quotationId', insured._id)
+    sessionStorage.setItem('quotationId', insured._id);
     if (
       moment(insured?.marineInsurance?.insuranceTo).toDate() <= d ||
       moment(insured?.storageInsurance?.insuranceTo).toDate() <= d
     ) {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
-      Router.push('/insurance-renew/id')
+      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+      Router.push('/insurance-renew/id');
     } else {
-      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
-      Router.push('/insurance/form')
+      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`));
+      Router.push('/insurance/form');
     }
-  }
+  };
 
   const handleEditRoute = (insured) => {
-
-    sessionStorage.setItem('quotationId', insured._id)
+    sessionStorage.setItem('quotationId', insured._id);
 
     if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
-      Router.push('/insurance/form/both')
+      Router.push('/insurance/form/both');
     }
-  }
+  };
 
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
-      sessionStorage.setItem('loadedSubPage', `Insurance`)
-      sessionStorage.setItem('openList', 2)
+      sessionStorage.setItem('loadedPage', 'Agreement & LC Module');
+      sessionStorage.setItem('loadedSubPage', `Insurance`);
+      sessionStorage.setItem('openList', 2);
     }
 
-    dispatch(setPageName('insurance'))
-    dispatch(setDynamicName(null))
-    dispatch(setDynamicOrder(null))
-  }, [])
+    dispatch(setPageName('insurance'));
+    dispatch(setDynamicName(null));
+    dispatch(setDynamicOrder(null));
+  }, []);
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -107,7 +110,7 @@ function Index () {
               </div>
             )}
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -130,7 +133,7 @@ function Index () {
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

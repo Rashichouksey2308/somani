@@ -1,43 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import Filter from '../../src/components/Filter'
-import { useDispatch, useSelector } from 'react-redux'
-import { SearchLeads } from 'redux/buyerProfile/action'
-import DownloadMasterBar from '../../src/components/DownloadMasterBar'
-import Image from 'next/image'
-import Router from 'next/router'
-import { GetAllSupplier } from 'redux/supplier/action'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import Filter from '../../src/components/Filter';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchLeads } from 'redux/buyerProfile/action';
+import DownloadMasterBar from '../../src/components/DownloadMasterBar';
+import Image from 'next/image';
+import Router from 'next/router';
+import { GetAllSupplier } from 'redux/supplier/action';
+import moment from 'moment';
 
 const index = () => {
-  const dispatch = useDispatch()
-  const [serachterm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(0)
-  const [pageLimit, setPageLimit] = useState(10)
+  const dispatch = useDispatch();
+  const [serachterm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageLimit, setPageLimit] = useState(10);
 
-  const { searchedLeads } = useSelector((state) => state.order)
-  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier)
+  const { searchedLeads } = useSelector((state) => state.order);
+  const { supplierResponse, allSupplierResponse } = useSelector(
+    (state) => state.supplier,
+  );
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(SearchLeads(query))
+      dispatch(SearchLeads(query));
     }
-  }
+  };
   const handleFilteredData = (e) => {
-    setSearchTerm('')
-    const id = `${e.target.id}`
-    dispatch(GetLcModule(`?company=${id}`))
-  }
+    setSearchTerm('');
+    const id = `${e.target.id}`;
+    dispatch(GetLcModule(`?company=${id}`));
+  };
   useEffect(() => {
-    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`))
-  }, [currentPage, pageLimit])
+    dispatch(GetAllSupplier(`?page=${currentPage}&limit=${pageLimit}`));
+  }, [currentPage, pageLimit]);
 
   const handleRoute = (id) => {
-    sessionStorage.setItem('supplier', id)
-    Router.push('/supplier')
-  }
+    sessionStorage.setItem('supplier', id);
+    Router.push('/supplier');
+  };
 
   return (
     <>
@@ -80,14 +82,14 @@ const index = () => {
                 </div>
               )}
             </div>
-            <Filter/>
+            <Filter />
 
             <button
               type="button"
               className={`${styles.createBtn} btn ml-auto btn-primary`}
               onClick={() => {
-                sessionStorage.removeItem('supplier')
-                Router.push('/supplier')
+                sessionStorage.removeItem('supplier');
+                Router.push('/supplier');
               }}
             >
               <span className={styles.add_supplier}>+</span>Add Supplier
@@ -120,14 +122,17 @@ const index = () => {
                 <div
                   className={`${styles.pageList} d-flex justify-content-end align-items-center`}
                 >
-                  <span> Showing Page {currentPage + 1} out of{' '}
-                    {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}</span>
+                  <span>
+                    {' '}
+                    Showing Page {currentPage + 1} out of{' '}
+                    {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                  </span>
                   <a
                     onClick={() => {
                       if (currentPage === 0) {
-                        return
+                        return;
                       } else {
-                        setCurrentPage((prevState) => prevState - 1)
+                        setCurrentPage((prevState) => prevState - 1);
                       }
                     }}
                     href="#"
@@ -145,7 +150,7 @@ const index = () => {
                         currentPage + 1 <
                         Math.ceil(allSupplierResponse?.totalCount / 7)
                       ) {
-                        setCurrentPage((prevState) => prevState + 1)
+                        setCurrentPage((prevState) => prevState + 1);
                       }
                     }}
                     href="#"
@@ -169,82 +174,89 @@ const index = () => {
                   border="0"
                 >
                   <thead>
-                  <tr>
-                    <th className={`${styles.table_heading} table_heading`}>
-                      SUPPLIER NAME{' '}
-                      <Image
-                        width="9px"
-                        height="14px"
-                        className={`${styles.sort_img}`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />
-                    </th>
+                    <tr>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        SUPPLIER NAME{' '}
+                        <Image
+                          width="9px"
+                          height="14px"
+                          className={`${styles.sort_img}`}
+                          src="/static/icons8-sort-24.svg"
+                          alt="Sort icon"
+                        />
+                      </th>
 
-                    <th className={`${styles.table_heading} table_heading`}>
-                      ONBOARDING DATE{' '}
-                      <Image
-                        width="9px"
-                        height="14px"
-                        className={`${styles.sort_img}`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />
-                    </th>
-                    <th className={`${styles.table_heading} table_heading`}>
-                      COUNTRY
-                    </th>
-                    <th className={`${styles.table_heading} table_heading`}>
-                      STATUS{' '}
-                      <Image
-                        width="9px"
-                        height="14px"
-                        className={`${styles.sort_img}`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />
-                    </th>
-                    <th className={`${styles.table_heading} table_heading`}>
-                      ACTION
-                    </th>
-                  </tr>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        ONBOARDING DATE{' '}
+                        <Image
+                          width="9px"
+                          height="14px"
+                          className={`${styles.sort_img}`}
+                          src="/static/icons8-sort-24.svg"
+                          alt="Sort icon"
+                        />
+                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        COUNTRY
+                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        STATUS{' '}
+                        <Image
+                          width="9px"
+                          height="14px"
+                          className={`${styles.sort_img}`}
+                          src="/static/icons8-sort-24.svg"
+                          alt="Sort icon"
+                        />
+                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>
+                        ACTION
+                      </th>
+                    </tr>
                   </thead>
                   <tbody>
+                    {allSupplierResponse &&
+                      allSupplierResponse?.data?.map((supplier) => {
+                        return (
+                          <tr className={`${styles.table_row} table_row17`}>
+                            <td className={styles.buyerName}>
+                              {supplier?.supplierProfile?.supplierName}
+                            </td>
+                            <td>
+                              {moment(supplier?.createdAt).format('DD-MM-YYYY')}
+                            </td>
+                            <td>
+                              {
+                                supplier?.supplierProfile
+                                  ?.countryOfIncorporation
+                              }
+                            </td>
+                            <td>
+                              <span
+                                className={`${styles.status} ${styles.review}`}
+                              ></span>
+                              {supplier?.status}
+                            </td>
 
+                            <td>
+                              {' '}
+                              <div className={`${styles.edit_image} img-fluid`}>
+                                <Image
+                                  onClick={() => {
+                                    handleRoute(supplier._id);
+                                  }}
+                                  height="40px"
+                                  width="40px"
+                                  src="/static/mode_edit.svg"
+                                  alt="Edit"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
 
-                  {allSupplierResponse && allSupplierResponse?.data?.map((supplier) => {
-
-                    return (
-                      <tr className={`${styles.table_row} table_row17`}>
-                        <td className={styles.buyerName}>{supplier?.supplierProfile?.supplierName}</td>
-                        <td>{moment(supplier?.createdAt).format('DD-MM-YYYY')}</td>
-                        <td>{supplier?.supplierProfile?.countryOfIncorporation}</td>
-                        <td>
-                            <span
-                              className={`${styles.status} ${styles.review}`}
-                            ></span>
-                          {supplier?.status}
-                        </td>
-
-                        <td>
-                          {' '}
-                          <div className={`${styles.edit_image} img-fluid`}>
-                            <Image
-                              onClick={() => {
-                                handleRoute(supplier._id)
-                              }}
-                              height="40px"
-                              width="40px"
-                              src="/static/mode_edit.svg"
-                              alt="Edit"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    )
-                  })}
-
-                  {/* <tr className={`${styles.table_row} table_row17`}>
+                    {/* <tr className={`${styles.table_row} table_row17`}>
                       <td className={styles.buyerName}>Bhutani Traders</td>
 
                       <td>22-02-2022</td>
@@ -405,9 +417,9 @@ const index = () => {
         </div>
       </div> */}
       </div>
-      <DownloadMasterBar btnName="Download Reports"/>
+      <DownloadMasterBar btnName="Download Reports" />
     </>
-  )
-}
+  );
+};
 
-export default index
+export default index;

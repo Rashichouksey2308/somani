@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
-import { useDispatch, useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
-import { ChangeCurrency } from '../../redux/userData/action'
-import { GetPanGst } from 'redux/GetPanGst/action'
-import { GetGst } from 'redux/registerBuyer/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import { emailValidation, panValidation, phoneValidation } from 'utils/helper';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { ChangeCurrency } from '../../redux/userData/action';
+import { GetPanGst } from 'redux/GetPanGst/action';
+import { GetGst } from 'redux/registerBuyer/action';
 
 const Index = ({
   saveCompanyData,
@@ -22,44 +22,44 @@ const Index = ({
   companyDetails,
   setCompanyDetails,
 }) => {
-  const { gstList } = useSelector((state) => state.buyer)
-  const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
-  console.log(gettingCompanyPanResponse, 'GETTING COMPANY PAN')
+  const { gstList } = useSelector((state) => state.buyer);
+  const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan);
+  console.log(gettingCompanyPanResponse, 'GETTING COMPANY PAN');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [slider, setSlider] = useState(0)
-  const [typeOfSlider, setSliderType] = useState(1)
-  const [isSliderOnFocus, setIsSliderOnFocus] = useState(false)
-  const [sliderWithCr, setSliderWithCr] = useState('')
+  const [slider, setSlider] = useState(0);
+  const [typeOfSlider, setSliderType] = useState(1);
+  const [isSliderOnFocus, setIsSliderOnFocus] = useState(false);
+  const [sliderWithCr, setSliderWithCr] = useState('');
 
-  const [highlight, setHighlight] = useState(0)
-  const [highlight3, setHighlight3] = useState(0)
+  const [highlight, setHighlight] = useState(0);
+  const [highlight3, setHighlight3] = useState(0);
 
   const setSlide = (val) => {
-    setSlider(val)
-    getSlider(val)
-  }
+    setSlider(val);
+    getSlider(val);
+  };
 
   useEffect(() => {
-    getSlider()
-  }, [slider])
+    getSlider();
+  }, [slider]);
 
   useEffect(() => {
     if (isSliderOnFocus === false) {
-      setSliderWithCr(slider.toString() + ' Cr')
+      setSliderWithCr(slider.toString() + ' Cr');
     }
-  }, [slider, isSliderOnFocus])
+  }, [slider, isSliderOnFocus]);
 
   const getvalue = () => {
     if (!isSliderOnFocus) {
-      if (sliderWithCr == '0 Cr') return ''
-      else return sliderWithCr
+      if (sliderWithCr == '0 Cr') return '';
+      else return sliderWithCr;
     } else {
-      if (slider == 0) return ''
-      else return slider
+      if (slider == 0) return '';
+      else return slider;
     }
-  }
+  };
 
   const getSlider = (val) => {
     if (typeOfSlider == 1) {
@@ -73,16 +73,16 @@ const Index = ({
             list="tickmarks"
             value={slider}
             onChange={(e) => {
-              console.log(Number(e.target.value), 'sadaasd')
-              saveCompanyData(e.target.name, Number(e.target.value))
+              console.log(Number(e.target.value), 'sadaasd');
+              saveCompanyData(e.target.name, Number(e.target.value));
               if (Number(e.target.value == 100)) {
-                setSliderType(1)
-                setSlider(100)
+                setSliderType(1);
+                setSlider(100);
               } else {
-                setSlider(Number(e.target.value))
+                setSlider(Number(e.target.value));
               }
 
-              getSlider()
+              getSlider();
             }}
             className={`${styles.slider} px-0 input form-control`}
             id="myRange"
@@ -105,51 +105,51 @@ const Index = ({
             or more
           </div>
         </div>
-      )
+      );
     }
-  }
+  };
 
   useEffect(() => {
-    setCompPanName(gstList?.data?.companyData?.companyName)
-  }, [gstList])
+    setCompPanName(gstList?.data?.companyData?.companyName);
+  }, [gstList]);
 
-  const [serachterm, setSearchTerm] = useState('')
+  const [serachterm, setSearchTerm] = useState('');
 
-  const [compPan, setCompPan] = useState()
-  const [compPanName, setCompPanName] = useState()
-  const [boolean1, setBoolean1] = useState(false)
+  const [compPan, setCompPan] = useState();
+  const [compPanName, setCompPanName] = useState();
+  const [boolean1, setBoolean1] = useState(false);
 
   useEffect(() => {
     if (compPan !== '') {
-      const newInput = { ...companyDetails }
-      newInput.companyPan = compPan
-      console.log(newInput, 'new input')
-      setCompanyDetails(newInput)
+      const newInput = { ...companyDetails };
+      newInput.companyPan = compPan;
+      console.log(newInput, 'new input');
+      setCompanyDetails(newInput);
       // dispatch(GetGst(compPan))
     }
-  }, [compPan])
+  }, [compPan]);
 
   const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
+    const query = `${e.target.value}`;
+    setSearchTerm(query);
     if (query.length >= 3) {
-      dispatch(GetPanGst({ query: query }))
+      dispatch(GetPanGst({ query: query }));
     }
-  }
+  };
 
   const handleFilteredData = (results) => {
     if (results?.pans?.length > 0) {
-      setCompPan(results?.pans[0])
-      setCompPanName(results?.name)
-      setBoolean1(false)
-      dispatch(GetGst(results?.pans[0]))
+      setCompPan(results?.pans[0]);
+      setCompPanName(results?.name);
+      setBoolean1(false);
+      dispatch(GetGst(results?.pans[0]));
     } else {
-      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY'
+      let toastMessage = 'COULD NOT FETCH PAN FOR THIS COMPANY';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
     }
-  }
+  };
 
   return (
     <>
@@ -189,8 +189,8 @@ const Index = ({
                   className={`${styles.options} card_main accordion_DropDown input`}
                   name="unitOfValue"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                    dispatch(ChangeCurrency(e.target.value.toUpperCase()))
+                    saveOrderData(e.target.name, e.target.value);
+                    dispatch(ChangeCurrency(e.target.value.toUpperCase()));
                   }}
                 >
                   <option>Select an option</option>
@@ -247,16 +247,16 @@ const Index = ({
                 name="companyPan"
                 onChange={(e) => {
                   if (panValidation(e.target.value)) {
-                    saveCompanyData(e.target.name, e.target.value)
-                    setCompPan(e.target.value)
+                    saveCompanyData(e.target.name, e.target.value);
+                    setCompPan(e.target.value);
                   } else {
                     //red mark
-                    setCompPan(e.target.value)
-                    let toastMessage = 'Invalid Pan'
+                    setCompPan(e.target.value);
+                    let toastMessage = 'Invalid Pan';
                     if (!toast.isActive(toastMessage.toUpperCase())) {
                       toast.error(toastMessage.toUpperCase(), {
                         toastId: toastMessage,
-                      })
+                      });
                     }
                   }
                 }}
@@ -275,10 +275,10 @@ const Index = ({
               <input
                 type="text"
                 onChange={(e) => {
-                  setBoolean1(true)
-                  saveCompanyData(e.target.name, e.target.value)
-                  handleSearch(e)
-                  setCompPanName(e.target.value)
+                  setBoolean1(true);
+                  saveCompanyData(e.target.name, e.target.value);
+                  handleSearch(e);
+                  setCompPanName(e.target.value);
                 }}
                 value={compPanName}
                 id="companyInput"
@@ -291,17 +291,17 @@ const Index = ({
                   <ul>
                     {gettingCompanyPanResponse
                       ? gettingCompanyPanResponse?.companyRes?.map(
-                        (results, index) => (
-                          <li
-                            onClick={() => handleFilteredData(results)}
-                            id={results._id}
-                            key={index}
-                            value={results}
-                          >
-                            {results.name}{' '}
-                          </li>
-                        ),
-                      )
+                          (results, index) => (
+                            <li
+                              onClick={() => handleFilteredData(results)}
+                              id={results._id}
+                              key={index}
+                              value={results}
+                            >
+                              {results.name}{' '}
+                            </li>
+                          ),
+                        )
                       : ''}
                   </ul>
                 </div>
@@ -321,7 +321,7 @@ const Index = ({
                 <select
                   id="drop"
                   onChange={(e) => {
-                    saveCompanyData(e.target.name, e.target.value)
+                    saveCompanyData(e.target.name, e.target.value);
                   }}
                   name="GST"
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -357,7 +357,7 @@ const Index = ({
                 <select
                   id="Code"
                   onChange={(e) => {
-                    saveCompanyData(e.target.name, e.target.value)
+                    saveCompanyData(e.target.name, e.target.value);
                   }}
                   name="typeOfBusiness"
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
@@ -405,16 +405,16 @@ const Index = ({
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
                       // saveCompanyData(e.target.name, e.target.value)
-                      mobileFunction(e)
+                      mobileFunction(e);
 
                       //green tick
                     } else {
                       //red mark
-                      let toastMessage = 'Phone no. invalid'
+                      let toastMessage = 'Phone no. invalid';
                       if (!toast.isActive(toastMessage.toUpperCase())) {
                         toast.error(toastMessage.toUpperCase(), {
                           toastId: toastMessage,
-                        })
+                        });
                       }
                     }
                   }}
@@ -436,15 +436,15 @@ const Index = ({
                 id="textInput"
                 onChange={(e) => {
                   if (emailValidation(e.target.value)) {
-                    saveCompanyData(e.target.name, e.target.value)
+                    saveCompanyData(e.target.name, e.target.value);
                     //green tick
                   } else {
                     //red mark
-                    let toastMessage = 'Email Invalid'
+                    let toastMessage = 'Email Invalid';
                     if (!toast.isActive(toastMessage.toUpperCase())) {
                       toast.error(toastMessage.toUpperCase(), {
                         toastId: toastMessage,
-                      })
+                      });
                     }
                   }
                 }}
@@ -480,23 +480,23 @@ const Index = ({
                   onFocus={(e) => {
                     e.target.type === 'number',
                       setIsSliderOnFocus(true),
-                      setSliderWithCr('')
+                      setSliderWithCr('');
                   }}
                   onBlur={(e) => {
-                    e.target.type === 'text', setIsSliderOnFocus(false)
+                    e.target.type === 'text', setIsSliderOnFocus(false);
                   }}
                   // max={100}
                   name="turnOver"
                   onChange={(e) => {
-                    console.log(e.target.value, 'e.target.value')
-                    setSlider(Number(e.target.value))
-                    saveCompanyData(e.target.name, Number(e.target.value))
-                    getSlider()
+                    console.log(e.target.value, 'e.target.value');
+                    setSlider(Number(e.target.value));
+                    saveCompanyData(e.target.name, Number(e.target.value));
+                    getSlider();
                     if (e.target.value > 100) {
                       // e.target.value = 100
-                      setSlider(Number(e.target.value))
-                      saveCompanyData(e.target.name, Number(e.target.value))
-                      getSlider()
+                      setSlider(Number(e.target.value));
+                      saveCompanyData(e.target.name, Number(e.target.value));
+                      getSlider();
                     }
                   }}
                 />
@@ -545,9 +545,9 @@ const Index = ({
                         inline
                         label="Whatsapp"
                         onChange={(e) => {
-                          console.log(e, 'this is e')
+                          console.log(e, 'this is e');
                           // saveCompanyData('communicationMode', 'Whatsapp')
-                          handleCommunication(e)
+                          handleCommunication(e);
                         }}
                         name="Whatsapp"
                         // type={type}
@@ -581,12 +581,12 @@ const Index = ({
                   onChange={(e) => {
                     if (phoneValidation(e.target.value)) {
                       // saveCompanyData(e.target.name, e.target.value)
-                      whatsappFunction(e)
+                      whatsappFunction(e);
                       //green tick
-                      console.log('is it validating?')
+                      console.log('is it validating?');
                     } else {
                       //red mark
-                      console.log('phone formaat invalid')
+                      console.log('phone formaat invalid');
                     }
                   }}
                   id="textNumber"
@@ -605,7 +605,7 @@ const Index = ({
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

@@ -1,31 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Col, Form, Row } from 'react-bootstrap'
-import UploadDocument from '../UploadDocument'
-import DateCalender from '../DateCalender'
-import { useDispatch, useSelector } from 'react-redux'
-import _get from 'lodash/get'
-import SubmitBar from './SubmitBar'
-import { GettingAllInsurance, RenewInsurance } from 'redux/insurance/action'
-import UploadOther from '../UploadOther'
-import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
-import { toast } from 'react-toastify'
-import Router from 'next/router'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Col, Form, Row } from 'react-bootstrap';
+import UploadDocument from '../UploadDocument';
+import DateCalender from '../DateCalender';
+import { useDispatch, useSelector } from 'react-redux';
+import _get from 'lodash/get';
+import SubmitBar from './SubmitBar';
+import { GettingAllInsurance, RenewInsurance } from 'redux/insurance/action';
+import UploadOther from '../UploadOther';
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper';
+import { toast } from 'react-toastify';
+import Router from 'next/router';
 
 const Index = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let id = sessionStorage.getItem('quotationId')
-    dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+    let id = sessionStorage.getItem('quotationId');
+    dispatch(GettingAllInsurance(`?insuranceId=${id}`));
+  }, [dispatch]);
 
-  const { insuranceResponse } = useSelector((state) => state.insurance)
+  const { insuranceResponse } = useSelector((state) => state.insurance);
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  let insuranceData = _get(insuranceResponse, 'data[0]', {});
 
-  const [insuranceType, setInsuranceType] = useState(null)
+  const [insuranceType, setInsuranceType] = useState(null);
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -35,20 +35,20 @@ const Index = () => {
     renewalDate: '',
     lossPayee: '',
     premiumAmount: null,
-  })
+  });
 
   const saveMarineData = (name, value) => {
-    let newInput = { ...marineData }
-    newInput[name] = value
-    setMarineData(newInput)
-  }
+    let newInput = { ...marineData };
+    newInput[name] = value;
+    setMarineData(newInput);
+  };
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    saveMarineData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    saveMarineData(name, text);
+  };
 
   const [storageData, setStorageData] = useState({
     policyNumber: '',
@@ -59,97 +59,97 @@ const Index = () => {
     periodOfInsurance: null,
     lossPayee: '',
     premiumAmount: null,
-  })
+  });
 
   const saveStorageDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const d = new Date(value)
-    let text = d.toISOString()
-    setStorageData(name, text)
-  }
+    const d = new Date(value);
+    let text = d.toISOString();
+    setStorageData(name, text);
+  };
 
   const saveStorageData = (name, value) => {
-    let newInput = { ...storageData }
-    newInput[name] = value
-    setStorageData(newInput)
-  }
+    let newInput = { ...storageData };
+    newInput[name] = value;
+    setStorageData(newInput);
+  };
 
   const [insuranceDocument, setInsuranceDocument] = useState({
     storagePolicyDocument: null,
     marinePolicyDocument: null,
-  })
+  });
 
   const uploadDocument2 = (e) => {
-    const newUploadDoc = { ...insuranceDocument }
-    newUploadDoc.storagePolicyDocument = e.target.files[0]
+    const newUploadDoc = { ...insuranceDocument };
+    newUploadDoc.storagePolicyDocument = e.target.files[0];
     // console.log(newUploadDoc, 'new upload doc')
-    setInsuranceDocument(newUploadDoc)
-  }
+    setInsuranceDocument(newUploadDoc);
+  };
   const uploadDocument1 = (e) => {
-    const newUploadDoc1 = { ...insuranceDocument }
-    newUploadDoc1.marinePolicyDocument = e.target.files[0]
+    const newUploadDoc1 = { ...insuranceDocument };
+    newUploadDoc1.marinePolicyDocument = e.target.files[0];
 
-    setInsuranceDocument(newUploadDoc1)
-  }
+    setInsuranceDocument(newUploadDoc1);
+  };
 
   const validation = () => {
-    let toastMessage = ''
+    let toastMessage = '';
     if (insuranceType == null) {
-      toastMessage = 'PLEASE SELECT INSURANCE TYPE'
+      toastMessage = 'PLEASE SELECT INSURANCE TYPE';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (insuranceType && insuranceDocument.storagePolicyDocument == null) {
-      toastMessage = 'PLEASE UPLOAD STORAGE POLICY DOCUMENT'
+      toastMessage = 'PLEASE UPLOAD STORAGE POLICY DOCUMENT';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     }
     if (
       insuranceType == false &&
       insuranceDocument.marinePolicyDocument == null
     ) {
-      toastMessage = 'PLEASE UPLOAD MARINE POLICY DOCUMENT'
+      toastMessage = 'PLEASE UPLOAD MARINE POLICY DOCUMENT';
       if (!toast.isActive(toastMessage)) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage, { toastId: toastMessage });
       }
-      return false
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleInsuranceUpdate = () => {
-    if (!validation()) return
+    if (!validation()) return;
 
-    let fd = new FormData()
+    let fd = new FormData();
 
     if (insuranceType) {
-      let storageObj = { ...storageData }
+      let storageObj = { ...storageData };
       storageObj.premiumAmount = removePrefixOrSuffix(
         storageData.premiumAmount,
-      )
-      fd.append('storageInsurance', JSON.stringify(storageObj))
-      fd.append('insuranceType', JSON.stringify('Storage Insurance'))
+      );
+      fd.append('storageInsurance', JSON.stringify(storageObj));
+      fd.append('insuranceType', JSON.stringify('Storage Insurance'));
       fd.append(
         'storagePolicyDocument',
         insuranceDocument.storagePolicyDocument,
-      )
-      fd.append('insuranceId', insuranceData?._id)
-      dispatch(RenewInsurance(fd))
+      );
+      fd.append('insuranceId', insuranceData?._id);
+      dispatch(RenewInsurance(fd));
     } else if (insuranceType === false) {
-      let marineObj = { ...marineData }
-      marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
-      fd.append('marineInsurance', JSON.stringify(marineObj))
-      fd.append('insuranceId', insuranceData?._id)
-      fd.append('insuranceType', JSON.stringify('Marine Insurance'))
-      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+      let marineObj = { ...marineData };
+      marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount);
+      fd.append('marineInsurance', JSON.stringify(marineObj));
+      fd.append('insuranceId', insuranceData?._id);
+      fd.append('insuranceType', JSON.stringify('Marine Insurance'));
+      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument);
 
-      dispatch(RenewInsurance(fd))
+      dispatch(RenewInsurance(fd));
     }
-  }
+  };
 
   return (
     <div
@@ -214,8 +214,8 @@ const Index = () => {
                 aria-controls="storageInsurance"
                 style={{ cursor: 'pointer' }}
               >
-              +
-            </span>
+                +
+              </span>
             </div>
             {insuranceType == false ? (
               <>
@@ -224,7 +224,9 @@ const Index = () => {
                   //className="collapse"
                   aria-labelledby="storageInsurance"
                 >
-                  <div className={` ${styles.cardBody} card-body  border_color`}>
+                  <div
+                    className={` ${styles.cardBody} card-body  border_color`}
+                  >
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
                         <Row>
@@ -400,7 +402,9 @@ const Index = () => {
                   className="collapse"
                   aria-labelledby="storageInsurance"
                 >
-                  <div className={` ${styles.cardBody} card-body  border_color`}>
+                  <div
+                    className={` ${styles.cardBody} card-body  border_color`}
+                  >
                     <div className={` ${styles.content}`}>
                       <div className={` ${styles.body}`}>
                         <Row>
@@ -605,8 +609,8 @@ const Index = () => {
           module="Agreements&Insurance&LC&Opening"
         />
       </div>
-      <SubmitBar handleSubmit={handleInsuranceUpdate}/>
+      <SubmitBar handleSubmit={handleInsuranceUpdate} />
     </div>
-  )
-}
-export default Index
+  );
+};
+export default Index;

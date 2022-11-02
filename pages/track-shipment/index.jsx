@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import DownloadBar from '../../src/components/DownloadBar'
-import Filter from '../../src/components/Filter'
-import { setPageName, } from '../../src/redux/userData/action'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import DownloadBar from '../../src/components/DownloadBar';
+import Filter from '../../src/components/Filter';
+import { setPageName } from '../../src/redux/userData/action';
 
-import { GetAllVessel } from '../../src/redux/vessel/action'
+import { GetAllVessel } from '../../src/redux/vessel/action';
 
-function Index () {
-  const dispatch = useDispatch()
+function Index() {
+  const dispatch = useDispatch();
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
-      sessionStorage.setItem('loadedSubPage', `Track Shipments`)
-      sessionStorage.setItem('openList', 3)
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge');
+      sessionStorage.setItem('loadedSubPage', `Track Shipments`);
+      sessionStorage.setItem('openList', 3);
     }
-  }, [])
-  const [currentPage, setCurrentPage] = useState(0)
-  const [table, setTable] = useState([])
+  }, []);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [table, setTable] = useState([]);
   useEffect(() => {
-    dispatch(setPageName('track'))
-  }, [])
+    dispatch(setPageName('track'));
+  }, []);
   useEffect(() => {
-    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
-  }, [currentPage])
-  const { allVessel, Vessel } = useSelector((state) => state.vessel)
+    dispatch(GetAllVessel(`?page=${currentPage}&limit=7`));
+  }, [currentPage]);
+  const { allVessel, Vessel } = useSelector((state) => state.vessel);
 
   useEffect(() => {
     if (allVessel?.data?.length > 0) {
-      let temp = []
+      let temp = [];
       allVessel.data.forEach((vessel, index) => {
         if (vessel?.vessels[0]?.shipmentType == 'Bulk') {
           temp.push({
@@ -37,30 +37,28 @@ function Index () {
             imoNumber: vessel.vessels[0].IMONumber,
             vesselName: vessel.vessels[0].vesselInformation[0].name,
             containerNumber:
-            vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
-          })
+              vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+          });
         }
         if (vessel?.vessels[0]?.shipmentType == 'Liner') {
           vessel.vessels[0].vesselInformation.forEach((v, index) => {
-
             temp.push({
               orderID: vessel.order.orderId,
               name: vessel.company.companyName,
               imoNumber: v?.IMONumber || '',
               vesselName: v?.name || '',
               containerNumber:
-              vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
-            })
-          })
+                vessel?.vessels[0]?.shippingInformation?.numberOfContainers,
+            });
+          });
         }
-      })
-      setTable([...temp])
-
+      });
+      setTable([...temp]);
     }
-  }, [allVessel])
+  }, [allVessel]);
   const getSn = (index) => {
-    return index + 1
-  }
+    return index + 1;
+  };
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -92,7 +90,7 @@ function Index () {
               />
             </div>
           </div>
-          <Filter/>
+          <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
             Bhutani Traders
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -116,9 +114,9 @@ function Index () {
               <a
                 onClick={() => {
                   if (currentPage === 0) {
-                    return
+                    return;
                   } else {
-                    setCurrentPage((prevState) => prevState - 1)
+                    setCurrentPage((prevState) => prevState - 1);
                   }
                 }}
                 href="#"
@@ -134,7 +132,7 @@ function Index () {
               <a
                 onClick={() => {
                   if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
-                    setCurrentPage((prevState) => prevState + 1)
+                    setCurrentPage((prevState) => prevState + 1);
                   }
                 }}
                 href="#"
@@ -157,46 +155,46 @@ function Index () {
                 border="0"
               >
                 <thead>
-                <tr className="table_row">
-                  <th>SR. NO.</th>
-                  <th>ORDER ID</th>
-                  <th>BUYER NAME</th>
-                  <th>IMO NUMBER</th>
-                  <th>VESSEL NAME</th>
-                  <th>CONTAINER NUMBER</th>
-                  <th>ACTION</th>
-                </tr>
+                  <tr className="table_row">
+                    <th>SR. NO.</th>
+                    <th>ORDER ID</th>
+                    <th>BUYER NAME</th>
+                    <th>IMO NUMBER</th>
+                    <th>VESSEL NAME</th>
+                    <th>CONTAINER NUMBER</th>
+                    <th>ACTION</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {table.length > 0 &&
-                  table.map((val, index) => {
-                    return (
-                      <tr className="table_row">
-                        <td>
-                          <strong>{getSn(index)}</strong>
-                        </td>
-                        <td>{val?.orderID}</td>
-                        <td>{val.name}</td>
-                        <td>{val.imoNumber}</td>
-                        <td>{val.vesselName}</td>
-                        <td>{val.containerNumber}</td>
-                        <td>
-                          <button className={`${styles.trackBtn}`}>
-                            Track
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                  })}
+                  {table.length > 0 &&
+                    table.map((val, index) => {
+                      return (
+                        <tr className="table_row">
+                          <td>
+                            <strong>{getSn(index)}</strong>
+                          </td>
+                          <td>{val?.orderID}</td>
+                          <td>{val.name}</td>
+                          <td>{val.imoNumber}</td>
+                          <td>{val.vesselName}</td>
+                          <td>{val.containerNumber}</td>
+                          <td>
+                            <button className={`${styles.trackBtn}`}>
+                              Track
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <DownloadBar downLoadButtonName="Download List"/>
+      <DownloadBar downLoadButtonName="Download List" />
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

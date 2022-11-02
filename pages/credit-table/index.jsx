@@ -1,20 +1,20 @@
-import React from 'react'
-import styles from './index.module.scss'
+import React from 'react';
+import styles from './index.module.scss';
 
-function Index () {
+function Index() {
   return (
-    <div className='container-fluid p-0 border-0'>
+    <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.datatable} datatable card `}>
           <div
             className={`${styles.tableFilter} d-flex justify-content-between`}
           >
-            <h5 className='heading_card'>Order Summary - Last 6 Orders</h5>
+            <h5 className="heading_card">Order Summary - Last 6 Orders</h5>
             <div className={`${styles.pageList} d-flex align-items-center`}>
               <img
-                src='/static/accordion_close_black.svg'
-                alt='close'
-                className='img-fluid'
+                src="/static/accordion_close_black.svg"
+                alt="close"
+                className="img-fluid"
               />
             </div>
           </div>
@@ -22,12 +22,12 @@ function Index () {
             <div className={styles.table_scroll_inner}>
               <table
                 className={`${styles.table} table`}
-                cellPadding='0'
-                cellSpacing='0'
-                border='0'
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
               >
                 <thead>
-                  <tr className='table_row'>
+                  <tr className="table_row">
                     <th>SUPPLIER NAME</th>
                     <th>ORDER ID</th>
                     <th>ORDER DATE</th>
@@ -38,7 +38,7 @@ function Index () {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className='table_row'>
+                  <tr className="table_row">
                     <td
                       className={`d-flex justify-content-start align-items-center`}
                     >
@@ -59,14 +59,12 @@ function Index () {
                     <td>1,900.00</td>
                     <td>Iron</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${styles.rejected}`}
-                      />
-                    In Process
+                      <span className={`${styles.status} ${styles.rejected}`} />
+                      In Process
                     </td>
                     <td> 12</td>
                   </tr>
-                  <tr className='table_row'>
+                  <tr className="table_row">
                     <td
                       className={`d-flex justify-content-start align-items-center`}
                     >
@@ -87,10 +85,8 @@ function Index () {
                     <td>1,900.00</td>
                     <td>Iron</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${styles.rejected}`}
-                      />
-                    In Process
+                      <span className={`${styles.status} ${styles.rejected}`} />
+                      In Process
                     </td>
                     <td> 12</td>
                   </tr>
@@ -101,7 +97,7 @@ function Index () {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;

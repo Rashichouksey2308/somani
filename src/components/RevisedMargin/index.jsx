@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import DownloadBar from '../DownloadBar'
-import { addPrefixOrSuffix, convertValue } from 'utils/helper'
-import Router from 'next/router'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import DownloadBar from '../DownloadBar';
+import { addPrefixOrSuffix, convertValue } from 'utils/helper';
+import Router from 'next/router';
+import { useDispatch } from 'react-redux';
 
 const Index = ({
   finalCal,
@@ -24,13 +24,12 @@ const Index = ({
   getBanksMasterData,
   savedataRevised,
 }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     perUnitPrice: false,
     conversionRate: false,
-  })
+  });
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -38,7 +37,7 @@ const Index = ({
     state: 'DELHI',
     address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
     GSTIN: '07AAACS8253L1Z0',
-  }
+  };
 
   let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
@@ -47,103 +46,101 @@ const Index = ({
     address:
       'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
     GSTIN: '24AAACI3028D1Z8',
-  }
+  };
 
   const [changeImporterData, setChangeImporterData] = useState({
     branch: '',
     state: '',
     address: '',
-  })
-  const [conversionRateUnit, setConversionRateUnit] = useState()
+  });
+  const [conversionRateUnit, setConversionRateUnit] = useState();
   // console.log(conversionRateUnit, 'conversionRateUnit')
-  const [branchOptions, setBranchOptions] = useState([])
+  const [branchOptions, setBranchOptions] = useState([]);
   useEffect(() => {
     if (invoiceDataRevised) {
       let filter = getInternalCompaniesMasterData.filter((val, index) => {
-
-        if (val.Company_Name?.toLowerCase() == invoiceDataRevised.importerName?.toLowerCase()
-
+        if (
+          val.Company_Name?.toLowerCase() ==
+          invoiceDataRevised.importerName?.toLowerCase()
         ) {
-          return val
+          return val;
         }
-      })
+      });
 
-      setBranchOptions(filter)
+      setBranchOptions(filter);
     }
-  }, [invoiceDataRevised, getInternalCompaniesMasterData])
+  }, [invoiceDataRevised, getInternalCompaniesMasterData]);
   const dropDownChange = (name, value) => {
     if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
       // setChangeImporterData({ ...emergent });
-      const newInput = { ...invoiceDataRevised }
-      newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+      const newInput = { ...invoiceDataRevised };
+      newInput['importerName'] = 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED';
       // newInput['branchOffice'] = emergent.branch;
       // newInput['importerGSTIN'] = emergent.GSTIN;
       // newInput['companyAddress'] = emergent.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceDataRevised({ ...newInput })
+      setInvoiceDataRevised({ ...newInput });
     } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
       // setChangeImporterData({ ...indoGerman });
-      const newInput = { ...invoiceDataRevised }
-      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+      const newInput = { ...invoiceDataRevised };
+      newInput['importerName'] = 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED';
       // newInput['branchOffice'] = indoGerman.branch;
       // newInput['importerGSTIN'] = indoGerman.GSTIN;
       // newInput['companyAddress'] = indoGerman.address;
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
-      setInvoiceDataRevised({ ...newInput })
-
+      setInvoiceDataRevised({ ...newInput });
     }
     let filter = getInternalCompaniesMasterData.filter((val, index) => {
-
       if (val.Company_Name == value) {
-        return val
+        return val;
       }
-    })
-    setBranchOptions(filter)
-  }
+    });
+    setBranchOptions(filter);
+  };
 
   const routeChange = () => {
-    Router.push('/revised-margin-preview')
-  }
+    Router.push('/revised-margin-preview');
+  };
   const changeImporter = (e) => {
     if (e.target.name == 'branchOffice') {
-      changeImporterData.branch = e.target.value
-      const newInput = { ...invoiceDataRevised }
-      newInput['branchOffice'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      changeImporterData.branch = e.target.value;
+      const newInput = { ...invoiceDataRevised };
+      newInput['branchOffice'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
     if (e.target.name == 'companyAddress') {
-      const newInput = { ...invoiceDataRevised }
-      changeImporterData.address = e.target.value
-      newInput['companyAddress'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      const newInput = { ...invoiceDataRevised };
+      changeImporterData.address = e.target.value;
+      newInput['companyAddress'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
     if (e.target.name == 'importerGSTIN') {
-      const newInput = { ...invoiceDataRevised }
-      changeImporterData.GSTIN = e.target.value
-      newInput['importerGSTIN'] = e.target.value
-      setChangeImporterData({ ...changeImporterData })
-      setInvoiceDataRevised({ ...newInput })
+      const newInput = { ...invoiceDataRevised };
+      changeImporterData.GSTIN = e.target.value;
+      newInput['importerGSTIN'] = e.target.value;
+      setChangeImporterData({ ...changeImporterData });
+      setInvoiceDataRevised({ ...newInput });
     }
-  }
+  };
   const coversionUnitHandler = (val) => {
-    let unit = 10000000
+    let unit = 10000000;
     if (val === 'Lakh') {
-      unit = 100000
+      unit = 100000;
     }
     if (val === 'Million') {
-      unit = 1000000
+      unit = 1000000;
     }
     if (val === 'Crores') {
-      unit = 10000000
+      unit = 10000000;
     }
-    setConversionRateUnit(unit)
-  }
+    setConversionRateUnit(unit);
+  };
   return (
     <>
       <div className={`${styles.card} vessel_card accordionMargin card`}>
@@ -208,19 +205,19 @@ const Index = ({
                   <input
                     onFocus={(e) => {
                       setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                        (e.target.type = 'number')
+                        (e.target.type = 'number');
                     }}
                     onBlur={(e) => {
                       setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                        (e.target.type = 'text')
+                        (e.target.type = 'text');
                     }}
                     value={
                       isFieldInFocus.quantity
                         ? forCalculationRevised?.quantity
                         : Number(
-                          forCalculationRevised?.quantity,
-                        ).toLocaleString('en-In') +
-                        ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
+                            forCalculationRevised?.quantity,
+                          ).toLocaleString('en-In') +
+                          ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`
                     }
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -271,22 +268,22 @@ const Index = ({
                         ...isFieldInFocus,
                         perUnitPrice: true,
                       }),
-                        (e.target.type = 'number')
+                        (e.target.type = 'number');
                     }}
                     onBlur={(e) => {
                       setIsFieldInFocus({
                         ...isFieldInFocus,
                         perUnitPrice: false,
                       }),
-                        (e.target.type = 'text')
+                        (e.target.type = 'text');
                     }}
                     value={
                       isFieldInFocus.perUnitPrice
                         ? forCalculationRevised?.perUnitPrice
                         : ` ${marginData?.order?.orderCurrency?.toUpperCase()} ` +
-                        Number(
-                          forCalculationRevised?.perUnitPrice,
-                        ).toLocaleString('en-In')
+                          Number(
+                            forCalculationRevised?.perUnitPrice,
+                          ).toLocaleString('en-In')
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -330,21 +327,21 @@ const Index = ({
                         ...isFieldInFocus,
                         conversionRate: true,
                       }),
-                        (e.target.type = 'number')
+                        (e.target.type = 'number');
                     }}
                     onBlur={(e) => {
                       setIsFieldInFocus({
                         ...isFieldInFocus,
                         conversionRate: false,
                       }),
-                        (e.target.type = 'text')
+                        (e.target.type = 'text');
                     }}
                     value={
                       isFieldInFocus.conversionRate
                         ? forCalculationRevised?.conversionRate
                         : Number(
-                          forCalculationRevised?.conversionRate,
-                        ).toLocaleString('en-In')
+                            forCalculationRevised?.conversionRate,
+                          ).toLocaleString('en-In')
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -604,8 +601,8 @@ const Index = ({
                       {marginData?.order?.orderCurrency + ' '}
                       {finalCalRevised?.orderValue
                         ? Number(finalCalRevised?.orderValue)?.toLocaleString(
-                          'en-In',
-                        )
+                            'en-In',
+                          )
                         : 0}
                     </div>
                   </div>
@@ -946,12 +943,12 @@ const Index = ({
                       calcRevised?.additionalAmountPerPDC == 0
                         ? 0
                         : convertValue(
-                          (calcRevised.additionalAmountPerPDC),
-                          conversionRateUnit,
-                        ).toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                            calcRevised.additionalAmountPerPDC,
+                            conversionRateUnit,
+                          ).toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </div>
                   </div>
                 </div>
@@ -987,12 +984,12 @@ const Index = ({
                       calcRevised?.revisedNetOrderValue == 0
                         ? 0
                         : convertValue(
-                          (calcRevised.revisedNetOrderValue),
-                          conversionRateUnit,
-                        ).toLocaleString('en-In', {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2,
-                        })}
+                            calcRevised.revisedNetOrderValue,
+                            conversionRateUnit,
+                          ).toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                     </div>
                   </div>
                 </div>
@@ -1169,9 +1166,7 @@ const Index = ({
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                      <option selected>
-                        Select an option
-                      </option>
+                      <option selected>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
                     <label
@@ -1235,8 +1230,8 @@ const Index = ({
                             saveInvoiceDataRevisedRevised(
                               'isConsigneeSameAsBuyer',
                               true,
-                            )
-                            setSameRevised(true)
+                            );
+                            setSameRevised(true);
                           }}
                           name="group1"
                           type={type}
@@ -1253,8 +1248,8 @@ const Index = ({
                             saveInvoiceDataRevisedRevised(
                               'isConsigneeSameAsBuyer',
                               false,
-                            )
-                            setSameRevised(false)
+                            );
+                            setSameRevised(false);
                           }}
                           name="group1"
                           type={type}
@@ -1320,9 +1315,7 @@ const Index = ({
                     ></img>
                   </div>
                 </div> */}
-                <div
-                  className={`${styles.each_input} col-md-4 col-sm-6`}
-                >
+                <div className={`${styles.each_input} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <input
                       type="text"
@@ -1419,77 +1412,65 @@ const Index = ({
                         changeImporterData?.branch
                           ? changeImporterData?.branch
                           : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.branchOffice
+                              ?.branchOffice
                       }
                       onChange={(e) => {
                         //  changeImporter(e)
-                        let filter = getInternalCompaniesMasterData.filter((val, index) => {
-
-                          if (val.Branch == e.target.value && val.Company_Name?.toLowerCase() == invoiceDataRevised?.importerName?.toLowerCase()) {
-                            return val
-                          }
-                        })
+                        let filter = getInternalCompaniesMasterData.filter(
+                          (val, index) => {
+                            if (
+                              val.Branch == e.target.value &&
+                              val.Company_Name?.toLowerCase() ==
+                                invoiceDataRevised?.importerName?.toLowerCase()
+                            ) {
+                              return val;
+                            }
+                          },
+                        );
 
                         if (filter.length > 0) {
-
                           if (filter.length > 0) {
+                            const newInput = { ...invoiceDataRevised };
+                            changeImporterData.address = filter[0].Address;
+                            newInput['companyAddress'] = filter[0].Address;
 
-                            const newInput = { ...invoiceDataRevised }
-                            changeImporterData.address =
-                              filter[0].Address
-                            newInput['companyAddress'] =
-                              filter[0].Address
-
-                            changeImporterData.GSTIN =
-                              filter[0].GSTIN
-                            newInput['importerGSTIN'] =
-                              filter[0].GSTIN
+                            changeImporterData.GSTIN = filter[0].GSTIN;
+                            newInput['importerGSTIN'] = filter[0].GSTIN;
 
                             newInput['branchAddress'] =
-                              filter[0]?.Branch_Address || ''
+                              filter[0]?.Branch_Address || '';
                             changeImporterData.branchAddress =
-                              filter[0]?.Branch_Address || ''
+                              filter[0]?.Branch_Address || '';
 
-                            newInput['IFSCcode'] =
-                              filter[0]?.IFSC || ''
-                            changeImporterData.IFSCcode =
-                              filter[0]?.IFSC || ''
+                            newInput['IFSCcode'] = filter[0]?.IFSC || '';
+                            changeImporterData.IFSCcode = filter[0]?.IFSC || '';
 
-                            newInput['accountNo'] =
-                              filter[0]?.Account_No || ''
+                            newInput['accountNo'] = filter[0]?.Account_No || '';
                             changeImporterData.accountNo =
-                              filter[0]?.Account_No || ''
+                              filter[0]?.Account_No || '';
 
-                            newInput['branch'] =
-                              filter[0]?.Branch_Type || ''
+                            newInput['branch'] = filter[0]?.Branch_Type || '';
                             changeImporterData.branch =
-                              filter[0]?.Branch_Type || ''
+                              filter[0]?.Branch_Type || '';
 
-                            newInput['bankName'] =
-                              filter[0]?.Bank_Name || ''
+                            newInput['bankName'] = filter[0]?.Bank_Name || '';
                             changeImporterData.bankName =
-                              filter[0]?.Bank_Name || ''
+                              filter[0]?.Bank_Name || '';
 
-                            newInput['branchOffice'] = e.target.value
-                            changeImporterData.branch =
-                              e.target.value
+                            newInput['branchOffice'] = e.target.value;
+                            changeImporterData.branch = e.target.value;
                             setChangeImporterData({
                               ...changeImporterData,
-                            })
-                            setInvoiceDataRevised({ ...newInput })
+                            });
+                            setInvoiceDataRevised({ ...newInput });
                           }
-
                         }
                       }}
                     >
-                      <option selected>
-                        Select an option
-                      </option>
-                      {
-                        branchOptions.map((val, index) => {
-                          return <option value={val.Branch}>{val.Branch}</option>
-                        })
-                      }
+                      <option selected>Select an option</option>
+                      {branchOptions.map((val, index) => {
+                        return <option value={val.Branch}>{val.Branch}</option>;
+                      })}
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -1513,7 +1494,7 @@ const Index = ({
                       changeImporterData?.address
                         ? changeImporterData?.address
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.companyAddress
+                            ?.companyAddress
                     }
                     name="companyAddress"
                     onChange={(e) => changeImporter(e)}
@@ -1538,7 +1519,7 @@ const Index = ({
                       changeImporterData?.GSTIN
                         ? changeImporterData?.GSTIN
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.importerGSTIN
+                            ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1560,15 +1541,12 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={
-
-                        invoiceDataRevised?.bankName
-                      }
+                      value={invoiceDataRevised?.bankName}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
                           e.target.value,
-                        )
+                        );
                         // let filter=getBanksMasterData.filter((val,index)=>{
                         //             if(val.name==e.target.value){
                         //               return val
@@ -1576,8 +1554,7 @@ const Index = ({
                         //           })
                         //           console.log(filter,"filter")
                         // dispatch(getBranches(filter[0].code))
-                      }
-                      }
+                      }}
                     >
                       {/* <option selected disabled>
                         Select an option
@@ -1607,15 +1584,12 @@ const Index = ({
                       name="branch"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={
-                        invoiceDataRevised?.branch
-
-                      }
+                      value={invoiceDataRevised?.branch}
                       onChange={(e) => {
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
                           e.target.value,
-                        )
+                        );
                         // let filter=getBranchesMasterData.filter((val,index)=>{
                         //       if(val.BRANCH==e.target.value){
                         //         return val
@@ -1623,8 +1597,7 @@ const Index = ({
                         //     })
 
                         //    savedataRevised("branchAddress",filter[0].ADDRESS,"IFSCcode",filter[0].IFSC,e.target.value)
-                      }
-                      }
+                      }}
                     >
                       {/* <option selected disabled>
                         Select an option
@@ -1658,9 +1631,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    value={
-                      invoiceDataRevised.branchAddress
-                    }
+                    value={invoiceDataRevised.branchAddress}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1683,9 +1654,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    value={
-                      invoiceDataRevised.IFSCcode
-                    }
+                    value={invoiceDataRevised.IFSCcode}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1708,9 +1677,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    value={
-                      invoiceDataRevised.accountNo
-                    }
+                    value={invoiceDataRevised.accountNo}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1746,7 +1713,7 @@ const Index = ({
         rightButtonName={`Preview`}
       /> */}
     </>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

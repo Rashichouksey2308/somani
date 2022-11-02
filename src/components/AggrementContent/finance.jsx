@@ -1,58 +1,58 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
 
 let finance = {
   name: '',
   branchName: '',
-}
+};
 
-function Index (props) {
-  const [financeData, setFinanceData] = useState(finance)
+function Index(props) {
+  const [financeData, setFinanceData] = useState(finance);
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Finance')) {
-        let savedData = JSON.parse(sessionStorage.getItem('Finance'))
+        let savedData = JSON.parse(sessionStorage.getItem('Finance'));
         let finance = {
           name: savedData.name,
           branchName: savedData.branchName,
-        }
+        };
 
-        setFinanceData(finance)
+        setFinanceData(finance);
       } else {
         let finance = {
           name: props.data?.name,
           branchName: props.data?.branch,
-        }
+        };
 
-        setFinanceData(finance)
+        setFinanceData(finance);
       }
     }
-  }, [props])
+  }, [props]);
   useEffect(() => {
     if (props.saveData == true && props.active == 'Financing Bank') {
       let data = {
         financeData: financeData,
-      }
-      props.sendData('Financing Bank', data)
+      };
+      props.sendData('Financing Bank', data);
     }
     if (props.submitData == true && props.active == 'Financing Bank') {
       let data = {
         financeData: financeData,
-      }
+      };
 
-      props.updateData('Financing Bank', data)
+      props.updateData('Financing Bank', data);
     }
-  }, [props.saveData, props.submitData])
+  }, [props.saveData, props.submitData]);
   const handleInput = (name, value, key) => {
-    const newInput = { ...financeData }
+    const newInput = { ...financeData };
 
-    newInput[name] = value
-    setFinanceData(newInput)
-  }
-  console.log(financeData, 'dsad')
+    newInput[name] = value;
+    setFinanceData(newInput);
+  };
+  console.log(financeData, 'dsad');
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -65,7 +65,7 @@ function Index (props) {
                   name="name"
                   value={financeData.name}
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value)
+                    handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
@@ -90,7 +90,7 @@ function Index (props) {
                   name="branchName"
                   value={financeData.branchName}
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value)
+                    handleInput(e.target.name, e.target.value);
                   }}
                 >
                   <option>Select an option</option>
@@ -121,7 +121,7 @@ function Index (props) {
         </Form>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;

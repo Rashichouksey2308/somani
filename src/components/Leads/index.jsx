@@ -1,42 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { Card } from 'react-bootstrap'
-import styles from './index.module.scss'
+import React, { useEffect, useState } from 'react';
+import { Card } from 'react-bootstrap';
+import styles from './index.module.scss';
 
-function index (props) {
+function index(props) {
   const [data, setData] = useState({
     all: 0,
     approved: 0,
     inprocess: 0,
     rejected: 0,
-  })
+  });
   useEffect(() => {
     if (props?.data?.length > 0) {
-      let inprocess = 0
-      let approved = 0
-      let rejected = 0
-      let all = 0
+      let inprocess = 0;
+      let approved = 0;
+      let rejected = 0;
+      let all = 0;
       props?.data.forEach((val, index) => {
-        console.log(val.total, 'val.total', val._id)
+        console.log(val.total, 'val.total', val._id);
         if (val._id == 'ReviewQueue') {
-          console.log('vlllllll')
-          inprocess = val.total
+          console.log('vlllllll');
+          inprocess = val.total;
         }
         if (val._id == 'CreditQueue') {
-          approved = val.total
+          approved = val.total;
         }
         if (val._id == 'Rejected') {
-          rejected = val.total
+          rejected = val.total;
         }
-      })
+      });
       setData({
         all: inprocess + approved + rejected,
         approved: approved,
         inprocess: inprocess,
         rejected: rejected,
-      })
+      });
     }
-  }, [props.data])
-  console.log(data, 'data121')
+  }, [props.data]);
+  console.log(data, 'data121');
   return (
     <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header} heading_card border_color`}>
@@ -74,7 +74,7 @@ function index (props) {
         </div>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default index
+export default index;

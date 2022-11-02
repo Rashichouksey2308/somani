@@ -1,22 +1,22 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
 
 let associate = {
   branchName: '',
   shortName: '',
   gstin: '',
-}
+};
 
-function Index (props) {
-  console.log(props.selectedGST, props.gstList, 'asdasda')
-  const [associateData, setAssociateData] = useState(associate)
-  const [addressList, setAddressList] = useState([])
-  const [docList, setDocList] = useState([])
-  const [doc, setdoc] = useState({ attachDoc: '' })
-  const [removedOption, setRemovedOption] = useState(null)
+function Index(props) {
+  console.log(props.selectedGST, props.gstList, 'asdasda');
+  const [associateData, setAssociateData] = useState(associate);
+  const [addressList, setAddressList] = useState([]);
+  const [docList, setDocList] = useState([]);
+  const [doc, setdoc] = useState({ attachDoc: '' });
+  const [removedOption, setRemovedOption] = useState(null);
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -25,7 +25,7 @@ function Index (props) {
     gstin: '',
     state: '',
     city: '',
-  })
+  });
   const [companyAddress, setCompanyAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -34,8 +34,8 @@ function Index (props) {
     gstin: '',
     state: '',
     city: '',
-  })
-  console.log(props.order, 'companyName23243534')
+  });
+  console.log(props.order, 'companyName23243534');
   const [EditAddress, setEditAddress] = useState({
     addressType: '',
     fullAddress: '',
@@ -44,17 +44,17 @@ function Index (props) {
     gstin: '',
     state: '',
     city: '',
-  })
-  const [addressType, setAddressType] = useState('Registered')
-  const [addressEditType, setAddressEditType] = useState('Registered')
-  const [list, setList] = useState([])
+  });
+  const [addressType, setAddressType] = useState('Registered');
+  const [addressEditType, setAddressEditType] = useState('Registered');
+  const [list, setList] = useState([]);
   const [options, setOptions] = useState([
     'Bhawana Jain',
     'Vipin Kumar',
     'Devesh Jain',
     'Fatima Yannoulis',
-  ])
-  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis']
+  ]);
+  let op = ['Bhawana Jain', 'Vipin Kumar', 'Devesh Jain', 'Fatima Yannoulis'];
   let masterList = [
     {
       name: 'Bhawana Jain',
@@ -80,28 +80,28 @@ function Index (props) {
       email: 'fatima@indointertrade.ch',
       phoneNo: '',
     },
-  ]
+  ];
   useEffect(() => {
     if (window) {
       if (sessionStorage.getItem('Associate')) {
-        let savedData = JSON.parse(sessionStorage.getItem('Associate'))
+        let savedData = JSON.parse(sessionStorage.getItem('Associate'));
         let buyer = {
           branchName: savedData.branchName,
           shortName: savedData.shortName,
 
           gstin: savedData.gstin,
-        }
-        setAddressList(savedData.addresses)
-        setList(savedData.authorisedSignatoryDetails)
-        let temp = []
-        console.log(savedData, 'savedData.authorisedSignatoryDetail')
+        };
+        setAddressList(savedData.addresses);
+        setList(savedData.authorisedSignatoryDetails);
+        let temp = [];
+        console.log(savedData, 'savedData.authorisedSignatoryDetail');
         if (savedData.authorisedSignatoryDetails?.length > 0) {
           savedData.authorisedSignatoryDetails.forEach((val, index) => {
             if (val.document) {
-              console.log(val.document, 'val.document')
-              temp.push({ attachDoc: val.document })
+              console.log(val.document, 'val.document');
+              temp.push({ attachDoc: val.document });
             }
-          })
+          });
         } else {
           setList([
             {
@@ -112,44 +112,44 @@ function Index (props) {
               actions: 'false',
               addnew: 'false',
             },
-          ])
+          ]);
         }
-        console.log(temp, 'temp')
-        setDocList(temp)
-        setAssociateData(buyer)
-        let tempArr = savedData?.authorisedSignatoryDetails
-        let optionArray = [...options]
+        console.log(temp, 'temp');
+        setDocList(temp);
+        setAssociateData(buyer);
+        let tempArr = savedData?.authorisedSignatoryDetails;
+        let optionArray = [...options];
         tempArr.forEach((val, index) => {
-          val.actions = 'true'
+          val.actions = 'true';
           if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name)
+            let index = optionArray.indexOf(val.name);
             if (index > -1) {
-              optionArray.splice(index, 1)
+              optionArray.splice(index, 1);
             }
           }
-        })
-        setOptions([...optionArray])
+        });
+        setOptions([...optionArray]);
       } else {
-        console.log('in props')
+        console.log('in props');
         let buyer = {
           branchName: props?.data?.branch,
           shortName: props?.data?.shortName,
 
           gstin: props?.data?.gstin || props?.selectedGST,
-        }
-        setAddressList(props?.data?.addresses ? props?.data?.addresses : [])
+        };
+        setAddressList(props?.data?.addresses ? props?.data?.addresses : []);
         setList(
           props?.data?.authorisedSignatoryDetails
             ? props?.data?.authorisedSignatoryDetails
             : [],
-        )
-        let temp = []
+        );
+        let temp = [];
         if (props?.data?.authorisedSignatoryDetails.length > 0) {
           props?.data?.authorisedSignatoryDetails.forEach((val, index) => {
             if (val.document) {
-              temp.push({ attachDoc: val.document })
+              temp.push({ attachDoc: val.document });
             }
-          })
+          });
         } else {
           setList([
             {
@@ -160,28 +160,28 @@ function Index (props) {
               actions: 'false',
               addnew: 'false',
             },
-          ])
+          ]);
         }
 
-        setDocList(temp)
+        setDocList(temp);
 
-        setAssociateData(buyer)
-        let tempArr = props.data?.authorisedSignatoryDetails
-        let optionArray = [...options]
+        setAssociateData(buyer);
+        let tempArr = props.data?.authorisedSignatoryDetails;
+        let optionArray = [...options];
         tempArr.forEach((val, index) => {
-          val.actions = 'true'
+          val.actions = 'true';
           if (tempArr?.length > 0) {
-            let index = optionArray.indexOf(val.name)
+            let index = optionArray.indexOf(val.name);
             if (index > -1) {
-              optionArray.splice(index, 1)
+              optionArray.splice(index, 1);
             }
           }
-        })
-        setAddressList(props?.data.addresses)
-        setOptions([...optionArray])
+        });
+        setAddressList(props?.data.addresses);
+        setOptions([...optionArray]);
       }
     }
-  }, [props])
+  }, [props]);
 
   useEffect(() => {
     if (props?.address) {
@@ -193,13 +193,13 @@ function Index (props) {
         gstin: '',
         state: '',
         city: '',
-      }
+      };
 
-      setCompanyAddress(a)
+      setCompanyAddress(a);
     }
-  }, [props.address])
-  console.log(companyAddress, 'companyAddress')
-  console.log(docList, 'sasads')
+  }, [props.address]);
+  console.log(companyAddress, 'companyAddress');
+  console.log(docList, 'sasads');
   useEffect(() => {
     if (props.saveData == true && props.active == 'Associate Buyer') {
       let data = {
@@ -207,97 +207,97 @@ function Index (props) {
         address: addressList,
         list: list,
         companyAddress: companyAddress,
-      }
-      props.sendData('Associate Buyer', data)
+      };
+      props.sendData('Associate Buyer', data);
     }
     if (props.submitData == true && props.active == 'Associate Buyer') {
-      console.log('this12')
+      console.log('this12');
       let data = {
         associate: associateData,
         address: addressList,
         list: list,
         companyAddress: companyAddress,
-      }
+      };
 
-      props.updateData('Associate Buyer', data)
+      props.updateData('Associate Buyer', data);
     }
-  }, [props.saveData, props.submitData])
+  }, [props.saveData, props.submitData]);
   const addDoc = (e, index) => {
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: e }
+          return { ...obj, attachDoc: e };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
+      return newState;
+    });
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (obj.document) {
-          console.log(obj.document, 'obj.document')
+          console.log(obj.document, 'obj.document');
           if ((obj.document = 'new')) {
-            return { ...obj, document: e }
+            return { ...obj, document: e };
           }
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
-  console.log(associate, 'associate', docList)
+      return newState;
+    });
+  };
+  console.log(associate, 'associate', docList);
   const handleInput = (name, value, key) => {
-    const newInput = { ...associateData }
+    const newInput = { ...associateData };
 
-    newInput[name] = value
-    setAssociateData(newInput)
-  }
-  console.log()
+    newInput[name] = value;
+    setAssociateData(newInput);
+  };
+  console.log();
   const onEdit = (index) => {
-    let tempArr = list
+    let tempArr = list;
     // tempArr[index].actions.edit="false"
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         // 👇️ if id equals 2, update country property
         if (i == index) {
-          setRemovedOption(obj.name)
-          return { ...obj, actions: 'false' }
+          setRemovedOption(obj.name);
+          return { ...obj, actions: 'false' };
         }
 
         // 👇️ otherwise return object as is
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const onEditRemove = (index, value) => {
-    console.log(value, 'value')
+    console.log(value, 'value');
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, actions: 'true' }
+          return { ...obj, actions: 'true' };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-    let temp = [...options]
-    var indexOption = temp.indexOf(value.name)
-    setRemovedOption(value.name)
+      return newState;
+    });
+    let temp = [...options];
+    var indexOption = temp.indexOf(value.name);
+    setRemovedOption(value.name);
     if (indexOption !== -1) {
-      temp.splice(indexOption, 1)
+      temp.splice(indexOption, 1);
     }
-    setOptions([...temp])
-  }
+    setOptions([...temp]);
+  };
   const addMoreRows = () => {
     setList([
       ...list,
@@ -309,16 +309,16 @@ function Index (props) {
         actions: 'false',
         addnew: 'false',
       },
-    ])
-    setRemovedOption(null)
-  }
+    ]);
+    setRemovedOption(null);
+  };
   const handleRemove = (index, val) => {
     docList.forEach((val, i) => {
       if (index == val.index) {
-        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)])
+        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)]);
       }
-    })
-    setList([...list.slice(0, index), ...list.slice(index + 1)])
+    });
+    setList([...list.slice(0, index), ...list.slice(index + 1)]);
 
     if (
       val?.name == 'Bhawana Jain' ||
@@ -326,50 +326,50 @@ function Index (props) {
       val?.name == 'Devesh Jain' ||
       val?.name == 'Fatima Yannoulis'
     ) {
-      let temp = [...options]
-      temp.push(val.name)
-      setOptions([...temp])
+      let temp = [...options];
+      temp.push(val.name);
+      setOptions([...temp]);
     }
-  }
+  };
   const removeDoc = (index) => {
-    console.log('removeDOc')
+    console.log('removeDOc');
     setDocList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, attachDoc: '' }
+          return { ...obj, attachDoc: '' };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
+      return newState;
+    });
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, document: 'new' }
+          return { ...obj, document: 'new' };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
-  console.log(docList, 'document')
+      return newState;
+    });
+  };
+  console.log(docList, 'document');
   const handleChangeInput2 = (name2, value, index) => {
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return { ...obj, [name2]: value }
+          return { ...obj, [name2]: value };
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
 
   const handleChangeInput = (name, value, index) => {
     let arrayToSave = {
@@ -379,7 +379,7 @@ function Index (props) {
       phoneNo: '',
       actions: 'false',
       addnew: 'false',
-    }
+    };
 
     if (value == 'addnew') {
       if (docList.length < 1) {
@@ -391,10 +391,10 @@ function Index (props) {
           actions: 'false',
           addnew: 'true',
           document: 'new',
-        }
-        setDocList([...docList, { attachDoc: '', index: index }])
+        };
+        setDocList([...docList, { attachDoc: '', index: index }]);
       } else {
-        console.log('herehr')
+        console.log('herehr');
         arrayToSave = {
           name: '',
           designation: '',
@@ -402,48 +402,48 @@ function Index (props) {
           phoneNo: '',
           actions: 'false',
           addnew: 'true',
-        }
+        };
       }
     } else {
       masterList.forEach((val, index) => {
         if (val.name == value) {
-          arrayToSave.name = val.name
-          arrayToSave.designation = val.designation
-          arrayToSave.email = val.email
-          arrayToSave.phoneNo = val.phoneNo
+          arrayToSave.name = val.name;
+          arrayToSave.designation = val.designation;
+          arrayToSave.email = val.email;
+          arrayToSave.phoneNo = val.phoneNo;
         }
-      })
+      });
     }
 
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
-          return arrayToSave
+          return arrayToSave;
         }
 
-        return obj
-      })
+        return obj;
+      });
 
-      return newState
-    })
-  }
+      return newState;
+    });
+  };
   const onAddressRemove = (index) => {
     setAddressList([
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
-    ])
-  }
+    ]);
+  };
   const setAddress = (name, value) => {
-    const newInput = { ...newAddress }
-    newInput[name] = value
-    setNewAddress(newInput)
-  }
-  const [isEdit, setIsEdit] = useState(false)
-  const [toEditIndex, setToEditIndex] = useState(0)
+    const newInput = { ...newAddress };
+    newInput[name] = value;
+    setNewAddress(newInput);
+  };
+  const [isEdit, setIsEdit] = useState(false);
+  const [toEditIndex, setToEditIndex] = useState(0);
   const handleEditAddressInput = (index) => {
-    setIsEdit(true)
-    setToEditIndex(index)
-    let tempArr = addressList
+    setIsEdit(true);
+    setToEditIndex(index);
+    let tempArr = addressList;
 
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -455,18 +455,18 @@ function Index (props) {
           gstin: val.gstin,
           state: val.state,
           city: val.city,
-        })
+        });
       }
-    })
-  }
+    });
+  };
   const editNewAddress = (name, value) => {
-    setIsEdit(true)
-    const newInput = { ...EditAddress }
-    newInput[name] = value
-    setEditAddress(newInput)
-  }
+    setIsEdit(true);
+    const newInput = { ...EditAddress };
+    newInput[name] = value;
+    setEditAddress(newInput);
+  };
   const cancelEditAddress = () => {
-    setIsEdit(false)
+    setIsEdit(false);
     setEditAddress({
       addressType: '',
       fullAddress: '',
@@ -475,24 +475,24 @@ function Index (props) {
       gstin: '',
       state: '',
       city: '',
-    })
-  }
+    });
+  };
   const saveNewAddress = () => {
     if (props.addressValidation(EditAddress.addressType, EditAddress)) {
-      console.log(EditAddress, 'EditAddress', toEditIndex)
+      console.log(EditAddress, 'EditAddress', toEditIndex);
       setAddressList((prevState) => {
         const newState = prevState.map((obj, i) => {
           if (i == toEditIndex) {
-            console.log('here')
-            return EditAddress
+            console.log('here');
+            return EditAddress;
           }
           // 👇️ otherwise return object as is
-          return obj
-        })
+          return obj;
+        });
 
-        return newState
-      })
-      setIsEdit(false)
+        return newState;
+      });
+      setIsEdit(false);
       setEditAddress({
         addressType: '',
         fullAddress: '',
@@ -501,12 +501,12 @@ function Index (props) {
         gstin: '',
         state: '',
         city: '',
-      })
+      });
     }
-  }
+  };
   const handleAddressInput = () => {
     if (props.addressValidation(addressType, newAddress)) {
-      setAddressList((current) => [...current, newAddress])
+      setAddressList((current) => [...current, newAddress]);
 
       setNewAddress({
         addressType: 'Registered',
@@ -516,10 +516,10 @@ function Index (props) {
         gstin: '',
         state: '',
         city: '',
-      })
-      setAddressType('Registered')
+      });
+      setAddressType('Registered');
     }
-  }
+  };
   const cancelAddress = () => {
     setNewAddress({
       addressType: 'Registered',
@@ -529,10 +529,10 @@ function Index (props) {
       gstin: '',
       state: '',
       city: '',
-    })
-    setAddressType('Registered')
-  }
-  console.log(isEdit, 'associateData')
+    });
+    setAddressType('Registered');
+  };
+  console.log(isEdit, 'associateData');
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -561,7 +561,7 @@ function Index (props) {
                 name="branchName"
                 value={associateData.branchName}
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value)
+                  handleInput(e.target.name, e.target.value);
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -574,14 +574,14 @@ function Index (props) {
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   name="gstin"
                   onChange={(e) => {
-                    handleInput(e.target.name, e.target.value)
+                    handleInput(e.target.name, e.target.value);
                   }}
                   value={associateData.gstin}
                 >
                   <option>Select an option</option>
                   {props.gstList &&
                     props.gstList.map((val, index) => {
-                      return <option value={val}>{val}</option>
+                      return <option value={val}>{val}</option>;
                     })}
                 </select>
                 <Form.Label
@@ -603,7 +603,7 @@ function Index (props) {
                 type="text"
                 name="shortName"
                 onChange={(e) => {
-                  handleInput(e.target.name, e.target.value)
+                  handleInput(e.target.name, e.target.value);
                 }}
                 value={associateData.shortName}
               />
@@ -650,7 +650,7 @@ function Index (props) {
                       <div
                         className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                         onClick={() => {
-                          handleEditAddressInput(index)
+                          handleEditAddressInput(index);
                         }}
                       >
                         <img
@@ -662,7 +662,7 @@ function Index (props) {
                       <div
                         className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
                         onClick={() => {
-                          onAddressRemove(index)
+                          onAddressRemove(index);
                         }}
                       >
                         <img
@@ -674,7 +674,7 @@ function Index (props) {
                     </div>
                   ) : null}
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -706,8 +706,8 @@ function Index (props) {
                       name="addressType"
                       value={addressType}
                       onChange={(e) => {
-                        setAddressType(e.target.value)
-                        setAddress(e.target.name, e.target.value)
+                        setAddressType(e.target.value);
+                        setAddress(e.target.name, e.target.value);
                       }}
                     >
                       <option disabled>Select an option</option>
@@ -739,7 +739,7 @@ function Index (props) {
                       name="fullAddress"
                       value={newAddress.fullAddress}
                       onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
+                        setAddress(e.target.name, e.target.value);
                       }}
                     />
                     <Form.Label
@@ -763,7 +763,7 @@ function Index (props) {
                       }
                       value={newAddress.pinCode}
                       onChange={(e) => {
-                        setAddress(e.target.name, e.target.value)
+                        setAddress(e.target.name, e.target.value);
                       }}
                     />
                     <Form.Label
@@ -787,11 +787,11 @@ function Index (props) {
                       value={newAddress.country}
                       name="country"
                       onChange={(e) => {
-                        let temp = e.target.value
+                        let temp = e.target.value;
                         // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
                         //   temp=""
                         // }
-                        setAddress(e.target.name, temp)
+                        setAddress(e.target.name, temp);
                       }}
                       onKeyDown={(evt) =>
                         [
@@ -825,7 +825,7 @@ function Index (props) {
                 <div
                   className={`${styles.add} d-flex justify-content-center align-items-center`}
                   onClick={() => {
-                    handleAddressInput()
+                    handleAddressInput();
                   }}
                 >
                   <span>Add</span>
@@ -833,7 +833,7 @@ function Index (props) {
                 <div
                   className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                   onClick={() => {
-                    cancelAddress()
+                    cancelAddress();
                   }}
                 >
                   <span>Cancel</span>
@@ -878,224 +878,224 @@ function Index (props) {
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                  {list.length > 0 &&
-                    list.map((val, index) => {
-                      return (
-                        <>
-                          {val.actions == 'true' ? (
-                            <tr key={index} className="table_row">
-                              <td>{val.name}</td>
-                              <td>{val.designation}</td>
-                              <td>{val.email}</td>
-                              <td>{val.phoneNo}</td>
-                              <td className={`d-flex`}>
-                                <img
-                                  className={`${styles.image} mr-3`}
-                                  onClick={() => onEdit(index)}
-                                  src="/static/mode_edit.svg"
-                                  alt="edit"
-                                />
-                                <img
-                                  onClick={() => handleRemove(index, val)}
-                                  src="/static/delete 2.svg"
-                                  alt="delete"
-                                />
-                              </td>
-                            </tr>
-                          ) : (
-                            <tr key={index} className="table_row">
-                              <td>
-                                {val.addnew == 'false' ? (
-                                  <>
-                                    <select
-                                      value={val.name}
-                                      className={`${styles.customSelect} input`}
-                                      onChange={(e) => {
-                                        setRemovedOption(e.target.value)
-                                        handleChangeInput(
-                                          e.target.name,
-                                          e.target.value,
-                                          index,
-                                        )
-                                      }}
-                                    >
-                                      <option>Select an option</option>
-                                      {removedOption != null ? (
-                                        <option value={removedOption}>
-                                          {removedOption}
+                    {list.length > 0 &&
+                      list.map((val, index) => {
+                        return (
+                          <>
+                            {val.actions == 'true' ? (
+                              <tr key={index} className="table_row">
+                                <td>{val.name}</td>
+                                <td>{val.designation}</td>
+                                <td>{val.email}</td>
+                                <td>{val.phoneNo}</td>
+                                <td className={`d-flex`}>
+                                  <img
+                                    className={`${styles.image} mr-3`}
+                                    onClick={() => onEdit(index)}
+                                    src="/static/mode_edit.svg"
+                                    alt="edit"
+                                  />
+                                  <img
+                                    onClick={() => handleRemove(index, val)}
+                                    src="/static/delete 2.svg"
+                                    alt="delete"
+                                  />
+                                </td>
+                              </tr>
+                            ) : (
+                              <tr key={index} className="table_row">
+                                <td>
+                                  {val.addnew == 'false' ? (
+                                    <>
+                                      <select
+                                        value={val.name}
+                                        className={`${styles.customSelect} input`}
+                                        onChange={(e) => {
+                                          setRemovedOption(e.target.value);
+                                          handleChangeInput(
+                                            e.target.name,
+                                            e.target.value,
+                                            index,
+                                          );
+                                        }}
+                                      >
+                                        <option>Select an option</option>
+                                        {removedOption != null ? (
+                                          <option value={removedOption}>
+                                            {removedOption}
+                                          </option>
+                                        ) : null}
+                                        {options.map((val, i) => {
+                                          return (
+                                            <option value={val}>{val}</option>
+                                          );
+                                        })}
+
+                                        <option value={'addnew'}>
+                                          {'Add New'}
                                         </option>
-                                      ) : null}
-                                      {options.map((val, i) => {
-                                        return (
-                                          <option value={val}>{val}</option>
-                                        )
-                                      })}
+                                      </select>
+                                      <img
+                                        className={`${styles.arrow2} image_arrow img-fluid`}
+                                        src="/static/inputDropDown.svg"
+                                        alt="Search"
+                                      />
+                                    </>
+                                  ) : (
+                                    <>
+                                      {val.name == 'Vipin Kumar' ||
+                                      val.name == 'Bhawana Jain' ||
+                                      val.name == 'Devesh Jain' ||
+                                      val.name == 'Fatima Yannoulis' ? (
+                                        <>
+                                          <select
+                                            value={val.name}
+                                            className={`${styles.customSelect} input`}
+                                            onChange={(e) => {
+                                              handleChangeInput(
+                                                e.target.name,
+                                                e.target.value,
+                                                index,
+                                              );
+                                            }}
+                                          >
+                                            <option>Select an option</option>
+                                            <option value={'Vipin Kumar'}>
+                                              Vipin Kumar
+                                            </option>
+                                            <option value={'Bhawana Jain'}>
+                                              Bhawana Jain
+                                            </option>
+                                            <option value={'Devesh Jain'}>
+                                              Devesh Jain
+                                            </option>
+                                            <option value={'Fatima Yannoulis'}>
+                                              Fatima Yannoulis
+                                            </option>
 
-                                      <option value={'addnew'}>
-                                        {'Add New'}
-                                      </option>
-                                    </select>
-                                    <img
-                                      className={`${styles.arrow2} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="Search"
-                                    />
-                                  </>
-                                ) : (
-                                  <>
-                                    {val.name == 'Vipin Kumar' ||
-                                    val.name == 'Bhawana Jain' ||
-                                    val.name == 'Devesh Jain' ||
-                                    val.name == 'Fatima Yannoulis' ? (
-                                      <>
-                                        <select
-                                          value={val.name}
-                                          className={`${styles.customSelect} input`}
-                                          onChange={(e) => {
-                                            handleChangeInput(
-                                              e.target.name,
-                                              e.target.value,
-                                              index,
-                                            )
-                                          }}
-                                        >
-                                          <option>Select an option</option>
-                                          <option value={'Vipin Kumar'}>
-                                            Vipin Kumar
-                                          </option>
-                                          <option value={'Bhawana Jain'}>
-                                            Bhawana Jain
-                                          </option>
-                                          <option value={'Devesh Jain'}>
-                                            Devesh Jain
-                                          </option>
-                                          <option value={'Fatima Yannoulis'}>
-                                            Fatima Yannoulis
-                                          </option>
-
-                                          {/* {options.map((val,i)=>{
+                                            {/* {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })} */}
 
-                                          <option value={'addnew'}>
-                                            {'Add New'}
-                                          </option>
-                                        </select>
-                                        <img
-                                          className={`${styles.arrow2} image_arrow img-fluid`}
-                                          src="/static/inputDropDown.svg"
-                                          alt="Search"
-                                        />
-                                      </>
-                                    ) : (
-                                      <>
-                                        <input
-                                          type="text"
-                                          className="input"
-                                          placeholder={'Add new'}
-                                          name="name"
-                                          value={val.name}
-                                          onChange={(e) => {
-                                            handleChangeInput2(
-                                              e.target.name,
-                                              e.target.value,
-                                              index,
-                                            )
-                                          }}
-                                        />
-                                      </>
-                                    )}
-                                  </>
-                                )}
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  className="input"
-                                  value={val.designation}
-                                  name="designation"
-                                  // readOnly={val.addnew!="true"?true:false}
-                                  onChange={(e) => {
-                                    handleChangeInput2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  type="text"
-                                  value={val.email}
-                                  name="email"
-                                  className="input"
-                                  onChange={(e) => {
-                                    handleChangeInput2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }}
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  value={val.phoneNo}
-                                  className="input"
-                                  name="phoneNo"
-                                  type="number"
-                                  onWheel={(event) =>
-                                    event.currentTarget.blur()
-                                  }
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
-                                  onChange={(e) => {
-                                    handleChangeInput2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }}
-                                />
-                              </td>
-                              <td className={`d-flex`}>
-                                <div
-                                  className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
-                                  onClick={() => {
-                                    onEditRemove(index, val)
-                                  }}
-                                >
-                                  <img
-                                    className={`${styles.image} mr-3`}
-                                    src="/static/save-3.svg"
-                                    alt="save"
+                                            <option value={'addnew'}>
+                                              {'Add New'}
+                                            </option>
+                                          </select>
+                                          <img
+                                            className={`${styles.arrow2} image_arrow img-fluid`}
+                                            src="/static/inputDropDown.svg"
+                                            alt="Search"
+                                          />
+                                        </>
+                                      ) : (
+                                        <>
+                                          <input
+                                            type="text"
+                                            className="input"
+                                            placeholder={'Add new'}
+                                            name="name"
+                                            value={val.name}
+                                            onChange={(e) => {
+                                              handleChangeInput2(
+                                                e.target.name,
+                                                e.target.value,
+                                                index,
+                                              );
+                                            }}
+                                          />
+                                        </>
+                                      )}
+                                    </>
+                                  )}
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    className="input"
+                                    value={val.designation}
+                                    name="designation"
+                                    // readOnly={val.addnew!="true"?true:false}
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
                                   />
-                                </div>
-                                <div
-                                  className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
-                                  onClick={() => {
-                                    handleRemove(index, val)
-                                  }}
-                                >
-                                  <img src="/static/delete 2.svg"/>
-                                </div>
-                                {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={val.email}
+                                    name="email"
+                                    className="input"
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    value={val.phoneNo}
+                                    className="input"
+                                    name="phoneNo"
+                                    type="number"
+                                    onWheel={(event) =>
+                                      event.currentTarget.blur()
+                                    }
+                                    onKeyDown={(evt) =>
+                                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                                      evt.preventDefault()
+                                    }
+                                    onChange={(e) => {
+                                      handleChangeInput2(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                      );
+                                    }}
+                                  />
+                                </td>
+                                <td className={`d-flex`}>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                                    onClick={() => {
+                                      onEditRemove(index, val);
+                                    }}
+                                  >
+                                    <img
+                                      className={`${styles.image} mr-3`}
+                                      src="/static/save-3.svg"
+                                      alt="save"
+                                    />
+                                  </div>
+                                  <div
+                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                                    onClick={() => {
+                                      handleRemove(index, val);
+                                    }}
+                                  >
+                                    <img src="/static/delete 2.svg" />
+                                  </div>
+                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
                             <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                              </td>
-                            </tr>
-                          )}
-                        </>
-                      )
-                    })}
+                                </td>
+                              </tr>
+                            )}
+                          </>
+                        );
+                      })}
                   </tbody>
                 </table>
                 <div
                   className={`${styles.addMoreRows}`}
                   onClick={(e) => {
-                    addMoreRows()
+                    addMoreRows();
                   }}
                 >
                   <span>+</span> Add more rows
@@ -1142,7 +1142,7 @@ function Index (props) {
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                {/* <tr  className='table_row'>
+                  {/* <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{ doc.attachDoc == '' ? '' : moment(doc.attachDoc?.date).format('DD-MM-YYYY, h:mm a')}</td>
@@ -1187,67 +1187,67 @@ function Index (props) {
                       </td>
                   </tr>  */}
 
-                {docList.length > 0 &&
-                  docList.map((val, index) => {
-                    return (
-                      <>
-                        <tr key={index} className="table_row">
-                          <td>
-                            <strong>
-                              Board Resolution Copy
-                              <span className={`danger`}>*</span>
-                            </strong>
-                          </td>
-                          <td>
-                            <img
-                              src="/static/pdf.svg"
-                              className="img-fluid"
-                              alt="Pdf"
-                            />
-                            {/* {val.designation} */}
-                          </td>
-                          <td>{`28-02-2022,5:30 PM`}</td>
-                          <td>
-                            {val.attachDoc == '' || val.attachDoc == 'new' ? (
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  name="myfile"
-                                  accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={async (e) => {
-                                    let data = await props.uploadDoc(e)
-                                    addDoc(data, index)
-                                    // uploadDocument2(e)
-                                  }}
-                                />
-                                <button
-                                  className={`${styles.button_upload} btn`}
+                  {docList.length > 0 &&
+                    docList.map((val, index) => {
+                      return (
+                        <>
+                          <tr key={index} className="table_row">
+                            <td>
+                              <strong>
+                                Board Resolution Copy
+                                <span className={`danger`}>*</span>
+                              </strong>
+                            </td>
+                            <td>
+                              <img
+                                src="/static/pdf.svg"
+                                className="img-fluid"
+                                alt="Pdf"
+                              />
+                              {/* {val.designation} */}
+                            </td>
+                            <td>{`28-02-2022,5:30 PM`}</td>
+                            <td>
+                              {val.attachDoc == '' || val.attachDoc == 'new' ? (
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name="myfile"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={async (e) => {
+                                      let data = await props.uploadDoc(e);
+                                      addDoc(data, index);
+                                      // uploadDocument2(e)
+                                    }}
+                                  />
+                                  <button
+                                    className={`${styles.button_upload} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              ) : (
+                                <div
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
-                                  Upload
-                                </button>
-                              </div>
-                            ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex justify-content-between`}
-                              >
-                                <span>{val.attachDoc?.originalName}</span>
-                                <img
-                                  className={`${styles.close_image} image_arrow`}
-                                  src="/static/close.svg"
-                                  onClick={() => removeDoc(index)}
-                                  alt="Close"
-                                />{' '}
-                              </div>
-                            )}
-                          </td>
-                          <td>
-                            {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
-                            <img src="/static/upload.svg" alt="upload"/>
-                          </td>
-                        </tr>
-                      </>
-                    )
-                  })}
+                                  <span>{val.attachDoc?.originalName}</span>
+                                  <img
+                                    className={`${styles.close_image} image_arrow`}
+                                    src="/static/close.svg"
+                                    onClick={() => removeDoc(index)}
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                            </td>
+                            <td>
+                              {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                              <img src="/static/upload.svg" alt="upload" />
+                            </td>
+                          </tr>
+                        </>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
@@ -1255,10 +1255,10 @@ function Index (props) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
 const editData = (
   addressEditType,
   EditAddress,
@@ -1281,8 +1281,8 @@ const editData = (
               name="addressType"
               value={EditAddress.addressType}
               onChange={(e) => {
-                setAddressEditType(e.target.value)
-                editNewAddress(e.target.name, e.target.value)
+                setAddressEditType(e.target.value);
+                editNewAddress(e.target.name, e.target.value);
               }}
             >
               <option>Select an option</option>
@@ -1312,7 +1312,7 @@ const editData = (
               name="fullAddress"
               value={EditAddress.fullAddress}
               onChange={(e) => {
-                editNewAddress(e.target.name, e.target.value)
+                editNewAddress(e.target.name, e.target.value);
               }}
             />
             <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1333,7 +1333,7 @@ const editData = (
               }
               value={EditAddress.pinCode}
               onChange={(e) => {
-                editNewAddress(e.target.name, e.target.value)
+                editNewAddress(e.target.name, e.target.value);
               }}
             />
             <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -1355,12 +1355,12 @@ const editData = (
               value={EditAddress.country}
               name="country"
               onChange={(e) => {
-                let temp = e.target.value
-                console.log(temp, 'tempp')
+                let temp = e.target.value;
+                console.log(temp, 'tempp');
                 // if(temp=="1"||temp=="2"||temp=="3"||temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8"||temp=="9"||temp=="0"){
                 //   temp=""
                 // }
-                editNewAddress(e.target.name, temp)
+                editNewAddress(e.target.name, temp);
               }}
               onKeyDown={(evt) =>
                 ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(
@@ -1383,7 +1383,7 @@ const editData = (
         <div
           className={`${styles.add} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            saveNewAddress()
+            saveNewAddress();
           }}
         >
           <span>Update</span>
@@ -1391,12 +1391,12 @@ const editData = (
         <div
           className={`${styles.cancel} d-flex justify-content-center align-items-center`}
           onClick={() => {
-            cancelEditAddress()
+            cancelEditAddress();
           }}
         >
           <span>Cancel</span>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

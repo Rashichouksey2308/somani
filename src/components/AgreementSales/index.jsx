@@ -1,49 +1,49 @@
-import React, { useState } from 'react'
-import styles from './index.module.scss'
-import { Form } from 'react-bootstrap'
-import GrowInput from '../GrowInput'
-import Buyer from '../AggrementContent/buyer'
-import AssociateBuyer from '../AggrementContent/associateBuyer'
-import CHA from '../AggrementContent/cha'
-import CMA from '../AggrementContent/cma'
-import Finance from '../AggrementContent/finance'
-import Manufecture from '../AggrementContent/manufecture'
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import { Form } from 'react-bootstrap';
+import GrowInput from '../GrowInput';
+import Buyer from '../AggrementContent/buyer';
+import AssociateBuyer from '../AggrementContent/associateBuyer';
+import CHA from '../AggrementContent/cha';
+import CMA from '../AggrementContent/cma';
+import Finance from '../AggrementContent/finance';
+import Manufecture from '../AggrementContent/manufecture';
 
-import Shipping from '../AggrementContent/shipping'
-import Seller from '../AggrementContent/seller'
+import Shipping from '../AggrementContent/shipping';
+import Seller from '../AggrementContent/seller';
 
-import Stevedore from '../AggrementContent/stevedore'
-import Thirdparty from '../AggrementContent/thirdparty'
-import { useDispatch } from 'react-redux'
-import { updateGenericData } from '../../redux/generic/actionsType'
+import Stevedore from '../AggrementContent/stevedore';
+import Thirdparty from '../AggrementContent/thirdparty';
+import { useDispatch } from 'react-redux';
+import { updateGenericData } from '../../redux/generic/actionsType';
 
-function Index (props) {
-  const dispatch = useDispatch()
+function Index(props) {
+  const dispatch = useDispatch();
 
-  console.log(props, 'sales')
-  const [active, setActive] = useState('Supplier')
-  const [multiPart, setMultiPart] = useState(false)
-  const [saveData, setSaveData] = useState(false)
-  const [submitData, setSubmitData] = useState(false)
+  console.log(props, 'sales');
+  const [active, setActive] = useState('Supplier');
+  const [multiPart, setMultiPart] = useState(false);
+  const [saveData, setSaveData] = useState(false);
+  const [submitData, setSubmitData] = useState(false);
   const changeActiveValue = (val, index) => {
-    setActive(val)
-    showContent()
-    setSaveData(false)
-    let tempArr = sideBar
+    setActive(val);
+    showContent();
+    setSaveData(false);
+    let tempArr = sideBar;
     for (let i = 0; i < tempArr.length; i++) {
       if (i == index) {
-        tempArr[i].state = 'current'
-        tempArr[i].image = '/static/currnet.svg'
+        tempArr[i].state = 'current';
+        tempArr[i].image = '/static/currnet.svg';
       } else {
         if (tempArr[i].state != 'pending' && tempArr[i].state != 'complete') {
-          tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
+          tempArr[i].state = 'default';
+          tempArr[i].image = '/static/Group 3256.svg';
         }
       }
     }
-    console.log(tempArr, 'name')
-    setSidebar(tempArr)
-  }
+    console.log(tempArr, 'name');
+    setSidebar(tempArr);
+  };
 
   const showContent = (sellerData) => {
     if (active == 'Buyer') {
@@ -55,10 +55,10 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'Associate Buyer') {
-      return <AssociateBuyer/>
+      return <AssociateBuyer />;
     }
     if (active == 'Seller') {
       return (
@@ -69,7 +69,7 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'CHA') {
       return (
@@ -80,7 +80,7 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'CMA') {
       return (
@@ -91,7 +91,7 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'Supplier') {
       return (
@@ -103,7 +103,7 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'Shipping Line') {
       return (
@@ -114,7 +114,7 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'Financing Bank') {
       return (
@@ -125,15 +125,15 @@ function Index (props) {
           updateData={updateData}
           active={active}
         />
-      )
+      );
     }
     if (active == 'Stevedore') {
-      return <Stevedore/>
+      return <Stevedore />;
     }
     if (active == 'Appointment of Third Party') {
-      return <Thirdparty/>
+      return <Thirdparty />;
     }
-  }
+  };
   const [sideBar, setSidebar] = useState([
     { name: 'Seller', state: 'current', value: 'Seller' },
     { name: 'Buyer', state: 'default', value: 'Buyer' },
@@ -157,57 +157,57 @@ function Index (props) {
     { name: 'Total Order Value', state: 'default', value: 'Total Order Value' },
     { name: 'Discharge Port', state: 'default', value: 'Discharge Port' },
     { name: 'Loading Port', state: 'default', value: 'Loading Port' },
-  ])
+  ]);
   const onLeftChange = () => {
-    let tempArr = sideBar
+    let tempArr = sideBar;
     for (let i = 0; i < tempArr.length; i++) {
       if (tempArr[i].state == 'current') {
         if (i != 0) {
-          tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
-          let a = i - 1
-          console.log(a, 'tempArr[a]234')
-          tempArr[a].state = 'current'
-          tempArr[a].image = '/static/currnet.svg'
-          setActive(tempArr[a].name)
+          tempArr[i].state = 'default';
+          tempArr[i].image = '/static/Group 3256.svg';
+          let a = i - 1;
+          console.log(a, 'tempArr[a]234');
+          tempArr[a].state = 'current';
+          tempArr[a].image = '/static/currnet.svg';
+          setActive(tempArr[a].name);
         }
       }
     }
-    console.log('aasdaa', tempArr)
-    setSidebar(tempArr)
-  }
+    console.log('aasdaa', tempArr);
+    setSidebar(tempArr);
+  };
   const onRightChange = () => {
-    let tempArr = sideBar
-    console.log(tempArr, '987789')
+    let tempArr = sideBar;
+    console.log(tempArr, '987789');
     for (let i = 0; i < tempArr.length; i++) {
-      console.log(tempArr[i], '987')
+      console.log(tempArr[i], '987');
       if (tempArr[i].state == 'current') {
         if (i != tempArr.length) {
-          tempArr[i].state = 'default'
-          tempArr[i].image = '/static/Group 3256.svg'
-          console.log(tempArr[i].state, 'tempArr[a]')
-          let a = i + 1
-          console.log(a, 'tempArr[a]234')
-          tempArr[a].state = 'current'
-          tempArr[a].image = '/static/currnet.svg'
-          setActive(tempArr[a].name)
-          break
+          tempArr[i].state = 'default';
+          tempArr[i].image = '/static/Group 3256.svg';
+          console.log(tempArr[i].state, 'tempArr[a]');
+          let a = i + 1;
+          console.log(a, 'tempArr[a]234');
+          tempArr[a].state = 'current';
+          tempArr[a].image = '/static/currnet.svg';
+          setActive(tempArr[a].name);
+          break;
         }
       }
     }
-    console.log('aasdaa', tempArr)
-    setSidebar(tempArr)
-  }
-  console.log(sideBar, 'sideBar')
+    console.log('aasdaa', tempArr);
+    setSidebar(tempArr);
+  };
+  console.log(sideBar, 'sideBar');
 
   const onSave = () => {
-    setSaveData(true)
-  }
+    setSaveData(true);
+  };
   const onSubmit = () => {
-    setSubmitData(true)
-  }
+    setSubmitData(true);
+  };
   const updateData = async (key, data) => {
-    let dataToSend = {}
+    let dataToSend = {};
     if (key == 'Supplier') {
       dataToSend = {
         genericId: '62df99e8592ccd0022401c76',
@@ -224,8 +224,8 @@ function Index (props) {
           authorisedSignatoryDetails: data.list,
           multiParty: data.supplierState.multiParty,
         },
-      }
-      console.log(dataToSend, 'dataToSend')
+      };
+      console.log(dataToSend, 'dataToSend');
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -237,10 +237,10 @@ function Index (props) {
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
         },
-      }
-      console.log(dataToSend, 'dataToSend')
+      };
+      console.log(dataToSend, 'dataToSend');
 
-      sessionStorage.removeItem('Seller')
+      sessionStorage.removeItem('Seller');
     }
     if (key == 'Buyer') {
       dataToSend = {
@@ -252,8 +252,8 @@ function Index (props) {
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
         },
-      }
-      console.log(dataToSend, 'dataToSend')
+      };
+      console.log(dataToSend, 'dataToSend');
     }
     if (key == 'Finance') {
       dataToSend = {
@@ -262,8 +262,8 @@ function Index (props) {
           name: data.financeData.name,
           branchName: data.financeData.branchName,
         },
-      }
-      console.log(dataToSend, 'dataToSend')
+      };
+      console.log(dataToSend, 'dataToSend');
     }
     if (key == 'Cma') {
       dataToSend = {
@@ -275,7 +275,7 @@ function Index (props) {
           addresses: data.addresses,
           authorisedSignatoryDetails: data.list,
         },
-      }
+      };
     }
     if (key == 'Cha') {
       dataToSend = {
@@ -288,7 +288,7 @@ function Index (props) {
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
         },
-      }
+      };
     }
     if (key == 'Stevedore') {
       dataToSend = {
@@ -301,23 +301,23 @@ function Index (props) {
           addresses: data.addressList,
           authorisedSignatoryDetails: data.list,
         },
-      }
+      };
     }
 
-    await dispatch(updateGenericData(dataToSend))
-    let tempArr = sideBar
+    await dispatch(updateGenericData(dataToSend));
+    let tempArr = sideBar;
     sideBar.forEach((val, index) => {
       if (val.value == key) {
-        tempArr[index].state = 'complete'
-        tempArr[index].image = '/static/done.svg'
+        tempArr[index].state = 'complete';
+        tempArr[index].image = '/static/done.svg';
       }
-      setSidebar(tempArr)
-    })
-    setSubmitData(false)
-  }
+      setSidebar(tempArr);
+    });
+    setSubmitData(false);
+  };
   const sendData = (key, data) => {
-    console.log(data, 'sendData')
-    let dataToSend = {}
+    console.log(data, 'sendData');
+    let dataToSend = {};
     if (key == 'Supplier') {
       dataToSend = {
         name: data.supplierState.name,
@@ -331,8 +331,8 @@ function Index (props) {
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
         multiParty: data.supplierState.multiParty,
-      }
-      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Supplier', JSON.stringify(dataToSend));
     }
     if (key == 'Seller') {
       dataToSend = {
@@ -340,8 +340,8 @@ function Index (props) {
         shortName: data.sellerData.shortName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Seller', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Seller', JSON.stringify(dataToSend));
     }
     if (key == 'Buyer') {
       dataToSend = {
@@ -349,15 +349,15 @@ function Index (props) {
         branchName: data.buyerData.branchName,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Buyer', JSON.stringify(dataToSend));
     }
     if (key == 'Finance') {
       dataToSend = {
         name: data.financeData.name,
         branchName: data.financeData.branchName,
-      }
-      sessionStorage.setItem('Finance', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Finance', JSON.stringify(dataToSend));
     }
     if (key == 'Cma') {
       dataToSend = {
@@ -366,8 +366,8 @@ function Index (props) {
         shortName: data.cmaData.gstin,
         addresses: data.addresses,
         authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Cma', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Cma', JSON.stringify(dataToSend));
     }
     if (key == 'Cha') {
       dataToSend = {
@@ -377,8 +377,8 @@ function Index (props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Cha', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Cha', JSON.stringify(dataToSend));
     }
     if (key == 'Stevedore') {
       dataToSend = {
@@ -388,8 +388,8 @@ function Index (props) {
 
         addresses: data.addressList,
         authorisedSignatoryDetails: data.list,
-      }
-      sessionStorage.setItem('Cha', JSON.stringify(dataToSend))
+      };
+      sessionStorage.setItem('Cha', JSON.stringify(dataToSend));
     }
 
     //       setSidebar(prevState => {
@@ -404,15 +404,15 @@ function Index (props) {
 
     //       return newState;
     //     });
-    let tempArr = sideBar
+    let tempArr = sideBar;
     sideBar.forEach((val, index) => {
       if (val.value == key) {
-        tempArr[index].state = 'pending'
-        tempArr[index].image = '/static/pending2.svg'
+        tempArr[index].state = 'pending';
+        tempArr[index].image = '/static/pending2.svg';
       }
-      setSidebar(tempArr)
-    })
-  }
+      setSidebar(tempArr);
+    });
+  };
 
   return (
     <div className={`${styles.root}`}>
@@ -429,7 +429,7 @@ function Index (props) {
                     row.state == 'current' ? styles.selected : null
                   }  d-flex justify-content-between align-items-center`}
                   onClick={(e) => {
-                    changeActiveValue(row.name, index)
+                    changeActiveValue(row.name, index);
                   }}
                 >
                   <img src={row.image}></img>
@@ -442,7 +442,7 @@ function Index (props) {
                 />
               </div>
             </>
-          )
+          );
         })}
       </div>
       <div className={`${styles.content} card p-0 card-body`}>
@@ -469,7 +469,7 @@ function Index (props) {
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
                     onChange={() => {
-                      setMultiPart(true)
+                      setMultiPart(true);
                     }}
                     checked={multiPart == true ? true : false}
                   />
@@ -488,7 +488,7 @@ function Index (props) {
                     id="flexRadioDefault2"
                     checked={multiPart == false ? true : false}
                     onChange={() => {
-                      setMultiPart(false)
+                      setMultiPart(false);
                     }}
                   />
                   <label
@@ -519,7 +519,7 @@ function Index (props) {
               href="#"
               className={`${styles.arrow} ${`leftArrow`}`}
               onClick={() => {
-                onLeftChange()
+                onLeftChange();
               }}
             >
               {' '}
@@ -533,7 +533,7 @@ function Index (props) {
               href="#"
               className={`${styles.arrow} ${`rightArrow`}`}
               onClick={() => {
-                onRightChange()
+                onRightChange();
               }}
             >
               <img
@@ -555,7 +555,7 @@ function Index (props) {
           <div
             className={styles.reject}
             onClick={(e) => {
-              onSave()
+              onSave();
             }}
           >
             <span>Save</span>
@@ -563,7 +563,7 @@ function Index (props) {
           <div
             className={styles.approve}
             onClick={(e) => {
-              onSubmit()
+              onSubmit();
             }}
           >
             <span>Submit</span>
@@ -571,10 +571,10 @@ function Index (props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Index
+export default Index;
 
 const sales = () => {
   return (
@@ -586,8 +586,8 @@ const sales = () => {
       </p>
       <p className="text_sales">
         B. The Buyer shall pay for entire cargo within{' '}
-        <GrowInput placeholder={90}/> days from the date of{' '}
-        <GrowInput placeholder={`B/L`}/> or <GrowInput placeholder={60}/> from
+        <GrowInput placeholder={90} /> days from the date of{' '}
+        <GrowInput placeholder={`B/L`} /> or <GrowInput placeholder={60} /> from
         the date of discharge of vessel at discharge port, whichever is earlier.
         The Buyer shall make full payment of the material to be lifted through
         TT remittance. The Seller shall release the part material to Buyer upon
@@ -600,33 +600,33 @@ const sales = () => {
       </p>
       <p className="text_sales">
         C. The material shall be stored at{' '}
-        <GrowInput placeholder={`Visakhapatnam Port, India`}/> for which the
+        <GrowInput placeholder={`Visakhapatnam Port, India`} /> for which the
         cost of such Rent, Claim, and penalty shall be fully borne by the End
         User. Upon release of payment for the value of each B/L Quantity Release
         Order from the Lending Bank shall be sent to the CMA Agent{' '}
-        <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`}/>, within one
+        <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`} />, within one
         banking day.
       </p>
       <p className="text_sales">
         D. Documents to be provided to Buyer.
-        <br/>
+        <br />
         (1). The Seller‘s Commercial Invoice;.
-        <br/>
+        <br />
         (2). Full set of 3/3 originals of Bills of Lading,
-        <br/>
+        <br />
         (3). Certificate of Quality
-        <br/>
+        <br />
         (4). Certificate of Weight,
-        <br/>
+        <br />
         (5). Certificate of Origin.
-        <br/>
+        <br />
         (6). Copy of Marine Insurance Certificate / Insurance Policy
-        <br/>
+        <br />
         All the above documents are subject to receipt from shipper.
       </p>
     </div>
-  )
-}
+  );
+};
 const payment = () => {
   return (
     <div className={`${styles.paymet} card-body`}>
@@ -672,5 +672,5 @@ const payment = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

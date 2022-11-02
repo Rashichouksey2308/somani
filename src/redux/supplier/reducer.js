@@ -1,4 +1,4 @@
-import * as types from './actionType'
+import * as types from './actionType';
 
 const initialState = {
   creatingSupplier: false,
@@ -8,95 +8,94 @@ const initialState = {
   gettingsupplier: false,
   supplierResponse: null,
   gettingAllSupplier: false,
-  allSupplierResponse: null
+  allSupplierResponse: null,
+};
 
-}
-
-function SupplierReducer (state = initialState, action) {
+function SupplierReducer(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_SUPPLIER:
       return {
         ...state,
         creatingSupplier: true,
-        createdSupplierResponse: null
-      }
+        createdSupplierResponse: null,
+      };
     case types.CREATE_SUPPLIER_SUCCESSFULL:
       return {
         ...state,
         creatingSupplier: false,
-        createdSupplierResponse: action.payload
-      }
+        createdSupplierResponse: action.payload,
+      };
     case types.CREATE_SUPPLIER_FAILED:
       return {
         ...state,
         creatingSupplier: false,
-        createdSupplierResponse: null
-      }
+        createdSupplierResponse: null,
+      };
     case types.UPDATE_SUPPLIER:
       return {
         ...state,
         updatingSupplier: true,
-        updatedSupplierResponse: null
-      }
+        updatedSupplierResponse: null,
+      };
     case types.UPDATE_SUPPLIER_SUCCESSFULL:
       return {
         ...state,
         updatingSupplier: false,
-        updatedSupplierResponse: action.payload
-      }
+        updatedSupplierResponse: action.payload,
+      };
     case types.UPDATE_SUPPLIER_FAILED:
       return {
         ...state,
         updatingSupplier: false,
-        updatedSupplierResponse: null
-      }
+        updatedSupplierResponse: null,
+      };
 
     case types.GET_SUPPLIER:
       return {
         ...state,
         gettingsupplier: true,
-        supplierResponse: null
-      }
+        supplierResponse: null,
+      };
     case types.GET_SUPPLIER_SUCCESSFULL:
       return {
         ...state,
         gettingsupplier: false,
-        supplierResponse: action.payload
-      }
+        supplierResponse: action.payload,
+      };
     case types.GET_SUPPLIER_FAILED:
       return {
         ...state,
         gettingsupplier: false,
-        supplierResponse: null
-      }
+        supplierResponse: null,
+      };
 
     case types.GET_ALL_SUPPLIER:
       return {
         ...state,
         gettingAllSupplier: true,
-        allSupplierResponse: null
-      }
+        allSupplierResponse: null,
+      };
     case types.GET_ALL_SUPPLIER_SUCCESSFULL:
       return {
         ...state,
         gettingAllSupplier: false,
-        allSupplierResponse: action.payload
-      }
+        allSupplierResponse: action.payload,
+      };
     case types.GET_ALL_SUPPLIER_FAILED:
       return {
         ...state,
         gettingAllSupplier: false,
-        allSupplierResponse: null
-      }
+        allSupplierResponse: null,
+      };
     case types.CLEAR_SUPPLIER:
       return {
         ...state,
-        supplierResponse: null
-      }
+        supplierResponse: null,
+      };
 
     default:
-      return state
+      return state;
   }
 }
 
-export default SupplierReducer
+export default SupplierReducer;

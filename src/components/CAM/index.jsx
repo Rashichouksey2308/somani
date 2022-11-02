@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef, useState } from 'react'
-import styles from './index.module.scss'
-import moment from 'moment'
-import { Col, Row } from 'react-bootstrap'
-import { Doughnut, Line } from 'react-chartjs-2'
+import React, { useEffect, useRef, useState } from 'react';
+import styles from './index.module.scss';
+import moment from 'moment';
+import { Col, Row } from 'react-bootstrap';
+import { Doughnut, Line } from 'react-chartjs-2';
 import {
   ArcElement,
   CategoryScale,
@@ -17,14 +17,19 @@ import {
   PointElement,
   Title,
   Tooltip,
-} from 'chart.js'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetDocuments } from 'redux/creditQueueUpdate/action'
-import { ViewDocument } from 'redux/ViewDoc/action'
-import _get from 'lodash/get'
+} from 'chart.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetDocuments } from 'redux/creditQueueUpdate/action';
+import { ViewDocument } from 'redux/ViewDoc/action';
+import _get from 'lodash/get';
 
-import { addPrefixOrSuffix, checkNan, convertValue, CovertvaluefromtoCR, } from '../../utils/helper'
-import { isArray } from 'lodash'
+import {
+  addPrefixOrSuffix,
+  checkNan,
+  convertValue,
+  CovertvaluefromtoCR,
+} from '../../utils/helper';
+import { isArray } from 'lodash';
 
 Chart.register(
   ArcElement,
@@ -37,9 +42,9 @@ Chart.register(
   Filler,
   Tooltip,
   Legend,
-)
+);
 
-function Index ({
+function Index({
   fetchingKarzaGst,
   gstData,
   camData,
@@ -62,17 +67,17 @@ function Index ({
   litigationStatus,
   debtProfileColor,
 }) {
-  const dispatch = useDispatch()
-  console.log(companyData, 'companyData')
+  const dispatch = useDispatch();
+  console.log(companyData, 'companyData');
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     LimitValue: false,
     OrderValue: false,
-  })
+  });
 
   //const [darkMode, setDarkMode] = useState(false)
 
-  const darkMode = useSelector((state) => state.user.isDark)
-  console.log(darkMode, 'This is dark CAM')
+  const darkMode = useSelector((state) => state.user.isDark);
+  console.log(darkMode, 'This is dark CAM');
   // useEffect(() => {
   //   if (window) {
   //     let id1 = sessionStorage.getItem('orderID')
@@ -83,92 +88,92 @@ function Index ({
   //   }
   // }, [dispatch, fetchingKarzaGst])
   useEffect(() => {
-    let id1 = sessionStorage.getItem('orderID')
-    dispatch(GetDocuments(`?order=${id1}`))
-  }, [dispatch])
+    let id1 = sessionStorage.getItem('orderID');
+    dispatch(GetDocuments(`?order=${id1}`));
+  }, [dispatch]);
 
-  console.log(camData, 'THIS IS CAM DATA')
+  console.log(camData, 'THIS IS CAM DATA');
   // console.log(companyData, 'THIS IS COMPANY DATA')
 
   const filteredCreditRating =
     camData?.company?.creditLimit?.creditRating?.filter((rating) => {
-      return camData?._id === rating.order
-    })
+      return camData?._id === rating.order;
+    });
 
-  const { documentsFetched } = useSelector((state) => state.review)
+  const { documentsFetched } = useSelector((state) => state.review);
 
-  console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED')
+  console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED');
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
-    saveApprovedCreditData(name, value)
+    saveApprovedCreditData(name, value);
     // }
-  }
+  };
   const onApproveOrder = (name, value) => {
     // if (gettingPercentageOrder()) {
-    saveApprovedCreditData(name, value)
+    saveApprovedCreditData(name, value);
     // }
-  }
+  };
 
   // console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING IN CAM')
 
-  const [sanctionComments, setSanctionComments] = useState('')
+  const [sanctionComments, setSanctionComments] = useState('');
 
-  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
+  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {});
 
   const previousBalanceData = _get(
     companyData,
     'financial.balanceSheet[1]',
     {},
-  )
+  );
 
   const latestIncomeData = _get(
     companyData,
     'financial.incomeStatement[0]',
     {},
-  )
+  );
   const previousIncomeData = _get(
     companyData,
     'financial.incomeStatement[1]',
     {},
-  )
+  );
 
-  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
-  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {})
+  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {});
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {});
 
   const openChargesLength = () => {
     const filteredData =
       camData?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
         (data) => data.dateOfSatisfactionOfChargeInFull === null,
-      )
+      );
 
-    const length = filteredData?.length
+    const length = filteredData?.length;
 
-    return length
-  }
+    return length;
+  };
 
   const primaryBankName = () => {
     // console.log(camData?.company?.debtProfile, 'camData?.company?.debtProfile')
-    let filteredData = []
+    let filteredData = [];
     filteredData =
-      camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
+      camData?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
-    const length = _get(filteredData[0], 'bankName', '')
-    console.log(length, 'PRIMARY BANK NAME', filteredData)
+    const length = _get(filteredData[0], 'bankName', '');
+    console.log(length, 'PRIMARY BANK NAME', filteredData);
 
-    return length
-  }
+    return length;
+  };
 
   const latestAuditorData = _get(
     camData,
     'company.detailedCompanyInfo.profile.auditorDetail[0]',
     {},
-  )
+  );
   const previousAuditorData = _get(
     camData,
     'company.detailedCompanyInfo.profile.auditorDetail[1]',
     {},
-  )
+  );
 
   const [tempArr, setTempArr] = useState([
     {
@@ -186,7 +191,7 @@ function Index ({
       value: 66705,
       color: '#FF9D00',
     },
-  ])
+  ]);
 
   let colors = [
     {
@@ -201,11 +206,11 @@ function Index ({
       primary: '#FFECCF',
       secondary: '#FF9D00',
     },
-  ]
-  let randColor = colors[Math.floor(Math.random() * colors.length)]
+  ];
+  let randColor = colors[Math.floor(Math.random() * colors.length)];
 
   useEffect(() => {
-    let data
+    let data;
     if (camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern) {
       data =
         camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach(
@@ -221,12 +226,12 @@ function Index ({
                       name: element.fullName,
                       value: element.numberOfShares,
                     },
-                  ]
-                })
+                  ];
+                });
               }
             }
           },
-        )
+        );
       camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach(
         (element, index) => {
           if (element.fullName === '') {
@@ -234,18 +239,18 @@ function Index ({
             if (index <= 2) {
               tempArr.forEach((el, index2) => {
                 if ((index = index2)) {
-                  el.name = element.fullName
-                  el.value = element.numberOfShares
+                  el.name = element.fullName;
+                  el.value = element.numberOfShares;
                 }
-              })
+              });
             }
           }
         },
-      )
+      );
     }
 
-    console.log(tempArr, 'dhjj')
-  }, [camData])
+    console.log(tempArr, 'dhjj');
+  }, [camData]);
   // let tempArr = [
 
   // {
@@ -278,7 +283,7 @@ function Index ({
         backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
       },
     ],
-  }
+  };
 
   const options = {
     elements: {
@@ -299,19 +304,19 @@ function Index ({
     },
     responsive: true,
     cutout: 130,
-  }
+  };
 
   const covertMonths = (months) => {
-    const CovertedMonts = []
+    const CovertedMonts = [];
     months?.map((month) => {
-      let convertedMonths = []
+      let convertedMonths = [];
       CovertedMonts.push(
         ...convertedMonths,
         moment(month, 'MMYYYY').format('MMMM'),
-      )
-    })
-    return CovertedMonts
-  }
+      );
+    });
+    return CovertedMonts;
+  };
 
   const lineOption = {
     tension: 0.2,
@@ -347,7 +352,7 @@ function Index ({
         display: false,
       },
     },
-  }
+  };
   console.log(
     _get(
       companyData,
@@ -355,27 +360,27 @@ function Index ({
       '',
     ),
     '651645',
-  )
+  );
 
-  function createGradient (ctx, area, color, color2) {
-    console.log('cts', color2, color)
+  function createGradient(ctx, area, color, color2) {
+    console.log('cts', color2, color);
 
-    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
-    gradient.addColorStop(0, color2)
-    gradient.addColorStop(1, color)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, color2);
+    gradient.addColorStop(1, color);
 
-    console.log(gradient, 'gradient')
-    return gradient
+    console.log(gradient, 'gradient');
+    return gradient;
   }
 
-  const chartRef = useRef(null)
-  const chartRef2 = useRef(null)
+  const chartRef = useRef(null);
+  const chartRef2 = useRef(null);
   const [chartData, setChartData] = useState({
     datasets: [],
-  })
+  });
   const [chartData2, setChartData2] = useState({
     datasets: [],
-  })
+  });
 
   // let data = {
   //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -388,42 +393,42 @@ function Index ({
   //     },
   //   ],
   // }
-  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE']
+  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', '#ED6B5F', '#2884DE'];
   const [top5Customers, setTop5Customers] = useState({
     labels: [],
     datasets: [],
-  })
-  const [totalCustomer, setTotalCustomer] = useState(0)
-  const [totalSupplier, setTotalSupplier] = useState(0)
+  });
+  const [totalCustomer, setTotalCustomer] = useState(0);
+  const [totalSupplier, setTotalSupplier] = useState(0);
   const [top5Suppliers, setTop5Suppliers] = useState({
     labels: [],
     datasets: [],
-  })
+  });
   const [top3Share, setTop3Share] = useState({
     labels: [],
     datasets: [],
-  })
+  });
   const [top3Open, setTop3Open] = useState({
     labels: [],
     datasets: [],
-  })
+  });
   const findTop5Customers = (data) => {
-    let temp = []
+    let temp = [];
     if (data?.names?.length > 0) {
       data.names.forEach((val, index) => {
-        temp.push({ name: val, value: data.values[index] })
-      })
+        temp.push({ name: val, value: data.values[index] });
+      });
       let sortedval = temp.sort(
         (a, b) => parseFloat(b.values) - parseFloat(a.values),
-      )
-      let length = sortedval.length < 5 ? sortedval.length : 5
-      let lable = []
-      let dataSet = []
-      let total = 0
+      );
+      let length = sortedval.length < 5 ? sortedval.length : 5;
+      let lable = [];
+      let dataSet = [];
+      let total = 0;
       for (let i = 0; i < length; i++) {
-        lable.push(sortedval[i].name)
-        dataSet.push(sortedval[i].value)
-        total = total + sortedval[i].value
+        lable.push(sortedval[i].name);
+        dataSet.push(sortedval[i].value);
+        total = total + sortedval[i].value;
       }
       let top5data = {
         labels: lable,
@@ -434,30 +439,30 @@ function Index ({
             backgroundColor: backgroundColor,
           },
         ],
-      }
-      setTotalCustomer(total)
-      setTop5Customers({ ...top5data })
-      setTotalCustomer1(total)
-      setTop5Customers1({ ...top5data })
+      };
+      setTotalCustomer(total);
+      setTop5Customers({ ...top5data });
+      setTotalCustomer1(total);
+      setTop5Customers1({ ...top5data });
     }
-  }
+  };
   const findTop5Suppliers = (data) => {
-    let temp = []
+    let temp = [];
     if (data?.names?.length > 0) {
       data.names.forEach((val, index) => {
-        temp.push({ name: val, value: data.values[index] })
-      })
+        temp.push({ name: val, value: data.values[index] });
+      });
       let sortedval = temp.sort(
         (a, b) => parseFloat(b.values) - parseFloat(a.values),
-      )
-      let length = sortedval.length < 5 ? sortedval.length : 5
-      let lable = []
-      let dataSet = []
-      let total = 0
+      );
+      let length = sortedval.length < 5 ? sortedval.length : 5;
+      let lable = [];
+      let dataSet = [];
+      let total = 0;
       for (let i = 0; i < length; i++) {
-        lable.push(sortedval[i].name)
-        dataSet.push(sortedval[i].value)
-        total = total + sortedval[i].value
+        lable.push(sortedval[i].name);
+        dataSet.push(sortedval[i].value);
+        total = total + sortedval[i].value;
       }
       let top5data = {
         labels: lable,
@@ -468,31 +473,31 @@ function Index ({
             backgroundColor: backgroundColor,
           },
         ],
-      }
-      setTotalSupplier(total)
-      setTop5Suppliers({ ...top5data })
-      setTotalSupplier1(total)
-      setTop5Suppliers1({ ...top5data })
+      };
+      setTotalSupplier(total);
+      setTop5Suppliers({ ...top5data });
+      setTotalSupplier1(total);
+      setTop5Suppliers1({ ...top5data });
     }
-  }
+  };
   const findTop3Share = (data) => {
-    console.log(data, 'sasdasd')
-    let temp = []
+    console.log(data, 'sasdasd');
+    let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
-        temp.push({ name: val.fullName, value: val.numberOfShares })
-      })
+        temp.push({ name: val.fullName, value: val.numberOfShares });
+      });
       let sortedval = temp.sort(
         (a, b) => parseFloat(b.values) - parseFloat(a.values),
-      )
-      let length = 3
-      let lable = []
-      let dataSet = []
-      let total = 0
+      );
+      let length = 3;
+      let lable = [];
+      let dataSet = [];
+      let total = 0;
       for (let i = 0; i < length; i++) {
-        lable.push(sortedval[i]?.name)
-        dataSet.push(sortedval[i]?.value)
-        total = total + sortedval[i]?.value
+        lable.push(sortedval[i]?.name);
+        dataSet.push(sortedval[i]?.value);
+        total = total + sortedval[i]?.value;
       }
       let top5data = {
         labels: lable,
@@ -504,34 +509,34 @@ function Index ({
             hoverOffset: 4,
           },
         ],
-      }
+      };
 
-      setTop3Share({ ...top5data })
-      setTop3Share1({ ...top5data })
+      setTop3Share({ ...top5data });
+      setTop3Share1({ ...top5data });
     }
-  }
+  };
   const findTop3Open = (data) => {
-    console.log(data, 'opqpqpqp')
-    let temp = []
+    console.log(data, 'opqpqpqp');
+    let temp = [];
     if (data?.length > 0) {
       data.forEach((val, index) => {
         if (val.finalAmountSecured !== null) {
           temp.push({
             name: val.nameOfChargeHolder1,
             value: val.finalAmountSecured,
-          })
+          });
         }
-      })
+      });
       let sortedval = temp.sort(
         (a, b) => parseFloat(b.values) - parseFloat(a.values),
-      )
-      let length = 3
-      let lable = []
-      let dataSet = []
-      let total = 0
+      );
+      let length = 3;
+      let lable = [];
+      let dataSet = [];
+      let total = 0;
       for (let i = 0; i < length; i++) {
-        lable.push(sortedval[i]?.name)
-        dataSet.push(sortedval[i]?.value || 0)
+        lable.push(sortedval[i]?.name);
+        dataSet.push(sortedval[i]?.value || 0);
       }
       let top5data = {
         labels: lable,
@@ -543,32 +548,32 @@ function Index ({
             hoverOffset: 20,
           },
         ],
-      }
+      };
 
-      setTop3Open({ ...top5data })
-      setTop3Open1({ ...top5data })
+      setTop3Open({ ...top5data });
+      setTop3Open1({ ...top5data });
     }
-  }
+  };
 
-  console.log(top3Share, 'top3Share')
+  console.log(top3Share, 'top3Share');
   useEffect(() => {
-    findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus)
-    findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers)
+    findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus);
+    findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers);
     console.log(
       camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,
       'camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)',
-    )
+    );
     findTop3Share(
       camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,
-    )
-    findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges)
-  }, [GstData, camData])
+    );
+    findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges);
+  }, [GstData, camData]);
   useEffect(() => {
-    const chart = chartRef.current
-    const chart2 = chartRef2.current
+    const chart = chartRef.current;
+    const chart2 = chartRef2.current;
 
     if (!chart) {
-      return
+      return;
     }
 
     const data = {
@@ -587,9 +592,9 @@ function Index ({
           borderColor: '#2979F2',
         },
       ],
-    }
+    };
     if (!chart2) {
-      return
+      return;
     }
 
     const data2 = {
@@ -610,58 +615,58 @@ function Index ({
           borderColor: '#FA5F1C',
         },
       ],
-    }
+    };
 
-    setChartData(data)
-    setChartData2(data2)
-  }, [chartRef.current, chartRef2.current])
+    setChartData(data);
+    setChartData2(data2);
+  }, [chartRef.current, chartRef2.current]);
 
-  const [rating, setRating] = useState(`rotate(0deg)`)
+  const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {
     if (filteredCreditRating) {
-      getRotate(filteredCreditRating[0]?.totalRating)
+      getRotate(filteredCreditRating[0]?.totalRating);
       //  getRotate(2)
     }
-  }, [filteredCreditRating])
+  }, [filteredCreditRating]);
 
   const getRotate = (rat = 1) => {
-    let r = Math.round(rat)
+    let r = Math.round(rat);
     // let r = 10;
     if (r == 0) {
-      setRating(`rotate(90deg)`)
+      setRating(`rotate(90deg)`);
     }
     if (r == 1) {
-      setRating(`rotate(90deg)`)
+      setRating(`rotate(90deg)`);
     }
     if (r == 2) {
-      setRating(`rotate(130deg)`)
+      setRating(`rotate(130deg)`);
     }
     if (r == 3) {
-      setRating(`rotate(180deg)`)
+      setRating(`rotate(180deg)`);
     }
     if (r == 4) {
-      setRating(`rotate(200deg)`)
+      setRating(`rotate(200deg)`);
     }
     if (r == 5) {
-      setRating(`rotate(225deg)`)
+      setRating(`rotate(225deg)`);
     }
     if (r == 6) {
-      setRating(`rotate(250deg)`)
+      setRating(`rotate(250deg)`);
     }
     if (r == 7) {
-      setRating(`rotate(270deg)`)
+      setRating(`rotate(270deg)`);
     }
 
     if (r == 8) {
-      setRating(`rotate(310deg)`)
+      setRating(`rotate(310deg)`);
     }
     if (r == 9) {
-      setRating(`rotate(330deg)`)
+      setRating(`rotate(330deg)`);
     }
     if (r == 10) {
-      setRating(`rotate(2deg)`)
+      setRating(`rotate(2deg)`);
     }
-  }
+  };
 
   return (
     <>
@@ -749,10 +754,10 @@ function Index ({
       )}
       {Documents(documentsFetched)}
     </>
-  )
+  );
 }
 
-export default Index
+export default Index;
 
 const basicInfo = (camData, orderDetails, camConversionunit) => {
   // console
@@ -952,8 +957,8 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
                     {camData?.ExpectedDateOfShipment
                       ? moment(camData?.ExpectedDateOfShipment).format(
-                        'DD-MM-YYYY',
-                      )
+                          'DD-MM-YYYY',
+                        )
                       : ''}
                   </span>
                 </Col>
@@ -970,8 +975,8 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
 
                     {camData?.shipmentDetail?.ETAofDischarge?.fromDate
                       ? moment(
-                        camData?.shipmentDetail?.ETAofDischarge?.fromDate,
-                      ).format('DD-MM-YYYY')
+                          camData?.shipmentDetail?.ETAofDischarge?.fromDate,
+                        ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -993,8 +998,8 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                       : ''} */}
                     {camData?.shipmentDetail?.loadPort?.fromDate
                       ? moment(
-                        camData?.shipmentDetail?.loadPort?.fromDate,
-                      ).format('DD-MM-YYYY')
+                          camData?.shipmentDetail?.loadPort?.fromDate,
+                        ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1014,8 +1019,8 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
                       : ''} */}
                     {camData?.shipmentDetail?.loadPort?.toDate
                       ? moment(
-                        camData?.shipmentDetail?.loadPort?.toDate,
-                      ).format('DD-MM-YYYY')
+                          camData?.shipmentDetail?.loadPort?.toDate,
+                        ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1025,10 +1030,10 @@ const basicInfo = (camData, orderDetails, camConversionunit) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const supplierInfo = (camData) => {
-  console.log(camData, 'camData')
+  console.log(camData, 'camData');
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1094,8 +1099,8 @@ const supplierInfo = (camData) => {
                       : ''} */}
                     {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
-                        camData?.supplierCredential?.latestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                          camData?.supplierCredential?.latestShipmentDate,
+                        ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1123,8 +1128,8 @@ const supplierInfo = (camData) => {
                       : ''} */}
                     {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
-                        camData?.supplierCredential?.oldestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                          camData?.supplierCredential?.oldestShipmentDate,
+                        ).format('DD-MM-YYYY')
                       : ''}
                   </span>
                 </Col>
@@ -1162,8 +1167,8 @@ const supplierInfo = (camData) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const groupExposure = (camData, camConversionunit) => {
   return (
     <>
@@ -1188,8 +1193,8 @@ const groupExposure = (camData, camConversionunit) => {
             <Row className={`${styles.row}`}>
               {camData &&
                 camData?.company?.groupExposureDetail?.map((exp, index) => {
-                  let name = exp?.name?.split(' ') ?? 'NA'
-                  console.log(name, 'thirdkjdfbh')
+                  let name = exp?.name?.split(' ') ?? 'NA';
+                  console.log(name, 'thirdkjdfbh');
                   return (
                     <Col key={index} md={4}>
                       <div className={`${styles.exposureCard} border_color`}>
@@ -1205,7 +1210,7 @@ const groupExposure = (camData, camConversionunit) => {
                                 {isArray(name) &&
                                   name?.map((item, index) => {
                                     if (index < 2) {
-                                      return item?.charAt(0).toUpperCase()
+                                      return item?.charAt(0).toUpperCase();
                                     }
                                   })}
                               </span>
@@ -1274,18 +1279,18 @@ const groupExposure = (camData, camConversionunit) => {
                         </Row>
                       </div>
                     </Col>
-                  )
+                  );
                 })}{' '}
             </Row>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const orderSummary = (camData, camConversionunit) => {
-  let name = camData?.company?.companyName ?? 'N A'
-  let Initials = name?.split(' ')
+  let name = camData?.company?.companyName ?? 'N A';
+  let Initials = name?.split(' ');
 
   return (
     <>
@@ -1366,8 +1371,8 @@ const orderSummary = (camData, camConversionunit) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const creditProfile = (
   camData,
   openChargesLength,
@@ -1446,7 +1451,7 @@ const creditProfile = (
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor
                       ? latestAuditorData?.nameOfAuditor ===
-                      previousAuditorData?.nameOfAuditor
+                        previousAuditorData?.nameOfAuditor
                         ? ' No'
                         : 'Yes'
                       : ''}
@@ -1458,8 +1463,8 @@ const creditProfile = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const directorDetails = (camData) => {
   return (
     <>
@@ -1496,8 +1501,8 @@ const directorDetails = (camData) => {
 
               {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
                 (director, index) => {
-                  let name = director?.name
-                  let [fName, lName] = director?.name.split(' ')
+                  let name = director?.name;
+                  let [fName, lName] = director?.name.split(' ');
 
                   return (
                     <tr key={index}>
@@ -1522,7 +1527,7 @@ const directorDetails = (camData) => {
                       <td>{director.tenureStartDate}</td>
                       <td>{director.percentageShareHolding}%</td>
                     </tr>
-                  )
+                  );
                 },
               )}
               <tr>
@@ -1533,8 +1538,8 @@ const directorDetails = (camData) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const shareHolding = (
   top3Share,
   options,
@@ -1593,7 +1598,7 @@ const shareHolding = (
                               : top3Share.labels[index]}
                           </span>
                         </div>
-                      )
+                      );
                     })}
                 </div>
               </Col>
@@ -1613,8 +1618,8 @@ const shareHolding = (
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
-                        let name = share?.fullName ?? 'N A'
-                        let [fName, lName] = name?.split(' ')
+                        let name = share?.fullName ?? 'N A';
+                        let [fName, lName] = name?.split(' ');
 
                         let colors = [
                           {
@@ -1629,9 +1634,9 @@ const shareHolding = (
                             primary: '#FFECCF',
                             secondary: '#FF9D00',
                           },
-                        ]
+                        ];
                         let randColor =
-                          colors[Math.floor(Math.random() * colors.length)]
+                          colors[Math.floor(Math.random() * colors.length)];
                         return (
                           <tr key={index}>
                             <td
@@ -1662,16 +1667,16 @@ const shareHolding = (
                             <td>
                               {share?.percentageShareHolding
                                 ? (
-                                share?.percentageShareHolding * 100
-                              )?.toLocaleString('en-IN', {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) + '%'
+                                    share?.percentageShareHolding * 100
+                                  )?.toLocaleString('en-IN', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  }) + '%'
                                 : ''}
                             </td>
                             <td>{share?.director ? 'Yes' : 'No'}</td>
                           </tr>
-                        )
+                        );
                       },
                     )}
                   {/* <tr>
@@ -1721,8 +1726,8 @@ const shareHolding = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const chargeDetails = (
   top3Open,
   options,
@@ -1731,7 +1736,7 @@ const chargeDetails = (
   backgroundColor,
   camConversionunit,
 ) => {
-  console.log(top3Open, 'top3Open')
+  console.log(top3Open, 'top3Open');
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -1783,7 +1788,7 @@ const chargeDetails = (
                               : top3Open.labels[index]}
                           </span>
                         </div>
-                      )
+                      );
                     })}
                 </div>
               </Col>
@@ -1805,8 +1810,8 @@ const chargeDetails = (
                       'company.detailedCompanyInfo.financial.openCharges',
                       [],
                     ).map((charge, index) => {
-                      let name = charge?.nameOfChargeHolder
-                      let [fName, lName] = name?.split(' ')
+                      let name = charge?.nameOfChargeHolder;
+                      let [fName, lName] = name?.split(' ');
 
                       let colors = [
                         {
@@ -1821,9 +1826,9 @@ const chargeDetails = (
                           primary: '#FFECCF',
                           secondary: '#FF9D00',
                         },
-                      ]
+                      ];
                       let randColor =
-                        colors[Math.floor(Math.random() * colors.length)]
+                        colors[Math.floor(Math.random() * colors.length)];
                       return (
                         <tr key={index}>
                           <td
@@ -1863,13 +1868,13 @@ const chargeDetails = (
                           <td>
                             {charge?.dateOfCreationOfCharge
                               ? moment(
-                                charge?.dateOfCreationOfCharge,
-                                'DD-YY-MMMM',
-                              ).format('DD-MM-YYYY')
+                                  charge?.dateOfCreationOfCharge,
+                                  'DD-YY-MMMM',
+                                ).format('DD-MM-YYYY')
                               : ''}
                           </td>
                         </tr>
-                      )
+                      );
                     })}
                   {/* <tr>
                     <td
@@ -1918,8 +1923,8 @@ const chargeDetails = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const debtProfile = (
   data,
   options,
@@ -2084,10 +2089,10 @@ const debtProfile = (
                             debt.conduct == 'Good'
                               ? 'good'
                               : debt.conduct == 'Satisfactory'
-                                ? 'satisfactory'
-                                : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : 'danger'
+                              ? 'satisfactory'
+                              : debt.conduct == 'Average'
+                              ? 'average'
+                              : 'danger'
                           }`}
                         >
                           {debt?.conduct}
@@ -2125,13 +2130,13 @@ const debtProfile = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const operationalDetails = (camData) => {
   console.log(
     camData?.productSummary?.monthlyProductionCapacity,
     'camData?.productSummary?.monthlyProductionCapacity',
-  )
+  );
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -2161,10 +2166,10 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(
-                        camData?.productSummary?.monthlyProductionCapacity,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          camData?.productSummary?.monthlyProductionCapacity,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? 'MT'
@@ -2181,10 +2186,10 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.value} value`}>
                     {camData?.productSummary?.averageStockInTransit
                       ? Number(
-                        camData?.productSummary?.averageStockInTransit,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          camData?.productSummary?.averageStockInTransit,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.averageStockInTransit ? 'MT' : ''}
                   </span>
@@ -2238,10 +2243,10 @@ const operationalDetails = (camData) => {
                     })} */}
                     {camData?.productSummary?.availableStock
                       ? Number(
-                        camData?.productSummary?.availableStock,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          camData?.productSummary?.availableStock,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.availableStock ? 'MT' : ''}
                   </span>
@@ -2262,10 +2267,10 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.AvgMonthlyElectricityBill
                       ? Number(
-                        camData?.productSummary?.AvgMonthlyElectricityBill,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          camData?.productSummary?.AvgMonthlyElectricityBill,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}
                   </span>
                 </Col>
@@ -2284,10 +2289,10 @@ const operationalDetails = (camData) => {
                     )} */}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? Number(
-                        camData?.productSummary?.dailyConsumptionOfCommodity,
-                      )?.toLocaleString('en-In', {
-                        maximumFractionDigits: 2,
-                      })
+                          camData?.productSummary?.dailyConsumptionOfCommodity,
+                        )?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })
                       : ''}{' '}
                     {camData?.productSummary?.dailyConsumptionOfCommodity
                       ? 'MT'
@@ -2300,16 +2305,16 @@ const operationalDetails = (camData) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const revenuDetails = (gstData, camConversionunit) => {
-  const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary
+  const RevenueDetails = gstData?.detail?.salesDetailAnnual?.saleSummary;
 
-  function calcPc (n1, n2) {
+  function calcPc(n1, n2) {
     if (n1 === 0) {
-      return 0
+      return 0;
     }
-    return ((n2 - n1) / n1) * 100
+    return ((n2 - n1) / n1) * 100;
   }
 
   return (
@@ -2804,8 +2809,8 @@ const revenuDetails = (gstData, camConversionunit) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const financeDetails = (
   latestBalanceData,
   previousBalanceData,
@@ -2856,14 +2861,14 @@ const financeDetails = (
                       ) === ''
                         ? ''
                         : moment(
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].date',
-                            '',
-                          ),
-                        )
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[0].date',
+                              '',
+                            ),
+                          )
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                     <th>
                       {_get(
@@ -2873,14 +2878,14 @@ const financeDetails = (
                       ) === ''
                         ? ''
                         : moment(
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].date',
-                            '',
-                          ),
-                        )
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[1].date',
+                              '',
+                            ),
+                          )
+                            .format('MMM-YY')
+                            .toUpperCase()}
                     </th>
                   </tr>
                   <tr>
@@ -2922,11 +2927,11 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                             '',
                           ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2942,11 +2947,11 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                             '',
                           ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2965,11 +2970,11 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.tradePay',
                             '',
                           ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -2985,11 +2990,11 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.tradePay',
                             '',
                           ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                            _get(
+                              companyData,
+                              'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                              '',
+                            ),
                         ),
                         camConversionunit,
                       )?.toLocaleString('en-In', {
@@ -3141,16 +3146,16 @@ const financeDetails = (
                       {' '}
                       {latestYearData?.financialEndDate
                         ? moment(latestYearData?.financialEndDate)
-                          .format('MMM-YY')
-                          .toUpperCase()
+                            .format('MMM-YY')
+                            .toUpperCase()
                         : ''}
                     </th>
                     <th>
                       {' '}
                       {previousYearData?.financialEndDate
                         ? moment(previousYearData?.financialEndDate)
-                          .format('MMM-YY')
-                          .toUpperCase()
+                            .format('MMM-YY')
+                            .toUpperCase()
                         : ''}
                     </th>
                   </tr>
@@ -3350,8 +3355,8 @@ const financeDetails = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const compilanceStatus = (companyData, camData, litigationStatus) => {
   return (
     <>
@@ -3390,13 +3395,13 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
                       '',
                     ) != ''
                       ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                          _get(
+                            companyData,
+                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                            '',
+                          ),
+                          'MMyyyy',
+                        ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -3472,8 +3477,8 @@ const compilanceStatus = (companyData, camData, litigationStatus) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const strengthAndWeakness = (camData) => {
   return (
     <>
@@ -3504,8 +3509,7 @@ const strengthAndWeakness = (camData) => {
                     <span
                       className={`d-flex justify-content-center align-content-center`}
                     >
-                      <img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOC41NzUiIGhlaWdodD0iMjIuMTIiIHZpZXdCb3g9IjAgMCAyOC41NzUgMjIuMTIiPg0KICA8cGF0aCBpZD0iY2hlY2stMiIgZD0iTTEyLjA0MSwyMS45MjYsNS42LDE1LjQ4NywzLjQxLDE3LjY2NCwxMi4wNDEsMjYuMywzMC41Nyw3Ljc2NywyOC4zOTMsNS41OVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yLjcwMiAtNC44ODMpIiBmaWxsPSIjMDBiODFlIiBzdHJva2U9IiMwMGI4MWUiIHN0cm9rZS13aWR0aD0iMSIvPg0KPC9zdmc+DQo="></img>
+                      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOC41NzUiIGhlaWdodD0iMjIuMTIiIHZpZXdCb3g9IjAgMCAyOC41NzUgMjIuMTIiPg0KICA8cGF0aCBpZD0iY2hlY2stMiIgZD0iTTEyLjA0MSwyMS45MjYsNS42LDE1LjQ4NywzLjQxLDE3LjY2NCwxMi4wNDEsMjYuMywzMC41Nyw3Ljc2NywyOC4zOTMsNS41OVoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yLjcwMiAtNC44ODMpIiBmaWxsPSIjMDBiODFlIiBzdHJva2U9IiMwMGI4MWUiIHN0cm9rZS13aWR0aD0iMSIvPg0KPC9zdmc+DQo="></img>
                     </span>
                   </div>
                   <span className={`${styles.text} good ml-2`}>Strength</span>
@@ -3547,8 +3551,7 @@ const strengthAndWeakness = (camData) => {
                     <span
                       className={`d-flex justify-content-center align-content-center`}
                     >
-                      <img
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNi44OCIgaGVpZ2h0PSIxNi44OCIgdmlld0JveD0iMCAwIDE2Ljg4IDE2Ljg4Ij4NCiAgPHBhdGggaWQ9ImNsb3NlLTMiIGQ9Ik0yMS4xNzMsNi42MjksMTkuNTQ0LDVsLTYuNDU4LDYuNDU4TDYuNjI5LDUsNSw2LjYyOWw2LjQ1OCw2LjQ1OEw1LDE5LjU0NGwxLjYyOSwxLjYyOSw2LjQ1OC02LjQ1OCw2LjQ1OCw2LjQ1OCwxLjYyOS0xLjYyOS02LjQ1OC02LjQ1OFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC00LjY0NiAtNC42NDYpIiBmaWxsPSIjZWEzZjNmIiBzdHJva2U9IiNmNDY0NjQiIHN0cm9rZS13aWR0aD0iMC41Ii8+DQo8L3N2Zz4NCg=="></img>
+                      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNi44OCIgaGVpZ2h0PSIxNi44OCIgdmlld0JveD0iMCAwIDE2Ljg4IDE2Ljg4Ij4NCiAgPHBhdGggaWQ9ImNsb3NlLTMiIGQ9Ik0yMS4xNzMsNi42MjksMTkuNTQ0LDVsLTYuNDU4LDYuNDU4TDYuNjI5LDUsNSw2LjYyOWw2LjQ1OCw2LjQ1OEw1LDE5LjU0NGwxLjYyOSwxLjYyOSw2LjQ1OC02LjQ1OCw2LjQ1OCw2LjQ1OCwxLjYyOS0xLjYyOS02LjQ1OC02LjQ1OFoiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC00LjY0NiAtNC42NDYpIiBmaWxsPSIjZWEzZjNmIiBzdHJva2U9IiNmNDY0NjQiIHN0cm9rZS13aWR0aD0iMC41Ii8+DQo8L3N2Zz4NCg=="></img>
                     </span>
                   </div>
                   <span className={`${styles.text} danger ml-2`}>Weakness</span>
@@ -3562,7 +3565,7 @@ const strengthAndWeakness = (camData) => {
                             <li key={index} className={`mt-4`}>
                               {comment}
                             </li>
-                          )
+                          );
                         },
                       )}
                     {/* <li className={`mt-4`}>
@@ -3589,8 +3592,8 @@ const strengthAndWeakness = (camData) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const sectionTerms = (
   camData,
   sanctionComments,
@@ -3605,8 +3608,8 @@ const sectionTerms = (
   isFieldInFocus,
   setIsFieldInFocus,
 ) => {
-  const [limitValueChecked, setLimitValueChecked] = useState(false)
-  const [orderValueChecked, setOrderValueChecked] = useState(false)
+  const [limitValueChecked, setLimitValueChecked] = useState(false);
+  const [orderValueChecked, setOrderValueChecked] = useState(false);
 
   return (
     <>
@@ -3719,9 +3722,7 @@ const sectionTerms = (
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(
-                                convertValue(
-                                  val?.suggested?.value,
-                                ),
+                                convertValue(val?.suggested?.value),
                               )?.toLocaleString('en-In')}
                               {` ${
                                 camData?.unitOfValue === 'Crores'
@@ -3755,28 +3756,28 @@ const sectionTerms = (
                             ...isFieldInFocus,
                             LimitValue: true,
                           }),
-                            (e.target.type = 'number')
+                            (e.target.type = 'number');
                         }}
                         onBlur={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
                             LimitValue: false,
                           }),
-                            (e.target.type = 'text')
+                            (e.target.type = 'text');
                         }}
                         value={
                           isFieldInFocus.LimitValue
                             ? approvedCredit?.approvedCreditValue
                             : checkNan(
-                              Number(approvedCredit?.approvedCreditValue),
-                            )?.toLocaleString('en-In')
+                                Number(approvedCredit?.approvedCreditValue),
+                              )?.toLocaleString('en-In')
                         }
                         // defaultValue={approvedCredit?.approvedCreditValue}
                         name="approvedCreditValue"
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
-                          onApprove(e.target.name, Number(e.target.value))
+                          onApprove(e.target.name, Number(e.target.value));
                         }}
                       ></input>
                     </td>
@@ -3823,25 +3824,25 @@ const sectionTerms = (
                             ...isFieldInFocus,
                             OrderValue: true,
                           }),
-                            (e.target.type = 'number')
+                            (e.target.type = 'number');
                         }}
                         onBlur={(e) => {
                           setIsFieldInFocus({
                             ...isFieldInFocus,
                             OrderValue: false,
                           }),
-                            (e.target.type = 'text')
+                            (e.target.type = 'text');
                         }}
                         value={
                           isFieldInFocus.OrderValue
                             ? approvedCredit?.approvedOrderValue
                             : checkNan(
-                              Number(approvedCredit?.approvedOrderValue),
-                            )?.toLocaleString('en-In')
+                                Number(approvedCredit?.approvedOrderValue),
+                              )?.toLocaleString('en-In')
                         }
                         // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
-                          onApproveOrder(e.target.name, Number(e.target.value))
+                          onApproveOrder(e.target.name, Number(e.target.value));
                         }}
                       ></input>
                     </td>
@@ -3896,10 +3897,10 @@ const sectionTerms = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const Documents = (documentsFetched) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -4029,8 +4030,8 @@ const Documents = (documentsFetched) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const trends = (
   chartData,
   chartRef,
@@ -4195,8 +4196,8 @@ const trends = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const skewness = (
   top5Customers,
   options,
@@ -4324,7 +4325,7 @@ const skewness = (
                                 </span>
                               </div>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                   </Col>
@@ -4401,7 +4402,7 @@ const skewness = (
                                 </span>
                               </div>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                   </Col>
@@ -4412,10 +4413,10 @@ const skewness = (
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 const customerRating = (data, filteredCreditRating, rating, darkMode) => {
-  console.log(filteredCreditRating, 'filteredCreditRating22')
+  console.log(filteredCreditRating, 'filteredCreditRating22');
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -4668,23 +4669,30 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
                         style={{
-                          backgroundColor: '#FFB700', width: `${
+                          backgroundColor: '#FFB700',
+                          width: `${
                             filteredCreditRating?.length > 0
-                              ? (
-                              filteredCreditRating[0].businessProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating
-                            ) * 100 : '0'
-                          }%`
+                              ? (filteredCreditRating[0].businessProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>{
-                        filteredCreditRating?.length > 0
-                          ? (Number(
-                            filteredCreditRating[0].businessProfile.total.overallValue /
-                            filteredCreditRating[0].totalRating
-                          ) * 100).toFixed(2) : '0'
-                      } %</span>
+                      <span>
+                        {filteredCreditRating?.length > 0
+                          ? (
+                              Number(
+                                filteredCreditRating[0].businessProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                          : '0'}{' '}
+                        %
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -4696,24 +4704,30 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
                         style={{
-                          backgroundColor: '#FF4230', width: `${
+                          backgroundColor: '#FF4230',
+                          width: `${
                             filteredCreditRating?.length > 0
-                              ? (
-                              filteredCreditRating[0].revenueProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating
-                            ) * 100 : '0'
-                          }%`
+                              ? (filteredCreditRating[0].revenueProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>{
-                        filteredCreditRating?.length > 0
-                          ? (Number(
-                            filteredCreditRating[0].revenueProfile.total.overallValue /
-                            filteredCreditRating[0].totalRating
-                          ) * 100).toFixed(2) : '0'
-                      } %
-                        </span>
+                      <span>
+                        {filteredCreditRating?.length > 0
+                          ? (
+                              Number(
+                                filteredCreditRating[0].revenueProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                          : '0'}{' '}
+                        %
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -4725,25 +4739,30 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                     <div className={`${styles.bar} ${styles.small_bar}`}>
                       <div
                         style={{
-                          backgroundColor: '#83C400', width: `${
+                          backgroundColor: '#83C400',
+                          width: `${
                             filteredCreditRating?.length > 0
-                              ? (
-                              filteredCreditRating[0].financialProfile.total.overallValue /
-                              filteredCreditRating[0].totalRating
-                            ) * 100 : '0'
-                          }%`
+                              ? (filteredCreditRating[0].financialProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating) *
+                                100
+                              : '0'
+                          }%`,
                         }}
                         className={`${styles.fill}`}
                       ></div>
-                      <span>{
-                        filteredCreditRating?.length > 0
-                          ? (Number(
-                            filteredCreditRating[0].financialProfile.total.overallValue /
-                            filteredCreditRating[0].totalRating
-                          ) * 100).toFixed(2) : '0'
-                      } %
-                        </span>
-
+                      <span>
+                        {filteredCreditRating?.length > 0
+                          ? (
+                              Number(
+                                filteredCreditRating[0].financialProfile.total
+                                  .overallValue /
+                                  filteredCreditRating[0].totalRating,
+                              ) * 100
+                            ).toFixed(2)
+                          : '0'}{' '}
+                        %
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -4753,5 +4772,5 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
