@@ -105,9 +105,7 @@ class UserProfile extends React.Component {
       <React.Fragment>
         <div className="reset_page">
           <Card className="card_padding">
-            <CardHeader className="card_header_height text-center">
-              Reset Password
-            </CardHeader>
+            <CardHeader className="card_header_height text-center">Reset Password</CardHeader>
             <CardBody>
               <Form onSubmit={this.handleSubmit}>
                 <FormGroup>

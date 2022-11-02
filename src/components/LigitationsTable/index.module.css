@@ -23,44 +23,23 @@
   flex-direction: column;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  span {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head span {
   width: 100%;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  .lower {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head .lower {
   width: 100%;
   color: black;
   font-size: 20px;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  .chart {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head .chart {
   width: 100%;
   font-size: 19px;
   color: black;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  .chart
-  .container {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head .chart .container {
   margin-top: 0.5rem;
   width: 267px;
   height: 8px;
@@ -69,14 +48,7 @@
   position: relative;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  .chart
-  .container
-  .fill {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head .chart .container .fill {
   background: #3687e8 0% 0% no-repeat padding-box;
   border-radius: 2px;
   top: 0;
@@ -85,14 +57,7 @@
   width: 20%;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardHeader_litigations
-  .row
-  .head
-  .chart
-  .container
-  span {
+.card_litigations .card_ligitations_holder .cardHeader_litigations .row .head .chart .container span {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -113,13 +78,7 @@
   padding-left: 15px !important;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  th {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr th {
   font-weight: bold;
   font-size: 15px;
   color: #3687e8;
@@ -127,23 +86,11 @@
   background: #f3f4f7 0% 0% no-repeat padding-box;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  th:first-child {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr th:first-child {
   padding-left: 15px;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  td {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr td {
   font-weight: bold;
   font-size: 15px;
   color: #3687e8;
@@ -151,33 +98,15 @@
   background: #f3f4f7 0% 0% no-repeat padding-box;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  td:first-child {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr td:first-child {
   padding-left: 15px;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  td {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr td {
   font-size: 19px;
 }
 
-.card_litigations
-  .card_ligitations_holder
-  .cardBody_Tribunals
-  table
-  thead
-  tr
-  td:first-child {
+.card_litigations .card_ligitations_holder .cardBody_Tribunals table thead tr td:first-child {
   padding-left: 15px;
 }
 

@@ -39,18 +39,14 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
   };
   console.log(orderDetail?.transactionType, 'orderDetail');
   return (
-    <div
-      className={`${styles.main} vessel_card card border_color border-bottom`}
-    >
+    <div className={`${styles.main} vessel_card card border_color border-bottom`}>
       <div
         className={`${styles.head_container} card-header align-items-center border_color head_container d-flex justify-content-between bg-transparent`}
       >
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>
-              Quantity :
-            </h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Quantity :</h5>
             <div className="d-flex align-items-center position-relative">
               <select
                 className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
@@ -62,11 +58,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                 <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
                 {/* <option selected>MT</option> */}
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
           </div>
 
@@ -84,18 +76,9 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                 <option value="Million">Million</option>
                 <option value="Lakh">Lakh</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
-            <span
-              data-toggle="collapse"
-              data-target="#orderSummary"
-              aria-expanded="true"
-              aria-controls="orderSummary"
-            >
+            <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">
               +
             </span>
           </div>
@@ -118,9 +101,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   onChange={(e) => {
                     saveOrderData('transactionType', 'Import');
                   }}
-                  checked={
-                    orderDetail?.transactionType === 'Import' ? 'checked' : ''
-                  }
+                  checked={orderDetail?.transactionType === 'Import' ? 'checked' : ''}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -132,9 +113,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   onChange={(e) => {
                     saveOrderData('transactionType', 'Domestic');
                   }}
-                  checked={
-                    orderDetail?.transactionType === 'Domestic' ? 'checked' : ''
-                  }
+                  checked={orderDetail?.transactionType === 'Domestic' ? 'checked' : ''}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -163,9 +142,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                         {toShow
                           ? toShow?.map((results, index) => (
                               <li
-                                onClick={() =>
-                                  handleData('commodity', results.Commodity)
-                                }
+                                onClick={() => handleData('commodity', results.Commodity)}
                                 id={results._id}
                                 key={index}
                                 value={results.Commodity}
@@ -177,16 +154,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       </ul>
                     </div>
                   )}
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Commodity<strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -197,12 +168,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="quantity"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.quantity
@@ -227,25 +196,16 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="orderValue"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.orderValue
                       ? orderDetail?.orderValue
-                      : Number(orderDetail?.orderValue).toLocaleString(
-                          'en-In',
-                          { maximumFractionDigits: 2 },
-                        ) +
-                        ` ${
-                          orderDetail?.unitOfValue == 'Crores'
-                            ? 'Cr'
-                            : orderDetail?.unitOfValue
-                        }`
+                      : Number(orderDetail?.orderValue).toLocaleString('en-In', { maximumFractionDigits: 2 }) +
+                        ` ${orderDetail?.unitOfValue == 'Crores' ? 'Cr' : orderDetail?.unitOfValue}`
                   }
                   // value={addPrefixOrSuffix(
                   //   orderDetail?.orderValue,
@@ -291,14 +251,10 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   >
                     <option disabled>Select an option</option>
                     {country.map((val, index) => {
-                      return (
-                        <option value={`${val.Country}`}>{val.Country}</option>
-                      );
+                      return <option value={`${val.Country}`}>{val.Country}</option>;
                     })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Country Of Origin<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -316,22 +272,17 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                   type="text"
                   name="tolerance"
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
-                      (e.target.type = 'number');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }), (e.target.type = 'number');
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
-                      (e.target.type = 'text');
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }), (e.target.type = 'text');
                   }}
                   value={
                     isFieldInFocus.tolerance
                       ? orderDetail?.tolerance
-                      : Number(orderDetail?.tolerance)?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                          },
-                        ) + ' %'
+                      : Number(orderDetail?.tolerance)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        }) + ' %'
                   }
                   // value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
                   onChange={(e) => {
@@ -356,9 +307,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </Form.Label>
                 </div>
@@ -381,17 +330,11 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                       saveOrderData(e.target.name, e.target.value);
                     }}
                   />
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Manufacturer / Mines name
                     {/* <strong className="text-danger">*</strong> */}
                   </Form.Label>
-                  <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.search_image} img-fluid`} src="/static/search-grey.svg" alt="Search" />
                 </div>
               </Form.Group>
 
@@ -421,9 +364,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                         );
                       })}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Port Of Discharge<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -450,9 +391,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     <option value="CIF">CIF</option>
                     <option value="FOB">FOB</option>
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     INCO Terms<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -471,11 +410,7 @@ const Index = ({ orderDetail, saveOrderData, country, port, commodity }) => {
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
                   />
-                  <img
-                    className={`${styles.calanderIcon} img-fluid`}
-                    src="/static/caldericon.svg"
-                    alt="Search"
-                  />
+                  <img className={`${styles.calanderIcon} img-fluid`} src="/static/caldericon.svg" alt="Search" />
                 </div>
               </Form.Group>
 

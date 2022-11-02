@@ -20,25 +20,12 @@ function Index({
   port,
   commodity,
 }) {
-  const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
-    'Import',
-    'Domestic',
-  ]);
+  const [transactionTypeDropdown, settransactionTypeDropdown] = useState(['Import', 'Domestic']);
   console.log(country, port, commodity, 'sasdasdad');
   console.log(fields, 'payloadData');
   const commodityDropdown = ['Iron', 'Crude', 'Steel', 'Coal'];
-  const countryOfOriginDropdown = [
-    'India',
-    'Australia',
-    'Sri Lanka',
-    'Qatar',
-    'Dubai',
-  ];
-  const portOfDischargeDropdown = [
-    'Mumbai, India',
-    'Gujrat, India',
-    'Vishakapatnam, India',
-  ];
+  const countryOfOriginDropdown = ['India', 'Australia', 'Sri Lanka', 'Qatar', 'Dubai'];
+  const portOfDischargeDropdown = ['Mumbai, India', 'Gujrat, India', 'Vishakapatnam, India'];
   useEffect(() => {
     if (reviewedProfile) {
       if (reviewedProfile?.transactionType?.originalValue == 'Domestic') {
@@ -72,11 +59,7 @@ function Index({
             return <option>{options}</option>;
           })}{' '}
         </Form.Select>
-        <img
-          className={`${styles.arrow2} image_arrow img-fluid`}
-          src="/static/inputDropDown.svg"
-          alt="Search"
-        />
+        <img className={`${styles.arrow2} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
       </div>
     );
   };
@@ -103,53 +86,23 @@ function Index({
 
   return (
     <div className={`${styles.leads} border card`}>
-      <div
-        className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
-      >
+      <div className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}>
         <h3>Review Profile</h3>
-        <div
-          className={`${styles.pageList}  d-flex justify-content-center align-items-center`}
-          onClick={clearData}
-        >
+        <div className={`${styles.pageList}  d-flex justify-content-center align-items-center`} onClick={clearData}>
           <span>Clear All</span>
         </div>
       </div>
       <div className={`${styles.scrollouter}`}>
         <div className={`${styles.scrollInner}`}>
           <form id="ReviewProfileForm">
-            <table
-              className={styles.table}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
+            <table className={styles.table} cellPadding="0" cellSpacing="0" border="0">
               <thead>
                 <tr>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    CATEGORIES
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    VALUES
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color text-center table_heading`}
-                  >
-                    API RESPONSE
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    MANUAL APPROVAL
-                  </th>
-                  <th
-                    className={`${styles.table_heading} border_color table_heading`}
-                  >
-                    REVIEWED VALUE
-                  </th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>CATEGORIES</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>VALUES</th>
+                  <th className={`${styles.table_heading} border_color text-center table_heading`}>API RESPONSE</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>MANUAL APPROVAL</th>
+                  <th className={`${styles.table_heading} border_color table_heading`}>REVIEWED VALUE</th>
                 </tr>
               </thead>
 
@@ -161,9 +114,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.transactionType?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.transactionType?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -181,11 +132,7 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.transactionType?.apiResponse &&
-                      DropDown(
-                        transactionTypeDropdown,
-                        'transactionType',
-                        fields[0]?.isEdit,
-                      )}
+                      DropDown(transactionTypeDropdown, 'transactionType', fields[0]?.isEdit)}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
@@ -194,11 +141,7 @@ function Index({
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.typeOfBusiness?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.typeOfBusiness?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -215,29 +158,16 @@ function Index({
                   </td>
                   <td>
                     {!reviewedProfile?.typeOfBusiness?.apiResponse &&
-                      DropDown(
-                        typeOfBusinessDropdown,
-                        'typeOfBusiness',
-                        fields[1].isEdit,
-                      )}
+                      DropDown(typeOfBusinessDropdown, 'typeOfBusiness', fields[1].isEdit)}
                   </td>
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Turnover (Cr)</td>
-                  <td>
-                    {convertValue(
-                      reviewedProfile?.turnOver?.originalValue,
-                    ).toLocaleString('en-in')}{' '}
-                    Cr
-                  </td>
+                  <td>{convertValue(reviewedProfile?.turnOver?.originalValue).toLocaleString('en-in')} Cr</td>
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.turnOver?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.turnOver?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -262,25 +192,16 @@ function Index({
                         onBlur={(e) => {
                           setIsFieldInFocus(false), (e.target.type = 'text');
                         }}
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         name="turnOver"
                         id="textDate"
                         value={
                           isFieldInFocus
                             ? payloadData?.turnOver
-                            : Number(
-                                payloadData?.turnOver
-                                  ? payloadData?.turnOver
-                                  : 0,
-                              )?.toLocaleString('en-IN') + ` Cr`
+                            : Number(payloadData?.turnOver ? payloadData?.turnOver : 0)?.toLocaleString('en-IN') + ` Cr`
                         }
                         className={`${styles.input} input`}
-                        onChange={(e) =>
-                          handleChange(e.target.name, Number(e.target.value))
-                        }
+                        onChange={(e) => handleChange(e.target.name, Number(e.target.value))}
                         disabled={fields[2]?.isEdit}
                       />
                     )}
@@ -293,11 +214,7 @@ function Index({
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.commodity?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.commodity?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -329,11 +246,7 @@ function Index({
                             {' '}
                             <option value="">Select an option</option>
                             {commodity.map((options) => {
-                              return (
-                                <option value={`${options.Commodity}`}>
-                                  {options.Commodity}
-                                </option>
-                              );
+                              return <option value={`${options.Commodity}`}>{options.Commodity}</option>;
                             })}{' '}
                           </Form.Select>
                           <img
@@ -349,20 +262,11 @@ function Index({
 
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Order Value</td>
-                  <td>
-                    {CovertvaluefromtoCR(
-                      reviewedProfile?.orderValue?.originalValue,
-                    ).toLocaleString('en-in')}{' '}
-                    Cr
-                  </td>
+                  <td>{CovertvaluefromtoCR(reviewedProfile?.orderValue?.originalValue).toLocaleString('en-in')} Cr</td>
                   <td>
                     <div className={styles.tick}>
                       <img
-                        src={
-                          reviewedProfile?.orderValue?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
-                        }
+                        src={reviewedProfile?.orderValue?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'}
                         alt="Check"
                         className="img-fluid"
                       />
@@ -383,18 +287,10 @@ function Index({
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         name="orderValue"
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         id="textDate"
                         className={`${styles.input} input`}
-                        onBlur={(e) =>
-                          handleChange(
-                            e.target.name,
-                            Number(e.target.value * 10000000),
-                          )
-                        }
+                        onBlur={(e) => handleChange(e.target.name, Number(e.target.value * 10000000))}
                         disabled={fields[4]?.isEdit}
                       />
                     )}
@@ -408,9 +304,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.countryOfOrigin?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.countryOfOrigin?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -444,11 +338,7 @@ function Index({
                               {' '}
                               <option value="">Select an option</option>
                               {country.map((options) => {
-                                return (
-                                  <option value={`${options.Country}`}>
-                                    {options.Country}
-                                  </option>
-                                );
+                                return <option value={`${options.Country}`}>{options.Country}</option>;
                               })}{' '}
                             </Form.Select>
                             <img
@@ -476,9 +366,7 @@ function Index({
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.portOfDischarge?.apiResponse
-                            ? '/static/check.svg'
-                            : '/static/close-b.svg'
+                          reviewedProfile?.portOfDischarge?.apiResponse ? '/static/check.svg' : '/static/close-b.svg'
                         }
                         alt="Check"
                         className="img-fluid"
@@ -519,9 +407,7 @@ function Index({
                                 })
                                 .map((options) => {
                                   return (
-                                    <option
-                                      value={`${options.Port_Name},${options.Country}`}
-                                    >
+                                    <option value={`${options.Port_Name},${options.Country}`}>
                                       {options.Port_Name},{options.Country}
                                     </option>
                                   );
@@ -546,11 +432,7 @@ function Index({
                 </tr>
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Expected Date Of Shipment</td>
-                  <td>
-                    {moment(
-                      reviewedProfile?.ExpectedDateOfShipment?.originalValue,
-                    ).format('DD-MM-YYYY')}
-                  </td>
+                  <td>{moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).format('DD-MM-YYYY')}</td>
                   <td>
                     <div className={styles.tick}>
                       <img
@@ -567,9 +449,7 @@ function Index({
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
-                        onChange={(e) =>
-                          handleCheckBox(7, 'ExpectedDateOfShipment')
-                        }
+                        onChange={(e) => handleCheckBox(7, 'ExpectedDateOfShipment')}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -598,10 +478,7 @@ function Index({
                           disabled={fields[7]?.isEdit}
                           labelName=""
                           maxDate={moment(new Date()).add(3, 'months').toDate()}
-                          lastDate={moment(
-                            reviewedProfile?.ExpectedDateOfShipment
-                              ?.originalValue,
-                          ).toDate()}
+                          lastDate={moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
                           small={true}
                         />
                         <img
@@ -616,8 +493,7 @@ function Index({
                 {isAddedRow ? (
                   <tr className={`${styles.table_row} table_row`}>
                     <td>
-                      Delinquency in Past Orders{' '}
-                      <span className={styles.view_btn}>View</span>
+                      Delinquency in Past Orders <span className={styles.view_btn}>View</span>
                     </td>
                     <td>Yes</td>
                     <td>
@@ -636,25 +512,20 @@ function Index({
                     <td>
                       {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                         <input
-                          onChange={(e) =>
-                            handleCheckBox(8, 'ExpectedDateOfShipment')
-                          }
+                          onChange={(e) => handleCheckBox(8, 'ExpectedDateOfShipment')}
                           className={styles.checkBox}
                           type="checkbox"
                         />
                       ) : null}
                     </td>
                     <td>
-                      {!reviewedProfile?.ExpectedDateOfShipment
-                        ?.apiResponse && (
+                      {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
                         <Form.Control
                           type="date"
                           name="ExpectedDateOfShipment"
                           id="textDate"
                           className={`${styles.input}`}
-                          onBlur={(e) =>
-                            handleChange(e.target.name, e.target.value)
-                          }
+                          onBlur={(e) => handleChange(e.target.name, e.target.value)}
                           disabled={fields[8]?.isEdit}
                         />
                       )}
@@ -669,11 +540,7 @@ function Index({
 
           <div className={`${styles.remarks} border-bottom-0 table_row`}>
             <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              className={`${styles.remarksTextarea} input`}
-            />
+            <Form.Control as="textarea" rows={3} className={`${styles.remarksTextarea} input`} />
           </div>
         </div>
       </div>

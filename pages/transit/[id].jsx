@@ -13,11 +13,7 @@ import LetterIndermity from '../../src/components/LetterIndermity';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 
-import {
-  setDynamicName,
-  setDynamicOrder,
-  setPageName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 
 //api
 import Axios from 'axios';
@@ -35,9 +31,7 @@ function Index() {
 
   const vesselData = _get(TransitDetails, 'data[0].order.vessel', {});
 
-  const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
-    .trim()
-    .toLowerCase();
+  const commodity = _get(TransitDetails, 'data[0].order.commodity', '').trim().toLowerCase();
 
   let objID = sessionStorage.getItem('ObjId');
   let transID = sessionStorage.getItem('transId');
@@ -52,9 +46,7 @@ function Index() {
   }, [dispatch]);
   useEffect(() => {
     dispatch(setPageName('transit'));
-    dispatch(
-      setDynamicName(_get(TransitDetails, 'data[0].company.companyName')),
-    );
+    dispatch(setDynamicName(_get(TransitDetails, 'data[0].company.companyName')));
     dispatch(setDynamicOrder(_get(TransitDetails, 'data[0].order.orderId')));
   }, [TransitDetails]);
 
@@ -91,13 +83,9 @@ function Index() {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
 
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -138,9 +126,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -149,21 +135,13 @@ function Index() {
               style={{ cursor: 'pointer' }}
             />
             <h1 className={`${styles.title} heading`}>
-              <span>
-                {_get(
-                  TransitDetails,
-                  'data[0].company.companyName',
-                  'Company Name',
-                )}
-              </span>
+              <span>{_get(TransitDetails, 'data[0].company.companyName', 'Company Name')}</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link ${
-                  componentId === 1 && 'active'
-                }`}
+                className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
                 // data-toggle="tab"
                 // href="#billLanding"
                 // role="tab"
@@ -180,9 +158,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 2 && 'active'
-                } `}
+                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
                 // data-toggle="tab"
                 // href="#loi"
                 // role="tab"
@@ -200,9 +176,7 @@ function Index() {
             {commodity?.toLowerCase().includes('coal') && (
               <li className={`${styles.navItem} nav-item`}>
                 <a
-                  className={`${styles.navLink} navLink nav-link ${
-                    componentId === 3 && 'active'
-                  } `}
+                  className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'} `}
                   // data-toggle="tab"
                   // href="#cims"
                   // role="tab"
@@ -220,9 +194,7 @@ function Index() {
             )}
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 4 && 'active'
-                } `}
+                className={`${styles.navLink} navLink nav-link ${componentId === 4 && 'active'} `}
                 // data-toggle="tab"
                 // href="#igm"
                 // role="tab"
@@ -263,9 +235,7 @@ function Index() {
                 {/* </div> */}
                 {/* <div className="tab-pane fade" id="loi" role="tabpanel"> */}
                 <div className={`${styles.card}  accordion_body`}>
-                  {componentId === 2 && (
-                    <LetterIndermity TransitDetails={TransitDetails} />
-                  )}
+                  {componentId === 2 && <LetterIndermity TransitDetails={TransitDetails} />}
                 </div>
                 {/* </div> */}
                 {commodity.toLowerCase() === 'coal' && (

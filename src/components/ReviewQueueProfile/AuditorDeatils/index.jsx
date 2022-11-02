@@ -22,10 +22,7 @@ function Index({ directorData }) {
   }, [directorData]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
+    if (localStorage.getItem('darkMode') == 'true' || localStorage.getItem('darkMode') == true) {
       // console.log('this')
       setDarkMode(true);
     } else {
@@ -58,8 +55,7 @@ function Index({ directorData }) {
           <h2 className="mb-0">Director Details</h2>
           <span>+</span>
         </div>
-        {directorData?.profile?.directorDetail?.length == 0 ||
-        directorData?.profile?.directorDetail == undefined ? (
+        {directorData?.profile?.directorDetail?.length == 0 || directorData?.profile?.directorDetail == undefined ? (
           <div
             key={index}
             id={`directorDetails`}
@@ -67,9 +63,7 @@ function Index({ directorData }) {
             aria-labelledby="directorDetails3"
             data-parent="#profileAccordion"
           >
-            <div
-              className={`${styles.directorDetails} ${styles.cardBody} directorDetails card-body border_color`}
-            >
+            <div className={`${styles.directorDetails} ${styles.cardBody} directorDetails card-body border_color`}>
               <div className="accordion shadow-none" id="directorDetails3">
                 <div className={`${styles.card} border_color card`}>
                   <div className="d-flex justify-content-between align-items-center">
@@ -99,20 +93,14 @@ function Index({ directorData }) {
                         <label className={`accordion_Text`}>DIN</label>
                       </div>
                       <div className={`${styles.detailsBox}   col-md-2`}>
-                        <label className={`accordion_Text`}>
-                          Tenure Start Date
-                        </label>
+                        <label className={`accordion_Text`}>Tenure Start Date</label>
                       </div>
                       <div className={`${styles.detailsBox}  col-md-2`}>
                         <label className={`accordion_Text`}>DSC Status</label>
                       </div>
                       <div className={`${styles.downArrow} `}>
                         <img
-                          src={`${
-                            darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/arrow-right.svg`
-                          }`}
+                          src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                           alt="arrow right"
                           className="img-fluid image_arrow"
                         />
@@ -125,88 +113,54 @@ function Index({ directorData }) {
                     aria-labelledby={`director${index}`}
                     data-parent="#directorDetails"
                   >
-                    <div
-                      className={`${styles.cardBody} card-body border_color`}
-                    >
+                    <div className={`${styles.cardBody} card-body border_color`}>
                       <div className="d-flex justify-content-between align-items-center">
                         <div className={`${styles.collapsed} row no-gutters `}>
                           <div className={`${styles.detailsBox}  col-md-2`}>
-                            <label className={`accordion_Text`}>
-                              DIN Status
-                            </label>
+                            <label className={`accordion_Text`}>DIN Status</label>
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
-                            <label className={`accordion_Text`}>
-                              DSC Registered
-                            </label>{' '}
+                            <label className={`accordion_Text`}>DSC Registered</label>{' '}
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
-                            <label className={`accordion_Text`}>
-                              DSC Expiry Date
-                            </label>
+                            <label className={`accordion_Text`}>DSC Expiry Date</label>
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
-                            <label className={`accordion_Text`}>
-                              Designation
-                            </label>
+                            <label className={`accordion_Text`}>Designation</label>
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
-                            <label className={`accordion_Text`}>
-                              Date Of Birth
-                            </label>
+                            <label className={`accordion_Text`}>Date Of Birth</label>
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
                             <label className={`accordion_Text`}>Contact</label>
                           </div>
 
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
                             <label className={`accordion_Text`}>Gender</label>
                           </div>
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
-                            <label className={`accordion_Text`}>
-                              Fathers Name
-                            </label>
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                            <label className={`accordion_Text`}>Fathers Name</label>
 
-                            <img
-                              src="/static/approved.svg"
-                              alt="Approved"
-                              className={`${styles.approved} mt-n1`}
-                            />
+                            <img src="/static/approved.svg" alt="Approved" className={`${styles.approved} mt-n1`} />
                           </div>
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
                             <label className={`accordion_Text`}></label>
                           </div>
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
                             <label className={`accordion_Text`}></label>
                           </div>
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
                             <label className={`accordion_Text`}>Landline</label>
                           </div>
-                          <div
-                            className={`${styles.detailsBox}  col-md-2 mt-5`}
-                          >
+                          <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
                             <label className={`accordion_Text`}>Address</label>
                           </div>
                         </div>
                       </div>
                       <div className={`${styles.entities} border_color`}>
-                        <div
-                          className={`${styles.entities_content} border_color table_container`}
-                        >
+                        <div className={`${styles.entities_content} border_color table_container`}>
                           <p>Other Associated Entities</p>
-                          <div
-                            className={`${styles.row}  d-flex justify-content-between align-items-center`}
-                          >
+                          <div className={`${styles.row}  d-flex justify-content-between align-items-center`}>
                             <div className="form-check ">
                               <input
                                 value="Current"
@@ -215,10 +169,7 @@ function Index({ directorData }) {
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
                               />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault1"
-                              >
+                              <label className="form-check-label" htmlFor="flexRadioDefault1">
                                 Current
                               </label>
                             </div>
@@ -231,10 +182,7 @@ function Index({ directorData }) {
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
                               />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault2"
-                              >
+                              <label className="form-check-label" htmlFor="flexRadioDefault2">
                                 Former
                               </label>
                             </div>
@@ -247,10 +195,7 @@ function Index({ directorData }) {
                                 name="flexRadioDefault"
                                 id="flexRadioDefault3"
                               />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault3"
-                              >
+                              <label className="form-check-label" htmlFor="flexRadioDefault3">
                                 Independent
                               </label>
                             </div>
@@ -263,10 +208,7 @@ function Index({ directorData }) {
                                 name="flexRadioDefault"
                                 id="flexRadioDefault4"
                               />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault4"
-                              >
+                              <label className="form-check-label" htmlFor="flexRadioDefault4">
                                 Additional
                               </label>
                             </div>
@@ -299,60 +241,40 @@ function Index({ directorData }) {
                                 <tr>
                                   <th className="text_light">CIN</th>
                                   <th className="text_light">ENTITY NAME</th>
-                                  <th className="text_light">
-                                    TENURE START DATE
-                                  </th>
-                                  <th className="text_light">
-                                    TENURE END DATE
-                                  </th>
+                                  <th className="text_light">TENURE START DATE</th>
+                                  <th className="text_light">TENURE END DATE</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 {console.log(
                                   'daat',
-                                  _get(
-                                    directorData,
-                                    `otherAssociatedEntities${otherAssociates}`,
-                                    [],
-                                  ),
+                                  _get(directorData, `otherAssociatedEntities${otherAssociates}`, []),
                                 )}
-                                {directorData?.profile?.directorDetail[0]
-                                  ?.otherAssociatedEntitiesCurrent?.length >
-                                  0 &&
-                                  _get(
-                                    directorData,
-                                    `otherAssociatedEntities${otherAssociates}`,
-                                    [],
-                                  ).map((associates, index) => {
-                                    const fromDate = associates?.fromDate;
-                                    const toDate = associates?.toDate;
+                                {directorData?.profile?.directorDetail[0]?.otherAssociatedEntitiesCurrent?.length > 0 &&
+                                  _get(directorData, `otherAssociatedEntities${otherAssociates}`, []).map(
+                                    (associates, index) => {
+                                      const fromDate = associates?.fromDate;
+                                      const toDate = associates?.toDate;
 
-                                    return (
-                                      <tr key={index}>
-                                        <td>{associates?.entityId}</td>
-                                        <td>{associates?.entityName}</td>
-                                        <td>
-                                          {' '}
-                                          {fromDate
-                                            ? moment(
-                                                fromDate?.slice(0, 10),
-                                                'YYYY-MM-DD',
-                                                true,
-                                              ).format('DD-MM-YYYY')
-                                            : ''}
-                                        </td>
-                                        <td>
-                                          {toDate
-                                            ? moment(
-                                                toDate?.slice(0, 10),
-                                                'YYYY-MM-DD',
-                                                true,
-                                              ).format('DD-MM-YYYY')
-                                            : ''}
-                                        </td>
-                                      </tr>
-                                    );
-                                  })}
+                                      return (
+                                        <tr key={index}>
+                                          <td>{associates?.entityId}</td>
+                                          <td>{associates?.entityName}</td>
+                                          <td>
+                                            {' '}
+                                            {fromDate
+                                              ? moment(fromDate?.slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')
+                                              : ''}
+                                          </td>
+                                          <td>
+                                            {toDate
+                                              ? moment(toDate?.slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')
+                                              : ''}
+                                          </td>
+                                        </tr>
+                                      );
+                                    },
+                                  )}
                               </tbody>
                             </table>
                           </div>
@@ -367,454 +289,313 @@ function Index({ directorData }) {
         ) : null}
         {console.log('data22', directorData)}
         {directorData?.profile?.directorDetail?.length > 0 &&
-          _get(directorData, 'profile.directorDetail', []).map(
-            (director, index) => {
-              return (
+          _get(directorData, 'profile.directorDetail', []).map((director, index) => {
+            return (
+              <div
+                key={index}
+                id={`directorDetails`}
+                className="collapse show"
+                aria-labelledby="directorDetails3"
+                data-parent="#profileAccordion"
+              >
                 <div
-                  key={index}
-                  id={`directorDetails`}
-                  className="collapse show"
-                  aria-labelledby="directorDetails3"
-                  data-parent="#profileAccordion"
+                  className={`${styles.directorDetails} ${styles.cardBody} directorDetails bg-transparent card-body border_color`}
                 >
-                  <div
-                    className={`${styles.directorDetails} ${styles.cardBody} directorDetails bg-transparent card-body border_color`}
-                  >
-                    <div
-                      className="accordion shadow-none"
-                      id={`directorDetails${index}`}
-                    >
-                      <div className={`${styles.card} border_color card`}>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <div
-                            className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
-                            data-toggle="collapse"
-                            data-target={`#director${index}`}
-                            aria-expanded={index == 0 ? 'true' : 'false'}
-                            aria-controls={`director${index}`}
-                          >
-                            <div className={`${styles.detailsBox}  col-md-2`}>
-                              <label className={`accordion_Text`}>Name</label>
-                              {director?.name}
-                            </div>
-                            <div className={`${styles.detailsBox}  col-md-2`}>
-                              <label className={`accordion_Text`}>PAN</label>
-                              {_get(director, 'pan[0]', '')}{' '}
-                              <img
-                                src="/static/approved.svg"
-                                alt="Approved"
-                                className={`${styles.approved} mt-n1`}
-                              />
-                            </div>
-                            <div className={`${styles.detailsBox}  col-md-2`}>
-                              <label className={`accordion_Text`}>
-                                Email Id
-                              </label>
-                              {director?.email}
-                            </div>
-                            <div className={`${styles.detailsBox}   col-md-2`}>
-                              <label className={`accordion_Text`}>DIN</label>
-                              <span
-                                //  {director?.dscExpiryDate !== null
-                                //   ? moment(director?.dscExpiryDate).isBefore(
-                                //       moment(new Date()),
-                                //     )
-                                //     ? 'Expired'
-                                //     : 'Approved'
-                                //   : ''}
-                                className={`${
-                                  director?.dinStatus !== null
-                                    ? !dscStatus(director?.dinStatus)
-                                        ?.toLowerCase()
-                                        ?.includes('approved')
-                                      ? styles.danger
-                                      : styles.success
-                                    : styles.black
-                                }`}
-                              >
-                                {director?.din}
-                              </span>
-                            </div>
-                            <div className={`${styles.detailsBox}   col-md-2`}>
-                              <label className={`accordion_Text`}>
-                                Tenure Start Date
-                              </label>
-                              {director?.tenureStartDate}
-                            </div>
-                            <div className={`${styles.detailsBox}  col-md-2`}>
-                              <label className={`accordion_Text`}>
-                                DSC Status
-                              </label>
-                              {director?.dscExpiryDate === null
-                                ? ''
-                                : dscStatus(director?.dscExpiryDate)}
+                  <div className="accordion shadow-none" id={`directorDetails${index}`}>
+                    <div className={`${styles.card} border_color card`}>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div
+                          className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
+                          data-toggle="collapse"
+                          data-target={`#director${index}`}
+                          aria-expanded={index == 0 ? 'true' : 'false'}
+                          aria-controls={`director${index}`}
+                        >
+                          <div className={`${styles.detailsBox}  col-md-2`}>
+                            <label className={`accordion_Text`}>Name</label>
+                            {director?.name}
+                          </div>
+                          <div className={`${styles.detailsBox}  col-md-2`}>
+                            <label className={`accordion_Text`}>PAN</label>
+                            {_get(director, 'pan[0]', '')}{' '}
+                            <img src="/static/approved.svg" alt="Approved" className={`${styles.approved} mt-n1`} />
+                          </div>
+                          <div className={`${styles.detailsBox}  col-md-2`}>
+                            <label className={`accordion_Text`}>Email Id</label>
+                            {director?.email}
+                          </div>
+                          <div className={`${styles.detailsBox}   col-md-2`}>
+                            <label className={`accordion_Text`}>DIN</label>
+                            <span
+                              //  {director?.dscExpiryDate !== null
+                              //   ? moment(director?.dscExpiryDate).isBefore(
+                              //       moment(new Date()),
+                              //     )
+                              //     ? 'Expired'
+                              //     : 'Approved'
+                              //   : ''}
+                              className={`${
+                                director?.dinStatus !== null
+                                  ? !dscStatus(director?.dinStatus)?.toLowerCase()?.includes('approved')
+                                    ? styles.danger
+                                    : styles.success
+                                  : styles.black
+                              }`}
+                            >
+                              {director?.din}
+                            </span>
+                          </div>
+                          <div className={`${styles.detailsBox}   col-md-2`}>
+                            <label className={`accordion_Text`}>Tenure Start Date</label>
+                            {director?.tenureStartDate}
+                          </div>
+                          <div className={`${styles.detailsBox}  col-md-2`}>
+                            <label className={`accordion_Text`}>DSC Status</label>
+                            {director?.dscExpiryDate === null ? '' : dscStatus(director?.dscExpiryDate)}
 
-                              {/* {director?.dscExpiryDate !== null
+                            {/* {director?.dscExpiryDate !== null
                                 ? moment(director?.dscExpiryDate?.toISOString()).isBefore(
                                   moment('2022-10-07T12:56:52.068Z'),
                                 )
                                   ? 'Expired'
                                   : 'Approved'
                                 : ''} */}
-                            </div>
+                          </div>
 
-                            <div className={`${styles.downArrow} `}>
-                              <img
-                                src="/static/arrow-right.svg"
-                                alt="arrow right"
-                                className="img-fluid image_arrow"
-                              />
-                            </div>
+                          <div className={`${styles.downArrow} `}>
+                            <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow" />
                           </div>
                         </div>
-                        <div
-                          id={`director${index}`}
-                          className={`collapse ${index == 0 ? 'show' : ''} `}
-                          aria-labelledby={`director${index}`}
-                          data-parent="#directorDetails"
-                        >
-                          <div
-                            className={`${styles.cardBody} card-body border_color`}
-                          >
-                            <div className="d-flex justify-content-between align-items-center">
-                              <div
-                                className={`${styles.collapsed} row no-gutters `}
-                              >
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    DIN Status
-                                  </label>
-                                  {director?.dinStatus}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    DSC Registered
-                                  </label>{' '}
-                                  {director?.dscRegistered ? 'Yes' : 'No'}{' '}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    DSC Expiry Date
-                                  </label>
-                                  {director?.dscExpiryDate}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Designation
-                                  </label>
-                                  {director?.designation}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Date Of Birth
-                                  </label>
-                                  {director?.dateOfBirth}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Contact
-                                  </label>
-                                  {/* +91 9876543210 */}
-                                </div>
+                      </div>
+                      <div
+                        id={`director${index}`}
+                        className={`collapse ${index == 0 ? 'show' : ''} `}
+                        aria-labelledby={`director${index}`}
+                        data-parent="#directorDetails"
+                      >
+                        <div className={`${styles.cardBody} card-body border_color`}>
+                          <div className="d-flex justify-content-between align-items-center">
+                            <div className={`${styles.collapsed} row no-gutters `}>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>DIN Status</label>
+                                {director?.dinStatus}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>DSC Registered</label>{' '}
+                                {director?.dscRegistered ? 'Yes' : 'No'}{' '}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>DSC Expiry Date</label>
+                                {director?.dscExpiryDate}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>Designation</label>
+                                {director?.designation}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>Date Of Birth</label>
+                                {director?.dateOfBirth}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2`}>
+                                <label className={`accordion_Text`}>Contact</label>
+                                {/* +91 9876543210 */}
+                              </div>
 
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Gender
-                                  </label>
-                                  {director?.gender}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Fathers Name
-                                  </label>
-                                  {director?.fatherName}
-                                  <img
-                                    src="/static/approved.svg"
-                                    alt="Approved"
-                                    className={`${styles.approved} mt-n1 ml-1`}
-                                  />
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    % Shareholding
-                                  </label>
-                                  {director?.percentageShareHolding}
-                                  {/* 40% */}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Authorised Signatory
-                                  </label>
-                                  {director?.authorizedSignatory ? 'Yes' : 'No'}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Landline
-                                  </label>
-                                  {/* 0542-5463874 */}
-                                </div>
-                                <div
-                                  className={`${styles.detailsBox}  col-md-2 mt-5`}
-                                >
-                                  <label className={`accordion_Text`}>
-                                    Address
-                                  </label>
-                                  {director?.address}
-                                </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>Gender</label>
+                                {director?.gender}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>Fathers Name</label>
+                                {director?.fatherName}
+                                <img
+                                  src="/static/approved.svg"
+                                  alt="Approved"
+                                  className={`${styles.approved} mt-n1 ml-1`}
+                                />
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>% Shareholding</label>
+                                {director?.percentageShareHolding}
+                                {/* 40% */}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>Authorised Signatory</label>
+                                {director?.authorizedSignatory ? 'Yes' : 'No'}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>Landline</label>
+                                {/* 0542-5463874 */}
+                              </div>
+                              <div className={`${styles.detailsBox}  col-md-2 mt-5`}>
+                                <label className={`accordion_Text`}>Address</label>
+                                {director?.address}
                               </div>
                             </div>
-                            <div className={`${styles.entities} border_color`}>
-                              <div
-                                className={`${styles.entities_content} border_color table_container`}
-                              >
-                                <p>Other Associated Entities</p>
-                                <div
-                                  className={`${styles.row}  d-flex justify-content-between align-items-center`}
-                                >
-                                  <div className="form-check ">
-                                    <input
-                                      onChange={(e) => {
-                                        let temp = [...otherAssociates];
-                                        temp[index] = e.target.value;
-                                        setOtherAssociates([...temp]);
-                                        console.log(
-                                          otherAssociates == 'Current',
-                                          '11111',
-                                        );
-                                      }}
-                                      value="Current"
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault1"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Current'
-                                      }
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor={`flexRadioDefault1${index}`}
-                                    >
-                                      Current
-                                    </label>
-                                  </div>
-
-                                  <div className="form-check ">
-                                    <input
-                                      onChange={(e) => {
-                                        let temp = [...otherAssociates];
-                                        temp[index] = e.target.value;
-                                        console.log(
-                                          temp,
-                                          'temppp',
-                                          temp[index],
-                                        );
-                                        setOtherAssociates([...temp]);
-                                      }}
-                                      value="Former"
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault2"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Former'
-                                      }
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor={`flexRadioDefault1${index}`}
-                                    >
-                                      Former
-                                    </label>
-                                  </div>
-
-                                  <div className="form-check ">
-                                    <input
-                                      onChange={(e) => {
-                                        let temp = [...otherAssociates];
-                                        temp[index] = e.target.value;
-                                        setOtherAssociates([...temp]);
-                                      }}
-                                      value="Independent"
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault3"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Independent'
-                                      }
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor={`flexRadioDefault1${index}`}
-                                    >
-                                      Independent
-                                    </label>
-                                  </div>
-
-                                  <div className="form-check ">
-                                    <input
-                                      onChange={(e) => {
-                                        let temp = [...otherAssociates];
-                                        temp[index] = e.target.value;
-                                        setOtherAssociates([...temp]);
-                                      }}
-                                      value="Additional"
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault4"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Additional'
-                                      }
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor={`flexRadioDefault1${index}`}
-                                    >
-                                      Additional
-                                    </label>
-                                  </div>
-                                  <div className="form-check ">
-                                    <input
-                                      onChange={(e) => {
-                                        let temp = [...otherAssociates];
-                                        temp[index] = e.target.value;
-                                        setOtherAssociates([...temp]);
-                                      }}
-                                      value="Nominated"
-                                      className="form-check-input"
-                                      type="radio"
-                                      name="flexRadioDefault5"
-                                      id={`flexRadioDefault1${index}`}
-                                      checked={
-                                        otherAssociates[index] == 'Nominated'
-                                      }
-                                    />
-                                    <label
-                                      // className="form-check-label"
-                                      htmlFor={`flexRadioDefault1${index}`}
-                                    >
-                                      Nominated
-                                    </label>
-                                  </div>
+                          </div>
+                          <div className={`${styles.entities} border_color`}>
+                            <div className={`${styles.entities_content} border_color table_container`}>
+                              <p>Other Associated Entities</p>
+                              <div className={`${styles.row}  d-flex justify-content-between align-items-center`}>
+                                <div className="form-check ">
+                                  <input
+                                    onChange={(e) => {
+                                      let temp = [...otherAssociates];
+                                      temp[index] = e.target.value;
+                                      setOtherAssociates([...temp]);
+                                      console.log(otherAssociates == 'Current', '11111');
+                                    }}
+                                    value="Current"
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault1"
+                                    id={`flexRadioDefault1${index}`}
+                                    checked={otherAssociates[index] == 'Current'}
+                                  />
+                                  <label className="form-check-label" htmlFor={`flexRadioDefault1${index}`}>
+                                    Current
+                                  </label>
                                 </div>
-                                <hr
-                                  className={`${styles.hr} border_color`}
-                                ></hr>
-                                <span>
-                                  {otherAssociates[index]} (
-                                  {isArray(
-                                    _get(
-                                      director,
-                                      `otherAssociatedEntities${otherAssociates[index]}`,
-                                      [],
-                                    ),
-                                  )
-                                    ? _get(
-                                        director,
-                                        `otherAssociatedEntities${otherAssociates[index]}`,
-                                        [],
-                                      ).length
-                                    : ''}
-                                  )
-                                </span>
-                                <div className={styles.table_scroll_outer}>
-                                  <div className={styles.table_scroll_inner}>
-                                    <div className={`${styles.table}`}>
-                                      <table
-                                        className={`${styles.table_details} table border_color`}
-                                        cellPadding="0"
-                                        cellSpacing="0"
-                                        border="0"
-                                      >
-                                        <thead>
-                                          <tr>
-                                            <th className="text_light">CIN</th>
-                                            <th className="text_light">
-                                              ENTITY NAME
-                                            </th>
-                                            <th className="text_light">
-                                              TENURE START DATE
-                                            </th>
-                                            <th className="text_light">
-                                              TENURE END DATE
-                                            </th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                          {console.log(
-                                            _get(
-                                              director,
-                                              `otherAssociatedEntities${otherAssociates[index]}`,
-                                              [],
-                                            ),
-                                            '1212222',
-                                          )}
-                                          {_get(
-                                            director,
-                                            `otherAssociatedEntities${otherAssociates[index]}`,
-                                            [],
-                                          ).map((associates, index2) => {
-                                            const fromDate =
-                                              associates?.fromDate;
+
+                                <div className="form-check ">
+                                  <input
+                                    onChange={(e) => {
+                                      let temp = [...otherAssociates];
+                                      temp[index] = e.target.value;
+                                      console.log(temp, 'temppp', temp[index]);
+                                      setOtherAssociates([...temp]);
+                                    }}
+                                    value="Former"
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault2"
+                                    id={`flexRadioDefault1${index}`}
+                                    checked={otherAssociates[index] == 'Former'}
+                                  />
+                                  <label className="form-check-label" htmlFor={`flexRadioDefault1${index}`}>
+                                    Former
+                                  </label>
+                                </div>
+
+                                <div className="form-check ">
+                                  <input
+                                    onChange={(e) => {
+                                      let temp = [...otherAssociates];
+                                      temp[index] = e.target.value;
+                                      setOtherAssociates([...temp]);
+                                    }}
+                                    value="Independent"
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault3"
+                                    id={`flexRadioDefault1${index}`}
+                                    checked={otherAssociates[index] == 'Independent'}
+                                  />
+                                  <label className="form-check-label" htmlFor={`flexRadioDefault1${index}`}>
+                                    Independent
+                                  </label>
+                                </div>
+
+                                <div className="form-check ">
+                                  <input
+                                    onChange={(e) => {
+                                      let temp = [...otherAssociates];
+                                      temp[index] = e.target.value;
+                                      setOtherAssociates([...temp]);
+                                    }}
+                                    value="Additional"
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault4"
+                                    id={`flexRadioDefault1${index}`}
+                                    checked={otherAssociates[index] == 'Additional'}
+                                  />
+                                  <label className="form-check-label" htmlFor={`flexRadioDefault1${index}`}>
+                                    Additional
+                                  </label>
+                                </div>
+                                <div className="form-check ">
+                                  <input
+                                    onChange={(e) => {
+                                      let temp = [...otherAssociates];
+                                      temp[index] = e.target.value;
+                                      setOtherAssociates([...temp]);
+                                    }}
+                                    value="Nominated"
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault5"
+                                    id={`flexRadioDefault1${index}`}
+                                    checked={otherAssociates[index] == 'Nominated'}
+                                  />
+                                  <label
+                                    // className="form-check-label"
+                                    htmlFor={`flexRadioDefault1${index}`}
+                                  >
+                                    Nominated
+                                  </label>
+                                </div>
+                              </div>
+                              <hr className={`${styles.hr} border_color`}></hr>
+                              <span>
+                                {otherAssociates[index]} (
+                                {isArray(_get(director, `otherAssociatedEntities${otherAssociates[index]}`, []))
+                                  ? _get(director, `otherAssociatedEntities${otherAssociates[index]}`, []).length
+                                  : ''}
+                                )
+                              </span>
+                              <div className={styles.table_scroll_outer}>
+                                <div className={styles.table_scroll_inner}>
+                                  <div className={`${styles.table}`}>
+                                    <table
+                                      className={`${styles.table_details} table border_color`}
+                                      cellPadding="0"
+                                      cellSpacing="0"
+                                      border="0"
+                                    >
+                                      <thead>
+                                        <tr>
+                                          <th className="text_light">CIN</th>
+                                          <th className="text_light">ENTITY NAME</th>
+                                          <th className="text_light">TENURE START DATE</th>
+                                          <th className="text_light">TENURE END DATE</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {console.log(
+                                          _get(director, `otherAssociatedEntities${otherAssociates[index]}`, []),
+                                          '1212222',
+                                        )}
+                                        {_get(director, `otherAssociatedEntities${otherAssociates[index]}`, []).map(
+                                          (associates, index2) => {
+                                            const fromDate = associates?.fromDate;
                                             const toDate = associates?.toDate;
                                             console.log(associates, '1212');
                                             return (
                                               <tr key={index2}>
-                                                <td className="text-color">
-                                                  {associates?.entityId}
-                                                </td>
-                                                <td className="text-color">
-                                                  {associates?.entityName}
-                                                </td>
+                                                <td className="text-color">{associates?.entityId}</td>
+                                                <td className="text-color">{associates?.entityName}</td>
                                                 <td className="text-color">
                                                   {' '}
                                                   {fromDate
-                                                    ? moment(
-                                                        fromDate?.slice(0, 10),
-                                                        'YYYY-MM-DD',
-                                                        true,
-                                                      ).format('DD-MM-YYYY')
+                                                    ? moment(fromDate?.slice(0, 10), 'YYYY-MM-DD', true).format(
+                                                        'DD-MM-YYYY',
+                                                      )
                                                     : ''}
                                                 </td>
                                                 <td className="text-color">
                                                   {toDate
-                                                    ? moment(
-                                                        toDate?.slice(0, 10),
-                                                        'YYYY-MM-DD',
-                                                        true,
-                                                      ).format('DD-MM-YYYY')
+                                                    ? moment(toDate?.slice(0, 10), 'YYYY-MM-DD', true).format(
+                                                        'DD-MM-YYYY',
+                                                      )
                                                     : ''}
                                                 </td>
                                               </tr>
                                             );
-                                          })}
-                                        </tbody>
-                                      </table>
-                                    </div>
+                                          },
+                                        )}
+                                      </tbody>
+                                    </table>
                                   </div>
                                 </div>
                               </div>
@@ -825,9 +606,9 @@ function Index({ directorData }) {
                     </div>
                   </div>
                 </div>
-              );
-            },
-          )}
+              </div>
+            );
+          })}
       </div>
     </>
   );

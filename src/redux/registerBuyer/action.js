@@ -205,10 +205,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        sessionStorage.setItem(
-          'orderID',
-          response.data.data.form.orderDetails[0],
-        );
+        sessionStorage.setItem('orderID', response.data.data.form.orderDetails[0]);
         sessionStorage.setItem('company', response.data.data.form._id);
         sessionStorage.setItem('companyID', response.data.data.form._id);
         Router.push(`/review/${response.data.data.form._id}`);
@@ -246,13 +243,9 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.post(
-      `${API.corebaseUrl}${API.updateBuyer}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {
+      headers: headers,
+    });
 
     if (response.data.code === 200) {
       dispatch(updateBuyerSuccess(response.data));
@@ -301,10 +294,9 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.get(
-      `${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`,
-      { headers: headers },
-    ).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.getBuyerOrder}?company=${payload.companyId}&order=${payload.orderId}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getBuyerSuccess(response.data.data));
         // toast.error("Buyers fetched")
@@ -367,12 +359,9 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
 
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    const response = await Axios.get(
-      `${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.get(`${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(getAllOrderSuccess(response.data.data));
       // toast.error("Buyers fetched")
@@ -430,9 +419,7 @@ export const DeleteBuyer = (payload) => async (dispatch, getState, api) => {
   // dispatch(createBuyer())
   dispatch(setIsLoading());
   try {
-    const response = await api.delete(
-      `${API.createBuyer}?BuyerId=${payload.BuyerId}`,
-    );
+    const response = await api.delete(`${API.createBuyer}?BuyerId=${payload.BuyerId}`);
 
     if (response.data.code === 200) {
       dispatch(deleteBuyerSuccess(response.data.data));
@@ -465,11 +452,7 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    Axios.post(
-      `${API.userbaseUrl}${API.getGst}`,
-      { pan: payload },
-      { headers: headers },
-    ).then((response) => {
+    Axios.post(`${API.userbaseUrl}${API.getGst}`, { pan: payload }, { headers: headers }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getGstSuccess(response.data));
         // toast.error("Buyers fetched")

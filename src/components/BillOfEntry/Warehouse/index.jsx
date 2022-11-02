@@ -4,10 +4,7 @@ import SaveBar from '../../SaveBar';
 import DateCalender from '../../DateCalender';
 import UploadOther from '../../UploadOther';
 import _get from 'lodash/get';
-import {
-  GetAllCustomClearance,
-  UpdateCustomClearance,
-} from '../../../redux/CustomClearance&Warehousing/action';
+import { GetAllCustomClearance, UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import moment from 'moment';
@@ -27,18 +24,13 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     },
     document: null,
   });
-  console.log(
-    warehouseDetails?.wareHouseDetails?.quantity,
-    ' warehouseDetails?.wareHouseDetails?.quantity',
-  );
+  console.log(warehouseDetails?.wareHouseDetails?.quantity, ' warehouseDetails?.wareHouseDetails?.quantity');
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {});
 
     let tempData = {
       wareHouseDetails: {
-        quantity:
-          data?.wareHouseDetails?.quantity ||
-          customData?.dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity,
+        quantity: data?.wareHouseDetails?.quantity || customData?.dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity,
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
       },
@@ -48,8 +40,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   }, [customData]);
   console.log(warehouseDetails, 'warehouseDetails');
   const [plotInspectionData, setPlotInspectionData] = useState('');
-  const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
-    useState(false);
+  const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] = useState(false);
 
   const uploadDocument1 = (e) => {
     const newUploadDoc1 = { ...plotInspectionData };
@@ -114,14 +105,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       let id = sessionStorage.getItem('customId');
       await dispatch(GetAllCustomClearance(`?customClearanceId=${id}`));
       if (code == 200) {
-        sessionStorage.setItem(
-          'ROrderID',
-          _get(customData, 'order.delivery', ''),
-        );
+        sessionStorage.setItem('ROrderID', _get(customData, 'order.delivery', ''));
         sessionStorage.setItem('company', customData?.company?._id);
-        dispatch(
-          settingSidebar('Payments, Invoicing & Delivery', null, null, 5),
-        );
+        dispatch(settingSidebar('Payments, Invoicing & Delivery', null, null, 5));
         router.push(`/payment/id`);
       }
     }
@@ -179,99 +165,66 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                     <div className={`${styles.label} text`}>
                       Commodity<strong className="text-danger">*</strong>
                     </div>
-                    <span className={styles.value}>
-                      {_get(customData, 'order.commodity', '')}
-                    </span>
+                    <span className={styles.value}>{_get(customData, 'order.commodity', '')}</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>
                       CMA Name<strong className="text-danger">*</strong>
                     </div>
-                    <span className={styles.value}>
-                      {_get(customData, 'order.generic.CMA.name', '')}
-                    </span>
+                    <span className={styles.value}>{_get(customData, 'order.generic.CMA.name', '')}</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
-                    <div className={`${styles.label} text`}>
-                      Storage Address
-                    </div>
+                    <div className={`${styles.label} text`}>Storage Address</div>
                     <span className={styles.value}>
-                      {_get(
-                        customData,
-                        'order.insurance.quotationRequest.storageDetails.storagePlotAddress',
-                        '',
-                      )}{' '}
-                      {_get(
-                        customData,
-                        'order.insurance.quotationRequest.storageDetails.placeOfStorage',
-                        '',
-                      )}
+                      {_get(customData, 'order.insurance.quotationRequest.storageDetails.storagePlotAddress', '')}{' '}
+                      {_get(customData, 'order.insurance.quotationRequest.storageDetails.placeOfStorage', '')}
                     </span>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       // value={warehouseDetails?.wareHouseDetails?.quantity}
                       id="quantity"
-                      onChange={(e) =>
-                        onChangeWarehouseDetails(e.target.id, e.target.value)
-                      }
+                      onChange={(e) => onChangeWarehouseDetails(e.target.id, e.target.value)}
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       min={0}
                       required
                       onKeyPress={preventMinus}
                       onFocus={(e) => {
-                        setIsWarehouseQuantityInFocus(true),
-                          (e.target.type = 'number');
+                        setIsWarehouseQuantityInFocus(true), (e.target.type = 'number');
                       }}
                       onBlur={(e) => {
-                        setIsWarehouseQuantityInFocus(false),
-                          (e.target.type = 'text');
+                        setIsWarehouseQuantityInFocus(false), (e.target.type = 'text');
                       }}
                       onWheel={(event) => event.currentTarget.blur()}
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
                           : warehouseDetails?.wareHouseDetails?.quantity == 0 ||
-                            isNaN(
-                              warehouseDetails?.wareHouseDetails?.quantity,
-                            ) ||
-                            warehouseDetails?.wareHouseDetails?.quantity ==
-                              undefined ||
+                            isNaN(warehouseDetails?.wareHouseDetails?.quantity) ||
+                            warehouseDetails?.wareHouseDetails?.quantity == undefined ||
                             warehouseDetails?.wareHouseDetails?.quantity == ''
                           ? ''
-                          : Number(
-                              warehouseDetails?.wareHouseDetails?.quantity,
-                            )?.toLocaleString('en-IN') +
+                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString('en-IN') +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       BL Qty<strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       <DateCalender
                         startFrom={
                           arrivalDate
                             ? moment(arrivalDate).format('DD-MM-YYYY')
-                            : moment(
-                                customData?.dischargeOfCargo?.dischargeOfCargo
-                                  ?.vesselArrivaldate,
-                              ).format('DD-MM-YYYY') ?? new Date()
+                            : moment(customData?.dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate).format(
+                                'DD-MM-YYYY',
+                              ) ?? new Date()
                         }
-                        defaultDate={
-                          warehouseDetails?.wareHouseDetails?.dateOfStorage
-                        }
+                        defaultDate={warehouseDetails?.wareHouseDetails?.dateOfStorage}
                         name="dateOfStorage"
                         saveDate={saveDate}
                         labelName="Date of Storage"
@@ -284,9 +237,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                     </div>
                   </div>
 
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 align-self-center`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 align-self-center`}>
                     {warehouseDetails?.document === null ? (
                       <div className="d-flex ">
                         <div className={styles.uploadBtnWrapper}>
@@ -298,9 +249,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                             type="file"
                             name="myfile"
                           />
-                          <button className={`${styles.upload_btn} btn mr-3`}>
-                            Upload
-                          </button>
+                          <button className={`${styles.upload_btn} btn mr-3`}>Upload</button>
                         </div>
                       </div>
                     ) : (
@@ -309,9 +258,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       >
                         <span>
                           {warehouseDetails?.document?.originalName.slice(
-                            warehouseDetails?.document?.originalName.lastIndexOf(
-                              '_',
-                            ) + 1,
+                            warehouseDetails?.document?.originalName.lastIndexOf('_') + 1,
                           )}
                         </span>
                         <img
@@ -329,18 +276,10 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
           </div>
 
           <div className="">
-            <UploadOther
-              orderid={OrderId}
-              module="customClearanceAndWarehousing"
-              isDocumentName={true}
-            />
+            <UploadOther orderid={OrderId} module="customClearanceAndWarehousing" isDocumentName={true} />
           </div>
         </div>
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={onSaveDischarge}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
     </>
   );

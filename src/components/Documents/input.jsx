@@ -12,10 +12,7 @@ const index = () => {
             <label className={styles.label_heading} id="dropDoc">
               Type Of Document
             </label>
-            <select
-              id="dropDoc"
-              className={`${styles.input_field} form-control`}
-            >
+            <select id="dropDoc" className={`${styles.input_field} form-control`}>
               <option value="doc1">Incorporation Certificate</option>
               <option value="doc2">Certificate</option>
             </select>

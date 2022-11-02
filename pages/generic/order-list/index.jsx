@@ -6,10 +6,7 @@ import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch } from 'react-redux';
 
-import {
-  setDynamicName,
-  setPageName,
-} from '../../../src/redux/userData/action';
+import { setDynamicName, setPageName } from '../../../src/redux/userData/action';
 
 function Index() {
   const [order, setOrder] = useState([]);
@@ -41,14 +38,8 @@ function Index() {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.head_header}>
-              <img
-                className={`${styles.arrow} img-fluid`}
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow"
-              />
-              <h1 className={`${styles.heading} heading`}>
-                {order?.company?.companyName}
-              </h1>
+              <img className={`${styles.arrow} img-fluid`} src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
+              <h1 className={`${styles.heading} heading`}>{order?.company?.companyName}</h1>
             </div>
           </div>
 
@@ -56,16 +47,11 @@ function Index() {
 
           {/*leads table*/}
           <div className={`${styles.datatable} datatable card`}>
-            <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
-            >
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3 className="heading_card">All Orders</h3>
-              <div
-                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-              >
+              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(order.order?.length / 10)}
+                  Showing Page {currentPage + 1} out of {Math.ceil(order.order?.length / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -79,48 +65,28 @@ function Index() {
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
                 <a
                   onClick={() => {
-                    if (
-                      currentPage + 1 <
-                      Math.ceil(singleOrder?.totalCount / 10)
-                    ) {
+                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 10)) {
                       setCurrentPage((prevState) => prevState + 1);
                     }
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr className="table_row">
                       <th>
-                        ORDER ID{' '}
-                        <img
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                        />
+                        ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" />
                       </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
@@ -131,10 +97,7 @@ function Index() {
                   <tbody>
                     {order?.order?.length > 0 &&
                       order?.order.map((buyer, index) => (
-                        <tr
-                          key={index}
-                          className={`${styles.table_row} table_row`}
-                        >
+                        <tr key={index} className={`${styles.table_row} table_row`}>
                           <td>{buyer.orderId}</td>
                           <td
                             className={`${styles.buyerName}`}

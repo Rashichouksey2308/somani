@@ -12,11 +12,7 @@ function index({ openbar, leftButtonTitle, rightButtonTitle, exportPDF }) {
     >
       <div className={styles.reject} onClick={exportPDF}>
         <span>{leftButtonTitle}</span>
-        <img
-          src="/static/file_download.svg"
-          className="img-fluid"
-          alt="FileDownload"
-        />
+        <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
       </div>
       <div className={styles.navigate}>
         <span>2</span> / 10

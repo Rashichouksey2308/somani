@@ -35,10 +35,7 @@ export class ErrorBoundary extends Component {
         >
           <h2>Something went wrong</h2>
           <div>
-            <button
-              type="button"
-              onClick={() => this.setState({ hasError: false })}
-            >
+            <button type="button" onClick={() => this.setState({ hasError: false })}>
               Try again?
             </button>
             <button

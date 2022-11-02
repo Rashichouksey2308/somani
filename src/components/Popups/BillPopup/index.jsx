@@ -25,12 +25,7 @@ function index(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
-        <table
-          className={`${styles.table} table `}
-          cellPadding="0"
-          cellSpacing="0"
-          border="0"
-        >
+        <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
           <tr className={`border_color`}>
             <th>BL NUMBER</th>
             <th>BL DATE</th>

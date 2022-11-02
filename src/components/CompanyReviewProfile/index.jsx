@@ -17,9 +17,7 @@ function Index() {
       >
         <div className={styles.header}>
           <h2 className={`mb-0`}>Company Profile</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            +
-          </span>
+          <span className=" d-flex align-items-center justify-content-between">+</span>
         </div>
       </div>
       <div
@@ -31,14 +29,8 @@ function Index() {
         {fields('Company Name', buyerList?.companyName ?? '')}
         {fields('Company PAN', buyerList?.company?.companyPan ?? '')}
         {fields('Type Of Business', buyerList?.company?.typeOfBusiness ?? '')}
-        {fields(
-          'Transaction Type',
-          buyerList?.transactionType?.originalValue ?? '',
-        )}
-        {fields(
-          'Turn-Over (in Cr)',
-          CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''),
-        )}
+        {fields('Transaction Type', buyerList?.transactionType?.originalValue ?? '')}
+        {fields('Turn-Over (in Cr)', CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''))}
         {fields('Email ID', buyerList?.company?.email ?? '')}
 
         {fields(
@@ -51,23 +43,11 @@ function Index() {
           buyerList?.company?.mobile?.whatsapp?.number ?? '',
           `+${buyerList?.company?.mobile?.whatsapp?.callingCode ?? ''}`,
         )}
-        {fields(
-          'Communication Mode',
-          buyerList?.company?.communicationMode?.toString() ?? '',
-        )}
+        {fields('Communication Mode', buyerList?.company?.communicationMode?.toString() ?? '')}
 
-        {fields(
-          'Limit Value',
-          buyerList?.company?.communicationMode?.toString() ?? '',
-        )}
-        {fields(
-          'Order Value',
-          buyerList?.company?.communicationMode?.toString() ?? '',
-        )}
-        {fields(
-          'Previous Successful Orders',
-          buyerList?.company?.communicationMode?.toString() ?? '',
-        )}
+        {fields('Limit Value', buyerList?.company?.communicationMode?.toString() ?? '')}
+        {fields('Order Value', buyerList?.company?.communicationMode?.toString() ?? '')}
+        {fields('Previous Successful Orders', buyerList?.company?.communicationMode?.toString() ?? '')}
       </div>
     </div>
   );
@@ -77,9 +57,7 @@ export default Index;
 const fields = (head, value, countryCode) => {
   return (
     <>
-      <div
-        className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}
-      >
+      <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
         <span className={`${styles.top} label`}>{head}</span>
         <div>
           <span className={`${styles.value} value `}>

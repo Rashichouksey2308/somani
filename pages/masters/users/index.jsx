@@ -33,14 +33,8 @@ const index = () => {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.search}`}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={serachterm}
@@ -54,11 +48,7 @@ const index = () => {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -79,71 +69,37 @@ const index = () => {
 
           {/*UserTable*/}
           <div className={`${styles.datatable} border card datatable mt-4`}>
-            <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
-            >
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3 className="heading_card">Users</h3>
               <div className="d-flex align-items-center">
                 <div className={`${styles.show_record}`}>Show Records:</div>
                 <div className="d-flex align-items-center position-relative ml-2">
-                  <select
-                    className={`${styles.select} ${styles.customSelect} text1 accordion_body form-select`}
-                  >
+                  <select className={`${styles.select} ${styles.customSelect} text1 accordion_body form-select`}>
                     <option>10</option>
                     <option>20</option>
                   </select>
-                  <img
-                    className={`${styles.arrow2} img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="arrow"
-                  />
+                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
                 </div>
-                <div
-                  className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-                >
+                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>Showing Page 1 out of 10</span>
-                  <a
-                    href="#"
-                    className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                  >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow left"
-                      className="img-fluid"
-                    />
+                  <a href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
                   </a>
-                  <a
-                    href="#"
-                    className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                  >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                  <a href="#" className={`${styles.arrow} ${styles.rightArrow} arrow`}>
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
-                      <th
-                        width="20%"
-                        className={`${styles.table_heading} table_heading`}
-                      >
+                      <th width="20%" className={`${styles.table_heading} table_heading`}>
                         USER ID
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        FULL NAME
-                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>FULL NAME</th>
                       <th className={`${styles.table_heading} table_heading`}>
                         DEPARTMENT{' '}
                         <Image
@@ -174,9 +130,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        ACTION
-                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>ACTION</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -187,22 +141,13 @@ const index = () => {
                       <td>Finance</td>
 
                       <td>
-                        <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
-                        />
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
                         <span className="m-3">Active</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -213,22 +158,13 @@ const index = () => {
                       <td>Finance</td>
 
                       <td>
-                        <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
-                        />
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
                         <span className="m-3">Active</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -239,22 +175,13 @@ const index = () => {
                       <td>Finance</td>
 
                       <td>
-                        <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
-                        />
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
                         <span className="m-3">Active</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -265,22 +192,13 @@ const index = () => {
                       <td>Finance</td>
 
                       <td>
-                        <img
-                          src="/static/active.svg"
-                          className="img-fluid"
-                          alt="active"
-                        />
+                        <img src="/static/active.svg" className="img-fluid" alt="active" />
                         <span className="m-3">Active</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -290,22 +208,13 @@ const index = () => {
                       <td>22-02-2022</td>
                       <td>Finance</td>
                       <td>
-                        <img
-                          src="/static/inactive.svg"
-                          className="img-fluid"
-                          alt="inactive"
-                        />
+                        <img src="/static/inactive.svg" className="img-fluid" alt="inactive" />
                         <span className="m-3">Inactive</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -315,22 +224,13 @@ const index = () => {
                       <td>22-02-2022</td>
                       <td>Finance</td>
                       <td>
-                        <img
-                          src="/static/blacklisted.svg"
-                          className="img-fluid"
-                          alt="blacklisted"
-                        />
+                        <img src="/static/blacklisted.svg" className="img-fluid" alt="blacklisted" />
                         <span className="m-3">Blacklisted</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>
@@ -340,22 +240,13 @@ const index = () => {
                       <td>22-02-2022</td>
                       <td>Finance</td>
                       <td>
-                        <img
-                          src="/static/notice.svg"
-                          className="img-fluid"
-                          alt="Notice Period"
-                        />
+                        <img src="/static/notice.svg" className="img-fluid" alt="Notice Period" />
                         <span className="m-3">Notice Period</span>
                       </td>
                       <td>
                         {' '}
                         <div className={`${styles.edit_image} img-fluid`}>
-                          <Image
-                            height="40px"
-                            width="40px"
-                            src="/static/mode_edit.svg"
-                            alt="Edit"
-                          />
+                          <Image height="40px" width="40px" src="/static/mode_edit.svg" alt="Edit" />
                         </div>
                       </td>
                     </tr>

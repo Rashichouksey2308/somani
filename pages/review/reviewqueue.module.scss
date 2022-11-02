@@ -1839,8 +1839,7 @@ img {
     margin-left: -25px;
     // position: absolute;
     pointer-events: none;
-    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
-      brightness(103%) contrast(82%);
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
 
     input[type='date']::-webkit-inner-spin-button,
     input[type='date']::-webkit-calendar-picker-indicator {

@@ -40,10 +40,7 @@ function Index(props) {
     // setSupplierState({...supplierState,multiParty:props.multiPart})
   }, [props.saveData, props.submitData]);
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   useEffect(() => {
     if (window) {
@@ -148,9 +145,7 @@ function Index(props) {
               }}
             ></img>
           </div>
-          <div
-            className={`${styles.button_container} d-flex justify-content-start  align-items-center `}
-          >
+          <div className={`${styles.button_container} d-flex justify-content-start  align-items-center `}>
             {doc.attachDoc == '' ? (
               <div className={styles.uploadBtnWrapper}>
                 <input
@@ -164,14 +159,10 @@ function Index(props) {
                   // }}
                   onChange={handleFile}
                 />
-                <button className={`${styles.button_upload2} btn`}>
-                  Upload Specifications
-                </button>
+                <button className={`${styles.button_upload2} btn`}>Upload Specifications</button>
               </div>
             ) : (
-              <div
-                className={`${styles.certificate} text1 d-flex justify-content-between`}
-              >
+              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                 <span>{doc.attachDoc}</span>
                 <img
                   className={`${styles.close_image}  image_arrow`}
@@ -183,8 +174,8 @@ function Index(props) {
             )}
             <div className={`${styles.file_text}`}>
               <span>
-                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES
-                ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
+                <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX
+                FILE SIZE UP TO 50 MB
               </span>
             </div>
             {excelFile?.length > 0 ? (
@@ -207,9 +198,7 @@ function Index(props) {
                   <tr>
                     {excelFile &&
                       excelFile.length > 0 &&
-                      Object.keys(excelFile[0]).map((val, index) => (
-                        <th key={index}>{val}</th>
-                      ))}
+                      Object.keys(excelFile[0]).map((val, index) => <th key={index}>{val}</th>)}
                   </tr>
                   {excelFile &&
                     excelFile.length > 0 &&
@@ -230,9 +219,7 @@ function Index(props) {
             addressList.map((val, index) => {
               return (
                 <>
-                  <div
-                    className={`d-flex justify-content-between align-items-center ${styles.comment}`}
-                  >
+                  <div className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
                     <textarea
                       required
                       rows="4"
@@ -245,9 +232,7 @@ function Index(props) {
                       className="input"
                       readOnly={val.action}
                     />
-                    <div
-                      className={`d-flex justify-content-evenly align-items-center`}
-                    >
+                    <div className={`d-flex justify-content-evenly align-items-center`}>
                       {val.action ? (
                         <img
                           className={`${styles.image} ml-4 mr-3`}

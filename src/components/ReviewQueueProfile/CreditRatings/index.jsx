@@ -30,11 +30,7 @@ function Index({ creditRating }) {
       ) {
         filteredArray.push(element);
       }
-      console.log(
-        element?.dateOfIssuance?.slice(0, 4),
-        dates[0],
-        'filteredArray',
-      );
+      console.log(element?.dateOfIssuance?.slice(0, 4), dates[0], 'filteredArray');
     });
 
     console.log(filteredArray, 'filteredArray');
@@ -55,24 +51,12 @@ function Index({ creditRating }) {
           <h2 className="mb-0">Credit Ratings</h2>
           <span>+</span>
         </div>
-        <div
-          id="creditRatings"
-          className="collapse"
-          aria-labelledby="creditRatings"
-          data-parent="#profileAccordion"
-        >
-          <div
-            className={`${styles.borderTable} ${styles.cardBody} card-body border_color`}
-          >
+        <div id="creditRatings" className="collapse" aria-labelledby="creditRatings" data-parent="#profileAccordion">
+          <div className={`${styles.borderTable} ${styles.cardBody} card-body border_color`}>
             <div className={`${styles.tableParent}`}>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
-                  <table
-                    className={`${styles.table} table mb-0`}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table className={`${styles.table} table mb-0`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                       <tr>
                         <th width="10%" rowSpan="2">
@@ -109,23 +93,12 @@ function Index({ creditRating }) {
                         filteredCredit?.map((rating, index) => {
                           return (
                             <tr key={index}>
-                              <td>
-                                {moment(
-                                  rating?.dateOfIssuance?.slice(0, 10),
-                                ).format('DD-MM-YYYY')}
-                              </td>
-                              <td className="text-uppercase">
-                                {rating?.ratingAgency}
-                              </td>
-                              <td className="text-uppercase">
-                                {rating?.ratingTerm}
-                              </td>
-                              <td className="text-capitalize">
-                                {rating?.instrument}
-                              </td>
+                              <td>{moment(rating?.dateOfIssuance?.slice(0, 10)).format('DD-MM-YYYY')}</td>
+                              <td className="text-uppercase">{rating?.ratingAgency}</td>
+                              <td className="text-uppercase">{rating?.ratingTerm}</td>
+                              <td className="text-capitalize">{rating?.instrument}</td>
                               {/* <td className="text-center"><img src={rating?.outlook === 'Stable' ? "/static/equal-icon.svg" : rating?.outlook === 'Negative' ?   "/static/arrow-down-red.svg" : "/static/arrow-up-green.svg"} alt="Arrow Red" className="img-fluid" /></td> */}
-                              {rating?.dateOfIssuance?.slice(0, 4) ===
-                              dates[0] ? (
+                              {rating?.dateOfIssuance?.slice(0, 4) === dates[0] ? (
                                 <td
                                   className={`${
                                     rating?.outlook === 'Positive'
@@ -141,8 +114,7 @@ function Index({ creditRating }) {
                               ) : (
                                 <td className="text-center">-</td>
                               )}
-                              {rating?.dateOfIssuance?.slice(0, 4) ===
-                              dates[1] ? (
+                              {rating?.dateOfIssuance?.slice(0, 4) === dates[1] ? (
                                 <td
                                   className={`${
                                     rating?.outlook === 'Positive'
@@ -158,8 +130,7 @@ function Index({ creditRating }) {
                               ) : (
                                 <td className="text-center">-</td>
                               )}
-                              {rating?.dateOfIssuance?.slice(0, 4) ===
-                              dates[2] ? (
+                              {rating?.dateOfIssuance?.slice(0, 4) === dates[2] ? (
                                 <td
                                   className={`${
                                     rating?.outlook === 'Positive'

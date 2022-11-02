@@ -21,13 +21,7 @@ function Index({ customerSummary }) {
         label: '',
         data: [],
 
-        backgroundColor: [
-          '#9675CE',
-          '#4CAF50',
-          '#EA3F3F',
-          '#2884DE',
-          '#FFCE00',
-        ],
+        backgroundColor: ['#9675CE', '#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
       },
     ],
   });
@@ -48,13 +42,7 @@ function Index({ customerSummary }) {
             label: '',
             data: tempPoint,
 
-            backgroundColor: [
-              '#9675CE',
-              '#4CAF50',
-              '#EA3F3F',
-              '#2884DE',
-              '#FFCE00',
-            ],
+            backgroundColor: ['#9675CE', '#4CAF50', '#EA3F3F', '#2884DE', '#FFCE00'],
           },
         ],
       });
@@ -136,9 +124,7 @@ function Index({ customerSummary }) {
 
   return (
     <Card className={`${styles.card} border`}>
-      <Card.Header className={`${styles.header}  border_color  heading_card`}>
-        Top 5 Customers
-      </Card.Header>
+      <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={`${styles.body} row no-gutters`}>
         <div className={`${styles.name} col-sm-7`}>
           {customerSummary?.length > 0 &&
@@ -146,14 +132,9 @@ function Index({ customerSummary }) {
               return (
                 <div key={index} className={styles.name_wrapper}>
                   <div>
-                    <div
-                      className={styles.round}
-                      style={{ backgroundColor: `${tempArr[index].color}` }}
-                    ></div>
+                    <div className={styles.round} style={{ backgroundColor: `${tempArr[index].color}` }}></div>
                   </div>
-                  <span className={` heading`}>
-                    {val?.company[0]?.companyName}
-                  </span>
+                  <span className={` heading`}>{val?.company[0]?.companyName}</span>
                 </div>
               );
             })}

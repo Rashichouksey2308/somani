@@ -4,10 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import _get from 'lodash/get';
 import { setDynamicName } from '../../../src/redux/userData/action';
-import {
-  settingCurrency,
-  settingUnit,
-} from '../../../src/redux/breadcrumb/action';
+import { settingCurrency, settingUnit } from '../../../src/redux/breadcrumb/action';
 
 export default function Index({ isQuery }) {
   const dispatch = useDispatch();
@@ -138,9 +135,7 @@ export default function Index({ isQuery }) {
   const { allCustomClearance } = useSelector((state) => state.Custom);
   const data = useSelector((state) => state.Breadcrumb);
   console.log(data, 'data');
-  const { upperTabs, companyId } = useSelector(
-    (state) => state.Breadcrumb.breadCrumbData,
-  );
+  const { upperTabs, companyId } = useSelector((state) => state.Breadcrumb.breadCrumbData);
   console.log(upperTabs, companyName, companyId, '12222');
 
   let customData = _get(allCustomClearance, 'data[0]', {});
@@ -203,8 +198,7 @@ export default function Index({ isQuery }) {
     }
     if ('credit-queue' == pageName) {
       if (order != null) {
-        router.route =
-          '/Leads' + '/Credit Queue' + `/${id?.toLowerCase()}` + `/${order}`;
+        router.route = '/Leads' + '/Credit Queue' + `/${id?.toLowerCase()}` + `/${order}`;
       } else if (id !== null) {
         router.route = '/Leads' + '/Credit Queue' + `/${id?.toLowerCase()}`;
       } else {
@@ -213,8 +207,7 @@ export default function Index({ isQuery }) {
     }
     if ('margin-money' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
+        router.route = '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router123', router.route);
       } else {
         router.route = '/Leads' + '/Margin Money';
@@ -223,15 +216,10 @@ export default function Index({ isQuery }) {
 
     if ('termsheet' == pageName) {
       if (order != null) {
-        router.route =
-          '/Leads' +
-          '/Transaction Summary' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router1234', router.route);
       } else if (id !== null) {
-        router.route =
-          '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
+        router.route = '/Leads' + '/Transaction Summary' + `/${id?.toLowerCase()} `;
         console.log('router123', router.route);
       } else {
         router.route = '/Leads' + '/Transaction Summary';
@@ -239,11 +227,7 @@ export default function Index({ isQuery }) {
     }
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Leads' +
-          '/Termsheet-Preview' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router123', router.route);
       } else {
         router.route = '/Leads' + '/Termsheet';
@@ -251,11 +235,7 @@ export default function Index({ isQuery }) {
     }
     if ('generic' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Agreements & LC' +
-          '/Generic' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Agreements & LC' + '/Generic' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router123', router.route);
       } else {
         router.route = '/Agreements & LC' + '/Generic';
@@ -263,11 +243,7 @@ export default function Index({ isQuery }) {
     }
     if ('agreement' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Agreements & LC' +
-          '/Agreement' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Agreements & LC' + '/Agreement' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router123', router.route);
       } else {
         router.route = '/Agreements & LC' + '/Agreement';
@@ -275,8 +251,7 @@ export default function Index({ isQuery }) {
     }
     if ('Lc' == pageName) {
       if (order != null) {
-        router.route =
-          '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
+        router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router1234', router.route);
       } else if (id !== null) {
         router.route = '/Agreements & LC' + '/LC' + `/${id?.toLowerCase()}`;
@@ -287,53 +262,31 @@ export default function Index({ isQuery }) {
     }
     if ('vessel' == pageName) {
       if (order != null) {
-        router.route =
-          '/Agreement & LC' +
-          '/Vessel Nomination' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Agreement & LC' + '/Vessel Nomination' + `/${id?.toLowerCase()}` + `/${order}`;
       } else if (id != null) {
-        router.route =
-          '/Agreement & LC' + '/Vessel Nomination' + `/${id?.toLowerCase()}`;
+        router.route = '/Agreement & LC' + '/Vessel Nomination' + `/${id?.toLowerCase()}`;
       } else {
         router.route = '/Agreement & LC' + '/Vessel Nomination';
       }
     }
     if ('insurance' == pageName) {
       if (order != null) {
-        router.route =
-          '/Agreement & LC' +
-          `/${id?.toLowerCase()}` +
-          '/Insurance' +
-          `/${order}`;
+        router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + `/${order}`;
       } else {
         router.route = '/Agreement & LC' + '/Insurance';
       }
     }
     if ('insurance Request Letter' == pageName) {
-      router.route =
-        '/Agreement & LC' +
-        `/${id?.toLowerCase()}` +
-        '/Insurance' +
-        '/Request Letter' +
-        `/${order}`;
+      router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
     if ('insurance Request Letter' == pageName) {
       // console.log(id, order, 'bredcrums')
-      router.route =
-        '/Agreement & LC' +
-        `/${id?.toLowerCase()}` +
-        '/Insurance' +
-        '/Request Letter' +
-        `/${order}`;
+      router.route = '/Agreement & LC' + `/${id?.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`;
     }
 
     if ('loading' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          `/${id?.toLowerCase()}` +
-          '/Order ID';
+        router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID';
         console.log('router123', router.route);
       } else {
         router.route = '/Loading, Transit & Unloading';
@@ -350,11 +303,7 @@ export default function Index({ isQuery }) {
     if ('inception2' == pageName) {
       if (order != null) {
         router.route =
-          '/Loading, Transit & Unloading' +
-          `/Inspection` +
-          `/${upperTabs}` +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+          '/Loading, Transit & Unloading' + `/Inspection` + `/${upperTabs}` + `/${id?.toLowerCase()}` + `/${order}`;
       } else if (id !== null) {
         router.route =
           '/Loading, Transit & Unloading' +
@@ -381,17 +330,10 @@ export default function Index({ isQuery }) {
     }
     if ('forward' == pageName) {
       if (order != null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          '/Forward Hedging' +
-          `/${id?.toLowerCase()}` +
-          `/${order}`;
+        router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()}` + `/${order}`;
         console.log('router1234', router.route);
       } else if (id !== null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          '/Forward Hedging' +
-          `/${id?.toLowerCase()} `;
+        router.route = '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id?.toLowerCase()} `;
         console.log('router123', router.route);
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Forward Hedging';
@@ -404,10 +346,7 @@ export default function Index({ isQuery }) {
         // `/${order}`
         console.log('router1234', router.route);
       } else if (id !== null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          '/Track Shipments' +
-          `/${id?.toLowerCase()} `;
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `;
         console.log('router123', router.route);
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Track Shipments';
@@ -415,11 +354,7 @@ export default function Index({ isQuery }) {
     }
     if ('custom' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Custom Clearance & Warehouse' +
-          `/${companyName}` +
-          `/${upperTabs}` +
-          `/${OrderId}`;
+        router.route = '/Custom Clearance & Warehouse' + `/${companyName}` + `/${upperTabs}` + `/${OrderId}`;
         console.log('router123', router.route);
         console.log(id, 'id123');
       } else {
@@ -429,11 +364,7 @@ export default function Index({ isQuery }) {
     console.log('tabname', pageTabName);
     if ('payment' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Payment, Invoicing & Delivery' +
-          `/${id?.toLowerCase()}` +
-          `/${upperTabs}` +
-          `/${companyId}`;
+        router.route = '/Payment, Invoicing & Delivery' + `/${id?.toLowerCase()}` + `/${upperTabs}` + `/${companyId}`;
       } else {
         router.route = '/Payment, Invoicing & Delivery';
       }
@@ -465,9 +396,7 @@ export default function Index({ isQuery }) {
   }, [pageName, id, order, upperTabs, companyId]);
 
   return (
-    <div
-      className={`${styles.main_container} row background1 align-items-center`}
-    >
+    <div className={`${styles.main_container} row background1 align-items-center`}>
       <div className="col-md-7">
         <img src="/static/home.svg"></img>
         {pageName == 'generic' ||
@@ -485,15 +414,11 @@ export default function Index({ isQuery }) {
                 <span
                   key={index}
                   className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == index + 1
-                      ? `${styles.highlight} highlight`
-                      : null
+                    myUrlLength == index + 1 ? `${styles.highlight} highlight` : null
                   }`}
                 >
                   <span className="breadcrum_mode">/</span>
-                  <span className={`${styles.value} breadcrum_mode`}>
-                    {val}
-                  </span>
+                  <span className={`${styles.value} breadcrum_mode`}>{val}</span>
                 </span>
               );
             })}
@@ -520,9 +445,7 @@ export default function Index({ isQuery }) {
                   }`}
                 >
                   <span className="breadcrum_mode">/</span>
-                  <span className={`${styles.value} breadcrum_mode`}>
-                    {val}
-                  </span>
+                  <span className={`${styles.value} breadcrum_mode`}>{val}</span>
                 </span>
               );
             })}
@@ -533,11 +456,7 @@ export default function Index({ isQuery }) {
         {show.units && pageName !== 'payment' ? (
           <span className="d-inline-flex align-items-center">
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select
-              className={`${styles.options} accordion_DropDown`}
-              value={data.unit}
-              onChange={handleUnitChange}
-            >
+            <select className={`${styles.options} accordion_DropDown`} value={data.unit} onChange={handleUnitChange}>
               <option value="crores">CRORES</option>
               {/* <option value="millions">MILLIONS</option> */}
               <option value="lakh">LAKH</option>
@@ -546,9 +465,7 @@ export default function Index({ isQuery }) {
         ) : null}
         {show.currency && pageName !== 'payment' ? (
           <span className="d-inline-flex align-items-center">
-            <h5 className={`${styles.unit_label} accordion_Text`}>
-              Currency :
-            </h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Currency :</h5>
             <select
               className={`${styles.options} bg-transparent px-0 accordion_DropDown`}
               value={data.currency}

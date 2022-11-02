@@ -21,20 +21,12 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>
-              Loading, Transit &amp; Unloading{' '}
-            </h1>
+            <h1 className={styles.heading}>Loading, Transit &amp; Unloading </h1>
           </div>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 type="text"
@@ -51,17 +43,11 @@ function Index() {
        */}
         </div>
 
-        <div
-          className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}
-        >
+        <div className={`${styles.statusBox} statusBox  d-flex align-items-center justify-content-between`}>
           <div className={`${styles.all} ${styles.boxInner} all border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/leads-icon.svg"
-                  className="img-fluid"
-                  alt="All Leads"
-                />
+                <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
               </div>
               <h3>
                 <span>ALL</span>
@@ -69,16 +55,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.approved} ${styles.boxInner} approved border_color`}
-          >
+          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/check.svg"
-                  className="img-fluid"
-                  alt="Check"
-                />
+                <img src="/static/check.svg" className="img-fluid" alt="Check" />
               </div>
               <h3>
                 <span>TOTAL INSPECTION</span>
@@ -86,16 +66,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.review} ${styles.boxInner} review border_color`}
-          >
+          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/access-time.svg"
-                  className="img-fluid"
-                  alt="Access Time"
-                />
+                <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
               </div>
               <h3>
                 <span>BL GENERATION</span>
@@ -103,16 +77,10 @@ function Index() {
               </h3>
             </div>
           </div>
-          <div
-            className={`${styles.saved} ${styles.boxInner} saved border_color`}
-          >
+          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <div className={`${styles.iconBox} iconBox`}>
-                <img
-                  src="/static/bookmark.svg"
-                  className="img-fluid"
-                  alt="Close"
-                />
+                <img src="/static/bookmark.svg" className="img-fluid" alt="Close" />
               </div>
               <h3>
                 <span>SAVED</span>
@@ -121,12 +89,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <TableMain
-          tableName="Transit Details"
-          isVesselHeader
-          dateHeading="DATE"
-          isStatus
-        />
+        <TableMain tableName="Transit Details" isVesselHeader dateHeading="DATE" isStatus />
       </div>
     </div>
   );

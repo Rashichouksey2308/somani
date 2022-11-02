@@ -6,11 +6,7 @@ import styles from './index.module.scss';
 import Router from 'next/router';
 import _get from 'lodash/get';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  setDynamicName,
-  setDynamicOrder,
-  setPageName,
-} from '../../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../../src/redux/userData/action';
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action';
 import moment from 'moment';
 import Loader from '../../../src/components/Loader/index';
@@ -28,11 +24,7 @@ function Index() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(
-      setPageName(
-        _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
-      ),
-    );
+    dispatch(setPageName(_get(termsheet, 'data[0].company.companyName', 'All Termsheet Order')));
   }, [singleOrder, termsheet]);
 
   useEffect(() => {
@@ -40,11 +32,7 @@ function Index() {
   }, []);
   useEffect(() => {
     dispatch(setPageName('termsheet'));
-    dispatch(
-      setDynamicName(
-        _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
-      ),
-    );
+    dispatch(setDynamicName(_get(termsheet, 'data[0].company.companyName', 'All Termsheet Order')));
   }, [dispatch, singleOrder, termsheet]);
 
   const handleRoute = async (term, index) => {
@@ -64,18 +52,10 @@ function Index() {
   const handleSort = () => {
     let Id = sessionStorage.getItem('termsheetId');
     if (sorting == -1) {
-      dispatch(
-        GetTermsheet(
-          `?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting == 1) {
-      dispatch(
-        GetTermsheet(
-          `?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -97,29 +77,17 @@ function Index() {
                   alt="arrow"
                 />
                 <h1 className={`${styles.heading} heading`}>
-                  {_get(
-                    termsheet,
-                    'data[0].company.companyName',
-                    'All Termsheet Order',
-                  )}
+                  {_get(termsheet, 'data[0].company.companyName', 'All Termsheet Order')}
                 </h1>
               </div>
             </div>
 
             {/*status Box*/}
-            <div
-              className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
-            >
-              <div
-                className={`${styles.all} ${styles.boxInner} all border_color`}
-              >
+            <div className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}>
+              <div className={`${styles.all} ${styles.boxInner} all border_color`}>
                 <div className="d-lg-flex align-items-center d-inline-block">
                   <div className={`${styles.iconBox} iconBox`}>
-                    <img
-                      src="/static/leads-icon.svg"
-                      className="img-fluid"
-                      alt="All Leads"
-                    />
+                    <img src="/static/leads-icon.svg" className="img-fluid" alt="All Leads" />
                   </div>
                   <h3>
                     <span> All </span>
@@ -127,16 +95,10 @@ function Index() {
                   </h3>
                 </div>
               </div>
-              <div
-                className={`${styles.approved} ${styles.boxInner} approved border_color`}
-              >
+              <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
                 <div className="d-lg-flex align-items-center d-inline-block">
                   <div className={`${styles.iconBox} iconBox`}>
-                    <img
-                      src="/static/check.svg"
-                      className="img-fluid"
-                      alt="Check"
-                    />
+                    <img src="/static/check.svg" className="img-fluid" alt="Check" />
                   </div>
                   <h3>
                     <span>APPROVED</span>
@@ -144,16 +106,10 @@ function Index() {
                   </h3>
                 </div>
               </div>
-              <div
-                className={`${styles.review} ${styles.boxInner} review border_color`}
-              >
+              <div className={`${styles.review} ${styles.boxInner} review border_color`}>
                 <div className="d-lg-flex align-items-center d-inline-block">
                   <div className={`${styles.iconBox} iconBox`}>
-                    <img
-                      src="/static/access-time.svg"
-                      className="img-fluid"
-                      alt="Access Time"
-                    />
+                    <img src="/static/access-time.svg" className="img-fluid" alt="Access Time" />
                   </div>
                   <h3>
                     <span>REVIEW</span>
@@ -161,16 +117,10 @@ function Index() {
                   </h3>
                 </div>
               </div>
-              <div
-                className={`${styles.rejected} ${styles.boxInner} rejected border_color`}
-              >
+              <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
                 <div className="d-lg-flex align-items-center d-inline-block">
                   <div className={`${styles.iconBox} iconBox`}>
-                    <img
-                      src="/static/close-b.svg"
-                      className="img-fluid"
-                      alt="Close"
-                    />
+                    <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
                   </div>
                   <h3>
                     <span>REJECTED</span>
@@ -178,16 +128,10 @@ function Index() {
                   </h3>
                 </div>
               </div>
-              <div
-                className={`${styles.saved} ${styles.boxInner} saved border_color`}
-              >
+              <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
                 <div className="d-lg-flex align-items-center d-inline-block">
                   <div className={`${styles.iconBox} iconBox`}>
-                    <img
-                      src="/static/bookmark.svg"
-                      className="img-fluid"
-                      alt="Bookmark"
-                    />
+                    <img src="/static/bookmark.svg" className="img-fluid" alt="Bookmark" />
                   </div>
                   <h3>
                     <span>SAVED</span>
@@ -198,16 +142,11 @@ function Index() {
             </div>
             {/*leads table*/}
             <div className={`${styles.datatable} border datatable card`}>
-              <div
-                className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-              >
+              <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
                 <h3 className="heading_card">All Orders</h3>
-                <div
-                  className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-                >
+                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
-                    Showing Page {currentPage + 1} out of{' '}
-                    {Math.ceil(termsheet?.totalCount / 10)}
+                    Showing Page {currentPage + 1} out of {Math.ceil(termsheet?.totalCount / 10)}
                   </span>
                   <a
                     onClick={() => {
@@ -221,49 +160,29 @@ function Index() {
                     className={`${styles.arrow} ${styles.leftArrow} arrow`}
                   >
                     {' '}
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                   <a
                     onClick={() => {
-                      if (
-                        currentPage + 1 <
-                        Math.ceil(termsheet?.totalCount / 10)
-                      ) {
+                      if (currentPage + 1 < Math.ceil(termsheet?.totalCount / 10)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}
                     href="#"
                     className={`${styles.arrow} ${styles.rightArrow} arrow`}
                   >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
               </div>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
-                  <table
-                    className={`${styles.table} table`}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                       <tr className="table_row">
                         <th>
                           ORDER ID{' '}
-                          <img
-                            className={`mb-1`}
-                            src="/static/icons8-sort-24.svg"
-                            onClick={() => handleSort()}
-                          />
+                          <img className={`mb-1`} src="/static/icons8-sort-24.svg" onClick={() => handleSort()} />
                         </th>
                         <th>COMMODITY</th>
                         <th>CREATED BY</th>
@@ -276,35 +195,19 @@ function Index() {
                       termsheet?.data?.map((term, index) => (
                         <tbody Key={index}>
                           <tr className="table_row">
-                            <td
-                              className={`${styles.first}`}
-                              onClick={() => handleRoute(term, index)}
-                            >
-                              {term?.order?.orderId
-                                ? term?.order?.orderId
-                                : term?.order?.applicationId}
+                            <td className={`${styles.first}`} onClick={() => handleRoute(term, index)}>
+                              {term?.order?.orderId ? term?.order?.orderId : term?.order?.applicationId}
                             </td>
-                            <td
-                              className={`${styles.buyerName}`}
-                              onClick={() => handleRoute(term, index)}
-                            >
+                            <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)}>
                               {term?.order?.commodity}
                             </td>
 
-                            <td>
-                              {term?.createdBy?.userRole
-                                ? term?.createdBy?.userRole
-                                : 'RM'}{' '}
-                            </td>
+                            <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : 'RM'} </td>
                             <td>
                               {term?.order?.existingCustomer
-                                ? moment(term?.order?.createdAt).format(
-                                    'DD-MM-YYYY',
-                                  )
+                                ? moment(term?.order?.createdAt).format('DD-MM-YYYY')
                                 : term?.order?.cam?.approvedAt
-                                ? moment(term?.order?.cam?.approvedAt).format(
-                                    'DD-MM-YYYY',
-                                  )
+                                ? moment(term?.order?.cam?.approvedAt).format('DD-MM-YYYY')
                                 : ''}
                             </td>
                             <td>
@@ -334,19 +237,10 @@ function Index() {
                                   alt="Preview"
                                   onClick={() => {
                                     sessionStorage.setItem('termID', term._id);
-                                    sessionStorage.setItem(
-                                      'termOrdID',
-                                      term?.order._id,
-                                    );
-                                    dispatch(
-                                      GetTermsheet(
-                                        `?company=${term.company._id}`,
-                                      ),
-                                    );
+                                    sessionStorage.setItem('termOrdID', term?.order._id);
+                                    dispatch(GetTermsheet(`?company=${term.company._id}`));
 
-                                    dispatch(
-                                      setDynamicName(term.order.orderId),
-                                    );
+                                    dispatch(setDynamicName(term.order.orderId));
                                     // dispatch(setDynamicOrder(term))
                                     Router.push('/termsheet-preview');
                                   }}

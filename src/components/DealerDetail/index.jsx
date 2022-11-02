@@ -57,11 +57,7 @@ function DetailPage(props) {
         <Row>
           <Col sm={12}>
             <CartTitle
-              title={
-                props.dealerData !== null
-                  ? props.dealerData.dealerName.toUpperCase()
-                  : 'Dealer Name'
-              }
+              title={props.dealerData !== null ? props.dealerData.dealerName.toUpperCase() : 'Dealer Name'}
               Name={'Search'}
               customClass={'hidebtn'}
               innerTextClass={'hidetext'}
@@ -73,19 +69,8 @@ function DetailPage(props) {
           <CardBody className="px-0 px-lg-1 py-0 py-lg-1">
             <Row className="custom-tab">
               <Col sm={12}>
-                <Tabs
-                  id="tab-id"
-                  activeKey={key}
-                  onSelect={(k) => handleSelectTab(k)}
-                >
-                  <Tab
-                    eventKey="detail"
-                    title={_.get(
-                      elements,
-                      'dealerDetailElements.tabDetailElement',
-                      'Details',
-                    )}
-                  >
+                <Tabs id="tab-id" activeKey={key} onSelect={(k) => handleSelectTab(k)}>
+                  <Tab eventKey="detail" title={_.get(elements, 'dealerDetailElements.tabDetailElement', 'Details')}>
                     <Information
                       query={props.query}
                       dealerData={props.dealerData}
@@ -93,14 +78,7 @@ function DetailPage(props) {
                       elements={props.elements}
                     />
                   </Tab>
-                  <Tab
-                    eventKey="branch"
-                    title={_.get(
-                      elements,
-                      'dealerDetailElements.tabBranchElement',
-                      'Branch',
-                    )}
-                  >
+                  <Tab eventKey="branch" title={_.get(elements, 'dealerDetailElements.tabBranchElement', 'Branch')}>
                     <Branch
                       dealerBranchData={props.dealerBranchData}
                       handleToCreateForm={() => handleToCreateForm()}

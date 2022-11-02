@@ -162,15 +162,11 @@ function Index() {
     if (window) {
       sessionStorage.setItem(
         'sideBarMain',
-        sessionStorage.getItem('loadedPage')
-          ? sessionStorage.getItem('loadedPage')
-          : 'Dashboard',
+        sessionStorage.getItem('loadedPage') ? sessionStorage.getItem('loadedPage') : 'Dashboard',
       );
       sessionStorage.setItem(
         'subsideBarMain',
-        sessionStorage.getItem('loadedSubPage')
-          ? sessionStorage.getItem('loadedSubPage')
-          : null,
+        sessionStorage.getItem('loadedSubPage') ? sessionStorage.getItem('loadedSubPage') : null,
       );
       setcategory(sessionStorage.getItem('sideBarMain'));
       setsubCategory(sessionStorage.getItem('subsideBarMain'));
@@ -225,9 +221,7 @@ function Index() {
     <>
       {isMobile ? (
         <div
-          className={`${styles.main_container_mobile} sidebar-bg  ${
-            !sidebar ? styles.collapse_sidebar_mobile : null
-          }`}
+          className={`${styles.main_container_mobile} sidebar-bg  ${!sidebar ? styles.collapse_sidebar_mobile : null}`}
         >
           {tempArr.map((val, index) => {
             const className1 =
@@ -247,25 +241,16 @@ function Index() {
                     }}
                   >
                     <div>
-                      {index === tempArr.length - 1 && (
-                        <img src={`${val.image}`}></img>
-                      )}
+                      {index === tempArr.length - 1 && <img src={`${val.image}`}></img>}
                       <span>{val.main}</span>
                     </div>
                     {val?.Other?.length > 0 ? (
-                      <img
-                        src="/static/Accordion - menu.svg"
-                        className={styles.icon}
-                      ></img>
+                      <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
                     ) : (
                       <div className={styles.icon}></div>
                     )}
                   </div>
-                  <div
-                    className={`${styles.sub_wrapper} ${
-                      index12 == index ? className : null
-                    }`}
-                  >
+                  <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val?.Other?.length > 0
                       ? val.Other.map((other, index2) => {
                           const className12 =
@@ -277,11 +262,7 @@ function Index() {
                               <div
                                 index={index2}
                                 className={`${styles.sub_header} ${
-                                  subCategory == null
-                                    ? null
-                                    : subCategory == other.name
-                                    ? styles.subSelected
-                                    : null
+                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
                                 onClick={() => {
                                   handleOpen(other.name, index2, '');
@@ -292,11 +273,7 @@ function Index() {
                                   <img src={`${other.image}`}></img>
                                   <span
                                     className={`${
-                                      subCategory == null
-                                        ? null
-                                        : subCategory == other.name
-                                        ? styles.subSelected
-                                        : null
+                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
                                   >
                                     {other.name}
@@ -314,11 +291,7 @@ function Index() {
           })}
         </div>
       ) : (
-        <div
-          className={`${styles.main_container} sidebar-bg  ${
-            !sidebar ? styles.collapse_sidebar : null
-          }`}
-        >
+        <div className={`${styles.main_container} sidebar-bg  ${!sidebar ? styles.collapse_sidebar : null}`}>
           {tempArr.map((val, index) => {
             const className1 =
               subCategory == null || subCategory == 'null'
@@ -330,9 +303,7 @@ function Index() {
               <>
                 <div
                   key={index}
-                  className={`${styles.wrapper} ${
-                    category == val.main ? styles.wrapperSlected : null
-                  } `}
+                  className={`${styles.wrapper} ${category == val.main ? styles.wrapperSlected : null} `}
                 >
                   <div
                     className={`${styles.header} ${className1}`}
@@ -357,36 +328,22 @@ function Index() {
                       <span>{val.main}</span>
                     </div>
                     {val.Other?.length > 0 ? (
-                      <img
-                        src="/static/Accordion - menu.svg"
-                        className={styles.icon}
-                      ></img>
+                      <img src="/static/Accordion - menu.svg" className={styles.icon}></img>
                     ) : (
                       <div className={styles.icon}></div>
                     )}
                   </div>
-                  <div
-                    className={`${styles.sub_wrapper} ${
-                      index12 == index ? className : null
-                    }`}
-                  >
+                  <div className={`${styles.sub_wrapper} ${index12 == index ? className : null}`}>
                     {val.Other?.length > 0
                       ? val.Other.map((other, index2) => {
-                          const className12 =
-                            index12 == index
-                              ? `${styles.openlist} sidebar-selected`
-                              : null;
+                          const className12 = index12 == index ? `${styles.openlist} sidebar-selected` : null;
 
                           return (
                             <>
                               <div
                                 index={index2}
                                 className={`${styles.sub_header} ${
-                                  subCategory == null
-                                    ? null
-                                    : subCategory == other.name
-                                    ? styles.subSelected
-                                    : null
+                                  subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                 }`}
                                 onClick={() => {
                                   handleOpen(other.name, index2, '');
@@ -397,11 +354,7 @@ function Index() {
                                   <img src={`${other.image}`}></img>
                                   <span
                                     className={`${
-                                      subCategory == null
-                                        ? null
-                                        : subCategory == other.name
-                                        ? styles.subSelected
-                                        : null
+                                      subCategory == null ? null : subCategory == other.name ? styles.subSelected : null
                                     }`}
                                   >
                                     {other.name}

@@ -134,11 +134,9 @@ function Index(props) {
 
   return (
     <div
-      className={`${state.className} react_multi_email input ${
-        state.noClass ? '' : `${styles.react_multi_email}`
-      } ${state.focused ? 'focused' : ''} ${
-        state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''
-      }`}
+      className={`${state.className} react_multi_email input ${state.noClass ? '' : `${styles.react_multi_email}`} ${
+        state.focused ? 'focused' : ''
+      } ${state.inputValue === '' && state.emails.length === 0 ? 'empty' : ''}`}
       // style={style}
       onClick={() => {
         if (emailInputRef.current) {
@@ -147,11 +145,7 @@ function Index(props) {
       }}
     >
       {props.placeholder ? (
-        <span
-          className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}
-        >
-          {props.placeholder}
-        </span>
+        <span className={`${styles.data_placeholder} ${styles.label_heading} label_heading`}>{props.placeholder}</span>
       ) : null}
       {state?.emails?.length > 0 &&
         state?.emails?.map((email, index) => {

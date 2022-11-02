@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Col,
-  Dropdown,
-  DropdownButton,
-  Form,
-  FormControl,
-  InputGroup,
-  Modal,
-  Row,
-} from 'react-bootstrap';
+import { Col, Dropdown, DropdownButton, Form, FormControl, InputGroup, Modal, Row } from 'react-bootstrap';
 import styles from './index.module.scss';
 
 function index(props) {
@@ -22,9 +13,7 @@ function index(props) {
       backdropClassName={styles.backdrop}
     >
       <Modal.Header className={styles.head}>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Share termsheet with buyer
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Share termsheet with buyer</Modal.Title>
         <img src="/static/close-2.svg" />
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
@@ -40,28 +29,16 @@ function index(props) {
               >
                 <Dropdown.Item href="#">+91</Dropdown.Item>
               </DropdownButton>
-              <FormControl
-                className={`${styles.input}`}
-                aria-label="Text input with dropdown button"
-              />
+              <FormControl className={`${styles.input}`} aria-label="Text input with dropdown button" />
             </InputGroup>
-            <div
-              className={`${styles.button} d-flex justify-content-center align-content-center`}
-            >
+            <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
               <span> {`Share on WhatsApp`}</span>
             </div>
           </Col>
           <Col md={6} className={`${styles.right}`}>
             <img src="/static/icons8-email-open-48.png" className="mb-3" />
-            <Form.Control
-              type="text"
-              id="inputPassword5"
-              aria-describedby="passwordHelpBlock"
-              className="mb-3"
-            />
-            <div
-              className={`${styles.button} d-flex justify-content-center align-content-center`}
-            >
+            <Form.Control type="text" id="inputPassword5" aria-describedby="passwordHelpBlock" className="mb-3" />
+            <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
               <span> {`Share on Email`}</span>
             </div>
           </Col>

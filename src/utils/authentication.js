@@ -8,9 +8,7 @@ export const setAuthenticationCookie = async (data) => {
   } = data;
 
   // let encodedString = btoa(`${userId}#${refreshToken}#${accessToken}`);
-  const encodedString = Buffer.from(
-    `${userId}#${refreshToken}#${jwtAccessToken}`,
-  ).toString('base64');
+  const encodedString = Buffer.from(`${userId}#${refreshToken}#${jwtAccessToken}`).toString('base64');
 
   Cookies.set('SOMANI', encodedString, { expires: 7 });
   return null;

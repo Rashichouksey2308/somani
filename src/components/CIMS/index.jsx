@@ -10,17 +10,9 @@ import UploadOther from '../UploadOther';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
-export default function Index({
-  isShipmentTypeBULK,
-  TransitDetails,
-  vesselData,
-  orderid,
-  docUploadFunction,
-}) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, vesselData, orderid, docUploadFunction }) {
   let transId = _get(TransitDetails, `data[0]`, '');
-  let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-    'Bulk';
+  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk';
   const [editInput, setEditInput] = useState(true);
   const [startBlDate, setBlDate] = useState(null);
   const [lastDate, setlastDate] = useState(new Date());
@@ -48,19 +40,11 @@ export default function Index({
       setCimsDetails([
         {
           vesselName: '',
-          quantity: _get(
-            TransitDetails,
-            'data.BL.billOfLanding[0].blQuantity',
-            0,
-          ),
+          quantity: _get(TransitDetails, 'data.BL.billOfLanding[0].blQuantity', 0),
           circNumber: '',
           circDate: '',
           cimsCharges: '',
-          paymentBy: _get(
-            TransitDetails,
-            'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-            '',
-          ),
+          paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
           coalImportRegistrationDoc: null,
           cimsPaymentReceiptDoc: null,
         },
@@ -177,11 +161,7 @@ export default function Index({
         circNumber: '',
         circDate: '',
         cimsCharges: '',
-        paymentBy: _get(
-          TransitDetails,
-          'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
-          '',
-        ),
+        paymentBy: _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', ''),
         document1: null,
         document2: null,
       },
@@ -200,10 +180,7 @@ export default function Index({
     setCimsDetails(tempArr);
   };
   const onDeleteClick = (index) => {
-    setCimsDetails([
-      ...cimsDetails.slice(0, index),
-      ...cimsDetails.slice(index + 1),
-    ]);
+    setCimsDetails([...cimsDetails.slice(0, index), ...cimsDetails.slice(index + 1)]);
   };
   const uploadDoc = async (e, index) => {
     let id = e.target.id;
@@ -230,10 +207,7 @@ export default function Index({
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
       console.log(i, 'INSIDE FOR LOOP', cimsDetails.length);
-      if (
-        cimsDetails[i]?.vesselName == '' ||
-        cimsDetails[i]?.vesselName == undefined
-      ) {
+      if (cimsDetails[i]?.vesselName == '' || cimsDetails[i]?.vesselName == undefined) {
         toastMessage = `Please select vessel name of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -241,10 +215,7 @@ export default function Index({
           break;
         }
       }
-      if (
-        cimsDetails[i]?.quantity == '' ||
-        cimsDetails[i]?.quantity == undefined
-      ) {
+      if (cimsDetails[i]?.quantity == '' || cimsDetails[i]?.quantity == undefined) {
         toastMessage = `Please  FILL quantity of CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -252,10 +223,7 @@ export default function Index({
           break;
         }
       }
-      if (
-        cimsDetails[i]?.circNumber == '' ||
-        cimsDetails[i]?.circNumber == undefined
-      ) {
+      if (cimsDetails[i]?.circNumber == '' || cimsDetails[i]?.circNumber == undefined) {
         toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -274,10 +242,7 @@ export default function Index({
       //     break
       //   }
       // }
-      if (
-        cimsDetails[i]?.cimsCharges == '' ||
-        cimsDetails[i]?.cimsCharges == undefined
-      ) {
+      if (cimsDetails[i]?.cimsCharges == '' || cimsDetails[i]?.cimsCharges == undefined) {
         toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -285,10 +250,7 @@ export default function Index({
           break;
         }
       }
-      if (
-        cimsDetails[i]?.paymentBy == '' ||
-        cimsDetails[i]?.paymentBy == undefined
-      ) {
+      if (cimsDetails[i]?.paymentBy == '' || cimsDetails[i]?.paymentBy == undefined) {
         toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -296,13 +258,8 @@ export default function Index({
           break;
         }
       }
-      if (
-        cimsDetails[i]?.coalImportRegistrationDoc == null ||
-        cimsDetails[i]?.coalImportRegistrationDoc == undefined
-      ) {
-        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${
-          i + 1
-        } `;
+      if (cimsDetails[i]?.coalImportRegistrationDoc == null || cimsDetails[i]?.coalImportRegistrationDoc == undefined) {
+        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -346,24 +303,16 @@ export default function Index({
 
   return (
     <>
-      <div
-        className={`${styles.backgroundMain} vessel_card container-fluid p-0`}
-      >
+      <div className={`${styles.backgroundMain} vessel_card container-fluid p-0`}>
         <div className={`${styles.vessel_card} border_color`}>
           {cimsDetails.map((list, index) => (
-            <div
-              key={index}
-              className={`${styles.main} mb-4 border_color card `}
-            >
+            <div key={index} className={`${styles.main} mb-4 border_color card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
                 <div className="d-flex">
-                  <button
-                    onClick={() => onAddHandler()}
-                    className={styles.add_btn}
-                  >
+                  <button onClick={() => onAddHandler()} className={styles.add_btn}>
                     <span className={styles.add_sign}>+</span>Add
                   </button>
                   {index > 0 ? (
@@ -371,17 +320,14 @@ export default function Index({
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
                     >
-                      <img src="/static/delete.svg" width={15} alt="delete" />{' '}
-                      Delete
+                      <img src="/static/delete.svg" width={15} alt="delete" /> Delete
                     </button>
                   ) : null}
                 </div>
               </div>
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       {
                         <select
@@ -390,20 +336,14 @@ export default function Index({
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option selected>Select an option</option>
-                          {_get(
-                            TransitDetails,
-                            `data[0].BL.billOfLanding`,
-                            [],
-                          ).map((bl, index) => (
+                          {_get(TransitDetails, `data[0].BL.billOfLanding`, []).map((bl, index) => (
                             <option value={bl.vesselName} key={index}>
                               {bl.vesselName}
                             </option>
                           ))}
                         </select>
                       }
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Vessel Name<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -413,9 +353,7 @@ export default function Index({
                       />
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="quantity"
                       // defaultValue={
@@ -434,28 +372,19 @@ export default function Index({
                         isFieldInFocus
                           ? list.quantity
                           : Number(list.quantity)?.toLocaleString('en-IN') +
-                            ` ${_get(
-                              TransitDetails,
-                              'data[0].order.unitOfQuantity',
-                              '',
-                            )}`
+                            ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
                       }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="text"
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
 
                     <label className={`${styles.label_heading} label_heading`}>
                       BL Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="circNumber"
                       type="text"
@@ -463,26 +392,17 @@ export default function Index({
                       defaultValue={list.circNumber}
                       className={`${styles.input_field} input form-control`}
                       required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       CIRC Number<strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        value={
-                          list?.circDate
-                            ? moment(list?.circDate).format('DD-MM-YYYY')
-                            : ''
-                        }
+                        value={list?.circDate ? moment(list?.circDate).format('DD-MM-YYYY') : ''}
                         // defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
@@ -499,16 +419,10 @@ export default function Index({
                         src="/static/caldericon.svg"
                         alt="Search"
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        CIRC Date
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>CIRC Date</label>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <input
                       id="cimsCharges"
                       onFocus={(e) => {
@@ -521,23 +435,17 @@ export default function Index({
                       value={
                         isFieldInFocusCMS
                           ? list.cimsCharges
-                          : `INR ` +
-                            Number(list.cimsCharges)?.toLocaleString('en-IN')
+                          : `INR ` + Number(list.cimsCharges)?.toLocaleString('en-IN')
                       }
                       className={`${styles.input_field} input form-control`}
                       type="text"
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       CIMS Charges<strong className="text-danger">*</strong>
                     </label>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                  >
+                  <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                     <div className="d-flex">
                       <select
                         value={
@@ -554,24 +462,16 @@ export default function Index({
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option checked>Select an option</option>
-                        <option
-                          value={
-                            'Indo German International Private Limited (IGPL)'
-                          }
-                        >
+                        <option value={'Indo German International Private Limited (IGPL)'}>
                           Indo German International Private Limited (IGPL)
                         </option>
-                        <option
-                          value={'Emergent Industrial Solutions Limited (EISL)'}
-                        >
+                        <option value={'Emergent Industrial Solutions Limited (EISL)'}>
                           Emergent Industrial Solutions Limited (EISL)
                         </option>
 
                         <option value="Buyer">Buyer</option>
                       </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Payment by<strong className="text-danger">*</strong>
                       </label>
                       <img
@@ -585,12 +485,7 @@ export default function Index({
               </div>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
-                  <table
-                    className={`${styles.table} table mb-0`}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table className={`${styles.table} table mb-0`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                       <tr>
                         <th>
@@ -628,57 +523,33 @@ export default function Index({
                         </td>
                         <td>
                           {cimsDetails[index]?.coalImportRegistrationDoc ? (
-                            cimsDetails[
-                              index
-                            ]?.coalImportRegistrationDoc?.originalName
+                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
                               ?.toLowerCase()
                               .endsWith('.xls') ||
-                            cimsDetails[
-                              index
-                            ]?.coalImportRegistrationDoc?.originalName
+                            cimsDetails[index]?.coalImportRegistrationDoc?.originalName
                               ?.toLowerCase()
                               .endsWith('.xlsx') ? (
-                              <img
-                                src="/static/excel.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            ) : cimsDetails[
-                                index
-                              ]?.coalImportRegistrationDoc?.originalName
+                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                            ) : cimsDetails[index]?.coalImportRegistrationDoc?.originalName
                                 ?.toLowerCase()
                                 .endsWith('.doc') ||
-                              cimsDetails[
-                                index
-                              ]?.coalImportRegistrationDoc?.originalName
+                              cimsDetails[index]?.coalImportRegistrationDoc?.originalName
                                 ?.toLowerCase()
                                 .endsWith('.docx') ? (
-                              <img
-                                src="/static/doc.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
+                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                             ) : (
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
+                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                             )
                           ) : null}
                         </td>
                         <td className={styles.doc_row}>
                           {cimsDetails[index]?.coalImportRegistrationDoc == null
                             ? ''
-                            : moment(
-                                list?.coalImportRegistrationDoc?.Date,
-                              ).format(' DD-MM-YYYY , h:mm a')}
+                            : moment(list?.coalImportRegistrationDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            {cimsDetails &&
-                            cimsDetails[index]?.coalImportRegistrationDoc ==
-                              null ? (
+                            {cimsDetails && cimsDetails[index]?.coalImportRegistrationDoc == null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -687,32 +558,16 @@ export default function Index({
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uploadDoc(e, index)}
                                   />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <button className={`${styles.upload_btn} btn`}>Upload</button>
                                 </div>
                               </>
                             ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex justify-content-between`}
-                              >
-                                <span>
-                                  {
-                                    cimsDetails[index]
-                                      ?.coalImportRegistrationDoc?.originalName
-                                  }
-                                </span>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
                                 <img
                                   className={`${styles.close_image}  image_arrow mr-2`}
                                   src="/static/close.svg"
-                                  onClick={(e) =>
-                                    handleCloseDoc(
-                                      'coalImportRegistrationDoc',
-                                      index,
-                                    )
-                                  }
+                                  onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -722,47 +577,21 @@ export default function Index({
                       </tr>
 
                       <tr className="table_row">
-                        <td className={styles.doc_name}>
-                          CIMS Payment Receipt
-                        </td>
+                        <td className={styles.doc_name}>CIMS Payment Receipt</td>
                         <td>
                           {cimsDetails[index]?.cimsPaymentReceiptDoc ? (
-                            cimsDetails[
-                              index
-                            ]?.cimsPaymentReceiptDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xls') ||
-                            cimsDetails[
-                              index
-                            ]?.cimsPaymentReceiptDoc?.originalName
-                              ?.toLowerCase()
-                              .endsWith('.xlsx') ? (
-                              <img
-                                src="/static/excel.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
-                            ) : cimsDetails[
-                                index
-                              ]?.cimsPaymentReceiptDoc?.originalName
+                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                            cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                              <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                            ) : cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
                                 ?.toLowerCase()
                                 .endsWith('.doc') ||
-                              cimsDetails[
-                                index
-                              ]?.cimsPaymentReceiptDoc?.originalName
+                              cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName
                                 ?.toLowerCase()
                                 .endsWith('.docx') ? (
-                              <img
-                                src="/static/doc.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
+                              <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                             ) : (
-                              <img
-                                src="/static/pdf.svg"
-                                className="img-fluid"
-                                alt="Pdf"
-                              />
+                              <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                             )
                           ) : null}
                         </td>
@@ -770,15 +599,11 @@ export default function Index({
                           {' '}
                           {cimsDetails[index]?.cimsPaymentReceiptDoc == null
                             ? ''
-                            : moment(list?.cimsPaymentReceiptDoc?.Date).format(
-                                ' DD-MM-YYYY , h:mm a',
-                              )}
+                            : moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                         </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            {cimsDetails &&
-                            cimsDetails[index]?.cimsPaymentReceiptDoc ==
-                              null ? (
+                            {cimsDetails && cimsDetails[index]?.cimsPaymentReceiptDoc == null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
@@ -787,32 +612,16 @@ export default function Index({
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uploadDoc(e, index)}
                                   />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <button className={`${styles.upload_btn} btn`}>Upload</button>
                                 </div>
                               </>
                             ) : (
-                              <div
-                                className={`${styles.certificate} text1 d-flex justify-content-between`}
-                              >
-                                <span>
-                                  {
-                                    cimsDetails[index]?.cimsPaymentReceiptDoc
-                                      ?.originalName
-                                  }
-                                </span>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
                                 <img
                                   className={`${styles.close_image} image_arrow mr-2`}
                                   src="/static/close.svg"
-                                  onClick={(e) =>
-                                    handleCloseDoc(
-                                      'cimsPaymentReceiptDoc',
-                                      index,
-                                    )
-                                  }
+                                  onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -831,11 +640,7 @@ export default function Index({
           </div>
         </div>
 
-        <SaveBar
-          handleSave={handleSave}
-          rightBtn="Submit"
-          rightBtnClick={handleSubmit}
-        />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   );

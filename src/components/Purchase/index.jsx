@@ -18,53 +18,33 @@ export default function Index({}) {
           <div className={`${styles.main} vessel_card card border_color`}>
             <div className={`${styles.order_card}`}>
               <div className="row ">
-                <div
-                  className={`${styles.form_group}  col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group}  col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      ORDER ID
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>ORDER ID</div>
                     <span className={`${styles.rate}`}>837YT78348</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      COMMODITY NAME
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>COMMODITY NAME</div>
                     <span className={`${styles.rate}`}>Iron</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      VESSEL NAME
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>VESSEL NAME</div>
                     <span className={`${styles.rate}`}>Abcz</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      MARGIN MONEY RCVD.
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>MARGIN MONEY RCVD.</div>
                     <span className={`${styles.rate}`}>INR 10 CR</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      OUTSTANDING AMOUNT
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>OUTSTANDING AMOUNT</div>
                     <span className={`${styles.rate}`}>INR 10 CR</span>
                   </div>
                   <div className={`${styles.tooltip} `}>
@@ -74,73 +54,44 @@ export default function Index({}) {
                       src="/static/info-circle.svg"
                     />
 
-                    <div className={`${styles.tooltiptext}`}>
-                      Ex. Margin Money
-                    </div>
+                    <div className={`${styles.tooltiptext}`}>Ex. Margin Money</div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      CR/DR BALANCE
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>CR/DR BALANCE</div>
                     <span className={`${styles.rate}`}>INR 10,000</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      ORDER DATE
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>ORDER DATE</div>
                     <span className={`${styles.rate}`}>22-02-2022</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      ORDER VALUE
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>ORDER VALUE</div>
                     <span className={`${styles.rate}`}>INR 10 CR</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      DUE DATE
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>DUE DATE</div>
                     <span className={`${styles.rate}`}>22-02-2022</span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      DUE DAYS
-                    </div>
-                    <span
-                      className={`${styles.rate}`}
-                      style={{ color: '#EA3F3F', fontWeight: '500' }}
-                    >
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>DUE DAYS</div>
+                    <span className={`${styles.rate}`} style={{ color: '#EA3F3F', fontWeight: '500' }}>
                       24
                     </span>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>
-                      COMPANIES INVOLVED
-                    </div>
+                    <div className={`${styles.total} mt-4 mb-4 mr-4`}>COMPANIES INVOLVED</div>
                     <span className={`${styles.rate}`}>IGPL / IIAG</span>
                   </div>
                 </div>
@@ -152,24 +103,15 @@ export default function Index({}) {
                 <h3 className={styles.form_heading}>Purchase Details</h3>
                 <div className="d-flex align-items-center">
                   <div className="d-flex align-items-center">
-                    <label className={`${styles.dropDown_label} text`}>
-                      Cost Center:
-                    </label>
+                    <label className={`${styles.dropDown_label} text`}>Cost Center:</label>
                     <div className="position-relative">
-                      <select
-                        className={`${styles.dropDown} ${styles.customSelect} input`}
-                      >
+                      <select className={`${styles.dropDown} ${styles.customSelect} input`}>
                         <option>abc</option>
                         <option value={true}>Yes</option>
                         <option value={false}>No</option>
                       </select>
                       <div className={`${styles.arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
+                        <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                       </div>
                     </div>
                   </div>
@@ -177,10 +119,7 @@ export default function Index({}) {
                   <div className="d-flex justify-content-between align-items-center">
                     <div className={`${styles.radio_form} `}>
                       {['radio'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
+                        <div key={`inline-${type}`} className={styles.radio_group}>
                           <Form.Check
                             className={styles.radio}
                             inline
@@ -209,101 +148,60 @@ export default function Index({}) {
                 </div>
               </div>
               <div className="row mb-5">
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                       <option value="">CHA</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Party Type<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
 
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    required
-                  />
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                  <input className={`${styles.input_field} input form-control`} type="text" required />
 
                   <label className={`${styles.label_heading} label_heading`}>
                     Party Name <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
-                    <select
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    >
+                    <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                       <option value="">G3F3487R348</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       GSTIN<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                   <div className="d-flex">
-                    <DateCalender
-                      name="dateOfStorage"
-                      labelName="Invoice Date"
-                    />
+                    <DateCalender name="dateOfStorage" labelName="Invoice Date" />
                     <div className={`${styles.calanderIcon} image_arrow`}>
-                      <Image
-                        width="22px"
-                        height="24px"
-                        src="/static/caldericon.svg"
-                        alt="Calender"
-                      />
+                      <Image width="22px" height="24px" src="/static/caldericon.svg" alt="Calender" />
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
+                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice No. <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
+                <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -316,113 +214,71 @@ export default function Index({}) {
                       Services/Goods<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
               </div>
               {serviceType === 'goods' && radioBtn === 'import' ? (
-                <div
-                  className={`${styles.bill_landing} card border_color mt-4`}
-                >
+                <div className={`${styles.bill_landing} card border_color mt-4`}>
                   <div
                     className={`${styles.vessel_card} align-items-center border_color head_container d-flex bg-transparent`}
                   >
-                    <div className={`${styles.card_sub_heading}`}>
-                      BOE Details
-                    </div>
+                    <div className={`${styles.card_sub_heading}`}>BOE Details</div>
                     <span className={styles.view_btn}>View</span>
                   </div>
 
                   <div className="row m-3">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        >
+                        <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                           <option value="">G2346FDG47F</option>
                           <option value="">G2346FDG47F</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           BOE No.<strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.img_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                      style={{ marginTop: '37px' }}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} style={{ marginTop: '37px' }}>
                       <p className={` label_heading`}>
                         BOE Date <strong className="text-danger">*</strong>
                       </p>
                       <span>22-02-2022</span>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
 
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        BOE Conversion Rate{' '}
-                        <strong className="text-danger">*</strong>
+                      <label className={`${styles.label_heading} label_heading`}>
+                        BOE Conversion Rate <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                      style={{ marginTop: '37px' }}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} style={{ marginTop: '37px' }}>
                       <p className={` label_heading`}>
                         Currency <strong className="text-danger">*</strong>
                       </p>
                       <span>USD</span>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
 
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Conversion Rate{' '}
-                        <strong className="text-danger">*</strong>
+                      <label className={`${styles.label_heading} label_heading`}>
+                        Conversion Rate <strong className="text-danger">*</strong>
                       </label>
                     </div>
                   </div>
@@ -438,289 +294,162 @@ export default function Index({}) {
                   aria-expanded="true"
                   aria-controls="transactionDetails"
                 >
-                  <div className={`${styles.card_sub_heading}`}>
-                    Transactional Details
-                  </div>
+                  <div className={`${styles.card_sub_heading}`}>Transactional Details</div>
                   <div className="d-flex">
                     <button className={styles.add_btn}>
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                     <div className={`${styles.img_arrow} mt-n2 image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
                 </div>
 
-                <div
-                  id="transactionDetails"
-                  className="collapse"
-                  aria-labelledby="transactionDetails"
-                >
+                <div id="transactionDetails" className="collapse" aria-labelledby="transactionDetails">
                   <div className="row m-3">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        >
+                        <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                           <option value="">CHA</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Transactional Type
                           <strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.img_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        >
+                        <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                           <option value="">2345588</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           HSN/Services Code
                           <strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.img_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                      />
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                      <input className={`${styles.input_field} input form-control`} type="text" required />
 
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Quantity <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        >
+                        <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                           <option value="">INR</option>
                           <option value="">USD</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Currency
                           <strong className="text-danger">*</strong>
                         </label>
                         <div className={`${styles.img_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                          <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                         </div>
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Price <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Basic Amount <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        IGST
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>IGST</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        CGST
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>CGST</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        SGST
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>SGST</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        TDS
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>TDS</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        TCS
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>TCS</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        VAT
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>VAT</label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="text"
                         name="boeDetails.accessibleValue"
                         required
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         Total <strong className="text-danger">*</strong>
                       </label>
                     </div>
@@ -732,9 +461,7 @@ export default function Index({}) {
                 </div>
               </div>
               {radioBtn === 'domestic' ? (
-                <div
-                  className={`${styles.bill_landing} card border_color mt-4`}
-                >
+                <div className={`${styles.bill_landing} card border_color mt-4`}>
                   <div
                     className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     data-toggle="collapse"
@@ -742,80 +469,45 @@ export default function Index({}) {
                     aria-expanded="true"
                     aria-controls="bankDetails"
                   >
-                    <div className={`${styles.card_sub_heading}`}>
-                      Bank Details
-                    </div>
+                    <div className={`${styles.card_sub_heading}`}>Bank Details</div>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    id="bankDetails"
-                    className="collapse"
-                    aria-labelledby="bankDetails"
-                  >
+                  <div id="bankDetails" className="collapse" aria-labelledby="bankDetails">
                     <div className="row m-3">
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Abc Bank</option>
                             <option value="">AU Bank</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Bank Name<strong className="text-danger">*</strong>
                           </label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        style={{ marginTop: '37px' }}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`} style={{ marginTop: '37px' }}>
                         <p className={` label_heading`}>Branch</p>
                         <span>Abc</span>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
                           onWheel={(event) => event.currentTarget.blur()}
                           required
-                          onKeyDown={(evt) =>
-                            ['e', 'E', '+', '-'].includes(evt.key) &&
-                            evt.preventDefault()
-                          }
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Account/IBAN No.{' '}
-                          <strong className="text-danger">*</strong>
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Account/IBAN No. <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="text"
@@ -826,24 +518,14 @@ export default function Index({}) {
                           // }
                         />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           IFSC No. <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-8 col-md-12`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        />
+                      <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Address <strong className="text-danger">*</strong>
                         </label>
                       </div>
@@ -851,9 +533,7 @@ export default function Index({}) {
                   </div>
                 </div>
               ) : radioBtn === 'import' ? (
-                <div
-                  className={`${styles.bill_landing} card border_color mt-4`}
-                >
+                <div className={`${styles.bill_landing} card border_color mt-4`}>
                   <div
                     className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     data-toggle="collapse"
@@ -861,98 +541,55 @@ export default function Index({}) {
                     aria-expanded="true"
                     aria-controls="bankDetailsImport"
                   >
-                    <div className={`${styles.card_sub_heading}`}>
-                      Bank Details
-                    </div>
+                    <div className={`${styles.card_sub_heading}`}>Bank Details</div>
                     <div className={`${styles.img_arrow} image_arrow`}>
-                      <Image
-                        width="13px"
-                        height="8px"
-                        src="/static/inputDropDown.svg"
-                        alt="Search"
-                      />
+                      <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                     </div>
                   </div>
-                  <div
-                    id="bankDetailsImport"
-                    className="collapse"
-                    aria-labelledby="bankDetailsImport"
-                  >
+                  <div id="bankDetailsImport" className="collapse" aria-labelledby="bankDetailsImport">
                     <div className="row m-3">
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Abc Bank</option>
                             <option value="">AU Bank</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Bank Name <strong className="text-danger">*</strong>
                           </label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Abc</option>
                             <option value="">Abcz</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Branch <strong className="text-danger">*</strong>
                           </label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
                           onWheel={(event) => event.currentTarget.blur()}
                           required
-                          onKeyDown={(evt) =>
-                            ['e', 'E', '+', '-'].includes(evt.key) &&
-                            evt.preventDefault()
-                          }
+                          onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Account/IBAN No.{' '}
-                          <strong className="text-danger">*</strong>
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Account/IBAN No. <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="text"
@@ -963,80 +600,40 @@ export default function Index({}) {
                           // }
                         />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Swift Code <strong className="text-danger">*</strong>
                         </label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-8 col-md-12`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        />
+                      <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Address
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>Address</label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Abc Bank</option>
                             <option value="">AU Bank</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Correspondent Bank Name
-                          </label>
+                          <label className={`${styles.label_heading} label_heading`}>Correspondent Bank Name</label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Abc</option>
                             <option value="">Abcz</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Branch
-                          </label>
+                          <label className={`${styles.label_heading} label_heading`}>Branch</label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="text"
@@ -1047,26 +644,12 @@ export default function Index({}) {
                           // }
                         />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Swift Code
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>Swift Code</label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-8 col-md-12`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        />
+                      <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
 
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Address
-                        </label>
+                        <label className={`${styles.label_heading} label_heading`}>Address</label>
                       </div>
                     </div>
                   </div>
@@ -1084,9 +667,7 @@ export default function Index({}) {
                       className={`${styles.comment_field} ${styles.input_field} input form-control`}
                       // style={{ backgroundColor: 'none' }}
                     />
-                    <label
-                      className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
-                    >
+                    <label className={`${styles.comment_heading} ${styles.label_heading} label_heading`}>
                       Narration Remarks
                     </label>
                   </div>
@@ -1103,29 +684,15 @@ export default function Index({}) {
                 >
                   <div className={`${styles.card_sub_heading}`}>Documents</div>
                   <div className={`${styles.img_arrow} image_arrow`}>
-                    <Image
-                      width="13px"
-                      height="8px"
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
+                    <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                   </div>
                 </div>
-                <div
-                  id="documents"
-                  className="collapse"
-                  aria-labelledby="documents"
-                >
+                <div id="documents" className="collapse" aria-labelledby="documents">
                   <div className={`${styles.table_form}`}>
                     <div className={styles.table_container}>
                       <div className={styles.table_scroll_outer}>
                         <div className={styles.table_scroll_inner}>
-                          <table
-                            className={`${styles.table} table`}
-                            cellPadding="0"
-                            cellSpacing="0"
-                            border="0"
-                          >
+                          <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                             <thead>
                               <tr>
                                 <th>
@@ -1180,12 +747,7 @@ export default function Index({}) {
                                 <td>
                                   {' '}
                                   <div className={`${styles.delete_image}`}>
-                                    <Image
-                                      src="/static/delete.svg"
-                                      width="40px"
-                                      height="40px"
-                                      alt="Bin"
-                                    />
+                                    <Image src="/static/delete.svg" width="40px" height="40px" alt="Bin" />
                                   </div>
                                 </td>
                               </tr>
@@ -1199,55 +761,30 @@ export default function Index({}) {
                   <div
                     className={`${styles.vessel_card} mt-5 mb-5 align-items-center border_color head_container  bg-transparent`}
                   >
-                    <div className={`${styles.card_sub_heading}`}>
-                      Other Documents
-                    </div>
+                    <div className={`${styles.card_sub_heading}`}>Other Documents</div>
 
                     <div className="row">
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className="d-flex">
-                          <select
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
+                          <select className={`${styles.input_field} ${styles.customSelect} input form-control`}>
                             <option value="">Others</option>
                             <option value="">Certificate</option>
                           </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Document Type
                             <strong className="text-danger">*</strong>
                           </label>
                           <div className={`${styles.img_arrow} image_arrow`}>
-                            <Image
-                              width="13px"
-                              height="8px"
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
+                            <Image width="13px" height="8px" src="/static/inputDropDown.svg" alt="Search" />
                           </div>
                         </div>
                       </div>
 
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="text"
-                          required
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Please Specify Document Name
-                        </label>
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
+                        <input className={`${styles.input_field} input form-control`} type="text" required />
+                        <label className={`${styles.label_heading} label_heading`}>Please Specify Document Name</label>
                       </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                      >
+                      <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                         <div className={styles.uploadBtnWrapper}>
                           <input
                             id="containerExcel"
@@ -1256,9 +793,7 @@ export default function Index({}) {
                             name="myfile"
                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                           />
-                          <button className={`${styles.upload_button} btn`}>
-                            Upload
-                          </button>
+                          <button className={`${styles.upload_button} btn`}>Upload</button>
                         </div>
                       </div>
                     </div>

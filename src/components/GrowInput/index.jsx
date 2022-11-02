@@ -41,9 +41,7 @@ function Index(props) {
           onChange={(e) => {
             changeHandler(e);
             {
-              props.getValue
-                ? props?.getValue(e.target.name, e.target.value)
-                : '';
+              props.getValue ? props?.getValue(e.target.name, e.target.value) : '';
             }
           }}
           value={props.defaultValue ? props.defaultValue : state}

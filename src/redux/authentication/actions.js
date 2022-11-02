@@ -267,13 +267,9 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
   try {
     const headers = { authorization: '', Cache: 'no-cache' };
     // let response = await api.post(API.login, payload);
-    const response = await Axios.post(
-      `${API.authbaseUrl}${API.login}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
+      headers: headers,
+    });
 
     if (response.data.code === 200) {
       dispatch(loggingUserSuccess(response.data));
@@ -302,12 +298,7 @@ export const fetchUserPermissions = () => async (dispatch, getState, api) => {
   try {
     const response = await api.get(API.getUserPermissions);
     if (response.data.code === 200) {
-      dispatch(
-        fetchingUserPermissionsSuccess(
-          response.data.data.pageGroups,
-          response.data.data,
-        ),
-      );
+      dispatch(fetchingUserPermissionsSuccess(response.data.data.pageGroups, response.data.data));
     } else {
       dispatch(fetchingUserPermissionsFailed(response.data));
     }
@@ -316,20 +307,19 @@ export const fetchUserPermissions = () => async (dispatch, getState, api) => {
   }
 };
 
-export const fetchCurrentUserProfile =
-  () => async (dispatch, getState, api) => {
-    dispatch(fetchingCurrentUserProfile());
-    try {
-      const response = await api.get(API.getUserProfile);
-      if (response.data.code === 200) {
-        dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
-      } else {
-        dispatch(fetchingCurrentUserProfileFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(fetchingCurrentUserProfileFailed(errorMessage));
+export const fetchCurrentUserProfile = () => async (dispatch, getState, api) => {
+  dispatch(fetchingCurrentUserProfile());
+  try {
+    const response = await api.get(API.getUserProfile);
+    if (response.data.code === 200) {
+      dispatch(fetchingCurrentUserProfileSuccess(response.data.data));
+    } else {
+      dispatch(fetchingCurrentUserProfileFailed(response.data));
     }
-  };
+  } catch (error) {
+    dispatch(fetchingCurrentUserProfileFailed(errorMessage));
+  }
+};
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');

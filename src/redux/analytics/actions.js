@@ -62,54 +62,36 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
 
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     // let response = await api.post(API.login, payload);
-    const orderSummary = await Axios.get(
-      `${API.corebaseUrl}${API.orderSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    const orderSummary = await Axios.get(`${API.corebaseUrl}${API.orderSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    const leadSummary = await Axios.get(
-      `${API.corebaseUrl}${API.leadSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const leadSummary = await Axios.get(`${API.corebaseUrl}${API.leadSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    const commoditySummary = await Axios.get(
-      `${API.corebaseUrl}${API.commoditySummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const commoditySummary = await Axios.get(`${API.corebaseUrl}${API.commoditySummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    const originSummary = await Axios.get(
-      `${API.corebaseUrl}${API.originSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const originSummary = await Axios.get(`${API.corebaseUrl}${API.originSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    const customerSummary = await Axios.get(
-      `${API.corebaseUrl}${API.customerSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const customerSummary = await Axios.get(`${API.corebaseUrl}${API.customerSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
-    const exposureSummary = await Axios.get(
-      `${API.corebaseUrl}${API.exposureSummary}`,
-      {
-        headers: {
-          authorization: jwtAccessToken,
-        },
+    });
+    const exposureSummary = await Axios.get(`${API.corebaseUrl}${API.exposureSummary}`, {
+      headers: {
+        authorization: jwtAccessToken,
       },
-    );
+    });
 
     if (orderSummary.data.code == 200) {
       dispatch(getOrderData(orderSummary.data.data.data));

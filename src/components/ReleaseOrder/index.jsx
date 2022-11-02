@@ -12,11 +12,7 @@ import API from '../../utils/endpoints';
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 
-export default function Index({
-  ReleaseOrderData,
-  releaseDetail,
-  setReleaseDetail,
-}) {
+export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetail }) {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
@@ -33,18 +29,13 @@ export default function Index({
   //   'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
   //   0,
   // );
-  let boe = _get(
-    ReleaseOrderData,
-    'data[0].order.customClearance.billOfEntry.billOfEntry',
-    [],
-  );
+  let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', []);
   const boeTotalQuantity = boe?.reduce((accumulator, object) => {
     return accumulator + Number(object.boeDetails.invoiceQuantity);
   }, 0);
 
   const [editInput, setEditInput] = useState(true);
-  const [netBalanceQuantity, setNetBalanceQuantity] =
-    useState(boeTotalQuantity);
+  const [netBalanceQuantity, setNetBalanceQuantity] = useState(boeTotalQuantity);
   const [isFieldInFocus, setIsFieldInFocus] = useState(false);
 
   console.log(releaseDetail, 'releaseDetail');
@@ -91,13 +82,9 @@ export default function Index({
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.uploadDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.uploadDoc}`, fd, {
+        headers: headers,
+      });
       console.log(response.data.data, 'response data123');
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -161,21 +148,15 @@ export default function Index({
 
   const netQuantityChange = (e, index) => {
     if (
-      Number(
-        _get(
-          ReleaseOrderData,
-          'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-          0,
-        ),
-      ) < Number(e.target.value)
+      Number(_get(ReleaseOrderData, 'data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity', 0)) <
+      Number(e.target.value)
     ) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
       // }
 
-      const toastMessage =
-        'net quantity Realesed cannot be Greater than net bALance Quantity';
+      const toastMessage = 'net quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -239,8 +220,7 @@ export default function Index({
     if (netBalanceQuantity >= 0) {
       await dispatch(UpdateDelivery({ payload, task }));
     } else {
-      const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity';
+      const toastMessage = 'Net Quantity Realesed cannot be Greater than net bALance Quantity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -252,10 +232,7 @@ export default function Index({
     let toastMessage = '';
     for (let i = 0; i <= releaseDetail.length - 1; i++) {
       console.log(i, 'INSIDE FOR LOOP', releaseDetail.length);
-      if (
-        releaseDetail[i]?.releaseOrderDate == '' ||
-        releaseDetail[i]?.releaseOrderDate == null
-      ) {
+      if (releaseDetail[i]?.releaseOrderDate == '' || releaseDetail[i]?.releaseOrderDate == null) {
         toastMessage = `please input a date for release order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -263,13 +240,8 @@ export default function Index({
           break;
         }
       }
-      if (
-        releaseDetail[i]?.netQuantityReleased == '' ||
-        releaseDetail[i]?.netQuantityReleased == null
-      ) {
-        toastMessage = `please provide a value for net quantity release in release order no ${
-          i + 1
-        }  `;
+      if (releaseDetail[i]?.netQuantityReleased == '' || releaseDetail[i]?.netQuantityReleased == null) {
+        toastMessage = `please provide a value for net quantity release in release order no ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -325,55 +297,29 @@ export default function Index({
             >
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                     <div className={`${styles.label} text`}>Commodity</div>
-                    <span className={styles.value}>
-                      {_get(ReleaseOrderData, 'data[0].order.commodity', '')}
-                    </span>
+                    <span className={styles.value}>{_get(ReleaseOrderData, 'data[0].order.commodity', '')}</span>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Invoice Quantity
-                    </div>
+                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                    <div className={`${styles.label} text`}>Invoice Quantity</div>
                     <span className={styles.value}>
                       {Number(boeTotalQuantity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
-                      {_get(
-                        ReleaseOrderData,
-                        'data[0].order.unitOfQuantity',
-                        '',
-                      ).toUpperCase()}
+                      {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                     </span>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
+                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                     <div className={`${styles.label} text`}>Bank Name</div>
                     <span className={styles.value}>
-                      {_get(
-                        ReleaseOrderData,
-                        'data[0].order.lc.lcApplication.lcIssuingBank',
-                        '',
-                      )}
+                      {_get(ReleaseOrderData, 'data[0].order.lc.lcApplication.lcIssuingBank', '')}
                     </span>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                  >
-                    <div className={`${styles.label} text`}>
-                      Documentary Credit No.{' '}
-                    </div>
+                  <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
+                    <div className={`${styles.label} text`}>Documentary Credit No. </div>
                     <span className={styles.value}>
-                      {_get(
-                        ReleaseOrderData,
-                        'data[0].order.lc.lcApplication.documentaryCreditNumber',
-                        '',
-                      )}
+                      {_get(ReleaseOrderData, 'data[0].order.lc.lcApplication.documentaryCreditNumber', '')}
                     </span>
                   </div>
                 </div>
@@ -383,27 +329,18 @@ export default function Index({
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
-                <div className={`${styles.form_heading} mt-2`}>
-                  Release Order Details
-                </div>
+                <div className={`${styles.form_heading} mt-2`}>Release Order Details</div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     {releaseDetail.map((item, index) => (
                       <div key={index} className="row mb-3 ">
-                        <div
-                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <div className={`${styles.label} text`}>
-                            Release Order No.{' '}
-                            <strong className="text-danger ml-n1">*</strong>
+                            Release Order No. <strong className="text-danger ml-n1">*</strong>
                           </div>
-                          <span className={`${styles.value}`}>
-                            {orderNo(index)}
-                          </span>
+                          <span className={`${styles.value}`}>{orderNo(index)}</span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <div className="d-flex">
                             <DateCalender
                               defaultDate={item.releaseOrderDate}
@@ -412,10 +349,7 @@ export default function Index({
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                             />
-                            {console.log(
-                              'release Details',
-                              item.releaseOrderDate,
-                            )}
+                            {console.log('release Details', item.releaseOrderDate)}
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -423,18 +357,14 @@ export default function Index({
                             />
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                        >
+                        <div className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}>
                           <input
                             // onWheel={(e) => e.target.blur()}
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             onWheel={(event) => event.currentTarget.blur()}
                             type="text"
@@ -447,41 +377,26 @@ export default function Index({
                             value={
                               isFieldInFocus
                                 ? item.netQuantityReleased
-                                : Number(
-                                    item.netQuantityReleased,
-                                  )?.toLocaleString('en-IN') +
-                                  ` ${_get(
-                                    ReleaseOrderData,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                : Number(item.netQuantityReleased)?.toLocaleString('en-IN') +
+                                  ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`
                             }
                             className={`${styles.input_field} input form-control`}
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
 
                             // onKeyDown={(evt) =>
                             //   evt.key === 'e' && evt.preventDefault()
                             // }
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Net Quantity Released
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}
-                        >
+                        <div className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}>
                           {item?.document === null ? (
                             <>
                               <div className="d-flex align-items-center">
-                                <div
-                                  className={`${styles.uploadBtnWrapper} flex-grow-1`}
-                                >
+                                <div className={`${styles.uploadBtnWrapper} flex-grow-1`}>
                                   <input
                                     id="document"
                                     name="myfile"
@@ -489,11 +404,7 @@ export default function Index({
                                     onChange={(e) => uplaodDoc(e, index)}
                                     type="file"
                                   />
-                                  <button
-                                    className={`${styles.button_upload} btn`}
-                                  >
-                                    Upload
-                                  </button>
+                                  <button className={`${styles.button_upload} btn`}>Upload</button>
                                 </div>
 
                                 {/* <div className={`${styles.certificate} d-flex justify-content-between`}>
@@ -516,17 +427,14 @@ export default function Index({
                                   />
                                 )}
 
-                                {Number(netBalanceQuantity) > 0 &&
-                                  releaseDetail.length - 1 === index && (
-                                    <img
-                                      onClick={() =>
-                                        addMorereleaseDetailDataRows(index)
-                                      }
-                                      src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-3`}
-                                      alt="Add button"
-                                    />
-                                  )}
+                                {Number(netBalanceQuantity) > 0 && releaseDetail.length - 1 === index && (
+                                  <img
+                                    onClick={() => addMorereleaseDetailDataRows(index)}
+                                    src="/static/add-btn.svg"
+                                    className={`${styles.delete_image} ml-3`}
+                                    alt="Add button"
+                                  />
+                                )}
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
@@ -542,9 +450,7 @@ export default function Index({
                             </>
                           ) : (
                             <>
-                              <div
-                                className={`${styles.certificate} text1 m-0 d-flex justify-content-between`}
-                              >
+                              <div className={`${styles.certificate} text1 m-0 d-flex justify-content-between`}>
                                 <span>{item?.document?.originalName}</span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
@@ -564,17 +470,14 @@ export default function Index({
                                   />
                                 )}
 
-                                {Number(netBalanceQuantity) > 0 &&
-                                  releaseDetail.length - 1 === index && (
-                                    <img
-                                      onClick={() =>
-                                        addMorereleaseDetailDataRows(index)
-                                      }
-                                      src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-3`}
-                                      alt="Add button"
-                                    />
-                                  )}
+                                {Number(netBalanceQuantity) > 0 && releaseDetail.length - 1 === index && (
+                                  <img
+                                    onClick={() => addMorereleaseDetailDataRows(index)}
+                                    src="/static/add-btn.svg"
+                                    className={`${styles.delete_image} ml-3`}
+                                    alt="Add button"
+                                  />
+                                )}
                               </>
                             </>
                           )}
@@ -606,14 +509,8 @@ export default function Index({
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
                     <span className="form-check-label ml-2">
-                      {Number(netBalanceQuantity) > 0
-                        ? netBalanceQuantity?.toLocaleString()
-                        : 0}{' '}
-                      {_get(
-                        ReleaseOrderData,
-                        'data[0].order.unitOfQuantity',
-                        '',
-                      ).toUpperCase()}
+                      {Number(netBalanceQuantity) > 0 ? netBalanceQuantity?.toLocaleString() : 0}{' '}
+                      {_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '').toUpperCase()}
                     </span>
                   </div>
                 </div>
@@ -622,19 +519,11 @@ export default function Index({
           </div>
 
           <div className="mt-4">
-            <UploadOther
-              orderid={orderid}
-              module="PaymentsInvoicing&Delivery"
-              isDocumentName={true}
-            />
+            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" isDocumentName={true} />
           </div>
         </div>
 
-        <SaveBar
-          handleSave={onSaveHAndler}
-          rightBtn="Submit"
-          rightBtnClick={onSubmitHanler}
-        />
+        <SaveBar handleSave={onSaveHAndler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
       </div>
 
       <Modal
@@ -653,21 +542,11 @@ export default function Index({
           >
             <div className={`${styles.blue} ml-3`}>Release Order Details</div>
 
-            <img
-              src="/static/close.svg"
-              alt="close"
-              onClick={handleClose}
-              className="img-fluid"
-            ></img>
+            <img src="/static/close.svg" alt="close" onClick={handleClose} className="img-fluid"></img>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.body} background1 container-fluid`}>
-          <table
-            className={`${styles.table} table`}
-            cellPadding="0"
-            cellSpacing="0"
-            border="0"
-          >
+          <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
             <tr className="table_row ">
               <th width="33%">RELEASE ORDER NO.</th>
               <th width="33%">RELEASE ORDER DATE</th>

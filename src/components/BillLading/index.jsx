@@ -12,13 +12,7 @@ import { convertValue, removePrefixOrSuffix } from '../../utils/helper';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
-export default function Index({
-  isShipmentTypeBULK,
-  TransitDetails,
-  orderid,
-  docUploadFunction,
-  fetchInitialData,
-}) {
+export default function Index({ isShipmentTypeBULK, TransitDetails, orderid, docUploadFunction, fetchInitialData }) {
   let transId = _get(TransitDetails, 'data[0]', '');
   const initialStateForLiner = {
     vesselName: '',
@@ -68,21 +62,13 @@ export default function Index({
   const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false);
   useEffect(() => {
     setshipmentTypeBulk(
-      _get(
-        TransitDetails,
-        `data[0].order.termsheet.transactionDetails.shipmentType`,
-        '',
-      ) === 'Bulk'
-        ? true
-        : false,
+      _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') === 'Bulk' ? true : false,
     );
   }, [TransitDetails]);
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, []);
 
-  const initalState = shipmentTypeBulk
-    ? initialStateForBulk
-    : initialStateForLiner;
+  const initalState = shipmentTypeBulk ? initialStateForBulk : initialStateForLiner;
   // console.log(existingBlData,'existingBlData')
 
   const [show, setShow] = useState(false);
@@ -104,8 +90,7 @@ export default function Index({
   const [startBlDate, setBlDate] = useState(null);
   const [startetaAtDischargePortTo, setetaAtDischargePortTo] = useState(null);
   const [startblSurrenderDate, setblSurrenderDate] = useState(null);
-  const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] =
-    useState(null);
+  const [startetaAtDischargePortFrom, setetaAtDischargePortFrom] = useState(null);
 
   const [lastDate, setlastDate] = useState(new Date());
 
@@ -115,11 +100,7 @@ export default function Index({
     }
   }, [TransitDetails]);
 
-  const partShipmentAllowed = _get(
-    TransitDetails,
-    'data[0].order.vessel.partShipmentAllowed',
-    false,
-  );
+  const partShipmentAllowed = _get(TransitDetails, 'data[0].order.vessel.partShipmentAllowed', false);
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
@@ -177,31 +158,15 @@ export default function Index({
     let filteredVessel = {};
 
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
-    if (
-      _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].shipmentType`,
-        '',
-      ) === 'Bulk'
-    ) {
-      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
-        (vessel, index) => {
-          if (vessel.vesselInformation[0].name === VesselName) {
-            filteredVessel = vessel;
-          }
-        },
-      );
+    if (_get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') === 'Bulk') {
+      _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach((vessel, index) => {
+        if (vessel.vesselInformation[0].name === VesselName) {
+          filteredVessel = vessel;
+        }
+      });
     } else {
-      filteredVessel = _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0]`,
-        {},
-      );
-      let tempArray = _get(
-        TransitDetails,
-        `data[0].order.vessel.vessels[0].vesselInformation`,
-        [],
-      );
+      filteredVessel = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {});
+      let tempArray = _get(TransitDetails, `data[0].order.vessel.vessels[0].vesselInformation`, []);
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
           filteredVessel.vesselInformation = [vessel];
@@ -210,26 +175,10 @@ export default function Index({
     }
     console.log(filteredVessel, 'filteredVessel');
     let newArray = [...bolList];
-    newArray[index].vesselName = _get(
-      filteredVessel,
-      'vesselInformation[0].name',
-      '',
-    );
-    newArray[index].imoNumber = _get(
-      filteredVessel,
-      'vesselInformation[0].IMONumber',
-      '',
-    );
-    newArray[index].etaAtDischargePortFrom = _get(
-      filteredVessel,
-      'transitDetails.EDTatLoadPort',
-      null,
-    );
-    newArray[index].etaAtDischargePortTo = _get(
-      filteredVessel,
-      'transitDetails.ETAatDischargePort',
-      null,
-    );
+    newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '');
+    newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '');
+    newArray[index].etaAtDischargePortFrom = _get(filteredVessel, 'transitDetails.EDTatLoadPort', null);
+    newArray[index].etaAtDischargePortTo = _get(filteredVessel, 'transitDetails.ETAatDischargePort', null);
     if (!shipmentTypeBulk) {
       newArray[index].containerDetails.numberOfContainers = _get(
         filteredVessel,
@@ -339,13 +288,7 @@ export default function Index({
     let isOk = true;
     let toastMessage = '';
 
-    if (
-      _get(
-        TransitDetails,
-        'data[0].order.vessel.vessels[0].shipmentType',
-        '',
-      ) === 'Liner'
-    ) {
+    if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Liner') {
       if (checkRemainingBalance() < 0) {
         let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -356,10 +299,7 @@ export default function Index({
       }
       for (let i = 0; i <= bolList.length - 1; i++) {
         console.log(i, 'INSIDE FOR LOOP', bolList.length);
-        if (
-          bolList[i]?.vesselName == '' ||
-          bolList[i]?.vesselName == undefined
-        ) {
+        if (bolList[i]?.vesselName == '' || bolList[i]?.vesselName == undefined) {
           toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -383,10 +323,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.blQuantity == '' ||
-          bolList[i]?.blQuantity == undefined
-        ) {
+        if (bolList[i]?.blQuantity == '' || bolList[i]?.blQuantity == undefined) {
           toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -394,10 +331,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.etaAtDischargePortFrom == '' ||
-          bolList[i]?.etaAtDischargePortFrom == undefined
-        ) {
+        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -405,10 +339,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.etaAtDischargePortTo == '' ||
-          bolList[i]?.etaAtDischargePortTo == undefined
-        ) {
+        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -446,10 +377,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.containerNumberListDoc == null ||
-          bolList[i]?.containerNumberListDoc == undefined
-        ) {
+        if (bolList[i]?.containerNumberListDoc == null || bolList[i]?.containerNumberListDoc == undefined) {
           toastMessage = `Container Number List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -457,10 +385,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.packingListDoc == null ||
-          bolList[i]?.packingListDoc == undefined
-        ) {
+        if (bolList[i]?.packingListDoc == null || bolList[i]?.packingListDoc == undefined) {
           toastMessage = `Packing List Doc IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -471,13 +396,7 @@ export default function Index({
       }
 
       return isOk;
-    } else if (
-      _get(
-        TransitDetails,
-        'data[0].order.vessel.vessels[0].shipmentType',
-        '',
-      ) === 'Bulk'
-    ) {
+    } else if (_get(TransitDetails, 'data[0].order.vessel.vessels[0].shipmentType', '') === 'Bulk') {
       if (checkRemainingBalance() < 0) {
         let toastMessage = `BL quantity cannot be greater than total order quantity`;
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -489,10 +408,7 @@ export default function Index({
       for (let i = 0; i <= bolList.length - 1; i++) {
         console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList);
 
-        if (
-          bolList[i]?.vesselName == '' ||
-          bolList[i]?.vesselName == undefined
-        ) {
+        if (bolList[i]?.vesselName == '' || bolList[i]?.vesselName == undefined) {
           toastMessage = `Please select vessel name of Bill of Lading  ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -516,10 +432,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.blQuantity == '' ||
-          bolList[i]?.blQuantity == undefined
-        ) {
+        if (bolList[i]?.blQuantity == '' || bolList[i]?.blQuantity == undefined) {
           toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -527,10 +440,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.etaAtDischargePortFrom == '' ||
-          bolList[i]?.etaAtDischargePortFrom == undefined
-        ) {
+        if (bolList[i]?.etaAtDischargePortFrom == '' || bolList[i]?.etaAtDischargePortFrom == undefined) {
           toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -538,10 +448,7 @@ export default function Index({
             break;
           }
         }
-        if (
-          bolList[i]?.etaAtDischargePortTo == '' ||
-          bolList[i]?.etaAtDischargePortTo == undefined
-        ) {
+        if (bolList[i]?.etaAtDischargePortTo == '' || bolList[i]?.etaAtDischargePortTo == undefined) {
           toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -568,9 +475,7 @@ export default function Index({
     // const billOfLanding = [...bolList]
     let bol = { billOfLanding: bolList };
     // console.log(bol, 'bol', bolList.billOfLanding)
-    bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(
-      bolList[0].blQuantity,
-    );
+    bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(bolList[0].blQuantity);
     let fd = new FormData();
     fd.append('bl', JSON.stringify(bol));
     fd.append('transitId', transId._id);
@@ -642,15 +547,9 @@ export default function Index({
             >
               <h3 className={`${styles.heading}`}>Commodity Details</h3>
               <div className="d-flex align-items-center">
-                <div className={`${styles.dropDown_label} text`}>
-                  Part Shipment Allowed:
-                </div>
+                <div className={`${styles.dropDown_label} text`}>Part Shipment Allowed:</div>
                 <div className={`${styles.dropDown} input`}>
-                  {_get(
-                    TransitDetails,
-                    'data[0].order.termsheet.transactionDetails.partShipmentAllowed',
-                    '',
-                  )}
+                  {_get(TransitDetails, 'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
                   {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
                 </div>
               </div>
@@ -661,25 +560,15 @@ export default function Index({
                   <div className={`${styles.label} text`}>
                     Commodity <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.commodity', '')}
-                  </span>
+                  <span className={styles.value}>{_get(TransitDetails, 'data[0].order.commodity', '')}</span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(
-                      TransitDetails,
-                      'data[0].order.quantity',
-                      '',
-                    )?.toLocaleString('en-IN')}{' '}
-                    {_get(
-                      TransitDetails,
-                      'data[0].order.unitOfQuantity',
-                      '',
-                    ).toUpperCase('en-IN')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString('en-IN')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase('en-IN')}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -697,16 +586,11 @@ export default function Index({
                       ?.toLocaleString(_get(TransitDetails, 'data[0].order.orderCurrency', '') === 'INR' ? 'en-IN' : undefined,
                         { maximumFractionDigits: 2 })} */}
                     {convertValue(
-                      _get(
-                        TransitDetails,
-                        'data[0].order.marginMoney.calculation.orderValueInINR',
-                        '',
-                      ),
+                      _get(TransitDetails, 'data[0].order.marginMoney.calculation.orderValueInINR', ''),
                     )?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == 'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -740,16 +624,11 @@ export default function Index({
           {bolList?.map((bol, index) => {
             // console.log(bol, `existingBlDataindi${index}`)
             return (
-              <div
-                key={index}
-                className={`${styles.main} vessel_card card border_color`}
-              >
+              <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading} flex-grow-1`}>
-                    Bill of Lading {index + 1}
-                  </h3>
+                  <h3 className={`${styles.heading} flex-grow-1`}>Bill of Lading {index + 1}</h3>
                   {!partShipmentAllowed && (
                     <button
                       onClick={() => {
@@ -766,13 +645,7 @@ export default function Index({
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} border-danger text-danger`}
                     >
-                      <img
-                        src="/static/delete.svg"
-                        className="ml-1 mt-n1"
-                        width={13}
-                        alt="delete"
-                      />{' '}
-                      Delete
+                      <img src="/static/delete.svg" className="ml-1 mt-n1" width={13} alt="delete" /> Delete
                     </button>
                   ) : null}
                 </div>
@@ -780,9 +653,7 @@ export default function Index({
                   <div className={`${styles.bill_landing} border_color`}>
                     <div className={`${styles.vessel_card}`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <select
                               value={bol?.vesselName}
@@ -792,37 +663,22 @@ export default function Index({
                             >
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
-                                ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
+                                ? _get(TransitDetails, 'data[0].order.vessel.vessels', []).map((vessel, index) => (
+                                    <option value={vessel?.vesselInformation?.name} key={index}>
                                       {vessel?.vesselInformation[0]?.name}
                                     </option>
                                   ))
-                                : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                : _get(TransitDetails, 'data[0].order.vessel.vessels[0].vesselInformation', []).map(
+                                    (vessel, index) => (
+                                      <option value={vessel?.name} key={index}>
+                                        {vessel?.name}
+                                      </option>
+                                    ),
+                                  )}
                             </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Vessel Name
-                              {shipmentTypeBulk ? (
-                                <strong className="text-danger">*</strong>
-                              ) : (
-                                ''
-                              )}
+                              {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
                             </label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
@@ -837,17 +693,11 @@ export default function Index({
                         >
                           <p className={` label_heading`}>
                             IMO Number
-                            {shipmentTypeBulk ? (
-                              <strong className="text-danger">*</strong>
-                            ) : (
-                              ''
-                            )}
+                            {shipmentTypeBulk ? <strong className="text-danger">*</strong> : ''}
                           </p>
                           <span>{bol?.imoNumber}</span>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
                             value={bol?.blNumber}
                             onChange={(e) => onChangeBol(e, index)}
@@ -855,31 +705,20 @@ export default function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            onKeyDown={(evt) =>
-                              ['e', 'E', '+', '-'].includes(evt.key) &&
-                              evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             BL Number<strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
                               // selected={
                               //   startBlDate ? moment(startBlDate).toDate() : ''
                               // }
-                              selected={
-                                bol?.blDate == null
-                                  ? null
-                                  : moment(bol?.blDate).toDate()
-                              }
+                              selected={bol?.blDate == null ? null : moment(bol?.blDate).toDate()}
                               // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
                               defaultDate={bol?.blDate}
                               dateFormat="dd-MM-yyyy"
@@ -897,25 +736,19 @@ export default function Index({
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               BL Date
                               <strong className="text-danger">*</strong>
                             </label>
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <input
                             onFocus={(e) => {
-                              setIsFieldInFocus(true),
-                                (e.target.type = 'number');
+                              setIsFieldInFocus(true), (e.target.type = 'number');
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus(false),
-                                (e.target.type = 'text');
+                              setIsFieldInFocus(false), (e.target.type = 'text');
                             }}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
@@ -926,19 +759,11 @@ export default function Index({
                             value={
                               isFieldInFocus
                                 ? bol?.blQuantity
-                                : Number(bol?.blQuantity)?.toLocaleString(
-                                    'en-IN',
-                                  ) +
-                                  ` ${_get(
-                                    TransitDetails,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                : Number(bol?.blQuantity)?.toLocaleString('en-IN') +
+                                  ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`
                             }
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             BL Quantity
                             <strong className="text-danger">*</strong>
                           </label>
@@ -947,9 +772,7 @@ export default function Index({
                           ETA at Discharge Port
                           <strong className="text-danger">*</strong>
                         </div>
-                        <div
-                          className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             {/* //<DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
@@ -958,22 +781,14 @@ export default function Index({
                               defaultDate={startetaAtDischargePortFrom}
                               name="ETAatDischargePort"
                               selected={
-                                bol?.etaAtDischargePortFrom == null
-                                  ? ''
-                                  : moment(bol?.etaAtDischargePortFrom).toDate()
+                                bol?.etaAtDischargePortFrom == null ? '' : moment(bol?.etaAtDischargePortFrom).toDate()
                               }
                               // selected={moment(bol?.etaAtDischargePortFrom==null?" ":bol?.etaAtDischargePortFrom).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
-                                setetaAtDischargePortFrom(
-                                  startetaAtDischargePortFrom,
-                                );
-                                saveDate(
-                                  startetaAtDischargePortFrom,
-                                  'etaAtDischargePortFrom',
-                                  index,
-                                );
+                                setetaAtDischargePortFrom(startetaAtDischargePortFrom);
+                                saveDate(startetaAtDischargePortFrom, 'etaAtDischargePortFrom', index);
                               }}
                               minDate={lastDate}
                             />
@@ -984,36 +799,22 @@ export default function Index({
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              From
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>From</label>
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} ${styles.small_box} col-lg-2 col-md-4 col-sm-6`}>
                           <div className="d-flex">
                             <DatePicker
                               // value={moment((bol?.startetaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
 
                               selected={
-                                bol?.etaAtDischargePortTo == null
-                                  ? ''
-                                  : moment(bol?.etaAtDischargePortTo).toDate()
+                                bol?.etaAtDischargePortTo == null ? '' : moment(bol?.etaAtDischargePortTo).toDate()
                               }
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
-                                setetaAtDischargePortTo(
-                                  startetaAtDischargePortTo,
-                                );
-                                saveDate(
-                                  startetaAtDischargePortTo,
-                                  'etaAtDischargePortTo',
-                                  index,
-                                );
+                                setetaAtDischargePortTo(startetaAtDischargePortTo);
+                                saveDate(startetaAtDischargePortTo, 'etaAtDischargePortTo', index);
                               }}
                               minDate={lastDate}
                             />
@@ -1023,11 +824,7 @@ export default function Index({
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              To
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>To</label>
                           </div>
                         </div>
                       </div>
@@ -1043,110 +840,65 @@ export default function Index({
                           </h5>
                           <div className="row mt-n4">
                             {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                            >
+                            <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
                                 // disabled
-                                onChange={(e) =>
-                                  onChangeContainerDetailsHandler(e, index)
-                                }
-                                value={
-                                  bol?.containerDetails?.numberOfContainers
-                                }
+                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
+                                value={bol?.containerDetails?.numberOfContainers}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="numberOfContainers"
                                 type="number"
                                 onWheel={(event) => event.currentTarget.blur()}
-                                onKeyDown={(evt) =>
-                                  ['e', 'E', '+', '-'].includes(evt.key) &&
-                                  evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Number of Containers
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
                             {/* ) : null} */}
-                            <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                            >
+                            <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                               <input
-                                onChange={(e) =>
-                                  onChangeContainerDetailsHandler(e, index)
-                                }
-                                value={
-                                  bol?.containerDetails?.freeDetentionPeriod
-                                }
+                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
+                                value={bol?.containerDetails?.freeDetentionPeriod}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 id="freeDetentionPeriod"
                                 type="number"
                                 onWheel={(event) => event.currentTarget.blur()}
-                                onKeyDown={(evt) =>
-                                  ['e', 'E', '+', '-'].includes(evt.key) &&
-                                  evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                               />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Free Detention Period at Discharge Port (Days)
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>
-                            <div
-                              className={`${styles.form_group} col-lg-8 col-md-6`}
-                            >
+                            <div className={`${styles.form_group} col-lg-8 col-md-6`}>
                               {bol?.containerDetails?.containerDoc == null ? (
                                 <>
-                                  <div
-                                    className={`${styles.uploadBtnWrapper} d-flex`}
-                                  >
+                                  <div className={`${styles.uploadBtnWrapper} d-flex`}>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         name={`containerDoc`}
                                         id="containerDoc"
                                         onChange={(e) => {
                                           if (
-                                            e.target.files[0].name
-                                              .toLocaleLowerCase()
-                                              .endsWith('.xls') ||
-                                            e.target.files[0].name
-                                              .toLocaleLowerCase()
-                                              .endsWith('.xlsx')
+                                            e.target.files[0].name.toLocaleLowerCase().endsWith('.xls') ||
+                                            e.target.files[0].name.toLocaleLowerCase().endsWith('.xlsx')
                                           ) {
-                                            onChangeContainerDetailsDocHandler(
-                                              e,
-                                              index,
-                                            );
+                                            onChangeContainerDetailsDocHandler(e, index);
                                           } else {
-                                            let toastMessage =
-                                              'only XLS files are allowed';
-                                            if (
-                                              !toast.isActive(
-                                                toastMessage.toUpperCase(),
-                                              )
-                                            ) {
-                                              toast.error(
-                                                toastMessage.toUpperCase(),
-                                                { toastId: toastMessage },
-                                              );
+                                            let toastMessage = 'only XLS files are allowed';
+                                            if (!toast.isActive(toastMessage.toUpperCase())) {
+                                              toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
                                             }
                                           }
                                         }}
                                         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                         type="file"
                                       />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload Excel
-                                      </button>
+                                      <button className={`${styles.upload_btn} btn`}>Upload Excel</button>
                                     </div>
 
                                     <div className={`${styles.upload_text}`}>
@@ -1156,21 +908,12 @@ export default function Index({
                                   </div>
                                 </>
                               ) : (
-                                <div
-                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                >
-                                  <span>
-                                    {
-                                      bol?.containerDetails?.containerDoc
-                                        ?.originalName
-                                    }
-                                  </span>
+                                <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                  <span>{bol?.containerDetails?.containerDoc?.originalName}</span>
                                   <img
                                     className={`${styles.close_image} ml-2 image_arrow`}
                                     src="/static/close.svg"
-                                    onClick={(e) =>
-                                      handleCloseContanierDoc('', index)
-                                    }
+                                    onClick={(e) => handleCloseContanierDoc('', index)}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -1210,12 +953,7 @@ export default function Index({
                     )}
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table mt-5`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table mt-5`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th width="25%">
@@ -1253,43 +991,21 @@ export default function Index({
                               </td>
                               <td>
                                 {bolList[index]?.blDoc ? (
-                                  bolList[index]?.blDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                  bolList[index]?.blDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : bolList[index]?.blDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    bolList[index]?.blDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    bolList[index]?.blDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blDoc == null
                                   ? ''
-                                  : moment(bolList[index]?.blDoc.date).format(
-                                      'DD-MM-YYYY , h:mm a ',
-                                    )}
+                                  : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1314,26 +1030,16 @@ export default function Index({
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc(e, index)}
                                       />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.upload_btn} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {bolList[index]?.blDoc?.originalName}
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{bolList[index]?.blDoc?.originalName}</span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) =>
-                                        handleCloseDoc('blDoc', index)
-                                      }
+                                      onClick={(e) => handleCloseDoc('blDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1345,59 +1051,35 @@ export default function Index({
                                 <tr className="table_row">
                                   <td className={styles.doc_name}>
                                     Container No. List
-                                    <strong className="text-danger ml-0">
-                                      *
-                                    </strong>
+                                    <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
                                     {bolList[index]?.containerNumberListDoc ? (
-                                      bolList[
-                                        index
-                                      ]?.containerNumberListDoc?.originalName
+                                      bolList[index]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xls') ||
-                                      bolList[
-                                        index
-                                      ]?.containerNumberListDoc?.originalName
+                                      bolList[index]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : bolList[
-                                          index
-                                        ]?.containerNumberListDoc?.originalName
+                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                      ) : bolList[index]?.containerNumberListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.doc') ||
-                                        bolList[
-                                          index
-                                        ]?.containerNumberListDoc?.originalName
+                                        bolList[index]?.containerNumberListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
-                                        <img
-                                          src="/static/doc.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                       ) : (
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                       )
                                     ) : null}
                                   </td>
                                   <td className={styles.doc_row}>
-                                    {bolList[index]?.containerNumberListDoc ==
-                                    null
+                                    {bolList[index]?.containerNumberListDoc == null
                                       ? ''
-                                      : moment(
-                                          bolList[index]?.containerNumberListDoc
-                                            .date,
-                                        ).format('DD-MM-YYYY , h:mm a ')}
+                                      : moment(bolList[index]?.containerNumberListDoc.date).format(
+                                          'DD-MM-YYYY , h:mm a ',
+                                        )}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1413,48 +1095,25 @@ export default function Index({
                                         Upload
                                       </button>
                                     </div> */}
-                                    {bolList &&
-                                    bolList[index]?.containerNumberListDoc ==
-                                      null ? (
+                                    {bolList && bolList[index]?.containerNumberListDoc == null ? (
                                       <>
-                                        <div
-                                          className={styles.uploadBtnWrapper}
-                                        >
+                                        <div className={styles.uploadBtnWrapper}>
                                           <input
                                             type="file"
                                             name={`containerNumberListDoc`}
                                             accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-                                            onChange={(e) =>
-                                              uploadDoc(e, index)
-                                            }
+                                            onChange={(e) => uploadDoc(e, index)}
                                           />
-                                          <button
-                                            className={`${styles.upload_btn} btn`}
-                                          >
-                                            Upload
-                                          </button>
+                                          <button className={`${styles.upload_btn} btn`}>Upload</button>
                                         </div>
                                       </>
                                     ) : (
-                                      <div
-                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                      >
-                                        <span>
-                                          {
-                                            bolList[index]
-                                              ?.containerNumberListDoc
-                                              ?.originalName
-                                          }
-                                        </span>
+                                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                        <span>{bolList[index]?.containerNumberListDoc?.originalName}</span>
                                         <img
                                           className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
-                                          onClick={(e) =>
-                                            handleCloseDoc(
-                                              'containerNumberListDoc',
-                                              index,
-                                            )
-                                          }
+                                          onClick={(e) => handleCloseDoc('containerNumberListDoc', index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1464,57 +1123,29 @@ export default function Index({
                                 <tr className="table_row">
                                   <td className={styles.doc_name}>
                                     Packing List
-                                    <strong className="text-danger ml-0">
-                                      *
-                                    </strong>
+                                    <strong className="text-danger ml-0">*</strong>
                                   </td>
                                   <td>
                                     {bolList[index]?.packingListDoc ? (
-                                      bolList[
-                                        index
-                                      ]?.packingListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xls') ||
-                                      bolList[
-                                        index
-                                      ]?.packingListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
-                                        <img
-                                          src="/static/excel.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
-                                      ) : bolList[
-                                          index
-                                        ]?.packingListDoc?.originalName
+                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                      bolList[index]?.packingListDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                        <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                      ) : bolList[index]?.packingListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.doc') ||
-                                        bolList[
-                                          index
-                                        ]?.packingListDoc?.originalName
+                                        bolList[index]?.packingListDoc?.originalName
                                           ?.toLowerCase()
                                           .endsWith('.docx') ? (
-                                        <img
-                                          src="/static/doc.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                        <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                       ) : (
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className="img-fluid"
-                                          alt="Pdf"
-                                        />
+                                        <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                       )
                                     ) : null}
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.packingListDoc == null
                                       ? ''
-                                      : moment(
-                                          bolList[index]?.packingListDoc.date,
-                                        ).format('DD-MM-YYYY , h:mm a ')}
+                                      : moment(bolList[index]?.packingListDoc.date).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1530,46 +1161,25 @@ export default function Index({
                                         Upload
                                       </button>
                                     </div> */}
-                                    {bolList &&
-                                    bolList[index]?.packingListDoc == null ? (
+                                    {bolList && bolList[index]?.packingListDoc == null ? (
                                       <>
-                                        <div
-                                          className={styles.uploadBtnWrapper}
-                                        >
+                                        <div className={styles.uploadBtnWrapper}>
                                           <input
                                             type="file"
                                             name={`packingListDoc`}
                                             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                            onChange={(e) =>
-                                              uploadDoc(e, index)
-                                            }
+                                            onChange={(e) => uploadDoc(e, index)}
                                           />
-                                          <button
-                                            className={`${styles.upload_btn} btn`}
-                                          >
-                                            Upload
-                                          </button>
+                                          <button className={`${styles.upload_btn} btn`}>Upload</button>
                                         </div>
                                       </>
                                     ) : (
-                                      <div
-                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                      >
-                                        <span>
-                                          {
-                                            bolList[index]?.packingListDoc
-                                              ?.originalName
-                                          }
-                                        </span>
+                                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                        <span>{bolList[index]?.packingListDoc?.originalName}</span>
                                         <img
                                           className={`${styles.close_image} ml-2 image_arrow`}
                                           src="/static/close.svg"
-                                          onClick={(e) =>
-                                            handleCloseDoc(
-                                              'packingListDoc',
-                                              index,
-                                            )
-                                          }
+                                          onClick={(e) => handleCloseDoc('packingListDoc', index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1589,25 +1199,15 @@ export default function Index({
                   <div className={`${styles.bill_landing}  border_color mt-4`}>
                     <div className={`${styles.vessel_card} mt-3`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                           <div className="d-flex">
                             <DatePicker
-                              selected={
-                                bol?.blSurrenderDate == null
-                                  ? ''
-                                  : moment(bol?.blSurrenderDate).toDate()
-                              }
+                              selected={bol?.blSurrenderDate == null ? '' : moment(bol?.blSurrenderDate).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
                                 setblSurrenderDate(startblSurrenderDate);
-                                saveDate(
-                                  startblSurrenderDate,
-                                  'blSurrenderDate',
-                                  index,
-                                );
+                                saveDate(startblSurrenderDate, 'blSurrenderDate', index);
                               }}
                               minDate={lastDate}
                             />
@@ -1617,23 +1217,14 @@ export default function Index({
                               src="/static/caldericon.svg"
                               alt="Search"
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              BL Surrender Date
-                            </label>
+                            <label className={`${styles.label_heading} label_heading`}>BL Surrender Date</label>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table mt-5`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table className={`${styles.table} table mt-5`} cellPadding="0" cellSpacing="0" border="0">
                           <thead>
                             <tr>
                               <th width="25%">
@@ -1671,49 +1262,24 @@ export default function Index({
                               </td>
                               <td>
                                 {bolList[index]?.blSurrenderDoc ? (
-                                  bolList[index]?.blSurrenderDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xls') ||
-                                  bolList[index]?.blSurrenderDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
-                                    <img
-                                      src="/static/excel.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
-                                  ) : bolList[
-                                      index
-                                    ]?.blSurrenderDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
-                                    bolList[index]?.blSurrenderDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.docx') ? (
-                                    <img
-                                      src="/static/doc.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xls') ||
+                                  bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.xlsx') ? (
+                                    <img src="/static/excel.svg" className="img-fluid" alt="Pdf" />
+                                  ) : bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.doc') ||
+                                    bolList[index]?.blSurrenderDoc?.originalName?.toLowerCase().endsWith('.docx') ? (
+                                    <img src="/static/doc.svg" className="img-fluid" alt="Pdf" />
                                   ) : (
-                                    <img
-                                      src="/static/pdf.svg"
-                                      className="img-fluid"
-                                      alt="Pdf"
-                                    />
+                                    <img src="/static/pdf.svg" className="img-fluid" alt="Pdf" />
                                   )
                                 ) : null}
                               </td>
                               <td className={styles.doc_row}>
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
-                                  : moment(
-                                      bolList[index]?.blSurrenderDoc?.Date,
-                                    ).format(' DD-MM-YYYY , h:mm a')}
+                                  : moment(bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
-                                {bolList &&
-                                bolList[index]?.blSurrenderDoc == null ? (
+                                {bolList && bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1722,29 +1288,16 @@ export default function Index({
                                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                         onChange={(e) => uploadDoc(e, index)}
                                       />
-                                      <button
-                                        className={`${styles.upload_btn} btn`}
-                                      >
-                                        Upload
-                                      </button>
+                                      <button className={`${styles.upload_btn} btn`}>Upload</button>
                                     </div>
                                   </>
                                 ) : (
-                                  <div
-                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
-                                  >
-                                    <span>
-                                      {
-                                        bolList[index]?.blSurrenderDoc
-                                          ?.originalName
-                                      }
-                                    </span>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <span>{bolList[index]?.blSurrenderDoc?.originalName}</span>
                                     <img
                                       className={`${styles.close_image} ml-2 image_arrow`}
                                       src="/static/close.svg"
-                                      onClick={(e) =>
-                                        handleCloseDoc('blSurrenderDoc', index)
-                                      }
+                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1765,11 +1318,7 @@ export default function Index({
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar
-          handleSave={saveData}
-          rightBtn="Submit"
-          rightBtnClick={handleShow}
-        />
+        <SaveBar handleSave={saveData} rightBtn="Submit" rightBtnClick={handleShow} />
       </div>
 
       <Modal
@@ -1779,33 +1328,20 @@ export default function Index({
         className={styles.updated_successfully}
         backdropClassName={styles.backdrop}
       >
-        <Modal.Header
-          className={`${styles.card_header} card-header background`}
-        >
+        <Modal.Header className={`${styles.card_header} card-header background`}>
           <Modal.Title>
             <h3>Updated Successfully</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.card_body} card-body container-fluid`}>
-          <img
-            src="/static/updated-successfully.svg"
-            alt="Updated Successfully"
-            className="img-fluid"
-          />
+          <img src="/static/updated-successfully.svg" alt="Updated Successfully" className="img-fluid" />
           <h4>Success</h4>
           <p>The bill of lading is successfully updated.</p>
           <div className="d-flex align-items-center justify-content-between">
-            <button
-              type="button"
-              className={`${styles.card_button} ${styles.close} btn`}
-              onClick={handleClose}
-            >
+            <button type="button" className={`${styles.card_button} ${styles.close} btn`} onClick={handleClose}>
               Close
             </button>
-            <button
-              type="button"
-              className={`${styles.card_button} ${styles.track_view} btn`}
-            >
+            <button type="button" className={`${styles.card_button} ${styles.track_view} btn`}>
               Track &amp; View
             </button>
           </div>

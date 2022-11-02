@@ -35,12 +35,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios';
 import { ViewDocument } from '../../src/redux/ViewDoc/action';
 import { GetAllOrders } from 'redux/registerBuyer/action';
 import { GetCompanyDetails } from 'redux/companyDetail/action';
-import {
-  getCommodities,
-  getCountries,
-  getDocuments,
-  getPorts,
-} from '../../src/redux/masters/action';
+import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 import {
   addPrefixOrSuffix,
   checkNan,
@@ -49,22 +44,11 @@ import {
   removePrefixOrSuffix,
 } from '../../src/utils/helper';
 //redux
-import {
-  RefetchCombineKarza,
-  UpdateCompanyDetails,
-} from '../../src/redux/companyDetail/action';
+import { RefetchCombineKarza, UpdateCompanyDetails } from '../../src/redux/companyDetail/action';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  UpdateCredit,
-  UpdateCreditCalculate,
-  UpdateOrderShipment,
-} from '../../src/redux/buyerProfile/action';
+import { UpdateCredit, UpdateCreditCalculate, UpdateOrderShipment } from '../../src/redux/buyerProfile/action';
 
-import {
-  setDynamicName,
-  setDynamicOrder,
-  setPageName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action';
 import moment from 'moment';
@@ -87,8 +71,7 @@ let alertObj = {
   isNseUnderGsmSurveillance: 'NSE Under GSM Surveillance',
   isNseDefaulter: 'NSE Defaulter',
   isCompanyStrikedOffUs248: 'Company Striked Off Us 248',
-  isBseCompanySuspendedMoreThan7Years:
-    'BSE Company Suspended More Than 7 Years',
+  isBseCompanySuspendedMoreThan7Years: 'BSE Company Suspended More Than 7 Years',
   isBsePenalSuspended: 'BSE Penal Suspended',
   isBseExpelled: 'BSE Expelled',
   isBseDefaulter: 'BSE Defaulter',
@@ -155,10 +138,8 @@ let alertObj = {
   isRatedEntityNonCooperative: 'Entity Non-Cooperative',
   isCreditRatingOutlookNegative: 'Credit Rating Outlook Negative',
   isCreditRatingDowngraded: 'Credit Rating Downgraded',
-  isCreditWatchWithNegativeImplication:
-    'Credit Watch With Negative Implication',
-  isCreditWatchWithDevelopingImplication:
-    'Credit Watch With Developing Implication',
+  isCreditWatchWithNegativeImplication: 'Credit Watch With Negative Implication',
+  isCreditWatchWithDevelopingImplication: 'Credit Watch With Developing Implication',
   isDomainInvalid_: 'Domain Invalid',
   isEmailInvalid_: 'Email Invalid',
   isEmailDisposable_: 'Email Disposable',
@@ -182,17 +163,13 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false);
   const [uploadBtn, setUploadBtn] = useState(true);
   const [complienceFilter, setComplienceFilter] = useState('All');
-  const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState(
-    [],
-  );
+  const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([]);
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([]);
   const [camConversionunit, setCamCoversionUnit] = useState(10000000);
   const [litigationStatus, setlitigationStatus] = useState(null);
 
   const { fetchingKarzaGst } = useSelector((state) => state.review);
-  const { companyData, gettingCompanyDetail } = useSelector(
-    (state) => state.companyDetails,
-  );
+  const { companyData, gettingCompanyDetail } = useSelector((state) => state.companyDetails);
   const [selectedTab, setSelectedTab] = useState('Profile');
 
   useEffect(() => {
@@ -219,10 +196,7 @@ function Index() {
         tab[0]?.children[tempIndex]?.classList?.add('show');
         tab[0]?.children[tempIndex]?.classList?.add('active');
       }
-      if (
-        sessionStorage.getItem('showCAM') == 'false' ||
-        sessionStorage.getItem('showCAM') == undefined
-      ) {
+      if (sessionStorage.getItem('showCAM') == 'false' || sessionStorage.getItem('showCAM') == undefined) {
         dispatch(GetAllOrders({ orderId: id1 }));
         dispatch(GetCompanyDetails({ company: id2 }));
       }
@@ -236,9 +210,7 @@ function Index() {
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  const { getCommoditiesMasterData } = useSelector(
-    (state) => state.MastersData,
-  );
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
   useEffect(() => {
     if (companyData) {
@@ -269,10 +241,7 @@ function Index() {
       });
     }
 
-    if (
-      Array.isArray(companyData?.compliance?.error) &&
-      companyData?.compliance?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.compliance?.error) && companyData?.compliance?.error?.length > 0) {
       _get(companyData, 'compliance.error', [{}]).forEach((item) => {
         let toastMessage = item.description + ', ' + item.message;
 
@@ -284,10 +253,7 @@ function Index() {
         }
       });
     }
-    if (
-      Array.isArray(companyData?.profile?.error) &&
-      companyData?.profile?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.profile?.error) && companyData?.profile?.error?.length > 0) {
       _get(companyData, 'profile.error', [{}]).forEach((item) => {
         let toastMessage = item.description + ', ' + item.message;
 
@@ -300,10 +266,7 @@ function Index() {
       });
     }
 
-    if (
-      Array.isArray(companyData?.financial?.error) &&
-      companyData?.financial?.error?.length > 0
-    ) {
+    if (Array.isArray(companyData?.financial?.error) && companyData?.financial?.error?.length > 0) {
       _get(companyData, 'financial.error', [{}]).forEach((item) => {
         let toastMessage = item.description + ', ' + item.message;
 
@@ -339,111 +302,45 @@ function Index() {
       return <img src="/static/noTrend.svg" alt="Loss" className="img-fluid" />;
     } else {
       if (last === previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-green-311.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-green-311.svg" alt="Profit" className="img-fluid" />;
       }
       if (last < previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-green-321.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-green-321.svg" alt="Profit" className="img-fluid" />;
       }
 
       if (last > previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-green-312.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-green-312.svg" alt="Profit" className="img-fluid" />;
       }
       ////doubt
 
       if (last == previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-123.svg"
-            alt="Loss"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-red-123.svg" alt="Loss" className="img-fluid" />;
       }
       if (last > previous && previous < latest) {
-        return (
-          <img
-            src="/static/trend-orange-212.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-orange-212.svg" alt="Profit" className="img-fluid" />;
       }
       if (last < previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-orange-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
       }
 
       if (last == previous && previous == latest) {
-        return (
-          <img
-            src="/static/trend-orange-333.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-orange-333.svg" alt="Profit" className="img-fluid" />;
       }
 
       ////////doubt
       if (last == previous && previous == latest && last != undefined) {
-        return (
-          <img
-            src="/static/trend-orange-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-orange-121.svg" alt="Profit" className="img-fluid" />;
       }
 
       if (last > previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-123.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-red-123.svg" alt="Profit" className="img-fluid" />;
       }
       /////doubt
       if (last > previous && previous > latest) {
-        return (
-          <img
-            src="/static/trend-red-121.svg"
-            alt="Profit"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-red-121.svg" alt="Profit" className="img-fluid" />;
       }
       if (last > previous && previous == latest) {
-        return (
-          <img
-            src="/static/trend-red-113.svg"
-            alt="Loss"
-            className="img-fluid"
-          />
-        );
+        return <img src="/static/trend-red-113.svg" alt="Loss" className="img-fluid" />;
       }
 
       // if (latest > previous && previous > last) {
@@ -467,11 +364,7 @@ function Index() {
 
     dispatch(setDynamicName(orderList?.company?.companyName));
 
-    dispatch(
-      setDynamicOrder(
-        orderList?.company?.customerId || orderList?.applicationId,
-      ),
-    );
+    dispatch(setDynamicOrder(orderList?.company?.customerId || orderList?.applicationId));
   }, [orderList, dispatch]);
 
   const id = sessionStorage.getItem('orderID');
@@ -559,27 +452,19 @@ function Index() {
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment };
     const namesplit = name.split('.');
-    namesplit.length > 1
-      ? (newInput[namesplit[0]][namesplit[1]] = value)
-      : (newInput[name] = value);
+    namesplit.length > 1 ? (newInput[namesplit[0]][namesplit[1]] = value) : (newInput[name] = value);
     setShipment(newInput);
   };
 
   const orderValidation = () => {
-    if (
-      orderDetails?.transactionType?.trim() === '' ||
-      orderDetails?.transactionType?.trim() == undefined
-    ) {
+    if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
       let toastMessage = 'Invalid Transaction Type';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.commodity?.trim() === '' ||
-      orderDetails?.commodity?.trim() == undefined
-    ) {
+    if (orderDetails?.commodity?.trim() === '' || orderDetails?.commodity?.trim() == undefined) {
       let toastMessage = 'the Commodity can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -593,21 +478,14 @@ function Index() {
       }
       return false;
     }
-    if (
-      orderDetails?.unitOfQuantity?.trim() === '' ||
-      orderDetails?.unitOfQuantity == undefined
-    ) {
+    if (orderDetails?.unitOfQuantity?.trim() === '' || orderDetails?.unitOfQuantity == undefined) {
       let toastMessage = 'Please Provide a unit Of Quantity  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.orderValue === '' ||
-      orderDetails?.orderValue == undefined ||
-      isNaN(orderDetails?.orderValue)
-    ) {
+    if (orderDetails?.orderValue === '' || orderDetails?.orderValue == undefined || isNaN(orderDetails?.orderValue)) {
       let toastMessage = 'Please Check the orderValue  ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -615,40 +493,28 @@ function Index() {
       return false;
     }
 
-    if (
-      orderDetails?.unitOfValue?.trim() === '' ||
-      orderDetails?.unitOfValue?.trim() == undefined
-    ) {
+    if (orderDetails?.unitOfValue?.trim() === '' || orderDetails?.unitOfValue?.trim() == undefined) {
       let toastMessage = 'Please Set the unit of value';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.supplierName?.trim() === '' ||
-      orderDetails?.supplierName?.trim() == undefined
-    ) {
+    if (orderDetails?.supplierName?.trim() === '' || orderDetails?.supplierName?.trim() == undefined) {
       let toastMessage = 'the supplier Name can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.countryOfOrigin?.trim() === '' ||
-      orderDetails?.countryOfOrigin?.trim() == undefined
-    ) {
+    if (orderDetails?.countryOfOrigin?.trim() === '' || orderDetails?.countryOfOrigin?.trim() == undefined) {
       let toastMessage = 'the country Of Origin can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.portOfDischarge?.trim() === '' ||
-      orderDetails?.portOfDischarge?.trim() == undefined
-    ) {
+    if (orderDetails?.portOfDischarge?.trim() === '' || orderDetails?.portOfDischarge?.trim() == undefined) {
       let toastMessage = 'the port Of Discharge can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -665,30 +531,21 @@ function Index() {
       }
       return false;
     }
-    if (
-      orderDetails?.incoTerm?.trim() === '' ||
-      orderDetails?.incoTerm?.trim() == undefined
-    ) {
+    if (orderDetails?.incoTerm?.trim() === '' || orderDetails?.incoTerm?.trim() == undefined) {
       let toastMessage = 'the incoTerm can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.grade?.trim() === '' ||
-      orderDetails?.grade?.trim() == undefined
-    ) {
+    if (orderDetails?.grade?.trim() === '' || orderDetails?.grade?.trim() == undefined) {
       let toastMessage = 'the grade can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      orderDetails?.tolerance === '' ||
-      orderDetails?.tolerance == undefined
-    ) {
+    if (orderDetails?.tolerance === '' || orderDetails?.tolerance == undefined) {
       let toastMessage = 'the tolerance can not be Empty';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -696,8 +553,7 @@ function Index() {
       return false;
     }
     if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
-      let toastMessage =
-        'HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS';
+      let toastMessage = 'HSN CODE IS MANDATORY & CANNOT BE GREATER THAN 10 CHARACTERS';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
@@ -710,69 +566,49 @@ function Index() {
       }
       return false;
     }
-    if (
-      shipment?.loadPort.toDate === '' ||
-      shipment?.loadPort.toDate == undefined
-    ) {
+    if (shipment?.loadPort.toDate === '' || shipment?.loadPort.toDate == undefined) {
       let toastMessage = 'add load Port  to';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      shipment?.loadPort.fromDate === '' ||
-      shipment?.loadPort.fromDate == undefined
-    ) {
+    if (shipment?.loadPort.fromDate === '' || shipment?.loadPort.fromDate == undefined) {
       let toastMessage = 'add load Port from date';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      shipment?.ETAofDischarge.fromDate === '' ||
-      shipment?.ETAofDischarge.fromDate == undefined
-    ) {
+    if (shipment?.ETAofDischarge.fromDate === '' || shipment?.ETAofDischarge.fromDate == undefined) {
       let toastMessage = 'add eta of discharge from';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      shipment?.ETAofDischarge.toDate === '' ||
-      shipment?.ETAofDischarge.toDate == undefined
-    ) {
+    if (shipment?.ETAofDischarge.toDate === '' || shipment?.ETAofDischarge.toDate == undefined) {
       let toastMessage = 'add eta of discharge to';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      shipment?.lastDateOfShipment === '' ||
-      shipment?.lastDateOfShipment == undefined
-    ) {
+    if (shipment?.lastDateOfShipment === '' || shipment?.lastDateOfShipment == undefined) {
       let toastMessage = 'add last date of shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      shipment?.portOfLoading === '' ||
-      shipment?.portOfLoading == undefined
-    ) {
+    if (shipment?.portOfLoading === '' || shipment?.portOfLoading == undefined) {
       let toastMessage = 'add port Of Loading';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue
-    ) {
+    if (approvedCredit.approvedOrderValue > approvedCredit.approvedCreditValue) {
       let toastMessage = 'Order Value Cannot Be Greater Than Limit Value';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -787,8 +623,7 @@ function Index() {
 
     let orderToSend = { ...orderDetails };
     orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity);
-    orderToSend.orderValue =
-      removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
+    orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000;
     orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance);
     if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
       const obj = {
@@ -821,51 +656,39 @@ function Index() {
 
   useEffect(() => {
     setProduct({
-      AvgMonthlyElectricityBill: orderList?.productSummary
-        ?.AvgMonthlyElectricityBill
+      AvgMonthlyElectricityBill: orderList?.productSummary?.AvgMonthlyElectricityBill
         ? orderList?.productSummary?.AvgMonthlyElectricityBill
         : '',
-      availableStock: orderList?.productSummary?.availableStock
-        ? orderList?.productSummary?.availableStock
-        : '',
+      availableStock: orderList?.productSummary?.availableStock ? orderList?.productSummary?.availableStock : '',
       averageStockInTransit: orderList?.productSummary?.averageStockInTransit
         ? orderList?.productSummary?.averageStockInTransit
         : '',
-      averageStockOfCommodity: orderList?.productSummary
-        ?.averageStockOfCommodity
+      averageStockOfCommodity: orderList?.productSummary?.averageStockOfCommodity
         ? orderList?.productSummary?.averageStockOfCommodity
         : '',
       capacityUtilization: orderList?.productSummary?.capacityUtilization
         ? orderList?.productSummary?.capacityUtilization
         : '',
-      contributionCommoditySenstivity: orderList?.productSummary
-        ?.contributionCommoditySenstivity
+      contributionCommoditySenstivity: orderList?.productSummary?.contributionCommoditySenstivity
         ? orderList?.productSummary?.contributionCommoditySenstivity
         : '',
-      dailyConsumptionOfCommodity: orderList?.productSummary
-        ?.dailyConsumptionOfCommodity
+      dailyConsumptionOfCommodity: orderList?.productSummary?.dailyConsumptionOfCommodity
         ? orderList?.productSummary?.dailyConsumptionOfCommodity
         : '',
-      existingCHA: orderList?.productSummary?.existingCHA
-        ? orderList?.productSummary?.existingCHA
-        : [],
-      existingProcurementOfCommodity: orderList?.productSummary
-        ?.existingProcurementOfCommodity
+      existingCHA: orderList?.productSummary?.existingCHA ? orderList?.productSummary?.existingCHA : [],
+      existingProcurementOfCommodity: orderList?.productSummary?.existingProcurementOfCommodity
         ? orderList?.productSummary?.existingProcurementOfCommodity
         : 'Import',
       existingSuppliers: orderList?.productSummary?.existingSuppliers
         ? orderList?.productSummary?.existingSuppliers
         : [],
-      monthlyProductionCapacity: orderList?.productSummary
-        ?.monthlyProductionCapacity
+      monthlyProductionCapacity: orderList?.productSummary?.monthlyProductionCapacity
         ? orderList?.productSummary?.monthlyProductionCapacity
         : '',
-      paymentStatusForElectricityBills: orderList?.productSummary
-        ?.paymentStatusForElectricityBills
+      paymentStatusForElectricityBills: orderList?.productSummary?.paymentStatusForElectricityBills
         ? orderList?.productSummary?.paymentStatusForElectricityBills
         : '',
-      stockCoverageOfCommodity: orderList?.productSummary
-        ?.stockCoverageOfCommodity
+      stockCoverageOfCommodity: orderList?.productSummary?.stockCoverageOfCommodity
         ? orderList?.productSummary?.stockCoverageOfCommodity
         : undefined,
       typeOfCurrency: orderList?.productSummary?.typeOfCurrency
@@ -878,14 +701,11 @@ function Index() {
     let tempSupplierCredentials = {
       ...supplierCred,
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
-      commodityOfTotalTrade:
-        orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
+      commodityOfTotalTrade: orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
       consigneesNumber: orderList?.supplierCredential?.consigneesNumber ?? '',
       countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin ?? '',
-      latestShipmentDate:
-        orderList?.supplierCredential?.latestShipmentDate ?? '',
-      oldestShipmentDate:
-        orderList?.supplierCredential?.oldestShipmentDate ?? '',
+      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate ?? '',
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate ?? '',
       portOfDestination: orderList?.supplierCredential?.portOfDestination ?? '',
       remarks: orderList?.supplierCredential?.remarks ?? '',
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
@@ -898,10 +718,7 @@ function Index() {
   }, [orderList]);
 
   const handleProductSave = (chas, exsupp) => {
-    if (
-      product.capacityUtilization === '' ||
-      product.contributionCommoditySenstivity === ''
-    ) {
+    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -910,25 +727,13 @@ function Index() {
       let data = { ...product };
       data.existingCHA = chas;
       data.existingSuppliers = exsupp;
-      data.monthlyProductionCapacity = removePrefixOrSuffix(
-        product.monthlyProductionCapacity,
-      );
-      data.capacityUtilization = removePrefixOrSuffix(
-        product.capacityUtilization,
-      );
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
-        product.AvgMonthlyElectricityBill,
-      );
-      data.averageStockOfCommodity = removePrefixOrSuffix(
-        product.averageStockOfCommodity,
-      );
-      data.averageStockInTransit = removePrefixOrSuffix(
-        product.averageStockInTransit,
-      );
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
       data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
-        product.dailyConsumptionOfCommodity,
-      );
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
@@ -972,13 +777,9 @@ function Index() {
     },
   ]);
 
-  const [financialsComment, setFinancialsComment] = useState(
-    orderList?.company?.recommendations?.commentsOnFinancials,
-  );
+  const [financialsComment, setFinancialsComment] = useState(orderList?.company?.recommendations?.commentsOnFinancials);
 
-  const [companyComment, setCompanyComment] = useState(
-    orderList?.company?.recommendations?.companyProfile,
-  );
+  const [companyComment, setCompanyComment] = useState(orderList?.company?.recommendations?.companyProfile);
 
   const [sanctionComment, setSanctionComment] = useState([]);
   const [approveComment, setApproveComment] = useState();
@@ -987,24 +788,14 @@ function Index() {
     setApproveComment(_get(orderList, 'cam.approvalRemarks', []));
   }, [orderList]);
 
-  const [strengthsComment, setStrengthsComment] = useState(
-    orderList?.company?.recommendations?.strengths,
-  );
+  const [strengthsComment, setStrengthsComment] = useState(orderList?.company?.recommendations?.strengths);
 
-  const [weaknessComment, setWeaknessComment] = useState(
-    orderList?.company?.recommendations?.weakness,
-  );
+  const [weaknessComment, setWeaknessComment] = useState(orderList?.company?.recommendations?.weakness);
   const deleteComponent = (index) => {
-    setKeyAddData([
-      ...keyAddData.slice(0, index),
-      ...keyAddData.slice(index + 1),
-    ]);
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const deleteAddress = (index) => {
-    setPersonData([
-      ...personData.slice(0, index),
-      ...personData.slice(index + 1),
-    ]);
+    setPersonData([...personData.slice(0, index), ...personData.slice(index + 1)]);
   };
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment];
@@ -1041,55 +832,37 @@ function Index() {
     // let newArr = [...companyComment]
     // newArr.pop(index)
     // setCompanyComment(newArr)
-    setCompanyComment([
-      ...companyComment.slice(0, index),
-      ...companyComment.slice(index + 1),
-    ]);
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
   };
   const dltFinancialsCommentArr = (index) => {
     // let newArr = [...financialsComment]
     // newArr.pop(index)
-    setFinancialsComment([
-      ...financialsComment.slice(0, index),
-      ...financialsComment.slice(index + 1),
-    ]);
+    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)]);
     // setFinancialsComment(newArr)
   };
   const dltSanctionCommentArr = (index) => {
     // let newArr = [...sanctionComment]
     // newArr.pop(index)
     // setSanctionComment(newArr)
-    setSanctionComment([
-      ...sanctionComment.slice(0, index),
-      ...sanctionComment.slice(index + 1),
-    ]);
+    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)]);
   };
   const dltApproveRemarkArr = (index) => {
     // let newArr = [...approveComment]
     // newArr.pop(index)
     // setApproveComment(newArr)
-    setApproveComment([
-      ...approveComment.slice(0, index),
-      ...approveComment.slice(index + 1),
-    ]);
+    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)]);
   };
   const dltStrengthsCommentArr = (index) => {
     // let newArr = [...strengthsComment]
     // newArr.pop(index)
     // setStrengthsComment(newArr)
-    setStrengthsComment([
-      ...strengthsComment.slice(0, index),
-      ...strengthsComment.slice(index + 1),
-    ]);
+    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)]);
   };
   const dltWeaknessCommentArr = (index) => {
     // let newArr = [...weaknessComment]
     // newArr.pop(index)
     // setWeaknessComment(newArr)
-    setWeaknessComment([
-      ...weaknessComment.slice(0, index),
-      ...weaknessComment.slice(index + 1),
-    ]);
+    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)]);
   };
 
   const [debtData, setDebtData] = useState([]);
@@ -1180,11 +953,9 @@ function Index() {
     setPersonData([...personArr]);
 
     let commentFinancialArr = [];
-    orderList?.company?.recommendation?.commentsOnFinancials.forEach(
-      (element) => {
-        commentFinancialArr.push(element);
-      },
-    );
+    orderList?.company?.recommendation?.commentsOnFinancials.forEach((element) => {
+      commentFinancialArr.push(element);
+    });
     setFinancialsComment(commentFinancialArr);
 
     let companyCommentArr = [];
@@ -1226,9 +997,7 @@ function Index() {
 
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: suggestedValue
-        ? suggestedValue / 10000000
-        : suggestedValue,
+      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue
         ? orderList?.suggestedOrderValue / 10000000
         : orderList?.suggestedOrderValue,
@@ -1238,9 +1007,7 @@ function Index() {
       approvedOrderValue: orderList?.approvedOrderValue
         ? orderList?.approvedOrderValue / 10000000
         : orderList?.approvedOrderValue,
-      approvedCreditValue: approvedCreditLimit
-        ? approvedCreditLimit / 10000000
-        : approvedCreditLimit,
+      approvedCreditValue: approvedCreditLimit ? approvedCreditLimit / 10000000 : approvedCreditLimit,
     });
   }, [orderList]);
 
@@ -1364,50 +1131,35 @@ function Index() {
   };
 
   const creditValidation = () => {
-    if (
-      product.monthlyProductionCapacity == '' ||
-      product.monthlyProductionCapacity == undefined
-    ) {
+    if (product.monthlyProductionCapacity == '' || product.monthlyProductionCapacity == undefined) {
       let toastMessage = 'Please add  monthly Production Capacitye';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.capacityUtilization == '' ||
-      product.capacityUtilization == undefined
-    ) {
+    if (product.capacityUtilization == '' || product.capacityUtilization == undefined) {
       let toastMessage = 'Please add  capacity Utilization';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.averageStockOfCommodity == '' ||
-      product.averageStockOfCommodity == undefined
-    ) {
+    if (product.averageStockOfCommodity == '' || product.averageStockOfCommodity == undefined) {
       let toastMessage = 'Please add  average Stock Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.averageStockInTransit == '' ||
-      product.averageStockInTransit == undefined
-    ) {
+    if (product.averageStockInTransit == '' || product.averageStockInTransit == undefined) {
       let toastMessage = 'Please add  average Stock In Transit';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.AvgMonthlyElectricityBill == '' ||
-      product.AvgMonthlyElectricityBill == undefined
-    ) {
+    if (product.AvgMonthlyElectricityBill == '' || product.AvgMonthlyElectricityBill == undefined) {
       let toastMessage = 'Please add  Avg Monthly Electricity Bill';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1421,110 +1173,77 @@ function Index() {
       }
       return false;
     }
-    if (
-      product.dailyConsumptionOfCommodity == '' ||
-      product.dailyConsumptionOfCommodity == undefined
-    ) {
+    if (product.dailyConsumptionOfCommodity == '' || product.dailyConsumptionOfCommodity == undefined) {
       let toastMessage = 'Please add  Daily Consumtion Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.stockCoverageOfCommodity == '' ||
-      product.stockCoverageOfCommodity == undefined
-    ) {
+    if (product.stockCoverageOfCommodity == '' || product.stockCoverageOfCommodity == undefined) {
       let toastMessage = 'Please add  stock Coverage Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      product.existingProcurementOfCommodity == '' ||
-      product.existingProcurementOfCommodity == undefined
-    ) {
+    if (product.existingProcurementOfCommodity == '' || product.existingProcurementOfCommodity == undefined) {
       let toastMessage = 'Please add  Existing Procurement Of Commodity';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.supplierName == '' ||
-      supplierCred.supplierName == undefined
-    ) {
+    if (supplierCred.supplierName == '' || supplierCred.supplierName == undefined) {
       let toastMessage = 'Please add supplier Name';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.shipmentNumber == '' ||
-      supplierCred.shipmentNumber == undefined
-    ) {
+    if (supplierCred.shipmentNumber == '' || supplierCred.shipmentNumber == undefined) {
       let toastMessage = 'Please add number of shipment';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.consigneesNumber == '' ||
-      supplierCred.consigneesNumber == undefined
-    ) {
+    if (supplierCred.consigneesNumber == '' || supplierCred.consigneesNumber == undefined) {
       let toastMessage = 'Please add consignees Number';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.HSCodesNumber == '' ||
-      supplierCred.HSCodesNumber == undefined
-    ) {
+    if (supplierCred.HSCodesNumber == '' || supplierCred.HSCodesNumber == undefined) {
       let toastMessage = 'Please add HS Codes ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.countryOfOrigin == '' ||
-      supplierCred.countryOfOrigin == undefined
-    ) {
+    if (supplierCred.countryOfOrigin == '' || supplierCred.countryOfOrigin == undefined) {
       let toastMessage = 'Please add country Of Origin ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.portOfDestination == '' ||
-      supplierCred.portOfDestination == undefined
-    ) {
+    if (supplierCred.portOfDestination == '' || supplierCred.portOfDestination == undefined) {
       let toastMessage = 'Please add port Of Destination ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.oldestShipmentDate == '' ||
-      supplierCred.oldestShipmentDate == undefined
-    ) {
+    if (supplierCred.oldestShipmentDate == '' || supplierCred.oldestShipmentDate == undefined) {
       let toastMessage = 'Please add oldest Shipment Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
     }
-    if (
-      supplierCred.latestShipmentDate == '' ||
-      supplierCred.latestShipmentDate == undefined
-    ) {
+    if (supplierCred.latestShipmentDate == '' || supplierCred.latestShipmentDate == undefined) {
       let toastMessage = 'Please add latest Shipment Date ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -1545,30 +1264,16 @@ function Index() {
         delete val.action && delete val.actions;
       });
       let data = { ...product };
-      data.monthlyProductionCapacity = removePrefixOrSuffix(
-        product.monthlyProductionCapacity,
-      );
-      data.capacityUtilization = removePrefixOrSuffix(
-        product.capacityUtilization,
-      );
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
-        product.AvgMonthlyElectricityBill,
-      );
-      data.averageStockOfCommodity = removePrefixOrSuffix(
-        product.averageStockOfCommodity,
-      );
-      data.averageStockInTransit = removePrefixOrSuffix(
-        product.averageStockInTransit,
-      );
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity);
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization);
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill);
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity);
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit);
       data.availableStock = removePrefixOrSuffix(product.availableStock);
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
-        product.dailyConsumptionOfCommodity,
-      );
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity);
 
       let supplierData = { ...supplierCred };
-      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
-        supplierCred.commodityOfTotalTrade,
-      );
+      supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade);
       let tempArray = [...groupExposureData];
 
       tempArray.forEach((e) => {
@@ -1601,34 +1306,25 @@ function Index() {
         },
         debtProfile: tempDebtData,
         groupExposureDetail: [...tempArray],
-        suggestedOrderValue:
-          removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit:
-          removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       };
 
       dispatch(UpdateCredit({ ...obj }));
     }
   };
 
-  const filteredCreditRating =
-    orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
-      return orderList?._id === rating.order;
-    });
+  const filteredCreditRating = orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
+    return orderList?._id === rating.order;
+  });
 
   let approvedCreditLimit =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.approved?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.approved?.value : '';
 
   let suggestedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.suggested?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.suggested?.value : '';
   let derivedValue =
-    filteredCreditRating && filteredCreditRating.length > 0
-      ? filteredCreditRating[0]?.derived?.value
-      : '';
+    filteredCreditRating && filteredCreditRating.length > 0 ? filteredCreditRating[0]?.derived?.value : '';
   let approvedCreditValue = approvedCredit.approvedCreditValue;
 
   let suggestedOrder = orderList?.suggestedOrderValue;
@@ -1646,8 +1342,7 @@ function Index() {
     if (getPercentageIncrease(suggestedValue, derivedValue) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedCreditValue) {
-        let toastMessage =
-          'More than 30% diff in derived and suggested value,Approved credit value required';
+        let toastMessage = 'More than 30% diff in derived and suggested value,Approved credit value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -1661,8 +1356,7 @@ function Index() {
     if (getPercentageIncrease(suggestedOrder, appliedOrder) > 30) {
       // if diff is < 30% than error if approve vlaue not given
       if (!approvedOrderValue) {
-        let toastMessage =
-          'More than 30% diff in applied and suggested order value,Approved order value required';
+        let toastMessage = 'More than 30% diff in applied and suggested order value,Approved order value required';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           return false;
@@ -1792,18 +1486,16 @@ function Index() {
   };
   const primaryBankName = () => {
     let filteredData = [];
-    filteredData =
-      orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
+    filteredData = orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || [];
 
     const length = _get(filteredData[0], 'bankName', '');
 
     return length;
   };
   const openChargesLength = () => {
-    const filteredData =
-      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
-        (data) => data.dateOfSatisfactionOfChargeInFull === null,
-      );
+    const filteredData = orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+      (data) => data.dateOfSatisfactionOfChargeInFull === null,
+    );
 
     const length = filteredData?.length;
 
@@ -1868,10 +1560,9 @@ function Index() {
       width: '26%',
       height: '35%',
     };
-    const filteredCreditRating =
-      camData?.company?.creditLimit?.creditRating?.filter((rating) => {
-        return camData?._id === rating.order;
-      });
+    const filteredCreditRating = camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+      return camData?._id === rating.order;
+    });
     const getRotate = (rat = 1) => {
       let r = Math.round(rat);
       // let r = 4
@@ -1961,11 +1652,7 @@ function Index() {
     }
 
     const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {});
-    const previousYearData = _get(
-      companyData,
-      'financial.ratioAnalysis[1]',
-      {},
-    );
+    const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {});
 
     return (
       <table
@@ -2076,10 +1763,7 @@ function Index() {
                     paddingTop: '37px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.city
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
                 </td>
               </tr>
               <tr>
@@ -2120,10 +1804,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.state
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
                 </td>
               </tr>
               <tr>
@@ -2148,9 +1829,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(
-                    ', ',
-                  )}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.typeOfBusiness?.join(', ')}
                 </td>
                 <td
                   style={{
@@ -2171,10 +1850,7 @@ function Index() {
                     paddingBottom: '40px',
                   }}
                 >
-                  {
-                    camData?.company?.detailedCompanyInfo?.profile
-                      ?.companyDetail?.industry
-                  }
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.industry}
                 </td>
               </tr>
               <tr bgColor="#F7F9FF">
@@ -2201,9 +1877,7 @@ function Index() {
                   {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
-                  {camData?.unitOfValue == 'Crores'
-                    ? 'Cr'
-                    : camData?.unitOfValue}
+                  {camData?.unitOfValue == 'Crores' ? 'Cr' : camData?.unitOfValue}
                 </td>
                 <td
                   style={{
@@ -2402,9 +2076,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {moment(
-                    camData?.shipmentDetail?.ETAofDischarge?.fromDate,
-                  ).format('DD-MM-YYYY')}
+                  {moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format('DD-MM-YYYY')}
                 </td>
               </tr>
               <tr>
@@ -2428,9 +2100,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format(
-                    'DD-MM-YYYY',
-                  )}
+                  {moment(camData?.shipmentDetail?.loadPort?.fromDate).format('DD-MM-YYYY')}
                 </td>
                 <td
                   style={{
@@ -2451,9 +2121,7 @@ function Index() {
                     paddingBottom: '50px',
                   }}
                 >
-                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format(
-                    'DD-MM-YYYY',
-                  )}
+                  {moment(camData?.shipmentDetail?.loadPort?.toDate).format('DD-MM-YYYY')}
                 </td>
               </tr>
             </table>
@@ -2512,12 +2180,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.shipmentNumber?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}
+                  {camData?.supplierCredential?.shipmentNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2562,12 +2227,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.consigneesNumber?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}
+                  {camData?.supplierCredential?.consigneesNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2587,9 +2249,7 @@ function Index() {
                   }}
                 >
                   {camData?.supplierCredential?.latestShipmentDate
-                    ? moment(
-                        camData?.supplierCredential?.latestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                    ? moment(camData?.supplierCredential?.latestShipmentDate).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -2633,9 +2293,7 @@ function Index() {
                 >
                   {' '}
                   {camData?.supplierCredential?.oldestShipmentDate
-                    ? moment(
-                        camData?.supplierCredential?.oldestShipmentDate,
-                      ).format('DD-MM-YYYY')
+                    ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY')
                     : ''}
                 </td>
               </tr>
@@ -2681,10 +2339,9 @@ function Index() {
                     paddingBottom: '25px',
                   }}
                 >
-                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}{' '}
+                  {camData?.supplierCredential?.commodityOfTotalTrade?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
                   %
                 </td>
               </tr>
@@ -2754,12 +2411,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         width="50%"
@@ -2807,20 +2459,13 @@ function Index() {
                           }}
                         >
                           {checkNan(
-                            Math.round(
-                              filteredCreditRating
-                                ? filteredCreditRating[0]?.totalRating
-                                : 0,
-                            ),
+                            Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                             false,
                             1,
                           )}
                         </span>
                       </td>
-                      <td
-                        width="50%"
-                        style={{ padding: '35px 35px 35px 17px' }}
-                      >
+                      <td width="50%" style={{ padding: '35px 35px 35px 17px' }}>
                         <div align="center">
                           <span
                             style={{
@@ -2834,9 +2479,7 @@ function Index() {
                               display: 'inline-block',
                             }}
                           >
-                            {filteredCreditRating
-                              ? filteredCreditRating[0]?.creditResult?.toUpperCase()
-                              : ''}
+                            {filteredCreditRating ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ''}
                           </span>
                         </div>
                         <br />
@@ -2853,10 +2496,7 @@ function Index() {
                           }}
                         >
                           <tr>
-                            <td
-                              width="25%"
-                              style={{ padding: '20px 10px 20px 20px' }}
-                            >
+                            <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
                                   background: '#CEEFD1',
@@ -2900,11 +2540,7 @@ function Index() {
                                   }}
                                 >
                                   {checkNan(
-                                    Math.round(
-                                      filteredCreditRating
-                                        ? filteredCreditRating[0]?.totalRating
-                                        : 0,
-                                    ),
+                                    Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0),
                                     false,
                                     1,
                                   )}
@@ -2935,10 +2571,7 @@ function Index() {
                           }}
                         >
                           <tr>
-                            <td
-                              width="25%"
-                              style={{ padding: '20px 10px 20px 20px' }}
-                            >
+                            <td width="25%" style={{ padding: '20px 10px 20px 20px' }}>
                               <span
                                 style={{
                                   background: '#CEEFD1',
@@ -2980,9 +2613,7 @@ function Index() {
                                     lineHeight: '37px',
                                   }}
                                 >
-                                  {filteredCreditRating
-                                    ? filteredCreditRating[0]?.creditGrade
-                                    : ''}
+                                  {filteredCreditRating ? filteredCreditRating[0]?.creditGrade : ''}
                                 </span>
                               </p>
                             </td>
@@ -3033,8 +2664,7 @@ function Index() {
                               background: '#FFB700',
                               width: `${
                                 filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].businessProfile
-                                      .total.overallValue /
+                                  ? (filteredCreditRating[0].businessProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
                                     100
                                   : '0'
@@ -3060,8 +2690,7 @@ function Index() {
                           {filteredCreditRating?.length > 0
                             ? (
                                 Number(
-                                  filteredCreditRating[0].businessProfile.total
-                                    .overallValue /
+                                  filteredCreditRating[0].businessProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
                               ).toFixed(2)
@@ -3111,8 +2740,7 @@ function Index() {
                               background: '#FF4230',
                               width: `${
                                 filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].revenueProfile
-                                      .total.overallValue /
+                                  ? (filteredCreditRating[0].revenueProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
                                     100
                                   : '0'
@@ -3138,8 +2766,7 @@ function Index() {
                           {filteredCreditRating?.length > 0
                             ? (
                                 Number(
-                                  filteredCreditRating[0].revenueProfile.total
-                                    .overallValue /
+                                  filteredCreditRating[0].revenueProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
                               ).toFixed(2)
@@ -3186,8 +2813,7 @@ function Index() {
                               background: '#83C400',
                               width: `${
                                 filteredCreditRating?.length > 0
-                                  ? (filteredCreditRating[0].financialProfile
-                                      .total.overallValue /
+                                  ? (filteredCreditRating[0].financialProfile.total.overallValue /
                                       filteredCreditRating[0].totalRating) *
                                     100
                                   : '0'
@@ -3213,8 +2839,7 @@ function Index() {
                           {filteredCreditRating?.length > 0
                             ? (
                                 Number(
-                                  filteredCreditRating[0].financialProfile.total
-                                    .overallValue /
+                                  filteredCreditRating[0].financialProfile.total.overallValue /
                                     filteredCreditRating[0].totalRating,
                                 ) * 100
                               ).toFixed(2)
@@ -3262,12 +2887,7 @@ function Index() {
               </tr>
               <tr>
                 <td valign="top" style={{ padding: '27px' }}>
-                  <table
-                    width="100%"
-                    cellPadding="15"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr>
                       {camData?.company.groupExposureData?.map((exp, index) => {
                         let name = exp?.name?.split(' ') ?? 'NA';
@@ -3329,10 +2949,7 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  height="33"
-                                  style={{ padding: '19px 0 19px 22px' }}
-                                >
+                                <td height="33" style={{ padding: '19px 0 19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
@@ -3362,10 +2979,7 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  style={{ padding: '0 22px 19px' }}
-                                >
+                                <td colSpan={2} style={{ padding: '0 22px 19px' }}>
                                   <span
                                     style={{
                                       background: '#F3F4F7',
@@ -3390,10 +3004,7 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  height="33"
-                                  style={{ padding: '19px 0 19px 22px' }}
-                                >
+                                <td height="33" style={{ padding: '19px 0 19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
@@ -3424,10 +3035,7 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  style={{ padding: '0 22px 19px' }}
-                                >
+                                <td colSpan={2} style={{ padding: '0 22px 19px' }}>
                                   <span
                                     style={{
                                       background: '#F3F4F7',
@@ -3452,11 +3060,7 @@ function Index() {
                                 </td>
                               </tr>
                               <tr>
-                                <td
-                                  colSpan={2}
-                                  height="33"
-                                  style={{ padding: '19px 22px' }}
-                                >
+                                <td colSpan={2} height="33" style={{ padding: '19px 22px' }}>
                                   <span
                                     style={{
                                       fontSize: '16px',
@@ -3614,12 +3218,7 @@ function Index() {
               </tr>
               <tr>
                 <td valign="top" colSpan={8}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         width="2%"
@@ -3914,10 +3513,7 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {
-                    camData.company.detailedCompanyInfo.profile.auditorDetail[0]
-                      .nameOfAuditor
-                  }
+                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}
                 </td>
                 <td
                   style={{
@@ -3938,12 +3534,9 @@ function Index() {
                     paddingBottom: '61px',
                   }}
                 >
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
-                    .nameOfAuditor
-                    ? camData.company.detailedCompanyInfo.profile
-                        .auditorDetail[0].nameOfAuditor ==
-                      camData.company.detailedCompanyInfo.profile
-                        .auditorDetail[1].nameOfAuditor
+                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor
+                    ? camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor ==
+                      camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor
                       ? 'No'
                       : 'Yes'
                     : ''}
@@ -4043,99 +3636,97 @@ function Index() {
                   % SHAREHOLDING
                 </td>
               </tr>
-              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
-                (director, index) => {
-                  let name = director?.name;
-                  let [fName, lName] = director?.name.split(' ');
-                  return (
-                    <tr>
-                      <td
-                        width="5%"
-                        height="60"
+              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => {
+                let name = director?.name;
+                let [fName, lName] = director?.name.split(' ');
+                return (
+                  <tr>
+                    <td
+                      width="5%"
+                      height="60"
+                      style={{
+                        padding: '21px 12px 21px 35px',
+                      }}
+                    >
+                      <span
                         style={{
-                          padding: '21px 12px 21px 35px',
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block',
-                          }}
-                        >
-                          {fName?.charAt(0)}
-                          {lName?.charAt(0)}
-                        </span>
-                      </td>
-                      <td
-                        width="25%"
-                        style={{
-                          fontSize: '22px',
-                          color: '#111111',
-                          lineHeight: '27px',
+                          fontSize: '28px',
+                          color: '#FF9D00',
+                          lineHeight: '34px',
                           fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
+                          background: '#FFECCF',
+                          borderRadius: '8px',
+                          padding: '13px 0',
+                          width: '60px',
+                          height: '60px',
+                          textAlign: 'center',
+                          display: 'inline-block',
                         }}
                       >
-                        {director?.name}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director?.pan[0]}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.din}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.tenureStartDate}
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '24px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >
-                        {director.percentageShareHolding}%
-                      </td>
-                    </tr>
-                  );
-                },
-              )}
+                        {fName?.charAt(0)}
+                        {lName?.charAt(0)}
+                      </span>
+                    </td>
+                    <td
+                      width="25%"
+                      style={{
+                        fontSize: '22px',
+                        color: '#111111',
+                        lineHeight: '27px',
+                        fontWeight: 'bold',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director?.name}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director?.pan[0]}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.din}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '23px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.tenureStartDate}
+                    </td>
+                    <td
+                      style={{
+                        fontSize: '19px',
+                        color: '#111111',
+                        lineHeight: '24px',
+                        paddingTop: '21px',
+                        paddingBottom: '21px',
+                      }}
+                    >
+                      {director.percentageShareHolding}%
+                    </td>
+                  </tr>
+                );
+              })}
             </table>
           </td>
         </tr>
@@ -4171,34 +3762,16 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  width="33%"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="33%" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="center" style={{ padding: '35px' }}>
                         <img src={`${shareHoldingChartImg}`}></img>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        valign="top"
-                        align="center"
-                        style={{ padding: '20px 35px' }}
-                      >
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                      <td valign="top" align="center" style={{ padding: '20px 35px' }}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Share.datasets &&
                               top3Share?.datasets[0]?.data.map((val, index) => {
@@ -4225,11 +3798,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      <span>
-                                        {top3Share.labels[index] == ''
-                                          ? 'NA'
-                                          : top3Share.labels[index]}
-                                      </span>
+                                      <span>{top3Share.labels[index] == '' ? 'NA' : top3Share.labels[index]}</span>
                                     </td>
                                   </>
                                 );
@@ -4241,12 +3810,7 @@ function Index() {
                   </table>
                 </td>
                 <td width="66%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         colSpan={2}
@@ -4297,115 +3861,108 @@ function Index() {
                       </td>
                     </tr>
                     {camData &&
-                      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
-                        (share, index) => {
-                          let name = share?.fullName ?? 'N A';
-                          let [fName, lName] = name?.split(' ');
+                      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map((share, index) => {
+                        let name = share?.fullName ?? 'N A';
+                        let [fName, lName] = name?.split(' ');
 
-                          let colors = [
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#3687E8',
-                            },
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#43C34D',
-                            },
-                            {
-                              primary: '#FFECCF',
-                              secondary: '#FF9D00',
-                            },
-                          ];
-                          let randColor =
-                            colors[Math.floor(Math.random() * colors.length)];
-                          return (
-                            <tr>
-                              <td
-                                width="5%"
-                                height="60"
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ];
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                          <tr>
+                            <td
+                              width="5%"
+                              height="60"
+                              style={{
+                                padding: '21px 12px 21px 35px',
+                              }}
+                            >
+                              <span
                                 style={{
-                                  padding: '21px 12px 21px 35px',
-                                }}
-                              >
-                                <span
-                                  style={{
-                                    fontSize: '28px',
-                                    color: `${randColor.secondary}`,
-                                    lineHeight: '34px',
-                                    fontWeight: 'bold',
-                                    background: `${randColor.primary}`,
-                                    borderRadius: '8px',
-                                    padding: '13px 0',
-                                    width: '60px',
-                                    height: '60px',
-                                    textAlign: 'center',
-                                    display: 'inline-block',
-                                  }}
-                                >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </td>
-                              <td
-                                width="25%"
-                                style={{
-                                  fontSize: '20px',
-                                  color: '#111111',
-                                  lineHeight: '27px',
+                                  fontSize: '28px',
+                                  color: `${randColor.secondary}`,
+                                  lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  background: `${randColor.primary}`,
+                                  borderRadius: '8px',
+                                  padding: '13px 0',
+                                  width: '60px',
+                                  height: '60px',
+                                  textAlign: 'center',
+                                  display: 'inline-block',
                                 }}
                               >
-                                {' '}
-                                {share?.fullName}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {Number(share?.numberOfShares)?.toLocaleString(
-                                  'en-In',
-                                )}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {share?.percentageShareHolding
-                                  ? Number(
-                                      share?.percentageShareHolding,
-                                    )?.toLocaleString('en-In', {
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2,
-                                    }) + '%'
-                                  : ''}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {share?.director ? 'Yes' : 'No'}
-                              </td>
-                            </tr>
-                          );
-                        },
-                      )}
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                              </span>
+                            </td>
+                            <td
+                              width="25%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {' '}
+                              {share?.fullName}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {Number(share?.numberOfShares)?.toLocaleString('en-In')}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {share?.percentageShareHolding
+                                ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }) + '%'
+                                : ''}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {share?.director ? 'Yes' : 'No'}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </table>
                 </td>
               </tr>
@@ -4444,34 +4001,16 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  width="33%"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="33%" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td align="center" style={{ padding: '35px' }}>
                         <img src={`${openBankChargeChartImg}`}></img>
                       </td>
                     </tr>
                     <tr>
-                      <td
-                        valign="top"
-                        align="center"
-                        style={{ padding: '20px 35px' }}
-                      >
-                        <table
-                          width="100%"
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                      <td valign="top" align="center" style={{ padding: '20px 35px' }}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
                             {top3Open.datasets &&
                               top3Open?.datasets[0]?.data.map((val, index) => {
@@ -4498,10 +4037,7 @@ function Index() {
                                         fontWeight: '500',
                                       }}
                                     >
-                                      &nbsp;{' '}
-                                      {top3Open.labels[index] == ''
-                                        ? 'NA'
-                                        : top3Open.labels[index]}
+                                      &nbsp; {top3Open.labels[index] == '' ? 'NA' : top3Open.labels[index]}
                                     </td>
                                   </>
                                 );
@@ -4513,12 +4049,7 @@ function Index() {
                   </table>
                 </td>
                 <td width="66%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         colSpan={2}
@@ -4558,108 +4089,97 @@ function Index() {
                       </td>
                     </tr>
                     {orderList &&
-                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
-                        (charge, index) => {
-                          let name = charge?.nameOfChargeHolder;
-                          let [fName, lName] = name?.split(' ');
+                      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map((charge, index) => {
+                        let name = charge?.nameOfChargeHolder;
+                        let [fName, lName] = name?.split(' ');
 
-                          let colors = [
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#3687E8',
-                            },
-                            {
-                              primary: '#ECF9ED',
-                              secondary: '#43C34D',
-                            },
-                            {
-                              primary: '#FFECCF',
-                              secondary: '#FF9D00',
-                            },
-                          ];
-                          let randColor =
-                            colors[Math.floor(Math.random() * colors.length)];
-                          return (
-                            <tr>
-                              <td
-                                width="5%"
-                                height="60"
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ];
+                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        return (
+                          <tr>
+                            <td
+                              width="5%"
+                              height="60"
+                              style={{
+                                padding: '21px 12px 21px 35px',
+                              }}
+                            >
+                              <span
                                 style={{
-                                  padding: '21px 12px 21px 35px',
-                                }}
-                              >
-                                <span
-                                  style={{
-                                    fontSize: '28px',
-                                    color: `${randColor.secondary}`,
-                                    lineHeight: '34px',
-                                    fontWeight: 'bold',
-                                    background: `${randColor.primary}`,
-                                    borderRadius: '8px',
-                                    padding: '13px 0',
-                                    width: '60px',
-                                    height: '60px',
-                                    textAlign: 'center',
-                                    display: 'inline-block',
-                                  }}
-                                >
-                                  {' '}
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
-                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
-                                </span>
-                              </td>
-                              <td
-                                width="25%"
-                                style={{
-                                  fontSize: '20px',
-                                  color: '#111111',
-                                  lineHeight: '27px',
+                                  fontSize: '28px',
+                                  color: `${randColor.secondary}`,
+                                  lineHeight: '34px',
                                   fontWeight: 'bold',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
+                                  background: `${randColor.primary}`,
+                                  borderRadius: '8px',
+                                  padding: '13px 0',
+                                  width: '60px',
+                                  height: '60px',
+                                  textAlign: 'center',
+                                  display: 'inline-block',
                                 }}
                               >
                                 {' '}
-                                {charge?.nameOfChargeHolder
-                                  ? charge?.nameOfChargeHolder
-                                  : charge?.nameOfChargeHolder1}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {convertValue(
-                                  charge?.finalAmountSecured,
-                                  camConversionunit,
-                                ).toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                })}
-                              </td>
-                              <td
-                                style={{
-                                  fontSize: '19px',
-                                  color: '#111111',
-                                  lineHeight: '23px',
-                                  paddingTop: '21px',
-                                  paddingBottom: '21px',
-                                }}
-                              >
-                                {charge?.dateOfCreationOfCharge
-                                  ? moment(
-                                      charge?.dateOfCreationOfCharge,
-                                      'DD-YY-MMMM',
-                                    ).format('DD-MM-YYYY')
-                                  : ''}
-                              </td>
-                            </tr>
-                          );
-                        },
-                      )}
+                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                              </span>
+                            </td>
+                            <td
+                              width="25%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {' '}
+                              {charge?.nameOfChargeHolder ? charge?.nameOfChargeHolder : charge?.nameOfChargeHolder1}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {convertValue(charge?.finalAmountSecured, camConversionunit).toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              })}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '19px',
+                                color: '#111111',
+                                lineHeight: '23px',
+                                paddingTop: '21px',
+                                paddingBottom: '21px',
+                              }}
+                            >
+                              {charge?.dateOfCreationOfCharge
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format('DD-MM-YYYY')
+                                : ''}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     {/* <tr>
                       <td
                         width="5%"
@@ -4761,13 +4281,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="33%" valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="6"
-                    cellSpacing="0"
-                    border="0"
-                    style={{ marginBottom: '40px' }}
-                  >
+                  <table width="100%" cellPadding="6" cellSpacing="0" border="0" style={{ marginBottom: '40px' }}>
                     <tr>
                       <td
                         style={{
@@ -4866,14 +4380,11 @@ function Index() {
                               >
                                 <span
                                   style={{
-                                    background: `${debtProfileColor(
-                                      debt.conduct,
-                                    )}`,
+                                    background: `${debtProfileColor(debt.conduct)}`,
                                     width: `${
                                       (Number(debt.limit) / totalLimitDebt() > 1
                                         ? 1
-                                        : Number(debt.limit) /
-                                          totalLimitDebt()) * 100
+                                        : Number(debt.limit) / totalLimitDebt()) * 100
                                     }%`,
                                     height: '10px',
                                     borderRadius: '2px',
@@ -4905,17 +4416,8 @@ function Index() {
                   </table>
                 </td>
 
-                <td
-                  width="67%"
-                  valign="top"
-                  style={{ borderLeft: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td width="67%" valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         style={{
@@ -5088,15 +4590,11 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.monthlyProductionCapacity
-                    ? Number(
-                        camData?.productSummary?.monthlyProductionCapacity,
-                      )?.toLocaleString('en-In', {
+                    ? Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.monthlyProductionCapacity
-                    ? 'MT'
-                    : ''}
+                  {camData?.productSummary?.monthlyProductionCapacity ? 'MT' : ''}
                 </td>
                 <td
                   width="30%"
@@ -5121,9 +4619,7 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.averageStockInTransit
-                    ? Number(
-                        camData?.productSummary?.averageStockInTransit,
-                      )?.toLocaleString('en-In', {
+                    ? Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
@@ -5150,12 +4646,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.capacityUtilization?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}{' '}
+                  {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
                   {camData?.productSummary?.capacityUtilization ? '%' : ''}
                 </td>
                 <td
@@ -5175,15 +4668,10 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {camData?.productSummary?.averageStockOfCommodity?.toLocaleString(
-                    'en-In',
-                    {
-                      maximumFractionDigits: 2,
-                    },
-                  )}{' '}
-                  {camData?.productSummary?.averageStockOfCommodity
-                    ? 'Days'
-                    : ''}
+                  {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
+                  {camData?.productSummary?.averageStockOfCommodity ? 'Days' : ''}
                 </td>
               </tr>
               <tr>
@@ -5207,9 +4695,7 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.availableStock
-                    ? Number(
-                        camData?.productSummary?.availableStock,
-                      )?.toLocaleString('en-In', {
+                    ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
@@ -5249,9 +4735,7 @@ function Index() {
                       true,
                     )} */}
                   {camData?.productSummary?.AvgMonthlyElectricityBill
-                    ? Number(
-                        camData?.productSummary?.AvgMonthlyElectricityBill,
-                      )?.toLocaleString('en-In', {
+                    ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
                     : ''}
@@ -5281,15 +4765,11 @@ function Index() {
                 >
                   {' '}
                   {camData?.productSummary?.dailyConsumptionOfCommodity
-                    ? Number(
-                        camData?.productSummary?.dailyConsumptionOfCommodity,
-                      )?.toLocaleString('en-In', {
+                    ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })
                     : ''}{' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity
-                    ? 'MT'
-                    : ''}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity ? 'MT' : ''}
                 </td>
               </tr>
             </table>
@@ -5387,8 +4867,7 @@ function Index() {
                   Gross Revenue
                 </td>
                 <td align="center" style={{ paddingTop: '23px' }}>
-                  {RevenueDetails?.grossTurnover?.previous?.value ||
-                  RevenueDetails?.grossTurnover?.current?.value ? (
+                  {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5412,9 +4891,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.current?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5429,9 +4906,7 @@ function Index() {
                 >
                   {' '}
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.grossTurnover?.previous?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.grossTurnover?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5488,9 +4963,7 @@ function Index() {
                 >
                   {' '}
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.relatedPartySales?.current?.value),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5503,11 +4976,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.relatedPartySales?.previous?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.relatedPartySales?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5562,11 +5031,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.current?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5579,11 +5044,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(
-                        RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                      ),
-                    ).toFixed(2),
+                    CovertvaluefromtoCR(Number(RevenueDetails?.intraOrgSalesPercent?.previous?.value)).toFixed(2),
                     true,
                   )}{' '}
                   Cr
@@ -5616,14 +5077,10 @@ function Index() {
                   B2B Sales
                 </td>
                 <td align="center">
-                  {RevenueDetails?.B2BSales?.previous?.value ||
-                  RevenueDetails?.B2BSales?.current?.value ? (
+                  {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.B2BSales?.previous?.value,
-                          RevenueDetails?.B2BSales?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5638,13 +5095,16 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2BSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.current?.value)).toFixed(2), true)} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2BSales?.previous?.value)).toFixed(2), true)} Cr
                 </td>
                 <td
                   style={{
@@ -5654,25 +5114,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2BSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.B2BSales?.previous?.value,
-                      RevenueDetails?.B2BSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.B2BSales?.previous?.value, RevenueDetails?.B2BSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5689,14 +5131,10 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.B2CSales?.previous?.value ||
-                  RevenueDetails?.B2CSales?.current?.value ? (
+                  {RevenueDetails?.B2CSales?.previous?.value || RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.B2CSales?.previous?.value,
-                          RevenueDetails?.B2CSales?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5711,13 +5149,16 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2CSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.current?.value)).toFixed(2), true)} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.B2CSales?.previous?.value)).toFixed(2), true)} Cr
                 </td>
                 <td
                   style={{
@@ -5727,25 +5168,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.B2CSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.B2CSales?.previous?.value,
-                      RevenueDetails?.B2CSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.B2CSales?.previous?.value, RevenueDetails?.B2CSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5762,8 +5185,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.exportSales?.previous?.value ||
-                  RevenueDetails?.exportSales?.current?.value ? (
+                  {RevenueDetails?.exportSales?.previous?.value || RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5784,12 +5206,17 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.exportSales?.current?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.current?.value)).toFixed(2), true)}{' '}
+                  Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(CovertvaluefromtoCR(Number(RevenueDetails?.exportSales?.previous?.value)).toFixed(2), true)}{' '}
                   Cr
                 </td>
                 <td
@@ -5800,25 +5227,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    CovertvaluefromtoCR(
-                      Number(RevenueDetails?.exportSales?.previous?.value),
-                    ).toFixed(2),
-                    true,
-                  )}{' '}
-                  Cr
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.exportSales?.previous?.value,
-                      RevenueDetails?.exportSales?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.exportSales?.previous?.value, RevenueDetails?.exportSales?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5835,8 +5244,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.ttlCustomer?.previous?.value ||
-                  RevenueDetails?.ttlCustomer?.current?.value ? (
+                  {RevenueDetails?.ttlCustomer?.previous?.value || RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -5857,10 +5265,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 0 },
-                  )}
+                  {RevenueDetails?.ttlCustomer?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
                 </td>
                 <td
                   style={{
@@ -5869,10 +5274,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 0 },
-                  )}
+                  {RevenueDetails?.ttlCustomer?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 0 })}
                 </td>
                 <td
                   style={{
@@ -5882,10 +5284,7 @@ function Index() {
                   }}
                 >
                   {checkNan(
-                    calcPc(
-                      RevenueDetails?.ttlCustomer?.previous?.value,
-                      RevenueDetails?.ttlCustomer?.current?.value,
-                    ),
+                    calcPc(RevenueDetails?.ttlCustomer?.previous?.value, RevenueDetails?.ttlCustomer?.current?.value),
                   ) + '%'}
                 </td>
               </tr>
@@ -5902,14 +5301,10 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  {RevenueDetails?.ttlInv?.previous?.value ||
-                  RevenueDetails?.ttlInv?.current?.value ? (
+                  {RevenueDetails?.ttlInv?.previous?.value || RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
-                        calcPc(
-                          RevenueDetails?.ttlInv?.previous?.value,
-                          RevenueDetails?.ttlInv?.current?.value,
-                        ) > 0
+                        calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value) > 0
                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
                           : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
                       }
@@ -5924,10 +5319,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlInv?.current?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}
+                  {RevenueDetails?.ttlInv?.current?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5936,10 +5328,7 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString(
-                    'en-In',
-                    { maximumFractionDigits: 2 },
-                  )}
+                  {RevenueDetails?.ttlInv?.previous?.value?.toLocaleString('en-In', { maximumFractionDigits: 2 })}
                 </td>
                 <td
                   style={{
@@ -5948,12 +5337,8 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {checkNan(
-                    calcPc(
-                      RevenueDetails?.ttlInv?.previous?.value,
-                      RevenueDetails?.ttlInv?.current?.value,
-                    ),
-                  ) + '%'}
+                  {checkNan(calcPc(RevenueDetails?.ttlInv?.previous?.value, RevenueDetails?.ttlInv?.current?.value)) +
+                    '%'}
                 </td>
               </tr>
               <tr>
@@ -6053,10 +5438,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}>
-                    {' '}
-                    Quarterly
-                  </span>
+                  <span style={{ color: '#3687E8', float: 'right' }}> Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -6079,10 +5461,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
-                        ),
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6106,10 +5485,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
-                        ),
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6118,10 +5494,7 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  align="center"
-                  style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}
-                >
+                <td align="center" style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}>
                   <img src={`${trendChartRevenueImg}`}></img>
                 </td>
                 <td align="center" style={{ padding: '35px' }}>
@@ -6129,16 +5502,8 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  valign="top"
-                  style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td valign="top" style={{ borderRight: '2px solid #CAD6E6', padding: '35px' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         align="center"
@@ -6164,12 +5529,7 @@ function Index() {
                   </table>
                 </td>
                 <td valign="top" style={{ padding: '35px' }}>
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td
                         align="center"
@@ -6239,9 +5599,7 @@ function Index() {
                     fontWeight: 'bold',
                   }}
                 >
-                  <span style={{ color: '#3687E8', float: 'right' }}>
-                    Quarterly
-                  </span>
+                  <span style={{ color: '#3687E8', float: 'right' }}>Quarterly</span>
                   <span style={{ float: 'right' }}>Display By: &nbsp;</span>
                 </td>
               </tr>
@@ -6264,10 +5622,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.grossTurnover?.current?.value,
-                        ),
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6291,10 +5646,7 @@ function Index() {
                     :{' '}
                     {checkNan(
                       CovertvaluefromtoCR(
-                        Number(
-                          gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                            ?.grossPurchases?.current?.value,
-                        ),
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value),
                       ).toFixed(2),
                       true,
                     )}{' '}
@@ -6303,73 +5655,54 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  align="left"
-                  valign="middle"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td align="left" valign="middle" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td width="45%" style={{ padding: '35px' }}>
                         <img src={`${skewnessChartRevenueImg}`}></img>
                       </td>
                       <td width="55%" style={{ padding: '35px' }}>
-                        <table
-                          width="100%"
-                          cellPadding="10"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
                           {top5Customers.datasets &&
-                            top5Customers?.datasets[0]?.data?.map(
-                              (val, index) => {
-                                return (
-                                  <tr>
-                                    <td width="5%" align="left">
-                                      <span
-                                        style={{
-                                          background: `${backgroundColor[index]}`,
-                                          borderRadius: '4px',
-                                          width: '16px',
-                                          height: '16px',
-                                          display: 'inline-block',
-                                        }}
-                                      ></span>
-                                    </td>
-                                    <td
-                                      width="55%"
-                                      align="left"
+                            top5Customers?.datasets[0]?.data?.map((val, index) => {
+                              return (
+                                <tr>
+                                  <td width="5%" align="left">
+                                    <span
                                       style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
+                                        background: `${backgroundColor[index]}`,
+                                        borderRadius: '4px',
+                                        width: '16px',
+                                        height: '16px',
+                                        display: 'inline-block',
                                       }}
-                                    >
-                                      {top5Customers.labels[index]}
-                                    </td>
-                                    <td
-                                      width="40%"
-                                      align="left"
-                                      style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
-                                      }}
-                                    >
-                                      {((val / totalCustomer) * 100)?.toFixed(
-                                        2,
-                                      )}
-                                      %
-                                    </td>
-                                  </tr>
-                                );
-                              },
-                            )}
+                                    ></span>
+                                  </td>
+                                  <td
+                                    width="55%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {top5Customers.labels[index]}
+                                  </td>
+                                  <td
+                                    width="40%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {((val / totalCustomer) * 100)?.toFixed(2)}%
+                                  </td>
+                                </tr>
+                              );
+                            })}
                           {/* <tr>
                             <td width="5%" align="left">
                               <span
@@ -6411,68 +5744,53 @@ function Index() {
                   </table>
                 </td>
                 <td align="left" valign="middle">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td width="45%" style={{ padding: '35px' }}>
                         <img src={`${skewnessChartPurchasesImg}`}></img>
                       </td>
                       <td width="45%" style={{ padding: '35px' }}>
-                        <table
-                          width="100%"
-                          cellPadding="10"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
                           {top5Suppliers.datasets &&
-                            top5Customers?.datasets[0]?.data?.map(
-                              (val, index) => {
-                                return (
-                                  <tr>
-                                    <td width="5%" align="left">
-                                      <span
-                                        style={{
-                                          background: `${backgroundColor[index]}`,
-                                          borderRadius: '4px',
-                                          width: '16px',
-                                          height: '16px',
-                                          display: 'inline-block',
-                                        }}
-                                      ></span>
-                                    </td>
-                                    <td
-                                      width="55%"
-                                      align="left"
+                            top5Customers?.datasets[0]?.data?.map((val, index) => {
+                              return (
+                                <tr>
+                                  <td width="5%" align="left">
+                                    <span
                                       style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
+                                        background: `${backgroundColor[index]}`,
+                                        borderRadius: '4px',
+                                        width: '16px',
+                                        height: '16px',
+                                        display: 'inline-block',
                                       }}
-                                    >
-                                      {top5Suppliers.labels[index]}
-                                    </td>
-                                    <td
-                                      width="40%"
-                                      align="left"
-                                      style={{
-                                        fontSize: '19px',
-                                        color: '#111111',
-                                        lineHeight: '23px',
-                                      }}
-                                    >
-                                      {((val / totalSupplier) * 100)?.toFixed(
-                                        2,
-                                      )}
-                                      %
-                                    </td>
-                                  </tr>
-                                );
-                              },
-                            )}
+                                    ></span>
+                                  </td>
+                                  <td
+                                    width="55%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {top5Suppliers.labels[index]}
+                                  </td>
+                                  <td
+                                    width="40%"
+                                    align="left"
+                                    style={{
+                                      fontSize: '19px',
+                                      color: '#111111',
+                                      lineHeight: '23px',
+                                    }}
+                                  >
+                                    {((val / totalSupplier) * 100)?.toFixed(2)}%
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </table>
                       </td>
                     </tr>
@@ -6514,25 +5832,11 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
-                  valign="top"
-                  width="50%"
-                  style={{ borderRight: '2px solid #CAD6E6' }}
-                >
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                <td valign="top" width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                             <td
                               width="50%"
@@ -6555,11 +5859,7 @@ function Index() {
                                 textTransform: 'uppercase',
                               }}
                             >
-                              {moment(
-                                companyData?.financial?.balanceSheet[0]?.date,
-                              )
-                                .format('MMM-YY')
-                                ?.toUpperCase()}
+                              {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')?.toUpperCase()}
                             </td>
                             <td
                               style={{
@@ -6570,11 +5870,7 @@ function Index() {
                                 textTransform: 'uppercase',
                               }}
                             >
-                              {moment(
-                                companyData?.financial?.balanceSheet[1]?.date,
-                              )
-                                .format('MMM-YY')
-                                ?.toUpperCase()}
+                              {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')?.toUpperCase()}
                             </td>
                           </tr>
                           <tr>
@@ -6599,11 +5895,7 @@ function Index() {
                               }}
                             >
                               {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.totalEquity',
-                                  '',
-                                ),
+                                _get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', ''),
                               ).toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumSignificantDigits: 2,
@@ -6619,11 +5911,7 @@ function Index() {
                               }}
                             >
                               {convertValue(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.totalEquity',
-                                  '',
-                                ),
+                                _get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', ''),
                               ).toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
                                 maximumSignificantDigits: 2,
@@ -6715,11 +6003,7 @@ function Index() {
                             >
                               {convertValue(
                                 Number(
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.tradePay',
-                                    '',
-                                  ) +
+                                  _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
                                     _get(
                                       companyData,
                                       'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
@@ -6741,11 +6025,7 @@ function Index() {
                             >
                               {convertValue(
                                 Number(
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.tradePay',
-                                    '',
-                                  ) +
+                                  _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
                                     _get(
                                       companyData,
                                       'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
@@ -6816,12 +6096,7 @@ function Index() {
                     </tr>
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr
                             bgColor="#FAFAFB"
                             style={{
@@ -6864,11 +6139,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )?.workingCapitalTurnover?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.workingCapitalTurnover?.toFixed(2)}
                             </td>
                             <td
                               style={{
@@ -6879,11 +6150,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 ?.workingCapitalTurnover?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6907,11 +6174,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})
                                 ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6923,11 +6186,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -6951,11 +6210,9 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )?.daysOfPayablesOutstanding?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding?.toFixed(
+                                2,
+                              )}
                             </td>
                             <td
                               style={{
@@ -6965,11 +6222,9 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )?.daysOfPayablesOutstanding?.toFixed(2)}
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(
+                                2,
+                              )}
                             </td>
                           </tr>
                           <tr>
@@ -6991,11 +6246,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})
                                 .daysOfInventoryOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -7007,11 +6258,7 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})
                                 .daysOfInventoryOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
@@ -7021,12 +6268,7 @@ function Index() {
                     </tr>
                     <tr>
                       <td valign="top">
-                        <table
-                          width="100%"
-                          cellPadding="13"
-                          cellSpacing="0"
-                          border="0"
-                        >
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
                           <tr
                             bgColor="#FAFAFB"
                             style={{
@@ -7069,9 +6311,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {latestYearData?.interestCoverage
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7082,9 +6322,7 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {previousYearData?.interestCoverage
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -7108,9 +6346,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {latestYearData?.currentRatio
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7121,9 +6357,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {previousYearData?.currentRatio
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.currentRatio?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -7147,9 +6381,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {latestYearData?.debtEquity
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
                             </td>
                             <td
                               style={{
@@ -7160,9 +6392,7 @@ function Index() {
                                 paddingBottom: '52px',
                               }}
                             >
-                              {previousYearData?.debtEquity
-                                ?.toFixed(2)
-                                ?.toLocaleString()}
+                              {previousYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
                             </td>
                           </tr>
                         </table>
@@ -7171,12 +6401,7 @@ function Index() {
                   </table>
                 </td>
                 <td valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="15"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         width="50%"
@@ -7617,9 +6842,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {latestYearData?.interestCoverage
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
+                        {latestYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7629,9 +6852,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {previousYearData?.interestCoverage
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
+                        {previousYearData?.interestCoverage?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -7653,9 +6874,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .currentRatio?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7665,9 +6884,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .currentRatio?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).currentRatio?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
@@ -7689,9 +6906,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
-                          .debtEquity?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td
                         style={{
@@ -7701,9 +6916,7 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
-                          .debtEquity?.toFixed(2)
-                          ?.toLocaleString()}
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).debtEquity?.toFixed(2)?.toLocaleString()}
                       </td>
                     </tr>
                     {/* <tr>
@@ -7774,17 +6987,9 @@ function Index() {
                   }}
                 >
                   {[].forEach((l, index2) => {})}
-                  {_get(
-                    companyData,
-                    'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                    '',
-                  ) != ''
+                  {_get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', '') != ''
                     ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
+                        _get(companyData, 'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1', ''),
                         'MMyyyy',
                       ).format('MM-yyyy')
                     : ''}
@@ -7877,9 +7082,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {litigationStatus
-                    ? litigationStatus
-                    : camData?.company?.litigationStatus}
+                  {litigationStatus ? litigationStatus : camData?.company?.litigationStatus}
                 </td>
                 <td
                   style={{
@@ -7898,9 +7101,7 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {companyData?.compliance.other?.defaulterCompany
-                    ? 'YES'
-                    : 'NO'}
+                  {companyData?.compliance.other?.defaulterCompany ? 'YES' : 'NO'}
                 </td>
               </tr>
               <tr>
@@ -8028,11 +7229,9 @@ function Index() {
                     }}
                   >
                     {camData &&
-                      camData?.company?.recommendation?.strengths?.map(
-                        (comment, index) => (
-                          <li style={{ padding: '15px 0' }}>{comment}</li>
-                        ),
-                      )}
+                      camData?.company?.recommendation?.strengths?.map((comment, index) => (
+                        <li style={{ padding: '15px 0' }}>{comment}</li>
+                      ))}
                   </ul>
                 </td>
                 <td
@@ -8079,11 +7278,9 @@ function Index() {
                     }}
                   >
                     {camData &&
-                      camData?.company?.recommendation?.weakness?.map(
-                        (comment, index) => (
-                          <li style={{ padding: '15px 0' }}>{comment}</li>
-                        ),
-                      )}
+                      camData?.company?.recommendation?.weakness?.map((comment, index) => (
+                        <li style={{ padding: '15px 0' }}>{comment}</li>
+                      ))}
                   </ul>
                 </td>
               </tr>
@@ -8142,9 +7339,7 @@ function Index() {
                   >
                     {' '}
                     {addPrefixOrSuffix(
-                      convertValue(
-                        camData?.company?.creditLimit?.totalLimit,
-                      )?.toLocaleString('en-In'),
+                      convertValue(camData?.company?.creditLimit?.totalLimit)?.toLocaleString('en-In'),
                       'Cr',
                       '',
                     )}
@@ -8172,9 +7367,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString(
-                      'en-In',
-                    )}
+                    {camData?.company?.creditLimit?.utilizedLimit?.toLocaleString('en-In')}
                   </span>
                 </td>
                 <td
@@ -8199,20 +7392,13 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.availableLimit?.toLocaleString(
-                      'en-In',
-                    )}
+                    {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                   </span>
                 </td>
               </tr>
               <tr>
                 <td colSpan={4} valign="top">
-                  <table
-                    width="100%"
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                       <td
                         style={{
@@ -8309,9 +7495,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {camData?.company?.creditLimit?.availableLimit?.toLocaleString(
-                          'en-In',
-                        )}
+                        {camData?.company?.creditLimit?.availableLimit?.toLocaleString('en-In')}
                       </td>
                       <td
                         align="center"
@@ -8322,15 +7506,10 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {filteredCreditRating &&
-                        filteredCreditRating?.length > 0
+                        {filteredCreditRating && filteredCreditRating?.length > 0
                           ? filteredCreditRating?.length > 0 &&
                             filteredCreditRating?.map((val, index) => {
-                              checkNan(
-                                convertValue(
-                                  val?.derived?.value,
-                                )?.toLocaleString('en-In'),
-                              );
+                              checkNan(convertValue(val?.derived?.value)?.toLocaleString('en-In'));
                             })
                           : '-'}
                       </td>
@@ -8348,9 +7527,7 @@ function Index() {
                             return camData?._id === rating.order;
                           })
                           .map((val, index) => {
-                            <td key={index}>
-                              {val?.derived?.value?.toLocaleString('en-In')}
-                            </td>;
+                            <td key={index}>{val?.derived?.value?.toLocaleString('en-In')}</td>;
                           })}
                       </td>
                       <td
@@ -8379,12 +7556,7 @@ function Index() {
                           })
                           .map((val, index) => {
                             <td key={index}>
-                              {checkNan(
-                                convertValue(
-                                  val?.suggested?.value,
-                                )?.toLocaleString('en-In'),
-                              )}{' '}
-                              Cr
+                              {checkNan(convertValue(val?.suggested?.value)?.toLocaleString('en-In'))} Cr
                             </td>;
                           })}
                       </td>
@@ -8397,9 +7569,7 @@ function Index() {
                           padding: '36px 10px 24px',
                         }}
                       >
-                        {approvedCredit?.approvedCreditValue?.toLocaleString(
-                          'en-In',
-                        )}
+                        {approvedCredit?.approvedCreditValue?.toLocaleString('en-In')}
                       </td>
                     </tr>
                     <tr>
@@ -8433,12 +7603,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(camData?.orderValue)?.toLocaleString(
-                          'en-In',
-                          {
-                            maximumFractionDigits: 2,
-                          },
-                        )}
+                        {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td
                         align="center"
@@ -8460,9 +7627,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {convertValue(
-                          camData?.suggestedOrderValue,
-                        )?.toLocaleString('en-In', {
+                        {convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                         })}{' '}
                         Cr
@@ -8485,9 +7650,7 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {approvedCredit?.approvedOrderValue?.toLocaleString(
-                          'en-In',
-                        )}
+                        {approvedCredit?.approvedOrderValue?.toLocaleString('en-In')}
                       </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -8519,13 +7682,9 @@ function Index() {
                           }}
                         >
                           {camData &&
-                            camData?.company?.recommendation?.sanctionTerms?.map(
-                              (condition, index) => (
-                                <li style={{ padding: '15px 0' }}>
-                                  {condition}
-                                </li>
-                              ),
-                            )}
+                            camData?.company?.recommendation?.sanctionTerms?.map((condition, index) => (
+                              <li style={{ padding: '15px 0' }}>{condition}</li>
+                            ))}
                         </ul>
                       </td>
                     </tr>
@@ -8598,10 +7757,7 @@ function Index() {
   };
 
   const deleteData = (index) => {
-    setCompanyComment([
-      ...companyComment.slice(0, index),
-      ...companyComment.slice(index + 1),
-    ]);
+    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)]);
   };
 
   const [totalCourt, setTotalCourt] = useState({
@@ -8632,14 +7788,12 @@ function Index() {
       caseStatus: 'Disposed',
       memberType: 'Petitioner',
     };
-    const users = companyData?.compliance?.districtCourt?.cases?.filter(
-      (item) => {
-        for (let key in filter) {
-          if (item[key] === undefined || item[key] != filter[key]) return false;
-        }
-        return true;
-      },
-    );
+    const users = companyData?.compliance?.districtCourt?.cases?.filter((item) => {
+      for (let key in filter) {
+        if (item[key] === undefined || item[key] != filter[key]) return false;
+      }
+      return true;
+    });
   }, [companyData]);
 
   useEffect(() => {
@@ -8753,89 +7907,51 @@ function Index() {
     let districtCourt = [];
 
     /////***********filterby */
-    if (
-      filterType.filterBy.pending ||
-      filterType.filterBy.disposed ||
-      filterType.filterBy.total
-    ) {
+    if (filterType.filterBy.pending || filterType.filterBy.disposed || filterType.filterBy.total) {
       const filter = (val) => {
-        if (
-          filterType.filterBy.pending &&
-          !filterType.filterBy.total &&
-          !filterType.filterBy.disposed
-        ) {
+        if (filterType.filterBy.pending && !filterType.filterBy.total && !filterType.filterBy.disposed) {
           if (val.caseStatus == 'Pending') {
             return val;
           }
         }
-        if (
-          filterType.filterBy.disposed &&
-          !filterType.filterBy.total &&
-          !filterType.filterBy.pending
-        ) {
+        if (filterType.filterBy.disposed && !filterType.filterBy.total && !filterType.filterBy.pending) {
           if (val.caseStatus == 'Disposed') {
             return val;
           }
         }
-        if (
-          filterType.filterBy.total &&
-          !filterType.filterBy.disposed &&
-          !filterType.filterBy.pending
-        ) {
+        if (filterType.filterBy.total && !filterType.filterBy.disposed && !filterType.filterBy.pending) {
           return val;
         }
-        if (
-          filterType.filterBy.pending &&
-          filterType.filterBy.disposed &&
-          !filterType.filterBy.total
-        ) {
+        if (filterType.filterBy.pending && filterType.filterBy.disposed && !filterType.filterBy.total) {
           if (val.caseStatus == 'Pending' || val.caseStatus == 'Disposed') {
             return val;
           }
         }
 
-        if (
-          filterType.filterBy.pending &&
-          filterType.filterBy.totall &&
-          !filterType.filterBy.disposed
-        ) {
+        if (filterType.filterBy.pending && filterType.filterBy.totall && !filterType.filterBy.disposed) {
           return val;
         }
-        if (
-          filterType.filterBy.disposed &&
-          filterType.filterBy.total &&
-          !filterType.filterBy.pending
-        ) {
+        if (filterType.filterBy.disposed && filterType.filterBy.total && !filterType.filterBy.pending) {
           return val;
         }
-        if (
-          filterType.filterBy.disposed &&
-          filterType.filterBy.total &&
-          filterType.filterBy.pending
-        ) {
+        if (filterType.filterBy.disposed && filterType.filterBy.total && filterType.filterBy.pending) {
           return val;
         }
       };
 
-      supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
+      supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+        return filter(val);
+      });
       highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
         return filter(val);
       });
 
-      tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
-      districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-        (val) => {
-          return filter(val);
-        },
-      );
+      tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+        return filter(val);
+      });
+      districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
+        return filter(val);
+      });
     }
 
     if (filterType.party == 'Respondent' || filterType.party == 'Petitioner') {
@@ -8941,11 +8057,7 @@ function Index() {
     //party2
 
     //risk
-    if (
-      filterType.risk == 'relevence' ||
-      filterType.risk == 'medium' ||
-      filterType.risk == 'high'
-    ) {
+    if (filterType.risk == 'relevence' || filterType.risk == 'medium' || filterType.risk == 'high') {
       const riskFilter = (val) => {
         if (filterType.risk == 'high') {
           if (val.severity_ == 'high') {
@@ -9035,31 +8147,15 @@ function Index() {
     const trendChartRevenue = document.getElementById('trendChartRevenue');
     const trendChartRevenueImg = trendChartRevenue?.toDataURL('image/png', 1.0);
     const trendChartPurchases = document.getElementById('trendChartPurchases');
-    const trendChartPurchasesImg = trendChartPurchases?.toDataURL(
-      'image/png',
-      1.0,
-    );
-    const skewnessChartPurchases = document.getElementById(
-      'skewnessChartPurchases',
-    );
-    const skewnessChartPurchasesImg = skewnessChartPurchases?.toDataURL(
-      'image/png',
-      1.0,
-    );
-    const skewnessChartRevenue = document.getElementById(
-      'skewnessChartRevenue',
-    );
-    const skewnessChartRevenueImg = skewnessChartRevenue?.toDataURL(
-      'image/png',
-      1.0,
-    );
+    const trendChartPurchasesImg = trendChartPurchases?.toDataURL('image/png', 1.0);
+    const skewnessChartPurchases = document.getElementById('skewnessChartPurchases');
+    const skewnessChartPurchasesImg = skewnessChartPurchases?.toDataURL('image/png', 1.0);
+    const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
+    const skewnessChartRevenueImg = skewnessChartRevenue?.toDataURL('image/png', 1.0);
     const shareHoldingChart = document.getElementById('shareHoldingChart');
     const shareHoldingChartImg = shareHoldingChart?.toDataURL('image/png', 1.0);
     const openBankChargeChart = document.getElementById('openBankChargeChart');
-    const openBankChargeChartImg = openBankChargeChart?.toDataURL(
-      'image/png',
-      1.0,
-    );
+    const openBankChargeChartImg = openBankChargeChart?.toDataURL('image/png', 1.0);
 
     doc.html(
       ReactDOMServer.renderToString(
@@ -9106,8 +8202,7 @@ function Index() {
         ...keyAddData,
         {
           addressType: 'Registered Office',
-          completeAddress:
-            companyData?.profile?.companyDetail?.registeredAddress,
+          completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
           contact: {
             callingCode: '+91',
             number: companyData?.profile?.companyDetail?.contactNumber,
@@ -9130,19 +8225,13 @@ function Index() {
                 style={{ cursor: 'pointer' }}
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName
-                  ? orderList?.company?.companyName
-                  : ''}
+                {orderList?.company?.companyName ? orderList?.company?.companyName : ''}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
               <>
-                <div
-                  className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}
-                >
-                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>
-                    Unit :
-                  </h5>
+                <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
+                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
                   <div className="d-flex align-items-center position-relative">
                     <select
                       className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
@@ -9164,9 +8253,7 @@ function Index() {
               </>
             ) : null}
             {uploadBtn ? (
-              <div className="ml-auto text-right">
-                {uploadButton(dispatch, orderList, companyData)}{' '}
-              </div>
+              <div className="ml-auto text-right">{uploadButton(dispatch, orderList, companyData)} </div>
             ) : null}
             {/* <div className="ml-auto text-right">
                 <button type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
@@ -9308,53 +8395,24 @@ function Index() {
           <div className="row">
             <div className="col-md-12 px-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane fade show active"
-                  id="Profile"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade show active" id="Profile" role="tabpanel">
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails
-                      order={orderList?.company}
-                      companyDetail={companyData}
-                    />
-                    <AuditorsDetail
-                      companyData={companyData}
-                      auditorsDetails={companyData?.profile?.auditorDetail}
-                    />
+                    <CompanyDetails order={orderList?.company} companyDetail={companyData} />
+                    <AuditorsDetail companyData={companyData} auditorsDetails={companyData?.profile?.auditorDetail} />
                     <AuditorDeatils directorData={companyData} />
-                    <ShareHoldingPattern
-                      shareHolding={companyData?.profile?.shareholdingPattern}
-                    />
-                    <CreditRatings
-                      creditRating={companyData?.profile?.creditRating}
-                    />
+                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
+                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div
-                    className="accordion shadow-none"
-                    id="FinancialsAccordion"
-                  >
-                    <BalanceSheet
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      balanceData={companyData}
-                    />
+                  <div className="accordion shadow-none" id="FinancialsAccordion">
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
 
-                    <IncomeStatement
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      incomeData={companyData}
-                    />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
 
-                    <CashFlow
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      cashData={companyData}
-                    />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
 
-                    <Ratios
-                      rtrnChartIndiaction={rtrnChartIndiaction}
-                      ratioData={companyData}
-                    />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
 
                     <Peer peerData={companyData} />
 
@@ -9372,9 +8430,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9383,14 +8439,10 @@ function Index() {
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
                         <h2 className="mb-0 w-100 ">Compliance</h2>
-                        <div
-                          className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}
-                        >
+                        <div className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}>
                           <label className={styles.label}>Status:</label>
                           <div className={`${styles.status}`}>
-                            <span>
-                              {companyData?.compliance?.other?.complianceStatus}{' '}
-                            </span>
+                            <span>{companyData?.compliance?.other?.complianceStatus} </span>
                           </div>
                         </div>
                       </div>
@@ -9409,16 +8461,10 @@ function Index() {
                       aria-labelledby="compliance"
                       data-parent="#profileAccordion"
                     >
-                      <div
-                        className={` ${styles.cardBody_compliance} card-body p-0 border_color`}
-                      >
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                      <div className={` ${styles.cardBody_compliance} card-body p-0 border_color`}>
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span
-                              className={`${styles.head} d-flex align-items-center justify-content-flex-start`}
-                            >
+                            <span className={`${styles.head} d-flex align-items-center justify-content-flex-start`}>
                               Severe Risk ({level.sever.length})
                             </span>
                           </Col>
@@ -9426,164 +8472,106 @@ function Index() {
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert?.severity?.trim().toLowerCase() ===
-                                      'severe'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.purple_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert?.severity?.trim().toLowerCase() === 'severe') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_purple} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.purple_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              High Risk ({level.high.length})
-                            </span>
+                            <span className={styles.head}>High Risk ({level.high.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'high'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div className={styles.red_dot}></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'high') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_red} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.red_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              Medium Risk ({level.medium.length})
-                            </span>
+                            <span className={styles.head}>Medium Risk ({level.medium.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'medium'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.yellow_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'medium') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_yellow} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.yellow_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
                         </Row>
-                        <Row
-                          className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}
-                        >
+                        <Row className={`${styles.row} align-items-center mt-1 mb-1 no-gutters`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>
-                              Low Risk ({level.low.length})
-                            </span>
+                            <span className={styles.head}>Low Risk ({level.low.length})</span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
                               className={`${styles.card_compliance_wrapper} d-flex align-items-center justify-content-flex-start`}
                             >
-                              <div
-                                className={`${styles.val} d-flex align-items-center justify-content-flex-start`}
-                              >
-                                {companyData?.compliance?.alerts?.map(
-                                  (alert, index) => {
-                                    if (
-                                      alert.severity.trim().toLowerCase() ===
-                                      'low'
-                                    ) {
-                                      return (
-                                        <div
-                                          key={index}
-                                          className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
-                                        >
-                                          <div
-                                            className={styles.orange_dot}
-                                          ></div>
-                                          <div
-                                            className={`${styles.compliance_content} Compliance ml-1`}
-                                          >
-                                            {alertObj[alert.alert] ??
-                                              alert.alert}
-                                          </div>
+                              <div className={`${styles.val} d-flex align-items-center justify-content-flex-start`}>
+                                {companyData?.compliance?.alerts?.map((alert, index) => {
+                                  if (alert.severity.trim().toLowerCase() === 'low') {
+                                    return (
+                                      <div
+                                        key={index}
+                                        className={`${styles.compliance_orange} d-flex align-items-center justify-content-center`}
+                                      >
+                                        <div className={styles.orange_dot}></div>
+                                        <div className={`${styles.compliance_content} Compliance ml-1`}>
+                                          {alertObj[alert.alert] ?? alert.alert}
                                         </div>
-                                      );
-                                    }
-                                  },
-                                )}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
                           </Col>
@@ -9592,24 +8580,18 @@ function Index() {
                     </div>
                   </div>
                   {/* details */}
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
                     >
                       <h2 className="mb-0 ">Details</h2>
-                      <div
-                        className={`${styles.categories} mb-0 d-flex align-items-center`}
-                      >
+                      <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <div className="d-flex align-items-center position-relative">
                           <select
                             style={{ minWidth: '252px' }}
-                            onChange={(e) =>
-                              setComplienceFilter(e.target.value)
-                            }
+                            onChange={(e) => setComplienceFilter(e.target.value)}
                             className={`${styles.form_control} ${styles.customSelect} input form-control`}
                           >
                             <option>Select an option</option>
@@ -9617,12 +8599,8 @@ function Index() {
                             <option selected value="All">
                               All
                             </option>
-                            <option value="StatutoryCompliance">
-                              Statutory Compliance
-                            </option>
-                            <option value="BankingDefaults">
-                              Banking Defaults
-                            </option>
+                            <option value="StatutoryCompliance">Statutory Compliance</option>
+                            <option value="BankingDefaults">Banking Defaults</option>
                           </select>
                           <img
                             className={`${styles.arrow3} image_arrow img-fluid`}
@@ -9640,30 +8618,17 @@ function Index() {
                         </span>
                       </div>
                     </div>
-                    <div
-                      id="details"
-                      className="collapse"
-                      aria-labelledby="details"
-                      data-parent="#profileAccordion"
-                    >
-                      <div
-                        className={` ${styles.cardBody_details} card-body pb-0 border_color`}
-                      >
+                    <div id="details" className="collapse" aria-labelledby="details" data-parent="#profileAccordion">
+                      <div className={` ${styles.cardBody_details} card-body pb-0 border_color`}>
                         <div className={styles.table_scroll_outer}>
                           <div className={styles.table_scroll_inner}>
-                            {table2(
-                              complienceStatutoryFilter,
-                              complienceBalanceFilter,
-                              complienceFilter,
-                            )}
+                            {table2(complienceStatutoryFilter, complienceBalanceFilter, complienceFilter)}
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.card} card border_color border-bottom`}
-                  >
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9672,22 +8637,14 @@ function Index() {
                         className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}
                       >
                         <h2 className="mb-0">Litigations</h2>
-                        <div
-                          className={`${styles.categories}  d-flex align-items-center`}
-                        >
-                          <label className={styles.label}>
-                            Litigations Status:
-                          </label>
+                        <div className={`${styles.categories}  d-flex align-items-center`}>
+                          <label className={styles.label}>Litigations Status:</label>
                           <div className="d-flex align-items-center position-relative">
                             <select
                               style={{ minWidth: '140px' }}
                               onChange={updateLitigationStatus}
                               className={`${styles.form_control} ${styles.customSelect} input form-control`}
-                              value={
-                                litigationStatus
-                                  ? litigationStatus
-                                  : orderList?.company?.litigationStatus
-                              }
+                              value={litigationStatus ? litigationStatus : orderList?.company?.litigationStatus}
                             >
                               <option selected value="All">
                                 All
@@ -9718,19 +8675,12 @@ function Index() {
                       aria-labelledby="litigations"
                       data-parent="#profileAccordion"
                     >
-                      <div
-                        className={` ${styles.cardBody_litigations} card-body border_color`}
-                      >
-                        <div
-                          className={`${styles.checkbox_Container}`}
-                          data-toggle="collapse"
-                        >
+                      <div className={` ${styles.cardBody_litigations} card-body border_color`}>
+                        <div className={`${styles.checkbox_Container}`} data-toggle="collapse">
                           <Row>
                             <Col md={4}>
                               <p className={`mb-3 text`}>Filter by</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
+                              <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -9738,20 +8688,12 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault"
                                     onChange={() => {
-                                      filterType.filterBy.pending =
-                                        !filterType.filterBy.pending;
+                                      filterType.filterBy.pending = !filterType.filterBy.pending;
                                       setFilterType({ ...filterType });
                                     }}
-                                    checked={
-                                      filterType.filterBy.pending
-                                        ? 'checked'
-                                        : ''
-                                    }
+                                    checked={filterType.filterBy.pending ? 'checked' : ''}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexCheckDefault">
                                     Pending ({totalCourt.pending})
                                   </label>
                                 </div>
@@ -9762,15 +8704,11 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault1"
                                     onChange={() => {
-                                      filterType.filterBy.disposed =
-                                        !filterType.filterBy.disposed;
+                                      filterType.filterBy.disposed = !filterType.filterBy.disposed;
                                       setFilterType({ ...filterType });
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault1"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexCheckDefault1">
                                     Disposed ({totalCourt.disposed})
                                   </label>
                                 </div>
@@ -9781,15 +8719,11 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault3"
                                     onChange={() => {
-                                      filterType.filterBy.total =
-                                        !filterType.filterBy.total;
+                                      filterType.filterBy.total = !filterType.filterBy.total;
                                       setFilterType({ ...filterType });
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexCheckDefault3"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexCheckDefault3">
                                     Total Cases ({totalCourt.total})
                                   </label>
                                 </div>
@@ -9797,9 +8731,7 @@ function Index() {
                             </Col>
                             <Col md={4}>
                               <p className={`mb-3 text`}>Select a Party</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
+                              <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -9811,10 +8743,7 @@ function Index() {
                                       changeParty('Respondent');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault1"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                                     Respondent
                                   </label>
                                 </div>
@@ -9829,10 +8758,7 @@ function Index() {
                                       changeParty('Petitioner');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault2"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                                     Petitioner
                                   </label>
                                 </div>
@@ -9840,9 +8766,7 @@ function Index() {
                             </Col>
                             <Col md={4}>
                               <p className={`mb-3 text`}>Classification</p>
-                              <div
-                                className={` d-flex align-items-center justify-content-start`}
-                              >
+                              <div className={` d-flex align-items-center justify-content-start`}>
                                 <div className="form-check">
                                   <input
                                     className="form-check-input"
@@ -9854,10 +8778,7 @@ function Index() {
                                       changeClass('Civil');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault3"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault3">
                                     Civil
                                   </label>
                                 </div>
@@ -9872,10 +8793,7 @@ function Index() {
                                       changeClass('Criminal');
                                     }}
                                   />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault4"
-                                  >
+                                  <label className="form-check-label" htmlFor="flexRadioDefault4">
                                     Criminal
                                   </label>
                                 </div>
@@ -9886,9 +8804,7 @@ function Index() {
                         <div
                           className={`${styles.risk_Container} d-flex align-items-center justify-content-between  mb-4`}
                         >
-                          <div
-                            className={` w-100 d-flex align-items-center justify-content-start  `}
-                          >
+                          <div className={` w-100 d-flex align-items-center justify-content-start  `}>
                             <label className={styles.control} htmlFor={'high'}>
                               <input
                                 className={styles.checkbox}
@@ -9907,10 +8823,7 @@ function Index() {
                               </span>
                             </label>
 
-                            <label
-                              className={styles.control}
-                              htmlFor={'medium'}
-                            >
+                            <label className={styles.control} htmlFor={'medium'}>
                               <input
                                 className={styles.checkbox}
                                 type="radio"
@@ -9930,10 +8843,7 @@ function Index() {
                                 <span>({totalCourt.medium})</span>
                               </span>
                             </label>
-                            <label
-                              className={styles.control}
-                              htmlFor={'Relevance'}
-                            >
+                            <label className={styles.control} htmlFor={'Relevance'}>
                               <input
                                 className={styles.checkbox}
                                 type="radio"
@@ -9985,15 +8895,7 @@ function Index() {
                           /> */}
                         </div>
 
-                        <div>
-                          {ligitations(
-                            Supreme,
-                            District,
-                            High,
-                            Tribunal,
-                            companyData,
-                          )}
-                        </div>
+                        <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>
                       </div>
                     </div>
                   </div>
@@ -10064,16 +8966,9 @@ function Index() {
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="DocumentsTab"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="DocumentsTab" role="tabpanel">
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther
-                      module="LeadOnboarding&OrderApproval"
-                      orderid={id}
-                    />
+                    <UploadOther module="LeadOnboarding&OrderApproval" orderid={id} />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
@@ -10106,11 +9001,7 @@ function Index() {
           </div>
         </div>
       </div>
-      {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+      {selectedTab == 'Financials' || 'Compliance' || 'Orders' || 'Credit' || 'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -10160,9 +9051,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
   return (
     <>
       <button
-        onClick={() =>
-          dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
-        }
+        onClick={() => dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))}
         type="button"
         className={`${styles.btnPrimary} btn btn-primary`}
       >
@@ -10209,8 +9098,7 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 };
 
 const table2 = (sat, balance, complienceFilter) => {
-  let length =
-    complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
+  let length = complienceFilter == 'Banking Defaults' ? balance.length : sat.length;
   if (complienceFilter == 'All') {
     complienceFilter == sat.length;
   }
@@ -10247,12 +9135,7 @@ const table2 = (sat, balance, complienceFilter) => {
     return result;
   };
   return (
-    <table
-      className={`${styles.table_details} mb-0 table border_color`}
-      cellPadding="0"
-      cellSpacing="0"
-      border="1"
-    >
+    <table className={`${styles.table_details} mb-0 table border_color`} cellPadding="0" cellSpacing="0" border="1">
       <thead>
         <tr>
           <th className=""></th>
@@ -10265,10 +9148,7 @@ const table2 = (sat, balance, complienceFilter) => {
       </thead>
       <tbody>
         <tr>
-          <td
-            className={`${styles.firstCell} text-nowrap`}
-            rowSpan={length + 3}
-          >
+          <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
@@ -10288,21 +9168,10 @@ const table2 = (sat, balance, complienceFilter) => {
               }
               return (
                 <tr key={index}>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.alert, true)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.severity)}
-                  </td>
-                  <td className="text-capitalize">
-                    {alert.source.toUpperCase()}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                  </td>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                   <td className="text-capitalize">
                     {' '}
                     {alert?.value?.length > 1 ? (
@@ -10317,11 +9186,7 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>
-                        {alert.idType == 'dateOfIssuance'
-                          ? moment(alert.value).format('DD-MM-YYYY')
-                          : alert.value}
-                      </>
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                     )}
                   </td>
                 </tr>
@@ -10331,21 +9196,10 @@ const table2 = (sat, balance, complienceFilter) => {
             balance?.map((alert, index) => {
               return (
                 <tr key={index}>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.alert, true)}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {addSpace(alert.severity)}
-                  </td>
-                  <td className="text-capitalize">
-                    {alert.source.toUpperCase()}
-                  </td>
-                  <td className="text-capitalize">
-                    {' '}
-                    {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                  </td>
+                  <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                  <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                  <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                  <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                   <td className="text-capitalize">
                     {' '}
                     {alert?.value?.length > 1 ? (
@@ -10360,11 +9214,7 @@ const table2 = (sat, balance, complienceFilter) => {
                         })}
                       </>
                     ) : (
-                      <>
-                        {alert.idType == 'dateOfIssuance'
-                          ? moment(alert.value).format('DD-MM-YYYY')
-                          : alert.value}
-                      </>
+                      <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                     )}
                   </td>
                 </tr>
@@ -10376,21 +9226,10 @@ const table2 = (sat, balance, complienceFilter) => {
               sat?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.alert, true)}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.severity)}
-                    </td>
-                    <td className="text-capitalize">
-                      {alert.source.toUpperCase()}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                    </td>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -10405,11 +9244,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>
-                          {alert.idType == 'dateOfIssuance'
-                            ? moment(alert.value).format('DD-MM-YYYY')
-                            : alert.value}
-                        </>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                       )}
                     </td>
                   </tr>
@@ -10419,21 +9254,10 @@ const table2 = (sat, balance, complienceFilter) => {
               balance?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.alert, true)}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {addSpace(alert.severity)}
-                    </td>
-                    <td className="text-capitalize">
-                      {alert.source.toUpperCase()}
-                    </td>
-                    <td className="text-capitalize">
-                      {' '}
-                      {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}
-                    </td>
+                    <td className="text-capitalize"> {addSpace(alert.alert, true)}</td>
+                    <td className="text-capitalize"> {addSpace(alert.severity)}</td>
+                    <td className="text-capitalize">{alert.source.toUpperCase()}</td>
+                    <td className="text-capitalize"> {alert.idType == 'ids' ? 'IDS' : addSpace(alert.idType)}</td>
                     <td className="text-capitalize">
                       {' '}
                       {alert?.value?.length > 1 ? (
@@ -10448,11 +9272,7 @@ const table2 = (sat, balance, complienceFilter) => {
                           })}
                         </>
                       ) : (
-                        <>
-                          {alert.idType == 'dateOfIssuance'
-                            ? moment(alert.value).format('DD-MM-YYYY')
-                            : alert.value}
-                        </>
+                        <>{alert.idType == 'dateOfIssuance' ? moment(alert.value).format('DD-MM-YYYY') : alert.value}</>
                       )}
                     </td>
                   </tr>

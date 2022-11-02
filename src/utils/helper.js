@@ -78,12 +78,7 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
   }
 };
 
-export const addPrefixOrSuffix = (
-  unitOfValue,
-  type,
-  where = 'null',
-  showINR = 'false',
-) => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = 'null', showINR = 'false') => {
   if (where == 'front') {
     if (type != undefined) {
       if (unitOfValue == '') {
@@ -135,8 +130,7 @@ export const addPrefixOrSuffix = (
         .replaceAll(',', '')
         .replace(/ /g, '');
 
-      let newValue =
-        symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN');
+      let newValue = symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN');
       return newValue;
     } else {
       return '';
@@ -170,9 +164,7 @@ export const addPrefixOrSuffix = (
         .replaceAll(',', '')
         .replace(/ /g, '');
 
-      let newValue = `${Number(removedValue)?.toLocaleString(
-        'en-IN',
-      )}${` `}${type}`;
+      let newValue = `${Number(removedValue)?.toLocaleString('en-IN')}${` `}${type}`;
       return newValue;
     } else {
       return '';

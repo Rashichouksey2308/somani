@@ -10,19 +10,11 @@ function index({ leftButtonClick, onSave }) {
       className={`${styles.root} ${!sidebar ? styles.no_sidebar : null}
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
     >
-      <div
-        id="nextbutton"
-        onClick={() => onSave()}
-        className={`${styles.reject} ml-3`}
-      >
+      <div id="nextbutton" onClick={() => onSave()} className={`${styles.reject} ml-3`}>
         <span>Submit</span>
       </div>
 
-      <div
-        id="previousbutton"
-        onClick={() => leftButtonClick()}
-        className={`${styles.approve} ml-3`}
-      >
+      <div id="previousbutton" onClick={() => leftButtonClick()} className={`${styles.approve} ml-3`}>
         <span>Preview</span>
       </div>
     </div>

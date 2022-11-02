@@ -84,17 +84,10 @@ function index() {
       setData({
         seller: data?.seller?.name,
         buyer: data?.buyer?.name,
-        sellerAddress:
-          data?.seller?.name == 'Indo Intertrade Ag'
-            ? 'Industriestrasse 16, Zug, 6300'
-            : '',
+        sellerAddress: data?.seller?.name == 'Indo Intertrade Ag' ? 'Industriestrasse 16, Zug, 6300' : '',
         buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
         shortseller: data?.seller?.shortName,
-        shortbuyer: `${
-          data?.buyer?.name == 'Indo German International Private Limited'
-            ? 'IGPL'
-            : 'EISL'
-        }`,
+        shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
         sellerSignature: data?.seller?.name,
         buyerSignature: data?.buyer?.name,
         dateOfExecution: dat,
@@ -104,19 +97,13 @@ function index() {
         detailsOfComm: data?.order?.commodity,
         quan: data?.order?.quantity,
         unitPrice: data.order?.perUnitPrice,
-        totalOrderValue:
-          data?.order?.marginMoney?.calculation?.orderValue ?? '',
+        totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
         lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
         dischargePort: data?.order?.portOfDischarge,
 
         lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-        terms: `${
-          data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
-          'Yes'
-            ? 'Full'
-            : 'Partial'
-        }`,
+        terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !== 'Yes' ? 'Full' : 'Partial'}`,
         addComm: comment,
         spec: data?.productSpecifications?.specificationTable,
         specComment: data?.productSpecifications.comments,
@@ -169,9 +156,7 @@ function index() {
       {preview == 'TPASELLER' ? <TPASeller preview={true} /> : null}
       {preview == 'TPAIGI' ? <TPAIGI preview={true} /> : null}
       {preview == 'LETTER' ? <AssignmentLetter preview={true} /> : null}
-      {preview == 'ASSO' ||
-      preview == 'UNDERTAKING1' ||
-      preview == 'UNDERTAKING2' ? (
+      {preview == 'ASSO' || preview == 'UNDERTAKING1' || preview == 'UNDERTAKING2' ? (
         <AssociateshipAgreement preview={true} type={preview} />
       ) : null}
 
@@ -210,19 +195,14 @@ const toPdf = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -237,13 +217,7 @@ const toPdf = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -322,9 +296,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -332,9 +304,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -352,9 +322,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -362,9 +330,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -382,9 +348,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -392,9 +356,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -412,9 +374,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -422,9 +382,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -442,9 +400,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -452,9 +408,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -472,9 +426,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -482,9 +434,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -502,9 +452,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -513,13 +461,10 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -538,9 +483,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -549,8 +492,8 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -577,9 +520,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -597,9 +538,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -616,10 +555,8 @@ const toPdf = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -640,43 +577,27 @@ const toPdf = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -700,13 +621,7 @@ const toPdf = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -724,9 +639,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -737,18 +650,14 @@ const toPdf = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -768,9 +677,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -779,9 +686,8 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -800,9 +706,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -811,15 +715,11 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -838,9 +738,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -849,11 +747,9 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -873,9 +769,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -885,41 +779,30 @@ const toPdf = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -940,9 +823,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -959,28 +840,19 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -990,13 +862,10 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -1013,21 +882,14 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -1037,24 +899,17 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -1064,16 +919,12 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -1083,16 +934,12 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -1102,11 +949,9 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -1116,9 +961,8 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -1128,11 +972,9 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -1142,9 +984,8 @@ const toPdf = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -1155,8 +996,8 @@ const toPdf = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -1166,8 +1007,7 @@ const toPdf = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -1187,9 +1027,8 @@ const toPdf = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -1199,8 +1038,8 @@ const toPdf = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -1219,9 +1058,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -1230,13 +1067,10 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -1254,13 +1088,7 @@ const toPdf = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -1278,9 +1106,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -1290,43 +1116,30 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -1354,13 +1167,10 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -1379,9 +1189,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -1390,35 +1198,26 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -1437,9 +1236,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -1449,35 +1246,25 @@ const toPdf = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -1485,19 +1272,16 @@ const toPdf = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -1517,9 +1301,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -1528,30 +1310,21 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -1570,9 +1343,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -1581,11 +1352,9 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -1604,9 +1373,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -1615,9 +1382,8 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -1636,9 +1402,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -1647,12 +1411,10 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -1680,9 +1442,8 @@ const toPdf = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -1701,9 +1462,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -1711,8 +1470,7 @@ const toPdf = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -1722,26 +1480,19 @@ const toPdf = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -1775,13 +1526,7 @@ const toPdf = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -1790,9 +1535,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -1801,9 +1544,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -1813,9 +1554,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -1823,9 +1562,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -1835,9 +1572,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -1845,9 +1580,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -1857,9 +1590,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -1867,9 +1598,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -1879,9 +1608,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -1889,9 +1616,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -1924,9 +1649,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -1949,9 +1672,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -1982,9 +1703,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -1994,9 +1713,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -2004,9 +1721,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -2016,9 +1731,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -2026,9 +1739,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -2038,9 +1749,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -2048,9 +1757,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -2060,9 +1767,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -2091,9 +1796,7 @@ const toPdf = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -2152,19 +1855,11 @@ const toPdf = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -2185,9 +1880,7 @@ const toPdf = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -2216,18 +1909,10 @@ const toPdf = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -2256,19 +1941,14 @@ const associateshipPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -2283,13 +1963,7 @@ const associateshipPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -2368,9 +2042,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -2378,9 +2050,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2398,9 +2068,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -2408,9 +2076,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2428,9 +2094,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -2438,9 +2102,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2458,9 +2120,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -2468,9 +2128,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2488,9 +2146,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -2498,9 +2154,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2518,9 +2172,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -2528,9 +2180,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2548,9 +2198,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -2559,13 +2207,10 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -2584,9 +2229,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -2595,8 +2238,8 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -2623,9 +2266,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -2643,9 +2284,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -2662,10 +2301,8 @@ const associateshipPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -2686,43 +2323,27 @@ const associateshipPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -2746,13 +2367,7 @@ const associateshipPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -2770,9 +2385,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -2783,18 +2396,14 @@ const associateshipPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -2814,9 +2423,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -2825,9 +2432,8 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -2846,9 +2452,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -2857,15 +2461,11 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -2884,9 +2484,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -2895,11 +2493,9 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -2919,9 +2515,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -2931,41 +2525,30 @@ const associateshipPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -2986,9 +2569,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -3005,28 +2586,19 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -3036,13 +2608,10 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -3059,21 +2628,14 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -3083,24 +2645,17 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -3110,16 +2665,12 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -3129,16 +2680,12 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -3148,11 +2695,9 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -3162,9 +2707,8 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -3174,11 +2718,9 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -3188,9 +2730,8 @@ const associateshipPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -3201,8 +2742,8 @@ const associateshipPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -3212,8 +2753,7 @@ const associateshipPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -3233,9 +2773,8 @@ const associateshipPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -3245,8 +2784,8 @@ const associateshipPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -3265,9 +2804,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -3276,13 +2813,10 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -3300,13 +2834,7 @@ const associateshipPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -3324,9 +2852,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -3336,43 +2862,30 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -3400,13 +2913,10 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -3425,9 +2935,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -3436,35 +2944,26 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -3483,9 +2982,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -3495,35 +2992,25 @@ const associateshipPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -3531,19 +3018,16 @@ const associateshipPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -3563,9 +3047,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -3574,30 +3056,21 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -3616,9 +3089,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -3627,11 +3098,9 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -3650,9 +3119,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -3661,9 +3128,8 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -3682,9 +3148,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -3693,12 +3157,10 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -3726,9 +3188,8 @@ const associateshipPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -3747,9 +3208,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -3757,8 +3216,7 @@ const associateshipPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -3768,26 +3226,19 @@ const associateshipPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -3821,13 +3272,7 @@ const associateshipPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -3836,9 +3281,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -3847,9 +3290,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -3859,9 +3300,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -3869,9 +3308,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -3881,9 +3318,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -3891,9 +3326,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -3903,9 +3336,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -3913,9 +3344,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -3925,9 +3354,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -3935,9 +3362,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -3970,9 +3395,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -3995,9 +3418,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -4028,9 +3449,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -4040,9 +3459,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -4050,9 +3467,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -4062,9 +3477,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -4072,9 +3485,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -4084,9 +3495,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -4094,9 +3503,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -4106,9 +3513,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -4137,9 +3542,7 @@ const associateshipPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -4198,19 +3601,11 @@ const associateshipPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -4231,9 +3626,7 @@ const associateshipPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -4262,18 +3655,10 @@ const associateshipPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -4302,19 +3687,14 @@ const undertakingPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -4329,13 +3709,7 @@ const undertakingPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -4414,9 +3788,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -4424,9 +3796,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4444,9 +3814,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -4454,9 +3822,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4474,9 +3840,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -4484,9 +3848,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4504,9 +3866,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -4514,9 +3874,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4534,9 +3892,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -4544,9 +3900,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4564,9 +3918,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -4574,9 +3926,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4594,9 +3944,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -4605,13 +3953,10 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -4630,9 +3975,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -4641,8 +3984,8 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -4669,9 +4012,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -4689,9 +4030,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -4708,10 +4047,8 @@ const undertakingPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -4732,43 +4069,27 @@ const undertakingPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -4792,13 +4113,7 @@ const undertakingPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -4816,9 +4131,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -4829,18 +4142,14 @@ const undertakingPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -4860,9 +4169,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -4871,9 +4178,8 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -4892,9 +4198,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -4903,15 +4207,11 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -4930,9 +4230,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -4941,11 +4239,9 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -4965,9 +4261,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -4977,41 +4271,30 @@ const undertakingPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -5032,9 +4315,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -5051,28 +4332,19 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -5082,13 +4354,10 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -5105,21 +4374,14 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -5129,24 +4391,17 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -5156,16 +4411,12 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -5175,16 +4426,12 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -5194,11 +4441,9 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -5208,9 +4453,8 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -5220,11 +4464,9 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -5234,9 +4476,8 @@ const undertakingPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -5247,8 +4488,8 @@ const undertakingPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -5258,8 +4499,7 @@ const undertakingPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -5279,9 +4519,8 @@ const undertakingPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -5291,8 +4530,8 @@ const undertakingPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -5311,9 +4550,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -5322,13 +4559,10 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -5346,13 +4580,7 @@ const undertakingPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -5370,9 +4598,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -5382,43 +4608,30 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -5446,13 +4659,10 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -5471,9 +4681,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -5482,35 +4690,26 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -5529,9 +4728,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -5541,35 +4738,25 @@ const undertakingPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -5577,19 +4764,16 @@ const undertakingPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -5609,9 +4793,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -5620,30 +4802,21 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -5662,9 +4835,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -5673,11 +4844,9 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -5696,9 +4865,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -5707,9 +4874,8 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -5728,9 +4894,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -5739,12 +4903,10 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -5772,9 +4934,8 @@ const undertakingPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -5793,9 +4954,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -5803,8 +4962,7 @@ const undertakingPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -5814,26 +4972,19 @@ const undertakingPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -5867,13 +5018,7 @@ const undertakingPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -5882,9 +5027,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -5893,9 +5036,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -5905,9 +5046,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -5915,9 +5054,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -5927,9 +5064,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -5937,9 +5072,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -5949,9 +5082,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -5959,9 +5090,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -5971,9 +5100,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -5981,9 +5108,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -6016,9 +5141,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -6041,9 +5164,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -6074,9 +5195,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -6086,9 +5205,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -6096,9 +5213,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -6108,9 +5223,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -6118,9 +5231,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -6130,9 +5241,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -6140,9 +5249,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -6152,9 +5259,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -6183,9 +5288,7 @@ const undertakingPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -6244,19 +5347,11 @@ const undertakingPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -6277,9 +5372,7 @@ const undertakingPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -6308,18 +5401,10 @@ const undertakingPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -6348,19 +5433,14 @@ const undertaking2Print = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -6375,13 +5455,7 @@ const undertaking2Print = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -6460,9 +5534,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -6470,9 +5542,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6490,9 +5560,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -6500,9 +5568,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6520,9 +5586,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -6530,9 +5594,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6550,9 +5612,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -6560,9 +5620,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6580,9 +5638,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -6590,9 +5646,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6610,9 +5664,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -6620,9 +5672,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6640,9 +5690,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -6651,13 +5699,10 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -6676,9 +5721,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -6687,8 +5730,8 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -6715,9 +5758,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -6735,9 +5776,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -6754,10 +5793,8 @@ const undertaking2Print = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -6778,43 +5815,27 @@ const undertaking2Print = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -6838,13 +5859,7 @@ const undertaking2Print = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -6862,9 +5877,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -6875,18 +5888,14 @@ const undertaking2Print = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -6906,9 +5915,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -6917,9 +5924,8 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -6938,9 +5944,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -6949,15 +5953,11 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -6976,9 +5976,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -6987,11 +5985,9 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -7011,9 +6007,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -7023,41 +6017,30 @@ const undertaking2Print = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -7078,9 +6061,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -7097,28 +6078,19 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -7128,13 +6100,10 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -7151,21 +6120,14 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -7175,24 +6137,17 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -7202,16 +6157,12 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -7221,16 +6172,12 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -7240,11 +6187,9 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -7254,9 +6199,8 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -7266,11 +6210,9 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -7280,9 +6222,8 @@ const undertaking2Print = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -7293,8 +6234,8 @@ const undertaking2Print = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -7304,8 +6245,7 @@ const undertaking2Print = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -7325,9 +6265,8 @@ const undertaking2Print = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -7337,8 +6276,8 @@ const undertaking2Print = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -7357,9 +6296,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -7368,13 +6305,10 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -7392,13 +6326,7 @@ const undertaking2Print = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -7416,9 +6344,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -7428,43 +6354,30 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -7492,13 +6405,10 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -7517,9 +6427,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -7528,35 +6436,26 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -7575,9 +6474,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -7587,35 +6484,25 @@ const undertaking2Print = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -7623,19 +6510,16 @@ const undertaking2Print = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -7655,9 +6539,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -7666,30 +6548,21 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -7708,9 +6581,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -7719,11 +6590,9 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -7742,9 +6611,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -7753,9 +6620,8 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -7774,9 +6640,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -7785,12 +6649,10 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -7818,9 +6680,8 @@ const undertaking2Print = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -7839,9 +6700,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -7849,8 +6708,7 @@ const undertaking2Print = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -7860,26 +6718,19 @@ const undertaking2Print = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -7913,13 +6764,7 @@ const undertaking2Print = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -7928,9 +6773,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -7939,9 +6782,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -7951,9 +6792,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -7961,9 +6800,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -7973,9 +6810,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -7983,9 +6818,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -7995,9 +6828,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -8005,9 +6836,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -8017,9 +6846,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -8027,9 +6854,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -8062,9 +6887,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -8087,9 +6910,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -8120,9 +6941,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -8132,9 +6951,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -8142,9 +6959,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -8154,9 +6969,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -8164,9 +6977,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -8176,9 +6987,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -8186,9 +6995,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -8198,9 +7005,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -8229,9 +7034,7 @@ const undertaking2Print = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -8290,19 +7093,11 @@ const undertaking2Print = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -8323,9 +7118,7 @@ const undertaking2Print = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -8354,18 +7147,10 @@ const undertaking2Print = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -8394,19 +7179,14 @@ const letterPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -8421,13 +7201,7 @@ const letterPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -8506,9 +7280,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -8516,9 +7288,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8536,9 +7306,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -8546,9 +7314,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8566,9 +7332,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -8576,9 +7340,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8596,9 +7358,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -8606,9 +7366,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8626,9 +7384,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -8636,9 +7392,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8656,9 +7410,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -8666,9 +7418,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8686,9 +7436,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -8697,13 +7445,10 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -8722,9 +7467,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -8733,8 +7476,8 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -8761,9 +7504,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -8781,9 +7522,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -8800,10 +7539,8 @@ const letterPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -8824,43 +7561,27 @@ const letterPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -8884,13 +7605,7 @@ const letterPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -8908,9 +7623,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -8921,18 +7634,14 @@ const letterPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -8952,9 +7661,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -8963,9 +7670,8 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -8984,9 +7690,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -8995,15 +7699,11 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -9022,9 +7722,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -9033,11 +7731,9 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -9057,9 +7753,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -9069,41 +7763,30 @@ const letterPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -9124,9 +7807,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -9143,28 +7824,19 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -9174,13 +7846,10 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -9197,21 +7866,14 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -9221,24 +7883,17 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -9248,16 +7903,12 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -9267,16 +7918,12 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -9286,11 +7933,9 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -9300,9 +7945,8 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -9312,11 +7956,9 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -9326,9 +7968,8 @@ const letterPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -9339,8 +7980,8 @@ const letterPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -9350,8 +7991,7 @@ const letterPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -9371,9 +8011,8 @@ const letterPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -9383,8 +8022,8 @@ const letterPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -9403,9 +8042,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -9414,13 +8051,10 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -9438,13 +8072,7 @@ const letterPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -9462,9 +8090,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -9474,43 +8100,30 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -9538,13 +8151,10 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -9563,9 +8173,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -9574,35 +8182,26 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -9621,9 +8220,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -9633,35 +8230,25 @@ const letterPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -9669,19 +8256,16 @@ const letterPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -9701,9 +8285,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -9712,30 +8294,21 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -9754,9 +8327,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -9765,11 +8336,9 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -9788,9 +8357,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -9799,9 +8366,8 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -9820,9 +8386,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -9831,12 +8395,10 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -9864,9 +8426,8 @@ const letterPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -9885,9 +8446,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -9895,8 +8454,7 @@ const letterPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -9906,26 +8464,19 @@ const letterPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -9959,13 +8510,7 @@ const letterPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -9974,9 +8519,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -9985,9 +8528,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -9997,9 +8538,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -10007,9 +8546,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -10019,9 +8556,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -10029,9 +8564,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -10041,9 +8574,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -10051,9 +8582,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -10063,9 +8592,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -10073,9 +8600,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -10108,9 +8633,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -10133,9 +8656,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -10166,9 +8687,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -10178,9 +8697,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -10188,9 +8705,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -10200,9 +8715,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -10210,9 +8723,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -10222,9 +8733,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -10232,9 +8741,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -10244,9 +8751,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -10275,9 +8780,7 @@ const letterPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -10336,19 +8839,11 @@ const letterPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -10369,9 +8864,7 @@ const letterPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -10400,18 +8893,10 @@ const letterPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -10440,19 +8925,14 @@ const qpaPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -10467,13 +8947,7 @@ const qpaPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -10552,9 +9026,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -10562,9 +9034,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10582,9 +9052,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -10592,9 +9060,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10612,9 +9078,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -10622,9 +9086,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10642,9 +9104,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -10652,9 +9112,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10672,9 +9130,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -10682,9 +9138,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10702,9 +9156,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -10712,9 +9164,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10732,9 +9182,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -10743,13 +9191,10 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -10768,9 +9213,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -10779,8 +9222,8 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -10807,9 +9250,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -10827,9 +9268,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -10846,10 +9285,8 @@ const qpaPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -10870,43 +9307,27 @@ const qpaPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -10930,13 +9351,7 @@ const qpaPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -10954,9 +9369,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -10967,18 +9380,14 @@ const qpaPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -10998,9 +9407,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -11009,9 +9416,8 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -11030,9 +9436,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -11041,15 +9445,11 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -11068,9 +9468,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -11079,11 +9477,9 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -11103,9 +9499,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -11115,41 +9509,30 @@ const qpaPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -11170,9 +9553,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -11189,28 +9570,19 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -11220,13 +9592,10 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -11243,21 +9612,14 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -11267,24 +9629,17 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -11294,16 +9649,12 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -11313,16 +9664,12 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -11332,11 +9679,9 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -11346,9 +9691,8 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -11358,11 +9702,9 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -11372,9 +9714,8 @@ const qpaPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -11385,8 +9726,8 @@ const qpaPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -11396,8 +9737,7 @@ const qpaPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -11417,9 +9757,8 @@ const qpaPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -11429,8 +9768,8 @@ const qpaPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -11449,9 +9788,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -11460,13 +9797,10 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -11484,13 +9818,7 @@ const qpaPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -11508,9 +9836,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -11520,43 +9846,30 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -11584,13 +9897,10 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -11609,9 +9919,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -11620,35 +9928,26 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -11667,9 +9966,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -11679,35 +9976,25 @@ const qpaPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -11715,19 +10002,16 @@ const qpaPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -11747,9 +10031,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -11758,30 +10040,21 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -11800,9 +10073,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -11811,11 +10082,9 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -11834,9 +10103,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -11845,9 +10112,8 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -11866,9 +10132,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -11877,12 +10141,10 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -11910,9 +10172,8 @@ const qpaPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -11931,9 +10192,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -11941,8 +10200,7 @@ const qpaPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -11952,26 +10210,19 @@ const qpaPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -12005,13 +10256,7 @@ const qpaPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -12020,9 +10265,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -12031,9 +10274,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -12043,9 +10284,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -12053,9 +10292,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -12065,9 +10302,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -12075,9 +10310,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -12087,9 +10320,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -12097,9 +10328,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -12109,9 +10338,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -12119,9 +10346,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -12154,9 +10379,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -12179,9 +10402,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -12212,9 +10433,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -12224,9 +10443,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -12234,9 +10451,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -12246,9 +10461,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -12256,9 +10469,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -12268,9 +10479,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -12278,9 +10487,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -12290,9 +10497,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -12321,9 +10526,7 @@ const qpaPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -12382,19 +10585,11 @@ const qpaPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -12415,9 +10610,7 @@ const qpaPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -12446,18 +10639,10 @@ const qpaPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -12486,19 +10671,14 @@ const sellerPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -12513,13 +10693,7 @@ const sellerPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -12598,9 +10772,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -12608,9 +10780,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12628,9 +10798,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -12638,9 +10806,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12658,9 +10824,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -12668,9 +10832,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12688,9 +10850,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -12698,9 +10858,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12718,9 +10876,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -12728,9 +10884,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12748,9 +10902,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -12758,9 +10910,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12778,9 +10928,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -12789,13 +10937,10 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -12814,9 +10959,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -12825,8 +10968,8 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -12853,9 +10996,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -12873,9 +11014,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -12892,10 +11031,8 @@ const sellerPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -12916,43 +11053,27 @@ const sellerPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -12976,13 +11097,7 @@ const sellerPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -13000,9 +11115,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -13013,18 +11126,14 @@ const sellerPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -13044,9 +11153,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -13055,9 +11162,8 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -13076,9 +11182,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -13087,15 +11191,11 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -13114,9 +11214,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -13125,11 +11223,9 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -13149,9 +11245,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -13161,41 +11255,30 @@ const sellerPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -13216,9 +11299,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -13235,28 +11316,19 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -13266,13 +11338,10 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -13289,21 +11358,14 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -13313,24 +11375,17 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -13340,16 +11395,12 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -13359,16 +11410,12 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -13378,11 +11425,9 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -13392,9 +11437,8 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -13404,11 +11448,9 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -13418,9 +11460,8 @@ const sellerPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -13431,8 +11472,8 @@ const sellerPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -13442,8 +11483,7 @@ const sellerPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -13463,9 +11503,8 @@ const sellerPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -13475,8 +11514,8 @@ const sellerPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -13495,9 +11534,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -13506,13 +11543,10 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -13530,13 +11564,7 @@ const sellerPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -13554,9 +11582,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -13566,43 +11592,30 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -13630,13 +11643,10 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -13655,9 +11665,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -13666,35 +11674,26 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -13713,9 +11712,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -13725,35 +11722,25 @@ const sellerPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -13761,19 +11748,16 @@ const sellerPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -13793,9 +11777,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -13804,30 +11786,21 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -13846,9 +11819,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -13857,11 +11828,9 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -13880,9 +11849,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -13891,9 +11858,8 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -13912,9 +11878,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -13923,12 +11887,10 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -13956,9 +11918,8 @@ const sellerPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -13977,9 +11938,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -13987,8 +11946,7 @@ const sellerPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -13998,26 +11956,19 @@ const sellerPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -14051,13 +12002,7 @@ const sellerPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -14066,9 +12011,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -14077,9 +12020,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -14089,9 +12030,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -14099,9 +12038,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -14111,9 +12048,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -14121,9 +12056,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -14133,9 +12066,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -14143,9 +12074,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -14155,9 +12084,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -14165,9 +12092,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -14200,9 +12125,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -14225,9 +12148,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -14258,9 +12179,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -14270,9 +12189,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -14280,9 +12197,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -14292,9 +12207,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -14302,9 +12215,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -14314,9 +12225,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -14324,9 +12233,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -14336,9 +12243,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -14367,9 +12272,7 @@ const sellerPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -14428,19 +12331,11 @@ const sellerPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -14461,9 +12356,7 @@ const sellerPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -14492,18 +12385,10 @@ const sellerPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>
@@ -14532,19 +12417,14 @@ const igiPrint = (data) => {
             color: '#000000',
           }}
         >
-          <p
-            align="center"
-            style={{ textDecoration: 'underline', color: '#000000' }}
-          >
+          <p align="center" style={{ textDecoration: 'underline', color: '#000000' }}>
             <strong>SALES CONTRACT</strong>
           </p>
           <p align="center" style={{ float: 'left', color: '#000000' }}>
             This Sales Contract("
-            <span style={{ fontWeight: 'bold' }}>
-              {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-            </span>
-            ") is made at the place and on the day as set out in{' '}
-            <strong>Schedule I</strong> between the Seller and the Buyer.
+            <span style={{ fontWeight: 'bold' }}>{data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}</span>
+            ") is made at the place and on the day as set out in <strong>Schedule I</strong> between the Seller and the
+            Buyer.
           </p>
         </td>
       </tr>
@@ -14559,13 +12439,7 @@ const igiPrint = (data) => {
             padding: '20px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -14644,9 +12518,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Manufacturer/Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Manufacturer/Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -14654,9 +12526,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14674,9 +12544,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  End User / End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>End User / End Buyer</p>
               </td>
               <td
                 style={{
@@ -14684,9 +12552,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14704,9 +12570,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Commodity, Quantity, Specification and Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Commodity, Quantity, Specification and Unit Price</p>
               </td>
               <td
                 style={{
@@ -14714,9 +12578,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14734,9 +12596,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value </p>
               </td>
               <td
                 style={{
@@ -14744,9 +12604,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14764,9 +12622,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -14774,9 +12630,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14794,9 +12648,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Loading Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Loading Port</p>
               </td>
               <td
                 style={{
@@ -14804,9 +12656,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14824,9 +12674,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Quality / Inspection{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Quality / Inspection </p>
               </td>
               <td
                 style={{
@@ -14835,13 +12683,10 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In case of issues in Quality, Neutral agency certification for
-                  Quality and Quantity will be considered as final and binding
-                  on Buyer &amp; Seller. Load port report for quality and
-                  quantity are final and binding between Seller and Buyer for
-                  all purpose. If any dispute arises relating but not limited to
-                  quantity, quality, the same is to be settled directly between
-                  Manufacturer/shipper and Buyer.
+                  In case of issues in Quality, Neutral agency certification for Quality and Quantity will be considered
+                  as final and binding on Buyer &amp; Seller. Load port report for quality and quantity are final and
+                  binding between Seller and Buyer for all purpose. If any dispute arises relating but not limited to
+                  quantity, quality, the same is to be settled directly between Manufacturer/shipper and Buyer.
                 </p>
               </td>
             </tr>
@@ -14860,9 +12705,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Duties and Taxes
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Duties and Taxes</p>
               </td>
               <td
                 style={{
@@ -14871,8 +12714,8 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All Taxes and duties, present or future, including variations
-                  thereto and other taxes shall be borne and paid by Buyer.
+                  All Taxes and duties, present or future, including variations thereto and other taxes shall be borne
+                  and paid by Buyer.
                 </p>
               </td>
             </tr>
@@ -14899,9 +12742,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details as per Schedule 1
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details as per Schedule 1</p>
               </td>
             </tr>
             <tr>
@@ -14919,9 +12760,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Payment Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Payment Terms </p>
               </td>
               <td
                 style={{
@@ -14938,10 +12777,8 @@ const igiPrint = (data) => {
                   }}
                 >
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    All the custom clearance formalities, Duties, Taxes and
-                    other charges related to import of cargo and custom
-                    clearance shall be to Buyer's account and shall be solely
-                    the Buyer's responsibility.
+                    All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and
+                    custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
                     The Buyer shall pay for entire cargo within{' '}
@@ -14962,43 +12799,27 @@ const igiPrint = (data) => {
                     >
                       60 days
                     </em>{' '}
-                    from the date of discharge of vessel at discharge port,
-                    whichever is earlier. The Buyer shall make full payment of
-                    the material to be lifted through TT remittance. The Seller
-                    shall release the part material to Buyer upon receipt of
-                    part payment for the part quantity of material to be lifted
-                    after obtaining delivery order or Written Release Order from
-                    the LC opening bank as per CMA. The delivery order
-                    instructions shall be issued for the part material, for
-                    which the payment has been made within one banking day.
-                    However, Seller will provide first delivery order in Advance
-                    as per buyer's request.
+                    from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make
+                    full payment of the material to be lifted through TT remittance. The Seller shall release the part
+                    material to Buyer upon receipt of part payment for the part quantity of material to be lifted after
+                    obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery
+                    order instructions shall be issued for the part material, for which the payment has been made within
+                    one banking day. However, Seller will provide first delivery order in Advance as per buyer's
+                    request.
                   </li>
                   <li style={{ color: '#000000', marginBottom: '10px' }}>
-                    The material shall be stored at Discharge Port for which the
-                    cost of such Rent, Claim, and penalty shall be fully borne
-                    by the End User. Upon release of payment for the value of
-                    each B/L Quantity Release Order from the Financing Bank
-                    shall be sent to the CMA Agent, within one banking day
+                    The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty
+                    shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity
+                    Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
                   </li>
                   <li style={{ marginBottom: '10px' }}>
                     Documents to be provided to Buyer
                     <ol type="1" style={{ paddingLeft: '0' }}>
-                      <li style={{ color: '#000000' }}>
-                        The Seller's Commercial Invoice,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Full set of 3/3 originals of Bills of Lading,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Quality,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Weight,
-                      </li>
-                      <li style={{ color: '#000000' }}>
-                        Certificate of Origin.
-                      </li>
+                      <li style={{ color: '#000000' }}>The Seller's Commercial Invoice,</li>
+                      <li style={{ color: '#000000' }}>Full set of 3/3 originals of Bills of Lading,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Quality,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Weight,</li>
+                      <li style={{ color: '#000000' }}>Certificate of Origin.</li>
                       <li style={{ color: '#000000', marginBottom: '10px' }}>
                         Copy of Marine Insurance Certificate / Insurance Policy
                       </li>
@@ -15022,13 +12843,7 @@ const igiPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -15046,9 +12861,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Insurance{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Insurance </p>
               </td>
               <td
                 width="70%"
@@ -15059,18 +12872,14 @@ const igiPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Marine Insurance: Seller will provide Marine Insurance as
-                    received from Shipper.
+                    Marine Insurance: Seller will provide Marine Insurance as received from Shipper.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Stock Insurance: The Buyer will arrange insurance for 110%
-                    of the cargo value at discharge port, valid at all times
-                    covering All Risk including Fire, Burglary and Act of God
-                    (AOG). The cargo shall be insured by the Buyer at its own
-                    cost for the full value of cargo. The Policy shall be
-                    endorsed in favour of the Seller or its nominated Bank. The
-                    Beneficiary of the Insurance Claim shall be the Seller or
-                    its nominated Bank as per Seller's instructions.
+                    Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port,
+                    valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall
+                    be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in
+                    favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the
+                    Seller or its nominated Bank as per Seller's instructions.
                   </li>
                 </ol>
               </td>
@@ -15090,9 +12899,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipping Terms{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipping Terms </p>
               </td>
               <td
                 style={{
@@ -15101,9 +12908,8 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  All demurrage/despatch for discharge port to be settled
-                  directly between Shipper, Vessel Owner agent and End User with
-                  no liability upon the Seller whatsoever
+                  All demurrage/despatch for discharge port to be settled directly between Shipper, Vessel Owner agent
+                  and End User with no liability upon the Seller whatsoever
                 </p>
               </td>
             </tr>
@@ -15122,9 +12928,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title / Risk{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Title / Risk </p>
               </td>
               <td
                 style={{
@@ -15133,15 +12937,11 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Title to the Goods shall be deemed to have been transferred to
-                  the Buyer and the Goods shall be deemed to be sold and
-                  delivered to the Buyer only upon receipt by the Seller of the
-                  entire contract value. It is clarified that the Seller shall
-                  retain lien and the full legal ownership in the Goods, to
-                  secure the Buyer's obligation to pay the entire contract
-                  value, until receipt by the Seller of the entire contract
-                  value. All risk of loss or damage shall pass to the Buyer as
-                  per Incoterms 2020.
+                  Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed
+                  to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It
+                  is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure
+                  the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire
+                  contract value. All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.
                 </p>
               </td>
             </tr>
@@ -15160,9 +12960,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the essence
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Time is the essence</p>
               </td>
               <td
                 style={{
@@ -15171,11 +12969,9 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Time is the Essence of the Contract. In the event of failure
-                  of the Buyer to fulfill its obligations as contained herein
-                  including making of the payment and taking of the delivery of
-                  the material within the time period specified in the Clause
-                  Payment Terms hereinabove, it shall constitute a material
+                  Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations
+                  as contained herein including making of the payment and taking of the delivery of the material within
+                  the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material
                   breach of the Agreement.{' '}
                 </p>
               </td>
@@ -15195,9 +12991,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Remedies Available to the Seller
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Remedies Available to the Seller</p>
               </td>
               <td
                 style={{
@@ -15207,41 +13001,30 @@ const igiPrint = (data) => {
               >
                 <ol type="A" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ color: '#000000' }}>
-                    In the event of the failure of the Buyer to make timely
-                    payment as agreed to in terms of the Clause Payment Terms
-                    hereinabove, the Buyer shall pay the overdue interest @ 18%
-                    p.a. to the Seller for each day of delay. However, the delay
-                    in making the payment shall in no event exceed 15 days
-                    beyond the due date of making the payment as specified
-                    hereinabove.
+                    In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause
+                    Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for
+                    each day of delay. However, the delay in making the payment shall in no event exceed 15 days beyond
+                    the due date of making the payment as specified hereinabove.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    However, in the eventuality of Buyer failing to pay for
-                    and/or take delivery as per Clause Payment Terms beyond 15
-                    days of the due date, the Seller shall have the absolute
-                    right to dispose off the Material, on terms and conditions
-                    as may be deemed fit by the Seller, to any other party at
-                    full risk, responsibility and costs of Buyer, including
-                    financial costs, other expenses as well as liquidated
-                    damages. The Buyer further agrees to make good the losses,
-                    financial costs and expenses incurred by the Seller due to
-                    such disposal of the goods, within 3 working days of the
-                    receipt of the demand by the Buyer from the Seller.
+                    However, in the eventuality of Buyer failing to pay for and/or take delivery as per Clause Payment
+                    Terms beyond 15 days of the due date, the Seller shall have the absolute right to dispose off the
+                    Material, on terms and conditions as may be deemed fit by the Seller, to any other party at full
+                    risk, responsibility and costs of Buyer, including financial costs, other expenses as well as
+                    liquidated damages. The Buyer further agrees to make good the losses, financial costs and expenses
+                    incurred by the Seller due to such disposal of the goods, within 3 working days of the receipt of
+                    the demand by the Buyer from the Seller.
                   </li>
                   <li style={{ color: '#000000' }}>
-                    The Buyer shall forthwith on demand indemnify the Seller
-                    against all the direct losses, liabilities, claims or
-                    damages which Seller shall incur as a result of any breach
-                    by the Buyer (including but not limited to any claim, loss,
-                    liability or damage Seller may incur to a third party as
-                    shipper of the product).
+                    The Buyer shall forthwith on demand indemnify the Seller against all the direct losses, liabilities,
+                    claims or damages which Seller shall incur as a result of any breach by the Buyer (including but not
+                    limited to any claim, loss, liability or damage Seller may incur to a third party as shipper of the
+                    product).
                   </li>
                   <li style={{ color: '#000000' }}>
-                    Failure of the Buyer to make payment in terms of clause
-                    hereinabove will entitle the Seller to seek appropriate
-                    remedies available to it under the laws of the jurisdiction
-                    where the goods are stored for recovery of the amounts and /
-                    or any other relief as thought fit by the Seller in its sole
+                    Failure of the Buyer to make payment in terms of clause hereinabove will entitle the Seller to seek
+                    appropriate remedies available to it under the laws of the jurisdiction where the goods are stored
+                    for recovery of the amounts and / or any other relief as thought fit by the Seller in its sole
                     discretion.
                   </li>
                 </ol>
@@ -15262,9 +13045,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Special Conditions{' '}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Special Conditions </p>
               </td>
               <td
                 style={{
@@ -15281,28 +13062,19 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is expressly and unconditionally agreed and Buyer fully
-                    acknowledges that the title in the goods / material shall
-                    pass on to the Buyer only in respect of such specific
-                    quantity thereof as released from the storage facility by
-                    Collateral Manager in terms of the 'Tripartite Agreement'
-                    after receipt of the price and other payables in respect
-                    thereof and actual delivery of the goods having been made to
-                    the Buyer. The Seller shall continue to be the owner,
-                    holding absolute title in the goods/material not so released
-                    and delivered to the Buyer in any contingency including of
-                    Buyer even becoming insolvent but not limiting, and shall be
-                    entitled to deal with the goods/material as it may deem fit
-                    including disposing them of at the risk and cost of the
-                    Buyer. For the avoidance of doubt, the parties agree and
-                    acknowledge that the Goods shall not be in any manner
-                    whatsoever be construed to be in the constructive or actual
-                    possession of the Buyer until the Goods are released and
-                    delivered by the Seller in accordance with this Agreement.
-                    The Buyer specifically represents and agrees to not exercise
-                    any or all such possessory rights on the Goods until the
-                    Goods are released and delivered by the Seller in accordance
-                    with this Agreement.
+                    It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods
+                    / material shall pass on to the Buyer only in respect of such specific quantity thereof as released
+                    from the storage facility by Collateral Manager in terms of the 'Tripartite Agreement' after receipt
+                    of the price and other payables in respect thereof and actual delivery of the goods having been made
+                    to the Buyer. The Seller shall continue to be the owner, holding absolute title in the
+                    goods/material not so released and delivered to the Buyer in any contingency including of Buyer even
+                    becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may
+                    deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt,
+                    the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed
+                    to be in the constructive or actual possession of the Buyer until the Goods are released and
+                    delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and
+                    agrees to not exercise any or all such possessory rights on the Goods until the Goods are released
+                    and delivered by the Seller in accordance with this Agreement.
                   </li>
                   <li
                     style={{
@@ -15312,13 +13084,10 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained herein to the contrary,
-                    all risks, consequences arising out of the actual
-                    transaction(s) taking place between Manufacturer/shipper and
-                    the Seller under the Contract and/or any modified/amended
-                    agreement will be to the account of the Buyer only. The
-                    Seller shall in no way be responsible or liable for the
-                    same.
+                    Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of
+                    the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the
+                    Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller
+                    shall in no way be responsible or liable for the same.
                     <br />
                     <br />
                     <br />
@@ -15335,21 +13104,14 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The BUYER unconditionally agrees to abide by a collateral
-                    management agreement by and among "
-                    <strong>Collateral Manager</strong>", "
-                    <strong>Financing Bank</strong>" and "
-                    <strong>Seller</strong> and undertakes not to take any
-                    delivery of Goods unless Collateral Manager releases such
-                    quantity of the Goods in accordance with the Bank's written
-                    release instructions under the Collateral Management
-                    Agreement. If Buyer, directly or indirectly, violates the
-                    undertaking in the preceding sentence, then Buyer shall
-                    indemnify Seller for any loss, liability or claim (including
-                    without limitation any expenses incurred) without any demur
-                    or protest. The Seller shall be under obligation to issue
-                    delivery order for the quantity for which the payment has
-                    been received within one banking day.
+                    The BUYER unconditionally agrees to abide by a collateral management agreement by and among "
+                    <strong>Collateral Manager</strong>", "<strong>Financing Bank</strong>" and "<strong>Seller</strong>{' '}
+                    and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of
+                    the Goods in accordance with the Bank's written release instructions under the Collateral Management
+                    Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence,
+                    then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any
+                    expenses incurred) without any demur or protest. The Seller shall be under obligation to issue
+                    delivery order for the quantity for which the payment has been received within one banking day.
                   </li>
                   <li
                     style={{
@@ -15359,24 +13121,17 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Buyer acknowledges that:(i) pursuant to this Agreement
-                    Seller has entered into certain agreements similar to the
-                    Collateral Management Agreement to fulfil requirement of the
-                    relevant bank which has issued a letter of credit to
-                    facilitate purchase of the Goods by Seller; and (ii) the
-                    collateral manager appointed by the Bank shall keep the
-                    Goods in its custody at a facility leased by the Buyer at
-                    Storage facility at Discharge Port. For this purpose, Buyer
-                    unconditionally agrees that whenever collateral manager
-                    takes Buyer's permission to keep the Goods at the Storage
-                    facility which facility is under Buyer's control and
-                    management, then Buyer shall ensure the collateral manager
-                    has the unfettered and unrestricted access to the Storage
-                    Facility and shall have the sole custody over the Goods kept
-                    at the Storage facility. If there is any theft or loss of
-                    the Goods at the Storage facility, the Buyer shall fully
-                    indemnify Seller to such loss of the Goods without any demur
-                    or protest.
+                    Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements
+                    similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has
+                    issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral
+                    manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer
+                    at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever
+                    collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility
+                    is under Buyer's control and management, then Buyer shall ensure the collateral manager has the
+                    unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the
+                    Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage
+                    facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or
+                    protest.
                   </li>
                   <li
                     style={{
@@ -15386,16 +13141,12 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Notwithstanding anything contained in this Agreement, for
-                    avoidance of any doubts, the Parties hereby clarify that
-                    unless Buyer fully pays Seller under this Agreement, the
-                    Seller shall have lien on unpaid quantity of the Goods which
-                    is delivered to Buyer pursuant to this Agreement or any
-                    other agreement. Buyer unconditionally represents and
-                    warrants that Buyer has not created and shall not create any
-                    encumbrance (whatsoever) in favour of any lender or any
-                    third party on the Goods under this Agreement or any other
-                    similar agreements unless Buyer fully pays for such Goods.
+                    Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties
+                    hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien
+                    on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other
+                    agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not
+                    create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under
+                    this Agreement or any other similar agreements unless Buyer fully pays for such Goods.
                   </li>
                   <li
                     style={{
@@ -15405,16 +13156,12 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Any payment to be made by the Buyer under this contract
-                    shall be made free and clear of and without deduction or
-                    withholding for or on account of any taxes. If at any time
-                    the Buyer is required to make any deduction or withholding
-                    in respect of taxes from any payment to be made under this
-                    contract, the Buyer shall pay such additional amounts as may
-                    be necessary to ensure that, after the making of such
-                    deduction or withholding, the Seller receives for such
-                    payment a net sum equal to the sum it would have received
-                    had no such deduction or withholding been made.
+                    Any payment to be made by the Buyer under this contract shall be made free and clear of and without
+                    deduction or withholding for or on account of any taxes. If at any time the Buyer is required to
+                    make any deduction or withholding in respect of taxes from any payment to be made under this
+                    contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the
+                    making of such deduction or withholding, the Seller receives for such payment a net sum equal to the
+                    sum it would have received had no such deduction or withholding been made.
                   </li>
                   <li
                     style={{
@@ -15424,11 +13171,9 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    It is clarified that the Goods shall be deemed to have been
-                    supplied to the Buyer when the goods are loaded on board the
-                    vessel and the Sales Consideration as mentioned hereinabove
-                    shall become due and payable from then onwards by the Buyer
-                    to the Seller.
+                    It is clarified that the Goods shall be deemed to have been supplied to the Buyer when the goods are
+                    loaded on board the vessel and the Sales Consideration as mentioned hereinabove shall become due and
+                    payable from then onwards by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -15438,9 +13183,8 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The contractual amount till the time it is not paid will be
-                    treated as an admitted, undisputed debt due and payable by
-                    the Buyer to the Seller.
+                    The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt
+                    due and payable by the Buyer to the Seller.
                   </li>
                   <li
                     style={{
@@ -15450,11 +13194,9 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    Within seven (7) days of receipt of the statement of
-                    accounts, as prepared by Seller, if Buyer does not provide
-                    any comment on the statement of accounts, then such
-                    statement of accounts shall deem to be accepted by Buyer and
-                    binding on it.
+                    Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does
+                    not provide any comment on the statement of accounts, then such statement of accounts shall deem to
+                    be accepted by Buyer and binding on it.
                   </li>
                   <li
                     style={{
@@ -15464,9 +13206,8 @@ const igiPrint = (data) => {
                       width: '100%',
                     }}
                   >
-                    The End User and Manufacturer/shipper shall have direct
-                    recourse to each other for matters including but not limited
-                    to the following:
+                    The End User and Manufacturer/shipper shall have direct recourse to each other for matters including
+                    but not limited to the following:
                   </li>
                 </ol>
                 <p
@@ -15477,8 +13218,8 @@ const igiPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  a) For all quantity and quality claims/ issues pertaining to
-                  material supplied by Manufacturer/shipper,
+                  a) For all quantity and quality claims/ issues pertaining to material supplied by
+                  Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -15488,8 +13229,7 @@ const igiPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  b) Any express or implied warranty claim for the quality of
-                  material supplied by Manufacturer/shipper,
+                  b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -15509,9 +13249,8 @@ const igiPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  d) Any demurrage charges at the load port and/or discharge
-                  port shall be settled directly between the Buyer and
-                  Manufacturer/shipper,
+                  d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the
+                  Buyer and Manufacturer/shipper,
                 </p>
                 <p
                   style={{
@@ -15521,8 +13260,8 @@ const igiPrint = (data) => {
                     width: '100%',
                   }}
                 >
-                  All Claims direct or consequential shall be settled directly
-                  between End Buyer and Manufacturer/shipper.
+                  All Claims direct or consequential shall be settled directly between End Buyer and
+                  Manufacturer/shipper.
                 </p>
               </td>
             </tr>
@@ -15541,9 +13280,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Mutual Collaboration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Mutual Collaboration</p>
               </td>
               <td
                 style={{
@@ -15552,13 +13289,10 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both the Buyer and the Seller recognize that circumstances may
-                  arise that could not have been foreseen at the time this
-                  Contract is being entered into. Both Parties agree that they
-                  will use their commercially reasonable effort to achieve a
-                  mutually acceptable solution to any problem that may arise due
-                  to any unforeseen circumstances in the spirit of mutual
-                  understanding and collaboration
+                  Both the Buyer and the Seller recognize that circumstances may arise that could not have been foreseen
+                  at the time this Contract is being entered into. Both Parties agree that they will use their
+                  commercially reasonable effort to achieve a mutually acceptable solution to any problem that may arise
+                  due to any unforeseen circumstances in the spirit of mutual understanding and collaboration
                 </p>
               </td>
             </tr>
@@ -15576,13 +13310,7 @@ const igiPrint = (data) => {
             padding: '100px 20px 40px',
           }}
         >
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="5%"
@@ -15600,9 +13328,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Termination
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Termination</p>
               </td>
               <td
                 width="70%"
@@ -15612,43 +13338,30 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  In the event the Buyer commits any breach of the terms of the
-                  agreement, then the Seller may, by giving thirty (30) days
-                  prior written notice to the Buyer, terminate this Agreement
-                  without liability and charge to the Seller. However, the Buyer
-                  shall remain liable to the Seller for making Payment of the
-                  Goods already shipped by the Seller at the instance of the
-                  Buyer. Provided further, the Parties hereto agree that the
-                  Seller may immediately terminate this Agreement without
-                  providing any notice to the Buyer upon the Buyer, or the
-                  Buyer's shareholders commencing a voluntary proceeding under
-                  any applicable bankruptcy, insolvency, winding up or other
-                  similar law now or hereafter in effect (including but not
-                  limited to the Insolvency and Bankruptcy Code, 2016), or
-                  consents to the entry of an order for relief in an involuntary
-                  proceeding under any such law (including but not limited to
-                  the Insolvency and Bankruptcy Code, 2016), or consents to the
-                  appointment or taking possession by a resolution professional,
-                  Receiver, liquidator, assignee (or similar official) for any
-                  or a substantial part of its property; or the Buyer has
-                  involuntarily become the subject of proceedings (including
-                  filing of an application/ petition for corporate insolvency
-                  resolution) under the Insolvency &amp; Bankruptcy Code, 2016
-                  or an order has been made by the appropriate authority for
-                  winding up of the Buyer.
+                  In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by
+                  giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability
+                  and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of
+                  the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties
+                  hereto agree that the Seller may immediately terminate this Agreement without providing any notice to
+                  the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any
+                  applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect
+                  (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of
+                  an order for relief in an involuntary proceeding under any such law (including but not limited to the
+                  Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a
+                  resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial
+                  part of its property; or the Buyer has involuntarily become the subject of proceedings (including
+                  filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp;
+                  Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the
+                  Buyer.
                   <br />
                   <br />
-                  In the event that conditions of Force Majeure continue so that
-                  the Buyer's obligations remain suspended for a period or
-                  periods amounting in aggregate to sixty (60) days in any
-                  consecutive period of ninety (90) days, and at the end of said
-                  period or at anytime thereafter, then the Seller may give
-                  thirty (30) days prior written notice to the Buyer that the
-                  Seller intends to terminate this Agreement. At the expiration
-                  of the thirty (30) days, the Seller at its discretion may
-                  terminate this Agreement forthwith without any liability or
-                  charge to the Seller. However, the Buyer shall remain liable
-                  to the Seller for making Payment of the Goods.
+                  In the event that conditions of Force Majeure continue so that the Buyer's obligations remain
+                  suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period
+                  of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give
+                  thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this
+                  Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this
+                  Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain
+                  liable to the Seller for making Payment of the Goods.
                 </p>
               </td>
             </tr>
@@ -15676,13 +13389,10 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Any notice given by one Party to the other shall be in the
-                  English language and sent by facsimile or by pre-paid air
-                  courier. Any notice sent by facsimile shall be deemed received
-                  on the day of transmission and any notice sent by courier
-                  shall be deemed duly received on the third (3rd) day following
-                  dispatch. Such notices shall be addressed at the addresses
-                  mentioned hereinabove.
+                  Any notice given by one Party to the other shall be in the English language and sent by facsimile or
+                  by pre-paid air courier. Any notice sent by facsimile shall be deemed received on the day of
+                  transmission and any notice sent by courier shall be deemed duly received on the third (3rd) day
+                  following dispatch. Such notices shall be addressed at the addresses mentioned hereinabove.
                 </p>
               </td>
             </tr>
@@ -15701,9 +13411,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Force Majeure
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Force Majeure</p>
               </td>
               <td
                 style={{
@@ -15712,35 +13420,26 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Seller shall not be liable to the Buyer or to the
-                  Manufacturer/shipper for any damages due to delay,
-                  interruption or failure in performance of the obligations
-                  under the present Agreement (including but not limited to any
-                  loss, damage or delay) if such loss, damage, delay or failure
-                  is due to or results from Acts of God, War (whether declared
-                  or undeclared), blockades, revolution, insurrection, civil
-                  commotion, terrorism, riot, invasion, plague or other
-                  epidemic, fire, sabotage, quarantine restriction, explosion or
-                  embargo, including any change/modification in commercial laws,
-                  rules and regulations by government, acts of Government in
-                  creating any restrictions or control in imports, exports or
-                  foreign exchange, fire, flood, storm, earthquakes, accident in
-                  and to the Vessel or strikes, breakdown of loading or
-                  unloading facilities, or transporting, loading, unloading or
-                  delivering freight, embargoes and breakdown of railroads,
-                  serious damage to or breakdown of the transmission system
-                  connecting to the Buyer's warehouse or the like or any other
-                  cause which may be beyond the control of the Seller.
+                  The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to
+                  delay, interruption or failure in performance of the obligations under the present Agreement
+                  (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due
+                  to or results from Acts of God, War (whether declared or undeclared), blockades, revolution,
+                  insurrection, civil commotion, terrorism, riot, invasion, plague or other epidemic, fire, sabotage,
+                  quarantine restriction, explosion or embargo, including any change/modification in commercial laws,
+                  rules and regulations by government, acts of Government in creating any restrictions or control in
+                  imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel
+                  or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or
+                  delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the
+                  transmission system connecting to the Buyer's warehouse or the like or any other cause which may be
+                  beyond the control of the Seller.
                   <br />
                   <br />
-                  The force Majeure declared by the Manufacturer/shipper shall
-                  be applicable to the Seller.
+                  The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
                   <br />
                   <br />
-                  No event described in this Clause shall constitute a Force
-                  Majeure event with respect to the Buyer's obligation to pay
-                  for any product loaded at loading place in transit to the
-                  Buyer or stored at the licensed warehouse.
+                  No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's
+                  obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the
+                  licensed warehouse.
                 </p>
               </td>
             </tr>
@@ -15759,9 +13458,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Breach of Contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Breach of Contract</p>
               </td>
               <td
                 style={{
@@ -15771,35 +13468,25 @@ const igiPrint = (data) => {
               >
                 <ol type="1" style={{ paddingLeft: '16px', marginBottom: '0' }}>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, the Buyer fails to fulfill its obligations as
-                    laid down hereunder, the Buyer shall be fully responsible
-                    and liable for all losses, damages, both direct and
-                    consequential incurred by the Seller.
+                    In the event, the Buyer fails to fulfill its obligations as laid down hereunder, the Buyer shall be
+                    fully responsible and liable for all losses, damages, both direct and consequential incurred by the
+                    Seller.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    The Buyer indemnifies and shall continue to keep the Seller
-                    fully indemnified against all losses, damages, expenses,
-                    claims, proceedings, liabilities (including all liabilities
-                    of the Seller towards payment of LC charges, interest,
-                    default interest and other similar charges to its financing
-                    entity, and those arising under the Collateral Management
-                    Agreement and the Irrevocable Tripartite Agreement), demands
-                    including but not limited to those arising due to the
-                    failure of the Buyer to make the payment and/or take
-                    delivery of the Goods within the stipulated time period as
-                    specified in the Clause Payment Terms hereinabove as well as
-                    for executing the transaction as contemplated herein the
-                    agreement for and on behalf of the Buyer.
+                    The Buyer indemnifies and shall continue to keep the Seller fully indemnified against all losses,
+                    damages, expenses, claims, proceedings, liabilities (including all liabilities of the Seller towards
+                    payment of LC charges, interest, default interest and other similar charges to its financing entity,
+                    and those arising under the Collateral Management Agreement and the Irrevocable Tripartite
+                    Agreement), demands including but not limited to those arising due to the failure of the Buyer to
+                    make the payment and/or take delivery of the Goods within the stipulated time period as specified in
+                    the Clause Payment Terms hereinabove as well as for executing the transaction as contemplated herein
+                    the agreement for and on behalf of the Buyer.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    If, due to the failure of the Buyer to fulfill its
-                    obligations as laid down hereunder in the Contract, any
-                    dispute or difference arises between the Seller and
-                    Manufacturer/Shipper, and due to which any
-                    Award/Judgment/decree/Order is passed or otherwise a
-                    settlement is reached, the Buyer shall be bound to accept
-                    the same and bear the liability, costs, expenses arising
-                    there from.
+                    If, due to the failure of the Buyer to fulfill its obligations as laid down hereunder in the
+                    Contract, any dispute or difference arises between the Seller and Manufacturer/Shipper, and due to
+                    which any Award/Judgment/decree/Order is passed or otherwise a settlement is reached, the Buyer
+                    shall be bound to accept the same and bear the liability, costs, expenses arising there from.
                     <br />
                     <br />
                     <br />
@@ -15807,19 +13494,16 @@ const igiPrint = (data) => {
                     <br />
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    In the event, any judicial/ legal proceedings are initiated
-                    against the Seller by Manufacturer/shipper, the Buyer shall
-                    be required to be present and associated at all stages of
-                    the proceedings and shall bear the entire expenses of
-                    arbitration/litigation and/or of the negotiated settlement.
-                    The Buyer shall have no authority or excuse to challenge the
-                    same on any ground including that the Buyer has not been
-                    consulted therein or that the negotiated settlement is not
+                    In the event, any judicial/ legal proceedings are initiated against the Seller by
+                    Manufacturer/shipper, the Buyer shall be required to be present and associated at all stages of the
+                    proceedings and shall bear the entire expenses of arbitration/litigation and/or of the negotiated
+                    settlement. The Buyer shall have no authority or excuse to challenge the same on any ground
+                    including that the Buyer has not been consulted therein or that the negotiated settlement is not
                     reasonable or otherwise.
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    Remedies provided under this agreement shall be cumulative
-                    and in addition to other remedies provided by law.
+                    Remedies provided under this agreement shall be cumulative and in addition to other remedies
+                    provided by law.
                   </li>
                 </ol>
               </td>
@@ -15839,9 +13523,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Dispute Resolution &amp; Arbitration
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Dispute Resolution &amp; Arbitration</p>
               </td>
               <td
                 style={{
@@ -15850,30 +13532,21 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Both parties agree to use their best efforts to amicably
-                  resolve any claims controversies and disputes arising out of
-                  this contract, as well as to determine the final costs
-                  thereof. Any such claims, controversies and disputes which
-                  cannot be resolved through negotiations within a period of 60
-                  days of the notification of such claims, disputes and
-                  controversies shall be referred to arbitration in accordance
-                  with the rules of Singapore International Arbitration Center
-                  (SIAC). One arbitrator to be nominated jointly by both the
-                  parties. The award rendered by the arbitrator shall be final
-                  and binding upon both the parties concerned and subject to no
-                  appeal. The costs and expenses of the prevailing party
-                  (including, without limitation, reasonable attorney's fee)
-                  will be paid by the losing party. The contract shall be
-                  subject to Laws of India. The seat of the arbitration will be
-                  Singapore and the proceedings shall be conducted in English
-                  language.
+                  Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes
+                  arising out of this contract, as well as to determine the final costs thereof. Any such claims,
+                  controversies and disputes which cannot be resolved through negotiations within a period of 60 days of
+                  the notification of such claims, disputes and controversies shall be referred to arbitration in
+                  accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be
+                  nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding
+                  upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing
+                  party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The
+                  contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the
+                  proceedings shall be conducted in English language.
                   <br />
                   <br />
-                  Notwithstanding the aforesaid, the parties agree and affirm
-                  that relief available under Section 9 of the Indian
-                  Arbitration Act, 1996 (as amended) shall be available to the
-                  parties, and the parties may initiate appropriate proceedings
-                  in India in order to avail such relief.
+                  Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of
+                  the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may
+                  initiate appropriate proceedings in India in order to avail such relief.
                 </p>
               </td>
             </tr>
@@ -15892,9 +13565,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Modifications of the contract
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Modifications of the contract</p>
               </td>
               <td
                 style={{
@@ -15903,11 +13574,9 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No changes in respect of the contract covered by this
-                  agreement shall be valid unless the same is agreed to in
-                  writing by both parties herewith specifically stating the same
-                  to on amendment to this agreement. Contract is valid if
-                  approved by Fax and no mail confirmation will be sent.
+                  No changes in respect of the contract covered by this agreement shall be valid unless the same is
+                  agreed to in writing by both parties herewith specifically stating the same to on amendment to this
+                  agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
                 </p>
               </td>
             </tr>
@@ -15926,9 +13595,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  No Assignment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>No Assignment</p>
               </td>
               <td
                 style={{
@@ -15937,9 +13604,8 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Neither Party shall be entitled to assign, transfer or
-                  sub-contract its rights under this Agreement in whole or in
-                  part without first obtaining the other's consent in writing.
+                  Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in
+                  whole or in part without first obtaining the other's consent in writing.
                 </p>
               </td>
             </tr>
@@ -15958,9 +13624,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Severability
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Severability</p>
               </td>
               <td
                 style={{
@@ -15969,12 +13633,10 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  The Parties intend each provision of this Agreement to be
-                  severable and distinct from the others. If a provision of this
-                  Agreement is held to be illegal, invalid or unenforceable, in
-                  whole or in part, the Parties intend that the legality,
-                  validity and enforceability of the remainder of this Agreement
-                  shall not be affected.
+                  The Parties intend each provision of this Agreement to be severable and distinct from the others. If a
+                  provision of this Agreement is held to be illegal, invalid or unenforceable, in whole or in part, the
+                  Parties intend that the legality, validity and enforceability of the remainder of this Agreement shall
+                  not be affected.
                 </p>
               </td>
             </tr>
@@ -16002,9 +13664,8 @@ const igiPrint = (data) => {
                 }}
               >
                 <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Failure to enforce any condition herein contained shall not
-                  operate as a waiver of the condition itself or any subsequent
-                  breach thereof.
+                  Failure to enforce any condition herein contained shall not operate as a waiver of the condition
+                  itself or any subsequent breach thereof.
                 </p>
               </td>
             </tr>
@@ -16023,9 +13684,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Representations and Warranties
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Representations and Warranties</p>
               </td>
               <td
                 style={{
@@ -16033,8 +13692,7 @@ const igiPrint = (data) => {
                   textAlign: 'justify',
                 }}
               >
-                Each party to this Agreement hereby represents and warrants
-                that:
+                Each party to this Agreement hereby represents and warrants that:
                 <ol
                   type="1"
                   style={{
@@ -16044,26 +13702,19 @@ const igiPrint = (data) => {
                   }}
                 >
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    it is a legal entity duly organized and validly existing
-                    under the laws of the jurisdiction of its incorporation and
-                    has all necessary corporate power, authority and capacity to
-                    execute this Agreement and undertake the transactions
-                    contemplated herein;
+                    it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its
+                    incorporation and has all necessary corporate power, authority and capacity to execute this
+                    Agreement and undertake the transactions contemplated herein;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution and delivery of this Agreement has been duly
-                    and validly authorized and constitutes valid and legally
-                    binding obligations enforceable in accordance with its
-                    terms;
+                    the execution and delivery of this Agreement has been duly and validly authorized and constitutes
+                    valid and legally binding obligations enforceable in accordance with its terms;
                   </li>
                   <li style={{ marginBottom: '10px', color: '#000000' }}>
-                    the execution, delivery and performance of this Agreement
-                    does not and shall not; (i) contravene any provisions of its
-                    charter documents; (ii) result in a default, breach or
-                    contravention of any conditions or provisions of any
-                    agreement to which it is a party or any obligation it is
-                    bond by; or (iii) violate any law, order, judgment,
-                    injunction, decree, award, rule or regulation applicable to
+                    the execution, delivery and performance of this Agreement does not and shall not; (i) contravene any
+                    provisions of its charter documents; (ii) result in a default, breach or contravention of any
+                    conditions or provisions of any agreement to which it is a party or any obligation it is bond by; or
+                    (iii) violate any law, order, judgment, injunction, decree, award, rule or regulation applicable to
                     it.
                   </li>
                 </ol>
@@ -16097,13 +13748,7 @@ const igiPrint = (data) => {
           <br />
           <br />
           <h3 style={{ fontSize: '15px', fontWeight: 'bold' }}>Schedule I</h3>
-          <table
-            width="100%"
-            cellPadding="10"
-            style={{ border: '1px solid #000000' }}
-            cellSpacing="0"
-            border="0"
-          >
+          <table width="100%" cellPadding="10" style={{ border: '1px solid #000000' }} cellSpacing="0" border="0">
             <tr>
               <td
                 width="30%"
@@ -16112,9 +13757,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Date of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Date of Execution</p>
               </td>
               <td
                 width="70%"
@@ -16123,9 +13766,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dateOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dateOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -16135,9 +13776,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Place of Execution
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Place of Execution</p>
               </td>
               <td
                 style={{
@@ -16145,9 +13784,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.placeOfExecution}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.placeOfExecution}</p>
               </td>
             </tr>
             <tr>
@@ -16157,9 +13794,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Manufacturer / Supplier / Shipper
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Manufacturer / Supplier / Shipper</p>
               </td>
               <td
                 style={{
@@ -16167,9 +13802,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.details}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.details}</p>
               </td>
             </tr>
             <tr>
@@ -16179,9 +13812,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of End Buyer
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of End Buyer</p>
               </td>
               <td
                 style={{
@@ -16189,9 +13820,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfEndBuyer}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfEndBuyer}</p>
               </td>
             </tr>
             <tr>
@@ -16201,9 +13830,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Details of Commodity
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Details of Commodity</p>
               </td>
               <td
                 style={{
@@ -16211,9 +13838,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.detailsOfComm}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.detailsOfComm}</p>
               </td>
             </tr>
             <tr>
@@ -16246,9 +13871,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Unit Price
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Unit Price</p>
               </td>
               <td
                 style={{
@@ -16271,9 +13894,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Total Order Value
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Total Order Value</p>
               </td>
               <td
                 style={{
@@ -16304,9 +13925,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.lordPort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.lordPort}</p>
               </td>
             </tr>
             <tr>
@@ -16316,9 +13935,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Discharge Port
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Discharge Port</p>
               </td>
               <td
                 style={{
@@ -16326,9 +13943,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.dischargePort}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.dischargePort}</p>
               </td>
             </tr>
             <tr>
@@ -16338,9 +13953,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Last Date of Shipment
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Last Date of Shipment</p>
               </td>
               <td
                 style={{
@@ -16348,9 +13961,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {moment(data.lastDate).format('DD-MM-YYYY')}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{moment(data.lastDate).format('DD-MM-YYYY')}</p>
               </td>
             </tr>
             <tr>
@@ -16360,9 +13971,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Shipment Term
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Shipment Term</p>
               </td>
               <td
                 style={{
@@ -16370,9 +13979,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  {data.terms}
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>{data.terms}</p>
               </td>
             </tr>
             <tr>
@@ -16382,9 +13989,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Additional Conditions
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Additional Conditions</p>
               </td>
               <td
                 style={{
@@ -16413,9 +14018,7 @@ const igiPrint = (data) => {
                   borderRight: '1px solid #000000',
                 }}
               >
-                <p style={{ color: '#000000', marginBottom: '0' }}>
-                  Specification
-                </p>
+                <p style={{ color: '#000000', marginBottom: '0' }}>Specification</p>
               </td>
               <td
                 style={{
@@ -16474,19 +14077,11 @@ const igiPrint = (data) => {
                       ))}
                   </table>
 
-                  {data?.specComment?.length > 0 ? (
-                    <p style={{ paddingTop: '10px' }}>Comments</p>
-                  ) : null}
+                  {data?.specComment?.length > 0 ? <p style={{ paddingTop: '10px' }}>Comments</p> : null}
                   <ol type="1" style={{ paddingLeft: '16px' }}>
                     {data?.specComment?.length > 0 &&
                       data?.specComment?.map((val, index) => {
-                        return (
-                          <li
-                            style={{ marginBottom: '10px', color: '#000000' }}
-                          >
-                            {val}
-                          </li>
-                        );
+                        return <li style={{ marginBottom: '10px', color: '#000000' }}>{val}</li>;
                       })}
                   </ol>
                 </>
@@ -16507,9 +14102,7 @@ const igiPrint = (data) => {
           }}
         >
           <strong>
-            <p style={{ color: '#000000', marginBottom: '0' }}>
-              SIGNATURE PAGE
-            </p>
+            <p style={{ color: '#000000', marginBottom: '0' }}>SIGNATURE PAGE</p>
           </strong>
         </td>
       </tr>
@@ -16538,18 +14131,10 @@ const igiPrint = (data) => {
             </tr>
             <tr>
               <td style={{ paddingRight: '15px' }}>
-                <textarea
-                  value={data.sellerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.sellerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
               <td style={{ paddingLeft: '15px' }}>
-                <textarea
-                  value={data.buyerSignature}
-                  style={{ width: '100%', outline: 'none' }}
-                  rows={4}
-                ></textarea>
+                <textarea value={data.buyerSignature} style={{ width: '100%', outline: 'none' }} rows={4}></textarea>
               </td>
             </tr>
           </table>

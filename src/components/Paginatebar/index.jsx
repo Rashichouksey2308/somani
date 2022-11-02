@@ -2,13 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { useSelector } from 'react-redux';
 
-function index({
-  openbar,
-  leftButtonTitle,
-  rightButtonTitle,
-  download,
-  exportPDF,
-}) {
+function index({ openbar, leftButtonTitle, rightButtonTitle, download, exportPDF }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar);
   const isMobile = useSelector((state) => state.sidebar.isMobile);
   return (
@@ -18,11 +12,7 @@ function index({
     >
       <div className={styles.reject} onClick={download || exportPDF}>
         <span>{leftButtonTitle}</span>
-        <img
-          src="/static/file_download.svg"
-          className="img-fluid"
-          alt="FileDownload"
-        />
+        <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
       </div>
       <div className={styles.navigate}>
         <span>2</span> / 10

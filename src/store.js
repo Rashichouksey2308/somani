@@ -76,8 +76,7 @@ export const createStore = (preloadedState) => {
       supplier: SupplierReducer,
     },
     preloadedState,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(...middlewares),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...middlewares),
     devTools: config.env === 'development',
   });
 };

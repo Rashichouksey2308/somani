@@ -67,26 +67,19 @@ export const settingUnit = (payload) => (dispatch, getState) => {
 };
 export const gettingCurrency = (payload) => (dispatch, getState) => {
   dispatch(getCurrency());
-  return (
-    localStorage.getItem('currency') ||
-    getState().Breadcrumb.breadCrumbData.currency
-  );
+  return localStorage.getItem('currency') || getState().Breadcrumb.breadCrumbData.currency;
 };
 
 export const gettingUnit = (payload) => (dispatch, getState) => {
   dispatch(getUnit());
-  return (
-    localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit
-  );
+  return localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit;
 };
 
-export const settingSidebar =
-  (sideBarMain, subsideBarMain, loadedSubPage, openList) =>
-  (dispatch, getState) => {
-    sessionStorage.setItem('sideBarMain', sideBarMain);
-    sessionStorage.setItem('subsideBarMain', subsideBarMain);
-    sessionStorage.setItem('loadedSubPage', loadedSubPage);
-    sessionStorage.setItem('openList', openList);
+export const settingSidebar = (sideBarMain, subsideBarMain, loadedSubPage, openList) => (dispatch, getState) => {
+  sessionStorage.setItem('sideBarMain', sideBarMain);
+  sessionStorage.setItem('subsideBarMain', subsideBarMain);
+  sessionStorage.setItem('loadedSubPage', loadedSubPage);
+  sessionStorage.setItem('openList', openList);
 
-    dispatch(setSidebar({ sideBarMain, subsideBarMain }));
-  };
+  dispatch(setSidebar({ sideBarMain, subsideBarMain }));
+};

@@ -135,21 +135,20 @@ export const fetchUserType = () => async (dispatch, getState, api) => {
   }
 };
 
-export const updateUserPermissions =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(updatingUserPermissions());
-    try {
-      const response = await api.post(API.updateUserType, payload);
-      if (response.data.code === 200) {
-        dispatch(updatingUserPermissionsSuccess(response.data));
-        dispatch(fetchUserType());
-      } else {
-        dispatch(updatingUserPermissionsFailed(response.data));
-      }
-    } catch (error) {
-      dispatch(updatingUserPermissionsFailed('error'));
+export const updateUserPermissions = (payload) => async (dispatch, getState, api) => {
+  dispatch(updatingUserPermissions());
+  try {
+    const response = await api.post(API.updateUserType, payload);
+    if (response.data.code === 200) {
+      dispatch(updatingUserPermissionsSuccess(response.data));
+      dispatch(fetchUserType());
+    } else {
+      dispatch(updatingUserPermissionsFailed(response.data));
     }
-  };
+  } catch (error) {
+    dispatch(updatingUserPermissionsFailed('error'));
+  }
+};
 
 export const removeUserType = (payload) => async (dispatch, getState, api) => {
   dispatch(removingUserType());

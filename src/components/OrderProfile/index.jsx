@@ -27,9 +27,7 @@ function Index() {
       >
         <div className={styles.header}>
           <h2 className={`mb-0`}>Order Details</h2>
-          <span className=" d-flex align-items-center justify-content-between">
-            +
-          </span>
+          <span className=" d-flex align-items-center justify-content-between">+</span>
         </div>
       </div>
       <div
@@ -49,12 +47,9 @@ function Index() {
         )}
         {fields(
           'Order value (in INR)',
-          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(
-            'en-IN',
-            {
-              maximumFractionDigits: 2,
-            },
-          ),
+          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString('en-IN', {
+            maximumFractionDigits: 2,
+          }),
           false,
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
@@ -74,17 +69,7 @@ function Index() {
         )}
 
         {buyerList?.company?.documents.map((val, index) => {
-          return (
-            <>
-              {fields(
-                'Document Type',
-                val?.typeOfDocument,
-                true,
-                null,
-                val?.path,
-              )}
-            </>
-          );
+          return <>{fields('Document Type', val?.typeOfDocument, true, null, val?.path)}</>;
         })}
       </div>
     </div>
@@ -97,19 +82,14 @@ const fields = (head, value, isButton, value2, value3) => {
 
   return (
     <>
-      <div
-        className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}
-      >
+      <div className={`${styles.filed_container} col-sm-6 col-12 col-md-3 col-lg-2`}>
         <span className={`${styles.top} label`}>{head}</span>
         <div className="d-flex align-items-center">
           <span className={`${styles.value} value `}>
             {value} {value2 ? value2 : ''}
           </span>
           {isButton ? (
-            <a
-              onClick={() => dispatch(ViewDocument({ path: value3 }))}
-              className={styles.button}
-            >
+            <a onClick={() => dispatch(ViewDocument({ path: value3 }))} className={styles.button}>
               View
             </a>
           ) : null}

@@ -57,28 +57,20 @@ function Layout({ children }) {
           <div className={styles.wrapper}>
             {isMobile ? (
               <div
-                className={`${styles.sidebarContainer_mobile} ${
-                  !sidebar ? styles.collapse_sidebar_mobile : null
-                }  `}
+                className={`${styles.sidebarContainer_mobile} ${!sidebar ? styles.collapse_sidebar_mobile : null}  `}
               >
                 {/* <Sidebar />  */}
                 <Sidebar />
               </div>
             ) : (
-              <div
-                className={`${styles.sidebarContainer} ${
-                  !sidebar ? styles.collapse_sidebar : null
-                }  `}
-              >
+              <div className={`${styles.sidebarContainer} ${!sidebar ? styles.collapse_sidebar : null}  `}>
                 {/* <Sidebar />  */}
                 <Sidebar />
               </div>
             )}
 
             <div
-              className={`${styles.mainView_Container} card_main ${
-                !sidebar ? styles.no_sidebar : null
-              }
+              className={`${styles.mainView_Container} card_main ${!sidebar ? styles.no_sidebar : null}
               ${isMobile ? styles.no_sidebar_mobile : null}
               `}
             >

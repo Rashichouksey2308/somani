@@ -100,46 +100,41 @@ function getCaseDetailsFailed() {
   };
 }
 
-export const GetCompanyDetails =
-  (payload) => async (dispatch, getState, api) => {
-    try {
-      dispatch(setIsLoading());
-      dispatch(getComanyDetails());
-      let cookie = Cookies.get('SOMANI');
-      const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const GetCompanyDetails = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    dispatch(getComanyDetails());
+    let cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-      let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
 
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.getCompanyDetails}`,
-        payload,
-        {
-          headers: headers,
-        },
-      );
+    let response = await Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
+      headers: headers,
+    });
 
-      if (response.data.code === 200) {
-        dispatch(getComanyDetailsSuccess(response.data.data));
-        dispatch(setNotLoading());
-      } else {
-        dispatch(getComanyDetailsFailed(response.data.data));
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-      }
-    } catch (error) {
-      dispatch(getComanyDetailsFailed());
-
-      let toastMessage = 'COULD NOT FETCH COMPANY DETAILS';
+    if (response.data.code === 200) {
+      dispatch(getComanyDetailsSuccess(response.data.data));
+      dispatch(setNotLoading());
+    } else {
+      dispatch(getComanyDetailsFailed(response.data.data));
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       dispatch(setNotLoading());
     }
-  };
+  } catch (error) {
+    dispatch(getComanyDetailsFailed());
+
+    let toastMessage = 'COULD NOT FETCH COMPANY DETAILS';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
 
 export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -154,12 +149,9 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   };
 
   try {
-    Axios.get(
-      `${API.corebaseUrl}${API.creditLimit}?company=${payload.companyId}`,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.creditLimit}?company=${payload.companyId}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getCreditDetailsSuccess(response.data.data));
         dispatch(setNotLoading());
@@ -296,11 +288,7 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
         } else {
-          window.open(
-            response?.data.data.caseDetails.pdfDocumentsLink[0],
-            '_blank',
-            'noopener,noreferrer',
-          );
+          window.open(response?.data.data.caseDetails.pdfDocumentsLink[0], '_blank', 'noopener,noreferrer');
         }
       } else {
         dispatch(getCaseDetailsFailed(response.data.data));

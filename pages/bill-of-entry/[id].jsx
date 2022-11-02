@@ -52,13 +52,9 @@ function Index() {
       'Access-Control-Allow-Origin': '*',
     };
     try {
-      let response = await Axios.post(
-        `${API.corebaseUrl}${API.customClearanceDoc}`,
-        fd,
-        {
-          headers: headers,
-        },
-      );
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      });
 
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
@@ -98,9 +94,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -114,18 +108,14 @@ function Index() {
               // style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} -{' '}
-                <span style={{ textTransform: 'capitalize' }}>
-                  {CompanyOrderId?.orderId}
-                </span>
+                <span style={{ textTransform: 'capitalize' }}>{CompanyOrderId?.orderId}</span>
               </span>
             </h3>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link ${
-                  componentId === 1 && 'active'
-                }`}
+                className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'}`}
                 // data-toggle="tab"
                 // href="#billEntry"
                 // role="tab"
@@ -146,9 +136,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 2 && 'active'
-                } `}
+                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'} `}
                 role="button"
                 // data-toggle="tab"
                 // id="#dischargeCargo"
@@ -169,9 +157,7 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${
-                  componentId === 3 && 'active'
-                }`}
+                className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'}`}
                 role="button"
                 // data-toggle="tab"
                 // href="#warehouse"

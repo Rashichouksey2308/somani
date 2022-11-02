@@ -12,12 +12,7 @@ import { GetBuyer, UpdateBuyer } from '../../src/redux/registerBuyer/action';
 import { setDynamicName, setPageName } from '../../src/redux/userData/action';
 import { toast } from 'react-toastify';
 import { settingSidebar } from '../../src/redux/breadcrumb/action';
-import {
-  getCommodities,
-  getCountries,
-  getDocuments,
-  getPorts,
-} from '../../src/redux/masters/action';
+import { getCommodities, getCountries, getDocuments, getPorts } from '../../src/redux/masters/action';
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -31,9 +26,7 @@ const Index = () => {
   }, []);
   const { getPortsMasterData } = useSelector((state) => state.MastersData);
   const { getCountriesMasterData } = useSelector((state) => state.MastersData);
-  const { getCommoditiesMasterData } = useSelector(
-    (state) => state.MastersData,
-  );
+  const { getCommoditiesMasterData } = useSelector((state) => state.MastersData);
   const { getDocumentsMasterData } = useSelector((state) => state.MastersData);
 
   const [fields, setFields] = useState([
@@ -237,12 +230,7 @@ const Index = () => {
           <OrderProfile />
         </div>
         <div className={styles.approve_Container}>
-          <ApproveBar
-            handleApprove={handleApprove}
-            handleReject={handleReject}
-            button={'Reject'}
-            button2={'Approve'}
-          />
+          <ApproveBar handleApprove={handleApprove} handleReject={handleReject} button={'Reject'} button2={'Approve'} />
         </div>
       </div>
     </>

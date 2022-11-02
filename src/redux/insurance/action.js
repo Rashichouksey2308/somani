@@ -100,44 +100,43 @@ function updateQuotationFailed() {
   };
 }
 
-export const GettingAllInsurance =
-  (payload) => async (dispatch, getState, api) => {
-    try {
-      dispatch(setIsLoading());
-      const cookie = Cookies.get('SOMANI');
-      const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const GettingAllInsurance = (payload) => async (dispatch, getState, api) => {
+  try {
+    dispatch(setIsLoading());
+    const cookie = Cookies.get('SOMANI');
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-      const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-      const headers = {
-        authorization: jwtAccessToken,
-        Cache: 'no-cache',
-        'Access-Control-Allow-Origin': '*',
-      };
-      Axios.get(`${API.corebaseUrl}${API.getInsurance}${payload || ''}`, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllInsuranceSuccess(response.data.data));
-          dispatch(setNotLoading());
-        } else {
-          dispatch(getAllInsuranceFailed(response.data.data));
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+    const headers = {
+      authorization: jwtAccessToken,
+      Cache: 'no-cache',
+      'Access-Control-Allow-Origin': '*',
+    };
+    Axios.get(`${API.corebaseUrl}${API.getInsurance}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllInsuranceSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllInsuranceFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-      });
-    } catch (error) {
-      dispatch(getAllInsuranceFailed());
-
-      const toastMessage = 'GET INSURANCE API FAILED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        dispatch(setNotLoading());
       }
-      dispatch(setNotLoading());
+    });
+  } catch (error) {
+    dispatch(getAllInsuranceFailed());
+
+    const toastMessage = 'GET INSURANCE API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-  };
+    dispatch(setNotLoading());
+  }
+};
 
 export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -189,13 +188,9 @@ export const UpdateInsurance = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
-    const response = await Axios.put(
-      `${API.corebaseUrl}${API.getInsurance}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.put(`${API.corebaseUrl}${API.getInsurance}`, payload, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(updateInsuranceSuccess(response.data));
       const toastMessage = 'SAVED SUCCESSFULLY';
@@ -268,13 +263,9 @@ export const UpdateQuotation = (payload) => async (dispatch, getState, api) => {
   const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
   try {
-    const response = await Axios.put(
-      `${API.corebaseUrl}${API.updateQuotation}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateQuotation}`, payload, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(updateQuotationSuccess(response.data));
       const toastMessage = 'SAVED SUCCESSFULLY';

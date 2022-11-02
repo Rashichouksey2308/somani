@@ -66,21 +66,19 @@ export const getCommodities = (payload) => async (dispatch, getState, api) => {
     type: types.GET_COMMODITIES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.commoditiesMaster}`).then(
-      (response) => {
-        if (response.status === 200) {
-          dispatch({
-            type: types.GET_COMMODITIES_MASTERS_SUCCESS,
-            payload: response.data,
-          });
-        } else {
-          dispatch({
-            type: types.GET_COMMODITIES_MASTERS_FAILURE,
-            payload: response.data,
-          });
-        }
-      },
-    );
+    Axios.get(`${API.masterBaseUrl}${API.commoditiesMaster}`).then((response) => {
+      if (response.status === 200) {
+        dispatch({
+          type: types.GET_COMMODITIES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_COMMODITIES_MASTERS_FAILURE,
+          payload: response.data,
+        });
+      }
+    });
   } catch (error) {
     console.log(error);
   }
@@ -140,35 +138,32 @@ export const getCurrency = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const getInternalCompanies =
-  (payload) => async (dispatch, getState, api) => {
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+export const getInternalCompanies = (payload) => async (dispatch, getState, api) => {
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
 
-    dispatch({
-      type: types.GET_INTERNAL_COMPANIES_MASTERS,
+  dispatch({
+    type: types.GET_INTERNAL_COMPANIES_MASTERS,
+  });
+  try {
+    Axios.get(`${API.masterBaseUrl}${API.internalCompaniesMaster}`).then((response) => {
+      if (response.status === 200) {
+        dispatch({
+          type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_INTERNAL_COMPANIES_MASTERS_FAILURE,
+          payload: response.data,
+        });
+      }
     });
-    try {
-      Axios.get(`${API.masterBaseUrl}${API.internalCompaniesMaster}`).then(
-        (response) => {
-          if (response.status === 200) {
-            dispatch({
-              type: types.GET_INTERNAL_COMPANIES_MASTERS_SUCCESS,
-              payload: response.data,
-            });
-          } else {
-            dispatch({
-              type: types.GET_INTERNAL_COMPANIES_MASTERS_FAILURE,
-              payload: response.data,
-            });
-          }
-        },
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getVendors = (payload) => async (dispatch, getState, api) => {
   const cookie = Cookies.get('SOMANI');
@@ -233,9 +228,7 @@ export const getBranches = (payload) => async (dispatch, getState, api) => {
     type: types.GET_BANK_BRANCHES_MASTERS,
   });
   try {
-    Axios.get(
-      `${API.masterBaseUrl}${API.bankBranchesMaster}${payload}.json`,
-    ).then((response) => {
+    Axios.get(`${API.masterBaseUrl}${API.bankBranchesMaster}${payload}.json`).then((response) => {
       if (response.status === 200) {
         dispatch({
           type: types.GET_BANK_BRANCHES_MASTERS_SUCCESS,
@@ -262,21 +255,19 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
     type: types.GET_PINCODES_MASTERS,
   });
   try {
-    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then(
-      (response) => {
-        if (response.status === 200) {
-          dispatch({
-            type: types.GET_PINCODES_MASTERS_SUCCESS,
-            payload: response.data,
-          });
-        } else {
-          dispatch({
-            type: types.GET_PINCODES_MASTERS_SUCCESS,
-            payload: [],
-          });
-        }
-      },
-    );
+    Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then((response) => {
+      if (response.status === 200) {
+        dispatch({
+          type: types.GET_PINCODES_MASTERS_SUCCESS,
+          payload: response.data,
+        });
+      } else {
+        dispatch({
+          type: types.GET_PINCODES_MASTERS_SUCCESS,
+          payload: [],
+        });
+      }
+    });
   } catch (error) {
     dispatch({
       type: types.GET_PINCODES_MASTERS_SUCCESS,

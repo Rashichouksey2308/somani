@@ -8,21 +8,11 @@ import DeliveryOrder from '../../src/components/DeliveryOrder';
 import LiftingDetails from '../../src/components/LiftingDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
-import {
-  GetDelivery,
-  UpdateDelivery,
-} from '../../src/redux/release&DeliveryOrder/action';
-import {
-  GetAllLifting,
-  UpdateLiftingData,
-} from '../../src/redux/Lifting/action';
+import { GetDelivery, UpdateDelivery } from '../../src/redux/release&DeliveryOrder/action';
+import { GetAllLifting, UpdateLiftingData } from '../../src/redux/Lifting/action';
 import _get from 'lodash/get';
 import { toast } from 'react-toastify';
-import {
-  setDynamicName,
-  setPageName,
-  setPageTabName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setPageName, setPageTabName } from '../../src/redux/userData/action';
 import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action';
 
 function Index() {
@@ -97,11 +87,7 @@ function Index() {
   };
   useEffect(() => {
     if (_get(ReleaseOrderData, 'data[0].order.lifting', '') !== '') {
-      dispatch(
-        GetAllLifting(
-          `?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`,
-        ),
-      );
+      dispatch(GetAllLifting(`?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`));
     }
   }, [ReleaseOrderData]);
 
@@ -177,105 +163,8 @@ function Index() {
         break;
       }
       for (let j = 0; j <= lifting[i].detail.length - 1; j++) {
-        if (
-          lifting[i].detail[j]?.dateOfLifting == '' ||
-          lifting[i].detail[j]?.dateOfLifting == null
-        ) {
-          toastMessage = `please provide Date Of lifting Of lifting Details   ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.liftingQuant == '' ||
-          lifting[i].detail[j]?.liftingQuant == null
-        ) {
-          toastMessage = `please provide lifting Quantity Of lifting Details   ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-
-        if (
-          lifting[i].detail[j]?.modeOfTransportation == '' ||
-          lifting[i].detail[j]?.modeOfTransportation == null
-        ) {
-          toastMessage = `please provide mode Of Transportation Of lifting Details  ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.rrlrNumber == '' ||
-          lifting[i].detail[j]?.rrlrNumber == null
-        ) {
-          toastMessage = `please provide rr/lr Number  Of lifting Details  ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.destination == '' ||
-          lifting[i].detail[j]?.destination == null
-        ) {
-          toastMessage = `please provide destination  Of lifting Details  ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.eWayBill == '' ||
-          lifting[i].detail[j]?.eWayBill == null
-        ) {
-          toastMessage = `please provide a eWay Bill  Of lifting Details  ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.eWayBill == '' ||
-          lifting[i].detail[j]?.eWayBill == null
-        ) {
-          toastMessage = `please provide a eWay Bill   Of lifting Details ${
-            j + 1
-          } for delivery order no - ${lifting[i].deliveryOrder}  `;
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-            isOk = false;
-            break;
-          }
-        }
-        if (
-          lifting[i].detail[j]?.LRorRRDoc.originalName == '' ||
-          !lifting[i].detail[j]?.LRorRRDoc.originalName
-        ) {
-          toastMessage = `please upload ${
-            lifting[i].detail[j]?.modeOfTransportation
-          }  document  Of Listing Details  ${j + 1} for delivery order no - ${
+        if (lifting[i].detail[j]?.dateOfLifting == '' || lifting[i].detail[j]?.dateOfLifting == null) {
+          toastMessage = `please provide Date Of lifting Of lifting Details   ${j + 1} for delivery order no - ${
             lifting[i].deliveryOrder
           }  `;
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -284,10 +173,78 @@ function Index() {
             break;
           }
         }
-        if (
-          lifting[i].detail[j]?.eWayBillDoc.originalName == '' ||
-          !lifting[i].detail[j]?.eWayBillDoc.originalName
-        ) {
+        if (lifting[i].detail[j]?.liftingQuant == '' || lifting[i].detail[j]?.liftingQuant == null) {
+          toastMessage = `please provide lifting Quantity Of lifting Details   ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+
+        if (lifting[i].detail[j]?.modeOfTransportation == '' || lifting[i].detail[j]?.modeOfTransportation == null) {
+          toastMessage = `please provide mode Of Transportation Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.rrlrNumber == '' || lifting[i].detail[j]?.rrlrNumber == null) {
+          toastMessage = `please provide rr/lr Number  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.destination == '' || lifting[i].detail[j]?.destination == null) {
+          toastMessage = `please provide destination  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.eWayBill == '' || lifting[i].detail[j]?.eWayBill == null) {
+          toastMessage = `please provide a eWay Bill  Of lifting Details  ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.eWayBill == '' || lifting[i].detail[j]?.eWayBill == null) {
+          toastMessage = `please provide a eWay Bill   Of lifting Details ${j + 1} for delivery order no - ${
+            lifting[i].deliveryOrder
+          }  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.LRorRRDoc.originalName == '' || !lifting[i].detail[j]?.LRorRRDoc.originalName) {
+          toastMessage = `please upload ${lifting[i].detail[j]?.modeOfTransportation}  document  Of Listing Details  ${
+            j + 1
+          } for delivery order no - ${lifting[i].deliveryOrder}  `;
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+            isOk = false;
+            break;
+          }
+        }
+        if (lifting[i].detail[j]?.eWayBillDoc.originalName == '' || !lifting[i].detail[j]?.eWayBillDoc.originalName) {
           toastMessage = `please upload a eWay Bill  Of Listing Details  Of Listing Details  ${
             j + 1
           } for delivery order no - ${lifting[i].deliveryOrder}  `;
@@ -370,35 +327,31 @@ function Index() {
   useEffect(() => {
     let tempArr = [];
     if (_get(ReleaseOrderData, 'data[0].deliveryDetail', []).length > 0) {
-      _get(ReleaseOrderData, 'data[0].deliveryDetail', []).forEach(
-        (val, index) => {
-          tempArr.push({
-            orderNumber: val.orderNumber || 1,
-            unitOfMeasure: val.unitOfMeasure || 'MT',
-            isDelete: false,
-            Quantity: val.netQuantityReleased,
-            deliveryOrderNo: val.deliveryOrderNumber,
-            deliveryOrderDate: val.deliveryOrderDate,
-            status: val.deliveryStatus,
-          });
-        },
-      );
+      _get(ReleaseOrderData, 'data[0].deliveryDetail', []).forEach((val, index) => {
+        tempArr.push({
+          orderNumber: val.orderNumber || 1,
+          unitOfMeasure: val.unitOfMeasure || 'MT',
+          isDelete: false,
+          Quantity: val.netQuantityReleased,
+          deliveryOrderNo: val.deliveryOrderNumber,
+          deliveryOrderDate: val.deliveryOrderDate,
+          status: val.deliveryStatus,
+        });
+      });
 
       setDeliveryOrder(tempArr);
     }
     let tempArr2 = [];
     if (_get(ReleaseOrderData, 'data[0].releaseDetail', []).length > 0) {
-      _get(ReleaseOrderData, 'data[0].releaseDetail', []).forEach(
-        (val, index) => {
-          tempArr2.push({
-            orderNumber: val.orderNumber || 1,
-            releaseOrderDate: val.releaseOrderDate,
-            netQuantityReleased: val.netQuantityReleased,
-            unitOfMeasure: val.unitOfMeasure || 'MT',
-            document: val.document,
-          });
-        },
-      );
+      _get(ReleaseOrderData, 'data[0].releaseDetail', []).forEach((val, index) => {
+        tempArr2.push({
+          orderNumber: val.orderNumber || 1,
+          releaseOrderDate: val.releaseOrderDate,
+          netQuantityReleased: val.netQuantityReleased,
+          unitOfMeasure: val.unitOfMeasure || 'MT',
+          document: val.document,
+        });
+      });
 
       setReleaseDetail(tempArr2);
     }
@@ -423,10 +376,7 @@ function Index() {
     ]);
   };
   const deleteNewDelivery = (index) => {
-    setDeliveryOrder([
-      ...deliveryOrder.slice(0, index),
-      ...deliveryOrder.slice(index + 1),
-    ]);
+    setDeliveryOrder([...deliveryOrder.slice(0, index), ...deliveryOrder.slice(index + 1)]);
   };
   const [filteredDOArray, setFilteredDOArray] = useState([]);
   const [DOlimit, setDoLimit] = useState(0);
@@ -462,11 +412,7 @@ function Index() {
   };
 
   const BalanceQuantity = () => {
-    let boe = _get(
-      ReleaseOrderData,
-      'data[0].order.customClearance.billOfEntry.billOfEntry',
-      0,
-    );
+    let boe = _get(ReleaseOrderData, 'data[0].order.customClearance.billOfEntry.billOfEntry', 0);
     let boeTotalQuantity = boe.reduce((accumulator, object) => {
       return accumulator + Number(object.boeDetails.invoiceQuantity);
     }, 0);
@@ -493,8 +439,7 @@ function Index() {
           balaceQuantity = balaceQuantity - Number(item2.liftingQuant);
         });
         if (balaceQuantity < 0) {
-          let toastMessage =
-            'Lifting quantity cannot be greater than balance quantity';
+          let toastMessage = 'Lifting quantity cannot be greater than balance quantity';
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           }
@@ -559,13 +504,8 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= deliveryOrder.length - 1; i++) {
-      if (
-        deliveryOrder[i]?.Quantity == '' ||
-        deliveryOrder[i]?.Quantity == null
-      ) {
-        toastMessage = `please provide quantity for delivery  order   ${
-          i + 1
-        }  `;
+      if (deliveryOrder[i]?.Quantity == '' || deliveryOrder[i]?.Quantity == null) {
+        toastMessage = `please provide quantity for delivery  order   ${i + 1}  `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -660,9 +600,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
@@ -673,12 +611,11 @@ function Index() {
             <h1 className={`${styles.title} heading`}>
               <span style={{ textTransform: 'capitalize' }}>
                 {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
-                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(
-                  0,
-                  8,
-                )}-${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(
-                  8,
-                )}`}
+                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(
+                  ReleaseOrderData,
+                  'data[0].order.orderId',
+                  '',
+                ).slice(8)}`}
               </span>
             </h1>
           </div>
@@ -686,8 +623,7 @@ function Index() {
             <li
               className={`${styles.navItem}  nav-item`}
               onClick={() => {
-                dispatch(setPageTabName('release')),
-                  dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
+                dispatch(setPageTabName('release')), dispatch(getBreadcrumbValues({ upperTabs: 'Release Order' }));
               }}
             >
               <a
@@ -724,12 +660,7 @@ function Index() {
                 <li
                   className={`${styles.navItem} nav-item`}
                   onClick={() =>
-                    dispatch(
-                      setPageTabName('lifting'),
-                      dispatch(
-                        getBreadcrumbValues({ upperTabs: 'Lifting Details' }),
-                      ),
-                    )
+                    dispatch(setPageTabName('lifting'), dispatch(getBreadcrumbValues({ upperTabs: 'Lifting Details' })))
                   }
                 >
                   <a
@@ -752,11 +683,7 @@ function Index() {
           <div className="row">
             <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane show active fade"
-                  id="releaseOrder"
-                  role="tabpanel"
-                >
+                <div className="tab-pane show active fade" id="releaseOrder" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <ReleaseOrder
                       ReleaseOrderData={ReleaseOrderData}
@@ -766,11 +693,7 @@ function Index() {
                   </div>
                 </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="deliveryOrder"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="deliveryOrder" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
                       BalanceQuantity={BalanceQuantity}
@@ -788,11 +711,7 @@ function Index() {
                   </div>
                 </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="liftingDetails"
-                  role="tabpanel"
-                >
+                <div className="tab-pane fade" id="liftingDetails" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails
                       returnLiftingData={returnLiftingData}

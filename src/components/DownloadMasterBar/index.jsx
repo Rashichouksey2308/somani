@@ -6,11 +6,7 @@ function Index({ btnName, handleSave, rightBtn, rightBtnClick }) {
     <div className={`${styles.root} cta_bar`}>
       <div className={styles.btn_file}>
         <span>{btnName} </span>
-        <img
-          src="/static/file_download.svg"
-          className="img-fluid"
-          alt="FileDownload"
-        />
+        <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
       </div>
     </div>
   );

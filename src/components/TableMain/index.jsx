@@ -31,18 +31,10 @@ function Index({
 
   const handleSort = () => {
     if (sorting == -1) {
-      dispatch(
-        GettingAllInsurance(
-          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(1);
     } else if (sorting == 1) {
-      dispatch(
-        GettingAllInsurance(
-          `?page=${currentPage}&limit=7&createdAt=${sorting}`,
-        ),
-      );
+      dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`));
       setSorting(-1);
     }
   };
@@ -55,16 +47,11 @@ function Index({
   };
   return (
     <div className={`${styles.datatable} border datatable card`}>
-      <div
-        className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-      >
+      <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
         <h3 className="heading_card">{tableName}</h3>
-        <div
-          className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-        >
+        <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
           <span>
-            Showing Page {currentPage + 1} out of{' '}
-            {Math.ceil(insuranceResponse?.totalCount / 7)}
+            Showing Page {currentPage + 1} out of {Math.ceil(insuranceResponse?.totalCount / 7)}
           </span>
           <a
             onClick={() => {
@@ -78,40 +65,24 @@ function Index({
             className={`${styles.arrow} ${styles.leftArrow} arrow`}
           >
             {' '}
-            <img
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow right"
-              className="img-fluid"
-            />
+            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
           </a>
           <a
             onClick={() => {
-              if (
-                currentPage + 1 <
-                Math.ceil(insuranceResponse?.totalCount / 7)
-              ) {
+              if (currentPage + 1 < Math.ceil(insuranceResponse?.totalCount / 7)) {
                 setCurrentPage((prevState) => prevState + 1);
               }
             }}
             href="#"
             className={`${styles.arrow} ${styles.rightArrow} arrow`}
           >
-            <img
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow right"
-              className="img-fluid"
-            />
+            <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
           </a>
         </div>
       </div>
       <div className={styles.table_scroll_outer}>
         <div className={styles.table_scroll_inner}>
-          <table
-            className={`${styles.table} table`}
-            cellPadding="0"
-            cellSpacing="0"
-            border="0"
-          >
+          <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
             <thead>
               <tr className="table_row">
                 <th>
@@ -124,12 +95,7 @@ function Index({
                   />{' '}
                 </th>
                 <th>
-                  BUYER NAME{' '}
-                  <img
-                    className={`mb-1`}
-                    src="/static/icons8-sort-24.svg"
-                    alt="Sort icon"
-                  />{' '}
+                  BUYER NAME <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
                 </th>
                 <th>COMMODITY</th>
                 <th>{pageType}</th>
@@ -142,12 +108,7 @@ function Index({
 
                 {isStatus ? (
                   <th>
-                    STATUS{' '}
-                    <img
-                      className={`mb-1`}
-                      src="/static/icons8-sort-24.svg"
-                      alt="Sort icon"
-                    />
+                    STATUS <img className={`mb-1`} src="/static/icons8-sort-24.svg" alt="Sort icon" />
                   </th>
                 ) : (
                   <th>PAYMENT STATUS</th>
@@ -172,19 +133,11 @@ function Index({
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {
-                        insured?.quotationRequest?.insuranceType ==
-                        'Marine Insurance'
-                          ? moment(
-                              insured?.marineInsurance?.insuranceTo,
-                            ).format('DD-MM-YYYY')
-                          : insured?.quotationRequest?.insuranceType ==
-                            'Storage Insurance'
-                          ? moment(
-                              insured?.storageInsurance?.insuranceTo,
-                            ).format('DD-MM-YYYY')
-                          : moment(
-                              insured?.storageInsurance?.insuranceTo,
-                            ).format('DD-MM-YYYY')
+                        insured?.quotationRequest?.insuranceType == 'Marine Insurance'
+                          ? moment(insured?.marineInsurance?.insuranceTo).format('DD-MM-YYYY')
+                          : insured?.quotationRequest?.insuranceType == 'Storage Insurance'
+                          ? moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
+                          : moment(insured?.storageInsurance?.insuranceTo).format('DD-MM-YYYY')
 
                         // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
                         //   'T',
@@ -194,25 +147,15 @@ function Index({
 
                     {getStatus(insured) ? (
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.rejected}`}
-                        ></span>{' '}
-                        Expired
+                        <span className={`${styles.status} ${styles.rejected}`}></span> Expired
                       </td>
                     ) : (
                       <td>
-                        <span
-                          className={`${styles.status} ${styles.approved}`}
-                        ></span>{' '}
-                        Active
+                        <span className={`${styles.status} ${styles.approved}`}></span> Active
                       </td>
                     )}
                     <td>
-                      {_get(
-                        insured,
-                        'quotationRequest.quotationRequestSubmitted',
-                        false,
-                      ) && (
+                      {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && (
                         <span onClick={() => handleEditRoute(insured)}>
                           <img
                             className={`${styles.edit_image} img-fluid mr-3`}

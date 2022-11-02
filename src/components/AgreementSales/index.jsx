@@ -73,24 +73,12 @@ function Index(props) {
     }
     if (active == 'CHA') {
       return (
-        <CHA
-          saveData={saveData}
-          sendData={sendData}
-          submitData={submitData}
-          updateData={updateData}
-          active={active}
-        />
+        <CHA saveData={saveData} sendData={sendData} submitData={submitData} updateData={updateData} active={active} />
       );
     }
     if (active == 'CMA') {
       return (
-        <CMA
-          saveData={saveData}
-          sendData={sendData}
-          submitData={submitData}
-          updateData={updateData}
-          active={active}
-        />
+        <CMA saveData={saveData} sendData={sendData} submitData={submitData} updateData={updateData} active={active} />
       );
     }
     if (active == 'Supplier') {
@@ -454,12 +442,8 @@ function Index(props) {
           aria-controls="cashFlowStatement"
         >
           <h2 className="mb-0">{active}</h2>
-          <div
-            className={`${styles.pageList}  d-flex justify-content-end align-items-center`}
-          >
-            <div
-              className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
-            >
+          <div className={`${styles.pageList}  d-flex justify-content-end align-items-center`}>
+            <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
               <span className={`mr-4 label`}>Multiple Parties Involved</span>
               <div className={`d-flex mr-4`}>
                 <div className={`form-check  mr-4`}>
@@ -473,10 +457,7 @@ function Index(props) {
                     }}
                     checked={multiPart == true ? true : false}
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexRadioDefault1"
-                  >
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Table
                   </label>
                 </div>
@@ -491,10 +472,7 @@ function Index(props) {
                       setMultiPart(false);
                     }}
                   />
-                  <label
-                    className="form-check-label"
-                    htmlFor="flexRadioDefault2"
-                  >
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Text Field
                   </label>
                 </div>
@@ -503,9 +481,7 @@ function Index(props) {
             </div>
 
             {active == 'Stevedore' ? (
-              <div
-                className={`${styles.switchContainer} d-flex align-items-center`}
-              >
+              <div className={`${styles.switchContainer} d-flex align-items-center`}>
                 <span>Same as CHA</span>
                 <span className={` ${styles.yes}`}>Yes</span>
                 <label className={styles.switch}>
@@ -523,11 +499,7 @@ function Index(props) {
               }}
             >
               {' '}
-              <img
-                src="/static/keyboard_arrow_right-3.svg"
-                alt="arrow right"
-                className="img-fluid"
-              />
+              <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
             </a>
             <a
               href="#"
@@ -580,32 +552,24 @@ const sales = () => {
   return (
     <div className="card-body">
       <p className="text_sales">
-        A. All the custom clearance formalities, Duties, Taxes and other charges
-        related to import of cargo and custom clearance shall be to Buyer’s
-        account and shall be solely the Buyer’s responsibility.
+        A. All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom
+        clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.
       </p>
       <p className="text_sales">
-        B. The Buyer shall pay for entire cargo within{' '}
-        <GrowInput placeholder={90} /> days from the date of{' '}
-        <GrowInput placeholder={`B/L`} /> or <GrowInput placeholder={60} /> from
-        the date of discharge of vessel at discharge port, whichever is earlier.
-        The Buyer shall make full payment of the material to be lifted through
-        TT remittance. The Seller shall release the part material to Buyer upon
-        receipt of part payment for the part quantity of material to be lifted
-        after obtaining delivery order or Written Release Order from the LC
-        opening bank as per CMA. The delivery order instructions shall be issued
-        for the part material, for which the payment has been made within one
-        banking day. However, Seller will provide first delivery order in
-        Advance as per buyer’s request.
+        B. The Buyer shall pay for entire cargo within <GrowInput placeholder={90} /> days from the date of{' '}
+        <GrowInput placeholder={`B/L`} /> or <GrowInput placeholder={60} /> from the date of discharge of vessel at
+        discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT
+        remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part
+        quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening
+        bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment
+        has been made within one banking day. However, Seller will provide first delivery order in Advance as per
+        buyer’s request.
       </p>
       <p className="text_sales">
-        C. The material shall be stored at{' '}
-        <GrowInput placeholder={`Visakhapatnam Port, India`} /> for which the
-        cost of such Rent, Claim, and penalty shall be fully borne by the End
-        User. Upon release of payment for the value of each B/L Quantity Release
-        Order from the Lending Bank shall be sent to the CMA Agent{' '}
-        <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`} />, within one
-        banking day.
+        C. The material shall be stored at <GrowInput placeholder={`Visakhapatnam Port, India`} /> for which the cost of
+        such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of
+        each B/L Quantity Release Order from the Lending Bank shall be sent to the CMA Agent{' '}
+        <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`} />, within one banking day.
       </p>
       <p className="text_sales">
         D. Documents to be provided to Buyer.
@@ -632,43 +596,25 @@ const payment = () => {
     <div className={`${styles.paymet} card-body`}>
       <div className={`d-flex justify-content-between align-items-between`}>
         <input placeholder={``}></input>
-        <img
-          className="img-fluid ml-4"
-          src="/static/add-btn.svg"
-          alt="add button"
-        ></img>
+        <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"></img>
       </div>
-      <div
-        className={`${styles.button_container} d-flex justify-content-start  align-items-center `}
-      >
-        <div
-          className={`${styles.button} d-flex justify-content-center align-items-center`}
-        >
+      <div className={`${styles.button_container} d-flex justify-content-start  align-items-center `}>
+        <div className={`${styles.button} d-flex justify-content-center align-items-center`}>
           <span>Upload Specifications</span>
         </div>
         <div className={`${styles.file_text}`}>
           <span>
-            <span className={`${styles.danger} ml-n2 mr-1`}>* </span>ONLY .XLSX
-            FILES ARE ALLOWED &amp; MAX FILE SIZE UP TO 50 MB
+            <span className={`${styles.danger} ml-n2 mr-1`}>* </span>ONLY .XLSX FILES ARE ALLOWED &amp; MAX FILE SIZE UP
+            TO 50 MB
           </span>
         </div>
       </div>
       <span>Comments</span>
-      <div
-        className={`d-flex justify-content-between align-items-center ${styles.comment}`}
-      >
+      <div className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
         <input placeholder={``}></input>
         <div className={`d-flex justify-content-evenly align-items-center`}>
-          <img
-            className="img-fluid ml-4"
-            src="/static/add-btn.svg"
-            alt="add button"
-          ></img>
-          <img
-            src="/static/delete 2.svg"
-            className="img-fluid"
-            alt="delete"
-          ></img>
+          <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"></img>
+          <img src="/static/delete 2.svg" className="img-fluid" alt="delete"></img>
         </div>
       </div>
     </div>

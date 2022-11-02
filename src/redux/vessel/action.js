@@ -131,12 +131,9 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.get(
-      `${API.corebaseUrl}${API.getVessel}${payload}`,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.get(`${API.corebaseUrl}${API.getVessel}${payload}`, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       // dispatch(getVesselSuccess(response.data.data))
       dispatch(setNotLoading());
@@ -173,13 +170,9 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.put(
-      `${API.corebaseUrl}${API.getVessel}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.put(`${API.corebaseUrl}${API.getVessel}`, payload, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       sessionStorage.setItem('quotationId', response.data.data.order.insurance);
       dispatch(updateVesselSuccess(response.data.data));

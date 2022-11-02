@@ -13,11 +13,7 @@ function index({ isDownload, openbar, rightBtn, rightBtnClick, download }) {
       {isDownload ? (
         <div className={styles.reject} onClick={download}>
           <span>Letter of Indemnity</span>
-          <img
-            src="/static/file_download.svg"
-            className="img-fluid"
-            alt="FileDownload"
-          />
+          <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
         </div>
       ) : (
         <div />

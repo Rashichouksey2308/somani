@@ -16,9 +16,7 @@ const index = () => {
   const [pageLimit, setPageLimit] = useState(10);
 
   const { searchedLeads } = useSelector((state) => state.order);
-  const { supplierResponse, allSupplierResponse } = useSelector(
-    (state) => state.supplier,
-  );
+  const { supplierResponse, allSupplierResponse } = useSelector((state) => state.supplier);
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`;
@@ -49,14 +47,8 @@ const index = () => {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.search}`}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={serachterm}
@@ -70,11 +62,7 @@ const index = () => {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -98,9 +86,7 @@ const index = () => {
 
           {/*UserTable*/}
           <div className={`${styles.datatable} border datatable card mt-4`}>
-            <div
-              className={`${styles.tableFilter} d-flex justify-content-between`}
-            >
+            <div className={`${styles.tableFilter} d-flex justify-content-between`}>
               <h3 className="heading_card">Suppliers</h3>
               <div className="d-flex align-items-center">
                 <div className={`${styles.show_record}`}>Show Records:</div>
@@ -112,20 +98,13 @@ const index = () => {
                     <option value={10}>10</option>
                     <option value={20}>20</option>
                   </select>
-                  <img
-                    className={`${styles.arrow2} img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="arrow"
-                  />
+                  <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
                 </div>
 
-                <div
-                  className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-                >
+                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
                     {' '}
-                    Showing Page {currentPage + 1} out of{' '}
-                    {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
+                    Showing Page {currentPage + 1} out of {Math.ceil(allSupplierResponse?.totalCount / pageLimit)}
                   </span>
                   <a
                     onClick={() => {
@@ -138,41 +117,25 @@ const index = () => {
                     href="#"
                     className={`${styles.arrow} ${styles.leftArrow} arrow`}
                   >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow left"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow left" className="img-fluid" />
                   </a>
                   <a
                     onClick={() => {
-                      if (
-                        currentPage + 1 <
-                        Math.ceil(allSupplierResponse?.totalCount / 7)
-                      ) {
+                      if (currentPage + 1 < Math.ceil(allSupplierResponse?.totalCount / 7)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}
                     href="#"
                     className={`${styles.arrow} ${styles.rightArrow} arrow`}
                   >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th className={`${styles.table_heading} table_heading`}>
@@ -196,9 +159,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        COUNTRY
-                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>COUNTRY</th>
                       <th className={`${styles.table_heading} table_heading`}>
                         STATUS{' '}
                         <Image
@@ -209,9 +170,7 @@ const index = () => {
                           alt="Sort icon"
                         />
                       </th>
-                      <th className={`${styles.table_heading} table_heading`}>
-                        ACTION
-                      </th>
+                      <th className={`${styles.table_heading} table_heading`}>ACTION</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -219,22 +178,11 @@ const index = () => {
                       allSupplierResponse?.data?.map((supplier) => {
                         return (
                           <tr className={`${styles.table_row} table_row17`}>
-                            <td className={styles.buyerName}>
-                              {supplier?.supplierProfile?.supplierName}
-                            </td>
+                            <td className={styles.buyerName}>{supplier?.supplierProfile?.supplierName}</td>
+                            <td>{moment(supplier?.createdAt).format('DD-MM-YYYY')}</td>
+                            <td>{supplier?.supplierProfile?.countryOfIncorporation}</td>
                             <td>
-                              {moment(supplier?.createdAt).format('DD-MM-YYYY')}
-                            </td>
-                            <td>
-                              {
-                                supplier?.supplierProfile
-                                  ?.countryOfIncorporation
-                              }
-                            </td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.review}`}
-                              ></span>
+                              <span className={`${styles.status} ${styles.review}`}></span>
                               {supplier?.status}
                             </td>
 

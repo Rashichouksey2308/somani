@@ -62,11 +62,7 @@ function Index(props) {
           sellerAddress: data.sellerAddress,
           buyerAddress: data.buyerAddress,
           shortseller: data?.shortseller,
-          shortbuyer: `${
-            data?.buyer == 'Indo German International Private Limited'
-              ? 'IGPL'
-              : 'EISL'
-          }`,
+          shortbuyer: `${data?.buyer == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -114,17 +110,10 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:
-            data?.seller?.name == 'Indo Intertrade Ag'
-              ? 'Industriestrasse 16, Zug,6300'
-              : '',
+          sellerAddress: data?.seller?.name == 'Indo Intertrade Ag' ? 'Industriestrasse 16, Zug,6300' : '',
           buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
           shortseller: data?.seller?.shortName,
-          shortbuyer: `${
-            data?.buyer?.name == 'Indo German International Private Limited'
-              ? 'IGPL'
-              : 'EISL'
-          }`,
+          shortbuyer: `${data?.buyer?.name == 'Indo German International Private Limited' ? 'IGPL' : 'EISL'}`,
           sellerSignature: data?.seller?.name,
           buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,
@@ -134,17 +123,11 @@ function Index(props) {
           detailsOfComm: data?.order?.commodity,
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue:
-            data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
-          terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
-            'Yes'
-              ? 'Full'
-              : 'Partial'
-          }`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == 'Yes' ? 'Full' : 'Partial'}`,
           addComm: comment,
           spec: data?.productSpecifications?.specificationTable,
           specComment: data?.productSpecifications.comments,
@@ -154,11 +137,7 @@ function Index(props) {
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
           supplierAddress: _get(data, 'supplier.address[0]', ''),
-          supplierAuthorized: _get(
-            data,
-            'supplier.authorisedSignatoryDetails',
-            [],
-          ),
+          supplierAuthorized: _get(data, 'supplier.authorisedSignatoryDetails', []),
           buyerAuthorized: _get(data, 'buyer.authorisedSignatoryDetails', []),
           buyerEmail: '',
           supplierEmail: '',
@@ -745,8 +724,7 @@ const assignmentSupplier = (data, preview) => {
           <div className={`${styles.inputsContainer2} border_black`}>
             <Row className={`${styles.row} ${styles.last}`}>
               <Col md={7} className={`${styles.left} border_black`}>
-                Assignment Letter No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
+                Assignment Letter No.: {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
               </Col>
               <Col md={5} className={styles.right}>
                 Date: {moment(new Date()).format('DD-MM-YYYY')}
@@ -761,65 +739,51 @@ const assignmentSupplier = (data, preview) => {
           </strong>
         </p>
         <p className="text_sales">
-          This Assignment Letter is made at the place and on the day as set out
-          in <strong>Schedule I</strong> hereto by and between:
+          This Assignment Letter is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by
+          and between:
         </p>
         <p className="text_sales">
-          <strong>Seller</strong>(s), as detailed in <strong>Schedule-I</strong>{' '}
-          hereof (hereinafter referred to as the “<strong>Seller</strong>”,
-          which expression shall, unless excluded by or repugnant to the context
-          be deemed to include its legal heirs, successors and permitted
-          assigns) of the First Part.
+          <strong>Seller</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the
+          “<strong>Seller</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to
+          include its legal heirs, successors and permitted assigns) of the First Part.
         </p>
         <p className=" text-center text_sales">And</p>
         <p className="text_sales">
-          <strong>Buyer</strong>(s), as detailed in <strong>Schedule-I</strong>{' '}
-          hereof (hereinafter referred to as the “<strong>Buyer</strong>”, which
-          expression shall, unless excluded by or repugnant to the context be
-          deemed to include its legal heirs, successors and permitted assigns)
-          of the Second Part.
+          <strong>Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “
+          <strong>Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to
+          include its legal heirs, successors and permitted assigns) of the Second Part.
         </p>
         <p className=" text-center text_sales">And</p>
         <p className="text_sales">
-          <strong>Supplier</strong>(s), as detailed in{' '}
-          <strong>Schedule-I</strong> hereof (hereinafter referred to as the “
-          <strong>Supplier</strong>”, which expression shall, unless excluded by
-          or repugnant to the context be deemed to include its legal heirs,
-          successors and permitted assigns) of the Third Part.
+          <strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as
+          the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be
+          deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
         </p>
         <p className="text_sales">
-          WHEREAS it is hereby agreed that the Supplier accepts that the payment
-          of the goods shall be made by way of a Letter of Credit (LC) to be
-          issued on the applicant of Seller and Supplier will sell quantity of
-          Goods approximately mentioned in Schedule I to Seller for exclusive
-          use by Buyer under the terms and conditions contained within the Sales
-          Contract dated mentioned in Schedule I (“Contract”) by and between
-          Supplier and Buyer, with the quality and price of goods as agreed
-          between them with tolerance level as mentioned in Schedule I and
-          contained in the Sales Contract dated mentioned in Schedule I.
+          WHEREAS it is hereby agreed that the Supplier accepts that the payment of the goods shall be made by way of a
+          Letter of Credit (LC) to be issued on the applicant of Seller and Supplier will sell quantity of Goods
+          approximately mentioned in Schedule I to Seller for exclusive use by Buyer under the terms and conditions
+          contained within the Sales Contract dated mentioned in Schedule I (“Contract”) by and between Supplier and
+          Buyer, with the quality and price of goods as agreed between them with tolerance level as mentioned in
+          Schedule I and contained in the Sales Contract dated mentioned in Schedule I.
         </p>
         <p className="text_sales">
-          WHEREAS it has been agreed between the parties that the goods are to
-          be loaded by the Supplier in the month mentioned in Schedule I, at a
-          price mentioned in Schedule I.{' '}
+          WHEREAS it has been agreed between the parties that the goods are to be loaded by the Supplier in the month
+          mentioned in Schedule I, at a price mentioned in Schedule I.{' '}
         </p>
         <p className="text_sales">
-          WHEREAS the Buyer hereby confirms to remain responsible for the
-          performance of the said sales contract, including any failure or delay
-          in the issuance of LC in accordance with the terms of the sales
-          contract and this assignment letter. Further, Buyer shall remain
-          ultimately responsible for payment of the price in the event where
-          Supplier is unable to obtain payment under the LC and hereby agree to
-          indemnify Supplier for any loss, damage or expense including, without
-          limitation, any liability, Supplier may incur to the Seller by reason
-          of the Invoice being addressed to Seller.
+          WHEREAS the Buyer hereby confirms to remain responsible for the performance of the said sales contract,
+          including any failure or delay in the issuance of LC in accordance with the terms of the sales contract and
+          this assignment letter. Further, Buyer shall remain ultimately responsible for payment of the price in the
+          event where Supplier is unable to obtain payment under the LC and hereby agree to indemnify Supplier for any
+          loss, damage or expense including, without limitation, any liability, Supplier may incur to the Seller by
+          reason of the Invoice being addressed to Seller.
         </p>
         <p className="text_sales">
-          The title in Goods shall pass on to Seller upon receipt of payment by
-          Supplier from the Seller and the risks associated therewith shall pass
-          on to Buyer as per Incoterms 2020. Buyer shall be solely responsible
-          for performance of the obligations enumerated in the sales contract
-          mentioned herein above. The supplier shall have no claim whatsoever.
+          The title in Goods shall pass on to Seller upon receipt of payment by Supplier from the Seller and the risks
+          associated therewith shall pass on to Buyer as per Incoterms 2020. Buyer shall be solely responsible for
+          performance of the obligations enumerated in the sales contract mentioned herein above. The supplier shall
+          have no claim whatsoever.
         </p>
         <p className="text-center text_sales">
           {' '}
@@ -903,9 +867,7 @@ const assignmentSupplier = (data, preview) => {
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
-                            Object.keys(data?.spec[0]).map((val, index) => (
-                              <th key={index}>{val}</th>
-                            ))}
+                            Object.keys(data?.spec[0]).map((val, index) => <th key={index}>{val}</th>)}
                         </tr>
                         {data?.spec &&
                           data?.spec.length > 0 &&
@@ -935,8 +897,7 @@ const assignmentSupplier = (data, preview) => {
               Quantity of Goods in MT
             </Col>
             <Col md={7} className={styles.right}>
-              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })}{' '}
-              MT
+              {data.quan?.toLocaleString('en-In', { maximumFractionDigits: 2 })} MT
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>

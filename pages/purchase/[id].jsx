@@ -11,9 +11,7 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div
-            className={`${styles.tab_header_inner} d-flex align-items-center`}
-          >
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <Image
               width={13}
               height={21}
@@ -129,11 +127,7 @@ function Index() {
           <div className="row">
             <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane show active fade"
-                  id="releaseOrder"
-                  role="tabpanel"
-                >
+                <div className="tab-pane show active fade" id="releaseOrder" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <Purchase />
                   </div>

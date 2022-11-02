@@ -30,10 +30,9 @@ function placeorderRouted() {
   };
 }
 
-export const PlaceNewOrderRouted =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(placeorderRouted());
-  };
+export const PlaceNewOrderRouted = (payload) => async (dispatch, getState, api) => {
+  dispatch(placeorderRouted());
+};
 
 export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());

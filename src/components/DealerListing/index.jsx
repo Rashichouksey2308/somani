@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Card,
-  CardBody,
-  Col,
-  Collapse,
-  Form,
-  FormGroup,
-  Input,
-  Row,
-} from 'reactstrap';
+import { Card, CardBody, Col, Collapse, Form, FormGroup, Input, Row } from 'reactstrap';
 import history from '../../history';
 import InputText from '../InputText';
 import CustomButton from '../CustomButton';
@@ -213,23 +204,11 @@ export default class DealerListing extends Component {
           <Row>
             <Col sm={12}>
               <CartTitle
-                title={_.get(
-                  elements,
-                  'dealersListingFilterElements.headingElement',
-                  'Dealers',
-                )}
-                Name={_.get(
-                  elements,
-                  'dealersListingFilterElements.filterButtonElement',
-                  'Filter',
-                )}
+                title={_.get(elements, 'dealersListingFilterElements.headingElement', 'Dealers')}
+                Name={_.get(elements, 'dealersListingFilterElements.filterButtonElement', 'Filter')}
                 iconClass={'hideexcel'}
                 handleToggle={() => this.handleToggle()}
-                textTitle={_.get(
-                  elements,
-                  'dealersListingFilterElements.totalCountElement',
-                  'Total Count - ',
-                )}
+                textTitle={_.get(elements, 'dealersListingFilterElements.totalCountElement', 'Total Count - ')}
                 preRegisteredUserCount={this.props.dealerCount}
               />
             </Col>
@@ -247,20 +226,11 @@ export default class DealerListing extends Component {
                             onChange={this.handleCountryChange}
                             value={this.state.country}
                           >
-                            <option>
-                              {this.state.country !== ''
-                                ? this.state.country
-                                : 'Select Country'}
-                            </option>
+                            <option>{this.state.country !== '' ? this.state.country : 'Select Country'}</option>
                             {this.props.countries
-                              .sort((a, b) =>
-                                a.name > b.name ? 1 : b.name > a.name ? -1 : 0,
-                              )
+                              .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
                               .map((item, index) => (
-                                <option
-                                  key={index}
-                                  value={JSON.stringify(item)}
-                                >
+                                <option key={index} value={JSON.stringify(item)}>
                                   {item.country}
                                 </option>
                               ))}
@@ -276,20 +246,11 @@ export default class DealerListing extends Component {
                             onChange={this.handleStateChange}
                             value={this.state.state}
                           >
-                            <option>
-                              {this.state.state !== ''
-                                ? this.state.state
-                                : 'Select State'}
-                            </option>
+                            <option>{this.state.state !== '' ? this.state.state : 'Select State'}</option>
                             {this.props.states
-                              .sort((a, b) =>
-                                a.name > b.name ? 1 : b.name > a.name ? -1 : 0,
-                              )
+                              .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
                               .map((item, index) => (
-                                <option
-                                  key={index}
-                                  value={JSON.stringify(item)}
-                                >
+                                <option key={index} value={JSON.stringify(item)}>
                                   {item}
                                 </option>
                               ))}
@@ -305,20 +266,11 @@ export default class DealerListing extends Component {
                             onChange={this.handleCityChange}
                             value={this.state.city}
                           >
-                            <option>
-                              {this.state.city !== ''
-                                ? this.state.city
-                                : 'Select City'}
-                            </option>
+                            <option>{this.state.city !== '' ? this.state.city : 'Select City'}</option>
                             {this.props.cities
-                              .sort((a, b) =>
-                                a.name > b.name ? 1 : b.name > a.name ? -1 : 0,
-                              )
+                              .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
                               .map((item, index) => (
-                                <option
-                                  key={index}
-                                  value={JSON.stringify(item)}
-                                >
+                                <option key={index} value={JSON.stringify(item)}>
                                   {item.cityName}
                                 </option>
                               ))}
@@ -329,11 +281,7 @@ export default class DealerListing extends Component {
                     <Row>
                       <Col xl={4} lg={4} md={6} sm={6}>
                         <InputText
-                          labelName={_.get(
-                            elements,
-                            'dealersListingFilterElements.dealerIdLabel',
-                            'Dealer Id',
-                          )}
+                          labelName={_.get(elements, 'dealersListingFilterElements.dealerIdLabel', 'Dealer Id')}
                           inputType={'text'}
                           inputName={'dealerId'}
                           InputClass={'inputText'}
@@ -348,39 +296,23 @@ export default class DealerListing extends Component {
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6}>
                         <InputText
-                          labelName={_.get(
-                            elements,
-                            'dealersListingFilterElements.emailLabel',
-                            'Email',
-                          )}
+                          labelName={_.get(elements, 'dealersListingFilterElements.emailLabel', 'Email')}
                           inputType={'email'}
                           inputName={'dealerEmail'}
                           InputClass={'inputText'}
                           customValue={this.state.dealerEmail}
-                          inputPlaceholder={_.get(
-                            elements,
-                            'dealersListingFilterElements.emailPlaceholder',
-                            'Email',
-                          )}
+                          inputPlaceholder={_.get(elements, 'dealersListingFilterElements.emailPlaceholder', 'Email')}
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
                       </Col>
                       <Col xl={4} lg={4} md={6} sm={6} className="mb-3 mb-lg-0">
                         <InputText
-                          labelName={_.get(
-                            elements,
-                            'dealersListingFilterElements.mobileLabel',
-                            'Phone',
-                          )}
+                          labelName={_.get(elements, 'dealersListingFilterElements.mobileLabel', 'Phone')}
                           inputType={'number'}
                           inputName={'dealerPhone'}
                           customValue={this.state.dealerPhone}
                           InputClass={'inputText'}
-                          inputPlaceholder={_.get(
-                            elements,
-                            'dealersListingFilterElements.mobilePlaceholder',
-                            'Phone',
-                          )}
+                          inputPlaceholder={_.get(elements, 'dealersListingFilterElements.mobilePlaceholder', 'Phone')}
                           customOnChange={(e) => this.handleFilterChange(e)}
                         />
                       </Col>
@@ -388,11 +320,7 @@ export default class DealerListing extends Component {
                     <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
                       <CustomButton
                         customType={'submit'}
-                        name={_.get(
-                          elements,
-                          'dealersListingFilterElements.searchButtonElement',
-                          'Search',
-                        )}
+                        name={_.get(elements, 'dealersListingFilterElements.searchButtonElement', 'Search')}
                         customClass={'btn-outline-dark bg-none btnthemeColor'}
                         customDisable={
                           !(
@@ -407,14 +335,8 @@ export default class DealerListing extends Component {
                       />
                       <CustomButton
                         customType={'button'}
-                        name={_.get(
-                          elements,
-                          'dealersListingFilterElements.clearFilterButtonElement',
-                          'Clear Filter',
-                        )}
-                        customClass={
-                          'btn-outline-dark bg-none ml-2 btnthemeColor'
-                        }
+                        name={_.get(elements, 'dealersListingFilterElements.clearFilterButtonElement', 'Clear Filter')}
+                        customClass={'btn-outline-dark bg-none ml-2 btnthemeColor'}
                         customClick={this.handleClearFilter}
                         customDisable={
                           !(
@@ -442,35 +364,19 @@ export default class DealerListing extends Component {
                 title=""
                 columns={[
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.dealerIdElement',
-                      'Dealer Id',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.dealerIdElement', 'Dealer Id'),
                     field: 'dealerId',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.nameElement',
-                      'Name',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.nameElement', 'Name'),
                     field: 'dealerName',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.emailElement',
-                      'Email',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.emailElement', 'Email'),
                     field: 'emailId',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.phoneElement',
-                      'Phone',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.phoneElement', 'Phone'),
                     field: 'phone',
                   },
                   {
@@ -482,27 +388,15 @@ export default class DealerListing extends Component {
                     field: 'storeManagerName',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.countryElement',
-                      'Country',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.countryElement', 'Country'),
                     field: 'country',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.stateElement',
-                      'State',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.stateElement', 'State'),
                     field: 'state',
                   },
                   {
-                    title: _.get(
-                      elements,
-                      'dealerListTableElement.cityElement',
-                      'City',
-                    ),
+                    title: _.get(elements, 'dealerListTableElement.cityElement', 'City'),
                     field: 'city',
                   },
                 ]}
@@ -530,20 +424,12 @@ export default class DealerListing extends Component {
                   body: {
                     emptyDataSourceMessage: (
                       <h6>
-                        {_.get(
-                          elements,
-                          'dealerListTableElement.noRecordsFoundElement',
-                          'No records to display',
-                        )}
+                        {_.get(elements, 'dealerListTableElement.noRecordsFoundElement', 'No records to display')}
                       </h6>
                     ),
                   },
                   header: {
-                    actions: _.get(
-                      elements,
-                      'dealerListTableElement.actionsElement',
-                      'Actions',
-                    ),
+                    actions: _.get(elements, 'dealerListTableElement.actionsElement', 'Actions'),
                   },
                 }}
               />

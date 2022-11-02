@@ -86,39 +86,18 @@ function Index({ chargesData }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img
-                className={`${styles.arrow2} img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="arrow"
-              />
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
-            <span
-              data-toggle="collapse"
-              data-target="#openCharges"
-              aria-expanded="true"
-              aria-controls="openCharges"
-            >
+            <span data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">
               +
             </span>
           </div>
         </div>
-        <div
-          id="openCharges"
-          className="collapse"
-          aria-labelledby="openCharges"
-          data-parent="#FinancialsAccordion"
-        >
-          <div
-            className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}
-          >
+        <div id="openCharges" className="collapse" aria-labelledby="openCharges" data-parent="#FinancialsAccordion">
+          <div className={`${styles.noBorderTable} ${styles.cardBody} p-0 card-body border_color`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr>
                       <th width="15%">CHARGE ID</th>
@@ -148,28 +127,18 @@ function Index({ chargesData }) {
                           <td>{charges.nameOfChargeHolder}</td>
                           <td className="text-center">
                             {/* {charges.finalAmountSecured} */}
-                            {convertValue(
-                              charges.finalAmountSecured,
-                              unit,
-                            )?.toLocaleString('en-In', {
+                            {convertValue(charges.finalAmountSecured, unit)?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             })}
                           </td>
-                          <td className="text-center">
-                            {charges.dateOfCreationOfCharge}
-                          </td>
+                          <td className="text-center">{charges.dateOfCreationOfCharge}</td>
                           <td className="text-center">
                             <img
                               onClick={() => {
-                                if (
-                                  charges.docLink === '' ||
-                                  !charges.docLink
-                                ) {
+                                if (charges.docLink === '' || !charges.docLink) {
                                   let toastMessage = 'doc not available';
-                                  if (
-                                    !toast.isActive(toastMessage.toUpperCase())
-                                  ) {
+                                  if (!toast.isActive(toastMessage.toUpperCase())) {
                                     toast.error(toastMessage.toUpperCase(), {
                                       toastId: toastMessage,
                                     });
@@ -183,12 +152,8 @@ function Index({ chargesData }) {
                               className="img-fluid"
                             />
                           </td>
-                          <td className="text-center">
-                            {charges.chargeLastModifiedDate}
-                          </td>
-                          <td className="text-center">
-                            {charges.dateOfSatisfactionOfChargeInFull}
-                          </td>
+                          <td className="text-center">{charges.chargeLastModifiedDate}</td>
+                          <td className="text-center">{charges.dateOfSatisfactionOfChargeInFull}</td>
                         </tr>
                       ))}
                     {/* <tr>

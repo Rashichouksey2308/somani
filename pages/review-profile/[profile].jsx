@@ -65,21 +65,12 @@ const Index = () => {
             />
             <h1 className={styles.heading}>{buyerList?.companyName}</h1>
           </div>
-          <ReviewProfile
-            reviewedProfile={buyerList}
-            handleChange={handleChange}
-            isAddedRow={true}
-          />
+          <ReviewProfile reviewedProfile={buyerList} handleChange={handleChange} isAddedRow={true} />
           <CompanyReviewProfile />
           <OrderReview />
         </div>
         <div className={styles.approve_Container}>
-          <ApproveBar
-            handleApprove={handleApprove}
-            handleReject={handleReject}
-            button={'Reject'}
-            button2={'Approve'}
-          />
+          <ApproveBar handleApprove={handleApprove} handleReject={handleReject} button={'Reject'} button2={'Approve'} />
         </div>
       </div>
     </>

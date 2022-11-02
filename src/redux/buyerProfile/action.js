@@ -247,99 +247,97 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const UpdateCreditCalculate =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    try {
-      Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateCreditCalSuccess(response.data.data));
-          const toastMessage = 'UPDATE REQUEST SENT';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
-            });
-          }
-          const id1 = sessionStorage.getItem('orderID');
-          const id2 = sessionStorage.getItem('companyID');
-          dispatch(GetAllOrders({ orderId: id1 }));
-          dispatch(GetCompanyDetails({ company: id2 }));
-          dispatch(setNotLoading());
-        } else {
-          dispatch(updateCreditCalFailed(response.data.data));
-          const toastMessage = 'UPDATE REQUEST FAILED';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateCreditCalSuccess(response.data.data));
+        const toastMessage = 'UPDATE REQUEST SENT';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), {
+            toastId: toastMessage,
+          });
         }
-      });
-    } catch (error) {
-      dispatch(updateCreditCalFailed());
-      const toastMessage = 'UPDATE CREDIT CALCULATE REQUEST FAILED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      dispatch(setNotLoading());
-    }
-  };
-
-export const UpdateOrderShipment =
-  (payload) => async (dispatch, getState, api) => {
-    //   dispatch(updateOrder()
-
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    const headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateOrderSuccess(response.data.data));
-          const toastMessage = 'REQUEST SUBMITTED';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
-            });
-          }
-          const id1 = sessionStorage.getItem('orderID');
-          const id2 = sessionStorage.getItem('companyID');
-          dispatch(GetAllOrders({ orderId: id1 }));
-          dispatch(GetCompanyDetails({ company: id2 }));
-          dispatch(setNotLoading());
-        } else {
-          dispatch(updateOrderFailed(response.data.data));
-          const toastMessage = 'UPDATE REQUEST FAILED';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+        const id1 = sessionStorage.getItem('orderID');
+        const id2 = sessionStorage.getItem('companyID');
+        dispatch(GetAllOrders({ orderId: id1 }));
+        dispatch(GetCompanyDetails({ company: id2 }));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(updateCreditCalFailed(response.data.data));
+        const toastMessage = 'UPDATE REQUEST FAILED';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-      });
-    } catch (error) {
-      dispatch(updateOrderFailed());
-      const toastMessage = 'UPDATE ORDER REQUEST FAILED';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        dispatch(setNotLoading());
       }
-      dispatch(setNotLoading());
+    });
+  } catch (error) {
+    dispatch(updateCreditCalFailed());
+    const toastMessage = 'UPDATE CREDIT CALCULATE REQUEST FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateOrderShipment = (payload) => async (dispatch, getState, api) => {
+  //   dispatch(updateOrder()
+
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
   };
+  try {
+    Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateOrderSuccess(response.data.data));
+        const toastMessage = 'REQUEST SUBMITTED';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), {
+            toastId: toastMessage,
+          });
+        }
+        const id1 = sessionStorage.getItem('orderID');
+        const id2 = sessionStorage.getItem('companyID');
+        dispatch(GetAllOrders({ orderId: id1 }));
+        dispatch(GetCompanyDetails({ company: id2 }));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(updateOrderFailed(response.data.data));
+        const toastMessage = 'UPDATE REQUEST FAILED';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(updateOrderFailed());
+    const toastMessage = 'UPDATE ORDER REQUEST FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};
 
 /// ///////********** termsheet *************/////////
 
@@ -352,10 +350,7 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
 
     const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    const response = await Axios.get(
-      `${API.corebaseUrl}${API.gettermsheet}${payload || ''}`,
-      { headers: headers },
-    );
+    const response = await Axios.get(`${API.corebaseUrl}${API.gettermsheet}${payload || ''}`, { headers: headers });
     if (response.data.code === 200) {
       dispatch(gettermsheetsuccess(response.data.data));
       dispatch(setNotLoading());
@@ -430,13 +425,9 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.put(
-      `${API.corebaseUrl}${API.gettermsheet}`,
-      payload.UpdatedTermsheet,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.put(`${API.corebaseUrl}${API.gettermsheet}`, payload.UpdatedTermsheet, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(updatetermsheetsuccess(response.data));
       const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL';
@@ -466,44 +457,39 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const sharingTermsheetEmail =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const sharingTermsheetEmail = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    try {
-      const response = await Axios.put(
-        `${API.corebaseUrl}${API.termsheetshareemial}`,
-        payload,
-        {
-          headers: headers,
-        },
-      );
-      if (response.data.code === 200) {
-        dispatch(shareTermsheetEmailsuccess(response.data));
-        const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-        return response.data.code;
-      } else {
-        dispatch(shareTermsheetEmailfailed(response.data));
-        const toastMessage = response.data.message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.termsheetshareemial}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(shareTermsheetEmailsuccess(response.data));
+      const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL';
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } catch (error) {
-      dispatch(shareTermsheetEmailfailed());
-      const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED';
+      dispatch(setNotLoading());
+      return response.data.code;
+    } else {
+      dispatch(shareTermsheetEmailfailed(response.data));
+      const toastMessage = response.data.message;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
+      dispatch(setNotLoading());
     }
-    dispatch(setNotLoading());
-  };
+  } catch (error) {
+    dispatch(shareTermsheetEmailfailed());
+    const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+  }
+  dispatch(setNotLoading());
+};

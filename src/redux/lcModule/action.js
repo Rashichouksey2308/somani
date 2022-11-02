@@ -132,13 +132,9 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.put(
-      `${API.corebaseUrl}${API.updateLcModule}`,
-      payload.obj,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateLcModule}`, payload.obj, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(updateLcModuleSuccess(response.data.data));
       if (payload.task === 'preview') {
@@ -169,46 +165,45 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
   }
 };
 
-export const UpdateLcAmendment =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
-    try {
-      Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updatingLcAmendmentSuccess(response.data.data));
-          const toastMessage = 'SAVED SUCCESSFULLY';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
-            });
-          }
-          dispatch(setNotLoading());
-          Router.push('/lc-module');
-        } else {
-          dispatch(updatingLcAmendmentFailed(response.data.data));
-          const toastMessage = 'UPDATE REQUEST FAILED';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updatingLcAmendmentSuccess(response.data.data));
+        const toastMessage = 'SAVED SUCCESSFULLY';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), {
+            toastId: toastMessage,
+          });
         }
-      });
-    } catch (error) {
-      dispatch(updatingLcAmendmentFailed());
-      const toastMessage = 'COULD NOT UPDATE LC AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        dispatch(setNotLoading());
+        Router.push('/lc-module');
+      } else {
+        dispatch(updatingLcAmendmentFailed(response.data.data));
+        const toastMessage = 'UPDATE REQUEST FAILED';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
       }
-      dispatch(setNotLoading());
+    });
+  } catch (error) {
+    dispatch(updatingLcAmendmentFailed());
+    const toastMessage = 'COULD NOT UPDATE LC AT THIS TIME';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
-  };
+    dispatch(setNotLoading());
+  }
+};
 export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   const cookie = Cookies.get('SOMANI');

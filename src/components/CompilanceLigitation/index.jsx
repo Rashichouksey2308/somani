@@ -3,10 +3,7 @@ import styles from './index.module.scss';
 
 function index(props) {
   return (
-    <div
-      className={`${styles.risk}  d-flex align-items-center`}
-      style={{ backgroundColor: `${props.backColor}` }}
-    >
+    <div className={`${styles.risk}  d-flex align-items-center`} style={{ backgroundColor: `${props.backColor}` }}>
       <div
         style={{ backgroundColor: `${props.iconBackGroudColor}` }}
         className={`${styles.risk_icon} d-flex align-items-center justify-content-center`}

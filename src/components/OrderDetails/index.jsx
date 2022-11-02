@@ -4,14 +4,7 @@ import styles from './index.module.scss';
 import { Form } from 'react-bootstrap';
 import DateCalender from '../DateCalender';
 
-const Index = ({
-  saveOrderData,
-  darkMode,
-  orderDetails,
-  country,
-  port,
-  commodity,
-}) => {
+const Index = ({ saveOrderData, darkMode, orderDetails, country, port, commodity }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
@@ -47,9 +40,7 @@ const Index = ({
   console.log(orderDetails, 'orderDetails');
   return (
     <div className={`${styles.main} border_color`}>
-      <div className={`${styles.heading} heading_card_switch_blue`}>
-        Order Details
-      </div>
+      <div className={`${styles.heading} heading_card_switch_blue`}>Order Details</div>
       <form id="OrderDetailsForm">
         <div className={`${styles.input_container} vessel_card row`}>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>
@@ -72,9 +63,7 @@ const Index = ({
                     {toShow
                       ? toShow?.map((results, index) => (
                           <li
-                            onClick={() =>
-                              handleData('commodity', results.Commodity)
-                            }
+                            onClick={() => handleData('commodity', results.Commodity)}
                             id={results._id}
                             key={index}
                             value={results.Commodity}
@@ -86,10 +75,7 @@ const Index = ({
                   </ul>
                 </div>
               )}
-              <label
-                className={`${styles.label_heading}  label_heading`}
-                id="textInput"
-              >
+              <label className={`${styles.label_heading}  label_heading`} id="textInput">
                 Commodity<strong className="text-danger">*</strong>
               </label>
               {/* <img
@@ -99,21 +85,17 @@ const Index = ({
               /> */}
             </div>
           </div>
-          <div
-            className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
-          >
+          <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
               type="text"
               id="textInput"
               name="quantity"
               onWheel={(event) => event.currentTarget.blur()}
               onFocus={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
-                  (e.target.type = 'number');
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: true }), (e.target.type = 'number');
               }}
               onBlur={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
-                  (e.target.type = 'text');
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: false }), (e.target.type = 'text');
               }}
               // onKeyDown={(evt) =>{
               //   const re = /^[0-9\b]+$/;
@@ -132,44 +114,32 @@ const Index = ({
                 // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value);
               }}
-              onKeyDown={(evt) =>
-                ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-              }
+              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.quantity
                   ? orderDetails?.quantity
-                  : Number(orderDetails?.quantity).toLocaleString('en-In') +
-                    ` ${orderDetails.unitOfQuantity}`
+                  : Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`
               }
               className={`${styles.input_field} input form-control`}
               required
               // value={addPrefixOrSuffix(orderDetails?.quantity?.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)}
             />
-            <label
-              className={`${styles.label_heading}  label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Quantity<strong className="text-danger">*</strong>
             </label>
           </div>
-          <div
-            className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}
-          >
+          <div className={`${styles.each_input} ${styles.small_box} col-md-4 col-sm-6 col-lg-4 col-xl-2`}>
             <input
               type="text"
               id="textInput"
               name="orderValue"
               onFocus={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                  (e.target.type = 'number');
+                setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }), (e.target.type = 'number');
               }}
               onBlur={(e) => {
-                setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                  (e.target.type = 'text');
+                setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }), (e.target.type = 'text');
               }}
-              onKeyDown={(evt) =>
-                ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-              }
+              onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
               onWheel={(event) => event.currentTarget.blur()}
               value={
                 isFieldInFocus.orderValue
@@ -199,10 +169,7 @@ const Index = ({
 
               required
             />
-            <label
-              className={`${styles.label_heading}  label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading}  label_heading`} id="textInput">
               Order Value<strong className="text-danger">*</strong>
             </label>
           </div>
@@ -218,10 +185,7 @@ const Index = ({
               className={`${styles.input_field} input form-control`}
               required
             />
-            <label
-              className={`${styles.label_heading} label_heading`}
-              id="textInput"
-            >
+            <label className={`${styles.label_heading} label_heading`} id="textInput">
               Supplier Name
             </label>
           </div>
@@ -239,22 +203,13 @@ const Index = ({
                 <option>Select an option</option>
 
                 {country.map((val, index) => {
-                  return (
-                    <option value={`${val.Country}`}>{val.Country}</option>
-                  );
+                  return <option value={`${val.Country}`}>{val.Country}</option>;
                 })}
               </select>
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="dropCountry"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="dropCountry">
                 Country Of Origin<strong className="text-danger">*</strong>
               </label>
-              <img
-                className={`${styles.arrow} image_arrow img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="Search"
-              />
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
           </div>
 
@@ -284,17 +239,10 @@ const Index = ({
                     );
                   })}
               </select>
-              <label
-                className={`${styles.label_heading} label_heading`}
-                id="dropPort"
-              >
+              <label className={`${styles.label_heading} label_heading`} id="dropPort">
                 Port Of Discharge<strong className="text-danger">*</strong>
               </label>
-              <img
-                className={`${styles.arrow} image_arrow img-fluid`}
-                src="/static/inputDropDown.svg"
-                alt="Search"
-              />
+              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg" alt="Search" />
             </div>
           </div>
           <div className={`${styles.each_input} col-md-4 col-sm-6`}>

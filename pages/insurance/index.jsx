@@ -7,11 +7,7 @@ import Filter from '../../src/components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { GettingAllInsurance } from '../../src/redux/insurance/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
-import {
-  setDynamicName,
-  setDynamicOrder,
-  setPageName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import moment from 'moment';
 
 function Index() {
@@ -77,14 +73,8 @@ function Index() {
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={styles.search}>
             <div className="input-group">
-              <div
-                className={`${styles.inputGroupPrepend} input-group-prepend`}
-              >
-                <img
-                  src="/static/search.svg"
-                  className="img-fluid"
-                  alt="Search"
-                />
+              <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                <img src="/static/search.svg" className="img-fluid" alt="Search" />
               </div>
               <input
                 value={searchTerm}
@@ -98,11 +88,7 @@ function Index() {
               <div className={styles.searchResults}>
                 <ul>
                   {searchedLeads?.data?.data?.map((results, index) => (
-                    <li
-                      onClick={handleFilteredData}
-                      id={results._id}
-                      key={index}
-                    >
+                    <li onClick={handleFilteredData} id={results._id} key={index}>
                       {results.companyName} <span>{results.customerId}</span>
                     </li>
                   ))}

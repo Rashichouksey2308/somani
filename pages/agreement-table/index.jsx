@@ -7,11 +7,7 @@ import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenericData } from '../../src/redux/generic/actionsType';
 
-import {
-  setDynamicName,
-  setDynamicOrder,
-  setPageName,
-} from '../../src/redux/userData/action';
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action';
 import { SearchLeads } from '../../src/redux/buyerProfile/action';
 
 function Index(props) {
@@ -53,16 +49,12 @@ function Index(props) {
 
   const handleSort = async () => {
     if (sorting == -1) {
-      let data = await dispatch(
-        getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
+      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setData(data.data);
       setTotal(data.totalCount);
       setSorting(1);
     } else if (sorting == 1) {
-      let data = await dispatch(
-        getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`),
-      );
+      let data = await dispatch(getGenericData(`?page=${currentPage}&limit=${7}&createdAt=${sorting}`));
       setData(data.data);
       setTotal(data.totalCount);
       setSorting(-1);
@@ -99,14 +91,8 @@ function Index(props) {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={styles.search}>
               <div className="input-group">
-                <div
-                  className={`${styles.inputGroupPrepend} input-group-prepend`}
-                >
-                  <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
-                  />
+                <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                  <img src="/static/search.svg" className="img-fluid" alt="Search" />
                 </div>
                 <input
                   value={serachterm}
@@ -120,11 +106,7 @@ function Index(props) {
                 <div className={styles.searchResults}>
                   <ul>
                     {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
+                      <li onClick={handleFilteredData} id={results._id} key={index}>
                         {results.companyName} <span>{results.customerId}</span>
                       </li>
                     ))}
@@ -136,13 +118,9 @@ function Index(props) {
 
           {/*leads table*/}
           <div className={`${styles.datatable} border datatable card`}>
-            <div
-              className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-            >
+            <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
               <h3 className="heading_card">Agreements</h3>
-              <div
-                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-              >
+              <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                 <span>
                   Showing Page {currentPage + 1} out of {Math.ceil(total / 10)}
                 </span>
@@ -158,11 +136,7 @@ function Index(props) {
                   className={`${styles.arrow} ${styles.leftArrow} arrow`}
                 >
                   {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
                 <a
                   onClick={() => {
@@ -173,31 +147,18 @@ function Index(props) {
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
                 >
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
+                  <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                 </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                   <thead>
                     <tr className="table_row">
                       <th>
                         ORDER ID{' '}
-                        <img
-                          onClick={() => handleSort()}
-                          className={`mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                        />
+                        <img onClick={() => handleSort()} className={`mb-1`} src="/static/icons8-sort-24.svg" />
                       </th>
                       <th>BUYER NAME</th>
                       <th>STATUS</th>
@@ -209,10 +170,7 @@ function Index(props) {
                       genData?.map((term, index) => (
                         <tr Key={index} className="table_row">
                           <td>{term?.order.orderId}</td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => handleRoute(term)}
-                          >
+                          <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)}>
                             {term?.company?.companyName}
                           </td>
 

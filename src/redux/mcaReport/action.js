@@ -43,8 +43,7 @@ export const McaReportFetch = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(mcaReportSuccess(response.data.data));
-        const toastMessage =
-          'MCA report generate request submitted successfully';
+        const toastMessage = 'MCA report generate request submitted successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }

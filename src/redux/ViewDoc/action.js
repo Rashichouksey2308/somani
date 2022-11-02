@@ -43,11 +43,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
         dispatch(viewingDocumentSuccess(response.data.data));
 
         dispatch(setNotLoading());
-        window.open(
-          response.data.data.signedUrl,
-          '_blank',
-          'noopener,noreferrer',
-        );
+        window.open(response.data.data.signedUrl, '_blank', 'noopener,noreferrer');
       } else {
         dispatch(viewingDocumentFailed(response.data.data));
         const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
@@ -79,22 +75,14 @@ export const previewDocument = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.post(
-      `${API.corebaseUrl}${API.preview}`,
-      payload,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.post(`${API.corebaseUrl}${API.preview}`, payload, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(viewingDocumentSuccess(response.data.data));
 
       dispatch(setNotLoading());
-      window.open(
-        response.data.data.signedUrl,
-        '_blank',
-        'noopener,noreferrer',
-      );
+      window.open(response.data.data.signedUrl, '_blank', 'noopener,noreferrer');
     } else {
       dispatch(viewingDocumentFailed(response.data.data));
       const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';

@@ -4,11 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import styles from './index.module.scss';
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllTermsheet,
-  GetTermsheet,
-  SearchLeads,
-} from 'redux/buyerProfile/action';
+import { getAllTermsheet, GetTermsheet, SearchLeads } from 'redux/buyerProfile/action';
 import { settingSidebar } from '../../redux/breadcrumb/action';
 // import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter';
@@ -21,9 +17,7 @@ function Index() {
   const [serachterm, setSearchTerm] = useState('');
 
   const dispatch = useDispatch();
-  const { allTermsheets, gettingAllTermsheet } = useSelector(
-    (state) => state.order,
-  );
+  const { allTermsheets, gettingAllTermsheet } = useSelector((state) => state.order);
   const { searchedLeads } = useSelector((state) => state.order);
 
   useEffect(() => {
@@ -68,14 +62,8 @@ function Index() {
             <div className={`${styles.filter} d-flex align-items-center`}>
               <div className={styles.search}>
                 <div className="input-group">
-                  <div
-                    className={`${styles.inputGroupPrepend} input-group-prepend`}
-                  >
-                    <img
-                      src="/static/search.svg"
-                      className="img-fluid"
-                      alt="Search"
-                    />
+                  <div className={`${styles.inputGroupPrepend} input-group-prepend`}>
+                    <img src="/static/search.svg" className="img-fluid" alt="Search" />
                   </div>
                   <input
                     value={serachterm}
@@ -89,13 +77,8 @@ function Index() {
                   <div className={styles.searchResults}>
                     <ul>
                       {searchedLeads?.data?.data?.map((results, index) => (
-                        <li
-                          onClick={handleFilteredData}
-                          id={results._id}
-                          key={index}
-                        >
-                          {results.companyName}{' '}
-                          <span>{results.customerId}</span>
+                        <li onClick={handleFilteredData} id={results._id} key={index}>
+                          {results.companyName} <span>{results.customerId}</span>
                         </li>
                       ))}
                     </ul>
@@ -113,16 +96,11 @@ function Index() {
             </a> */}
             </div>
             <div className={`${styles.datatable} border datatable card`}>
-              <div
-                className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
-              >
+              <div className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}>
                 <h3 className="heading_card">Transaction Summary</h3>
-                <div
-                  className={`${styles.pageList} d-flex justify-content-end align-items-center`}
-                >
+                <div className={`${styles.pageList} d-flex justify-content-end align-items-center`}>
                   <span>
-                    Showing Page {currentPage + 1} out of{' '}
-                    {Math.ceil(allTermsheets?.totalCount / 7)}
+                    Showing Page {currentPage + 1} out of {Math.ceil(allTermsheets?.totalCount / 7)}
                   </span>
                   <a
                     onClick={() => {
@@ -136,40 +114,24 @@ function Index() {
                     className={`${styles.arrow} ${styles.leftArrow} arrow`}
                   >
                     {' '}
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                   <a
                     onClick={() => {
-                      if (
-                        currentPage + 1 <
-                        Math.ceil(allTermsheets?.totalCount / 7)
-                      ) {
+                      if (currentPage + 1 < Math.ceil(allTermsheets?.totalCount / 7)) {
                         setCurrentPage((prevState) => prevState + 1);
                       }
                     }}
                     href="#"
                     className={`${styles.arrow} ${styles.rightArrow} arrow`}
                   >
-                    <img
-                      src="/static/keyboard_arrow_right-3.svg"
-                      alt="arrow right"
-                      className="img-fluid"
-                    />
+                    <img src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid" />
                   </a>
                 </div>
               </div>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
-                  <table
-                    className={`${styles.table} table table_row_head`}
-                    cellPadding="0"
-                    cellSpacing="0"
-                    border="0"
-                  >
+                  <table className={`${styles.table} table table_row_head`} cellPadding="0" cellSpacing="0" border="0">
                     <thead>
                       <tr className="table_row">
                         <th>CUSTOMER ID</th>
@@ -183,14 +145,9 @@ function Index() {
                     <tbody>
                       {allTermsheets &&
                         allTermsheets?.data?.map((sheet, index) => (
-                          <tr
-                            key={index}
-                            className={`${styles.table_row} table_row`}
-                          >
+                          <tr key={index} className={`${styles.table_row} table_row`}>
                             <td>
-                              {sheet.company.customerId
-                                ? sheet.company.customerId
-                                : sheet.company.temporaryCustomerId}
+                              {sheet.company.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}
                             </td>
                             <td
                               onClick={() => {
@@ -200,20 +157,10 @@ function Index() {
                             >
                               {sheet.company.companyName}
                             </td>
+                            <td>{sheet.order.existingCustomer ? 'Yes' : 'No'}</td>
+                            <td>{moment(sheet.createdAt.slice(0, 10), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}</td>
                             <td>
-                              {sheet.order.existingCustomer ? 'Yes' : 'No'}
-                            </td>
-                            <td>
-                              {moment(
-                                sheet.createdAt.slice(0, 10),
-                                'YYYY-MM-DD',
-                                true,
-                              ).format('DD-MM-YYYY')}
-                            </td>
-                            <td>
-                              <span
-                                className={`${styles.status} ${styles.approved}`}
-                              ></span>
+                              <span className={`${styles.status} ${styles.approved}`}></span>
                               {sheet.status}
                             </td>
                             <td>

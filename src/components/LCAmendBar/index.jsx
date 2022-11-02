@@ -19,11 +19,7 @@ function index({ barName, openbar, download }) {
         }}
       >
         <span>{barName}</span>
-        <img
-          src="/static/file_download.svg"
-          className="img-fluid"
-          alt="FileDownload"
-        />
+        <img src="/static/file_download.svg" className="img-fluid" alt="FileDownload" />
       </div>
       <div className={styles.navigate}>
         <span>2</span> / 10

@@ -62,129 +62,126 @@ function updateForwardHedgingFailed() {
   };
 }
 
-export const GetAllForwardHedging =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    const headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllForwardHedgingSuccess(response.data.data));
-          dispatch(setNotLoading());
-        } else {
-          dispatch(getAllForwardHedgingFailed(response.data.data));
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
-        }
-      });
-    } catch (error) {
-      dispatch(getAllForwardHedgingFailed());
-
-      const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-      }
-      dispatch(setNotLoading());
-    }
+export const GetAllForwardHedging = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
   };
-
-export const GetForwardHedging =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    const headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getForwardHedgingSuccess(response.data.data));
-          dispatch(setNotLoading());
-        } else {
-          dispatch(getForwardHedgingFailed(response.data.data));
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getAllForwardHedgingSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getAllForwardHedgingFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-      });
-    } catch (error) {
-      dispatch(getForwardHedgingFailed());
-
-      const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        dispatch(setNotLoading());
       }
-      dispatch(setNotLoading());
+    });
+  } catch (error) {
+    dispatch(getAllForwardHedgingFailed());
+
+    const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
+    dispatch(setNotLoading());
+  }
+};
+
+export const GetForwardHedging = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
   };
-
-export const UpdateForwardHedging =
-  (payload) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    const headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateForwardHedgingSuccess(response.data.data));
-
-          let toastMessage = 'updated  SUCCESSFULLY';
-
-          if (payload.task === 'save') {
-            toastMessage = 'SAVED SUCCESSFULLY';
-          }
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
-            });
-          }
-          dispatch(setNotLoading());
-        } else {
-          dispatch(updateForwardHedgingFailed(response.data.data));
-          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-          }
-          dispatch(setNotLoading());
+  try {
+    Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getForwardHedgingSuccess(response.data.data));
+        dispatch(setNotLoading());
+      } else {
+        dispatch(getForwardHedgingFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-      });
-    } catch (error) {
-      dispatch(updateForwardHedgingFailed());
-
-      const toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME';
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        dispatch(setNotLoading());
       }
-      dispatch(setNotLoading());
+    });
+  } catch (error) {
+    dispatch(getForwardHedgingFailed());
+
+    const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
     }
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateForwardHedging = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
   };
+  try {
+    Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(updateForwardHedgingSuccess(response.data.data));
+
+        let toastMessage = 'updated  SUCCESSFULLY';
+
+        if (payload.task === 'save') {
+          toastMessage = 'SAVED SUCCESSFULLY';
+        }
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), {
+            toastId: toastMessage,
+          });
+        }
+        dispatch(setNotLoading());
+      } else {
+        dispatch(updateForwardHedgingFailed(response.data.data));
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    dispatch(updateForwardHedgingFailed());
+
+    const toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+  }
+};

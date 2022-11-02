@@ -130,10 +130,7 @@ function Index(props) {
     });
   };
   const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ]);
+    setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)]);
   };
   console.log(list, '564456');
   return (
@@ -155,12 +152,7 @@ function Index(props) {
           <div id="customerDetail" className={` ${styles.body} card-body row`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table `}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
                     <th className="border-0 generic_th">Agreement Name</th>
                     <th className="border-0 generic_th">Place of Execution</th>
@@ -177,11 +169,7 @@ function Index(props) {
                                 <td>{val.name}</td>
                                 <td>{val.execution}</td>
                                 <td>
-                                  {val.dateOfExecution == null
-                                    ? ''
-                                    : moment(val.dateOfExecution).format(
-                                        'DD-MM-YYYY',
-                                      )}
+                                  {val.dateOfExecution == null ? '' : moment(val.dateOfExecution).format('DD-MM-YYYY')}
                                 </td>
 
                                 <td className={`d-flex`}>
@@ -191,10 +179,7 @@ function Index(props) {
                                     src="/static/mode_edit.svg"
                                     alt="edit"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
                             ) : (
@@ -205,30 +190,16 @@ function Index(props) {
                                     className={`${styles.customSelect} input`}
                                     name="name"
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   >
                                     <option>Select an option</option>
-                                    <option value={'Sales Agreement'}>
-                                      {'Sales Agreement'}
-                                    </option>
-                                    <option value={'Associateship Agreement'}>
-                                      {'Associateship Agreement'}
-                                    </option>
-                                    <option value={'TPA (Seller)'}>
-                                      {'TPA (Seller)'}
-                                    </option>
-                                    <option value={'Assignment Letter'}>
-                                      {'Assignment Letter'}
-                                    </option>
+                                    <option value={'Sales Agreement'}>{'Sales Agreement'}</option>
+                                    <option value={'Associateship Agreement'}>{'Associateship Agreement'}</option>
+                                    <option value={'TPA (Seller)'}>{'TPA (Seller)'}</option>
+                                    <option value={'Assignment Letter'}>{'Assignment Letter'}</option>
                                     <option value={'QPA'}>{'QPA'}</option>
-                                    <option value={'TPA (CMA)'}>
-                                      {'TPA (CMA)'}
-                                    </option>
+                                    <option value={'TPA (CMA)'}>{'TPA (CMA)'}</option>
                                   </select>
                                   <img
                                     className={`${styles.arrow2} image_arrow img-fluid`}
@@ -245,11 +216,7 @@ function Index(props) {
                                     name="execution"
                                     value={val.execution}
                                     onChange={(e) => {
-                                      handleChangeInput(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      handleChangeInput(e.target.name, e.target.value, index);
                                     }}
                                   />
                                 </td>
@@ -261,9 +228,7 @@ function Index(props) {
                                         handleChangeInput(name, val, index);
                                       }}
                                       defaultDate={
-                                        val.dateOfExecution == null
-                                          ? null
-                                          : moment(val.dateOfExecution).toDate()
+                                        val.dateOfExecution == null ? null : moment(val.dateOfExecution).toDate()
                                       }
                                       // small={true}
                                       index={index}
@@ -282,10 +247,7 @@ function Index(props) {
                                     src="/static/save-3.svg"
                                     alt="save"
                                   />
-                                  <img
-                                    onClick={() => handleRemove(index)}
-                                    src="/static/delete 2.svg"
-                                  ></img>
+                                  <img onClick={() => handleRemove(index)} src="/static/delete 2.svg"></img>
                                 </td>
                               </tr>
                             )}

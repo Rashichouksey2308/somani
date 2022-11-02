@@ -31,14 +31,9 @@ function Index(props) {
                 <option>+95</option>
                 <option>+24</option>
               </select>
-              <FormControl
-                className={`${styles.input}`}
-                aria-label="Text input with dropdown button"
-              />
+              <FormControl className={`${styles.input}`} aria-label="Text input with dropdown button" />
             </div>
-            <div
-              className={`${styles.button} d-flex justify-content-center align-content-center`}
-            >
+            <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
               <span> {`Share on WhatsApp`}</span>
             </div>
           </Col>

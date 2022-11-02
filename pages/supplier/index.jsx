@@ -11,12 +11,7 @@ import SaveBar from '../../src/components/SaveBar';
 import AddressComponent from '../../src/components/AddressSupplier';
 import { toast } from 'react-toastify';
 import { emailValidation } from 'utils/helper';
-import {
-  ClearSupplier,
-  CreateSupplier,
-  GetSupplier,
-  UpdateSupplier,
-} from 'redux/supplier/action';
+import { ClearSupplier, CreateSupplier, GetSupplier, UpdateSupplier } from 'redux/supplier/action';
 import _get from 'lodash/get';
 import Router from 'next/router';
 
@@ -33,9 +28,7 @@ function Index() {
     }
   }, [id]);
 
-  let supplierData = JSON.parse(
-    JSON.stringify(_get(supplierResponse, 'data[0]', {})),
-  );
+  let supplierData = JSON.parse(JSON.stringify(_get(supplierResponse, 'data[0]', {})));
 
   // let apiData = {
   //   supplierProfile: formData,
@@ -69,11 +62,7 @@ function Index() {
     setInfoArray(supplierData?.additionalInformation ?? []);
   }, [supplierResponse]);
   console.log(supplierData, keyAddData, 'supplierResponse');
-  let supplierName = _get(
-    supplierResponse,
-    'data[0].supplierProfile.supplierName',
-    '',
-  );
+  let supplierName = _get(supplierResponse, 'data[0].supplierProfile.supplierName', '');
 
   const [saveShareTable, setSaveTable] = useState(false);
   const [saveContactTable, setContactTable] = useState(false);
@@ -146,16 +135,10 @@ function Index() {
     setPerson([...person.slice(0, index), ...person.slice(index + 1)]);
   };
   const handleDeleteDirector = (index) => {
-    setListDirector([
-      ...listDirector.slice(0, index),
-      ...listDirector.slice(index + 1),
-    ]);
+    setListDirector([...listDirector.slice(0, index), ...listDirector.slice(index + 1)]);
   };
   const handleCommodity = (index) => {
-    setListCommodity([
-      ...listCommodity.slice(0, index),
-      ...listCommodity.slice(index + 1),
-    ]);
+    setListCommodity([...listCommodity.slice(0, index), ...listCommodity.slice(index + 1)]);
   };
 
   const [listCommodity, setListCommodity] = useState([
@@ -417,9 +400,7 @@ function Index() {
     let toastMessage = '';
     for (let i = 0; i <= person.length - 1; i++) {
       if (person[i].name === '' || person[i].name === null) {
-        toastMessage = ` name cannot be empty in Contact Person Details ${
-          i + 1
-        } `;
+        toastMessage = ` name cannot be empty in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -427,37 +408,23 @@ function Index() {
         }
       }
       if (person[i].designation === '' || person[i].designation === null) {
-        toastMessage = ` designation cannot be empty in Contact Person Details ${
-          i + 1
-        } `;
+        toastMessage = ` designation cannot be empty in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
           break;
         }
       }
-      if (
-        person[i].contact === '' ||
-        person[i].contact === null ||
-        person[i].contact.length !== 10
-      ) {
-        toastMessage = ` please provide a valid contact no in Contact Person Details ${
-          i + 1
-        } `;
+      if (person[i].contact === '' || person[i].contact === null || person[i].contact.length !== 10) {
+        toastMessage = ` please provide a valid contact no in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
           break;
         }
       }
-      if (
-        person[i].emailId === '' ||
-        person[i].emailId === null ||
-        !emailValidation(person[i].emailId)
-      ) {
-        toastMessage = `please provide a valid email Id  in Contact Person Details ${
-          i + 1
-        } `;
+      if (person[i].emailId === '' || person[i].emailId === null || !emailValidation(person[i].emailId)) {
+        toastMessage = `please provide a valid email Id  in Contact Person Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -472,13 +439,8 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= detail.length - 1; i++) {
-      if (
-        detail[i].shareHoldersName === '' ||
-        detail[i].shareHoldersName === null
-      ) {
-        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${
-          i + 1
-        } `;
+      if (detail[i].shareHoldersName === '' || detail[i].shareHoldersName === null) {
+        toastMessage = ` shareHolders Name cannot be empty in shareHolder Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -486,9 +448,7 @@ function Index() {
         }
       }
       if (detail[i].designation === '' || detail[i].designation === null) {
-        toastMessage = ` designation cannot be empty in shareholder Details ${
-          i + 1
-        } `;
+        toastMessage = ` designation cannot be empty in shareholder Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -500,9 +460,7 @@ function Index() {
         detail[i].ownershipPercentage === null ||
         detail[i].ownershipPercentage >= 100
       ) {
-        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${
-          i + 1
-        } `;
+        toastMessage = ` please provide a valid ownership Percentage in shareholder  Details ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -518,22 +476,15 @@ function Index() {
     let toastMessage = '';
     for (let i = 0; i <= listDirector.length - 1; i++) {
       if (listDirector[i].name === '' || listDirector[i].name === null) {
-        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${
-          i + 1
-        } `;
+        toastMessage = `  Name cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
           break;
         }
       }
-      if (
-        listDirector[i].nationality === '' ||
-        listDirector[i].nationality === null
-      ) {
-        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${
-          i + 1
-        } `;
+      if (listDirector[i].nationality === '' || listDirector[i].nationality === null) {
+        toastMessage = ` nationality cannot be empty in Directors And Authorised Signatory ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -558,26 +509,16 @@ function Index() {
     let isOk = true;
     let toastMessage = '';
     for (let i = 0; i <= listCommodity.length - 1; i++) {
-      if (
-        listCommodity[i].hsnCode === '' ||
-        listCommodity[i].hsnCode === null
-      ) {
-        toastMessage = `  hsn code cannot be empty in Commodities Traded ${
-          i + 1
-        } `;
+      if (listCommodity[i].hsnCode === '' || listCommodity[i].hsnCode === null) {
+        toastMessage = `  hsn code cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
           break;
         }
       }
-      if (
-        listCommodity[i].commodity === '' ||
-        listCommodity[i].commodity === null
-      ) {
-        toastMessage = ` commodity cannot be empty in Commodities Traded ${
-          i + 1
-        } `;
+      if (listCommodity[i].commodity === '' || listCommodity[i].commodity === null) {
+        toastMessage = ` commodity cannot be empty in Commodities Traded ${i + 1} `;
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
           isOk = false;
@@ -612,19 +553,13 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    } else if (
-      !formData.incorporationDate ||
-      formData.incorporationDate === ''
-    ) {
+    } else if (!formData.incorporationDate || formData.incorporationDate === '') {
       let toastMessage = `please select a incorporation Date`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    } else if (
-      !formData.countryOfIncorporation ||
-      formData.countryOfIncorporation === ''
-    ) {
+    } else if (!formData.countryOfIncorporation || formData.countryOfIncorporation === '') {
       let toastMessage = `please provide a country Of Incorporation`;
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -717,10 +652,7 @@ function Index() {
     // },
   ]);
   const deleteComponent = (index) => {
-    setKeyAddData([
-      ...keyAddData.slice(0, index),
-      ...keyAddData.slice(index + 1),
-    ]);
+    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)]);
   };
   const addressValidtion = (data) => {
     const emailValidate = () => {
@@ -746,32 +678,20 @@ function Index() {
     };
 
     console.log(data, 'addressValidtion');
-    if (
-      data.address === null ||
-      data.address === '' ||
-      data.address === undefined
-    ) {
+    if (data.address === null || data.address === '' || data.address === undefined) {
       let toastMessage = 'Please add address';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
 
       return false;
-    } else if (
-      data.pinCode === null ||
-      data.pinCode === '' ||
-      data.pinCode === undefined
-    ) {
+    } else if (data.pinCode === null || data.pinCode === '' || data.pinCode === undefined) {
       let toastMessage = 'Please add pin code';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       return false;
-    } else if (
-      data.country === null ||
-      data.country === '' ||
-      data.country === undefined
-    ) {
+    } else if (data.country === null || data.country === '' || data.country === undefined) {
       let toastMessage = 'Please add country';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
@@ -903,11 +823,7 @@ function Index() {
           <div className="d-flex align-items-center">
             <h1 className={`${styles.title} heading`}>
               <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
+                src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`}`}
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
@@ -918,9 +834,7 @@ function Index() {
 
         <div className={`${styles.backgroundMain} container-fluid`}>
           <div className={`${styles.vessel_card} border_color`}>
-            <div
-              className={`${styles.main} vessel_card mt-4 card border_color`}
-            >
+            <div className={`${styles.main} vessel_card mt-4 card border_color`}>
               <div
                 className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
                 style={{ cursor: 'default' }}
@@ -928,9 +842,7 @@ function Index() {
                 <h3 className={`${styles.heading}`}>Supplier Profile</h3>
 
                 <div className="d-flex align-items-center">
-                  <label className={`${styles.dropDown_label} text`}>
-                    Status:
-                  </label>
+                  <label className={`${styles.dropDown_label} text`}>Status:</label>
                   <div className="position-relative">
                     <select
                       className={`${styles.dropDown} ${styles.customSelect} input`}
@@ -970,9 +882,7 @@ function Index() {
               >
                 <div className={`${styles.dashboard_form} mt-1 card-body`}>
                   <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -982,9 +892,7 @@ function Index() {
                           name="supplierName"
                           value={formData?.supplierName}
                         />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Supplier Name
                           <strong className="text-danger">*</strong>
                         </label>
@@ -995,9 +903,7 @@ function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <select
                           onChange={onChangeHandler}
@@ -1010,9 +916,7 @@ function Index() {
                           <option value="India">Private Limited</option>
                           <option value="America">ABC</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Constitution<strong className="text-danger">*</strong>
                         </label>
                         <img
@@ -1022,9 +926,7 @@ function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <DateCalender
                           defaultDate={formData?.incorporationDate ?? ''}
@@ -1040,9 +942,7 @@ function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <div className="d-flex">
                         <select
                           onChange={onChangeHandler}
@@ -1054,9 +954,7 @@ function Index() {
                           <option value="India">India</option>
                           <option value="America">USA</option>
                         </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
+                        <label className={`${styles.label_heading} label_heading`}>
                           Country of Incorporation
                           <strong className="text-danger">*</strong>
                         </label>
@@ -1067,32 +965,23 @@ function Index() {
                         />
                       </div>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
                         type="number"
                         onWheel={(event) => event.currentTarget.blur()}
-                        onKeyDown={(evt) =>
-                          ['e', 'E', '+', '-'].includes(evt.key) &&
-                          evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                         required
                         name="nationalIdentificationNumber"
                         value={formData?.nationalIdentificationNumber}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
+                      <label className={`${styles.label_heading} label_heading`}>
                         National Identification No. / Commercial Registry No.
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
+                    <div className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}>
                       <input
                         onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
@@ -1101,20 +990,14 @@ function Index() {
                         name="website"
                         value={formData?.website}
                       />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Website
-                      </label>
+                      <label className={`${styles.label_heading} label_heading`}>Website</label>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              className={`${styles.main} vessel_card mt-4 card border_color`}
-            >
+            <div className={`${styles.main} vessel_card mt-4 card border_color`}>
               <div
                 className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -1125,11 +1008,7 @@ function Index() {
                 <h3 className={`${styles.heading} mb-0`}>Key Addresses</h3>
                 <span>+</span>
               </div>
-              <div
-                id="keyAddress"
-                className="collapse"
-                aria-labelledby="keyAddress"
-              >
+              <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="d-flex justify-content-between">
                     {keyAddData?.map((address, index) => {
@@ -1140,13 +1019,9 @@ function Index() {
                             Title={address?.addressType}
                             address={address?.address}
                             number={address?.contact?.phoneNumber}
-                            callingCode={
-                              address?.contact?.phoneNumberCallingCode
-                            }
+                            callingCode={address?.contact?.phoneNumberCallingCode}
                             alterNumber={address?.contact?.alternatePhoneNumber}
-                            alterCallingCode={
-                              address?.contact?.alternatePhoneNumberCallingCode
-                            }
+                            alterCallingCode={address?.contact?.alternatePhoneNumberCallingCode}
                             country={address?.country}
                             email={address?.email}
                             deleteComponent={deleteComponent}
@@ -1159,26 +1034,17 @@ function Index() {
                       );
                     })}
                   </div>
-                  <div
-                    className={`${styles.address_card} mt-3 pb-5 value background1`}
-                  >
+                  <div className={`${styles.address_card} mt-3 pb-5 value background1`}>
                     <div
                       className={`${styles.head_container}  card-header border_color d-flex justify-content-between bg-transparent`}
                     >
-                      <h3
-                        className={`${styles.heading}`}
-                        style={{ textTransform: 'none' }}
-                      >
+                      <h3 className={`${styles.heading}`} style={{ textTransform: 'none' }}>
                         Add a new address
                       </h3>
                     </div>
-                    <div
-                      className={`${styles.dashboard_form} card-body border_color`}
-                    >
+                    <div className={`${styles.dashboard_form} card-body border_color`}>
                       <div className="row">
-                        <div
-                          className={`${styles.form_group} col-md-12 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} col-md-12 col-sm-6`}>
                           <input
                             className={`${styles.input_field} input form-control`}
                             type="text"
@@ -1188,16 +1054,12 @@ function Index() {
                               handleChange(e.target.value, e.target.name);
                             }}
                           />
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
+                          <label className={`${styles.label_heading} label_heading`}>
                             Address
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-4`}
-                        >
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
@@ -1209,9 +1071,7 @@ function Index() {
                                 handleChange(e.target.value, e.target.name);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Pin Code
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1223,9 +1083,7 @@ function Index() {
                           </div>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} col-md-4 col-sm-4`}
-                        >
+                        <div className={`${styles.form_group} col-md-4 col-sm-4`}>
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
@@ -1237,9 +1095,7 @@ function Index() {
                                 handleChange(e.target.value, e.target.name);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
+                            <label className={`${styles.label_heading} label_heading`}>
                               Country
                               <strong className="text-danger">*</strong>
                             </label>
@@ -1251,17 +1107,13 @@ function Index() {
                           </div>
                         </div>
 
-                        <div
-                          className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                           <div className={`${styles.phone_card}`}>
                             <select
                               name="contact.phoneNumberCallingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
-                              value={
-                                keyAddressData.contact.phoneNumberCallingCode
-                              }
+                              value={keyAddressData.contact.phoneNumberCallingCode}
                               onChange={(e) => {
                                 handleChange(e.target.value, e.target.name);
                               }}
@@ -1282,27 +1134,19 @@ function Index() {
                                 handleChange(e.target.value, e.target.name);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                              id="textNumber"
-                            >
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
                               Phone Number
                               <strong className="text-danger">*</strong>
                             </label>
                           </div>
                         </div>
-                        <div
-                          className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
-                        >
+                        <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
                           <div className={`${styles.phone_card}`}>
                             <select
                               name="contact.alternatePhoneNumberCallingCode"
                               id="Code"
                               className={`${styles.code_phone} input border-right-0`}
-                              value={
-                                keyAddressData.contact
-                                  .alternatePhoneNumberCallingCode
-                              }
+                              value={keyAddressData.contact.alternatePhoneNumberCallingCode}
                               onChange={(e) => {
                                 handleChange(e.target.value, e.target.name);
                               }}
@@ -1324,18 +1168,13 @@ function Index() {
                                 handleChange(e.target.value, e.target.name);
                               }}
                             />
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                              id="textNumber"
-                            >
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber">
                               Alternate Phone Number
                             </label>
                           </div>
                         </div>
                         {keyAddressData.email.map((email, index) => (
-                          <div
-                            className={`${styles.form_group} col-md-4 col-sm-6`}
-                          >
+                          <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                             <div className="d-flex">
                               <input
                                 className={`${styles.input_field} input form-control`}
@@ -1344,16 +1183,10 @@ function Index() {
                                 name="emailId"
                                 value={email}
                                 onChange={(e) => {
-                                  handleChange(
-                                    e.target.value,
-                                    e.target.name,
-                                    index,
-                                  );
+                                  handleChange(e.target.value, e.target.name, index);
                                 }}
                               />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                              >
+                              <label className={`${styles.label_heading} label_heading`}>
                                 Email ID
                                 <strong className="text-danger">*</strong>
                               </label>
@@ -1374,10 +1207,7 @@ function Index() {
                           </div>
                         ))}
                       </div>
-                      <button
-                        className={`${styles.add_btn}`}
-                        onClick={() => handleClick()}
-                      >
+                      <button className={`${styles.add_btn}`} onClick={() => handleClick()}>
                         Add
                       </button>
                     </div>
@@ -1387,9 +1217,7 @@ function Index() {
             </div>
           </div>
 
-          <div
-            className={`${styles.main} vessel_card mr-2 ml-2 mt-4 card border_color`}
-          >
+          <div className={`${styles.main} vessel_card mr-2 ml-2 mt-4 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1397,26 +1225,14 @@ function Index() {
               aria-expanded="true"
               aria-controls="keyContact"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Contact Person Details
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Contact Person Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="keyContact"
-              className="collapse"
-              aria-labelledby="keyContact"
-              data-parent="#keyContact"
-            >
+            <div id="keyContact" className="collapse" aria-labelledby="keyContact" data-parent="#keyContact">
               <div className={`${styles.datatable} card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1424,8 +1240,7 @@ function Index() {
                           </th>
                           <th>DESIGNATION</th>
                           <th>
-                            CONTACT NO.{' '}
-                            <strong className="text-danger">*</strong>
+                            CONTACT NO. <strong className="text-danger">*</strong>
                           </th>
                           <th>
                             EMAIL ID <strong className="text-danger">*</strong>
@@ -1445,11 +1260,7 @@ function Index() {
                                   value={val?.name}
                                   type="text"
                                   onChange={(e) => {
-                                    onChangeHandler2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                   readOnly={!val.action}
                                 />
@@ -1462,11 +1273,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1477,20 +1284,11 @@ function Index() {
                                   name="contact"
                                   value={val?.contact}
                                   type="number"
-                                  onWheel={(event) =>
-                                    event.currentTarget.blur()
-                                  }
+                                  onWheel={(event) => event.currentTarget.blur()}
                                   onChange={(e) => {
-                                    onChangeHandler2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
+                                  onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                   readOnly={!val.action}
                                 />
                               </td>
@@ -1502,11 +1300,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler2(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler2(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1521,11 +1315,7 @@ function Index() {
                                         alt="edit"
                                         onClick={(e) => {
                                           console.log('herer1');
-                                          onChangeHandler2(
-                                            'action',
-                                            true,
-                                            index,
-                                          );
+                                          onChangeHandler2('action', true, index);
                                           // setContactTable(true);
                                         }}
                                       />
@@ -1538,11 +1328,7 @@ function Index() {
                                         alt="save"
                                         onClick={(e) => {
                                           console.log('herer2');
-                                          onChangeHandler2(
-                                            'action',
-                                            false,
-                                            index,
-                                          );
+                                          onChangeHandler2('action', false, index);
                                           // setContactTable(false);
                                         }}
                                       />
@@ -1553,9 +1339,7 @@ function Index() {
                                     src="/static/delete 2.svg"
                                     className="img-fluid"
                                     alt="delete"
-                                    onClick={() =>
-                                      handleDeletePersonContact(index)
-                                    }
+                                    onClick={() => handleDeletePersonContact(index)}
                                   />
                                 </div>
                               </td>
@@ -1578,9 +1362,7 @@ function Index() {
             </div>
           </div>
 
-          <div
-            className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}
-          >
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1591,21 +1373,11 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Shareholders Details</h3>
               <span>+</span>
             </div>
-            <div
-              id="shareHolding"
-              className="collapse"
-              aria-labelledby="shareHolding"
-              data-parent="#shareHolding"
-            >
+            <div id="shareHolding" className="collapse" aria-labelledby="shareHolding" data-parent="#shareHolding">
               <div className={`${styles.datatable} card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>SHAREHOLDER NAME</th>
@@ -1627,11 +1399,7 @@ function Index() {
                                     value={val?.shareHoldersName}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1643,11 +1411,7 @@ function Index() {
                                     value={val?.designation}
                                     type="text"
                                     onChange={(e) => {
-                                      onChangeHandler3(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1659,19 +1423,10 @@ function Index() {
                                     name="ownershipPercentage"
                                     value={val?.ownershipPercentage}
                                     type="number"
-                                    onWheel={(event) =>
-                                      event.currentTarget.blur()
-                                    }
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
+                                    onWheel={(event) => event.currentTarget.blur()}
+                                    onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
                                     onChange={(e) => {
-                                      onChangeHandler3(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      );
+                                      onChangeHandler3(e.target.name, e.target.value, index);
                                     }}
                                     readOnly={!val.action}
                                   />
@@ -1686,11 +1441,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="edit"
                                           onClick={(e) => {
-                                            onChangeHandler3(
-                                              'action',
-                                              true,
-                                              index,
-                                            );
+                                            onChangeHandler3('action', true, index);
                                           }}
                                         />
                                       </>
@@ -1701,11 +1452,7 @@ function Index() {
                                           className={`${styles.edit_image} mr-3 img-fluid`}
                                           alt="save"
                                           onClick={(e) => {
-                                            onChangeHandler3(
-                                              'action',
-                                              false,
-                                              index,
-                                            );
+                                            onChangeHandler3('action', false, index);
                                           }}
                                         />
                                       </>
@@ -1738,9 +1485,7 @@ function Index() {
             </div>
           </div>
 
-          <div
-            className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}
-          >
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1748,26 +1493,14 @@ function Index() {
               aria-expanded="true"
               aria-controls="director"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Directors and Authorised Signatory
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Directors and Authorised Signatory</h3>
               <span>+</span>
             </div>
-            <div
-              id="director"
-              className="collapse"
-              aria-labelledby="director"
-              data-parent="#director"
-            >
+            <div id="director" className="collapse" aria-labelledby="director" data-parent="#director">
               <div className={`${styles.datatable} card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -1797,11 +1530,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1813,11 +1542,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler4(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -1829,11 +1554,7 @@ function Index() {
                                   type="checkbox"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler4(
-                                      e.target.name,
-                                      !val?.authorityToSign,
-                                      index,
-                                    );
+                                    onChangeHandler4(e.target.name, !val?.authorityToSign, index);
                                   }}
                                 />
                               </td>
@@ -1847,11 +1568,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler4(
-                                            'action',
-                                            true,
-                                            index,
-                                          );
+                                          onChangeHandler4('action', true, index);
                                         }}
                                       />
                                     </>
@@ -1862,11 +1579,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler4(
-                                            'action',
-                                            false,
-                                            index,
-                                          );
+                                          onChangeHandler4('action', false, index);
                                         }}
                                       />
                                     </>
@@ -1897,9 +1610,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}
-          >
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1927,11 +1638,7 @@ function Index() {
                     name="businessSummary"
                     value={business}
                   />
-                  <label
-                    className={`${styles.label_textarea} label_heading text`}
-                  >
-                    Business Summary
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Business Summary</label>
                   <img
                     onClick={(e) => {
                       addToBusinessArray();
@@ -1949,9 +1656,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}
-          >
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color`}>
             <div
               className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -1962,21 +1667,11 @@ function Index() {
               <h3 className={`${styles.heading} mb-0`}>Commodities Traded</h3>
               <span>+</span>
             </div>
-            <div
-              id="commodity"
-              className="collapse"
-              aria-labelledby="commodity"
-              data-parent="#commodity"
-            >
+            <div id="commodity" className="collapse" aria-labelledby="commodity" data-parent="#commodity">
               <div className={`${styles.datatable} card-body datatable`}>
                 <div className={`${styles.table_scroll_outer}`}>
                   <div className={`${styles.table_scroll_inner}`}>
-                    <table
-                      className={`${styles.table} table`}
-                      cellPadding="0"
-                      cellSpacing="0"
-                      border="0"
-                    >
+                    <table className={`${styles.table} table`} cellPadding="0" cellSpacing="0" border="0">
                       <thead>
                         <tr>
                           <th>
@@ -2003,11 +1698,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -2019,11 +1710,7 @@ function Index() {
                                   type="text"
                                   readOnly={!val.action}
                                   onChange={(e) => {
-                                    onChangeHandler6(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    );
+                                    onChangeHandler6(e.target.name, e.target.value, index);
                                   }}
                                 />
                               </td>
@@ -2038,11 +1725,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="edit"
                                         onClick={(e) => {
-                                          onChangeHandler6(
-                                            'action',
-                                            true,
-                                            index,
-                                          );
+                                          onChangeHandler6('action', true, index);
                                         }}
                                       />
                                     </>
@@ -2053,11 +1736,7 @@ function Index() {
                                         className={`${styles.edit_image} mr-3 img-fluid`}
                                         alt="save"
                                         onClick={(e) => {
-                                          onChangeHandler6(
-                                            'action',
-                                            false,
-                                            index,
-                                          );
+                                          onChangeHandler6('action', false, index);
                                         }}
                                       />
                                     </>
@@ -2089,9 +1768,7 @@ function Index() {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}
-          >
+          <div className={`${styles.main} vessel_card mt-4 mr-2 ml-2 card border_color `}>
             <div
               className={`${styles.head_container} card-header border_color d-flex justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -2099,17 +1776,10 @@ function Index() {
               aria-expanded="true"
               aria-controls="additional"
             >
-              <h3 className={`${styles.heading} mb-0`}>
-                Additional Information
-              </h3>
+              <h3 className={`${styles.heading} mb-0`}>Additional Information</h3>
               <span>+</span>
             </div>
-            <div
-              id="additional"
-              className="collapse"
-              aria-labelledby="additional"
-              data-parent="#additional"
-            >
+            <div id="additional" className="collapse" aria-labelledby="additional" data-parent="#additional">
               <div className={`${styles.dashboard_form} vessel_card mr-3`}>
                 {/* <div className={`${styles.comment_para} d-flex `}>
                   <Form.Control
@@ -2145,11 +1815,7 @@ function Index() {
                     className={`${styles.comment_field} form-control`}
                     onChange={onChangeHandler7}
                   />
-                  <label
-                    className={`${styles.label_textarea} label_heading text`}
-                  >
-                    Remarks
-                  </label>
+                  <label className={`${styles.label_textarea} label_heading text`}>Remarks</label>
 
                   <img
                     className={`${styles.plus_field} img-fluid`}

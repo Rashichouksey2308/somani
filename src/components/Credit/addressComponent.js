@@ -27,12 +27,8 @@ function AddressComponent({
     <div className={`${styles.address_card} value background1 border_color`}>
       <div className="d-flex justify-content-between w-100">
         <div className="w-100">
-          <div
-            className={`${styles.address_values} w-100 d-flex justify-content-between`}
-          >
-            <div
-              className={`d-flex justify-content-between align-items-center`}
-            >
+          <div className={`${styles.address_values} w-100 d-flex justify-content-between`}>
+            <div className={`d-flex justify-content-between align-items-center`}>
               {communicationModeYes == true ? (
                 <Form.Check
                   className={styles.radio}
@@ -92,11 +88,7 @@ function AddressComponent({
               </p>
               {path ? (
                 <span
-                  onClick={() =>
-                    dispatch(
-                      ViewDocument({ order: orderDetail?._id, path: path }),
-                    )
-                  }
+                  onClick={() => dispatch(ViewDocument({ order: orderDetail?._id, path: path }))}
                   className={styles.view_btn}
                   style={{ cursor: 'pointer' }}
                 >

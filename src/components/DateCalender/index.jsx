@@ -74,9 +74,7 @@ const Index = ({
             e.preventDefault();
           }}
           portalId="root-portal"
-          className={`${styles.input_field} input form-control ${
-            small ? styles.input_small : ''
-          }`}
+          className={`${styles.input_field} input form-control ${small ? styles.input_small : ''}`}
           onChange={(startDate) => {
             setStartDate(startDate);
             saveDate(startDate, name, index);

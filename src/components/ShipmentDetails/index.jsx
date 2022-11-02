@@ -16,9 +16,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
     eta: '',
   });
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY');
+    var new_date = moment(new Date(val).toISOString()).add(1, 'days').format('DD-MM-YYYY');
     if (name == 'loadPort.fromDate') {
       setDateStartFrom({ ...dateStartFrom, laycan: new_date });
     } else {
@@ -27,9 +25,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
   };
 
   return (
-    <div
-      className={`${styles.main} card vessel_card border_color border-bottom`}
-    >
+    <div className={`${styles.main} card vessel_card border_color border-bottom`}>
       <div
         className={`${styles.head_container} d-flex border_color align-items-center head_container card-header justify-content-between bg-transparent`}
         data-toggle="collapse"
@@ -40,11 +36,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
         <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
         <span>+</span>
       </div>
-      <div
-        id="shipmentDetails"
-        className="collapse"
-        aria-labelledby="shipmentDetails"
-      >
+      <div id="shipmentDetails" className="collapse" aria-labelledby="shipmentDetails">
         <div className={`${styles.dashboard_form} card-body`}>
           <Form>
             <div className="row">
@@ -67,9 +59,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Shipment Type<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
@@ -79,16 +69,12 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                   />
                 </div>
               </Form.Group>
-              <Form.Group
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="loadPort.fromDate"
                     // defaultDate={moment(orderDetail?.shipmentDetail?.loadPort?.fromDate).format("DD-MM-YYYY")}
-                    defaultDate={
-                      orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''
-                    }
+                    defaultDate={orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''}
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="Laycan at Load Port from"
@@ -101,15 +87,11 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                 </div>
               </Form.Group>
 
-              <Form.Group
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="loadPort.toDate"
-                    defaultDate={
-                      orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''
-                    }
+                    defaultDate={orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''}
                     saveDate={saveDate}
                     startFrom={dateStartFrom.laycan}
                     labelName="Laycan at Load Port to"
@@ -121,15 +103,11 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                   />
                 </div>
               </Form.Group>
-              <Form.Group
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="lastDateOfShipment"
-                    defaultDate={
-                      orderDetail?.shipmentDetail?.lastDateOfShipment ?? ''
-                    }
+                    defaultDate={orderDetail?.shipmentDetail?.lastDateOfShipment ?? ''}
                     // startFrom={dateStartFrom.laycan}
                     saveDate={saveDate}
                     labelName="Last date of shipment"
@@ -152,16 +130,11 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                     </div> */}
               </Form.Group>
 
-              <Form.Group
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.fromDate"
-                    defaultDate={
-                      orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate ??
-                      ''
-                    }
+                    defaultDate={orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate ?? ''}
                     setStartDateFrom={setStartDate}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port from"
@@ -182,15 +155,11 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                    />
                     </div> */}
               </Form.Group>
-              <Form.Group
-                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              >
+              <Form.Group className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
                     name="ETAofDischarge.toDate"
-                    defaultDate={
-                      orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''
-                    }
+                    defaultDate={orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''}
                     saveDate={saveDate}
                     startFrom={dateStartFrom.eta}
                     labelName="ETA at Discharge Port to"
@@ -241,9 +210,7 @@ const index = ({ orderDetail, saveShipmentData, shipment, port }) => {
                       })}
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
-                  <Form.Label
-                    className={`${styles.label_heading} label_heading`}
-                  >
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
                     Port of Loading<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img

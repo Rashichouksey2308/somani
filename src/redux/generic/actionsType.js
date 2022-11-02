@@ -44,56 +44,51 @@ export function submitGenericFailed(payload) {
   };
 }
 
-export const updateGenericData =
-  (payload, message) => async (dispatch, getState, api) => {
-    dispatch(setIsLoading());
+export const updateGenericData = (payload, message) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
 
-    const cookie = Cookies.get('SOMANI');
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
-    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
-    const headers = {
-      authorization: jwtAccessToken,
-      Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
-    };
-    try {
-      const response = await Axios.put(
-        `${API.corebaseUrl}${API.updateGeneric}`,
-        payload,
-        {
-          headers: headers,
-        },
-      );
-      if (response.data.code === 200) {
-        dispatch(submitGenericSuccess(response.data));
-        const toastMessage = message;
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-
-        dispatch(setNotLoading());
-        return response.data.timestamp;
-      } else {
-        dispatch(submitGenericFailed(response.data.data));
-        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
-        }
-        dispatch(setNotLoading());
-        return 500;
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  const headers = {
+    authorization: jwtAccessToken,
+    Cache: 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+  };
+  try {
+    const response = await Axios.put(`${API.corebaseUrl}${API.updateGeneric}`, payload, {
+      headers: headers,
+    });
+    if (response.data.code === 200) {
+      dispatch(submitGenericSuccess(response.data));
+      const toastMessage = message;
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
-    } catch (error) {
-      dispatch(submitGenericFailed());
 
-      const toastMessage = 'PUT GENERIC API FAILED';
+      dispatch(setNotLoading());
+      return response.data.timestamp;
+    } else {
+      dispatch(submitGenericFailed(response.data.data));
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
       }
       dispatch(setNotLoading());
       return 500;
     }
-  };
+  } catch (error) {
+    dispatch(submitGenericFailed());
+
+    const toastMessage = 'PUT GENERIC API FAILED';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(setNotLoading());
+    return 500;
+  }
+};
 
 export const getGenericData = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
@@ -107,12 +102,9 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
     'Access-Control-Allow-Origin': '*',
   };
   try {
-    const response = await Axios.get(
-      `${API.corebaseUrl}${API.updateGeneric}${payload || ''}`,
-      {
-        headers: headers,
-      },
-    );
+    const response = await Axios.get(`${API.corebaseUrl}${API.updateGeneric}${payload || ''}`, {
+      headers: headers,
+    });
     if (response.data.code === 200) {
       dispatch(getGenericSuccess(response.data.data.data));
       dispatch(setNotLoading());
