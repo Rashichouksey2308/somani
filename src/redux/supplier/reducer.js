@@ -1,6 +1,8 @@
 import * as types from './actionType';
 
 const initialState = {
+  creatingSupplier: false,
+  createdSupplierResponse: null,
   updatingSupplier: false,
   updatedSupplierResponse: null,
   gettingsupplier: false,
@@ -12,6 +14,24 @@ const initialState = {
 
 function SupplierReducer(state = initialState, action) {
   switch (action.type) {
+    case types.CREATE_SUPPLIER:
+      return {
+        ...state,
+        creatingSupplier: true,
+        createdSupplierResponse: null,
+      };
+    case types.CREATE_SUPPLIER_SUCCESSFULL:
+      return {
+        ...state,
+        creatingSupplier: false,
+        createdSupplierResponse: action.payload,
+      };
+    case types.CREATE_SUPPLIER_FAILED:
+      return {
+        ...state,
+        creatingSupplier: false,
+        createdSupplierResponse: null,
+      };
     case types.UPDATE_SUPPLIER:
       return {
         ...state,

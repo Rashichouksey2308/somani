@@ -5,6 +5,26 @@ import Router from 'next/router';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { setIsLoading, setNotLoading } from '../Loaders/action';
+
+function createSupplier() {
+  return {
+    type: types.CREATE_SUPPLIER,
+  };
+}
+
+function createSupplierSuccess(payload) {
+  return {
+    type: types.CREATE_SUPPLIER_SUCCESSFULL,
+    payload,
+  };
+}
+
+function createSupplierFailed() {
+  return {
+    type: types.CREATE_SUPPLIER_FAILED,
+  };
+}
+
 function updateSupplier() {
   return {
     type: types.UPDATE_SUPPLIER,
@@ -70,9 +90,9 @@ export function ClearSupplier() {
   };
 }
 
-export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
+export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
-  dispatch(updateSupplier());
+  dispatch(createSupplier());
   const cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
@@ -83,7 +103,45 @@ export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
-        const toastMessage = 'request send successfully';
+        const toastMessage = 'supplier details added successfully';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(createSupplierSuccess(response.data));
+        dispatch(setNotLoading());
+      } else {
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+        }
+        dispatch(createSupplierFailed(response.data));
+        dispatch(setNotLoading());
+      }
+    });
+  } catch (error) {
+    const toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THE MOMENT';
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage });
+    }
+    dispatch(createSupplierFailed());
+    dispatch(setNotLoading());
+  }
+};
+
+export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
+  dispatch(setIsLoading());
+  dispatch(updateSupplier());
+  const cookie = Cookies.get('SOMANI');
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
+
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
+  try {
+    Axios.put(`${API.corebaseUrl}${API.supplier}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        const toastMessage = 'supplier details updated successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
