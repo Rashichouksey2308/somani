@@ -222,7 +222,7 @@ console.log( warehouseDetails?.wareHouseDetails?.quantity," warehouseDetails?.wa
                           ? warehouseDetails?.wareHouseDetails?.quantity
                           : warehouseDetails?.wareHouseDetails?.quantity == 0 
                           ||
-                            warehouseDetails?.wareHouseDetails?.quantity == NaN ||
+                           isNaN(warehouseDetails?.wareHouseDetails?.quantity) ||
                              warehouseDetails?.wareHouseDetails?.quantity==undefined
                           || warehouseDetails?.wareHouseDetails?.quantity == ''
                           ? ''
