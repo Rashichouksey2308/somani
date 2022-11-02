@@ -164,16 +164,22 @@ function Index({
                                   onAddVessel();
                                 }}
                               >
-                                Add
+                              <span className={styles.add_sign}>+</span>Add
                               </button>
                             ) : null}
                             {index > 0 ? (
                               <button
-                                className={styles.add_btn}
+                                className={`${styles.add_btn} border-danger text-danger`}
                                 onClick={(e) => {
                                   onDeleteVessel(index);
                                 }}
                               >
+                                <img
+                                  src="/static/delete.svg"
+                                  className="ml-1 mt-n1"
+                                  width={13}
+                                  alt="delete"
+                                />{' '}
                                 Delete
                               </button>
                             ) : null}
@@ -853,8 +859,8 @@ function Index({
                             <div
                               className={`${styles.vessel_card} vessel_card`}
                             >
-                              <div className="d-flex justify-content-between align-items-center">
-                                <h3 className={`${styles.sub_heading} mt-3`}>
+                              <div className="d-flex justify-content-end align-items-center">
+                                <h3 className={`${styles.sub_heading} mr-auto mt-3`}>
                                   Vessel Information
                                 </h3>
                                 {index >= 0 ? (
@@ -862,7 +868,7 @@ function Index({
                                     onClick={() => OnAddvesselInformation()}
                                     className={styles.add_btn}
                                   >
-                                    Add
+                                  <span className={styles.add_sign}>+</span>Add
                                   </button>
                                 ) : null}
 
@@ -872,8 +878,14 @@ function Index({
                                     onClick={() =>
                                       OnAddvesselInformationDelete(index)
                                     }
-                                    className={styles.add_btn}
+                                    className={`${styles.add_btn} border-danger text-danger`}
                                   >
+                                  <img
+                                    src="/static/delete.svg"
+                                    className="ml-1 mt-n1"
+                                    width={13}
+                                    alt="delete"
+                                  />{' '}
                                     Delete
                                   </button>
                                 ) : null}

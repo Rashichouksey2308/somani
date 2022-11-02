@@ -591,7 +591,7 @@ function Index() {
                     {filteredValue('Storage of Goods')
                       ? filteredValue('Storage of Goods')
                       : `Cargo to be stored at a place as agreed under the agreement or at an approved customs bonded warehouse. IGM and Applicable Bill of Entry shall be filed by the ${otherTermConditions?.buyer?.bank
-                          .match(/\((.*)\)/)
+                          ?.match(/\((.*)\)/)
                           ?.pop()}'s nominated party and all expenses/charges to be born and paid by the Buyer. `}
                   </li>
                 </ul>
