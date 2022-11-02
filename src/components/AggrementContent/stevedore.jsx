@@ -659,7 +659,7 @@ function Index(props) {
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
+                      {val.fullAddress} {val.city} {val.pinCode} {val.country}
                     </div>
                   </div>
                   <div className={`d-flex ${styles.actions} `}>

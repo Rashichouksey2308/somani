@@ -145,7 +145,7 @@ function Index(props) {
           quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue:
-            data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
@@ -181,7 +181,7 @@ function Index(props) {
             _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
           designatedStorageArea:data?.CMA?.designatedStorageArea,
-           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
+          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
         });
       }
     }
@@ -1177,7 +1177,7 @@ const tpaSeller = (data,preview) => {
       </p>
       <p className="text_sales">
         {' '}
-        <b>{data.buyer}</b>, a Company incorporated under the Companies Act,
+         <b>{data.buyer}</b>, a Company incorporated under the Companies Act,
         1956, having its <b>registered office</b> at <b>
              {data.buyerAddress?.fullAddress},
               {data.buyerAddress?.city}{" "} 

@@ -177,6 +177,9 @@ function Index(props) {
            console.log(props?.vendor?.field23,"props?.vendor?.field23")
           let add = props?.vendor?.field23.split(",")
           let newAddress=[]
+          if(add?.length > 0) {
+
+         
           add.forEach((val,index)=>{
             if(index<4){
               newAddress.push(val)
@@ -197,6 +200,7 @@ function Index(props) {
               city: add[4],
             },
           ]);
+           }
         }
         if (props.data?.addresses.length > 0) {
         }
@@ -564,7 +568,7 @@ function Index(props) {
                   name="gstin"
                 >
                   <option>Select an option</option>
-                  <option value={`${props.vendor.field22}`}>{props.vendor.field22}</option>
+                  <option value={`${props?.vendor?.field22}`}>{props?.vendor?.field22}</option>
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -611,7 +615,7 @@ function Index(props) {
                   <div className={`${styles.registeredAddressHeading}`}>
                     <span>{val.addressType} Address</span>
                     <div className={`${styles.address_text}`}>
-                      {val.fullAddress} {val.pinCode} {val.country}
+                      {val.fullAddress} {val.city} {val.pinCode} {val.country}
                     </div>
                   </div>
                   <div className={`d-flex ${styles.actions} `}>
