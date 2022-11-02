@@ -77,6 +77,7 @@ export default function Index({
   //     ? true
   //     : false
   const [shipmentTypeBulk, setshipmentTypeBulk] = useState(false);
+  console.log(shipmentTypeBulk, TransitDetails, 'shipmentTypeBulk')
   useEffect(() => {
     setshipmentTypeBulk(
       _get(
@@ -195,6 +196,7 @@ export default function Index({
         '',
       ) === 'Bulk'
     ) {
+
       _get(TransitDetails, `data[0].order.vessel.vessels`, []).forEach(
         (vessel, index) => {
           if (vessel.vesselInformation[0].name === VesselName) {
@@ -203,16 +205,17 @@ export default function Index({
         },
       );
     } else {
-      filteredVessel = _get(
+
+      filteredVessel = JSON.parse(JSON.stringify(_get(
         TransitDetails,
         `data[0].order.vessel.vessels[0]`,
         {},
-      );
-      let tempArray = _get(
+      )))
+      let tempArray = JSON.parse(JSON.stringify(_get(
         TransitDetails,
         `data[0].order.vessel.vessels[0].vesselInformation`,
         [],
-      );
+      )))
       tempArray.forEach((vessel, index) => {
         if (vessel.name === VesselName) {
           filteredVessel.vesselInformation = [vessel];
@@ -717,7 +720,7 @@ export default function Index({
                       maximumFractionDigits: 2,
                     })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -804,26 +807,26 @@ export default function Index({
                               <option selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation[0]?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation[0]?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -938,13 +941,13 @@ export default function Index({
                               isFieldInFocus
                                 ? bol?.blQuantity
                                 : Number(bol?.blQuantity)?.toLocaleString(
-                                    'en-IN',
-                                  ) +
-                                  ` ${_get(
-                                    TransitDetails,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                  'en-IN',
+                                ) +
+                                ` ${_get(
+                                  TransitDetails,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                )}`
                             }
                           />
                           <label
@@ -1267,17 +1270,17 @@ export default function Index({
                                   bolList[index]?.blDoc?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xls') ||
-                                  bolList[index]?.blDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
+                                    bolList[index]?.blDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.xlsx') ? (
                                     <img
                                       src="/static/excel.svg"
                                       className="img-fluid"
                                       alt="Pdf"
                                     />
                                   ) : bolList[index]?.blDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
+                                    ?.toLowerCase()
+                                    .endsWith('.doc') ||
                                     bolList[index]?.blDoc?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.docx') ? (
@@ -1299,8 +1302,8 @@ export default function Index({
                                 {bolList[index]?.blDoc == null
                                   ? ''
                                   : moment(bolList[index]?.blDoc.date).format(
-                                      'DD-MM-YYYY , h:mm a ',
-                                    )}
+                                    'DD-MM-YYYY , h:mm a ',
+                                  )}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>
@@ -1367,21 +1370,21 @@ export default function Index({
                                       ]?.containerNumberListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xls') ||
-                                      bolList[
-                                        index
-                                      ]?.containerNumberListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
+                                        bolList[
+                                          index
+                                        ]?.containerNumberListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.xlsx') ? (
                                         <img
                                           src="/static/excel.svg"
                                           className="img-fluid"
                                           alt="Pdf"
                                         />
                                       ) : bolList[
-                                          index
-                                        ]?.containerNumberListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
+                                        index
+                                      ]?.containerNumberListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.doc') ||
                                         bolList[
                                           index
                                         ]?.containerNumberListDoc?.originalName
@@ -1403,12 +1406,12 @@ export default function Index({
                                   </td>
                                   <td className={styles.doc_row}>
                                     {bolList[index]?.containerNumberListDoc ==
-                                    null
+                                      null
                                       ? ''
                                       : moment(
-                                          bolList[index]?.containerNumberListDoc
-                                            .date,
-                                        ).format('DD-MM-YYYY , h:mm a ')}
+                                        bolList[index]?.containerNumberListDoc
+                                          .date,
+                                      ).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1425,7 +1428,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.containerNumberListDoc ==
+                                      bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1486,21 +1489,21 @@ export default function Index({
                                       ]?.packingListDoc?.originalName
                                         ?.toLowerCase()
                                         .endsWith('.xls') ||
-                                      bolList[
-                                        index
-                                      ]?.packingListDoc?.originalName
-                                        ?.toLowerCase()
-                                        .endsWith('.xlsx') ? (
+                                        bolList[
+                                          index
+                                        ]?.packingListDoc?.originalName
+                                          ?.toLowerCase()
+                                          .endsWith('.xlsx') ? (
                                         <img
                                           src="/static/excel.svg"
                                           className="img-fluid"
                                           alt="Pdf"
                                         />
                                       ) : bolList[
-                                          index
-                                        ]?.packingListDoc?.originalName
-                                          ?.toLowerCase()
-                                          .endsWith('.doc') ||
+                                        index
+                                      ]?.packingListDoc?.originalName
+                                        ?.toLowerCase()
+                                        .endsWith('.doc') ||
                                         bolList[
                                           index
                                         ]?.packingListDoc?.originalName
@@ -1524,8 +1527,8 @@ export default function Index({
                                     {bolList[index]?.packingListDoc == null
                                       ? ''
                                       : moment(
-                                          bolList[index]?.packingListDoc.date,
-                                        ).format('DD-MM-YYYY , h:mm a ')}
+                                        bolList[index]?.packingListDoc.date,
+                                      ).format('DD-MM-YYYY , h:mm a ')}
                                   </td>
                                   <td>
                                     {/* <div className={styles.uploadBtnWrapper}>
@@ -1542,7 +1545,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.packingListDoc == null ? (
+                                      bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1685,19 +1688,19 @@ export default function Index({
                                   bolList[index]?.blSurrenderDoc?.originalName
                                     ?.toLowerCase()
                                     .endsWith('.xls') ||
-                                  bolList[index]?.blSurrenderDoc?.originalName
-                                    ?.toLowerCase()
-                                    .endsWith('.xlsx') ? (
+                                    bolList[index]?.blSurrenderDoc?.originalName
+                                      ?.toLowerCase()
+                                      .endsWith('.xlsx') ? (
                                     <img
                                       src="/static/excel.svg"
                                       className="img-fluid"
                                       alt="Pdf"
                                     />
                                   ) : bolList[
-                                      index
-                                    ]?.blSurrenderDoc?.originalName
-                                      ?.toLowerCase()
-                                      .endsWith('.doc') ||
+                                    index
+                                  ]?.blSurrenderDoc?.originalName
+                                    ?.toLowerCase()
+                                    .endsWith('.doc') ||
                                     bolList[index]?.blSurrenderDoc?.originalName
                                       ?.toLowerCase()
                                       .endsWith('.docx') ? (
@@ -1719,12 +1722,12 @@ export default function Index({
                                 {bolList[index]?.blSurrenderDoc === null
                                   ? ''
                                   : moment(
-                                      bolList[index]?.blSurrenderDoc?.Date,
-                                    ).format(' DD-MM-YYYY , h:mm a')}
+                                    bolList[index]?.blSurrenderDoc?.Date,
+                                  ).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
-                                bolList[index]?.blSurrenderDoc == null ? (
+                                  bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
