@@ -470,7 +470,7 @@ let data=customData?.billOfEntry?.billOfEntry?.reduce(
                           ? sumOfDischargeQuantities
                           : sumOfDischargeQuantities == 0 
                           ||
-                            sumOfDischargeQuantities == NaN ||
+                            isNaN(sumOfDischargeQuantities) ||
                              sumOfDischargeQuantities==undefined
                           || sumOfDischargeQuantities == ''
                           ? ''
