@@ -19,7 +19,15 @@ export default function Index(props) {
     sessionStorage.setItem('balanceQuantity',Number(val.Quantity));
     Router.push('/delivery-preview');
   };
-  console.log(props.releaseOrderData, 'tempArr');
+  console.log(props.deliveryOrder, 'tempArr');
+  let boe = _get(
+    props,
+    'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry',
+  [],
+  )
+  const boeTotalQuantity = boe?.reduce((accumulator, object) => {
+    return accumulator + Number(object.boeDetails.invoiceQuantity);
+  }, 0);
 
   return (
     <>
@@ -69,13 +77,7 @@ export default function Index(props) {
                       Invoice Quantity{' '}
                     </div>
                     <span className={styles.value}>
-                      {Number(
-                        _get(
-                          props,
-                          'ReleaseOrder.data[0].order.customClearance.warehouseDetails.wareHouseDetails.quantity',
-                          '',
-                        ),
-                      )?.toLocaleString('en-In', {
+                      {Number(boeTotalQuantity)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                       })}{' '}
                       {_get(

@@ -2010,11 +2010,11 @@ function Index() {
             </div>
           </div>
           <div className="mt-4 ml-2 mr-2 mb-5">
-            <InspectionDocument
+            {/* <InspectionDocument
               documentName="Incumbency Certificate"
               isSupplier={true}
             // uploadDocument1={uploadDocument1}
-            />
+            /> */}
           </div>
         </div>
         <SaveBar rightBtn="Send for Approval" handleSave={handleSave} />
