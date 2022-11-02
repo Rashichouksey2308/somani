@@ -942,7 +942,7 @@ export default function Index({
                                   </strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {blEntry?.blQuantity}{' '}
+                                  <span className='mr-2'>{blEntry?.blQuantity}{' '}</span>
                                   {_get(
                                     TransitDetails,
                                     'data[0].order.unitOfQuantity',
@@ -1025,13 +1025,13 @@ export default function Index({
                                 <div className="row align-items-center">
                                   <div className="col-md-6">
                                     <div className={`${styles.label} text`}>
-                                      BL Quantity{' '}
+                                      BL Quantity{' '} 
                                       <strong className="text-danger ml-n1">
                                         *
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {blEntry?.blQuantity}
+                                      <span className='mr-2'>{blEntry?.blQuantity}</span>
                                       {_get(
                                         TransitDetails,
                                         'data[0].order.unitOfQuantity',
