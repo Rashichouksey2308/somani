@@ -81,14 +81,27 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          // addComm: data?.addComm,
-          addComm: [],
+          addComm: data?.addComm,
+          
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
+          designatedStorageArea:data?.designatedStorageArea,
+          cmaAddress:data?.cmaAddress,
+          cma:data?.cma,
+          toleranceLevel:data?.toleranceLevel,
+          incoTerms:data?.incoTerms,
+          supplierAddress:data?.supplierAddress,
+          financialAddress:data?.financialAddress,
+          designatedStorageArea:data.designatedStorageArea,
+          cmaAuthorized:data.cmaAuthorized,
+          financialBank: data?.financialBank,
+          supplier: data?.supplier,
+
+
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -140,7 +153,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -153,7 +166,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.address[0]', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', ''),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -165,11 +178,13 @@ function Index(props) {
           toleranceLevel: data?.order?.tolerance,
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
-          financialAddress: '',
+          financialAddress: `${data?.financingBank?.branch}, Netherlands`,
           cma: data?.CMA?.name,
           cmaAddress:
-            'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba',
+            _get(data, 'CMA.addresses[0]', {}),
           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+          designatedStorageArea:data?.CMA?.designatedStorageArea,
+           supplierAddress: _get(data, 'supplier.addresses[0]', {}),
         });
       }
     }
@@ -1146,19 +1161,7 @@ export default Index;
 const tpaSeller = (data,preview) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
-      {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                TRIPARTITE AGREEMENT No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+    
       <p className="text-center text_sales">
         {' '}
         <strong>TRIPARTITE AGREEMENT</strong>
@@ -1664,7 +1667,11 @@ const tpaSeller = (data,preview) => {
             Address of Collateral Manager
           </Col>
           <Col md={7} className={styles.right}>
-            {data.cmaAddress}
+           {data.cmaAddress?.fullAddress},
+              {data.cmaAddress?.city}{" "} 
+              {data.cmaAddress?.country},{" "}
+              
+              {data.cmaAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1694,7 +1701,7 @@ const tpaSeller = (data,preview) => {
             Designated Storage Area
           </Col>
           <Col md={7} className={styles.right}>
-            {''}
+            {data.designatedStorageArea}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1727,7 +1734,11 @@ const tpaSeller = (data,preview) => {
             Address of Supplier
           </Col>
           <Col md={7} className={styles.right}>
-            {data.supplierAddress}
+              {data.supplierAddress?.fullAddress},
+              {data.supplierAddress?.city}{" "} 
+              {data.supplierAddress?.country},{" "}
+              
+              {data.supplierAddress?.pinCode}
           </Col>
         </Row>
         <Row className={`${styles.row} border_black`}>
@@ -1758,8 +1769,8 @@ const tpaSeller = (data,preview) => {
           <p className="text_sales  m-0">(Buyer)</p>
         </Col>
         <Col md={12} className={`d-flex justify-content-around`}>
-          <GrowInput></GrowInput>
-          <GrowInput></GrowInput>
+            <p className="text_sales  m-0">{data.seller}</p>
+           <p className="text_sales  m-0">{data.buyer}</p>
         </Col>
       </div>
     </div>

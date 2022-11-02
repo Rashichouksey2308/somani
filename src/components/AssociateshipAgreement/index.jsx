@@ -86,15 +86,37 @@ function Index(props) {
           dischargePort: data?.dischargePort,
           lastDate: data?.lastDate,
           terms: data?.terms,
-          // addComm: data?.addComm,
-          addComm: [],
+          addComm: data?.addComm,
+         
           spec: data?.spec,
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
-        });
+          loadingCargo:data.monthOfLoadingCargo || "",
+          supplier:data?.supplier,
+          supplierAddress:data?.supplierAddress,
+          supplierAuthorized:data?.supplierAuthorized,
+          buyerAuthorized:data?.buyerAuthorized,
+          toleranceLevel:data?.toleranceLevel,
+          incoTerms:data?.incoTerms,
+          financialBank:data?.financialBank,
+          associateBuyer:data?.associateBuyer,
+          associateBuyerAddress:data?.associateBuyerAddress,
+          associateBuyerGst:data?.associateBuyerGst,
+          associateBuyerPan:data?.associateBuyerPan,
+          associateBuyerAuthorized:data?.associateBuyerAuthorized,
+          stevedore:data?.stevedore,
+          stevedoreAddress:data?.stevedoreAddress,
+          stevedoreAuthorized:data?.stevedoreAuthorized,
+          cma:data?.cma,
+          cmaAddress:data?.cmaAddress,
+          vessel:data?.vessel,
+          storagePlot:data?.storagePlot,
+          cmaAuthorized:data?.cmaAuthorized,
+           priceOfGoods: data?.perUnitPrice,
+       });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
         console.log(data, 'data22222');
@@ -120,9 +142,7 @@ function Index(props) {
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
           sellerAddress:
-            data?.seller?.name == 'Indo Intertrade Ag'
-              ? 'Industriestrasse 16, Zug,6300'
-              : '',
+           _get(data, 'seller.addresses[0]', ''),
           buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
           shortseller: data?.seller?.shortName,
           shortbuyer: `${
@@ -145,7 +165,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -158,7 +178,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.addresses.[0].fullAddress', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', {}),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -171,24 +191,24 @@ function Index(props) {
           incoTerms: data?.order?.termsheet?.transactionDetails?.incoTerms,
           financialBank: data?.financingBank?.name,
           financialAddress: '',
-          associateBuyer: 'ADANI PORTS AND SPECIAL ECONOMIC ZONE LIMITED',
+          associateBuyer: _get(data,"company.companyName",""),
           associateBuyerAddress: _get(
             data,
-            'associateBuyer.addresses.[0].fullAddress',
-            '',
+            'associateBuyer.addresses[0]',
+            {},
           ),
           associateBuyerGst: data?.associateBuyer?.gstin,
-          associateBuyerPan: 'AAACG7917K',
+          associateBuyerPan: _get(data,"company.detailedCompanyInfo.profile.companyDetail.pans[0]",""),
           associateBuyerAuthorized: _get(
             data,
             'buyer.authorisedSignatoryDetails',
             [],
-          ),
+                    ),
           stevedore: data?.stevedore?.name,
           stevedoreAddress: _get(
             data,
-            'stevedore.addresses.[0].fullAddress',
-            '',
+            'stevedore.addresses[0]',
+            {},
           ),
           stevedoreAuthorized: _get(
             data,
@@ -196,10 +216,15 @@ function Index(props) {
             [],
           ),
           cma: data?.CMA?.name,
-          cmaAddress:
-            'Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba',
-          cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
-          vessel: '',
+           cmaAddress:_get(data, 'CMA.addresses[0]', {}),
+           
+           cmaAuthorized: _get(data, 'CMA.authorisedSignatoryDetails', []),
+           vessel: data?.shippingLine?.vesselName,
+          loadingCargo:data?.deliveryTerms?.monthOfLoadingCargo || "",
+           storagePlot:
+            data?.order?.termsheet?.transactionDetails?.portOfDischarge,
+             priceOfGoods: data?.order?.perUnitPrice,
+          
         });
       }
     }
@@ -6419,7 +6444,11 @@ const associateShip = (data,preview,setPreviewValue) => {
               Address of Seller
             </Col>
             <Col md={7} className={styles.right}>
-              {data.sellerAddress}
+             {data.sellerAddress?.fullAddress},
+              {data.sellerAddress?.city}{" "} 
+              {data.sellerAddress?.country},{" "}
+              
+              {data.sellerAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6427,7 +6456,7 @@ const associateShip = (data,preview,setPreviewValue) => {
               Name of Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.seller}
+              {data.buyer}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6443,7 +6472,7 @@ const associateShip = (data,preview,setPreviewValue) => {
               Name of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.seller}
+              {data.supplier}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6451,17 +6480,21 @@ const associateShip = (data,preview,setPreviewValue) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data.supplier}
+              {data.supplierAddress?.fullAddress},
+              {data.supplierAddress?.city}{" "} 
+              {data.supplierAddress?.country},{" "}
+              
+              {data.supplierAddress?.pinCode}
             </Col>
           </Row>
-          <Row className={`${styles.row} border_black`}>
+          {/* <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Description of Goods
             </Col>
             <Col md={7} className={styles.right}>
               {''}
             </Col>
-          </Row>
+          </Row> */}
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Quantity of Goods in MT
@@ -6471,20 +6504,13 @@ const associateShip = (data,preview,setPreviewValue) => {
               MT
             </Col>
           </Row>
-          <Row className={`${styles.row} border_black`}>
-            <Col md={5} className={`${styles.left} border_black`}>
-              Date of execution of Assignment Letter
-            </Col>
-            <Col md={7} className={styles.right}>
-              {data.dateOfExecution}
-            </Col>
-          </Row>
+
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Price of Goods / MT
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+             {'INR '} {data.priceOfGoods}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6494,7 +6520,7 @@ const associateShip = (data,preview,setPreviewValue) => {
             <Col md={7} className={styles.right}>
               {data.toleranceLevel?.toLocaleString('en-In', {
                 maximumFractionDigits: 2,
-              })}
+              })} % 
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -6526,17 +6552,17 @@ const associateShip = (data,preview,setPreviewValue) => {
               Month of loading of Cargo
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+              {data.loadingCargo}
             </Col>
           </Row>
-          <Row className={`${styles.row} ${styles.last}`}>
+          {/* <Row className={`${styles.row} ${styles.last}`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Date of Sales Contract between Supplier and Buyer
             </Col>
             <Col md={7} className={styles.right}>
               {''}
             </Col>
-          </Row>
+          </Row> */}
         </div>
         <p className=" text_sales">
           {' '}
@@ -7331,7 +7357,12 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.associateBuyerAddress}
+              {data.associateBuyerAddress?.fullAddress},
+              {data.associateBuyerAddress?.city}{" "} 
+              {data.associateBuyerAddress?.country},{" "}
+              
+              {data.associateBuyerAddress?.pinCode}
+             
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7355,7 +7386,21 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Signatory of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+                <ol>
+              {data?.associateBuyerAuthorized?.length > 0 &&
+                data?.associateBuyerAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7371,7 +7416,11 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Address of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.stevedoreAddress}
+             {data.stevedoreAddress?.fullAddress},
+              {data.stevedoreAddress?.city}{" "} 
+              {data.stevedoreAddress?.country},{" "}
+              
+              {data.stevedoreAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7379,7 +7428,21 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Signatory of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+             <ol>
+              {data?.stevedoreAuthorized?.length > 0 &&
+                data?.stevedoreAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7395,14 +7458,34 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Address of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.cmaAddress}
+              {data.cmaAddress?.fullAddress},
+              {data.cmaAddress?.city}{" "} 
+              {data.cmaAddress?.country},{" "}
+              
+              {data.cmaAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Signatory of CMA Agent
             </Col>
-            <Col md={7} className={styles.right}></Col>
+            <Col md={7} className={styles.right}>
+               <ol>
+              {data?.cmaAuthorized?.length > 0 &&
+                data?.cmaAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
+            </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
@@ -7457,7 +7540,7 @@ const underTaking1 = (data,preview,setPreviewValue) => {
               Storage Plot allotted to IGI
             </Col>
             <Col md={7} className={styles.right}>
-              {' '}
+              {data.storagePlot}
             </Col>
           </Row>
         </div>
@@ -7716,7 +7799,12 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Address of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.associateBuyerAddress}
+              {data.associateBuyerAddress?.fullAddress},
+              {data.associateBuyerAddress?.city}{" "} 
+              {data.associateBuyerAddress?.country},{" "}
+              
+              {data.associateBuyerAddress?.pinCode}
+             
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7740,7 +7828,21 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Signatory of Associate Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+                <ol>
+              {data?.associateBuyerAuthorized?.length > 0 &&
+                data?.associateBuyerAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7756,7 +7858,11 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Address of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.stevedoreAddress}
+             {data.stevedoreAddress?.fullAddress},
+              {data.stevedoreAddress?.city}{" "} 
+              {data.stevedoreAddress?.country},{" "}
+              
+              {data.stevedoreAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7764,7 +7870,21 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Signatory of Stevedore
             </Col>
             <Col md={7} className={styles.right}>
-              {''}
+             <ol>
+              {data?.stevedoreAuthorized?.length > 0 &&
+                data?.stevedoreAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -7780,14 +7900,34 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Address of CMA Agent
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.cmaAddress}
+              {data.cmaAddress?.fullAddress},
+              {data.cmaAddress?.city}{" "} 
+              {data.cmaAddress?.country},{" "}
+              
+              {data.cmaAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Signatory of CMA Agent
             </Col>
-            <Col md={7} className={styles.right}></Col>
+            <Col md={7} className={styles.right}>
+               <ol>
+              {data?.cmaAuthorized?.length > 0 &&
+                data?.cmaAuthorized?.map((val, index) => {
+                  return (
+                    <li>
+                      <div>
+                        Name- <span>{val.name}</span>
+                      </div>
+                      <div>
+                        Designation- <span>{val.designation}</span>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ol>
+            </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
@@ -7842,7 +7982,7 @@ const underTaking2 = (data,preview,setPreviewValue) => {
               Storage Plot allotted to IGI
             </Col>
             <Col md={7} className={styles.right}>
-              {' '}
+              {data.storagePlot}
             </Col>
           </Row>
         </div>

@@ -173,7 +173,12 @@ function Index(props) {
         onKeyDown={handleOnKeydown}
         onKeyUp={handleOnKeyup}
         className={`${styles.input_field}`}
-      />
+      />      
+      {/* <div className={`${styles.searchResults}`}>
+        <ul>
+          <li>ADN FIRE SAFETY PRIVATE LIMITED<span>IMH220000081</span></li>
+        </ul>
+      </div> */}
     </div>
   );
 }

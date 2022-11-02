@@ -131,8 +131,10 @@ function index() {
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [800, 1200]);
     let toPrint=toPdf(data)
+    let name ="SalesAgreement"
     if(preview=="Sales"){
       toPrint=toPdf(data)
+       name ="SalesAgreement"
     }
     if(preview=="QPA"){
       toPrint=qpaPrint(data)
@@ -155,7 +157,7 @@ function index() {
     if(preview=="LETTER"){
       toPrint=letterPrint(data)
     }
-    doc.html(ReactDOMServer.renderToString(toPrint()), {
+    doc.html(ReactDOMServer.renderToString(toPrint), {
       callback: function (doc) {
         doc.save('SalesAgreements.pdf');
       },

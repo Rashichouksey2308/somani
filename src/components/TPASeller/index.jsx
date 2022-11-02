@@ -89,6 +89,18 @@ function Index(props) {
           unitOfValue: data?.unitOfValue,
           curr: data?.orderCurrency,
           specComment: data?.specComment,
+          supplierAddress:data?.supplierAddress,
+          supplierAuthorized:data?.supplierAuthorized,
+          buyerAuthorized:data?.buyerAuthorized,
+          associateBuyerAuthorized:data?.associateBuyerAuthorized,
+          buyerEmail:data?.buyerEmail,
+          supplierEmail:data?.buyerEmail,
+          endBuyer:data.endBuyer,
+          supplier: data?.supplier,
+
+
+
+
         });
       } else {
         const data = JSON.parse(sessionStorage.getItem('genericSelected'));
@@ -140,7 +152,7 @@ function Index(props) {
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
           terms: `${
-            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed ==
+            data?.order?.termsheet?.transactionDetails?.partShipmentAllowed !==
             'Yes'
               ? 'Full'
               : 'Partial'
@@ -153,7 +165,7 @@ function Index(props) {
           unitOfValue: data?.order?.unitOfValue,
           curr: data?.order?.orderCurrency,
           supplier: data?.supplier?.name,
-          supplierAddress: _get(data, 'supplier.address[0]', ''),
+          supplierAddress: _get(data, 'supplier.addresses[0]', ''),
           supplierAuthorized: _get(
             data,
             'supplier.authorisedSignatoryDetails',
@@ -165,8 +177,16 @@ function Index(props) {
             'associateBuyer.authorisedSignatoryDetails',
             [],
           ),
-          buyerEmail: '',
-          supplierEmail: '',
+          buyerEmail:_get(
+            data,
+            'buyer.authorisedSignatoryDetails',
+            [],
+          ) ,
+          supplierEmail: _get(
+            data,
+            'supplier.authorisedSignatoryDetails',
+            [],
+          ) ,
           financialBank: '',
           financialAddress: '',
           endBuyer: data.company.companyName,
@@ -625,19 +645,7 @@ const tripartiteAgreement = (data,preview) => {
   return (
     <>
       <div className="card-body">
-         {preview ? (
-          <div className={`${styles.inputsContainer2} border_black`}>
-            <Row className={`${styles.row} ${styles.last}`}>
-              <Col md={7} className={`${styles.left} border_black`}>
-                TRIPARTITE AGREEMENT No.:{' '}
-                {data.shortseller + '/' + data.shortbuyer + '/' + '2022/001'}
-              </Col>
-              <Col md={5} className={styles.right}>
-                Date: {moment(new Date()).format('DD-MM-YYYY')}
-              </Col>
-            </Row>
-          </div>
-        ) : null}
+       
         <p className="text-center text_sales">
           {' '}
           <strong>
@@ -813,7 +821,11 @@ const tripartiteAgreement = (data,preview) => {
               Address of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.supplierAddress}
+               {data.supplierAddress?.fullAddress},
+              {data.supplierAddress?.city}{" "} 
+              {data.supplierAddress?.country},{" "}
+              
+              {data.supplierAddress?.pinCode}
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -843,7 +855,13 @@ const tripartiteAgreement = (data,preview) => {
               Email ID of Supplier
             </Col>
             <Col md={7} className={styles.right}>
-              {data?.supplierEmailId}
+             
+                <ol>
+                  {data?.supplierEmail?.length > 0 &&
+                    data?.supplierEmail?.map((val, index) => {
+                       return <li>{val.email}</li>;
+                    })}
+                </ol>
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
@@ -881,14 +899,21 @@ const tripartiteAgreement = (data,preview) => {
               Email ID of End Buyer
             </Col>
             <Col md={7} className={styles.right}>
-              {data.buyerEmail}
+              
+                <ol>
+                  {data?.buyerEmail?.length > 0 &&
+                    data?.buyerEmail?.map((val, index) => {
+                      return <li>{val.email}</li>;
+                    })}
+                </ol>
+              
             </Col>
           </Row>
           <Row className={`${styles.row} border_black`}>
             <Col md={5} className={`${styles.left} border_black`}>
               Details of Goods as per Sales Contract
             </Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={`${styles.right} d-flex flex-column justify-content-start align-items-start`} >
               <>
                 <div className={styles.tableWrapper}>
                   <div className={styles.table_scroll_outer}>
