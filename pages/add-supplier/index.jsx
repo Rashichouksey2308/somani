@@ -39,7 +39,7 @@ const index = () => {
 
   const handleRoute = (id) => {
     sessionStorage.setItem('supplier', id)
-    // Router.push('/supplier')
+    Router.push('/supplier')
   }
 
   return (
