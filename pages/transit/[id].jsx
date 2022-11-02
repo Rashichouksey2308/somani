@@ -275,7 +275,7 @@ function Index() {
                   )}
                 </div>
                 {/* </div> */}
-                {commodity.toLowerCase() === 'coal' && (
+                {commodity?.toLowerCase().includes('coal') && (
                   // <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 3 && (
