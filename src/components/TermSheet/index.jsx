@@ -33,8 +33,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({});
   const [additionalComments, setAdditionalComments] = useState([]);
   const [order, setOrder] = useState('');
-  console.log(termsheet, 'termsheetDetails');
-  // console.log(additionalComments, 'additionalCommentType')
+ 
   let sheetData = _get(termsheet, 'data[0]', {});
   useEffect(() => {
     let Id = sessionStorage.getItem('termID');
@@ -46,8 +45,7 @@ const Index = () => {
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice);
 
-  // console.log(newLcVal, 'THIS IS NEW LC VAL')
-  console.log(termsheet, 'sheetData');
+  
     useEffect(() => {
     dispatch(getCountries())
     dispatch(getPorts());
@@ -154,10 +152,7 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
-          console.log(
-            sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
-            'yguyfvj',
-          );
+          
           setOtherTermConditions({
             buyer: {
               bank:
@@ -294,17 +289,14 @@ const Index = () => {
     let comments = JSON.parse(
       JSON.stringify(_get(termsheet, 'data[0].additionalComments', [{}])),
     );
-    // termsheet?.data?.map((sheets) => {
-    //   setOrder(sheets.order._id)
-    //   setAdditionalComments([...sheets.additionalComments])
-    // })
+    
     setAdditionalComments([...comments]);
   }, [termsheet]);
 
   const onChangeCommodityDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    // console.log(Key, ":", value)
+    
     setTermsheetDetails((prev) => ({
       ...prev,
       commodityDetails: { ...prev.commodityDetails, [Key]: value },
@@ -321,7 +313,7 @@ const Index = () => {
   const onChangeTransactionDetails = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    console.log(Key, value, 'val');
+    
     setTermsheetDetails((prev) => ({
       ...prev,
       transactionDetails: { ...prev.transactionDetails, [Key]: value },
@@ -331,7 +323,7 @@ const Index = () => {
   const onChangePaymentDueDate = (e) => {
     const Key = e.target.id;
     const value = e.target.value;
-    console.log('herer123', Key, value);
+   
     setTermsheetDetails((prev) => ({
       ...prev,
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
@@ -351,7 +343,7 @@ const Index = () => {
   const onChangeCha = (e) => {
     const Key = e.target.id;
     const value = !otherTermsAndConditions?.chaOrstevedoringCharges[Key];
-    // console.log("onChangeCha")
+
     setOtherTermConditions((prev) => ({
       ...prev,
       chaOrstevedoringCharges: {
@@ -364,7 +356,7 @@ const Index = () => {
   const onChangeLcOpening = (e) => {
     const Key = e.target.id;
     const value = !otherTermsAndConditions?.lcOpeningCharges[Key];
-    // console.log("onChangeLcOpening")
+
     setOtherTermConditions((prev) => ({
       ...prev,
       lcOpeningCharges: { ...prev.lcOpeningCharges, [Key]: value },
@@ -394,14 +386,11 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }));
   };
-  console.log(
-    termsheetDetails?.paymentDueDate,
-    'termsheetDetails?.paymentDueDate',
-  );
+
   const changePayment = () => {};
 
   const handleSave = async () => {
-    // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
+    
     let tempSheet = { ...termsheetDetails };
 
     tempSheet.transactionDetails.lcValue = newLcVal;
@@ -433,7 +422,7 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(tempSheet.commercials.lcOpeningChargesPercentage, 'tempSheet1');
+  
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -465,10 +454,7 @@ const Index = () => {
       }
       return;
     }
-    console.log(
-      termsheetDetails.commodityDetails.perUnitPrice,
-      'termsheetDetails.commodityDetails.perUnitPrice',
-    );
+   
     if (
       termsheetDetails.commodityDetails.perUnitPrice == '' ||
       termsheetDetails.commodityDetails.perUnitPrice?.toString() == 'NaN' ||
@@ -765,12 +751,7 @@ const Index = () => {
       }
       return;
     }
-    console.log(
-      termsheetDetails.commercials.lcOpeningChargesPercentage == '',
-      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined,
-      'scsdsdfsdf',
-      termsheetDetails.commercials.lcOpeningChargesPercentage,
-    );
+   
     if (termsheetDetails.commercials.lcOpeningChargesPercentage == undefined) {
       let toastMessage = 'Please add lc Opening Charges Percentage ';
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -856,16 +837,7 @@ const Index = () => {
     };
 
     dispatch(updateTermsheet({ UpdatedTermsheet }));
-    // console.log(termsheetDetails, 'updatedtermsheet')
-    // let code = await dispatch(updateTermsheet(UpdatedTermsheet))
-    // if (code == 200) {
-    //   sessionStorage.setItem(
-    //     'marginId',
-    //     _get(termsheet, 'data[0].order._id', ''),
-    //   )
-    //   dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-    //   router.push(`/margin-money/id`)
-    // }
+  
   };
 
   const handleChange = (name, value) => {
@@ -918,7 +890,7 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString();
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(tempSheet.commercials.lcOpeningChargesPercentage, 'tempSheet1');
+   
 
     if (
       termsheetDetails.commodityDetails.unitOfQuantity == '' ||
@@ -1260,7 +1232,7 @@ const Index = () => {
   };
 
   const addCommentHandler = (commentType, comment) => {
-    // console.log(commentType,"commentType")
+  
     const newComment = {
       additionalCommentType: commentType,
       comment: comment,

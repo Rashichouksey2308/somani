@@ -17,19 +17,16 @@ function UserReducer(state = initialState, action) {
         isDark: action.value,
       };
     case types.PAGE_NAME:
-      // console.log(action.value, ' action.value')
       return {
         ...state,
         pageName: action.value,
       };
     case types.PAGE_TAB_NAME:
-      console.log(action.value, ' action.value');
       return {
         ...state,
         pageTabName: action.value,
       };
     case types.DYNAMIC_PAGE:
-      // console.log(action.value, 'kkk')
       return {
         ...state,
 

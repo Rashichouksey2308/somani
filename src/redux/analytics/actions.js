@@ -44,7 +44,6 @@ function getCustomerData(payload) {
   };
 }
 function getExposureData(payload) {
-  console.log(payload, 'exposureSummary.data.data');
   return {
     type: types.GET_EXPOSURE_DATA,
     payload,
@@ -55,9 +54,8 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading());
     let cookie = Cookies.get('SOMANI');
-    console.log(cookie, 'cookie');
+
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-    console.log(decodedString, 'decodedString');
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
     // let response = await api.post(API.login, payload);
@@ -108,7 +106,6 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     );
 
     if (orderSummary.data.code == 200) {
-      console.log(orderSummary.data.data.data, 'orderSummary.data.data');
       dispatch(getOrderData(orderSummary.data.data.data));
     }
     if (leadSummary.data.code == 200) {
@@ -139,7 +136,7 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     dispatch(setNotLoading());
   } catch (error) {
     dispatch(setNotLoading());
-    console.log('API FAILED');
+
     // dispatch(loggingUserFailed(errorMessage))
   }
 };

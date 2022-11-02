@@ -24,7 +24,7 @@ const Index = ({
     }
     uploadDocument1(e);
   };
-  console.log(containerList, vesselCertificate, 'docName');
+
   const handleClose = (e) => {
     if (e === 'Vessel Certificate') {
       setVesselCertificate(null);

@@ -264,7 +264,7 @@ export const getPincodes = (payload) => async (dispatch, getState, api) => {
   try {
     Axios.get(`${API.masterBaseUrl}${API.pincodesMaster}${payload}.json`).then(
       (response) => {
-        console.log(response, 'response');
+      
         if (response.status === 200) {
           dispatch({
             type: types.GET_PINCODES_MASTERS_SUCCESS,

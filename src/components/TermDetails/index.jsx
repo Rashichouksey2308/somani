@@ -52,7 +52,7 @@ const Index = ({
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
-      console.log('herer12');
+   
 
       setIsBlSelected('DaysfromBLDate');
       changePayment('DaysfromBLDate');
@@ -69,10 +69,7 @@ const Index = ({
     }
   };
 
-  console.log(
-    termsheetDetails?.transactionDetails?.incoTerms,
-    'dkfgdfhjgdjfhgdkjfgdkjg',
-  );
+
   const [toShow,setToShow] = useState([])
   const [toView,setToView] = useState(false)
   const filterCommodity=(value)=>{
@@ -84,7 +81,7 @@ const Index = ({
    let filterData = commodity.filter(o => {
     return o.Commodity.toLowerCase().includes(value.toLowerCase())
    });
-   console.log(filterData,"filterData")
+  
 
    setToShow(filterData)
      setToView(true)
@@ -94,7 +91,7 @@ const Index = ({
       onChangeCommodityDetails2(name,value)
       setToView(false)
   }
-  console.log(termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),"termsheetDetails?.commercials?.lcOpeningChargesUnit")
+
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -586,10 +583,7 @@ const Index = ({
                 />
               </div>
             </div>
-            {console.log(
-              'country origin',
-              termsheetDetails?.transactionDetails?.shipmentType,
-            )}
+           
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select

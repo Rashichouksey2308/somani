@@ -129,8 +129,6 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
       },
     );
     if (response.data.code === 200) {
-      console.log('this');
-
       // dispatch(getVesselSuccess(response.data.data))
       dispatch(setNotLoading());
       return response.data.data;
@@ -156,7 +154,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
 export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   let cookie = Cookies.get('SOMANI');
-  console.log('check 4');
+
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
@@ -174,7 +172,6 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
       },
     );
     if (response.data.code === 200) {
-      console.log('check 5');
       sessionStorage.setItem('quotationId', response.data.data.order.insurance);
       dispatch(updateVesselSuccess(response.data.data));
       dispatch(setNotLoading());

@@ -26,10 +26,6 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading());
   let cookie = Cookies.get('SOMANI');
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii');
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    `API.corebaseUrl{API.getVessel}`,
-  );
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#');
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' };
@@ -39,14 +35,14 @@ export const ShareDocument = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(shareDocumentSuccess(response.data.data));
-        console.log('ViewDocument');
+
         dispatch(setNotLoading());
         dispatch(shareDocumentFailed(response.data.data));
         let toastMessage = 'DOcument Shared Successfully';
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage });
         }
-        return response.data
+        return response.data;
       } else {
         dispatch(shareDocumentFailed(response.data.data));
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST';
