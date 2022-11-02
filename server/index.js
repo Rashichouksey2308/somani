@@ -20,8 +20,8 @@ app.prepare().then(() => {
     '/static',
     express.static(staticPath, {
       maxAge: '30d',
-      immutable: true,
-    }),
+      immutable: true
+    })
   )
 
   server.get('*', (req, res) => {

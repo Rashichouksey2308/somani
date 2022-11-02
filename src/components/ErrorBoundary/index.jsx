@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'next/router'
-//import ContactDelershipModal from "../contactDealershipModal";
+// import ContactDelershipModal from "../contactDealershipModal";
 // import captureErrorForLogs from "../../utility/error-logger";
 // import Error from '../../pages/404'
 
@@ -8,7 +8,7 @@ export class ErrorBoundary extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      hasError: false,
+      hasError: false
     }
   }
 
@@ -30,20 +30,20 @@ export class ErrorBoundary extends Component {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column',
+            flexDirection: 'column'
           }}
         >
           <h2>Something went wrong</h2>
           <div>
             <button
-              type="button"
+              type='button'
               onClick={() => this.setState({ hasError: false })}
             >
               Try again?
             </button>
             <button
               style={{ marginLeft: '1rem' }}
-              type="button"
+              type='button'
               onClick={() => {
                 window.history.back()
                 setTimeout(() => {

@@ -21,27 +21,27 @@ export const FETCH_CURRENT_USER_PROFILE_FAILED =
 export const AUTHENTICATE_USER =
   're-master-dashboard/authentication/AUTHENTICATE_USER'
 
-//export const LOGOUT_USER = 're-master-dashboard/authentication/LOGOUT_USER'
+// export const LOGOUT_USER = 're-master-dashboard/authentication/LOGOUT_USER'
 
-//****** Verify Token ********//
+//* ***** Verify Token ********//
 
 export const VERIFY_TOKEN = 'VERIFY_TOKEN'
 export const VERIFY_TOKEN_SUCCESS = 'VERIFY_TOKEN_SUCCESS'
 export const VERIFY_TOKEN_FAILED = 'VERIFY_TOKEN_FAILED'
 
-//****** Generate Token ********//
+//* ***** Generate Token ********//
 
 export const GENERATE_TOKEN = 'GENERATE_TOKEN'
 export const GENERATE_TOKEN_SUCCESS = 'GENERATE_TOKEN_SUCCESS'
 export const GENERATE_TOKEN_FAILED = 'GENERATE_TOKEN_FAILED'
 
-//****** Logout User ********//
+//* ***** Logout User ********//
 
 export const LOGOUT_USER = 'LOGOUT_USER'
 export const LOGOUT_USER_SUCCESS = 'LOGOUT_USER_SUCCESS'
 export const LOGOUT_USER_FAILED = 'LOGOUT_USER_FAILED'
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
 export const RESET_PASSWORD =
   're-master-dashboard/authentication/RESET_PASSWORD'
@@ -50,7 +50,7 @@ export const RESET_PASSWORD_SUCCESS =
 export const RESET_PASSWORD_FAILED =
   're-master-dashboard/authentication/RESET_PASSWORD_FAILED'
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
 export const FORGOT_PASSWORD =
   're-master-dashboard/authentication/FORGOT_PASSWORD'
@@ -59,7 +59,7 @@ export const FORGOT_PASSWORD_SUCCESS =
 export const FORGOT_PASSWORD_FAILED =
   're-master-dashboard/authentication/FORGOT_PASSWORD_FAILED'
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
 export const OTP_VARIFICATION =
   're-master-dashboard/authentication/OTP_VARIFICATION'
@@ -68,7 +68,7 @@ export const OTP_VARIFICATION_SUCCESS =
 export const OTP_VARIFICATION_FAILED =
   're-master-dashboard/authentication/OTP_VARIFICATION_FAILED'
 
-//****** SET NEW PASSWORD  ********//
+//* ***** SET NEW PASSWORD  ********//
 
 export const SET_NEW_PASSWORD =
   're-master-dashboard/authentication/SET_NEW_PASSWORD'
@@ -80,6 +80,6 @@ export const SET_NEW_PASSWORD_FAILED =
 export const HANDLE_PAGE_LOADING =
   're-master-dashboard/authentication/HANDLE_PAGE_LOADING'
 
-//****** SET OTP  ********//
+//* ***** SET OTP  ********//
 
 export const SET_OTP = 're-master-dashboard/authentication/SET_OTP'

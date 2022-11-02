@@ -2,7 +2,7 @@ import * as types from './actionType'
 
 const initialState = {
   shareDocument: false,
-  shareDocumentResponse: null,
+  shareDocumentResponse: null
 }
 
 function ShareDocumentReducer (state = initialState, action) {
@@ -11,19 +11,19 @@ function ShareDocumentReducer (state = initialState, action) {
       return {
         ...state,
         shareDocument: true,
-        shareDocumentResponse: null,
+        shareDocumentResponse: null
       }
     case types.SHARE_DOCUMENT_SUCCESS:
       return {
         ...state,
         shareDocument: false,
-        shareDocumentResponse: action.payload,
+        shareDocumentResponse: action.payload
       }
     case types.SHARE_DOCUMENT_FAILED:
       return {
         ...state,
         shareDocument: false,
-        shareDocumentResponse: null,
+        shareDocumentResponse: null
       }
 
     default:

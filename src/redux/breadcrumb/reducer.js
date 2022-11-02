@@ -5,12 +5,12 @@ const initialState = {
     orderId: '',
     companyId: '',
     companyName: '',
-    upperTabs: '',
+    upperTabs: ''
   },
   currency: 'crores',
   unit: 'inr',
   sideBarMain: '',
-  subsideBarMain: '',
+  subsideBarMain: ''
 }
 
 function BreadcrumbReducer (state = initialState, action) {
@@ -18,24 +18,24 @@ function BreadcrumbReducer (state = initialState, action) {
     case types.GET_BREADCRUMB_DATA:
       return {
         ...state,
-        breadCrumbData: action.payload,
+        breadCrumbData: action.payload
       }
 
     case types.SET_CURRENCY:
       return {
         ...state,
-        currency: action.payload,
+        currency: action.payload
       }
     case types.SET_UNIT:
       return {
         ...state,
-        unit: action.payload,
+        unit: action.payload
       }
     case types.SIDEBAR:
       return {
         ...state,
         sideBarMain: action.payload.sideBarMain,
-        subsideBarMain: action.payload.subsideBarMain,
+        subsideBarMain: action.payload.subsideBarMain
       }
 
     case types.CLEAR_BREADCRUMB_DATA:
@@ -45,8 +45,8 @@ function BreadcrumbReducer (state = initialState, action) {
           orderId: '',
           CompanyId: '',
           companyName: '',
-          upperTabs: '',
-        },
+          upperTabs: ''
+        }
       }
     default:
       return state

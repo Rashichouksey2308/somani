@@ -1,7 +1,7 @@
 import * as types from './actionType'
 
 const initialState = {
-  isOpen: false,
+  isOpen: false
 }
 
 function LoadReducer (state = initialState, action) {
@@ -9,12 +9,12 @@ function LoadReducer (state = initialState, action) {
     case types.IS_LOADING:
       return {
         ...state,
-        isOpen: action.payload,
+        isOpen: action.payload
       }
     case types.NOT_LOADING:
       return {
         ...state,
-        isOpen: action.payload,
+        isOpen: action.payload
       }
 
     default:

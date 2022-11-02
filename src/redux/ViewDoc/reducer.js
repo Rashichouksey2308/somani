@@ -2,7 +2,7 @@ import * as types from './actionType'
 
 const initialState = {
   viewDocument: false,
-  viewDocumentResponse: null,
+  viewDocumentResponse: null
 }
 
 function ViewDocumentReducer (state = initialState, action) {
@@ -11,19 +11,19 @@ function ViewDocumentReducer (state = initialState, action) {
       return {
         ...state,
         viewDocument: true,
-        viewDocumentResponse: null,
+        viewDocumentResponse: null
       }
     case types.VEIW_DOCUMENT_SUCCESS:
       return {
         ...state,
         viewDocument: false,
-        viewDocumentResponse: action.payload,
+        viewDocumentResponse: action.payload
       }
     case types.VEIW_DOCUMENT_FAILED:
       return {
         ...state,
         viewDocument: false,
-        viewDocumentResponse: null,
+        viewDocumentResponse: null
       }
 
     default:

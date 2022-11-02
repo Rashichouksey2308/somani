@@ -4,27 +4,27 @@ import { toast } from 'react-toastify'
 
 function fetchingAllUserTypes () {
   return {
-    type: types.FETCH_ALL_USER_TYPES,
+    type: types.FETCH_ALL_USER_TYPES
   }
 }
 
 function fetchingAllUserTypesSuccess (payload) {
   return {
     type: types.FETCH_ALL_USER_TYPES_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function fetchingAllUserTypesFailed (payload) {
   return {
     type: types.FETCH_ALL_USER_TYPES_FAILED,
-    payload,
+    payload
   }
 }
 
 function registeringPrivilegedUser () {
   return {
-    type: types.REGISTER_NEW_PRIVILEGED_USER,
+    type: types.REGISTER_NEW_PRIVILEGED_USER
   }
 }
 
@@ -35,11 +35,11 @@ function registeringPrivilegedUserSuccess (payload) {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return {
     type: types.REGISTER_NEW_PRIVILEGED_USER_SUCCESS,
-    payload,
+    payload
   }
 }
 
@@ -50,58 +50,58 @@ function registeringPrivilegedUserFailed (payload) {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return {
     type: types.REGISTER_NEW_PRIVILEGED_USER_FAILED,
-    payload,
+    payload
   }
 }
 
 function fetchingPrivilegedUsers () {
   return {
-    type: types.FETCH_ALL_PRIVILEGED_USER,
+    type: types.FETCH_ALL_PRIVILEGED_USER
   }
 }
 
 function fetchingPrivilegedUsersSuccess (payload) {
   return {
     type: types.FETCH_ALL_PRIVILEGED_USER_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function fetchingPrivilegedUsersFailed (payload) {
   return {
     type: types.FETCH_ALL_PRIVILEGED_USER_FAILED,
-    payload,
+    payload
   }
 }
 
 function updatingPrivilegedUser () {
   return {
-    type: types.UPDATE_PRIVILEGED_USER,
+    type: types.UPDATE_PRIVILEGED_USER
   }
 }
 
 function updatingPrivilegedUserSuccess (payload) {
   return {
     type: types.UPDATE_PRIVILEGED_USER_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function updatingPrivilegedUserFailed (payload) {
   return {
     type: types.UPDATE_PRIVILEGED_USER_FAILED,
-    payload,
+    payload
   }
 }
 
 export const fetchAllUserTypes = () => async (dispatch, getState, api) => {
   dispatch(fetchingAllUserTypes())
   try {
-    let response = await api.get(API.getUserTypeList)
+    const response = await api.get(API.getUserTypeList)
     if (response.data.code === 200) {
       dispatch(fetchingAllUserTypesSuccess(response.data.data))
     } else {
@@ -117,7 +117,7 @@ export const registerPrivilegedUser =
     dispatch(registeringPrivilegedUser())
 
     try {
-      let response = await api.post(API.registerPrivilegedUser, payload)
+      const response = await api.post(API.registerPrivilegedUser, payload)
       if (response.data.code === 200) {
         dispatch(registeringPrivilegedUserSuccess(response.data))
       } else {
@@ -132,7 +132,7 @@ export const fetchPrivilegedUsers = () => async (dispatch, getState, api) => {
   dispatch(fetchingPrivilegedUsers())
 
   try {
-    let response = await api.get(API.getPrivilegedUsers)
+    const response = await api.get(API.getPrivilegedUsers)
     if (response.data.code === 200) {
       dispatch(fetchingPrivilegedUsersSuccess(response.data.data))
     } else {
@@ -148,7 +148,7 @@ export const updatePrivilegedUser =
     dispatch(updatingPrivilegedUser())
 
     try {
-      let response = await api.post(API.updatePrivilegedUser, payload)
+      const response = await api.post(API.updatePrivilegedUser, payload)
       if (response.data.code === 200) {
         dispatch(updatingPrivilegedUserSuccess(response.data))
       } else {

@@ -8,39 +8,39 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 export function submitGeneric () {
   return {
-    type: types.SUBMIT_GENERIC,
+    type: types.SUBMIT_GENERIC
   }
 }
 
 export function submitGenericSuccess (payload) {
   return {
     type: types.SUBMIT_GENERIC_SUCCESS,
-    payload: payload,
+    payload: payload
   }
 }
 
 export function getGenericFailed (payload) {
   return {
-    type: types.GET_GENERIC_FAILED,
+    type: types.GET_GENERIC_FAILED
   }
 }
 
 export function getGeneric () {
   return {
-    type: types.GET_GENERIC,
+    type: types.GET_GENERIC
   }
 }
 
 export function getGenericSuccess (payload) {
   return {
     type: types.GET_GENERIC_SUCCESS,
-    payload: payload,
+    payload: payload
   }
 }
 
 export function submitGenericFailed (payload) {
   return {
-    type: types.SUBMIT_GENERIC_FAILED,
+    type: types.SUBMIT_GENERIC_FAILED
   }
 }
 
@@ -48,26 +48,26 @@ export const updateGenericData =
   (payload, message) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
 
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
-      let response = await Axios.put(
+      const response = await Axios.put(
         `${API.corebaseUrl}${API.updateGeneric}`,
         payload,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       )
       if (response.data.code === 200) {
         dispatch(submitGenericSuccess(response.data))
-        let toastMessage = message
+        const toastMessage = message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -76,7 +76,7 @@ export const updateGenericData =
         return response.data.timestamp
       } else {
         dispatch(submitGenericFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -86,7 +86,7 @@ export const updateGenericData =
     } catch (error) {
       dispatch(submitGenericFailed())
 
-      let toastMessage = 'PUT GENERIC API FAILED'
+      const toastMessage = 'PUT GENERIC API FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -97,21 +97,21 @@ export const updateGenericData =
 
 export const getGenericData = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
-    let response = await Axios.get(
-      `${API.corebaseUrl}${API.updateGeneric}${payload ? payload : ''}`,
+    const response = await Axios.get(
+      `${API.corebaseUrl}${API.updateGeneric}${payload || ''}`,
       {
-        headers: headers,
-      },
+        headers: headers
+      }
     )
     if (response.data.code === 200) {
       dispatch(getGenericSuccess(response.data.data.data))
@@ -119,7 +119,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
       return response.data.data
     } else {
       dispatch(getGenericFailed(response.data.data))
-      let toastMessage = 'No Data Available'
+      const toastMessage = 'No Data Available'
       dispatch(setNotLoading())
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -128,7 +128,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getGenericFailed())
 
-    let toastMessage = 'PUT GENERIC API FAILED'
+    const toastMessage = 'PUT GENERIC API FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }

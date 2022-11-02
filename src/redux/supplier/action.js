@@ -7,125 +7,125 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function createSupplier () {
   return {
-    type: types.CREATE_SUPPLIER,
+    type: types.CREATE_SUPPLIER
   }
 }
 
 function createSupplierSuccess (payload) {
   return {
     type: types.CREATE_SUPPLIER_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function createSupplierFailed () {
   return {
-    type: types.CREATE_SUPPLIER_FAILED,
+    type: types.CREATE_SUPPLIER_FAILED
   }
 }
 
 function updateSupplier () {
   return {
-    type: types.UPDATE_SUPPLIER,
+    type: types.UPDATE_SUPPLIER
   }
 }
 
 function updateSupplierSuccess (payload) {
   return {
     type: types.UPDATE_SUPPLIER_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function updateSupplierFailed () {
   return {
-    type: types.UPDATE_SUPPLIER_FAILED,
+    type: types.UPDATE_SUPPLIER_FAILED
   }
 }
 
 function getSupplier (payload) {
   return {
     type: types.GET_SUPPLIER,
-    payload,
+    payload
   }
 }
 
 function getSupplierSuccess (payload) {
   return {
     type: types.GET_SUPPLIER_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function getSupplierFailed () {
   return {
-    type: types.GET_SUPPLIER_FAILED,
+    type: types.GET_SUPPLIER_FAILED
   }
 }
 
 function getAllSupplier (payload) {
   return {
     type: types.GET_ALL_SUPPLIER,
-    payload,
+    payload
   }
 }
 
 function getAllSupplierSuccess (payload) {
   return {
     type: types.GET_ALL_SUPPLIER_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function getAllSupplierFailed () {
   return {
-    type: types.GET_ALL_SUPPLIER_FAILED,
+    type: types.GET_ALL_SUPPLIER_FAILED
   }
 }
 
 export function ClearSupplier () {
   return {
-    type: types.CLEAR_SUPPLIER,
+    type: types.CLEAR_SUPPLIER
   }
 }
 
 function uploadSupplierDoc (payload) {
   return {
     type: types.UPLOAD_SUPPLIER_DOC,
-    payload,
+    payload
   }
 }
 
 function uploadSupplierDocSuccess (payload) {
   return {
     type: types.UPLOAD_SUPPLIER_DOC_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function uploadSupplierDocFailed () {
   return {
-    type: types.UPLOAD_SUPPLIER_DOC_FAILED,
+    type: types.UPLOAD_SUPPLIER_DOC_FAILED
   }
 }
 
 function deleteSupplierDoc (payload) {
   return {
     type: types.DELETE_SUPPLIER_DOC,
-    payload,
+    payload
   }
 }
 
 function deleteSupplierDocSuccess (payload) {
   return {
     type: types.DELETE_SUPPLIER_DOC_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function deleteSupplierDocFailed () {
   return {
-    type: types.DELETE_SUPPLIER_DOC_FAILED,
+    type: types.DELETE_SUPPLIER_DOC_FAILED
   }
 }
 
@@ -139,7 +139,7 @@ export const CreateSupplier = (payload) => async (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.supplier}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         const toastMessage = 'supplier details added successfully'
@@ -177,7 +177,7 @@ export const UpdateSupplier = (payload) => async (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.supplier}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         const toastMessage = 'supplier details updated successfully'
@@ -215,7 +215,7 @@ export const GetSupplier = (payload) => async (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getSupplierSuccess(response.data.data))
@@ -249,7 +249,7 @@ export const GetAllSupplier = (payload) => async (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.supplier}${payload || ''}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllSupplierSuccess(response.data.data))
@@ -283,7 +283,7 @@ export const UploadSupplierDoc = (payload) => async (dispatch, getState, api) =>
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.supplierDoc}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(uploadSupplierDocSuccess(response.data.data))
@@ -317,7 +317,7 @@ export const DeleteSupplierDoc = (payload) => async (dispatch, getState, api) =>
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.supplierDoc}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(deleteSupplierDocSuccess(response.data.data))

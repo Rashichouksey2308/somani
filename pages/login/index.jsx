@@ -6,7 +6,7 @@ function index () {
   // }
 
   return (
-    <div></div>
+    <div />
     // <Login loginDetails={loginDetails} submitData={submitData} />
     // <div className={styles.login}>
     //   <div className="row no-gutters">

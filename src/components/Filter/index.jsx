@@ -6,59 +6,59 @@ export default function index () {
     <div className={`${styles.dropdown} filter dropdown`}>
       <a
         className={`${styles.filterIcon}`}
-        id="dropdownMenu2"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
+        id='dropdownMenu2'
+        data-toggle='dropdown'
+        aria-haspopup='true'
+        aria-expanded='false'
       >
-        <img src="/static/filter.svg" className="img-fluid" alt="Filter"/>
+        <img src='/static/filter.svg' className='img-fluid' alt='Filter' />
       </a>
       <div
         className={`${styles.dropdown_menu} dropdown_menu dropdown-menu`}
-        aria-labelledby="dropdownMenu2"
+        aria-labelledby='dropdownMenu2'
       >
         <div
           className={`${styles.dropdown_header} dropdown_header dropdown-header d-flex align-items-center`}
         >
           <img
-            src="/static/filter_alt.svg"
+            src='/static/filter_alt.svg'
             className={`${styles.filter_icon} img-fluid`}
-            alt="Filter Small"
+            alt='Filter Small'
           />
           <h3>Filter</h3>
           <img
-            src="/static/close-2.svg"
+            src='/static/close-2.svg'
             className={`${styles.close} img-fluid ml-auto`}
-            alt="Close"
+            alt='Close'
           />
         </div>
-        <div className={`${styles.filter_list} dropdown-item`} href="#">
-          <input type="checkbox" id="orderId" name="orderId" value="Order ID"/>{' '}
-          <label htmlFor="orderId">Order ID</label>
+        <div className={`${styles.filter_list} dropdown-item`} href='#'>
+          <input type='checkbox' id='orderId' name='orderId' value='Order ID' />{' '}
+          <label htmlFor='orderId'>Order ID</label>
         </div>
-        <div className={`${styles.filter_list} dropdown-item`} href="#">
+        <div className={`${styles.filter_list} dropdown-item`} href='#'>
           <input
-            type="checkbox"
-            id="commodity"
-            name="commodity"
-            value="Commodity"
+            type='checkbox'
+            id='commodity'
+            name='commodity'
+            value='Commodity'
           />{' '}
-          <label htmlFor="commodity">Commodity</label>
+          <label htmlFor='commodity'>Commodity</label>
         </div>
-        <div className={`${styles.filter_list} dropdown-item`} href="#">
-          <input type="checkbox" id="status" name="status" value="Status"/>{' '}
-          <label htmlFor="status">Status</label>
+        <div className={`${styles.filter_list} dropdown-item`} href='#'>
+          <input type='checkbox' id='status' name='status' value='Status' />{' '}
+          <label htmlFor='status'>Status</label>
         </div>
-        <div className={`${styles.filter_list} dropdown-item`} href="#">
+        <div className={`${styles.filter_list} dropdown-item`} href='#'>
           <input
-            type="checkbox"
-            id="createdBy"
-            name="createdBy"
-            value="Created by"
+            type='checkbox'
+            id='createdBy'
+            name='createdBy'
+            value='Created by'
           />{' '}
-          <label htmlFor="createdBy">Created by</label>
+          <label htmlFor='createdBy'>Created by</label>
         </div>
-        <button className={`${styles.btn} btn`} type="button">
+        <button className={`${styles.btn} btn`} type='button'>
           Apply Filter
         </button>
       </div>

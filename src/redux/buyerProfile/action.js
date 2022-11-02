@@ -10,56 +10,56 @@ import Router from 'next/router'
 
 function updateCredit () {
   return {
-    type: types.UPDATE_CREDIT,
+    type: types.UPDATE_CREDIT
   }
 }
 
 function updateCreditSuccess () {
   return {
-    type: types.UPDATE_CREDIT_SUCCESSFULL,
+    type: types.UPDATE_CREDIT_SUCCESSFULL
   }
 }
 
 function updateCreditFailed () {
   return {
-    type: types.UPDATE_CREDIT_FAILED,
+    type: types.UPDATE_CREDIT_FAILED
   }
 }
 
 function updateCreditCal () {
   return {
-    type: types.UPDATE_CREDIT_CALCULATE,
+    type: types.UPDATE_CREDIT_CALCULATE
   }
 }
 
 function updateCreditCalSuccess (payload) {
   return {
     type: types.UPDATE_CREDIT_CALCULATE_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function updateCreditCalFailed () {
   return {
-    type: types.UPDATE_CREDIT_CALCULATE_FAILED,
+    type: types.UPDATE_CREDIT_CALCULATE_FAILED
   }
 }
 
 function updateOrder () {
   return {
-    type: types.UPDATE_ORDER,
+    type: types.UPDATE_ORDER
   }
 }
 
 function updateOrderSuccess () {
   return {
-    type: types.UPDATE_ORDER_SUCCESSFULL,
+    type: types.UPDATE_ORDER_SUCCESSFULL
   }
 }
 
 function updateOrderFailed () {
   return {
-    type: types.UPDATE_ORDER_FAILED,
+    type: types.UPDATE_ORDER_FAILED
   }
 }
 
@@ -67,20 +67,20 @@ function updateOrderFailed () {
 
 function searchLeads () {
   return {
-    type: types.SEARCH_LEADS,
+    type: types.SEARCH_LEADS
   }
 }
 
 function searchLeadsSuccess (payload) {
   return {
     type: types.SEARCH_LEADS_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function searchLeadsFailed () {
   return {
-    type: types.SEARCH_LEADS_FAILED,
+    type: types.SEARCH_LEADS_FAILED
   }
 }
 
@@ -88,41 +88,41 @@ function searchLeadsFailed () {
 
 function gettermsheet () {
   return {
-    type: types.GET_TERMSHEET,
+    type: types.GET_TERMSHEET
   }
 }
 
 function gettermsheetsuccess (payload) {
   return {
     type: types.GET_TERMSHEET_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function gettermsheetfailed () {
   return {
-    type: types.GET_TERMSHEET_FAILED,
+    type: types.GET_TERMSHEET_FAILED
   }
 }
 
-//**********get All Termsheets */////
+//* *********get All Termsheets */////
 
 function getALLTermsheet () {
   return {
-    type: types.GET_ALL_TERMSHEET,
+    type: types.GET_ALL_TERMSHEET
   }
 }
 
 function getALLTermsheetsuccess (payload) {
   return {
     type: types.GET_ALL_TERMSHEET_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function getALLTermsheetfailed () {
   return {
-    type: types.GET_ALL_TERMSHEET_FAILED,
+    type: types.GET_ALL_TERMSHEET_FAILED
   }
 }
 
@@ -130,53 +130,53 @@ function getALLTermsheetfailed () {
 
 function updatetermsheet () {
   return {
-    type: types.UPDATE_TERMSHEET,
+    type: types.UPDATE_TERMSHEET
   }
 }
 
 function updatetermsheetsuccess (payload) {
   return {
     type: types.UPDATE_TERMSHEET_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function updatetermsheetfailed () {
   return {
-    type: types.UPDATE_TERMSHEET_FAILED,
+    type: types.UPDATE_TERMSHEET_FAILED
   }
 }
 
 function shareTermsheetEmail () {
   return {
-    type: types.UPDATE_TERMSHEET,
+    type: types.UPDATE_TERMSHEET
   }
 }
 
 function shareTermsheetEmailsuccess (payload) {
   return {
     type: types.UPDATE_TERMSHEET_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function shareTermsheetEmailfailed () {
   return {
-    type: types.UPDATE_TERMSHEET_FAILED,
+    type: types.UPDATE_TERMSHEET_FAILED
   }
 }
 
 export const SearchLeads = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken }
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = { authorization: jwtAccessToken }
   try {
     dispatch(searchLeads())
     Axios.get(`${API.corebaseUrl}${API.search}${payload}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(searchLeadsSuccess(response.data))
@@ -203,18 +203,18 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
 export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
   // dispatch(updateCredit()
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateCredit}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateCreditSuccess(response.data))
@@ -222,8 +222,8 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        let id1 = sessionStorage.getItem('orderID')
-        let id2 = sessionStorage.getItem('companyID')
+        const id1 = sessionStorage.getItem('orderID')
+        const id2 = sessionStorage.getItem('companyID')
         dispatch(GetAllOrders({ orderId: id1 }))
         dispatch(GetCompanyDetails({ company: id2 }))
 
@@ -250,25 +250,25 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
 export const UpdateCreditCalculate =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.post(`${API.corebaseUrl}${API.updateCreditCalculate}`, payload, {
-        headers: headers,
+        headers: headers
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateCreditCalSuccess(response.data.data))
           const toastMessage = 'UPDATE REQUEST SENT'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
+              toastId: toastMessage
             })
           }
-          let id1 = sessionStorage.getItem('orderID')
-          let id2 = sessionStorage.getItem('companyID')
+          const id1 = sessionStorage.getItem('orderID')
+          const id2 = sessionStorage.getItem('companyID')
           dispatch(GetAllOrders({ orderId: id1 }))
           dispatch(GetCompanyDetails({ company: id2 }))
           dispatch(setNotLoading())
@@ -296,29 +296,29 @@ export const UpdateOrderShipment =
     //   dispatch(updateOrder()
 
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.put(`${API.corebaseUrl}${API.orderDetailUpdate}`, payload, {
-        headers: headers,
+        headers: headers
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateOrderSuccess(response.data.data))
           const toastMessage = 'REQUEST SUBMITTED'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
+              toastId: toastMessage
             })
           }
-          let id1 = sessionStorage.getItem('orderID')
-          let id2 = sessionStorage.getItem('companyID')
+          const id1 = sessionStorage.getItem('orderID')
+          const id2 = sessionStorage.getItem('companyID')
           dispatch(GetAllOrders({ orderId: id1 }))
           dispatch(GetCompanyDetails({ company: id2 }))
           dispatch(setNotLoading())
@@ -341,27 +341,27 @@ export const UpdateOrderShipment =
     }
   }
 
-//////////********** termsheet *************/////////
+/// ///////********** termsheet *************/////////
 
 export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading())
     dispatch(gettermsheet())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    let response = await Axios.get(
-      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
-      { headers: headers },
+    const response = await Axios.get(
+      `${API.corebaseUrl}${API.gettermsheet}${payload || ''}`,
+      { headers: headers }
     )
     if (response.data.code === 200) {
       dispatch(gettermsheetsuccess(response.data.data))
       dispatch(setNotLoading())
     } else {
       dispatch(gettermsheetfailed(response.data.data))
-      let toastMessage = 'Could not fetch Termsheet'
+      const toastMessage = 'Could not fetch Termsheet'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -370,7 +370,7 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(gettermsheetfailed())
 
-    let toastMessage = 'Get Termsheet API Failed'
+    const toastMessage = 'Get Termsheet API Failed'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -382,27 +382,27 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
   try {
     dispatch(setIsLoading())
     dispatch(getALLTermsheet())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     Axios.get(
-      `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
+      `${API.corebaseUrl}${API.gettermsheet}${payload || ''}`,
       {
-        headers: headers,
-      },
+        headers: headers
+      }
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getALLTermsheetsuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
         dispatch(getALLTermsheetfailed(response.data.data))
-        let toastMessage = 'Could not fetch Termsheet'
+        const toastMessage = 'Could not fetch Termsheet'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -411,7 +411,7 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(gettermsheetfailed())
-    let toastMessage = 'Get Termsheet API Failed'
+    const toastMessage = 'Get Termsheet API Failed'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -419,30 +419,30 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-/////////******** Update Termsheet *******////////
+/// //////******** Update Termsheet *******////////
 
 export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
-    let response = await Axios.put(
+    const response = await Axios.put(
       `${API.corebaseUrl}${API.gettermsheet}`,
       payload.UpdatedTermsheet,
       {
-        headers: headers,
-      },
+        headers: headers
+      }
     )
     if (response.data.code === 200) {
       dispatch(updatetermsheetsuccess(response.data))
-      let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
+      const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -453,7 +453,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
       return response.data.code
     } else {
       dispatch(updatetermsheetfailed(response.data))
-      let toastMessage = response.data.message
+      const toastMessage = response.data.message
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -461,7 +461,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     }
   } catch (error) {
     dispatch(updatetermsheetfailed())
-    let toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
+    const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -472,22 +472,22 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
 export const sharingTermsheetEmail =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      let response = await Axios.put(
+      const response = await Axios.put(
         `${API.corebaseUrl}${API.termsheetshareemial}`,
         payload,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       )
       if (response.data.code === 200) {
         dispatch(shareTermsheetEmailsuccess(response.data))
-        let toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
+        const toastMessage = 'TERMSHEET UPDATED SUCCESSFULL'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -495,7 +495,7 @@ export const sharingTermsheetEmail =
         return response.data.code
       } else {
         dispatch(shareTermsheetEmailfailed(response.data))
-        let toastMessage = response.data.message
+        const toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -503,7 +503,7 @@ export const sharingTermsheetEmail =
       }
     } catch (error) {
       dispatch(shareTermsheetEmailfailed())
-      let toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
+      const toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }

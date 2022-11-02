@@ -16,7 +16,7 @@ const Index = () => {
       sessionStorage.setItem('openList', 1)
     }
   }, [])
-  return <MarginMain/>
+  return <MarginMain />
 }
 
 export default Index

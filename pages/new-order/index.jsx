@@ -8,7 +8,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(setPageName('newOrder'))
   })
-  return <PlaceOrder/>
+  return <PlaceOrder />
 }
 
 export default Index

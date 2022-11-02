@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import LetterCredit from '../../src/components/LetterCredit'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action'
 import { useDispatch } from 'react-redux'
 
 const Index = () => {
@@ -15,7 +15,7 @@ const Index = () => {
     dispatch(setDynamicName(null))
     dispatch(setDynamicOrder(null))
   }, [])
-  return <LetterCredit/>
+  return <LetterCredit />
 }
 
 export default Index

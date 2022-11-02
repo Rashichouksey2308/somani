@@ -11,10 +11,10 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
       <div className={`${styles.term_container} align-items-start`}>
         <input
           className={`${styles.check_box} mt-2`}
-          type="checkbox"
+          type='checkbox'
           checked={termsCheck}
           onChange={chanegTermsCheck}
-          name="check1"
+          name='check1'
         />
 
         <label className={`${styles.term_para} term_para`}>
@@ -33,7 +33,6 @@ const Index = ({ submitData, darkMode, termsCheck, chanegTermsCheck }) => {
           className={`${styles.submit_btn} submit_btn`}
           disabled={creatingBuyer}
           onClick={() => {
-
             submitData()
           }}
         >

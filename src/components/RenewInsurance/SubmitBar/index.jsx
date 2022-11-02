@@ -9,7 +9,7 @@ function Index ({ handleSubmit }) {
     <div className={`${styles.root} card`}>
       {/* <div id='previousbutton' onClick={props.leftButtonClick} className={`${styles.reject} ml-3`}><span>Previous</span></div> */}
       <div
-        id="nextbutton"
+        id='nextbutton'
         onClick={() => {
           if (!renewingInsurance) {
             handleSubmit()

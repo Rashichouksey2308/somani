@@ -6,7 +6,7 @@ const initialState = {
   TransitDetails: null,
   updatingTransitDetails: false,
   gettingAdditionalData: false,
-  additionalData: null,
+  additionalData: null
 }
 
 function TransitDetailsReducer (state = initialState, action) {
@@ -14,65 +14,65 @@ function TransitDetailsReducer (state = initialState, action) {
     case types.GET_TRANSITDETAILS:
       return {
         ...state,
-        gettingTransitDetails: true,
+        gettingTransitDetails: true
       }
     case types.GET_TRANSITDETAILS_SUCCESS:
       return {
         ...state,
         gettingTransitDetails: false,
-        TransitDetails: action.payload,
+        TransitDetails: action.payload
       }
     case types.GET_TRANSITDETAILS_FAILED:
       return {
         ...state,
-        gettingTransitDetails: false,
+        gettingTransitDetails: false
       }
     case types.GET_ALL_TRANSITDETAILS:
       return {
         ...state,
-        gettingTransitDetails: true,
+        gettingTransitDetails: true
       }
     case types.GET_ALL_TRANSITDETAILS_SUCCESS:
       return {
         ...state,
         gettingTransitDetails: false,
-        allTransitDetails: action.payload,
+        allTransitDetails: action.payload
       }
     case types.GET_ALL_TRANSITDETAILS_FAILED:
       return {
         ...state,
-        gettingTransitDetails: false,
+        gettingTransitDetails: false
       }
     case types.UPDATE_TRANSITDETAILS:
       return {
         ...state,
-        updatingTransitDetails: true,
+        updatingTransitDetails: true
       }
     case types.UPDATE_TRANSITDETAILS_SUCCESS:
       return {
         ...state,
-        updatingTransitDetails: false,
+        updatingTransitDetails: false
       }
     case types.UPDATE_TRANSITDETAILS_FAILED:
       return {
         ...state,
-        updatingTransitDetails: false,
+        updatingTransitDetails: false
       }
     case types.GET_ADDITTIONAL_DATA:
       return {
         ...state,
-        gettingAdditionalData: true,
+        gettingAdditionalData: true
       }
     case types.GET_ADDITTIONAL_DATA_SUCCESS:
       return {
         ...state,
         gettingAdditionalData: false,
-        additionalData: action.payload,
+        additionalData: action.payload
       }
     case types.GET_ADDITTIONAL_DATA_FAILED:
       return {
         ...state,
-        gettingAdditionalData: false,
+        gettingAdditionalData: false
       }
     default:
       return state

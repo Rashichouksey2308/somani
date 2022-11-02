@@ -7,104 +7,104 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function getTransitDetails () {
   return {
-    type: types.GET_TRANSITDETAILS,
+    type: types.GET_TRANSITDETAILS
   }
 }
 
 function getTransitDetailsSuccess (payload) {
   return {
     type: types.GET_TRANSITDETAILS_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getTransitDetailsFailed () {
   return {
-    type: types.GET_TRANSITDETAILS_FAILED,
+    type: types.GET_TRANSITDETAILS_FAILED
   }
 }
 
 function getAllTransitDetails () {
   return {
-    type: types.GET_ALL_TRANSITDETAILS,
+    type: types.GET_ALL_TRANSITDETAILS
   }
 }
 
 function getAllTransitDetailsSuccess (payload) {
   return {
     type: types.GET_ALL_TRANSITDETAILS_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getAllTransitDetailsFailed () {
   return {
-    type: types.GET_ALL_TRANSITDETAILS_FAILED,
+    type: types.GET_ALL_TRANSITDETAILS_FAILED
   }
 }
 
 function updateTransitDetails () {
   return {
-    type: types.UPDATE_TRANSITDETAILS,
+    type: types.UPDATE_TRANSITDETAILS
   }
 }
 
 function updateTransitDetailsSuccess (payload) {
   return {
     type: types.UPDATE_TRANSITDETAILS_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function updateTransitDetailsFailed () {
   return {
-    type: types.UPDATE_TRANSITDETAILS_FAILED,
+    type: types.UPDATE_TRANSITDETAILS_FAILED
   }
 }
 
 function getAdditionalData () {
   return {
-    type: types.GET_ADDITTIONAL_DATA,
+    type: types.GET_ADDITTIONAL_DATA
   }
 }
 
 function getAdditionalDataSuccess (payload) {
   return {
     type: types.GET_ADDITTIONAL_DATA_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getAdditionalDataFailed () {
   return {
-    type: types.GET_ADDITTIONAL_DATA_FAILED,
+    type: types.GET_ADDITTIONAL_DATA_FAILED
   }
 }
 
 export const GetAllTransitDetails =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.get(
-        `${API.corebaseUrl}${API.getTransitDetails}${payload ? payload : ''}`,
+        `${API.corebaseUrl}${API.getTransitDetails}${payload || ''}`,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllTransitDetailsSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
           dispatch(getAllTransitDetailsFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -114,7 +114,7 @@ export const GetAllTransitDetails =
     } catch (error) {
       dispatch(getAllTransitDetailsFailed())
 
-      let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
+      const toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -125,21 +125,21 @@ export const GetAllTransitDetails =
 export const GetTransitDetails =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
-      let response = await Axios.get(
+      const response = await Axios.get(
         `${API.corebaseUrl}${API.getTransitDetails}${payload}`,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       )
       if (response.data.code === 200) {
         // dispatch(getVesselSuccess(response.data.data))
@@ -147,7 +147,7 @@ export const GetTransitDetails =
         return response.data.data
       } else {
         dispatch(getTransitDetailsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -156,7 +156,7 @@ export const GetTransitDetails =
     } catch (error) {
       dispatch(getTransitDetailsFailed())
 
-      let toastMessage = 'COULD NOT GET   TRANSIT DATA AT THIS TIME'
+      const toastMessage = 'COULD NOT GET   TRANSIT DATA AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -167,22 +167,22 @@ export const GetTransitDetails =
 export const UpdateTransitDetails =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
-      let response = await Axios.put(
+      const response = await Axios.put(
         `${API.corebaseUrl}${API.updateTransitDetails}`,
         payload.fd,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       )
       if (response.data.code === 200) {
         dispatch(updateTransitDetailsSuccess(response.data.data))
@@ -199,7 +199,7 @@ export const UpdateTransitDetails =
         return true
       } else {
         dispatch(updateTransitDetailsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -208,7 +208,7 @@ export const UpdateTransitDetails =
     } catch (error) {
       dispatch(updateTransitDetailsFailed())
 
-      let toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME'
+      const toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -219,28 +219,28 @@ export const UpdateTransitDetails =
 export const GetAdditionalData =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.fetchAdditionalData}${payload}`,
         {
-          headers: headers,
+          headers: headers
         },
-        payload,
+        payload
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAdditionalDataSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
           dispatch(getAdditionalDataFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -250,7 +250,7 @@ export const GetAdditionalData =
     } catch (error) {
       dispatch(getAdditionalDataFailed())
 
-      let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
+      const toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }

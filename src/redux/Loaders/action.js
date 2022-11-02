@@ -3,14 +3,14 @@ import * as types from './actionType'
 export function isLoading (payload) {
   return {
     type: types.IS_LOADING,
-    payload,
+    payload
   }
 }
 
 export function notLoading (payload) {
   return {
     type: types.NOT_LOADING,
-    payload,
+    payload
   }
 }
 

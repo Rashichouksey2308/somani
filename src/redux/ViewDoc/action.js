@@ -7,37 +7,37 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function viewingDocument () {
   return {
-    type: types.VEIW_DOCUMENT,
+    type: types.VEIW_DOCUMENT
   }
 }
 
 function viewingDocumentSuccess (payload) {
   return {
     type: types.VEIW_DOCUMENT_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function viewingDocumentFailed () {
   return {
-    type: types.VEIW_DOCUMENT_FAILED,
+    type: types.VEIW_DOCUMENT_FAILED
   }
 }
 
 export const ViewDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
     Axios.post(`${API.corebaseUrl}${API.viewDoc}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(viewingDocumentSuccess(response.data.data))
@@ -46,11 +46,11 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
         window.open(
           response.data.data.signedUrl,
           '_blank',
-          'noopener,noreferrer',
+          'noopener,noreferrer'
         )
       } else {
         dispatch(viewingDocumentFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -60,7 +60,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(viewingDocumentFailed())
 
-    let toastMessage = 'COULD NOT GET DATA AT THIS TIME'
+    const toastMessage = 'COULD NOT GET DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -69,22 +69,22 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
 }
 export const previewDocument = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
-    let response = await Axios.post(
+    const response = await Axios.post(
       `${API.corebaseUrl}${API.preview}`,
       payload,
       {
-        headers: headers,
-      },
+        headers: headers
+      }
     )
     if (response.data.code === 200) {
       dispatch(viewingDocumentSuccess(response.data.data))
@@ -93,11 +93,11 @@ export const previewDocument = (payload) => async (dispatch, getState, api) => {
       window.open(
         response.data.data.signedUrl,
         '_blank',
-        'noopener,noreferrer',
+        'noopener,noreferrer'
       )
     } else {
       dispatch(viewingDocumentFailed(response.data.data))
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -106,7 +106,7 @@ export const previewDocument = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(viewingDocumentFailed())
 
-    let toastMessage = 'COULD NOT GET DATA AT THIS TIME'
+    const toastMessage = 'COULD NOT GET DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }

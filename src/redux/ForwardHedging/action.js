@@ -7,85 +7,85 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function getForwardHedging () {
   return {
-    type: types.GET_FORWARDHEDGING,
+    type: types.GET_FORWARDHEDGING
   }
 }
 
 function getForwardHedgingSuccess (payload) {
   return {
     type: types.GET_FORWARDHEDGING_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getForwardHedgingFailed () {
   return {
-    type: types.GET_FORWARDHEDGING_FAILED,
+    type: types.GET_FORWARDHEDGING_FAILED
   }
 }
 
 function getAllForwardHedging () {
   return {
-    type: types.GET_ALL_FORWARDHEDGING,
+    type: types.GET_ALL_FORWARDHEDGING
   }
 }
 
 function getAllForwardHedgingSuccess (payload) {
   return {
     type: types.GET_ALL_FORWARDHEDGING_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getAllForwardHedgingFailed () {
   return {
-    type: types.GET_ALL_FORWARDHEDGING_FAILED,
+    type: types.GET_ALL_FORWARDHEDGING_FAILED
   }
 }
 
 function updateForwardHedging () {
   return {
-    type: types.UPDATE_FORWARDHEDGING,
+    type: types.UPDATE_FORWARDHEDGING
   }
 }
 
 function updateForwardHedgingSuccess (payload) {
   return {
     type: types.UPDATE_FORWARDHEDGING_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function updateForwardHedgingFailed () {
   return {
-    type: types.UPDATE_FORWARDHEDGING_FAILED,
+    type: types.UPDATE_FORWARDHEDGING_FAILED
   }
 }
 
 export const GetAllForwardHedging =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.get(
-        `${API.corebaseUrl}${API.getForwardHedging}${payload ? payload : ''}`,
+        `${API.corebaseUrl}${API.getForwardHedging}${payload || ''}`,
         {
-          headers: headers,
-        },
+          headers: headers
+        }
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllForwardHedgingSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
           dispatch(getAllForwardHedgingFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -95,7 +95,7 @@ export const GetAllForwardHedging =
     } catch (error) {
       dispatch(getAllForwardHedgingFailed())
 
-      let toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME'
+      const toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -106,25 +106,25 @@ export const GetAllForwardHedging =
 export const GetForwardHedging =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.get(`${API.corebaseUrl}${API.getForwardHedging}${payload}`, {
-        headers: headers,
+        headers: headers
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(getForwardHedgingSuccess(response.data.data))
           dispatch(setNotLoading())
         } else {
           dispatch(getForwardHedgingFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -134,7 +134,7 @@ export const GetForwardHedging =
     } catch (error) {
       dispatch(getForwardHedgingFailed())
 
-      let toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME'
+      const toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -145,18 +145,18 @@ export const GetForwardHedging =
 export const UpdateForwardHedging =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
-        headers: headers,
+        headers: headers
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateForwardHedgingSuccess(response.data.data))
@@ -168,13 +168,13 @@ export const UpdateForwardHedging =
           }
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
+              toastId: toastMessage
             })
           }
           dispatch(setNotLoading())
         } else {
           dispatch(updateForwardHedgingFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -184,7 +184,7 @@ export const UpdateForwardHedging =
     } catch (error) {
       dispatch(updateForwardHedgingFailed())
 
-      let toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME'
+      const toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }

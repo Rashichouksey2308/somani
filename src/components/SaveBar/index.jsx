@@ -7,7 +7,7 @@ function Index ({
   rightBtn,
   rightBtnClick,
   handleRoute,
-  buttonText = 'Save',
+  buttonText = 'Save'
 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)

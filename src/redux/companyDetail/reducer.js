@@ -6,7 +6,7 @@ const initialState = {
   updatingCompany: false,
   gettingCreditData: false,
   creditData: null,
-  caseDetails: null,
+  caseDetails: null
 }
 
 function CompanyReducer (state = initialState, action) {
@@ -14,49 +14,49 @@ function CompanyReducer (state = initialState, action) {
     case types.GET_COMPANY_DETAIL:
       return {
         gettingCompanyDetail: true,
-        companyData: null,
+        companyData: null
       }
     case types.GET_COMPANY_DETAIL_SUCCESS:
       return {
         gettingCompanyDetail: false,
-        companyData: action.payload,
+        companyData: action.payload
       }
     case types.GET_COMPANY_DETAIL_FAILED:
       return {
         gettingCompanyDetail: false,
-        companyData: null,
+        companyData: null
       }
 
     case types.GET_CREDIT_DETAIL:
       return {
         gettingCreditData: true,
-        creditData: null,
+        creditData: null
       }
     case types.GET_CREDIT_DETAIL_SUCCESS:
       return {
         gettingCreditData: false,
-        creditData: action.payload,
+        creditData: action.payload
       }
     case types.GET_CREDIT_DETAIL_FAILED:
       return {
         gettingCreditData: false,
-        creditData: null,
+        creditData: null
       }
 
     case types.UPDATE_COMPANY_DETAIL:
       return {
         ...state,
-        updatingCompany: true,
+        updatingCompany: true
       }
     case types.UPDATE_COMPANY_DETAIL_SUCCESS:
       return {
         ...state,
-        updatingCompany: false,
+        updatingCompany: false
       }
     case types.UPDATE_COMPANY_DETAIL_FAILED:
       return {
         ...state,
-        updatingCompany: false,
+        updatingCompany: false
       }
 
     // case types.GET_CASE_DETAILS:
@@ -66,13 +66,13 @@ function CompanyReducer (state = initialState, action) {
     case types.GET_CASE_DETAILS_SUCCESS:
       return {
         ...state,
-        caseDetails: action.payload,
+        caseDetails: action.payload
       }
-    // case types.GET_CASE_DETAILS_FAILED:
-    //   return {
-    //     ...state,
-    //     updatingCompany: false,
-    //   }
+      // case types.GET_CASE_DETAILS_FAILED:
+      //   return {
+      //     ...state,
+      //     updatingCompany: false,
+      //   }
 
     default:
       return state

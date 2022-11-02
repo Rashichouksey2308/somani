@@ -2,7 +2,7 @@ import React from 'react'
 import LcModule from '../../src/components/LcModule'
 
 const Index = () => {
-  return <LcModule/>
+  return <LcModule />
 }
 
 export default Index

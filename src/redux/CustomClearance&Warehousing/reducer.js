@@ -6,7 +6,7 @@ const initialState = {
   gettingCustomClearance: false,
   customClearance: null,
   updatingCustomClearance: false,
-  updateCustomClearanceResponse: false,
+  updateCustomClearanceResponse: false
 }
 
 function CustomClearanceReducer (state = initialState, action) {
@@ -14,52 +14,52 @@ function CustomClearanceReducer (state = initialState, action) {
     case types.GET_ALL_CUSTOM_CLEARANCE:
       return {
         ...state,
-        gettingAllCustomClearance: true,
+        gettingAllCustomClearance: true
       }
     case types.GET_ALL_CUSTOM_CLEARANCE_SUCCESS:
       return {
         ...state,
         gettingAllCustomClearance: false,
-        allCustomClearance: action.payload,
+        allCustomClearance: action.payload
       }
     case types.GET_ALL_CUSTOM_CLEARANCE_FAILED:
       return {
         ...state,
-        gettingAllCustomClearance: false,
+        gettingAllCustomClearance: false
       }
     case types.GET_CUSTOM_CLEARANCE:
       return {
         ...state,
-        gettingAllCustomClearance: true,
+        gettingAllCustomClearance: true
       }
     case types.GET_CUSTOM_CLEARANCE_SUCCESS:
       return {
         ...state,
         gettingAllCustomClearance: false,
-        customClearance: action.payload,
+        customClearance: action.payload
       }
     case types.GET_CUSTOM_CLEARANCE_FAILED:
       return {
         ...state,
-        gettingCustomClearance: false,
+        gettingCustomClearance: false
       }
     case types.UPDATE_CUSTOM_CLEARANCE:
       return {
         ...state,
         updatingCustomClearance: true,
-        updateCustomClearanceResponse: null,
+        updateCustomClearanceResponse: null
       }
     case types.UPDATE_CUSTOM_CLEARANCE_SUCCESS:
       return {
         ...state,
         updatingCustomClearance: false,
-        updateCustomClearanceResponse: action.payload,
+        updateCustomClearanceResponse: action.payload
       }
     case types.UPDATE_CUSTOM_CLEARANCE_FAILED:
       return {
         ...state,
         updatingCustomClearance: false,
-        updateCustomClearanceResponse: null,
+        updateCustomClearanceResponse: null
       }
 
     default:

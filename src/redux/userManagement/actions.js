@@ -3,28 +3,28 @@ import * as types from './actionType'
 
 function fetchingAllUsers () {
   return {
-    type: types.FETCH_ALL_USERS,
+    type: types.FETCH_ALL_USERS
   }
 }
 
 function fetchingAllUsersSuccess (payload) {
   return {
     type: types.FETCH_ALL_USERS_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function fetchingAllUsersFailed (payload) {
   return {
     type: types.FETCH_ALL_USERS_FAILED,
-    payload,
+    payload
   }
 }
 
 export const fetchAllUsers = (page) => async (dispatch, getState, api) => {
   dispatch(fetchingAllUsers())
   try {
-    let response = await api.get(`${API.fetchUsersRoute}?page=${page}`)
+    const response = await api.get(`${API.fetchUsersRoute}?page=${page}`)
     if (response.data.code === 200) {
       const existingUsers = getState().UserManagement.usersList
       const newList = [...existingUsers, ...response.data.data]

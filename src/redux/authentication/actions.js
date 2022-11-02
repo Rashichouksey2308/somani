@@ -10,32 +10,32 @@ import { setAuthenticationCookie } from '../../utils/authentication'
 
 const errorMessage = {
   status: 400,
-  message: 'Something went wrong',
+  message: 'Something went wrong'
 }
 
 function loggingUser () {
   return {
-    type: types.LOGIN_USER,
+    type: types.LOGIN_USER
   }
 }
 
 function loggingUserSuccess (payload) {
   return {
     type: types.LOGIN_USER_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function loggingUserFailed (payload) {
   return {
     type: types.LOGIN_USER_FAILED,
-    payload,
+    payload
   }
 }
 
 function fetchingUserPermissions () {
   return {
-    type: types.FETCH_USER_PERMISSIONS,
+    type: types.FETCH_USER_PERMISSIONS
   }
 }
 
@@ -43,67 +43,67 @@ function fetchingUserPermissionsSuccess (payload, user) {
   return {
     type: types.FETCH_USER_PERMISSIONS_SUCCESS,
     payload,
-    user,
+    user
   }
 }
 
 function fetchingUserPermissionsFailed (payload) {
   return {
     type: types.FETCH_USER_PERMISSIONS_FAILED,
-    payload,
+    payload
   }
 }
 
 function fetchingCurrentUserProfile () {
   return {
-    type: types.FETCH_CURRENT_USER_PROFILE,
+    type: types.FETCH_CURRENT_USER_PROFILE
   }
 }
 
 function fetchingCurrentUserProfileSuccess (payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function fetchingCurrentUserProfileFailed (payload) {
   return {
     type: types.FETCH_CURRENT_USER_PROFILE_FAILED,
-    payload,
+    payload
   }
 }
 
 export function authenticateUser (payload) {
   return {
     type: types.AUTHENTICATE_USER,
-    payload,
+    payload
   }
 }
 
-//****** Verify Token   ********//
+//* ***** Verify Token   ********//
 
 export function validatingToken () {
   return {
     type: types.VERIFY_TOKEN,
-    payload: Cookies.get('guid'),
+    payload: Cookies.get('guid')
   }
 }
 
 export function validatingTokenSuccess (payload) {
   return {
     type: types.VERIFY_TOKEN_SUCCESS,
-    payload: payload,
+    payload: payload
   }
 }
 
 export function validatingTokenFailed (payload) {
   return {
-    type: types.VERIFY_TOKEN_FAILED,
+    type: types.VERIFY_TOKEN_FAILED
   }
 }
 
-//****** Generate Token   ********//
+//* ***** Generate Token   ********//
 
 export function generatingToken () {
   return { type: types.GENERATE_TOKEN }
@@ -112,17 +112,17 @@ export function generatingToken () {
 export function generatingTokenSuccess (payload) {
   return {
     type: types.GENERATE_TOKEN_SUCCESS,
-    payload: payload,
+    payload: payload
   }
 }
 
 export function generatingTokenFailed (payload) {
   return {
-    type: types.GENERATE_TOKEN_FAILED,
+    type: types.GENERATE_TOKEN_FAILED
   }
 }
 
-//****** logging out user  ********//
+//* ***** logging out user  ********//
 
 // export function loggingoutUserSuccess() {
 //   return {
@@ -138,11 +138,11 @@ export function generatingTokenFailed (payload) {
 
 function loggingoutUser () {
   return {
-    type: types.LOGOUT_USER,
+    type: types.LOGOUT_USER
   }
 }
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
 export function resetPassword () {
   return { type: types.RESET_PASSWORD }
@@ -155,7 +155,7 @@ export function resetPasswordSuccess () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.RESET_PASSWORD_SUCCESS }
 }
@@ -167,7 +167,7 @@ export function resetPasswordFailed () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.RESET_PASSWORD_FAILED }
 }
@@ -175,11 +175,11 @@ export function resetPasswordFailed () {
 export function handlePageLoading (payload) {
   return {
     type: types.HANDLE_PAGE_LOADING,
-    payload,
+    payload
   }
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
 export function forgotpassword () {
   return { type: types.FORGOT_PASSWORD }
@@ -189,7 +189,7 @@ export function forgotPasswordSuccess (payload) {
   history.push('/OTP-verification')
   return {
     type: types.FORGOT_PASSWORD_SUCCESS,
-    payload,
+    payload
   }
 }
 
@@ -200,12 +200,12 @@ export function forgotPasswordFailed () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.FORGOT_PASSWORD_FAILED }
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
 export function otpverification () {
   return { type: types.OTP_VARIFICATION }
@@ -224,12 +224,12 @@ export function otpverificationFailed () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.OTP_VARIFICATION_FAILED }
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
 export function setnewPassword () {
   return { type: types.SET_NEW_PASSWORD }
@@ -243,7 +243,7 @@ export function setnewPasswordSuccess () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.SET_NEW_PASSWORD_SUCCESS }
 }
@@ -255,20 +255,20 @@ export function setnewPasswordFailed () {
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
-    draggable: true,
+    draggable: true
   })
   return { type: types.SET_NEW_PASSWORD_FAILED }
 }
 
-//****** LOGIN  ********//
+//* ***** LOGIN  ********//
 
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
-    let headers = { authorization: '', Cache: 'no-cache' }
+    const headers = { authorization: '', Cache: 'no-cache' }
     // let response = await api.post(API.login, payload);
-    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
-      headers: headers,
+    const response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload, {
+      headers: headers
     })
 
     if (response.data.code === 200) {
@@ -282,7 +282,7 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
     } else {
       dispatch(loggingUserFailed(response.data))
       // Cookies.remove('token')
-      let toastMessage = 'Please check your credentials and Try Again!'
+      const toastMessage = 'Please check your credentials and Try Again!'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -296,13 +296,13 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
 export const fetchUserPermissions = () => async (dispatch, getState, api) => {
   dispatch(fetchingUserPermissions())
   try {
-    let response = await api.get(API.getUserPermissions)
+    const response = await api.get(API.getUserPermissions)
     if (response.data.code === 200) {
       dispatch(
         fetchingUserPermissionsSuccess(
           response.data.data.pageGroups,
-          response.data.data,
-        ),
+          response.data.data
+        )
       )
     } else {
       dispatch(fetchingUserPermissionsFailed(response.data))
@@ -316,7 +316,7 @@ export const fetchCurrentUserProfile =
   () => async (dispatch, getState, api) => {
     dispatch(fetchingCurrentUserProfile())
     try {
-      let response = await api.get(API.getUserProfile)
+      const response = await api.get(API.getUserProfile)
       if (response.data.code === 200) {
         dispatch(fetchingCurrentUserProfileSuccess(response.data.data))
       } else {
@@ -328,18 +328,18 @@ export const fetchCurrentUserProfile =
   }
 
 export const validateToken = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
-    let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
-      headers: headers,
+    const response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
+      headers: headers
     })
     if (response.data.code === 200) {
       // dispatch(getVesselSuccess(response.data.data))
@@ -350,7 +350,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       }
       dispatch(validatingTokenFailed(response.data.data))
 
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -358,37 +358,37 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(validatingTokenFailed())
     dispatch(generateToken())
-    let toastMessage = 'cound not Process YOur Request '
+    const toastMessage = 'cound not Process YOur Request '
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
 
-//****** Generate Token  ********//
+//* ***** Generate Token  ********//
 
 export const generateToken = () => async (dispatch, getState, api) => {
   try {
-    let cookie = await Cookies.get('SOMANI')
+    const cookie = await Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken] = decodedString.split('#')
+    const [userId, refreshToken] = decodedString.split('#')
 
-    let response = await api.post(API.generateNewToken, {
+    const response = await api.post(API.generateNewToken, {
       refreshToken: existingRefreshToken,
-      userId: guid,
+      userId: guid
     })
 
     if (response.data.code === 200) {
-      let {
-        data: { data: jwtAccessToken },
+      const {
+        data: { data: jwtAccessToken }
       } = response
       await Cookies.remove('SOMANI')
 
       await setAuthenticationCookie({
         jwtAccessToken,
         refreshToken,
-        user: { userId },
+        user: { userId }
       })
       dispatch(generatingTokenSuccess(response.data.data))
     }
@@ -400,20 +400,20 @@ export const generateToken = () => async (dispatch, getState, api) => {
   }
 }
 
-//****** Logout User   ********//
+//* ***** Logout User   ********//
 
 export const logoutUser = () => async (dispatch, getState, api) => {
   // let  cookie =  Cookies.get('SOMANI')
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
 
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   try {
     Axios.get(`${API.authbaseUrl}${API.logout}`, {
       headers: {
-        authorization: jwtAccessToken,
-      },
+        authorization: jwtAccessToken
+      }
     }).then((response) => console.log(response, 'logout Response'))
     Cookies.remove('SOMANI')
 
@@ -427,18 +427,18 @@ export const logoutUser = () => async (dispatch, getState, api) => {
   }
 }
 
-//****** Reset Password   ********//
+//* ***** Reset Password   ********//
 
 export function resetpassword (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       prevPassword: state.recent_password,
       password: state.new_password,
-      cPassword: state.confirm_password,
+      cPassword: state.confirm_password
     }
     dispatch(resetPassword())
     try {
-      let response = await api.post(API.changePassword, payload)
+      const response = await api.post(API.changePassword, payload)
       if (response.data.code === 200) {
         dispatch(resetPasswordSuccess(response.data))
       } else {
@@ -450,16 +450,16 @@ export function resetpassword (state) {
   }
 }
 
-//****** Forgot Password   ********//
+//* ***** Forgot Password   ********//
 
 export function forgotPassword (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
-      username: state.mobileNo,
+    const payload = {
+      username: state.mobileNo
     }
     dispatch(forgotpassword())
     try {
-      let response = await api.post(API.forgotPassword, payload)
+      const response = await api.post(API.forgotPassword, payload)
       if (response.data.code === 200) {
         dispatch(forgotPasswordSuccess(response.data.data))
       } else {
@@ -471,17 +471,17 @@ export function forgotPassword (state) {
   }
 }
 
-//****** OTP VARIFICATION   ********//
+//* ***** OTP VARIFICATION   ********//
 
 export function optVerification (state) {
   return async (dispatch, getState, api) => {
-    let payload = {
+    const payload = {
       otp: state.otp_number,
-      userid: getState().Auth.userId,
+      userid: getState().Auth.userId
     }
     dispatch(otpverification())
     try {
-      let response = await api.post(API.varifyOTP, payload)
+      const response = await api.post(API.varifyOTP, payload)
       if (response.data.code === 200) {
         await Cookies.set('token', response.data.jwtAccessToken)
         dispatch(otpverificationSuccess(response.data))
@@ -494,20 +494,20 @@ export function optVerification (state) {
   }
 }
 
-//****** SET NEW PASSWORD   ********//
+//* ***** SET NEW PASSWORD   ********//
 
 export function setNewPassword (state) {
   return async (dispatch, getState, api) => {
-    let authorization = Cookies.get('token')
-    let headers = { Authorization: authorization, Cache: 'no-cache' }
-    let payload = {
+    const authorization = Cookies.get('token')
+    const headers = { Authorization: authorization, Cache: 'no-cache' }
+    const payload = {
       password: state.newPassword,
-      confirmPassword: state.confirmPassword,
+      confirmPassword: state.confirmPassword
     }
     dispatch(setnewPassword())
     try {
-      let response = await api.post(API.setNewPassword, payload, {
-        headers: headers,
+      const response = await api.post(API.setNewPassword, payload, {
+        headers: headers
       })
       if (response.data.code === 200) {
         dispatch(setnewPasswordSuccess(response.data))

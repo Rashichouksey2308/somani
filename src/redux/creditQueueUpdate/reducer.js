@@ -6,7 +6,7 @@ const initialState = {
   addingDocument: false,
   deletingDocumet: false,
   updatingCam: false,
-  fetchingKarzaGst: false,
+  fetchingKarzaGst: false
 }
 
 function CreditReducer (state = initialState, action) {
@@ -14,80 +14,80 @@ function CreditReducer (state = initialState, action) {
     case types.GET_GST_KARZA:
       return {
         ...state,
-        fetchingKarzaGst: true,
+        fetchingKarzaGst: true
       }
 
     case types.GET_GST_KARZA_SUCCESS:
       return {
         ...state,
-        fetchingKarzaGst: false,
+        fetchingKarzaGst: false
       }
     case types.GET_GST_KARZA_FAILED:
       return {
         ...state,
-        fetchingKarzaGst: false,
+        fetchingKarzaGst: false
       }
     case types.GET_DOCUMENT:
       return {
         ...state,
-        gettingDocuments: true,
+        gettingDocuments: true
       }
 
     case types.GET_DOCUMENT_SUCCESS:
       return {
         ...state,
         gettingDocuments: false,
-        documentsFetched: action.payload,
+        documentsFetched: action.payload
       }
     case types.GET_DOCUMENT_FAILED:
       return {
         ...state,
-        gettingDocuments: false,
+        gettingDocuments: false
       }
     case types.UPDATE_CAM:
       return {
         ...state,
-        updatingCam: true,
+        updatingCam: true
       }
     case types.UPDATE_CAM_SUCCESS:
       return {
         ...state,
-        updatingCam: false,
+        updatingCam: false
       }
     case types.GET_DOCUMENT:
       return {
         ...state,
-        updatingCam: false,
+        updatingCam: false
       }
     case types.ADD_DOCUMENT:
       return {
         ...state,
-        addingDocument: true,
+        addingDocument: true
       }
     case types.ADD_DOCUMENT_SUCCESS:
       return {
         ...state,
-        addingDocument: false,
+        addingDocument: false
       }
     case types.ADD_DOCUMENT_FAILED:
       return {
         ...state,
-        addingDocument: false,
+        addingDocument: false
       }
     case types.DELETE_DOCUMENT:
       return {
         ...state,
-        deletingDocumet: true,
+        deletingDocumet: true
       }
     case types.DELETE_DOCUMENT_SUCCESS:
       return {
         ...state,
-        deletingDocumet: false,
+        deletingDocumet: false
       }
     case types.DELETE_DOCUMENT_FAILED:
       return {
         ...state,
-        deletingDocumet: false,
+        deletingDocumet: false
       }
     default:
       return state

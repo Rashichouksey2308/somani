@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import TermSheetMain from '../../src/components/TermSheetMain'
-import { setDynamicName, setDynamicOrder, setPageName, } from '../../src/redux/userData/action'
+import { setDynamicName, setDynamicOrder, setPageName } from '../../src/redux/userData/action'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const Index = () => {
       sessionStorage.setItem('openList', 1)
     }
   }, [])
-  return <TermSheetMain/>
+  return <TermSheetMain />
 }
 
 export default Index

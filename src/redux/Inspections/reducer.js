@@ -5,7 +5,7 @@ const initialState = {
   allInspection: null,
   Inspection: null,
   updatingInspection: false,
-  modifiedDate: null,
+  modifiedDate: null
 }
 
 function InspectionReducer (state = initialState, action) {
@@ -13,55 +13,55 @@ function InspectionReducer (state = initialState, action) {
     case types.GET_INSPECTION:
       return {
         ...state,
-        gettingInspection: true,
+        gettingInspection: true
       }
     case types.GET_INSPECTION_SUCCESS:
       return {
         ...state,
         gettingInspection: false,
-        Inspection: action.payload,
+        Inspection: action.payload
       }
     case types.GET_UPDATED_DATE:
       return {
         ...state,
 
-        modifiedDate: action.payload,
+        modifiedDate: action.payload
       }
     case types.GET_INSPECTION_FAILED:
       return {
         ...state,
-        gettingInspection: false,
+        gettingInspection: false
       }
     case types.GET_ALL_INSPECTION:
       return {
         ...state,
-        gettingInspection: true,
+        gettingInspection: true
       }
     case types.GET_ALL_INSPECTION_SUCCESS:
       return {
         ...state,
         gettingInspection: false,
-        allInspection: action.payload,
+        allInspection: action.payload
       }
     case types.GET_ALL_INSPECTION_FAILED:
       return {
         ...state,
-        gettingInspection: false,
+        gettingInspection: false
       }
     case types.UPDATE_INSPECTION:
       return {
         ...state,
-        updatingInspection: true,
+        updatingInspection: true
       }
     case types.UPDATE_INSPECTION_SUCCESS:
       return {
         ...state,
-        updatingInspection: false,
+        updatingInspection: false
       }
     case types.UPDATE_INSPECTION_FAILED:
       return {
         ...state,
-        updatingInspection: false,
+        updatingInspection: false
       }
 
     default:

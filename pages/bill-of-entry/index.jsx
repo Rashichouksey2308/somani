@@ -49,7 +49,7 @@ function Index () {
   }
 
   return (
-    <div className="container-fluid p-0 border-0">
+    <div className='container-fluid p-0 border-0'>
       <div className={styles.container_inner}>
         <div
           className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}
@@ -64,22 +64,22 @@ function Index () {
               <h1 className={styles.heading}>Bill of Entry</h1>
             </div>
             <div className={styles.search}>
-              <div className="input-group">
+              <div className='input-group'>
                 <div
                   className={`${styles.inputGroupPrepend} input-group-prepend`}
                 >
                   <img
-                    src="/static/search.svg"
-                    className="img-fluid"
-                    alt="Search"
+                    src='/static/search.svg'
+                    className='img-fluid'
+                    alt='Search'
                   />
                 </div>
                 <input
                   value={serachterm}
                   onChange={handleSearch}
-                  type="text"
+                  type='text'
                   className={`${styles.formControl} border text_area form-control formControl`}
-                  placeholder="Search"
+                  placeholder='Search'
                 />
               </div>
               {searchedLeads && serachterm && (
@@ -98,7 +98,7 @@ function Index () {
                 </div>
               )}
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders
         <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
@@ -112,12 +112,12 @@ function Index () {
           className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
         >
           <div className={`${styles.all} ${styles.boxInner} all border_color`}>
-            <div className="d-lg-flex align-items-center d-inline-block">
+            <div className='d-lg-flex align-items-center d-inline-block'>
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/leads-icon.svg"
-                  className="img-fluid"
-                  alt="All Leads"
+                  src='/static/leads-icon.svg'
+                  className='img-fluid'
+                  alt='All Leads'
                 />
               </div>
               <h3>
@@ -129,12 +129,12 @@ function Index () {
           <div
             className={`${styles.approved} ${styles.boxInner} approved border_color`}
           >
-            <div className="d-lg-flex align-items-center d-inline-block">
+            <div className='d-lg-flex align-items-center d-inline-block'>
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/check.svg"
-                  className="img-fluid"
-                  alt="Check"
+                  src='/static/check.svg'
+                  className='img-fluid'
+                  alt='Check'
                 />
               </div>
               <h3>
@@ -146,12 +146,12 @@ function Index () {
           <div
             className={`${styles.review} ${styles.boxInner} review border_color`}
           >
-            <div className="d-lg-flex align-items-center d-inline-block">
+            <div className='d-lg-flex align-items-center d-inline-block'>
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/access-time.svg"
-                  className="img-fluid"
-                  alt="Access Time"
+                  src='/static/access-time.svg'
+                  className='img-fluid'
+                  alt='Access Time'
                 />
               </div>
               <h3>
@@ -163,12 +163,12 @@ function Index () {
           <div
             className={`${styles.saved} ${styles.boxInner} saved border_color`}
           >
-            <div className="d-lg-flex align-items-center d-inline-block">
+            <div className='d-lg-flex align-items-center d-inline-block'>
               <div className={`${styles.iconBox} iconBox`}>
                 <img
-                  src="/static/bookmark.svg"
-                  className="img-fluid"
-                  alt="Close"
+                  src='/static/bookmark.svg'
+                  className='img-fluid'
+                  alt='Close'
                 />
               </div>
               <h3>
@@ -179,10 +179,10 @@ function Index () {
           </div>
         </div>
         <BillOfEntryTableMain
-          tableName="Bill of Entries"
-          isVesselHeader={true}
-          dateHeading="BOE DATE"
-          isStatus={true}
+          tableName='Bill of Entries'
+          isVesselHeader
+          dateHeading='BOE DATE'
+          isStatus
           handleRoute={routeChange}
         />
       </div>

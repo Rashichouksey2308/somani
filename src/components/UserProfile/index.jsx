@@ -9,7 +9,7 @@ import {
   Input,
   InputGroup,
   InputGroupAddon,
-  Label,
+  Label
 } from 'reactstrap'
 import { toast } from 'react-toastify'
 import $ from 'jquery'
@@ -26,7 +26,7 @@ class UserProfile extends React.Component {
       recent_password: '',
       new_password: '',
       confirm_password: '',
-      type: 'password',
+      type: 'password'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -36,7 +36,7 @@ class UserProfile extends React.Component {
 
   handleChange (e) {
     e.preventDefault()
-    let state = { ...this.state }
+    const state = { ...this.state }
     state[e.target.name] = e.target.value
     this.setState({ ...state })
   }
@@ -48,7 +48,7 @@ class UserProfile extends React.Component {
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: false,
-      draggable: true,
+      draggable: true
     })
   }
 
@@ -59,7 +59,7 @@ class UserProfile extends React.Component {
       hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: false,
-      draggable: true,
+      draggable: true
     })
   }
 
@@ -77,7 +77,7 @@ class UserProfile extends React.Component {
       this.setState({
         recent_password: '',
         new_password: '',
-        confirm_password: '',
+        confirm_password: ''
       })
     }
   }
@@ -96,16 +96,16 @@ class UserProfile extends React.Component {
     e.preventDefault()
     e.stopPropagation()
     this.setState({
-      type: this.state.type === 'input' ? 'password' : 'input',
+      type: this.state.type === 'input' ? 'password' : 'input'
     })
   }
 
   render () {
     return (
       <React.Fragment>
-        <div className="reset_page">
-          <Card className="card_padding">
-            <CardHeader className="card_header_height text-center">
+        <div className='reset_page'>
+          <Card className='card_padding'>
+            <CardHeader className='card_header_height text-center'>
               Reset Password
             </CardHeader>
             <CardBody>
@@ -113,42 +113,42 @@ class UserProfile extends React.Component {
                 <FormGroup>
                   <Label>Previous Password</Label>
                   <Input
-                    type="text"
-                    name="recent_password"
+                    type='text'
+                    name='recent_password'
                     value={this.state.recent_password}
                     onChange={(e) => this.handleChange(e)}
                     required
                   />
                 </FormGroup>
-                <Label for="examplePassword">New Password</Label>
+                <Label for='examplePassword'>New Password</Label>
                 <InputGroup>
                   <Input
                     type={this.state.type}
-                    name="new_password"
-                    id="new_password"
+                    name='new_password'
+                    id='new_password'
                     onChange={(e) => this.handleChange(e)}
                     value={this.state.new_password}
                     required
                   />
-                  <InputGroupAddon addonType="append">
-                    <span className="reset_button btn" onClick={this.showHide}>
+                  <InputGroupAddon addonType='append'>
+                    <span className='reset_button btn' onClick={this.showHide}>
                       {this.state.type === 'password' ? 'Show' : 'Hide'}
                     </span>
                   </InputGroupAddon>
                 </InputGroup>
-                <br/>
+                <br />
                 <FormGroup>
-                  <Label for="examplePassword">Confirm Password</Label>
+                  <Label for='examplePassword'>Confirm Password</Label>
                   <Input
-                    name="confirm_password"
-                    id="confirm_password"
-                    type="password"
+                    name='confirm_password'
+                    id='confirm_password'
+                    type='password'
                     value={this.state.confirm_password}
                     onChange={(e) => this.handleChange(e)}
                     validate={{ match: { value: 'new_password' } }}
                   />
                 </FormGroup>
-                <Button className="reset_button btn" type="submit">
+                <Button className='reset_button btn' type='submit'>
                   Reset
                 </Button>
               </Form>
@@ -162,7 +162,7 @@ class UserProfile extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch),
+    actions: bindActionCreators(sessionActions, dispatch)
   }
 }
 

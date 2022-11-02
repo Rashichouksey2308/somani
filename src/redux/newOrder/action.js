@@ -7,26 +7,26 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function placeNewOrder () {
   return {
-    type: types.PLACE_ORDER,
+    type: types.PLACE_ORDER
   }
 }
 
 function placeNewOrderSuccess (payload) {
   return {
     type: types.PLACE_ORDER_SUCCESSFULL,
-    payload,
+    payload
   }
 }
 
 function placeNewOrderFailed () {
   return {
-    type: types.PLACE_ORDER_FAILED,
+    type: types.PLACE_ORDER_FAILED
   }
 }
 
 function placeorderRouted () {
   return {
-    type: types.PLACED_ORDER_ROUTED,
+    type: types.PLACED_ORDER_ROUTED
   }
 }
 
@@ -39,23 +39,23 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
   dispatch(placeNewOrder())
 
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
     Axios.post(`${API.corebaseUrl}${API.newOrder}`, payload, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(placeNewOrderSuccess(response.data.data))
 
-        let toastMessage = 'ORDER PLACED'
+        const toastMessage = 'ORDER PLACED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -63,7 +63,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
         // Router.push('/order-list')
       } else {
         dispatch(placeNewOrderFailed(response.data.data))
-        let toastMessage = 'FAILED TO PLACE NEW ORDER'
+        const toastMessage = 'FAILED TO PLACE NEW ORDER'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -72,7 +72,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
     })
   } catch (error) {
     dispatch(placeNewOrderFailed())
-    let toastMessage = error.message
+    const toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }

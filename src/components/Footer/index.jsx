@@ -13,8 +13,8 @@ export default function index () {
   ${isMobile ? styles.no_sidebar_mobile : null} background1`}
     >
       <div>
-        <span className="color">2022 © Simport.</span>
-        <span className="color">
+        <span className='color'>2022 © Simport.</span>
+        <span className='color'>
           Copyright © Somani Group Inc. All rights reserved.
         </span>
       </div>

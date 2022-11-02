@@ -2,7 +2,7 @@ import React from 'react'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 
 const Index = () => {
-  return <DeliveryPreview/>
+  return <DeliveryPreview />
 }
 
 export default Index

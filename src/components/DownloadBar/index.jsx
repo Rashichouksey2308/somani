@@ -13,7 +13,7 @@ function index ({
   rightButtonName,
   isApprove,
   handleUpdate,
-  isDropdown,
+  isDropdown
 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
@@ -24,21 +24,21 @@ function index ({
     >
       {isDropdown ? (
         <div className={`${styles.form_group}`} style={{ top: '5px' }}>
-          <div className="d-flex">
+          <div className='d-flex'>
             <select
               onChange={(e) => handleReject(e.target.value)}
               className={`${styles.input_field} form-control`}
             >
-              <option selected value="" disabled>
+              <option selected value='' disabled>
                 GST Report{' '}
               </option>
-              <option value="pdf">GST Report in Pdf</option>
-              <option value="excel">GST Report in Excel</option>
+              <option value='pdf'>GST Report in Pdf</option>
+              <option value='excel'>GST Report in Excel</option>
             </select>
             <div className={`${styles.download_icon} my-auto`}>
               <Image
-                src="/static/file_download.svg"
-                alt="Picture of the author"
+                src='/static/file_download.svg'
+                alt='Picture of the author'
                 width={14}
                 height={17}
               />
@@ -51,7 +51,7 @@ function index ({
           </div>
         </div>
       ) : (
-        <div className="d-flex justify-content-between align-items-center w-100">
+        <div className='d-flex justify-content-between align-items-center w-100'>
           <div
             className={`${styles.reject} `}
             onClick={() => {
@@ -62,15 +62,15 @@ function index ({
           >
             <span className={`mr-2`}>{downLoadButtonName}</span>
             <Image
-              src="/static/file_download.svg"
-              alt="Picture of the author"
+              src='/static/file_download.svg'
+              alt='Picture of the author'
               width={14}
               height={17}
             />
           </div>
         </div>
       )}
-      <div className="d-flex justify-content-between align-items-center">
+      <div className='d-flex justify-content-between align-items-center'>
         {isPrevious ? (
           <div
             className={`${styles.reject} ml-3`}

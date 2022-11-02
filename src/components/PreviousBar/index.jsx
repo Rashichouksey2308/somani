@@ -11,14 +11,14 @@ function index (props) {
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
     >
       <div
-        id="previousbutton"
+        id='previousbutton'
         onClick={props.leftButtonClick}
         className={`${styles.reject} ml-3`}
       >
         <span>Previous</span>
       </div>
       <div
-        id="nextbutton"
+        id='nextbutton'
         onClick={props.rightButtonClick}
         className={`${styles.approve} ml-3`}
       >

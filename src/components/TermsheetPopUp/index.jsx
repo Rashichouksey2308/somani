@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Col, Form, FormControl, Modal, Row, } from 'react-bootstrap'
+import { Col, Form, FormControl, Modal, Row } from 'react-bootstrap'
 import styles from './index.module.scss'
 
 function Index (props) {
@@ -7,24 +7,24 @@ function Index (props) {
   return (
     <Modal
       show={props.open}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
+      size='lg'
+      aria-labelledby='contained-modal-title-vcenter'
       centered
       className={styles.wrapper}
       backdropClassName={styles.backdrop}
     >
       <Modal.Header className={styles.head}>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id='contained-modal-title-vcenter'>
           Share {props.istermsheet ? '' : 'termsheet'} with buyer
         </Modal.Title>
-        <img onClick={() => props.close()} src="/static/close-2.svg"></img>
+        <img onClick={() => props.close()} src='/static/close-2.svg' />
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`}>
         <Row>
           <Col md={6} className={`${styles.left} `}>
-            <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
+            <img src='/static/icons8-whatsapp.svg' className={`mb-3`} />
 
-            <div className="d-flex justify-content-center mb-3">
+            <div className='d-flex justify-content-center mb-3'>
               <select className={`${styles.dropDown} bor`}>
                 <option>+91</option>
                 <option>+92</option>
@@ -33,7 +33,7 @@ function Index (props) {
               </select>
               <FormControl
                 className={`${styles.input}`}
-                aria-label="Text input with dropdown button"
+                aria-label='Text input with dropdown button'
               />
             </div>
             <div
@@ -43,12 +43,12 @@ function Index (props) {
             </div>
           </Col>
           <Col md={6} className={`${styles.right}`}>
-            <img src="/static/icons8-email-open-48.png" className="mb-3"/>
+            <img src='/static/icons8-email-open-48.png' className='mb-3' />
             <Form.Control
-              type="text"
-              id="inputPassword5"
-              aria-describedby="passwordHelpBlock"
-              className="mb-3"
+              type='text'
+              id='inputPassword5'
+              aria-describedby='passwordHelpBlock'
+              className='mb-3'
               onChange={(e) => {
                 props.setEmail(e.target.value)
               }}

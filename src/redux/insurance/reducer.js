@@ -10,7 +10,7 @@ const initialState = {
   renewingInsurance: false,
   renewingInsuranceResponse: [],
   updatingQuotation: false,
-  updatingQuotationResponse: [],
+  updatingQuotationResponse: []
 }
 
 function InsuranceReducer (state = initialState, action) {
@@ -19,100 +19,100 @@ function InsuranceReducer (state = initialState, action) {
       return {
         ...state,
         gettingInsurance: true,
-        insuranceResponse: [],
+        insuranceResponse: []
       }
 
     case types.GET_ALL_INSURANCE_SUCCESSFULL:
       return {
         ...state,
         gettingInsurance: false,
-        insuranceResponse: action.payload,
+        insuranceResponse: action.payload
       }
     case types.GET_ALL_INSURANCE_FAILED:
       return {
         ...state,
         gettingInsurance: false,
-        insuranceResponse: [],
+        insuranceResponse: []
       }
 
     case types.CREATE_INSURANCE:
       return {
         ...state,
         creatingInsurance: true,
-        createdInsuranceResponse: [],
+        createdInsuranceResponse: []
       }
 
     case types.CREATE_INSURANCE_SUCCESSFULL:
       return {
         ...state,
         creatingInsurance: false,
-        createdInsuranceResponse: action.payload,
+        createdInsuranceResponse: action.payload
       }
     case types.CREATE_INSURANCE_FAILED:
       return {
         ...state,
         creatingInsurance: false,
-        createdInsuranceResponse: [],
+        createdInsuranceResponse: []
       }
 
     case types.UPDATE_INSURANCE:
       return {
         ...state,
         updatingInsurance: true,
-        updatingInsuranceResponse: [],
+        updatingInsuranceResponse: []
       }
 
     case types.UPDATE_INSURANCE_SUCCESSFULL:
       return {
         ...state,
         updatingInsurance: false,
-        updatingInsuranceResponse: action.payload,
+        updatingInsuranceResponse: action.payload
       }
     case types.UPDATE_INSURANCE_FAILED:
       return {
         ...state,
         updatingInsurance: false,
-        updatingInsuranceResponse: [],
+        updatingInsuranceResponse: []
       }
 
     case types.RENEW_INSURANCE:
       return {
         ...state,
         renewingInsurance: true,
-        renewingInsuranceResponse: [],
+        renewingInsuranceResponse: []
       }
 
     case types.RENEW_INSURANCE_SUCCESSFULL:
       return {
         ...state,
         renewingInsurance: false,
-        renewingInsuranceResponse: action.payload,
+        renewingInsuranceResponse: action.payload
       }
     case types.RENEW_INSURANCE_FAILED:
       return {
         ...state,
         renewingInsurance: false,
-        renewingInsuranceResponse: [],
+        renewingInsuranceResponse: []
       }
 
     case types.UPDATE_QUOTATION:
       return {
         ...state,
         updatingQuotation: true,
-        updatingQuotationResponse: [],
+        updatingQuotationResponse: []
       }
 
     case types.UPDATE_QUOTATION_SUCCESSFULL:
       return {
         ...state,
         updatingQuotation: false,
-        updatingQuotationResponse: action.payload,
+        updatingQuotationResponse: action.payload
       }
     case types.UPDATE_QUOTATION_FAILED:
       return {
         ...state,
         updatingQuotation: false,
-        updatingQuotationResponse: [],
+        updatingQuotationResponse: []
       }
 
     default:

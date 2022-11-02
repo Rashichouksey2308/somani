@@ -38,7 +38,7 @@ export const createStore = (preloadedState) => {
   if (config.env === 'development' && typeof window !== 'undefined') {
     const logger = createLogger({
       level: 'info',
-      collapsed: true,
+      collapsed: true
     })
 
     middlewares.push(logger)
@@ -73,12 +73,12 @@ export const createStore = (preloadedState) => {
       shareDoc: ShareDocumentReducer,
       MastersData: MastersReducer,
       mcaReport: McaReportReducer,
-      supplier: SupplierReducer,
+      supplier: SupplierReducer
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(...middlewares),
-    devTools: config.env === 'development',
+    devTools: config.env === 'development'
   })
 }
 

@@ -3,14 +3,14 @@ import * as types from './actionType'
 const defaultObj = {
   user: {
     name: '',
-    email: '',
+    email: ''
   },
   token: null,
   loggingInUser: false,
   loggingUserMessage: null,
   fetchingUserPermissions: false,
   fetchingUserPermissionsStatus: null,
-  userPermissions: [],
+  userPermissions: []
 }
 
 const initialState = {
@@ -29,8 +29,8 @@ const initialState = {
   loading: true,
   permissions: {
     read: false,
-    write: false,
-  },
+    write: false
+  }
 }
 
 function AuthReducer (state = initialState, action) {
@@ -40,7 +40,7 @@ function AuthReducer (state = initialState, action) {
         ...state,
         token: null,
         loggingInUser: true,
-        loggingUserMessage: null,
+        loggingUserMessage: null
       }
     case types.LOGIN_USER_SUCCESS: {
       return {
@@ -48,7 +48,7 @@ function AuthReducer (state = initialState, action) {
         token: action.payload.token,
         loggingInUser: false,
         loggingUserMessage: null,
-        isuserLoggedin: true,
+        isuserLoggedin: true
       }
     }
 
@@ -58,7 +58,7 @@ function AuthReducer (state = initialState, action) {
         user: action.payload,
         token: null,
         loggingInUser: false,
-        loggingUserMessage: action.payload.message,
+        loggingUserMessage: action.payload.message
       }
     }
 
@@ -67,7 +67,7 @@ function AuthReducer (state = initialState, action) {
         ...state,
         fetchingUserPermissions: true,
         fetchingUserPermissionsStatus: null,
-        userPermissions: [],
+        userPermissions: []
       }
 
     case types.FETCH_USER_PERMISSIONS_SUCCESS:
@@ -76,7 +76,7 @@ function AuthReducer (state = initialState, action) {
         fetchingUserPermissions: false,
         fetchingUserPermissionsStatus: null,
         userPermissions: action.payload,
-        userAccessLevel: action.user.accessLevel,
+        userAccessLevel: action.user.accessLevel
       }
 
     case types.FETCH_USER_PERMISSIONS_FAILED:
@@ -84,49 +84,49 @@ function AuthReducer (state = initialState, action) {
         ...state,
         fetchingUserPermissions: false,
         fetchingUserPermissionsStatus: action.payload,
-        userPermissions: [],
+        userPermissions: []
       }
 
     case types.FETCH_CURRENT_USER_PROFILE:
       return {
         ...state,
-        userData: { ...defaultObj.user },
+        userData: { ...defaultObj.user }
       }
 
     case types.FETCH_CURRENT_USER_PROFILE_SUCCESS:
       return {
         ...state,
-        userData: action.payload,
+        userData: action.payload
       }
 
     case types.FETCH_CURRENT_USER_PROFILE_FAILED:
       return {
         ...state,
-        userData: { ...defaultObj.user },
+        userData: { ...defaultObj.user }
       }
 
     case types.AUTHENTICATE_USER:
       return {
         ...state,
-        token: action.payload,
+        token: action.payload
       }
 
     case types.LOGOUT_USER:
       return {
         ...state,
         loggingoutUser: true,
-        ...initialState,
+        ...initialState
       }
 
     case types.FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
-        userId: action.payload,
+        userId: action.payload
       }
     case types.HANDLE_PAGE_LOADING:
       return {
         ...state,
-        ...action.payload,
+        ...action.payload
       }
     default:
       return state

@@ -7,82 +7,82 @@ import { setIsLoading, setNotLoading } from '../Loaders/action'
 
 function getLifting () {
   return {
-    type: types.GET_LIFTING_DATA,
+    type: types.GET_LIFTING_DATA
   }
 }
 
 function getLiftingSuccess (payload) {
   return {
     type: types.GET_LIFTING_DATA_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getLiftingFailed () {
   return {
-    type: types.GET_LIFTING_DATA_FAILED,
+    type: types.GET_LIFTING_DATA_FAILED
   }
 }
 
 function getAllLifting () {
   return {
-    type: types.GET_ALL_LIFTING_DATA,
+    type: types.GET_ALL_LIFTING_DATA
   }
 }
 
 function getAllLiftingSuccess (payload) {
   return {
     type: types.GET_ALL_LIFTING_DATA_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function getAllLiftingFailed () {
   return {
-    type: types.GET_ALL_LIFTING_DATA_FAILED,
+    type: types.GET_ALL_LIFTING_DATA_FAILED
   }
 }
 
 function updateLiftingData () {
   return {
-    type: types.UPDATE_LIFTING_DATA,
+    type: types.UPDATE_LIFTING_DATA
   }
 }
 
 function updateLiftingDataSuccess (payload) {
   return {
     type: types.UPDATE_LIFTING_DATA_SUCCESS,
-    payload,
+    payload
   }
 }
 
 function updateLiftingDataFailed () {
   return {
-    type: types.UPDATE_LIFTING_DATA_FAILED,
+    type: types.UPDATE_LIFTING_DATA_FAILED
   }
 }
 
 export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
-    Axios.get(`${API.corebaseUrl}${API.lifting}${payload ? payload : ''}`, {
-      headers: headers,
+    Axios.get(`${API.corebaseUrl}${API.lifting}${payload || ''}`, {
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllLiftingSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
         dispatch(getAllLiftingFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -92,7 +92,7 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getAllLiftingFailed())
 
-    let toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
+    const toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -102,25 +102,25 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
 
 export const GetLifting = (payload) => async (dispatch, getState, api) => {
   dispatch(setIsLoading())
-  let cookie = Cookies.get('SOMANI')
+  const cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = {
+  const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  const headers = {
     authorization: jwtAccessToken,
     Cache: 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': '*'
   }
   try {
     Axios.get(`${API.corebaseUrl}${API.getLifting}${payload}`, {
-      headers: headers,
+      headers: headers
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getLiftingSuccess(response.data.data))
         dispatch(setNotLoading())
       } else {
         dispatch(getLiftingFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -130,7 +130,7 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(getLiftingFailed())
 
-    let toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
+    const toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
@@ -142,31 +142,31 @@ export const UpdateLiftingData =
   (payload) => async (dispatch, getState, api) => {
     dispatch(setIsLoading())
 
-    let cookie = Cookies.get('SOMANI')
+    const cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = {
+    const [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    const headers = {
       authorization: jwtAccessToken,
       Cache: 'no-cache',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
     try {
       Axios.put(`${API.corebaseUrl}${API.lifting}`, payload, {
-        headers: headers,
+        headers: headers
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateLiftingDataSuccess(response.data.data))
-          let toastMessage = 'UPDATED SUCCESSFULLY'
+          const toastMessage = 'UPDATED SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.success(toastMessage.toUpperCase(), {
-              toastId: toastMessage,
+              toastId: toastMessage
             })
           }
           dispatch(setNotLoading())
         } else {
           dispatch(updateLiftingDataFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+          const toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
           }
@@ -176,7 +176,7 @@ export const UpdateLiftingData =
     } catch (error) {
       dispatch(updateLiftingDataFailed())
 
-      let toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
+      const toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }

@@ -10,7 +10,7 @@ const initialState = {
   removingUserType: false,
   removingUserTypeStatus: null,
   updatingUserPermissions: false,
-  updatingUserPermissionsStatus: null,
+  updatingUserPermissionsStatus: null
 }
 
 function permissionManagementReducer (state = initialState, action) {
@@ -19,79 +19,79 @@ function permissionManagementReducer (state = initialState, action) {
       return {
         ...state,
         creatingUserType: true,
-        creatingUserTypeStatus: null,
+        creatingUserTypeStatus: null
       }
     case types.CREATE_USERTYPE_SUCCESS:
       return {
         ...state,
         creatingUserType: false,
-        creatingUserTypeStatus: action.payload,
+        creatingUserTypeStatus: action.payload
       }
     case types.CREATE_USERTYPE_FAILED:
       return {
         ...state,
         creatingUserType: false,
-        creatingUserTypeStatus: action.payload,
+        creatingUserTypeStatus: action.payload
       }
     case types.FETCH_USERTYPE:
       return {
         ...state,
         fetchingUserType: true,
-        fetchingUserTypeStatus: null,
+        fetchingUserTypeStatus: null
       }
     case types.FETCH_USERTYPE_SUCCESS:
       return {
         ...state,
         fetchingUserType: false,
-        userTypeList: action.payload,
+        userTypeList: action.payload
       }
     case types.FETCH_USERTYPE_FAILED:
       return {
         ...state,
         fetchingUserType: false,
-        fetchingUserTypeStatus: action.payload,
+        fetchingUserTypeStatus: action.payload
       }
 
     case types.REMOVE_USERTYPE:
       return {
         ...state,
         removingUserType: true,
-        removingUserTypeStatus: null,
+        removingUserTypeStatus: null
       }
     case types.REMOVE_USERTYPE_SUCCESS:
       return {
         ...state,
         removingUserType: false,
-        removingUserTypeStatus: action.payload,
+        removingUserTypeStatus: action.payload
       }
     case types.REMOVE_USERTYPE_FAILED:
       return {
         ...state,
         removingUserType: false,
-        removingUserTypeStatus: action.payload,
+        removingUserTypeStatus: action.payload
       }
     case types.UPDATE_USER_PERMISSIONS:
       return {
         ...state,
         updatingUserPermissions: true,
-        updatingUserPermissionsStatus: null,
+        updatingUserPermissionsStatus: null
       }
     case types.UPDATE_USER_PERMISSIONS_SUCCESS:
       return {
         ...state,
         updatingUserPermissions: false,
-        updatingUserPermissionsStatus: action.payload,
+        updatingUserPermissionsStatus: action.payload
       }
     case types.UPDATE_USER_PERMISSIONS_FAILED:
       return {
         ...state,
         updatingUserPermissions: false,
-        updatingUserPermissionsStatus: action.payload,
+        updatingUserPermissionsStatus: action.payload
       }
     case LOGOUT_USER:
       return {
         ...state,
-        ...initialState,
+        ...initialState
       }
     default:
       return state

@@ -24,11 +24,11 @@ function Index ({ data }) {
                       Number(
                         (Number(_get(data, '[0].totalUtilizedLimit', 0)) /
                           Number(_get(data, '[0].totalLimit', 0))) *
-                        100,
-                      ),
-                    )}%`,
+                        100
+                      )
+                    )}%`
                   }}
-                ></div>
+                />
               </div>
             </div>
           </div>
@@ -44,8 +44,8 @@ function Index ({ data }) {
             Number(
               (Number(_get(data, '[0].totalUtilizedLimit', 0)) /
                 Number(_get(data, '[0].totalLimit', 0))) *
-              100,
-            ),
+              100
+            )
           )}{' '}
           %
         </div>
@@ -54,15 +54,15 @@ function Index ({ data }) {
           <div className={styles.totalText}>
             <span>TOTAL</span>
           </div>
-          <div className={styles.dotted}></div>
+          <div className={styles.dotted} />
           <div className={styles.value}>
-            <span className="explore-value">
+            <span className='explore-value'>
               ₹{' '}
               {Number(_get(data, '[0].totalLimit', 0) / 1000000).toLocaleString(
                 'en-IN',
                 {
-                  maximumFractionDigits: 2,
-                },
+                  maximumFractionDigits: 2
+                }
               )}{' '}
               Cr
             </span>
@@ -72,9 +72,9 @@ function Index ({ data }) {
           <div className={styles.totalText}>
             <span>UTILISED</span>
           </div>
-          <div className={styles.dotted}></div>
+          <div className={styles.dotted} />
           <div className={styles.value}>
-            <span className="explore-value">
+            <span className='explore-value'>
               ₹ {_get(data, '[0].totalUtilizedLimit', '')} Cr
             </span>
           </div>

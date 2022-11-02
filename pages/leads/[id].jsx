@@ -12,7 +12,7 @@ const Index = () => {
   }, [])
   return (
     <div className={styles.root_Container}>
-      <Register/>
+      <Register />
     </div>
   )
 }

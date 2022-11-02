@@ -11,7 +11,7 @@ function index ({ leftButtonClick, onSave }) {
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}
     >
       <div
-        id="nextbutton"
+        id='nextbutton'
         onClick={() => onSave()}
         className={`${styles.reject} ml-3`}
       >
@@ -19,7 +19,7 @@ function index ({ leftButtonClick, onSave }) {
       </div>
 
       <div
-        id="previousbutton"
+        id='previousbutton'
         onClick={() => leftButtonClick()}
         className={`${styles.approve} ml-3`}
       >

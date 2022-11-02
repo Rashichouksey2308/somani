@@ -4,7 +4,7 @@ import { LOGOUT_USER } from '../authentication/actionType'
 const initialState = {
   fetchingUsersList: false,
   usersList: [],
-  fetchingUsersListStatus: null,
+  fetchingUsersListStatus: null
 }
 
 function userManagementReducer (state = initialState, action) {
@@ -13,26 +13,26 @@ function userManagementReducer (state = initialState, action) {
       return {
         ...state,
         fetchingUsersList: true,
-        fetchingUsersListStatus: null,
+        fetchingUsersListStatus: null
       }
     case types.FETCH_ALL_USERS_SUCCESS:
       return {
         ...state,
         fetchingUsersList: false,
         usersList: action.payload,
-        fetchingUsersListStatus: null,
+        fetchingUsersListStatus: null
       }
     case types.FETCH_ALL_USERS_FAILED:
       return {
         ...state,
         fetchingUsersList: false,
         usersList: [],
-        fetchingUsersListStatus: action.payload,
+        fetchingUsersListStatus: action.payload
       }
     case LOGOUT_USER:
       return {
         ...state,
-        ...initialState,
+        ...initialState
       }
     default:
       return state

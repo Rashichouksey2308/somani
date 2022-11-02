@@ -14,59 +14,60 @@ class ForgotPassword extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      mobileNo: '',
+      mobileNo: ''
     }
   }
 
   handleChange = (e) => {
     e.preventDefault()
-    let state = { ...this.state }
+    const state = { ...this.state }
     state[e.target.name] = e.target.value
     this.setState({ ...state })
   }
+
   handleSubmit = (e) => {
     e.preventDefault()
-    let state = this.state
+    const state = this.state
     this.props.actions.forgotPassword(state)
   }
 
   render () {
-    let { mobileNo } = this.state
+    const { mobileNo } = this.state
     return (
-      <div className="backgroundImg d-flex justify-content-center align-items-center full-height">
+      <div className='backgroundImg d-flex justify-content-center align-items-center full-height'>
         <Col sm={5}>
-          <div className="login-card logincard-bg">
-            <div className="logo">
-              <a href="/forgot-password">
+          <div className='login-card logincard-bg'>
+            <div className='logo'>
+              <a href='/forgot-password'>
                 <Image
-                  tag="false"
+                  tag='false'
                   src={`${Config.imageBaseUrl}/content/dam/re-platform-images/logo.svg`}
-                  alt="Royal Enfield"
-                  title=""
+                  alt='Royal Enfield'
+                  title=''
                 />
               </a>
             </div>
-            <div className="FullScreen">
-              <div className="re-image">
-                <div className="container formSection">
+            <div className='FullScreen'>
+              <div className='re-image'>
+                <div className='container formSection'>
                   <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
-                      <Label className="highlight labelColor" for="email">
+                      <Label className='highlight labelColor' for='email'>
                         User Name/ Mobile No.
                       </Label>
                       <Input
-                        type="text"
-                        name="mobileNo"
-                        placeholder="Email/ Mobile Number"
-                        className="inputText"
+                        type='text'
+                        name='mobileNo'
+                        placeholder='Email/ Mobile Number'
+                        className='inputText'
                         value={mobileNo}
                         required
                         onChange={(e) => this.handleChange(e)}
                       />
                     </FormGroup>
                     <FormGroup>
-                      <Row className="d-flex justify-content-center">
-                        <Button className="otpbtn btn btn-lg " type="submit">
+                      <Row className='d-flex justify-content-center'>
+                        <Button className='otpbtn btn btn-lg ' type='submit'>
                           Send OTP
                         </Button>
                       </Row>
@@ -84,7 +85,7 @@ class ForgotPassword extends React.Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators(sessionActions, dispatch),
+    actions: bindActionCreators(sessionActions, dispatch)
   }
 }
 

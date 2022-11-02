@@ -7,50 +7,50 @@ export const getBreadcrumbValues = (payload) => (dispatch, getState) => {
     type: types.GET_BREADCRUMB_DATA,
     payload: {
       ...prevValues,
-      ...payload,
-    },
+      ...payload
+    }
   })
 }
 
 export function clearBreadcrumbValues (payload) {
   return {
     type: types.CLEAR_BREADCRUMB_DATA,
-    payload,
+    payload
   }
 }
 
 export function setCurrency (payload) {
   return {
     type: types.SET_CURRENCY,
-    payload,
+    payload
   }
 }
 
 export function getCurrency (payload) {
   return {
     type: types.GET_CURRENCY,
-    payload,
+    payload
   }
 }
 
 export function getUnit (payload) {
   return {
     type: types.GET_UNIT,
-    payload,
+    payload
   }
 }
 
 export function setUnit (payload) {
   return {
     type: types.SET_UNIT,
-    payload,
+    payload
   }
 }
 
 export function setSidebar (payload) {
   return {
     type: types.SIDEBAR,
-    payload,
+    payload
   }
 }
 

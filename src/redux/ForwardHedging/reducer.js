@@ -5,7 +5,7 @@ const initialState = {
   allForwardHedging: null,
   ForwardHedging: null,
   updatingForwardHedging: false,
-  updateForwardHedgingResponse: false,
+  updateForwardHedgingResponse: false
 }
 
 function ForwardHedgingReducer (state = initialState, action) {
@@ -13,52 +13,52 @@ function ForwardHedgingReducer (state = initialState, action) {
     case types.GET_ALL_FORWARDHEDGING:
       return {
         ...state,
-        gettingForwardHedging: true,
+        gettingForwardHedging: true
       }
     case types.GET_ALL_FORWARDHEDGING_SUCCESS:
       return {
         ...state,
         gettingForwardHedging: false,
-        allForwardHedging: action.payload,
+        allForwardHedging: action.payload
       }
     case types.GET_ALL_FORWARDHEDGING_FAILED:
       return {
         ...state,
-        gettingForwardHedging: false,
+        gettingForwardHedging: false
       }
     case types.GET_FORWARDHEDGING:
       return {
         ...state,
-        gettingForwardHedging: true,
+        gettingForwardHedging: true
       }
     case types.GET_FORWARDHEDGING_SUCCESS:
       return {
         ...state,
         gettingForwardHedging: false,
-        ForwardHedging: action.payload,
+        ForwardHedging: action.payload
       }
     case types.GET_FORWARDHEDGING_FAILED:
       return {
         ...state,
-        gettingForwardHedging: false,
+        gettingForwardHedging: false
       }
     case types.UPDATE_FORWARDHEDGING:
       return {
         ...state,
         updatingForwardHedging: true,
-        updateForwardHedgingResponse: null,
+        updateForwardHedgingResponse: null
       }
     case types.UPDATE_FORWARDHEDGING_SUCCESS:
       return {
         ...state,
         updatingForwardHedging: false,
-        updateForwardHedgingResponse: action.payload,
+        updateForwardHedgingResponse: action.payload
       }
     case types.UPDATE_FORWARDHEDGING_FAILED:
       return {
         ...state,
         updatingForwardHedging: false,
-        updateForwardHedgingResponse: null,
+        updateForwardHedgingResponse: null
       }
 
     default:

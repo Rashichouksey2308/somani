@@ -6,7 +6,7 @@ const initialState = {
   Vessel: null,
   updatingVessel: false,
   uploadingDoc: false,
-  uploadedDoc: {},
+  uploadedDoc: {}
 }
 
 function VesselReducer (state = initialState, action) {
@@ -14,66 +14,66 @@ function VesselReducer (state = initialState, action) {
     case types.GET_VESSEL:
       return {
         ...state,
-        gettingVessel: true,
+        gettingVessel: true
       }
     case types.GET_VESSEL_SUCCESS:
       return {
         ...state,
         gettingVessel: false,
-        Vessel: action.payload,
+        Vessel: action.payload
       }
     case types.GET_VESSEL_FAILED:
       return {
         ...state,
-        gettingVessel: false,
+        gettingVessel: false
       }
     case types.GET_ALL_VESSEL:
       return {
         ...state,
-        gettingVessel: true,
+        gettingVessel: true
       }
     case types.GET_ALL_VESSEL_SUCCESS:
       return {
         ...state,
         gettingVessel: false,
-        allVessel: action.payload,
+        allVessel: action.payload
       }
     case types.GET_ALL_VESSEL_FAILED:
       return {
         ...state,
-        gettingVessel: false,
+        gettingVessel: false
       }
     case types.UPDATE_VESSEL:
       return {
         ...state,
-        updatingVessel: true,
+        updatingVessel: true
       }
     case types.UPDATE_VESSEL_SUCCESS:
       return {
         ...state,
-        updatingVessel: false,
+        updatingVessel: false
       }
     case types.UPDATE_VESSEL_FAILED:
       return {
         ...state,
-        updatingVessel: false,
+        updatingVessel: false
       }
 
     case types.UPLOAD_DOC_VESSEL:
       return {
         ...state,
-        uploadingDoc: true,
+        uploadingDoc: true
       }
     case types.UPLOAD_DOC_VESSEL_SUCCESS:
       return {
         ...state,
         uploadingDoc: false,
-        uploadedDoc: action.payload,
+        uploadedDoc: action.payload
       }
     case types.UPLOAD_DOC_VESSEL_FAILED:
       return {
         ...state,
-        uploadingDoc: false,
+        uploadingDoc: false
       }
     default:
       return state

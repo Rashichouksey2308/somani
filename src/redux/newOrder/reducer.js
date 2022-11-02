@@ -2,7 +2,7 @@ import * as types from './actionType'
 
 const initialState = {
   placingNewOrder: false,
-  newOrder: null,
+  newOrder: null
 }
 
 function NewOrderReducer (state = initialState, action) {
@@ -11,25 +11,25 @@ function NewOrderReducer (state = initialState, action) {
       return {
         ...state,
         placingNewOrder: true,
-        newOrder: null,
+        newOrder: null
       }
     case types.PLACE_ORDER_SUCCESSFULL:
       return {
         ...state,
         placingNewOrder: false,
-        newOrder: action.payload,
+        newOrder: action.payload
       }
     case types.PLACE_ORDER_FAILED:
       return {
         ...state,
         placingNewOrder: false,
-        newOrder: null,
+        newOrder: null
       }
     case types.PLACED_ORDER_ROUTED:
       return {
         ...state,
         placingNewOrder: false,
-        newOrder: null,
+        newOrder: null
       }
 
     default:

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row, } from 'reactstrap'
+import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
@@ -56,25 +56,25 @@ const initialState = {
   instagramUrl: '',
   image: {
     preview: null,
-    Image: null,
+    Image: null
   },
-  description: '',
+  description: ''
 }
 
 function BranchCreation (props) {
-  let { elements } = props
+  const { elements } = props
 
   const [state, setState] = useState(initialState)
 
   useEffect(() => {
     if (props.page === 'create-branch') {
       setInitialState()
-      let queryParams = props.query
+      const queryParams = props.query
       if (queryParams === '') {
         history.push(`/dealer/list`)
       } else {
         const params = fetchQueryParams(props.query)
-        let id = params.dealerId
+        const id = params.dealerId
 
         if (props.dealerData !== null) {
           handleAutoFillDealerData()
@@ -86,12 +86,12 @@ function BranchCreation (props) {
         }
       }
     } else {
-      let queryParams = props.query
+      const queryParams = props.query
       if (queryParams === '') {
         history.push(`/branch/list`)
       } else {
         const params = fetchQueryParams(props.query)
-        let id = params.branchId
+        const id = params.branchId
         if (props.branchData !== null) {
           handleUpdateForm()
         } else {
@@ -146,7 +146,7 @@ function BranchCreation (props) {
 
   const handleChange = (e, id) => {
     if (id === 'phone') {
-      let value = e.target.value
+      const value = e.target.value
       if (value.length <= 14) {
         state.phone = e.target.value
         setState({ ...state })
@@ -160,7 +160,7 @@ function BranchCreation (props) {
   const handleGoBack = () => {
     const params = fetchQueryParams(props.query)
     history.push(
-      `/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`,
+      `/dealer/detail?dealerId=${params.dealerId}&tab=${params.tab}`
     )
   }
 
@@ -175,7 +175,7 @@ function BranchCreation (props) {
   }
 
   const handleCountryChange = (e) => {
-    let parsedValue = JSON.parse(e.target.value)
+    const parsedValue = JSON.parse(e.target.value)
     if (e.target.value !== 'Select Country') {
       state.country = parsedValue.country
       state.countryCode = parsedValue.locality.country
@@ -212,14 +212,14 @@ function BranchCreation (props) {
 
   const handleImageChange = (e) => {
     e.preventDefault()
-    let fileTypes = ['jpg', 'jpeg', 'png']
+    const fileTypes = ['jpg', 'jpeg', 'png']
     if (e.target.files[0]) {
-      let extension = e.target.files[0].name.split('.').pop().toLowerCase(), //file extension from input file
-        isSuccess = fileTypes.indexOf(extension) > -1
+      const extension = e.target.files[0].name.split('.').pop().toLowerCase() // file extension from input file
+      const isSuccess = fileTypes.indexOf(extension) > -1
 
       if (isSuccess) {
-        let reader = new FileReader()
-        let file = e.target.files[0]
+        const reader = new FileReader()
+        const file = e.target.files[0]
 
         reader.onloadend = () => {
           saveImage(reader.result, file)
@@ -230,8 +230,8 @@ function BranchCreation (props) {
           _.get(
             elements,
             'branchCreationElement.imageValidationElement',
-            'only \'.jpg\' , \'.jpeg\' , \'.png\' file types are accepted',
-          ),
+            'only \'.jpg\' , \'.jpeg\' , \'.png\' file types are accepted'
+          )
         )
       }
     } else {
@@ -248,14 +248,14 @@ function BranchCreation (props) {
   const saveImage = (preview, Image) => {
     const file = {
       preview,
-      Image,
+      Image
     }
     state.image = file
     setState({ ...state })
   }
 
   const handleAutoFillDealerData = () => {
-    let { dealerData } = props
+    const { dealerData } = props
 
     if (dealerData !== null) {
       // console.log(dealerData)
@@ -291,7 +291,7 @@ function BranchCreation (props) {
   }
 
   const handleUpdateForm = () => {
-    let { branchData } = props
+    const { branchData } = props
     if (branchData !== null) {
       state.addressLine1 = branchData.addressLine1
       state.addressLine2 = branchData.addressLine2
@@ -368,7 +368,7 @@ function BranchCreation (props) {
     //   instagramUrl: state.instagramUrl,
     // };
 
-    let formData = new FormData()
+    const formData = new FormData()
     formData.append('addressLine1', state.addressLine1)
     formData.append('addressLine2', state.addressLine2)
     formData.append('addressLine3', state.addressLine3)
@@ -399,10 +399,10 @@ function BranchCreation (props) {
     formData.append('instagramUrl', state.instagramUrl)
     formData.append('image', state.image.Image)
 
-    let data = {
+    const data = {
       formData: formData,
       tab: state.tab,
-      id: state.dealer_id,
+      id: state.dealer_id
     }
 
     if (state.phone.length >= 8 && state.phone.length <= 15) {
@@ -419,8 +419,8 @@ function BranchCreation (props) {
               _.get(
                 elements,
                 'branchCreationElement.cityValidationElement',
-                'City cannot be empty',
-              ),
+                'City cannot be empty'
+              )
             )
           }
         } else {
@@ -428,8 +428,8 @@ function BranchCreation (props) {
             _.get(
               elements,
               'branchCreationElement.stateValidationElement',
-              'State cannot be empty',
-            ),
+              'State cannot be empty'
+            )
           )
         }
       } else {
@@ -437,8 +437,8 @@ function BranchCreation (props) {
           _.get(
             elements,
             'branchCreationElement.countryValidationElement',
-            'Country cannot be empty',
-          ),
+            'Country cannot be empty'
+          )
         )
       }
     } else {
@@ -446,8 +446,8 @@ function BranchCreation (props) {
         _.get(
           elements,
           'branchCreationElement.phoneValidationElement',
-          'phone Length should be more than 7 and less than 16',
-        ),
+          'phone Length should be more than 7 and less than 16'
+        )
       )
     }
   }
@@ -458,17 +458,17 @@ function BranchCreation (props) {
     <React.Fragment>
       {props.page !== 'update-branch' ? (
         <div>
-          {props.createBranchStatus !== false ? <Loader/> : null}
-          {props.dealerDataStatus !== false ? <Loader/> : null}
+          {props.createBranchStatus !== false ? <Loader /> : null}
+          {props.dealerDataStatus !== false ? <Loader /> : null}
         </div>
       ) : (
         <div>
-          {props.updateBranchStatus !== false ? <Loader/> : null}
-          {props.branchSingleDataStatus !== false ? <Loader/> : null}
+          {props.updateBranchStatus !== false ? <Loader /> : null}
+          {props.branchSingleDataStatus !== false ? <Loader /> : null}
         </div>
       )}
 
-      <div className="hideSearch">
+      <div className='hideSearch'>
         <Row>
           <Col sm={12}>
             <CartTitle
@@ -477,12 +477,12 @@ function BranchCreation (props) {
                   ? _.get(
                     elements,
                     'branchCreationElement.createHeadingElement',
-                    'Branch Creation',
+                    'Branch Creation'
                   )
                   : _.get(
                     elements,
                     'branchCreationElement.updateHeadingElement',
-                    'Branch Update',
+                    'Branch Update'
                   )
               }
               iconClass={'hideexcel'}
@@ -494,38 +494,38 @@ function BranchCreation (props) {
         </Row>
 
         <Form onSubmit={handleSubmitForm}>
-          <Card className="mb-3">
+          <Card className='mb-3'>
             <CardBody>
               <Row>
-                <Col md="12">
-                  <h3 className="title-bar secondary-title f-weight-bold mb-3 pb-2 themeColor">
+                <Col md='12'>
+                  <h3 className='title-bar secondary-title f-weight-bold mb-3 pb-2 themeColor'>
                     <span>
                       {_.get(
                         elements,
                         'branchCreationElement.subHeadingMainInformationElement',
-                        'MAIN INFORMATION',
+                        'MAIN INFORMATION'
                       )}
                     </span>
                   </h3>
                 </Col>
                 <Col xl={12}>
                   <Row>
-                    <Col xl={4} lg={4} md={12} sm={12} className="mb-2 pt-4">
+                    <Col xl={4} lg={4} md={12} sm={12} className='mb-2 pt-4'>
                       <UploadFile
-                        id="image1"
+                        id='image1'
                         image={state.image}
                         handleImageChange={handleImageChange}
                         deleteImage={deleteImage}
                       />
                     </Col>
-                    <Col xl={8} lg={8} md={12} sm={12} className="mb-2">
+                    <Col xl={8} lg={8} md={12} sm={12} className='mb-2'>
                       <Row>
-                        <Col xl={6} lg={4} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={4} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.branchPrincipalNameLabel',
-                              'Branch Name*',
+                              'Branch Name*'
                             )}
                             inputType={'text'}
                             inputName={'branchPrincipalName'}
@@ -534,20 +534,20 @@ function BranchCreation (props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.branchPrincipalNamePlaceholder',
-                              'Branch Name',
+                              'Branch Name'
                             )}
                             customOnChange={(e) => handleChange(e)}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
                         {/* <Col xl={8} lg={8} md={12} sm={12}>
                       <Row> */}
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.emailLabel',
-                              'Email ID / Store ID*',
+                              'Email ID / Store ID*'
                             )}
                             inputType={'email'}
                             inputName={'emailId'}
@@ -556,18 +556,18 @@ function BranchCreation (props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.emailPlaceholder',
-                              'Email ID / Store ID',
+                              'Email ID / Store ID'
                             )}
                             customOnChange={(e) => handleChange(e)}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.phoneNumberLabel',
-                              'Phone Number*',
+                              'Phone Number*'
                             )}
                             inputType={'tel'}
                             inputName={'phone'}
@@ -575,19 +575,19 @@ function BranchCreation (props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.phoneNumberPlaceholder',
-                              'Phone Number',
+                              'Phone Number'
                             )}
                             customValue={state.phone}
                             customOnChange={(e) => handleChange(e, 'phone')}
-                            customRequired={true}
+                            customRequired
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
                           <InputText
                             labelName={_.get(
                               elements,
                               'branchCreationElement.alternatePhoneNumberLabel',
-                              'Alternate Phone Number',
+                              'Alternate Phone Number'
                             )}
                             inputType={'number'}
                             inputName={'altPhone'}
@@ -596,28 +596,28 @@ function BranchCreation (props) {
                             inputPlaceholder={_.get(
                               elements,
                               'branchCreationElement.alternatePhoneNumberPlaceholder',
-                              'Alternate Phone Number',
+                              'Alternate Phone Number'
                             )}
                             customOnChange={(e) => handleChange(e)}
                           />
                         </Col>
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
-                          <Label className="inputLabel">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
+                          <Label className='inputLabel'>
                             {_.get(
                               elements,
                               'branchCreationElement.countryLabel',
-                              'Country*',
+                              'Country*'
                             )}
                           </Label>
-                          <FormGroup className=" confirmRiderSelect select_options">
+                          <FormGroup className=' confirmRiderSelect select_options'>
                             <Input
-                              type="select"
-                              name="country"
-                              className="my-2 w-100 customeSelectBtn"
+                              type='select'
+                              name='country'
+                              className='my-2 w-100 customeSelectBtn'
                               onChange={handleCountryChange}
-                              placeholder="Select Country"
+                              placeholder='Select Country'
                             >
-                              <option selected="true" disabled="disabled">
+                              <option selected='true' disabled='disabled'>
                                 {state.country !== ''
                                   ? state.country
                                   : 'Select Country'}
@@ -628,7 +628,7 @@ function BranchCreation (props) {
                                     ? 1
                                     : b.name > a.name
                                       ? -1
-                                      : 0,
+                                      : 0
                                 )
                                 .map((item, index) => (
                                   <option
@@ -642,13 +642,13 @@ function BranchCreation (props) {
                           </FormGroup>
                         </Col>
 
-                        <Col xl={6} lg={6} md={6} sm={6} className="mb-2">
-                          <FormGroup className=" confirmRiderSelect select_options">
+                        <Col xl={6} lg={6} md={6} sm={6} className='mb-2'>
+                          <FormGroup className=' confirmRiderSelect select_options'>
                             <InputText
                               labelName={_.get(
                                 elements,
                                 'branchCreationElement.stateLabel',
-                                'State*',
+                                'State*'
                               )}
                               inputType={'text'}
                               inputName={'state'}
@@ -657,7 +657,7 @@ function BranchCreation (props) {
                               inputPlaceholder={_.get(
                                 elements,
                                 'branchCreationElement.stateLabel',
-                                'State',
+                                'State'
                               )}
                               customOnChange={(e) => handleChange(e)}
                             />
@@ -691,13 +691,13 @@ function BranchCreation (props) {
                   </Row>
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <FormGroup className="confirmRiderSelect select_options">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <FormGroup className='confirmRiderSelect select_options'>
                     <InputText
                       labelName={_.get(
                         elements,
                         'branchCreationElement.cityLabel',
-                        'City*',
+                        'City*'
                       )}
                       inputType={'text'}
                       inputName={'city'}
@@ -706,7 +706,7 @@ function BranchCreation (props) {
                       inputPlaceholder={_.get(
                         elements,
                         'branchCreationElement.cityLabel',
-                        'City',
+                        'City'
                       )}
                       customOnChange={(e) => handleChange(e)}
                     />
@@ -727,12 +727,12 @@ function BranchCreation (props) {
                   </FormGroup>
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.landmarkLabel',
-                      'Landmark',
+                      'Landmark'
                     )}
                     inputType={'text'}
                     inputName={'landmark'}
@@ -741,17 +741,17 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.landmarkPlaceholder',
-                      'Landmark',
+                      'Landmark'
                     )}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.pinCodeLabel',
-                      'Pincode',
+                      'Pincode'
                     )}
                     inputType={'tel'}
                     inputName={'pincode'}
@@ -760,82 +760,82 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.pinCodePlaceholder',
-                      'Pincode*',
+                      'Pincode*'
                     )}
                     customOnChange={(e) => handleChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {_.get(
                       elements,
                       'branchCreationElement.addressLineOneLabel',
-                      'Address Line 1*',
+                      'Address Line 1*'
                     )}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.addressLineOnePlaceholder',
-                        'Address Line 1',
+                        'Address Line 1'
                       )}
-                      name="addressLine1"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine1'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine1}
                       onChange={(e) => handleChange(e)}
                       required
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(
                       elements,
                       'branchCreationElement.addressLineTwoLabel',
-                      'Address Line 2',
+                      'Address Line 2'
                     )}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.addressLineTwoPlaceholder',
-                        'Address Line 2',
+                        'Address Line 2'
                       )}
-                      name="addressLine2"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine2'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine2}
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(
                       elements,
                       'branchCreationElement.addressLineThreeLabel',
-                      'Address Line 3',
+                      'Address Line 3'
                     )}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.addressLineThreePlaceholder',
-                        'Address Line 3',
+                        'Address Line 3'
                       )}
-                      name="addressLine3"
-                      id="--"
-                      className="my-2 inputText"
+                      name='addressLine3'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.addressLine3}
                       onChange={(e) => handleChange(e)}
                     />
@@ -843,37 +843,37 @@ function BranchCreation (props) {
                 </Col>
               </Row>
               <Row>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label for='--'>
                     {' '}
                     {_.get(
                       elements,
                       'branchCreationElement.descriptionLabelElement',
-                      'Description',
+                      'Description'
                     )}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.descriptionPlaceHolderElement',
-                        'Description',
+                        'Description'
                       )}
-                      name="description"
-                      id="--"
-                      className="my-2 inputText"
+                      name='description'
+                      id='--'
+                      className='my-2 inputText'
                       value={state.description}
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.latitudeLabel',
-                      'Latitude*',
+                      'Latitude*'
                     )}
                     inputType={'number'}
                     inputName={'latitude'}
@@ -882,18 +882,18 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.latitudePlaceholder',
-                      'Latitude',
+                      'Latitude'
                     )}
                     customOnChange={(e) => handleCoordinateChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.longitudeLabel',
-                      'Longitude*',
+                      'Longitude*'
                     )}
                     inputType={'number'}
                     inputName={'longitude'}
@@ -902,21 +902,21 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.longitudePlaceholder',
-                      'Longitude',
+                      'Longitude'
                     )}
                     customOnChange={(e) => handleCoordinateChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
               </Row>
 
               <Row>
-                <Col md="12">
-                  <h3 className="title-bar secondary-title f-weight-bold my-3 pb-2 themeColor">
+                <Col md='12'>
+                  <h3 className='title-bar secondary-title f-weight-bold my-3 pb-2 themeColor'>
                     {_.get(
                       elements,
                       'branchCreationElement.subHeadingPersonalInformationElement',
-                      'PERSONAL INFORMATION',
+                      'PERSONAL INFORMATION'
                     )}
                   </h3>
                 </Col>
@@ -961,12 +961,12 @@ function BranchCreation (props) {
                   />
                 </Col> */}
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.clubCoordinatorNameLabel',
-                      'Club Coordinator Name*',
+                      'Club Coordinator Name*'
                     )}
                     inputType={'text'}
                     inputName={'storeManagerName'}
@@ -974,20 +974,20 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.clubCoordinatorPlaceholder',
-                      'Club Coordinator Name',
+                      'Club Coordinator Name'
                     )}
                     customValue={state.storeManagerName}
                     customOnChange={(e) => handleChange(e)}
-                    customRequired={true}
+                    customRequired
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.branchCodeLabel',
-                      'Branch Code',
+                      'Branch Code'
                     )}
                     inputType={'tel'}
                     inputName={'branchCode'}
@@ -996,18 +996,18 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.branchCodePlaceholder',
-                      'Branch Code',
+                      'Branch Code'
                     )}
-                    disabledType={true}
+                    disabledType
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.webUrlLabel',
-                      'Website Page URL',
+                      'Website Page URL'
                     )}
                     inputType={'text'}
                     inputName={'websiteUrl'}
@@ -1016,18 +1016,18 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.webUrlPlaceholder',
-                      'Website Page URL',
+                      'Website Page URL'
                     )}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.instagramUrlLabel',
-                      'Instagram URL',
+                      'Instagram URL'
                     )}
                     inputType={'text'}
                     inputName={'instagramUrl'}
@@ -1036,18 +1036,18 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.instagramUrlPlaceholder',
-                      'Instagram URL',
+                      'Instagram URL'
                     )}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.facebookUrlLabel',
-                      'Facebook URL',
+                      'Facebook URL'
                     )}
                     inputType={'text'}
                     inputName={'facebookUrl'}
@@ -1056,18 +1056,18 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.facebookUrlPlaceholder',
-                      'Facebook URL',
+                      'Facebook URL'
                     )}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
                   <InputText
                     labelName={_.get(
                       elements,
                       'branchCreationElement.weeklyOffLabel',
-                      'Weekly Off',
+                      'Weekly Off'
                     )}
                     inputType={'tel'}
                     inputName={'weeklyOff'}
@@ -1076,45 +1076,45 @@ function BranchCreation (props) {
                     inputPlaceholder={_.get(
                       elements,
                       'branchCreationElement.weeklyOffPlaceholder',
-                      'Weekly Off',
+                      'Weekly Off'
                     )}
                     customOnChange={(e) => handleChange(e)}
                   />
                 </Col>
 
-                <Col xl={4} lg={4} md={6} sm={6} className="mb-2">
-                  <Label className="inputLabel" for="--">
+                <Col xl={4} lg={4} md={6} sm={6} className='mb-2'>
+                  <Label className='inputLabel' for='--'>
                     {_.get(
                       elements,
                       'branchCreationElement.businessHourLabel',
-                      'Business Hours',
+                      'Business Hours'
                     )}
                   </Label>
                   <FormGroup>
                     <Input
-                      type="textarea"
+                      type='textarea'
                       placeholder={_.get(
                         elements,
                         'branchCreationElement.businessHourPlaceholder',
-                        'Business Hours',
+                        'Business Hours'
                       )}
-                      name="businessHours"
-                      id="--"
+                      name='businessHours'
+                      id='--'
                       value={state.businessHours}
-                      className="my-2 inputText"
+                      className='my-2 inputText'
                       onChange={(e) => handleChange(e)}
                     />
                   </FormGroup>
                 </Col>
               </Row>
 
-              <div className="d-flex justify-content-center justify-content-lg-end position-relative ">
+              <div className='d-flex justify-content-center justify-content-lg-end position-relative '>
                 <CustomButton
                   customType={'button'}
                   name={_.get(
                     elements,
                     'branchCreationElement.backButtonElement',
-                    'Back',
+                    'Back'
                   )}
                   customClass={'btn-outline-dark bg-none btnthemeColor'}
                   customClick={
@@ -1128,7 +1128,7 @@ function BranchCreation (props) {
                   name={_.get(
                     elements,
                     'branchCreationElement.submitButtonElement',
-                    'Submit',
+                    'Submit'
                   )}
                   customClass={'btn-outline-dark bg-none ml-2 btnthemeColor'}
                 />

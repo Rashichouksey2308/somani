@@ -7,7 +7,7 @@ function index ({
   leftButtonTitle,
   rightButtonTitle,
   download,
-  exportPDF,
+  exportPDF
 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
@@ -19,19 +19,19 @@ function index ({
       <div className={styles.reject} onClick={download || exportPDF}>
         <span>{leftButtonTitle}</span>
         <img
-          src="/static/file_download.svg"
-          className="img-fluid"
-          alt="FileDownload"
+          src='/static/file_download.svg'
+          className='img-fluid'
+          alt='FileDownload'
         />
       </div>
       <div className={styles.navigate}>
         <span>2</span> / 10
         <div style={{ color: '#66708559' }}> | </div>
-        <div className={styles.button}></div>
+        <div className={styles.button} />
         <span className={styles.zoom}>80%</span>
-        <img src="/static/add-3.svg" className="img-fluid" alt="Add"/>
+        <img src='/static/add-3.svg' className='img-fluid' alt='Add' />
         <div style={{ color: '#66708559' }}> |</div>
-        <img src="/static/expand.svg" className="img-fluid" alt="Expand"/>
+        <img src='/static/expand.svg' className='img-fluid' alt='Expand' />
       </div>
       <div
         className={`${styles.approve} ml-3`}
