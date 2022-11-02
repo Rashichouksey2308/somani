@@ -59,8 +59,7 @@ function Index(props) {
         setData({
           seller: data?.seller,
           buyer: data?.buyer?.toLowerCase(),
-          sellerAddress: data.sellerAddress,
-          buyerAddress: data.buyerAddress,
+         
           shortseller: data?.shortseller,
           shortbuyer: `${
             data?.buyer == 'Indo German International Private Limited'
@@ -139,11 +138,7 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          sellerAddress:
-            data?.seller?.name == 'Indo Intertrade Ag'
-              ? 'Industriestrasse 16, Zug,6300'
-              : '',
-          buyerAddress: data?.buyer?.name ? getAddress(data?.buyer) : '',
+        
           shortseller: data?.seller?.shortName,
           shortbuyer: `${
             data?.buyer?.name == 'Indo German International Private Limited'
